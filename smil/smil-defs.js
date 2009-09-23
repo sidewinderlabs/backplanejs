@@ -24,6 +24,35 @@
 /**@requires
 	decorate.js
 */
+DECORATOR.addDecorationRules({
+    "namespaceURI" : "http://www.w3.org/2005/SMIL21/BasicAnimation",
+    "rules" : {
+			"animate" : [
+				{
+					"name" : "smil-animate-element",
+					"apply" : function(arrBehaviours) {
+						return arrBehaviours.concat([Listener, SmilAnimate]);
+					}
+				}
+			],
+			"animateColor" : [
+				{
+					"name" : "smil-animate-color-element",
+					"apply" : function(arrBehaviours) {
+						return arrBehaviours.concat([Listener, SmilAnimate]);
+					}
+				}
+			],
+			"set" : [
+				{
+					"name" : "smil-set-element",
+					"apply" : function(arrBehaviours) {
+						return arrBehaviours.concat([Listener, SmilSet]);
+					}
+				}
+			]
+		}
+});
 
 NamespaceManager.addSelectionNamespace("smil", "http://www.w3.org/2005/SMIL21/BasicAnimation");	
 
@@ -31,17 +60,17 @@ DECORATOR.setupDecorator(
 	[
 		{
 			selector: "smil|animate",
-			objects: [ "Listener", "SmilAnimate" ]
+			objects: [  ]
 		},
 
     {
 			selector: "smil|animateColor",
-			objects: [ "Listener", "SmilAnimate" ]
+			objects: [  ]
 		},
 
     {
 			selector: "smil|set",
-			objects: [ "Listener", "SmilSet" ]
+			objects: [  ]
 		}
 	],
 	"http://www.w3.org/2005/SMIL21/BasicAnimation"

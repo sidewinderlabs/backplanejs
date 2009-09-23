@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+            xmlns:xforms="http://www.w3.org/2002/xforms" 
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <head>
+        <title>Calendar widget</title>
+        <script src="../src/ubiquity-loader.js" type="text/javascript">/**/</script> 
+        <link href="samples.css" rel="stylesheet"/>        
+    </head>
+    <body class="yui-skin-sam">
+    <xforms:model id="mod1" >
+          <xforms:instance id="date-instance">
+             <root>
+                <date>2008-10-31</date>
+             </root>
+          </xforms:instance>
+          <xforms:bind nodeset="instance('date-instance')/date" type="xsd:date"/>
+            
+        </xforms:model>
+        <xforms:group>
+            <xforms:label class="title">This sample renders an output calendar widget bound to an xsd:date type.</xforms:label>
+        </xforms:group>
+        <xforms:output appearance="full" ref="instance('date-instance')/date">
+            <xforms:label>A calendar Control should be visible</xforms:label>
+        </xforms:output>  
+    </body>
+</html>

@@ -1,0 +1,87 @@
+/*
+  // Ubiquity provides a standards-based suite of browser enhancements for
+  // building a new generation of internet-related applications.
+  //
+  // The Ubiquity XForms module adds XForms 1.1 support to the Ubiquity
+  // library.
+  //
+  // Copyright (c) 2008 Backplane Ltd.
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+ */
+
+@namespace xhtml url(http://www.w3.org/1999/xhtml);
+@namespace xforms url(http://www.w3.org/2002/xforms);
+@namespace xf url(http://www.w3.org/2002/xforms);
+
+/*
+ * This stylesheet contains CSS rules that assist in the way that hint behaves.
+ * For the rules for formatting hints see default.css.
+ */
+
+.xf-hint-container {
+    position: relative;
+}
+
+*[class~="xf-hint-container"] {
+    position: relative;
+}
+
+xforms\:hint pe-value,
+xf\:hint pe-value {
+    border: none;
+    background-color: transparent;
+}
+
+xforms|hint pe-value,
+xf|hint pe-value {
+    border: none;
+    background-color: transparent;
+}
+
+xforms\:hint,
+xf\:hint {
+    display: none;
+    z-index: 100;
+    position: absolute;
+    top: 90%;
+    left: 15px;
+}
+
+xforms|hint,
+xf|hint {
+    display: none;
+    z-index: 100;
+    position: absolute;
+    top: 90%;
+    left: 15px;
+}
+
+xforms\:hint.active,
+xf\:hint.active {
+    display: inline;
+}
+
+xforms|hint[class~="active"],
+xf|hint[class~="active"] {
+    display: inline;
+}
+xforms\:hint.inactive,
+xf\:hint.inactive {
+    display: none;
+}
+
+xforms|hint[class~="inactive"],
+xf|hint[class~="inactive"] {
+    display: none;
+}

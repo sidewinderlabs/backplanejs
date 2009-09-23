@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xhtml="http://www.w3.org/1999/xhtml"
+      xmlns:ev="http://www.w3.org/2001/xml-events" 
+      xmlns:xforms="http://www.w3.org/2002/xforms" 
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-Instance"
+	  xmlns:javascript="http://www.w3.org/2002/xforms#inline">
+ <head>
+    <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+    <title>XForms Loan Application Form</title> 
+     
+    <script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>  
+	<script src="format.js" type="text/javascript">/**/</script>
+
+    <link href="style/gen_default.css" rel="stylesheet"/>
+  </head>
+  <body class="yui-skin-sam">
+    <xforms:model id="loan_model">
+        <xforms:instance id="loan">
+        	<LoanRecord xmlns="">
+        		<StartDate>2008-08-08</StartDate>
+        		<Borrower>
+        			<Name>John Q. Public</Name>
+        			<Addr>123 Main St. Tinyville</Addr>
+        		</Borrower>
+        		<Principal currency="USD">10000</Principal>
+        		<Duration>12</Duration>
+        		<InterestRate>5</InterestRate>
+        		<Monthly-Payment></Monthly-Payment>
+        		<TotalPayout></TotalPayout>
+        	</LoanRecord>
+        </xforms:instance>
+
+        <xforms:instance id="rate">
+	        <rate  xmlns=""></rate>
+	    </xforms:instance>
+	       
+        <xforms:bind nodeset="instance('rate')" 
+                     calculate="instance('loan')/InterestRate div 1200.0"/>
+               
+        <xforms:bind nodeset="TotalPayout" 
+                     calculate="../Monthly-Payment * ../Duration" 
+                     relevant="../Monthly-Payment &gt; 0 and ../Duration &gt; 0"/>
+                            
+        <xforms:bind nodeset="Monthly-Payment" 
+                     calculate="if(instance('rate') &gt; 0, 
+                                   ../Principal * instance('rate') div (1.0 - power(1.0 + instance('rate'), -../Duration)),
+                                   ../Principal div ../Duration)"
+                     relevant="../Principal > 0 and ../Duration > 0"/>
+       	          
+        <xforms:bind nodeset="Borrower/Name" required="true()" constraint="string-length(.) > 0"/>
+        <xforms:bind nodeset="Borrower/Addr" required="true()" constraint="string-length(.) > 0"/>
+
+        <xforms:bind nodeset="Principal"
+                     type="xsd:double" 
+                     constraint=". &gt;= 1000 and . &lt;= 100000"/>
+               
+        <xforms:bind nodeset="Duration" 
+                     type="xsd:positiveInteger"
+                     constraint=". &lt;= 84"/> 
+
+        <xforms:bind nodeset="InterestRate"
+                     type="xsd:double" 
+                     constraint=". &gt;= 5 and . &lt;= 60"/>
+              
+        <xforms:bind nodeset="StartDate" type="xsd:date"/>              
+
+        <xforms:setvalue ev:event="xforms-ready" 
+                         ref="StartDate" 
+                         value="choose(.='',substring(local-date(),1,10),.)"/>           
+
+        <xforms:submission id="makeLoan" 
+                           method="post" 
+                           includenamespaceprefixes=""
+                           action="http://xformstest.org/cgi-bin/echo.sh">
+            <xforms:message ev:event="xforms-submit-error" level="modal">Unable to submit</xforms:message>
+        </xforms:submission>                           
+
+                                      
+    </xforms:model>
+ 
+    <xforms:output class="company_name"> 
+       <xforms:label>Big Red Loan and Mortgage Co.</xforms:label>
+    </xforms:output>
+      
+    <xforms:output class="company_motto"> 
+       <xforms:label>The name to trust when you're... in the red.</xforms:label>
+    </xforms:output>
+      
+    <hr size="6" class="rule"/>
+      
+    <xforms:input ref="/LoanRecord/StartDate" datatype="xforms:date">
+           <xforms:label>Agreement Date: </xforms:label>
+    </xforms:input> 
+    
+    <br />
+
+      <xforms:input class="red" ref="Borrower/Name">
+         	<xforms:label>Borrower Name:</xforms:label>
+         	<xforms:hint>Get the name of the person that's going to receive the money.</xforms:hint>
+      </xforms:input>
+
+    <br />
+
+      <xforms:input ref="Borrower/Addr">
+          <xforms:label>Borrower's Address:</xforms:label> 
+          <xforms:hint>You need to know where the borrower lives so you can visit him if needed.</xforms:hint>
+      </xforms:input>
+
+    <br />
+
+      <xforms:input ref="Principal">
+          <xforms:label>Principal of Loan:</xforms:label>
+          <xforms:hint>Enter the amount of money you will give the borrower.</xforms:hint>
+          <xforms:alert>The dollar value must be between 1000 and 100000</xforms:alert>
+      </xforms:input>
+
+    <br />
+  
+      <xforms:select1 ref="Principal/@currency" appearance="minimal" incremental="true">
+            <xforms:label>Choose currency</xforms:label> 
+            <xforms:item>
+                <xforms:label>US Dollars</xforms:label>
+                <xforms:value>USD</xforms:value>
+            </xforms:item>
+            <xforms:item>
+                <xforms:label>Canadian Dollars</xforms:label>
+                <xforms:value>CDN</xforms:value>
+            </xforms:item>
+            <xforms:item>
+                <xforms:label>Euros</xforms:label>
+                <xforms:value>EUR</xforms:value>
+            </xforms:item>
+         </xforms:select1>
+
+    <br />
+
+         <xforms:input ref="Duration">
+             <xforms:label>Duration of Loan in Months:</xforms:label>
+             <xforms:hint>Don't give out ol' Big Red's money for longer than seven years!</xforms:hint>
+             <xforms:alert>Range is 1 to 84</xforms:alert>
+         </xforms:input>
+        
+      
+    <br />
+
+         <xforms:input ref="InterestRate" incremental="true">
+             <xforms:label>Yearly Interest Rate (compounded monthly):</xforms:label>
+             <xforms:hint>We're only loan dogfish, so no more than sixty percent.</xforms:hint>
+             <xforms:alert>Choose an interest rate between 5 and 60 percent.</xforms:alert>
+         </xforms:input>
+
+     <br />
+     <hr size="6" class="rule"/>
+     
+     <xforms:output class="regular" ref="Monthly-Payment" value="javascript:currency(number())">
+             <xforms:label>Monthly Payment: </xforms:label>
+         </xforms:output>
+      
+    <br />
+
+      <xforms:output class="regular" ref="TotalPayout" value="javascript:currency(number())">
+             <xforms:label>Total Payout: </xforms:label>
+         </xforms:output>
+
+      <div class="spacer"></div><hr size="6" class="rule"/>
+           
+    <!-- This submit button connects to a submission -->
+      <xforms:submit submission="makeLoan">
+          <xforms:hint>Sends the loan transaction to Big Red</xforms:hint>
+          <xforms:label>Submit Loan</xforms:label>
+      </xforms:submit>
+
+   </body>
+</html>

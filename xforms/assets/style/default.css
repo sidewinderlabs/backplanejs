@@ -1,0 +1,629 @@
+/*
+  // Ubiquity provides a standards-based suite of browser enhancements for
+  // building a new generation of internet-related applications.
+  //
+  // The Ubiquity XForms module adds XForms 1.1 support to the Ubiquity
+  // library.
+  //
+  // Copyright (C) 2008 Backplane Ltd.
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+ */
+@namespace xhtml url(http://www.w3.org/1999/xhtml);
+@namespace xforms url(http://www.w3.org/2002/xforms);
+@namespace xf url(http://www.w3.org/2002/xforms);
+
+body {
+    font-family: "Lucida Grande",verdana,arial,helvetica,sans-serif;
+    font-size: 14px;
+}
+
+/*
+ * These rules concern the default appearance of a hint. For the rules that
+ * govern its behaviour, see lib/xforms/style/hint.css.
+ */
+
+xforms\:hint,
+xf\:hint {
+    opacity: 1;
+    padding: 5px;
+    background-color: #323232;
+    color: #fff;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+xforms|hint,
+xf|hint {
+    opacity: 1;
+    padding: 5px;
+    background-color: #323232;
+    color: #fff;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+/*
+ * These rules concern the default appearance of a message. For the rules that
+ * govern its behaviour, see lib/xforms/style/message.css.
+ */
+
+xforms\:message,
+xf\:message {
+  padding: 5px;
+  background-color: #323232;
+  color: #fff;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+xforms|message,
+xf|message {
+  padding: 5px;
+  background-color: #323232;
+  color: #fff;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+xforms\:select1,
+xf\:select1,
+xforms\:select,
+xf\:select {
+    display: inline-block;
+    padding: 0.2em; 
+}
+
+xforms|select1,
+xf|select1,
+xforms|select,
+xf|select {
+    display: inline-block;
+    padding: 0.2em; 
+}
+
+xforms\:output,
+xf\:output,
+xforms\:input,
+xf\:input,
+xforms\:secret,
+xf\:secret,
+xforms\:textarea,
+xf\:textarea {
+    display: block;
+    padding: 0.2em; 
+}
+
+xforms|output,
+xf|output,
+xforms|input,
+xf|input,
+xforms|secret,
+xf|secret,
+xforms|textarea,
+xf|textarea {
+    display: block;
+    padding: 0.2em; 
+}
+
+
+xforms\:input xforms\:label,
+xf\:input xf\:label,
+xforms\:secret xforms\:label,
+xf\:secret xf\:label,
+xforms\:textarea xforms\:label,
+xf\:textarea xf\:label {
+    display: inline-block;
+    color: black;
+}
+
+xforms|input xforms|label,
+xf|input xf|label,
+xforms|secret xforms|label,
+xf|secret xf|label,
+xforms|textarea xforms|label,
+xf|textarea xf|label {
+    color: black;
+    white-space: -moz-pre-wrap;
+}
+
+xforms\:input pe-value,
+xf\:input pe-value,
+xforms\:secret pe-value,
+xf\:secret pe-value,
+xforms\:textarea pe-value textarea,
+xf\:textarea pe-value textarea {
+    border: 2px inset #f0f0f0;
+    background-color: white;
+}
+
+xforms|input pe-value,
+xf|input pe-value,
+xforms|secret pe-value,
+xf|secret pe-value,
+xforms|textarea pe-value textarea,
+xf|textarea pe-value textarea {
+    border: 2px inset #f0f0f0;
+    background-color: white;
+}
+
+xforms\:input xforms\:label pe-value,
+xf\:input xf\:label pe-value,
+xforms\:secret xforms\:label pe-value,
+xf\:secret xf\:label pe-value,
+xforms\:textarea xforms\:label pe-value,
+xf\:textarea xf\:label pe-value {
+    border: none;
+    background-color: transparent;
+}
+
+xforms|input xforms|label pe-value,
+xf|input xf|label pe-value,
+xforms|secret xforms|label pe-value,
+xf|secret xf|label pe-value,
+xforms|textarea xforms|label pe-value,
+xf|textarea xf|label pe-value {
+    border: none;
+    background-color: transparent;
+}
+
+xforms\:submit,
+xf\:submit,
+xforms\:trigger,
+xf\:trigger {
+    background-color: #D3D3D3;
+    border-width: 2px;
+    border-style: outset;
+    border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
+    color: black;
+    padding: 3px;
+    -moz-border-radius: 1em; 
+    -webkit-border-radius: 1em;
+}
+
+xforms|submit,
+xf|submit,
+xforms|trigger,
+xf|trigger {
+    background-color: #D3D3D3;
+    border-width: 2px;
+    border-style: outset;
+    border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
+    color: black;
+    padding: 3px;
+    -moz-border-radius: 1em; 
+    -webkit-border-radius: 1em;
+}
+
+
+xforms\:submit:hover,
+xf\:submit:hover,
+xforms\:trigger:hover,
+xf\:trigger:hover {
+    background-color: #A9A9A9;
+    border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
+    border-style: inset;
+    cursor: pointer;
+}
+
+xforms|submit:hover,
+xf|submit:hover,
+xforms|trigger:hover,
+xf|trigger:hover {
+    background-color: #A9A9A9;
+    border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
+    border-style: inset;
+    cursor: pointer;
+}
+
+xforms\:submit:focus xforms\:label,
+xf\:submit:focus xf\:label,
+xforms\:trigger:focus xforms\:label,
+xf\:trigger:focus xf\:label  {  	
+    border: 1px dotted #808080;
+}
+
+xforms|submit:focus > xforms|label,
+xf|submit:focus > xf|label,
+xforms|trigger:focus > xforms|label,
+xf|trigger:focus > xf|label {  	
+    border: 1px dotted #808080;
+}
+
+xforms\:submit:active  xforms\:label,
+xf\:submit:active  xf\:label,
+xforms\:trigger:active  xforms\:label,
+xf\:trigger:active  xf\:label {   	
+    border: 1px dotted #808080;
+}
+
+xforms|submit:active > xforms|label,
+xf|submit:active > xf|label,
+xforms|trigger:active > xforms|label,
+xf|trigger:active > xf|label {   	
+    border: 1px dotted #808080;
+}
+
+xforms\:submit:active,
+xf\:submit:active,
+xforms\:trigger:active,
+xf\:trigger:active {
+    background-color: #A9A9A9;  	    
+    border-color: ThreeDShadow ThreeDHighlight ThreeDHighlight ThreeDShadow;
+    border-style: inset;
+    cursor: pointer;
+}
+
+xforms|submit:active,
+xf|submit:active,
+xforms|trigger:active,
+xf|trigger:active {
+    background-color: #A9A9A9;   	
+    border-color: ThreeDShadow ThreeDHighlight ThreeDHighlight ThreeDShadow;
+    border-style: inset;
+    cursor: pointer;
+}
+
+xforms\:submit  xforms\:label,
+xf\:submit xf\:label,
+xforms\:trigger xforms\:label,
+xf\:trigger xf\:label {
+    padding: 3px;  
+}
+
+xforms|submit  xforms|label,
+xf|submit xf|label,
+xforms|trigger xforms|label,
+xf|trigger xf|label {
+    padding: 3px;
+}
+
+.invalid > xf\:alert, .invalid > xforms\:alert {
+    display: inline;
+    background-color: transparent;
+    color: #D00;
+}
+
+*[class~="invalid"] > xf|alert, *[class~="invalid"] > xforms|alert {
+    display: inline;
+    background-color: transparent;
+    color: #D00;
+}
+
+xforms\:alert pe-value,
+xf\:alert pe-value {
+    border: none;
+    background-color: transparent;
+}
+
+xforms|alert pe-value,
+xf|alert pe-value {
+    border: none;
+    background-color: transparent;
+}
+
+xforms\:alert xforms\:input pe-value,
+xf\:alert xf\:input pe-value {
+    border: 2px inset #f0f0f0;
+    background-color: white;
+}
+
+xforms|alert xforms|input pe-value,
+xf|alert xf|input pe-value {
+    border: 2px inset #f0f0f0;
+    background-color: white; 
+}
+
+xforms\:alert xforms\:label pe-value,
+xf\:alert xf\:label pe-value {
+    border: none;
+    background-color: transparent;
+}
+
+xforms|alert xforms|label pe-value,
+xf|alert xf|label pe-value {
+    border: none;
+    background-color: transparent;
+}
+
+.slider-bg {
+    position: relative; 
+    background:url(../bg-fader.gif) 5px 0 no-repeat; 
+    height:28px; 
+    width:228px;  
+}
+
+*[class~="slider-bg"] {
+    position: relative; 
+    background:url(../bg-fader.gif) 5px 0 no-repeat; 
+    height:28px; 
+    width:228px;  
+}
+
+.slider-thumb { 
+  position: absolute; 
+   top: 4px;
+   height:21px;
+   width: 17px;
+   background-image:url(../thumb-n.gif)
+}
+
+*[class~="slider-thumb"] { 
+    position: absolute; 
+    top: 4px; 
+}
+
+
+.ux-calendar-bg {
+    display: inline;
+}
+
+*[class~="ux-calendar-bg"] {
+    display: inline;
+}
+
+.ux-input-compact-calendar {
+    background: #ffffff;
+    color:#000000;
+    vertical-align:top;
+    max-width:75px;
+}
+
+*[class~="ux-input-compact-calendar"] {
+    background: #ffffff;
+    color:#000000;
+    vertical-align:top;
+    max-width:75px;
+}
+
+.ux-color-bg {
+    position:relative;
+    background-color:#eeeeee;
+    width:360px;
+    height:200px;
+}
+
+*[class~="ux-color-bg"] {
+    position:relative;
+    background-color:#eeeeee;
+    width:360px;
+    height:200px;
+}
+
+xforms\:output pe-value,
+xf\:output pe-value {
+    border: none;
+    background-color: transparent;
+}
+
+xforms|output pe-value,
+xf|output pe-value {
+    border: none;
+    background-color: transparent;
+}
+
+
+/* The YAHOO libraries are pretty much HTML specific, so there will be exceptions for
+ * XML Parsing for *.xhtml file
+ * This class makes the drop-down display on xhtml files.
+ */
+*[class~="pe-choices"] {      
+    background-color: #ffffff;
+    border: 1px solid #808080;
+}
+
+xforms\:output .calnavleft, xf\:output .calnavleft,
+xforms\:output .calnavright, xf\:output .calnavright {
+  display: none;
+}
+
+xforms|output *[class~="calnavleft"], xf|output *[class~="calnavleft"],
+xforms|output *[class~="calnavright"], xf|output *[class~="calnavright"] {
+  display: none;
+}
+
+
+.focus {
+  border: 1px lightgray dashed;
+}
+
+/*
+  select, select1 and children thereof.
+*/
+
+xf\:choices, xforms\:choices {
+  margin-left: 1em;
+}
+
+xf|choices {
+  margin-left: 1em;
+}
+
+xforms\:select.appearance-minimal pe-value,
+xf\:select.appearance-minimal pe-value,
+xforms\:select1.appearance-minimal pe-value,
+xf\:select1.appearance-minimal pe-value
+{
+    border: 2px inset #f0f0f0;
+    background-color: white;
+}
+
+xforms|select.appearance-minimal pe-value,
+xforms|select1.appearance-minimal pe-value
+{
+    border: 2px inset #f0f0f0;
+    background-color: white;
+}
+
+xforms\:select.appearance-compact .pe-choices,
+xf\:select.appearance-compact .pe-choices,
+xforms\:select1.appearance-compact .pe-choices,
+xf\:select1.appearance-compact .pe-choices {
+  height:4em;
+  overflow-y:scroll;
+  overflow-x:hidden;
+  padding-right:20px;
+}
+
+xforms|select.appearance-compact .pe-choices,
+xforms|select1.appearance-compact .pe-choices {
+  height:4em;
+  overflow-y:scroll;
+  overflow-x:visible;
+}
+
+.appearance-minimal xf\:item pe-value,
+.appearance-minimal xforms\:item pe-value {
+    border: none;
+    background-color:transparent;
+}
+
+.appearance-minimal xf|item pe-value {
+    border: none;
+    background-color:transparent;
+}
+
+xf\:select1.appearance-minimal xf\:label pe-value, xforms\:select1.appearance-minimal xforms\:label pe-value,
+xf\:select.appearance-minimal xf\:label pe-value, xforms\:select.appearance-minimal xforms\:label pe-value {
+    border: none;
+    background-color: transparent;
+    display:inline-block;
+}
+
+xf|select1.appearance-minimal xf|label pe-value, xforms|select1.appearance-minimal xforms|label pe-value,
+xf|select.appearance-minimal xf|label pe-value, xforms|select.appearance-minimal xforms|label pe-value {
+    border: none;
+    background-color: transparent;
+    display:inline-block;
+}
+
+
+.ux-drop-button {
+    font-size:1pt;
+    display:inline-block;
+    margin:0px;
+    padding:0px;
+    position:relative;
+}
+
+*[class~="ux-drop-button"] {
+    font-size:1pt;
+    display:inline-block;
+    margin:0px;
+    padding:0px;
+    position:relative;   
+    min-height: 17px; 
+}
+
+.ux-drop-button .first-child {
+    background-image: url(http://yui.yahooapis.com/2.5.2/build/button/assets/skins/sam/menu-button-arrow.png);
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-color:transparent;
+    height:100%;
+    margin:0px;
+    padding:0px;
+}
+
+*[class~="ux-drop-button"] *[class~="first-child"] {
+    background-image: url(http://yui.yahooapis.com/2.5.2/build/button/assets/skins/sam/menu-button-arrow.png);
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-color:transparent;
+    height:100%;
+    margin:0px;
+    padding:0px;
+}
+
+.focus {
+  border: 1px lightgray dashed;
+}
+
+*[class~="focus"] {
+  border: 1px lightgray dashed;
+}
+
+.ux-boolean-value {
+  border: none;
+}
+
+*[class~="ux-boolean-value"] {
+  border: none;
+}
+
+xforms\:select .pc-deselected, xf\:select .pc-deselected {
+  background-image: url(../select-deselected.png);
+}
+
+xforms|select .pc-deselected {
+  background-image: url(../select-deselected.png);
+}
+
+xforms\:select .pc-selected , xf\:select .pc-selected {
+  background-image: url(../select-selected.png);
+}
+
+xforms|select .pc-selected {
+  background-image: url(../select-selected.png);
+}
+
+xforms\:select xforms\:item, xf\:select xf\:item {
+  background-position:left;
+  background-repeat: no-repeat;
+  text-indent: 14px;
+}
+
+xforms|select xforms|item {
+  background-position:left;
+  background-repeat: no-repeat;
+  text-indent: 14px;
+}
+
+xforms\:select1 .pc-deselected, xf\:select1 .pc-deselected {
+  background-image: url(../select1-deselected.png);
+}
+
+xforms|select1 .pc-deselected {
+  background-image: url(../select1-deselected.png);
+}
+
+xforms\:select1 .pc-selected , xf\:select1 .pc-deselected {
+  background-image: url(../select1-selected.png);
+}
+
+xforms|select1 .pc-selected {
+  background-image: url(../select1-selected.png);
+}
+
+xforms\:select1 xforms\:item, xf\:select1 xf\:item {
+  background-position:left;
+  background-repeat: no-repeat;
+  text-indent: 14px;
+}
+
+xforms|select1 xforms|item {
+  background-position:left;
+  background-repeat: no-repeat;
+  text-indent: 14px;
+}
+
+xforms\:select1.appearance-minimal xforms\:item, xf\:select1.appearance-minimal xf\:item {
+  background-image: none;
+  text-indent: 0px;
+}
+
+xforms|select1.appearance-minimal xforms|item {
+  background-image: none;
+  text-indent: 0px;
+}
+

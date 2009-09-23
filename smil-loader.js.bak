@@ -26,15 +26,15 @@ gLibrary["animate"] = "YUI";
   function(){
     var moduleBase = pathToModule("smil-loader");
 
-    loader.addModule({ name: "animate-factory",  type: "js", fullpath: moduleBase + "Animate.js" });
-    loader.addModule({ name: "smil-set",         type: "js", fullpath: moduleBase + "smil-set.js",
+    loader.addModule({ name: "animate-factory",  type: "js", fullpath: moduleBase + "smil/Animate.js" });
+    loader.addModule({ name: "smil-set",         type: "js", fullpath: moduleBase + "smil/smil-set.js",
       requires: [ "animate-factory" ] });
-    loader.addModule({ name: "smil-animate",     type: "js", fullpath: moduleBase + "smil-animate.js",
+    loader.addModule({ name: "smil-animate",     type: "js", fullpath: moduleBase + "smil/smil-animate.js",
       requires: [ "animate-factory" ] });
-    loader.addModule({ name: "animate-impl-yui", type: "js", fullpath: moduleBase + "AnimateImplYUI.js",
+    loader.addModule({ name: "animate-impl-yui", type: "js", fullpath: moduleBase + "smil/AnimateImplYUI.js",
       requires: [ "animate-factory", "animation" ] });
 
-    loader.addModule({ name: "smil-defs",        type: "js", fullpath: moduleBase + "smil-defs.js",
+    loader.addModule({ name: "smil-defs",        type: "js", fullpath: moduleBase + "smil/smil-defs.js",
       requires: [ "libxh-decorator", "xforms-listener", "xforms-conditional-invocation", "animate-impl-yui", "smil-set", "smil-animate" ] });
 
     loader.require( "smil-defs" );

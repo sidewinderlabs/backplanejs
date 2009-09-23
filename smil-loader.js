@@ -38,5 +38,6 @@ gLibrary["animate"] = "YUI";
       requires: [ "libxh-decorator", "xforms-listener", "xforms-conditional-invocation", "animate-impl-yui", "smil-set", "smil-animate" ] });
 
     loader.require( "smil-defs" );
+    loader.insert();
   }()
 );

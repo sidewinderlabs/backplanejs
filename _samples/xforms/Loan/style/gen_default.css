@@ -1,0 +1,55 @@
+@namespace xhtml url(http://www.w3.org/1999/xhtml);
+@namespace xforms url(http://www.w3.org/2002/xforms);
+  
+.company_name {display: block; width: 98%; font-family: times; font-size: 24pt; font-weight: bold; background-color:#99cccc;}
+*[class~="company_name"] {display: block; width: 98%; font-family: times; font-size: 24pt; font-weight: bold; background-color:#99cccc;}
+
+.company_motto {display: block; width: 98%; font-family: times; font-size: 16pt; color: #eeeeee; font-style: italic; background-color:#116666; text-align:right;}
+*[class~="company_motto"] {display: block; width: 98%; font-family: times; font-size: 16pt; color: #eeeeee; font-style: italic; background-color:#116666; text-align:right;}
+
+.rule {display: block; background-color: #116666;}
+*[class~="rule"] {display: block; background-color: #116666;}
+
+.spacer {display: block; margin-bottom:10px; padding-bottom:5px;}
+*[class~="spacer"] {display: block; margin-bottom:10px; padding-bottom:5px;}
+
+xforms\:input {display: block; width: 98%; background-color: rgb(220,220,220); margin-bottom: 3px;}
+xforms\:input  pe-value {width: 48%; background-color: white; border: 1px inset black;}
+xforms\:input  xforms\:label pe-value {float: left; width: 200px; white-space: -moz-pre-wrap; text-align:right;}
+xforms\:input.yui-widget-calendar pe-value {background-color: transparent; border: none;}
+xforms\:input.block {display: block;}
+
+xforms|input {display: block; width: 98%; background-color: rgb(220,220,220); margin-bottom: 3px;}
+xforms|input pe-value {width: 48%; background-color: white; border: 1px inset black;}
+xforms|input > xforms|label pe-value {float: left; width: 200px; white-space: -moz-pre-wrap; text-align:right;}
+xforms|input[class~="yui-widget-calendar"] pe-value {background-color: transparent; border: none;}
+xforms|input[class~="block"] {display: block;}
+
+xforms\:select1 {display: block; width: 98%; background-color: rgb(220,220,220);}
+xforms\:select1  pe-value {width: 48%; background-color: white; border: 1px inset black;}
+xforms\:select1  xforms\:label  pe-value {float: left; width: 200px; text-align:right; float:left;}
+xforms\:select1  xforms\:item xforms\:label pe-value  { float:none;  }
+
+xforms|select1 {display: block; width: 98%; background-color: rgb(220,220,220);}
+xforms|select1 > pe-value {width: 48%; background-color: white; border: 1px inset black;}
+xforms|select1 > xforms|label pe-value {width: 200px; text-align:right; float:left;}
+xforms|select1 > xforms|item > xforms|label > pe-value  { float:none;  }
+
+xforms\:output.regular {width: 98%; background-color: rgb(220,220,220);}
+xforms\:output.regular  xforms\:label pe-value { width: 200px; float:left;}
+
+xforms|output[class~="regular"] {width: 98%; background-color: rgb(220,220,220);}
+xforms|output[class~="regular"]  xforms|label pe-value { width: 200px; float:left;}
+
+xforms\:submit { display:block; background-color: #99cccc; border-style: solid; border-width: 1px; margin: 0 2px; padding: 2px 18px; float: right;}
+xforms|submit { display:block; background-color: #99cccc; border-style: solid; border-width: 1px; margin: 0 2px; padding: 2px 18px; float: right;}
+
+div#calendarmenu0 { display: inline; }
+
+*.disabled { display: none; }
+*.invalid { border-style: solid; border-width: 2px; border-color: red; }
+*.required::after {content: "*"; color: red;}
+
+*[class~="disabled"] { display: none; }
+*[class~="invalid"] { border-style: solid; border-width: 2px; border-color: red; }
+*[class~="required"]::after {content: "*"; color: red;}

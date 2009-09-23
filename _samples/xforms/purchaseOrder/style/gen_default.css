@@ -1,0 +1,45 @@
+@namespace xhtml url(http://www.w3.org/1999/xhtml);
+@namespace xforms url(http://www.w3.org/2002/xforms);
+  
+.company_name {display: block; width: 98%; font-family: times; font-size: 24pt; font-weight: bold; background-color:#99cccc;}
+.company_motto {display: block; width: 98%; font-family: times; font-size: 16pt; color: #eeeeee; font-style: italic; background-color:#116666; text-align:right;}
+.rule {display: block; background-color: #116666;}
+*[class~="rule"] {display: block; background-color: #116666;}
+*[class~="company_name"] {display: block; width: 98%; font-family: times; font-size: 24pt; font-weight: bold; background-color:#99cccc;}
+*[class~="company_motto"] {display: block; width: 98%; font-family: times; font-size: 16pt; color: #eeeeee; font-style: italic; background-color:#116666; text-align:right;}
+
+.table_summary {display: block; }
+table { border: inset; empty-cells: show; }
+td, th { border: 1px solid; }
+
+xforms\:repeat  xforms\:group { display: block; width: 98%; background-color:#eeeeee; padding: 0.5em; }
+xforms\:repeat  xforms\:group  xforms\:input {display: inline-block; width: 22%;}
+xforms\:repeat  xforms\:group  xforms\:output {display: inline-block;  width: 22%;}
+xforms\:repeat  xforms\:group  xforms\:select1 {display: inline-block; padding: 0.2em; width: 22%; }
+xforms\:repeat  xforms\:group  xforms\:input  xforms\:label { display: none; }
+xforms\:repeat  xforms\:group  xforms\:select1  xforms\:label { display: none; }
+xforms\:repeat  xforms\:group  xforms\:output  xforms\:label { display: none; }
+/* IE doesn't like child selectors, so... we have to turn back on the itemsets labels */
+xforms\:repeat  xforms\:group  xforms\:select1 div div xforms\:itemset xforms\:label { display: inline-block; }
+xforms\:repeat  xforms\:group  xforms\:select1 div div xforms\:itemset xforms\:label xforms\:output { width: auto; }
+
+xforms|repeat > xforms|group { display: block; width: 98%; background-color:#eeeeee; padding: 0.5em; }
+xforms|repeat > xforms|group > xforms|input {display: inline-block; width: 22%;}
+xforms|repeat > xforms|group > xforms|output {display: inline-block; width: 22%;}
+xforms|repeat > xforms|group > xforms|select1 {display: inline-block; padding: 0.2em; width: 22%; }
+xforms|repeat > xforms|group > xforms|input > xforms|label { display: none; }
+xforms|repeat > xforms|group > xforms|select1 > xforms|label { display: none; }
+xforms|repeat > xforms|group > xforms|output > xforms|label { display: none; }
+
+xforms\:output.regular {display: block;  width: 95%;}
+xforms\:output.regular  xforms\:label pe-value { width: 205px; float:left;}
+xforms|output.regular {display: block;  width: 95%; }
+xforms|output.regular  xforms|label pe-value { width: 205px; float:left;}
+
+xforms\:trigger, xforms\:submit { -moz-border-radius: 1em; -webkit-border-radius: 1em; }
+xforms|trigger, xforms|submit { -moz-border-radius: 1em; -webkit-border-radius: 1em; }
+
+*.disabled { display: none; }
+*.invalid { border-style: solid; border-width: 2px; border-color: red; }
+*[class~="disabled"] { display: none; }
+*[class~="invalid"] { border-style: solid; border-width: 2px; border-color: red; }

@@ -1,0 +1,1 @@
+Within this directory, and within the appropriate supbfolders, should live all the cross-browser .js files associated with the scripted implementations of the various standards we support.
