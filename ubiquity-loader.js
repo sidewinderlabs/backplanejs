@@ -68,7 +68,6 @@ var baseDefaultPath = pathToModule("ubiquity-loader"),
 				} else {
 					loader.addModule({ name: "backplane-rdfa",  type: "js",  fullpath: baseDefaultPath + "rdfa-loader.js" });
 				}
-
 				if (mode.unitTest) {
 					loader.addModule({ name: "backplane-core-unit-test-loader", type: "js",  fullpath: baseDefaultPath + "_unit-tests/core/unit-test-loader.js" });
 					loader.addModule({ name: "backplane-rdfa-unit-test-loader", type: "js",  fullpath: baseDefaultPath + "_unit-tests/rdfa/unit-test-loader.js" });
