@@ -1,0 +1,119 @@
+<!DOCTYPE XHTML>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:dbp="http://dbpedia.org/property/"
+	xmlns:argot="http://argot-hub.googlecode.com/"
+	xmlns:rdfa="http://www.w3.org/ns/rdfa/"
+>
+	<head>
+	  <!--
+	    /*
+	    * xH provides a standards-based suite of browser enhancements for
+	    * building a new generation of internet-related applications.
+	    * Copyright (C) 2007-8 Mark Birbeck
+	    *
+	    * This program is free software; you can redistribute it and/or
+	    * modify it under the terms of the GNU General Public License
+	    * as published by the Free Software Foundation; either version 2
+	    * of the License, or (at your option) any later version.
+	    *
+	    * This program is distributed in the hope that it will be useful,
+	    * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	    * GNU General Public License for more details.
+	    *
+	    * You should have received a copy of the GNU General Public License
+	    * along with this program; if not, write to the Free Software
+	    * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+	    *
+	    * Mark Birbeck can be contacted at:
+	    *
+	    *  36 Tritton Road
+	    *  London
+	    *  SE21 8DE
+	    *  United Kingdom
+	    *
+	    *  mark.birbeck@gmail.com
+	    */
+	  -->
+		<title>Test RDFa parsing rules</title>
+	  <!--
+	    This loads the RDFa parser.
+	  -->
+	  <script src="../ubiquity-loader.js" type="text/javascript">/**/</script>
+
+	  <!--
+	    This loads a Fresnel format that will act on the triples.
+	  -->
+	  <link rel="argot:include" href="formats/debug.html" />
+	</head>
+	<body style="background: green">
+	  <!-- div rel="foaf:Document" href="#" xmlns:foaf="http://xmlns.com/foaf/0.1/"> </div -->
+    <div about="" typeof="foaf:Person" xmlns:foaf="http://xmlns.com/foaf/0.1/">
+	    <div rel="foaf:knows foaf:knew">
+	      <div typeof="foaf:Person" xmlns:foaf="http://xmlns.com/foaf/0.1/">
+	        <h2 property="foaf:name">Daniel E. Renfer</h2>
+	        <span rel="foaf:depiction">
+	          <img src="http://assets2.twitter.com/system/user/profile_image/11491/normal/886.jpg?1171953691" alt="My photo" />
+	        </span>
+	        <div>
+	          <h3>Contact info</h3>
+	          <div rel="foaf:holdsAccount">
+	            <span typeof="foaf:OnlineAccount">
+	              <span rel="foaf:accountServiceHomepage" resource="http://www.twitter.com/">Twitter Name:</span>
+	              <span property="foaf:accountName">duck1123</span>
+	            </span>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	  <div about="#you" typeof="foaf:Person" xmlns:foaf="http://xmlns.com/foaf/0.1/" rel="foaf:knows foaf:knew" resource="#leg">
+	      <div typeof="foaf:Person" xmlns:foaf="http://xmlns.com/foaf/0.1/">
+	        <h2 property="foaf:name">Ivan Herman</h2>
+	        <span rel="foaf:depiction">
+	          <img src="http://assets2.twitter.com/system/user/profile_image/11491/normal/886.jpg?1171953691" alt="My photo" />
+	        </span>
+	        <div>
+	          <h3>Contact info</h3>
+	          <div rel="foaf:holdsAccount">
+	            <span typeof="foaf:OnlineAccount">
+	              <span rel="foaf:accountServiceHomepage" resource="http://www.twitter.com/">Twitter Name:</span>
+	              <span property="foaf:accountName">herm1123</span>
+	            </span>
+	          </div>
+	        </div>
+	      </div>
+	      <span property="foaf:heads">2</span>
+	  </div>
+	  <div resource="#A">
+	    <div rel="B">
+	      <div resource="#mark"></div>
+	    </div>
+	  </div>
+	  <div resource="#mark">
+	    <div rel="foaf:knows">
+	      <div property="foaf:name">ivan</div>
+	      <div rel="foaf:mbox" resource="mailto:ivan@w3c.org"></div>
+	      <div about="#ben" rel="foaf:dingle" resource="#dangle"></div>
+	      <div about="#shane"></div>
+	    </div>
+	  </div>
+	  <div about="http://dbpedia.org/resource/Baruch_Spinoza" rel="dbp:influenced">
+	    <span property="foaf:name">Albert Einstein</span>
+	    <span property="dbp:dateOfBirth" datatype="xsd:date">1879-03-14</span>
+	    <div rel="dbp:citizenship">
+	      <div>
+  	      <span about="http://dbpedia.org/resource/Germany"></span>
+	        <span about="http://dbpedia.org/resource/United_States"></span>
+	      </div>
+	    </div>
+	  </div>
+	  <div about="#edge-case" rel="foaf:knows">
+	    <span rel="foaf:knows">ab</span>
+	  </div>
+	  
+	  
+	  <div id="debug">triples</div>
+	</body>
+</html>

@@ -1,0 +1,155 @@
+<!--
+  // Ubiquity provides a standards-based suite of browser enhancements for
+  // building a new generation of internet-related applications.
+  //
+  // The Ubiquity RDFa module adds RDFa support to the Ubiquity library.
+  //
+  // Copyright (C) 2007-8 Mark Birbeck
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+-->
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:fresnel="http://www.w3.org/2004/09/fresnel#"
+	xmlns:argot="http://argot-hub.googlecode.com/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <head typeof="fresnel:Group">
+		<title>eBay templates and actions</title>
+    <link rel="stylesheet" href="ebay.css" />
+	</head>
+  <body rev="fresnel:group">
+	  <div property="argot:constructor">
+      document.Yowl.register(
+        "ebay",
+        [ "Found an item" ],
+        [ "Found an item" ],
+        "http://www.ebay.com/favicon.ico"
+      );
+	  </div>
+
+    <span typeof="fresnel:Format">
+      <span property="fresnel:instanceFormatDomain" datatype="argot:jsparqlSelector">
+        select: [ "s", "item" ],
+        where:
+        [
+          { pattern: [ "?s", "http://ebay.com/item", "?item" ], setUserData: true }
+        ]
+      </span>
+
+      <span property="argot:yowl">
+        document.Yowl.notify(
+          "Found an item",
+          "Found eBay item " + ${item.content},
+          "About to retrieve more information from eBay\'s API",
+          "ebay",
+          "http://www.ebay.com/favicon.ico",
+          false,
+          0
+        );
+      </span>
+
+      <span property="fresnel:resourceStyle" datatype="fresnel:styleClass">ebay-item</span>
+      
+      <div rel="argot:tooltip">
+        <span rel="argot:icon" resource="http://www.ebay.com/favicon.ico"></span>
+        <div property="argot:template" datatype="rdf:XMLLiteral">
+          <object width="355" height="300">
+            <param name="movie" value="http://togo.ebay.com/togo/togo.swf?2008013100" />
+            <param name="flashvars" value="base=http://togo.ebay.com/togo/&amp;lang=en-us&amp;mode=normal&amp;itemid=${item.content}&amp;query=track%20bike" />
+            <embed src="http://togo.ebay.com/togo/togo.swf?2008013100" type="application/x-shockwave-flash" width="355" height="300"
+              flashvars="base=http://togo.ebay.com/togo/&amp;lang=en-us&amp;mode=normal&amp;itemid=${item.content}&amp;query=track%20bike"></embed>
+          </object>
+        </div>
+      </div>
+      
+      <!--
+        Go get some more data about each book.
+      -->
+      <div property="argot:pipesdata">
+        url: 'http://open.api.ebay.com/shopping',
+        params: {
+          appid: 'x-portne-4679-4d53-9b70-0b39272adc78',
+          callbackParamName: 'callbackname',
+          callname: 'GetSingleItem',
+          version: 517,
+          siteid: 0,
+          ItemID: ${item.content},
+          responseencoding: 'JSON',
+          callback: true
+        }
+      </div>
+
+      <div property="argot:adddata">
+        var item = context.data.Item;
+        
+        document.meta.store.add(
+        	"",
+          "${s}",
+          "http://purl.org/dc/elements/1.1/title",
+          {
+            content: item.Title,
+            datatype: "http://www.w3.org/1999/02/22-rdf-syntax-ns"
+          },
+          true
+        );
+        
+        document.meta.store.add(
+        	"",
+          "${s}",
+          "http://xmlns.com/foaf/0.1/depiction",
+          item.GalleryURL,
+          false
+        );
+      </div>
+      
+      <!--
+        Once the data is loaded, run another group of formats.
+      -->
+      <span rel="argot:afterpipesdata">
+        <span typeof="fresnel:Group">
+          <div rev="fresnel:group">
+            <div typeof="fresnel:Format">
+              <span property="fresnel:instanceFormatDomain" datatype="argot:jsparqlSelector">
+                select: [ "title", "depiction" ],
+                where:
+                [
+                  { pattern: [ "${s}", "http://purl.org/dc/elements/1.1/title", "?title"     ], optional: true },
+                  { pattern: [ "${s}", "http://xmlns.com/foaf/0.1/depiction",   "?depiction" ], optional: true }
+                ]
+              </span>
+              
+              <div property="argot:yowl">
+                if (${title} == undefined)
+                  ${title} = { content: "" };
+                if (${depiction} == undefined)
+                  ${depiction} = null;
+                
+                document.Yowl.notify(
+                  "Found an item",
+                  "For sale: " + ${title.content},
+                  "Full title and thumbnail retrieved using item number",
+                  "ebay",
+                  ${depiction},
+                  true,
+                  0
+                );
+              </div>
+            </div>
+          </div>
+        </span>
+        
+    </span>
+    
+	</body>
+</html>

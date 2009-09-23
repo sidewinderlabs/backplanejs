@@ -1,0 +1,158 @@
+<!--
+  // Ubiquity provides a standards-based suite of browser enhancements for
+  // building a new generation of internet-related applications.
+  //
+  // The Ubiquity RDFa module adds RDFa support to the Ubiquity library.
+  //
+  // Copyright (C) 2007-8 Mark Birbeck
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+-->
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:fresnel="http://www.w3.org/2004/09/fresnel#"
+	xmlns:argot="http://argot-hub.googlecode.com/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <head typeof="fresnel:Group">
+    <title>Book templates and actions</title>
+    <link rel="stylesheet" href="books.css" />
+	</head>
+  <body rev="fresnel:group">
+    <div property="argot:constructor">
+      document.Yowl.register(
+        "bib",
+        [ "Found a book" ],
+        [ "Found a book" ],
+        null
+      );
+    </div>
+
+    <div typeof="fresnel:Format">
+      <!--
+          Select all books.
+      -->
+      <span property="fresnel:instanceFormatDomain" datatype="argot:jsparqlSelector">
+        select: [ "book" ],
+        where:
+        [
+          { pattern: [ "?book", "a", "http://somebig.org/book" ], setUserData: true }
+        ]
+      </span>
+
+      <span property="fresnel:resourceStyle" datatype="fresnel:styleClass">bib-book</span>
+
+      <div property="argot:yowl">
+        document.Yowl.notify(
+          "Found a book",
+          "Found a book",
+          "About to retrieve more information from Amazon via Yahoo! Pipes",
+          "bib",
+          "http://www.amazon.com/favicon.ico",
+          false,
+          0
+        );
+      </div>
+
+      <!--
+        Go get some more data about each book.
+      -->
+      <div property="argot:pipesdata">
+        url: 'http://pipes.yahoo.com/pipes/pipe.run',
+        params:
+          {
+            callbackParamName: '_callback',
+            _id: 'vuUwDiIY3BGcDKmUqGIyXQ',
+            _render: 'json',
+            resource: ${book},
+            appkey: '1NFRP7K42SQ7A1E1W982'
+          }
+      </div>
+
+      <div property="argot:adddata">
+        for (var i = 0; i != context.data.count; i++) {
+	        var item = context.data.value.items[i];
+
+          document.meta.store.add(
+          	"",
+            "${book}",
+            "http://purl.org/dc/elements/1.1/title",
+            {
+              content: item.ItemAttributes.Title,
+              datatype: "http://www.w3.org/1999/02/22-rdf-syntax-ns"
+            },
+            true
+          );
+
+          document.meta.store.add(
+          	"",
+          	"${book}",
+            "http://xmlns.com/foaf/0.1/depiction",
+            item.ImageSets.ImageSet.SmallImage.URL,
+            false
+          );
+        }
+      </div>
+
+      <!--
+        Once the data is loaded, run another group of formats.
+      -->
+      <span rel="argot:afterpipesdata">
+        <span typeof="fresnel:Group">
+          <div rev="fresnel:group">
+            <div typeof="fresnel:Format">
+              <span property="fresnel:instanceFormatDomain" datatype="argot:jsparqlSelector">
+                select: [ "title", "depiction" ],
+                where:
+                [
+                  { pattern: [ "${book}", "a",                                     "http://somebig.org/book" ] },
+                  { pattern: [ "${book}", "http://purl.org/dc/elements/1.1/title", "?title"                  ], optional: true },
+                  { pattern: [ "${book}", "http://xmlns.com/foaf/0.1/depiction",   "?depiction"              ], optional: true }
+                ]
+              </span>
+              
+              <div property="argot:yowl">
+                if (${title} == undefined)
+                  ${title} = { content: "" };
+                if (${depiction} == undefined)
+                  ${depiction} = null;
+
+                document.Yowl.notify(
+                  "Found a book",
+                  "Recommended: " + ${title.content},
+                  "Full title and thumbnail retrieved using ISBN number",
+                  "bib",
+                  ${depiction},
+                  true,
+                  0
+                );
+              </div>
+              
+              <span rel="argot:tooltip">
+                <span rel="argot:icon" resource="http://www.amazon.com/favicon.ico"></span>
+                <div property="argot:template" datatype="rdf:XMLLiteral">
+                  <div class='bib-book' style='width: 150px;'>
+                    <span class='bib-title'>${title.content}</span>
+                    <span style='float: right;'><img src='${depiction}' class='foaf-depiction' /></span>
+                  </div>
+                </div>
+              </span>
+            </div>
+          </div>
+        </span>
+        
+      </span>
+    </div>
+
+  </body>
+</html>

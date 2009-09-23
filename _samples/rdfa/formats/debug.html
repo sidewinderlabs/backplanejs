@@ -1,0 +1,166 @@
+<!--
+  // Ubiquity provides a standards-based suite of browser enhancements for
+  // building a new generation of internet-related applications.
+  //
+  // The Ubiquity RDFa module adds RDFa support to the Ubiquity library.
+  //
+  // Copyright (C) 2007-8 Mark Birbeck
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+-->
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:fresnel="http://www.w3.org/2004/09/fresnel#"
+	xmlns:argot="http://argot-hub.googlecode.com/"
+>
+  <head typeof="fresnel:Group">
+		<title>Debugging</title>
+	</head>
+  <body rev="fresnel:group">
+    <!--
+      This works but there's a problem with encoding the markup. We should really
+      be using argot:template.
+    -->
+	  <span typeof="fresnel:Format">
+	    <span property="fresnel:instanceFormatDomain" datatype="argot:jsparqlSelector">
+        select: [ "s" ],
+        where:
+          [
+            { pattern: [ "?s", "?p", "?o" ] }
+          ]
+	    </span>
+
+	    <span property="argot:action">
+	    	var elPanel = document.getElementById("panel");
+	    	var elTree = document.getElementById("tree");
+	    	var elTable = document.getElementById("table");
+	    	var tree, table, ds;
+	    	var rootNode;
+	    	var tmpNode;
+	    	var mode = "tree";
+	    	var subject = ${s}, predicate, object;
+
+				if (!elPanel) {
+					elPanel = document.createElement("div");
+					elPanel.setAttribute("id", "panel");
+					elPanel.setAttribute("style", "padding:0; margin:0; background-color: #30353C; opacity: 0.9; position: fixed; left: 0; bottom: 0; width: 100%;");
+					document.body.appendChild(elPanel);
+				}
+
+				if (!elTable) {
+					elTable = document.createElement("div");
+					elTable.setAttribute("id", "table");
+					elPanel.appendChild(elTable);
+				}
+
+				if (!elTree) {
+					elTree = document.createElement("div");
+					elTree.setAttribute("id", "tree");
+					elPanel.appendChild(elTree);
+				}
+
+
+				if (mode === "table") {
+					if (elTable["table"]) {
+						table = elTable.table;
+					} else {
+						YAHOO.util.Dom.addClass(document.body, "yui-skin-sam");
+						ds = new YAHOO.util.LocalDataSource([ ]);
+						ds.responseType = YAHOO.util.XHRDataSource.TYPE_JSARRAY;
+						ds.responseSchema = {fields:["subject", "predicate", "object"]};
+						table = new YAHOO.widget.DataTable(
+							"table",
+							[
+								{key:"subject", width: 300, sortable:true, resizeable:true},
+								{key:"predicate", width: 300, sortable:true, resizeable:true},
+								{key:"object", sortable:true, resizeable:true}
+							],
+							ds,
+							{scrollable:true, height:"10em"}
+						);
+						elTable.table = table;
+					}
+				}
+
+				if (mode === "tree") {
+					if (elTree["tree"]) {
+						tree = elTree.tree;
+					} else {
+						tree = new YAHOO.widget.TreeView("tree");
+						elTree.tree = tree;
+					}
+
+					//get a reference to the root node; all
+		    	//top level nodes are children of the root node:
+		    	rootNode = tree.getRoot();
+		    	
+		    	//begin adding children
+		    	var tmpNode = new YAHOO.widget.TextNode(subject, tree.getRoot(), false);
+		    	
+		    	//the tree won't show up until you draw (render) it:
+		    	tree.draw();
+		    }
+	      
+	      /*
+	      * For each subject we get all of the triples associated with it.
+	      */
+	      
+	      var properties = document.meta.query2({
+  	      select: [ "p", "o" ],
+  	      where:
+    	      [
+      	      { pattern: [ subject, "?p", "?o" ] }
+    	      ]
+	      });
+	      
+	      /*
+	      * Once again we walk the results, and this time output each triple.
+	      */
+	      
+	      document.meta.walk2(
+  	      properties,
+  	      {
+    	      action: function(obj) {
+		   	      predicate = "&amp;lt;" + ${p} + "&amp;gt;";
+
+    	      	var predAndObj = "&amp;lt;" + ${p} + "&amp;gt; ";
+              if (${o}) {
+                if (${o.content}) {
+                	object = "\"" + ${o.content} + "\"";
+                  if (${o.datatype}) {
+                  	object += "^^" + ${o.datatype};
+                  }
+                } else {
+                	object = "&amp;lt;" + ${o} + "&amp;gt;";
+                	if (${p} === "http://www.w3.org/1999/02/22-rdf-syntax-ns#type") {
+	                	if (${o} === "http://xmlns.com/foaf/0.1/Person") {
+	                		if (mode === "tree") {
+	                			tmpNode.labelStyle = "foaf-person";
+	                		}
+	                	}
+	                }
+                }
+              }
+              if (mode === "tree") {
+	              new YAHOO.widget.TextNode(predicate + " " + object, tmpNode, false);
+	            }
+	            if (mode === "table") {
+	            	table.addRow({ subject: subject, predicate: predicate, object: object });
+	            }
+        	  }
+    	    }
+    	  );
+	    </span>
+	  </span>
+	</body>
+</html>
