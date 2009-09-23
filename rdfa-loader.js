@@ -57,16 +57,6 @@
 		});
 		
 		loader.require( "ubiquity-metascan" );
-
-		loader.onSuccess = function(o) {
-			setTimeout(
-				function() {
-					get_metadata();
-				},
-				500
-			);
-		};
-
 		loader.insert();
 		return;
   }()

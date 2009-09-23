@@ -60,7 +60,7 @@ var baseDefaultPath = pathToModule("ubiquity-loader"),
 			try {
 				loader = new YAHOO.util.YUILoader();
 
-				loader.addModule({ name: "backplane-notify", type: "js",  fullpath: "http://ubiquity-message.googlecode.com/svn/tags/0.5/lib/message-loader.js" });
+				loader.addModule({ name: "backplane-yowl", type: "js",  fullpath: baseDefaultPath + "yowl-loader.js" });
 				loader.addModule({ name: "backplane-core",   type: "js",  fullpath: baseDefaultPath + "core-loader.js" });
 
 				if (mode.target) {
@@ -73,7 +73,32 @@ var baseDefaultPath = pathToModule("ubiquity-loader"),
 					loader.addModule({ name: "backplane-rdfa-unit-test-loader", type: "js",  fullpath: baseDefaultPath + "_unit-tests/rdfa/unit-test-loader.js" });
 					loader.require( "backplane-rdfa-unit-test-loader" );
 				}
-				loader.require( "backplane-notify", "backplane-core", "backplane-rdfa" );
+				loader.require( "backplane-yowl", "backplane-core", "backplane-rdfa" );
+
+				loader.onSuccess = function(o) {
+					setTimeout(
+						function() {
+							get_metadata();
+						},
+						500
+					);
+			    document.Yowl.register(
+			        "backplane",
+			        [ "Status" ],
+			        [ 0 ],
+			        null
+			    );
+			    document.Yowl.notify(
+			        "Status",
+			        "Backplane Library",
+			        "Loading is complete",
+			        "backplane",
+			        null,
+			        true,
+			        "emergency"
+			    );
+				};
+
 			  loader.insert();
 			} catch(e) {
 				setTimeout(waitForYahoo, 50);
