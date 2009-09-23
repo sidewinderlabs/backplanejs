@@ -90,7 +90,7 @@ var baseDefaultPath = pathToModule("ubiquity-loader"),
 			    );
 			    document.Yowl.notify(
 			        "Status",
-			        "Yowl Library",
+			        "Backplane Library",
 			        "Loading is complete",
 			        "backplane",
 			        null,

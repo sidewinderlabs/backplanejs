@@ -60,8 +60,9 @@ var baseDefaultPath = pathToModule("ubiquity-loader"),
 			try {
 				loader = new YAHOO.util.YUILoader();
 
-				loader.addModule({ name: "backplane-yowl", type: "js",  fullpath: baseDefaultPath + "yowl-loader.js" });
 				loader.addModule({ name: "backplane-core",   type: "js",  fullpath: baseDefaultPath + "core-loader.js" });
+				loader.addModule({ name: "backplane-yowl", type: "js",  fullpath: baseDefaultPath + "yowl-loader.js" });
+				loader.addModule({ name: "backplane-smil", type: "js",  fullpath: baseDefaultPath + "smil-loader.js" });
 
 				if (mode.target) {
 					loader.addModule({ name: "backplane-rdfa",  type: "js",  fullpath: baseDefaultPath + "target-loader.js" });

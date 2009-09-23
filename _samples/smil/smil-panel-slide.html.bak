@@ -1,0 +1,106 @@
+<!--
+  // Ubiquity provides a standards-based suite of browser enhancements for
+  // building a new generation of internet-related applications.
+  //
+  // The Ubiquity SMIL module adds SMIL support to the Ubiquity library.
+  //
+  // Copyright (C) 2008 Backplane Ltd.
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+-->
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:smil="http://www.w3.org/2005/SMIL21/BasicAnimation"
+  xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xf="http://www.w3.org/2002/xforms"
+>
+  <head>
+    <title>Scrolling Cases</title>
+  	<script src="http://ubiquity-backplane.googlecode.com/svn/tags/0.2.1/ubiquity-loader.js" type="text/javascript">/**/</script>
+  </head>
+  <body>
+    <p>
+      <strong>Please note that this sample currently only works in Firefox and Internet Explorer.</strong>
+    </p>
+    <span>
+      This sample shows a set of buttons that a user can click in order to slide different panels into view.
+      The first group of buttons will slide directly to the named image:
+    </span>
+
+    <xf:trigger>
+      <xf:label>Snow dunes</xf:label>
+      <xf:action ev:event="DOMActivate">
+        <smil:animate targetElement="innercontainer" attributeName="top" to="-337" dur="0.5" fill="freeze"></smil:animate>
+      </xf:action>
+    </xf:trigger>
+
+    <xf:trigger>
+      <xf:label>London from the Stone Gallery</xf:label>
+      <xf:action ev:event="DOMActivate">
+        <smil:animate targetElement="innercontainer" attributeName="top" to="-674" dur="0.5" fill="freeze"></smil:animate>
+      </xf:action>
+    </xf:trigger>
+
+    <xf:trigger>
+      <xf:label>Forgotten house</xf:label>
+      <xf:action ev:event="DOMActivate">
+        <smil:animate targetElement="innercontainer" attributeName="top" to="-1011" dur="0.5" fill="freeze"></smil:animate>
+      </xf:action>
+    </xf:trigger>
+
+    <hr />
+
+    <span>
+      The second group of buttons will slide up or down by a set amount. Note in this sample there is nothing
+      to stop you sliding off the end:
+    </span>
+    
+    <xf:trigger>
+      <xf:label>Up</xf:label>
+      <xf:action ev:event="DOMActivate">
+        <smil:animate targetElement="innercontainer" attributeName="top" by="-337" dur="0.5" fill="freeze"></smil:animate>
+      </xf:action>
+    </xf:trigger>
+    
+    <xf:trigger>
+      <xf:label>Down</xf:label>
+      <xf:action ev:event="DOMActivate">
+        <smil:animate targetElement="innercontainer" attributeName="top" by="337" dur="0.5" fill="freeze"></smil:animate>
+      </xf:action>
+    </xf:trigger>
+    
+    <hr />
+
+    <div style="height: 337px; overflow: hidden; position: relative;">
+      <div id="innercontainer" style="top: -337px; position: absolute;">
+        <div style="height: 337px; color: red;">
+          You've gone off the bottom!
+        </div>
+        <div>
+          <img src="http://farm3.static.flickr.com/2069/2171984682_541d85e9a3.jpg" />
+        </div>
+        <div>
+          <img src="http://farm1.static.flickr.com/227/455457538_cac4f1066f.jpg" />
+        </div>
+        <div>
+          <img src="http://farm3.static.flickr.com/2298/2115494174_f18e61ef08.jpg" />
+        </div>
+        <div style="height: 337px; color: red;">
+          You've gone off the end!
+        </div>
+      </div>
+    </div>
+    <div>Beautiful images by <a href="http://www.flickr.com/photos/fepigio/">otrocalpe</a></div>
+    <div><a href="http://code.google.com/p/ubiquity-smil/source/browse/trunk/test/smil-panel-slide.html">View source</a></div>
+  </body>
+</html>
