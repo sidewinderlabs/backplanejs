@@ -161,7 +161,7 @@ Performs those loading steps that precede loading with either YUI or the rollup,
     addScript(baseDefaultPath + "xforms/lib/xforms/ie6-css-selectors-fixer.js");
     addScript(baseDefaultPath + "xforms/lib/xforms/set-document-loaded.js");
     //Add the script to determine whether or not to use the rollup.  Once this is ready, the application scripts can be added.
-    addScript("http://ubiquity.googlecode.com/svn/trunk/client-parameters/fragmentParsing.js", 
+    addScript(baseDefaultPath + "uri/fragmentParsing.js", 
       function () {
         //Inspect the URL to see whether the application should be  loaded from the rollup, 
         //  or with the loader.
