@@ -41,33 +41,6 @@ RDFQuery.prototype.ask = function(q) {
   };
 }//ask
 
-
-RDFQuery.prototype.serialiseObject = function(oAction, subject, context) {
-  var obj = this.store.createObject("", subject);
-  var icon = null;
-
-  if (oAction.icon)
-  {
-    var icon = context.document.createElement('img');
-
-    icon.setAttribute("src", oAction.icon);
-    context.appendChild(icon);
-  }//if ( there is an icon for this object definition )
-
-  if (oAction.tooltip)
-  {
-    new YAHOO.widget.Tooltip(
-      "anon" + this.somenum++,
-      {
-        context: icon ? icon : context,
-        text: oAction.tooltip(obj)
-      }
-    );
-  }//if ( there is a tooltip definition )
-
-  return;
-};
-
 RDFQuery.prototype.processObject = function(oAction, obj) {
   var context = obj.user;
 
