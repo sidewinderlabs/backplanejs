@@ -888,13 +888,18 @@ function getPropertyFromVar(obj, m, errors) {
 }
 
 function execFuncWithObj(f, context, name) {
-	var expanded = f.replace(
-		/\$(?:\{|\%7B)(.*?)(?:\}|\%7D)/g,
-		function (m) { return getPropertyFromVar(context.obj, m); }
-	);
+	var expanded;
 
 	try {
-	  eval( expanded );
+		if (typeof f === "string") {
+			expanded = f.replace(
+				/\$(?:\{|\%7B)(.*?)(?:\}|\%7D)/g,
+				function (m) { return getPropertyFromVar(context.obj, m); }
+			);			
+		  eval( expanded );
+		 } else {
+		 	f.call(null, context);
+		 }
 	} catch(e) {
 		throw "Failed to execute '" + name + "' (" + (e.message ? e.message : e.description) + ")";
 	}
@@ -1079,16 +1084,21 @@ function processFresnelSelectors(subj, obj) {
     {
       action: function(classobj)
       {
-				try {
-					q = classobj.q.content.replace(
-						/\$(?:\{|\%7B)(.*?)(?:\}|\%7D)/g,
-						function (m) { return getPropertyFromVar(obj, m); }
-					);
-				} catch(e) {
-				  debugger;
-				}
+      	var r;
 
-        var r = document.meta.query2( eval( "({" + q + "})" ) );
+      	if (typeof classobj.q.content === "string") {
+					try {
+						q = classobj.q.content.replace(
+							/\$(?:\{|\%7B)(.*?)(?:\}|\%7D)/g,
+							function (m) { return getPropertyFromVar(obj, m); }
+						);
+					} catch(e) {
+					}
+
+	        r = document.meta.query2( eval( "({" + q + "})" ) );
+	      } else {
+	        r = document.meta.query2( classobj.q.content );
+	      }
 
         document.meta.walk2(
           r,
@@ -1214,11 +1224,7 @@ function processLibXhFormats(obj, format) {
       context.parentNode.insertBefore(el, context.nextSibling);
 
       if (format.embedInit) {
-				t = format.embedInit.content.replace(
-					/\$(?:\{|\%7B)(.*?)(?:\}|\%7D)/g,
-					function (m) { return getPropertyFromVar(obj, m); }
-				);
-        eval( t );
+        execFuncWithObj(format.embedInit.content, { data: context, obj: obj}, "embedInit");
       }
     }//if ( there is a template to embed )
   }//if ( there is a context )
