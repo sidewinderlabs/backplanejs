@@ -1136,8 +1136,11 @@ function processLibXhFormats(obj, format) {
     var pThis = this;
     eval(
       "var rq = {" +
-        format.pipesdata.content.replace(/[\n\r]/g, "").replace(/\"/g, "'").replace(/\$[\{\%7B]([^\}\%7D]*)[\}\%7D]/g, "obj.$1") +
-        "};"
+				format.pipesdata.content.replace(
+					/\$(?:\{|\%7B)(.*?)(?:\}|\%7D)/g,
+					function (m) { return getPropertyFromVar(obj, m); }
+				) +
+      "};"
     );
 
     var requestId = document.submissionJSON.run(

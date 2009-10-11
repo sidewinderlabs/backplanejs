@@ -68,7 +68,7 @@ document.meta.store.insert(
 				 */
 
 				"http://argot-hub.googlecode.com/pipesdata":
-					'url: "http://www.twitter.com/statuses/user_timeline/" + ${twittername.content} + ".json",' +
+					'url: "http://www.twitter.com/statuses/user_timeline/${twittername}.json",' +
 					'params:' +
 						'{' +
 							'callbackParamName: "callback",' +
