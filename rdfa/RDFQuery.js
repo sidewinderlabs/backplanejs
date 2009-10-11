@@ -151,62 +151,6 @@ RDFQuery.prototype.processObject = function(oAction, obj) {
   return;
 };//processObject()
 
-
-/*
- * Walk the tree and do stuff.
- */
-
-RDFQuery.prototype.walk = function(oAction) {
-    var bRet = true;
-    var obj;
-    var resources = this.store.getGraph( "" ).resources;
-
-    for (var i = 0, len = resources.length; i < len; i++)
-    {
-        var s = resources[i];
-
-        for (var j = 0; j < s.triples.length; j++)
-        {
-            var t = this.store.getGraph( "" ).triples[ s.triples[j] ];
-
-            if (oAction)
-            {
-              if (!oAction.predicate || (t.predicate == oAction.predicate))
-              {
-                if (!oAction.object || (t.object == oAction.object))
-                {
-                  if (oAction.pipesdata)
-                  {
-                    var pThis = this;
-                    var rq = oAction.pipesdata(s);
-
-                    var requestId = document.submissionJSON.run(
-                      rq.url,
-                      rq.params,
-                      { subject: s, context: t.user },
-                      function(data, userData)
-                      {
-                        if (oAction.adddata)
-                          oAction.adddata(rq.url, data, userData.subject);
-
-                        pThis.serialiseObject(oAction, userData.subject, userData.context);
-                        return;
-                      }//callback from Pipes
-                    );
-                  }//if ( we need to retrieve more data )
-                  else
-                  {
-                    this.serialiseObject(oAction, s, t.user);
-                  }
-                }//if ( the predicate and object match )
-              }
-            }//if ( there is a registered action )
-        }//for (each triple)
-    }//for (each subject)
-
-    return bRet;
-};//walk()
-
 RDFQuery.prototype.walk2 = function(sparql, oAction) {
     var bindings = sparql.results.bindings;
 
