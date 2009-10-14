@@ -59,6 +59,11 @@
 				var file = document.fileIOFactory.createFile("test-file.txt");
 
 				Assert.isTrue( file["delete"]()	);
+			},
+
+			testFileRead: function () {
+				var fileReader = document.fileIOFactory.createFileReader('core/testdata.xml');
+				Assert.areEqual('<foo>bar</foo>', fileReader.read(null, null, -1));
 			}
 	  })//new TestCase
 	);
