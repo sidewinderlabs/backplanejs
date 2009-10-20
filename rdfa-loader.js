@@ -43,6 +43,9 @@
 		loader.addModule({ name: "ubiquity-rdfquery",       type: "js",  fullpath: moduleBase + "rdfa/RDFQuery.js",
 		  requires: [ "dom", "container", "ubiquity-rdfstore" ] });
 
+		loader.addModule({ name: "backplane-fresnel",       type: "js",  fullpath: moduleBase + "rdfa/fresnel.js",
+		  requires: [ "ubiquity-rdfquery" ] });
+
 		loader.addModule({ name: "ubiquity-kb",             type: "js",  fullpath: moduleBase + "kb/kb.js" });
 
 		loader.addModule({ name: "yui-datatable-css",				type: "css", fullpath: "http://yui.yahooapis.com/2.7.0/build/datatable/assets/skins/sam/datatable.css" });
@@ -52,6 +55,7 @@
 				"treeview", "datatable", "datasource",
 				"yui-datatable-css",
 				"ubiquity-rdfquery", "ubiquity-rdfstore", "ubiquity-rdfparser",
+				"backplane-fresnel",
 				"ubiquity-kb"
 			]
 		});
