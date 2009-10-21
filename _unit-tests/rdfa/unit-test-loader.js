@@ -24,8 +24,8 @@
 
 		// There is no 'short name' for these two CSS files, so we need to reference them directly.
 		//
-		loader.addModule({ name: "logger-css",      type: "css",  fullpath: "http://yui.yahooapis.com/2.6.0/build/logger/assets/logger.css" });
-		loader.addModule({ name: "test-logger-css", type: "css",  fullpath: "http://yui.yahooapis.com/2.6.0/build/yuitest/assets/testlogger.css" });
+		loader.addModule({ name: "logger-css",      type: "css",  fullpath: "http://yui.yahooapis.com/2.7.0/build/logger/assets/logger.css" });
+		loader.addModule({ name: "test-logger-css", type: "css",  fullpath: "http://yui.yahooapis.com/2.7.0/build/yuitest/assets/testlogger.css" });
 		
 		// Add references to unit test scripts here.
 		//
