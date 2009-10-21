@@ -102,7 +102,8 @@ function get_metadata()
        * Register any formatters.
        */
 
-      var r = document.meta.query2(
+			var loader = new YAHOO.util.YUILoader();
+			var r = document.meta.query2(
         {
           select: [ "formatter" ],
           where:
