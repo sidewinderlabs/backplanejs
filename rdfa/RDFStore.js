@@ -46,7 +46,9 @@ RDFStore.prototype.clear = function() {
 
 	for (name in this.graphs) {
 		this.graphs[ name ].clear();
+		delete this.graphs[ name ];
 	}
+	this.graphs.length = 0;
 	return;
 }//clear
 
