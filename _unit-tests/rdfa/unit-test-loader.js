@@ -37,6 +37,8 @@
 
 		// RDFStore
 		//
+		loader.addModule({ name: "ur-ut-store",   type: "js",  fullpath: moduleBase + "ut-store.js",
+			requires: [ "yuitest", "logger-css", "test-logger-css", "ubiquity-metascan" ] });
 		loader.addModule({ name: "ur-ut-store-insert",   type: "js",  fullpath: moduleBase + "ut-store-insert.js",
 			requires: [ "yuitest", "logger-css", "test-logger-css", "ubiquity-metascan" ] });
 		loader.addModule({ name: "ur-ut-store-named-graph",   type: "js",  fullpath: moduleBase + "ut-store-named-graph.js",
@@ -57,7 +59,7 @@
 		loader.require(
 			"logger",
 			"ur-ut-library-loaded", "ur-ut-store-insert",
-			"ur-ut-store-pipes", "ur-ut-store-named-graph", /* "ur-ut-w3c-ts", */
+			"ur-ut-store", "ur-ut-store-pipes", "ur-ut-store-named-graph", /* "ur-ut-w3c-ts", */
 			"ur-ut-kb",
 			"ur-ut-store-query"
 		);
