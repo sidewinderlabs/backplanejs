@@ -238,8 +238,7 @@ if (0) {
 				}
 				if (mode.unitTest) {
 					loader.addModule({ name: "backplane-core-unit-test-loader", type: "js",  fullpath: baseDefaultPath + "_unit-tests/core/unit-test-loader.js" });
-					loader.addModule({ name: "backplane-rdfa-unit-test-loader", type: "js",  fullpath: baseDefaultPath + "_unit-tests/rdfa/unit-test-loader.js" });
-					loader.require( "backplane-rdfa-unit-test-loader" );
+					loader.require( "backplane-core-unit-test-loader" );
 				}
 				loader.require( "backplane-yowl", "backplane-core", "backplane-rdfa", "backplane-smil" );
 
