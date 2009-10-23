@@ -147,6 +147,76 @@
 		          ]
 		      })["boolean"]
 		    );
+	    },
+
+			testQueryFromRemoteGraph : function () {
+				var that = this;
+
+	      document.meta.store.insert([{
+	      	name: "about-graphs",
+          "$": "http://www.twitter.com/",
+          "http://argot-hub.googlecode.com/matches": "http://www.twitter.com/",
+          "http://argot-hub.googlecode.com/uri": "<http://www.twitter.com/statuses/user_timeline/markbirbeck.json>",
+          "http://argot-hub.googlecode.com/params": {
+            "http://argot-hub.googlecode.com/callbackParamName": "callback",
+            "http://argot-hub.googlecode.com/count": "2"
+          },
+					"http://argot-hub.googlecode.com/adddata": function(context) {
+		        for (var i = 0; i != context.data.length; i++) {
+		          var item = context.data[i];
+		          var uriStatus = "http://www.twitter.com/" + item.user.screen_name + "/statuses/" + item.id; 
+		          var uriPerson = "http://www.twitter.com/" + item.user.screen_name;
+		
+		          var sText = item.text.replace(/img(\@src)?\=([^\s]*)/g, "&lt;img src=\'$2\' /&gt;");
+		          
+		          sText = sText.replace(/tube(\@src)?\=(.*)/g, "&lt;object width=\'425\' height=\'355\'&gt;&lt;param name=\'movie\' value=\'$2\'/&gt;&lt;param name=\'wmode\' value=\'transparent\'/&gt;&lt;embed src=\'$2\' type=\'application/x-shockwave-flash\' wmode=\'transparent\' width=\'425\' height=\'355\'/&gt;&lt;/object&gt;");
+		
+		          document.meta.store.insert([
+		          	{
+			          	name: uriPerson,
+			          	"$": uriStatus,
+				          	"a": "<http://www.twitter.com/status>",
+			          		"http://www.twitter.com/text": sText,
+					        	"http://www.twitter.com/saidby": "<" + uriPerson + ">"
+				        }
+		          ]);
+		
+		          /*
+		           * Add information about who said the status.
+		           */
+		
+		           document.meta.store.insert([
+			           {
+				           name: uriPerson,
+				           "$": uriPerson,
+					           "http://xmlns.com/foaf/0.1/depiction": "<" + item.user.profile_image_url + ">",
+					           "http://xmlns.com/foaf/0.1/name": item.user.name
+			           }
+		           ]);
+		        }
+		      } //adddata()
+	      }]);
+
+	      document.meta.query2(
+		      {
+		        select: [ "s", "text", "person" ],
+		        from: "http://www.twitter.com/markbirbeck",
+		        where:
+		          [
+		            { pattern: [ "?s", "a", "http://www.twitter.com/status" ] },
+		            { pattern: [ "?s", "http://www.twitter.com/text", "?text" ] },
+		            { pattern: [ "?s", "http://www.twitter.com/saidby", "?person" ] }
+		          ]
+		      },
+		      function( r ) {
+						that.resume(
+							function() {
+								Assert.areEqual(2, r.results.bindings.length, "Query failed");
+							}
+						);
+		      }
+	      );
+	      this.wait();
 			}
 	  })//new TestCase
 	);

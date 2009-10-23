@@ -264,9 +264,13 @@ RDFQuery.prototype.query2 = function(q, callback) {
 	    from: "about-graphs",
 	    where:
 	      [
-	        { pattern: [ graphURI, "http://argot-hub.googlecode.com/uri", "?uri" ] },
-	        { pattern: [ graphURI, "http://argot-hub.googlecode.com/params", "?params" ] },
-	        { pattern: [ graphURI, "http://argot-hub.googlecode.com/adddata", "?adddata" ] }
+	        { pattern: [ "?s", "http://argot-hub.googlecode.com/uri", "?uri" ] },
+	        {
+	        	pattern: [ "?s", "http://argot-hub.googlecode.com/matches", "?matches" ],
+	        	filter: function(o) { return graphURI.indexOf(o["matches"].content) === 0; }
+	        },
+	        { pattern: [ "?s", "http://argot-hub.googlecode.com/params", "?params" ] },
+	        { pattern: [ "?s", "http://argot-hub.googlecode.com/adddata", "?adddata" ] }
 	      ]
 	  });
 
@@ -525,7 +529,7 @@ RDFQuery.prototype.mergeGraphs = function(results, graphList) {
 
     /*
      * Now we have to go back through the list of candidate objects and see if any of them failed to get a match. If they
-     * did then we can mark them as having failed, and they won't feature any further operations. Note that if the current
+     * did then we can mark them as having failed, and they won't feature in any further operations. Note that if the current
      * pattern is optional, then it always counts as a match.
      */
 
@@ -533,10 +537,11 @@ RDFQuery.prototype.mergeGraphs = function(results, graphList) {
     {
       var temp = results[k];
 
-      if (temp.matches || graph.pattern.optional)
-        temp.matches = false;
-      else
+      if (!(temp.matches || graph.pattern.optional) || (typeof(graph.pattern.filter) === "function" && !graph.pattern.filter.call(null, temp.values))) {
         temp.failed = true;
+      } else {
+        temp.matches = false;
+      }
     }
   }//for ( each graph )
 
