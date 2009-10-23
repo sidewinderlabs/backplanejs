@@ -137,7 +137,8 @@ RDFQuery.prototype.walk2 = function(sparql, oAction) {
     return;
 };//walk2()
 
-RDFQuery.prototype.query2 = function(q) {
+
+RDFQuery.prototype.rawQuery = function(graphURI, q) {
   var oRet =
     {
       head:
@@ -158,8 +159,7 @@ RDFQuery.prototype.query2 = function(q) {
   var i, j, k, duplicate;
   var uuid = 0;
 
-
-  this.addGraphs(q.from ? q.from : "", q.where, results, graphList);
+  this.addGraphs(graphURI, q.where, results, graphList);
 
   if (graphList.length)
     this.mergeGraphs(results, graphList);
@@ -242,6 +242,63 @@ RDFQuery.prototype.query2 = function(q) {
 	}
 
   return oRet;
+}//rawQuery()
+
+
+RDFQuery.prototype.query2 = function(q, callback) {
+	var oRet;
+  var graphProcessor;
+	var graphURI = q.from ? q.from : "default";
+  var that = this;
+
+	if (graphURI === "default" || graphURI === "about-graphs") {
+		oRet = this.rawQuery(graphURI, q);
+	} else {
+
+		/*
+		 * See if there is any information about how to handle this graph.
+		 */
+
+	  graphProcessor = document.meta.query2({
+	    select: [ "uri", "params", "adddata" ],
+	    from: "about-graphs",
+	    where:
+	      [
+	        { pattern: [ graphURI, "http://argot-hub.googlecode.com/uri", "?uri" ] },
+	        { pattern: [ graphURI, "http://argot-hub.googlecode.com/params", "?params" ] },
+	        { pattern: [ graphURI, "http://argot-hub.googlecode.com/adddata", "?adddata" ] }
+	      ]
+	  });
+
+		if ( !graphProcessor.results.bindings.length ) {
+			oRet = this.rawQuery(graphURI, q);
+		} else {
+	    var requestId = document.submissionJSON.run(
+	      graphProcessor.results.bindings[0].uri,
+	      {
+          callbackParamName: "callback",
+          count: "2"
+        },
+	      null,
+	      function(data, userData)
+	      {
+	        if (graphProcessor.results.bindings[0].adddata) {
+	        	execFuncWithObj(graphProcessor.results.bindings[0].adddata.content, { data: data, obj: userData}, "adddata");
+	        }
+	        if (graphProcessor.results.bindings[0].afterpipesdata) {
+	          processFresnelSelectors(graphProcessor.results.bindings[0].afterpipesdata, userData);
+	        }
+					oRet = that.rawQuery(graphURI, q);
+	        if (typeof(callback) === "function") {
+	        	callback.call(null, oRet);
+	        }
+	        return;
+	      }//callback from Pipes
+	    );
+		}
+	}
+
+  return oRet;
 }//query2()
 
 RDFQuery.prototype.getSingleValue = function(where) {
@@ -288,7 +345,6 @@ RDFQuery.prototype.addGraphs = function(graphURI, where, results, graphList) {
       if (subgraphList.length)
       {
         this.mergeGraphs(subresults, subgraphList);
-        this.mergeResultSets(results, subresults, pattern.optional);
       }
     }
     else if (pattern.pattern)
@@ -494,105 +550,6 @@ RDFQuery.prototype.mergeGraphs = function(results, graphList) {
   return;
 }//mergeGraphs
 
-
-/*
- * Merge two result-sets.
- */
-
-RDFQuery.prototype.mergeResultSets = function(results, subresults, optional) {
-  for (i = 0; i < subresults.length; i++)
-  {
-    var subresult = subresults[i];
-
-    if (!subresult.failed)
-    {
-
-      /*
-       * Now we need to see if we already have an object in our results list to merge with.
-       *
-       * Note that first time through we always push onto the stack, since the first result
-       * 'always matches'.
-       */
-  
-      if (!results.length)
-      {
-        results.push( subresult );
-      }
-      else
-      {
-
-        /*
-         * If this is not the first time through, we need to see if there are any objects already
-         * in the list of results that 'match' our object, and if so, merge the values.
-         */
-
-        for (k = 0; k < results.length; k++)
-        {
-
-          /*
-           * Get the next object, and if it has previously been ruled out by failing a match then
-           * we don't need to process it.
-           */
-
-          var toMerge = results[k];
-          if (toMerge.failed) 
-            continue;
-
-
-          /*
-           * We're now looking to take any properties that are on the object to merge, and add them to any object
-           * we already have that partially matches. The only reason not to do a merge is if there is a variable
-           * that occurs in both objects but the value doesn't match.
-           *
-           * Note that if the two objects have nothing that matches then the match flag will be set to false. This
-           * means that if the current search pattern is not optional, then the existing object will be marked as
-           * failing to match, and be ignored.
-           */
-
-          var merge = true;
-
-          for (var m in subresult.values)
-          {
-            if (subresult.values[m] && toMerge.values[m] && (subresult.values[m] != toMerge.values[m]))
-            {
-              merge = false;
-              break;
-            }
-          }
-  
-          if (merge)
-          {
-            for (m in subresult.values)
-            {
-              if (subresult.values[m])
-                toMerge.values[m] = subresult.values[m];
-            }
-            toMerge.matches = true;
-          }
-        }//for ( each item already found )
-      }//if ( this is the first time through )
-    }//for ( each graph in the results set )
-
-
-    /*
-     * Now we have to go back through the list of candidate objects and see if any of them failed to get a match. If they
-     * did then we can mark them as having failed, and they won't feature any further operations. Note that if the current
-     * pattern is optional, then it always counts as a match.
-     */
-
-    for (k = 0; k < results.length; k++)
-    {
-      var temp = results[k];
-
-      if (temp.matches || optional)
-        temp.matches = false;
-      else
-        temp.failed = true;
-    }
-  }//for ( each graph )
-
-  return results;
-}//mergeResultSets
 
 function getPropertyFromVar(obj, m, errors) {
 	var sRet;
