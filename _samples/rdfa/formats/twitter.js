@@ -27,6 +27,24 @@ document.meta.store.insert(
 			      false,
 			      0
 		      );
+
+		      /*
+		       * Add some tweets, for testing.
+		       */
+
+					document.meta.store.insert([{
+		      	name: "http://twitter.com/markbirbeck",
+            "$": "<http://www.twitter.com/markbirbeck/statuses/test1>",
+            	"a": "<http://www.twitter.com/status>",
+            	"http://www.twitter.com/text": "Hello, world!",
+							"http://www.twitter.com/saidby": "<http://twitter.com/markbirbeck>"
+					}]);
+					document.meta.store.insert([{
+						name: "http://twitter.com/markbirbeck",
+						"$": "<http://twitter.com/markbirbeck>",
+						"http://xmlns.com/foaf/0.1/depiction": "<>",
+						"http://xmlns.com/foaf/0.1/name": "Mark Birbeck"
+					}]);
 		    },
 
 				/*

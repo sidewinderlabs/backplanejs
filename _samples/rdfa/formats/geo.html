@@ -22,6 +22,7 @@
 >
   <head typeof="fresnel:Group">
 		<title>Geo formats</title>
+  	<link rel="stylesheet" href="geo.css" />
   </head>
   <body rev="fresnel:group">
     <div property="argot:constructor">
@@ -35,11 +36,10 @@
 
     <span typeof="fresnel:Format">
       <span property="fresnel:instanceFormatDomain" datatype="argot:jsparqlSelector">
-      	select: [ "s", "location", "ident", "apikey" ],
+      	select: [ "s", "location", "apikey" ],
       	where:
       	[
 	      	{ pattern: [ "?s", "http://purl.org/dc/terms/coverage", "?location" ], setUserData: true },
-	      	{ pattern: [ "?s", "http://purl.org/dc/terms/identifier", "?ident" ] },
 	      	{ pattern: [ "?doc", "http://argot-hub.googlecode.com/googleapikey", "?apikey" ] }
       	]
       </span>
@@ -93,17 +93,6 @@
       	document.meta.store.add(
       	"${s}",
       	"${s}",
-      	"http://purl.org/dc/terms/identifier",
-      	{
-      	content: "${ident}",
-      	datatype: ""
-      	},
-      	true
-      	);
-      	
-      	document.meta.store.add(
-      	"${s}",
-      	"${s}",
       	"http://www.w3.org/2003/01/geo/wgs84_pos#long",
       	{
       	content: context.data.Placemark[0].Point.coordinates[0],
@@ -147,14 +136,12 @@
             -->
             <div typeof="fresnel:Format">
               <span property="fresnel:instanceFormatDomain" datatype="argot:jsparqlSelector">
-              	select: [ "ident", "long", "lat", "label" ],
+              	select: [ "long", "lat", "label" ],
               	from: "${s}",
               	where:
               	[
-	              	{ pattern: [ "?s", "http://purl.org/dc/terms/identifier", "?ident" ] },
 	              	{ pattern: [ "?s", "http://purl.org/dc/terms/coverage", "?location" ], setUserData: true },
-	              	{ pattern: [ "?s", "http://www.w3.org/2003/01/geo/wgs84_pos#long", "?long" ] },
-	              	{ pattern: [ "?s", "http://www.w3.org/2003/01/geo/wgs84_pos#lat", "?lat" ] },
+	              	{ pattern: [ "?s", "a", "http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing" ] },
 	              	{ pattern: [ "?s", "http://www.w3.org/2000/01/rdf-schema#label", "?label" ] }
               	]
               </span>
@@ -370,10 +357,10 @@
         select: [ "long", "lat", "title" ],
         where:
         [
-          { pattern: [ "?s", "a", "http://www.w3.org/2003/01/geo/wgs84_pos#Point" ], setUserData: true },
-          { pattern: [ "?s", "http://www.w3.org/2003/01/geo/wgs84_pos#long",  "?long" ] },
-          { pattern: [ "?s", "http://www.w3.org/2003/01/geo/wgs84_pos#lat",   "?lat" ] },
-          { pattern: [ "?s", "http://purl.org/dc/terms/title", "?title" ], optional: true }
+	        { pattern: [ "?s", "http://www.w3.org/2006/vcard/ns#geo", "?b" ], setUserData: true },
+          { pattern: [ "?b", "http://www.w3.org/2003/01/geo/wgs84_pos#long",  "?long" ] },
+          { pattern: [ "?b", "http://www.w3.org/2003/01/geo/wgs84_pos#lat",   "?lat" ] },
+          { pattern: [ "?b", "http://purl.org/dc/terms/title", "?title" ], optional: true }
         ]
       </span>
 
@@ -386,17 +373,17 @@
         </div>
         <div property="argot:init">
           if (GBrowserIsCompatible()) {
-            var latlng = new GLatLng(${lat.content}, ${long.content});
+            var latlng = new GLatLng(${lat}, ${long});
             var globalMap =  document.getElementById( "generalmap" );
             var map;
             var opts = { };
             var marker;
 
-            if ( ${title} ) {
-              opts["title"] = ${title.content};
+            if ( "${title}" ) {
+              opts["title"] = "${title}";
             }
             marker = new GMarker(latlng, opts);
-            marker.bindInfoWindowHtml( ${user}.innerHTML );
+            marker.bindInfoWindowHtml( context.data.innerHTML );
 
             if ( globalMap ) {
               if ( globalMap.map === undefined ) {

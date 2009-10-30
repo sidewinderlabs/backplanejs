@@ -86,29 +86,55 @@
 
       <span property="fresnel:resourceStyle" datatype="fresnel:styleClass">foaf-person</span>
     </span>
-
+  	
+  	<span typeof="fresnel:Format">
+  		<span property="fresnel:instanceFormatDomain" datatype="argot:jsparqlSelector">
+  			select: [ "org" ],
+  			where:
+  			[
+  			{ pattern: [ "?org", "a", "http://xmlns.com/foaf/0.1/Organization" ], setUserData: true }
+  			]
+  		</span>
+  		
+  		<span property="fresnel:resourceStyle" datatype="fresnel:styleClass">foaf-org</span>
+  	</span>
+  	
     <span typeof="fresnel:Format">
       <span property="fresnel:instanceFormatDomain" datatype="argot:jsparqlSelector">
-        select: [ "name", "mbox", "depiction" ],
+        select: [ "name", "mbox", "depiction", "company", "street", "locality", "zip" ],
         where:
         [
-          { pattern: [ "?person", "a",                              "http://xmlns.com/foaf/0.1/Person" ] },
-          { pattern: [ "?person", "http://xmlns.com/foaf/0.1/name", "?name"                            ], setUserData: true },
+	        { pattern: [ "?slot",   "a",                              "http://argot-hub.googlecode.com/meta" ], setUserData: true },
+        	{ pattern: [ "?person", "a",                              "http://xmlns.com/foaf/0.1/Person" ] },
+          { pattern: [ "?person", "http://xmlns.com/foaf/0.1/name", "?name"                            ] },
           
           /*
           * Add any additional properties that we need.
           */
-          
-          { pattern: [ "?person",  "http://xmlns.com/foaf/0.1/mbox",      "?mbox"      ], optional: true },
-          { pattern: [ "?person",  "http://xmlns.com/foaf/0.1/depiction", "?depiction" ], optional: true }
-        ]
+
+          { pattern: [ "?person", "http://xmlns.com/foaf/0.1/mbox", "?mbox"      ], optional: true },
+          { pattern: [ "?person", "http://xmlns.com/foaf/0.1/img",  "?depiction" ], optional: true },
+
+					{
+						where:
+						[
+		          { pattern: [ "?person", "http://xmlns.com/foaf/0.1/workplaceHomepage", "?wphp" ] },
+		          { pattern: [ "?org",    "http://xmlns.com/foaf/0.1/homepage",          "?wphp" ] },
+		          { pattern: [ "?org",    "http://xmlns.com/foaf/0.1/name",              "?company" ], optional: true },
+		          { pattern: [ "?org",    "http://www.w3.org/2006/vcard/ns#street-address", "?street" ], optional: true },
+		          { pattern: [ "?org",    "http://www.w3.org/2006/vcard/ns#locality", "?locality" ], optional: true },
+		          { pattern: [ "?org",    "http://www.w3.org/2006/vcard/ns#postal-code", "?zip" ], optional: true }
+		        ],
+			      optional: true
+			    }
+         ]
       </span>
 
       <span property="argot:yowl">
         document.Yowl.notify(
           "Found a person",
           ${name.content},
-          ${name.content},
+          ${company.content} + ", " + ${locality.content},
           "foaf",
           ${depiction},
           true,
@@ -116,12 +142,14 @@
         );
       </span>
 
-      <div rel="argot:tooltip">
+      <div rel="argot:embed">
         <span rel="argot:icon" resource="hcard.png"></span>
         <div property="argot:template" datatype="rdf:XMLLiteral">
-          <div class="tooltip-foaf-person" style="width: 150px;">
-            <span class="foaf-name">${name.content}</span>
-          </div>
+        	<div class="entry">
+        		<img src="${depiction}" class="person-depiction" />
+	          <span class="name">${name}</span>
+        		<span class="company">${company}</span>
+        	</div>
         </div>
       </div>
     </span>
@@ -153,5 +181,10 @@
       <span rel="fresnel:propertyFormatDomain" resource="http://xmlns.com/foaf/0.1/name"></span>
       <span property="fresnel:resourceStyle" datatype="fresnel:styleClass">foaf-name</span>
     </span>    
-	</body>
+  	
+  	<span typeof="fresnel:Format">
+  		<span rel="fresnel:propertyFormatDomain" resource="http://www.w3.org/2006/vcard/ns#workTel"></span>
+  		<span property="fresnel:resourceStyle" datatype="fresnel:styleClass">foaf-name</span>
+  	</span>    
+  </body>
 </html>

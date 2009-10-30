@@ -37,6 +37,15 @@
         [ "Found a Twitter account", "Twittered" ],
         "http://twitter.com/favicon.ico"
       );
+      document.Yowl.notify(
+      "Found a Twitter account",
+      "Loaded Twitter formatter",
+      "Done",
+      "twitter",
+      null,
+      false,
+      0
+      );
     </div>
 
     <span typeof="fresnel:Format">
@@ -44,8 +53,8 @@
         select: [ "twittername" ],
         where:
           [
-            { pattern: [ "?account", "http://xmlns.com/foaf/0.1/accountServiceHomepage", "http://www.twitter.com/" ] },
-            { pattern: [ "?account", "http://xmlns.com/foaf/0.1/accountName",            "?twittername"            ] }
+          	{ pattern: [ "?account", "http://xmlns.com/foaf/0.1/accountServiceHomepage", "http://www.twitter.com/" ] },
+          	{ pattern: [ "?account", "http://xmlns.com/foaf/0.1/accountName",            "?twittername"            ], setUserData: true }
           ]
       </span>
 
@@ -76,62 +85,34 @@
         for (var i = 0; i != context.data.length; i++) {
           var item = context.data[i];
           var uriStatus = "http://twitter.com/" + item.user.screen_name + "/statuses/" + item.id; 
-          var uriPerson = "http://twitter.com/" + item.user.screen_name; 
-
-          /*
-           * Add the status entry.
-           */
-
-          document.meta.store.add(
-          	uriPerson,
-            uriStatus,
-            "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-            "http://www.twitter.com/status",
-            false
-          );
+          var uriPerson = "http://twitter.com/" + item.user.screen_name;
 
           var sText = item.text.replace(/img(\@src)?\=([^\s]*)/g, "&lt;img src=\'$2\' /&gt;");
           
           sText = sText.replace(/tube(\@src)?\=(.*)/g, "&lt;object width=\'425\' height=\'355\'&gt;&lt;param name=\'movie\' value=\'$2\'/&gt;&lt;param name=\'wmode\' value=\'transparent\'/&gt;&lt;embed src=\'$2\' type=\'application/x-shockwave-flash\' wmode=\'transparent\' width=\'425\' height=\'355\'/&gt;&lt;/object&gt;");
 
-          document.meta.store.add(
-          	uriPerson,
-            uriStatus,
-            "http://www.twitter.com/text",
-            {
-              content: sText,
-              datatype: "http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral"
-            },
-            true
-          );
-
-          document.meta.store.add(
-          	uriPerson,
-          	uriStatus,
-            "http://www.twitter.com/saidby",
-            uriPerson,
-            false
-          );
+          document.meta.store.insert([
+          	{
+	          	name: uriPerson,
+	          	"$": uriStatus,
+		          	"a": "&lt;http://www.twitter.com/status&gt;",
+	          		"http://www.twitter.com/text": sText,
+			        	"http://www.twitter.com/saidby": "&lt;" + uriPerson + "&gt;"
+		        }
+          ]);
 
           /*
            * Add information about who said the status.
            */
 
-          document.meta.store.add(
-          	uriPerson,
-          	uriPerson,
-            "http://xmlns.com/foaf/0.1/depiction",
-            item.user.profile_image_url,
-            false
-          );
-          
-          document.meta.store.add(
-          	uriPerson,
-          	uriPerson,
-            "http://xmlns.com/foaf/0.1/name",
-            item.user.name,
-            false
-          );
+           document.meta.store.insert([
+	           {
+		           name: uriPerson,
+		           "$": uriPerson,
+			           "http://xmlns.com/foaf/0.1/depiction": "&lt;" + item.user.profile_image_url + "&gt;",
+			           "http://xmlns.com/foaf/0.1/name": item.user.name
+	           }
+           ]);
         }
       </div>
       
@@ -147,7 +128,7 @@
                 from: "http://twitter.com/${twittername}",
                 where:
                 [
-                  { pattern: [ "?s",         "a",                                   "http://www.twitter.com/status" ] },
+                	{ pattern: [ "?s",         "a",                                   "http://www.twitter.com/status" ] },
                   { pattern: [ "?s",         "http://www.twitter.com/text",         "?tweet" ] },
                   { pattern: [ "?s",         "http://www.twitter.com/saidby",       "?twitterer" ] },
                   { pattern: [ "?twitterer", "http://xmlns.com/foaf/0.1/name",      "?name" ] },
@@ -161,7 +142,7 @@
                 
                 document.Yowl.notify(
                   "Twittered",
-                  ${name} + " said:",
+                  ${name.content} + " said:",
                   ${tweet.content},
                   "twitter",
                   ${depiction},
@@ -170,12 +151,12 @@
                 );
               </div>
               
-              <span rel="argot:tooltip">
+              <span rel="argot:embed">
                 <span rel="argot:icon" resource="http://twitter.com/favicon.ico"></span>
                 <div property="argot:template" datatype="rdf:XMLLiteral">
-                  <div class='tooltip-twitter-person' style="width: 150px;">
-                    <span class='foaf-name'>${name.content}</span>
-                    <span style='float: right;'><img src='${depiction}' class='foaf-depiction' /></span>
+                  <div class="tooltip-twitter-person" style="width: 150px;">
+                    <span class="foaf-name">${tweet}</span>
+                    <span style="float: right;"><img src="${depiction}" class="foaf-depiction" /></span>
                   </div>
                 </div>
               </span>

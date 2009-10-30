@@ -1,0 +1,8 @@
+<catalog name="Euro Championships">
+  <group name="2008 - Austria &amp; Switzerland" href="2008.xml" />
+  <group name="2004 - Portugal" href="2004.xml" />
+  <group name="2000 - Belgium &amp; Netherlands" href="2000.xml" />
+  <group name="1996 - England" href="1996.xml" />
+  <group name="1992 - Sweden" href="1992.xml" />
+  <group name="1988 - Germany" href="1988.xml" />
+</catalog>

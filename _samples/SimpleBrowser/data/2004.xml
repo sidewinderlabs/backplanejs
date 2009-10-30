@@ -1,0 +1,7 @@
+<group name="2004 - Portugal">
+  <item name="Winner: Greece" />
+  <group name="Group A" href="2004-A.xml" />
+  <group name="Group B" href="2004-B.xml" />
+  <group name="Group C" href="2004-C.xml" />
+  <group name="Group D" href="2004-D.xml" />
+</group>

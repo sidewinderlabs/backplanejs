@@ -1,0 +1,7 @@
+<group name="1996 - England">
+  <item name="Winner: Germany" />
+  <group name="Group A" href="1996-A.xml" />
+  <group name="Group B" href="1996-B.xml" />
+  <group name="Group C" href="1996-C.xml" />
+  <group name="Group D" href="1996-D.xml" />
+</group>

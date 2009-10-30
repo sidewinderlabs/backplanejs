@@ -1,0 +1,5 @@
+<group name="1992 - Sweden">
+  <item name="Winner: Denmark" />
+  <group name="Group A" href="1992-A.xml" />
+  <group name="Group B" href="1992-B.xml" />
+</group>

@@ -37,7 +37,12 @@
   background-color : purple;
 }
 
-.foaf-person
+.foaf-personx
+{
+  background-color : gray;
+}
+
+.foaf-orgx
 {
   background-color : gray;
 }
@@ -56,7 +61,7 @@
   border : 1px solid red;
 }
 
-.foaf-knows
+.foaf-knowsx
 {
   border : 1px solid orange;
 }
