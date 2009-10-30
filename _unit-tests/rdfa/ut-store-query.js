@@ -6,7 +6,7 @@
 
 	suite.add(
 	  new YAHOO.tool.TestCase({
-	    name: "Test getSingleValue()",
+	    name: "Test querying a store",
 
 	    setUp : function () {
 	    	document.meta.store.clear();
@@ -52,8 +52,123 @@
 						]
 					)
 				);
-	    }
+	    },
 
+			// Test filter.
+	    //
+	    testFilter : function () {
+	      document.meta.store.insert([{
+	      	name: "filter-test-graph-1",
+          "$": "http://argot-hub.googlecode.com/filter-test",
+	          "http://argot-hub.googlecode.com/predicate": "Mark Birbeck"
+	      }]);
+
+	      Assert.isTrue(
+		      document.meta.ask({
+		        select: [ "name" ],
+		      	from: "filter-test-graph-1",
+		        where:
+		          [
+		            {
+		            	pattern: [ "http://argot-hub.googlecode.com/filter-test", "http://argot-hub.googlecode.com/predicate", "?name" ],
+		            	filter: function() { return true; }
+		            }
+		          ]
+		      })["boolean"]
+		    );
+
+	      Assert.isFalse(
+		      document.meta.ask({
+		        select: [ "name" ],
+		      	from: "filter-test-graph-1",
+		        where:
+		          [
+		            {
+		            	pattern: [ "http://argot-hub.googlecode.com/filter-test", "http://argot-hub.googlecode.com/predicate", "?name" ],
+		            	filter: function() { return false; }
+		            }
+		          ]
+		      })["boolean"]
+		    );
+	    },
+
+	    testFilterUsingObjectOneProperty : function () {
+	      document.meta.store.insert([{
+	      	name: "filter-test-graph-2",
+          "$": "http://argot-hub.googlecode.com/filter-test",
+	          "http://argot-hub.googlecode.com/predicate": "Mark Birbeck"
+	      }]);
+
+	      Assert.isTrue(
+		      document.meta.ask({
+		        select: [ "name" ],
+		      	from: "filter-test-graph-2",
+		        where:
+		          [
+		            {
+		            	pattern: [ "http://argot-hub.googlecode.com/filter-test", "http://argot-hub.googlecode.com/predicate", "?name" ],
+		            	filter: function(o) { return o["name"].content === "Mark Birbeck"; }
+		            }
+		          ]
+		      })["boolean"]
+		    );
+
+	      Assert.isFalse(
+		      document.meta.ask({
+		        select: [ "name" ],
+		      	from: "filter-test-graph-2",
+		        where:
+		          [
+		            {
+		            	pattern: [ "http://argot-hub.googlecode.com/filter-test", "http://argot-hub.googlecode.com/predicate", "?name" ],
+		            	filter: function(o) { return o["name"].content !== "Mark Birbeck"; }
+		            }
+		          ]
+		      })["boolean"]
+		    );
+	    },
+
+	    testFilterUsingObjectTwoProperties : function () {
+	      document.meta.store.insert([{
+	      	name: "filter-test-graph-3",
+          "$": "http://argot-hub.googlecode.com/filter-test",
+	          "http://argot-hub.googlecode.com/predicate": "Mark Birbeck",
+	          "http://argot-hub.googlecode.com/predicate1": "3",
+	          "http://argot-hub.googlecode.com/predicate2": "4"
+	      }]);
+
+	      Assert.isTrue(
+		      document.meta.ask({
+		        select: [ "name" ],
+		      	from: "filter-test-graph-3",
+		        where:
+		          [
+		            { pattern: [ "http://argot-hub.googlecode.com/filter-test", "http://argot-hub.googlecode.com/predicate", "?name" ] },
+		            { pattern: [ "http://argot-hub.googlecode.com/filter-test", "http://argot-hub.googlecode.com/predicate1", "?p1" ] },
+		            {
+		            	pattern: [ "http://argot-hub.googlecode.com/filter-test", "http://argot-hub.googlecode.com/predicate2", "?p2" ],
+		            	filter: function(o) { return Number(o["p1"].content) < Number(o["p2"].content); }
+		            }
+		          ]
+		      })["boolean"]
+		    );
+
+	      Assert.isFalse(
+		      document.meta.ask({
+		        select: [ "name" ],
+		      	from: "filter-test-graph-3",
+		        where:
+		          [
+		            { pattern: [ "http://argot-hub.googlecode.com/filter-test", "http://argot-hub.googlecode.com/predicate", "?name" ] },
+		            { pattern: [ "http://argot-hub.googlecode.com/filter-test", "http://argot-hub.googlecode.com/predicate1", "?p1" ] },
+		            {
+		            	pattern: [ "http://argot-hub.googlecode.com/filter-test", "http://argot-hub.googlecode.com/predicate2", "?p2" ],
+		            	filter: function(o) { return 7 !== Number(o["p1"].content) + Number(o["p2"].content); }
+		            }
+		          ]
+		      })["boolean"]
+		    );
+	    }
 	  })//new TestCase
 	);
 

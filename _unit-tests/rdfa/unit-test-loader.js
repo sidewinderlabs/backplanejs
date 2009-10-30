@@ -24,8 +24,8 @@
 
 		// There is no 'short name' for these two CSS files, so we need to reference them directly.
 		//
-		loader.addModule({ name: "logger-css",      type: "css",  fullpath: "http://yui.yahooapis.com/2.6.0/build/logger/assets/logger.css" });
-		loader.addModule({ name: "test-logger-css", type: "css",  fullpath: "http://yui.yahooapis.com/2.6.0/build/yuitest/assets/testlogger.css" });
+		loader.addModule({ name: "logger-css",      type: "css",  fullpath: "http://yui.yahooapis.com/2.7.0/build/logger/assets/logger.css" });
+		loader.addModule({ name: "test-logger-css", type: "css",  fullpath: "http://yui.yahooapis.com/2.7.0/build/yuitest/assets/testlogger.css" });
 		
 		// Add references to unit test scripts here.
 		//
@@ -37,6 +37,8 @@
 
 		// RDFStore
 		//
+		loader.addModule({ name: "ur-ut-store",   type: "js",  fullpath: moduleBase + "ut-store.js",
+			requires: [ "yuitest", "logger-css", "test-logger-css", "ubiquity-metascan" ] });
 		loader.addModule({ name: "ur-ut-store-insert",   type: "js",  fullpath: moduleBase + "ut-store-insert.js",
 			requires: [ "yuitest", "logger-css", "test-logger-css", "ubiquity-metascan" ] });
 		loader.addModule({ name: "ur-ut-store-named-graph",   type: "js",  fullpath: moduleBase + "ut-store-named-graph.js",
@@ -57,7 +59,7 @@
 		loader.require(
 			"logger",
 			"ur-ut-library-loaded", "ur-ut-store-insert",
-			"ur-ut-store-pipes", "ur-ut-store-named-graph", /* "ur-ut-w3c-ts", */
+			"ur-ut-store", "ur-ut-store-pipes", "ur-ut-store-named-graph", /* "ur-ut-w3c-ts", */
 			"ur-ut-kb",
 			"ur-ut-store-query"
 		);

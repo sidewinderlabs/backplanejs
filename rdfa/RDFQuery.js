@@ -29,7 +29,7 @@ function RDFQuery(store) {
 }//RDFQuery()
 
 
-// ASK simply returns a true of false indicator as to whether
+// ASK simply returns a true or false indicator as to whether
 // there is a result set.
 //
 RDFQuery.prototype.ask = function(q) {
@@ -40,33 +40,6 @@ RDFQuery.prototype.ask = function(q) {
     "boolean": Boolean(r.results.bindings.length)
   };
 }//ask
-
-
-RDFQuery.prototype.serialiseObject = function(oAction, subject, context) {
-  var obj = this.store.createObject("", subject);
-  var icon = null;
-
-  if (oAction.icon)
-  {
-    var icon = context.document.createElement('img');
-
-    icon.setAttribute("src", oAction.icon);
-    context.appendChild(icon);
-  }//if ( there is an icon for this object definition )
-
-  if (oAction.tooltip)
-  {
-    new YAHOO.widget.Tooltip(
-      "anon" + this.somenum++,
-      {
-        context: icon ? icon : context,
-        text: oAction.tooltip(obj)
-      }
-    );
-  }//if ( there is a tooltip definition )
-
-  return;
-};
 
 RDFQuery.prototype.processObject = function(oAction, obj) {
   var context = obj.user;
@@ -151,62 +124,6 @@ RDFQuery.prototype.processObject = function(oAction, obj) {
   return;
 };//processObject()
 
-
-/*
- * Walk the tree and do stuff.
- */
-
-RDFQuery.prototype.walk = function(oAction) {
-    var bRet = true;
-    var obj;
-    var resources = this.store.getGraph( "" ).resources;
-
-    for (var i = 0, len = resources.length; i < len; i++)
-    {
-        var s = resources[i];
-
-        for (var j = 0; j < s.triples.length; j++)
-        {
-            var t = this.store.getGraph( "" ).triples[ s.triples[j] ];
-
-            if (oAction)
-            {
-              if (!oAction.predicate || (t.predicate == oAction.predicate))
-              {
-                if (!oAction.object || (t.object == oAction.object))
-                {
-                  if (oAction.pipesdata)
-                  {
-                    var pThis = this;
-                    var rq = oAction.pipesdata(s);
-
-                    var requestId = document.submissionJSON.run(
-                      rq.url,
-                      rq.params,
-                      { subject: s, context: t.user },
-                      function(data, userData)
-                      {
-                        if (oAction.adddata)
-                          oAction.adddata(rq.url, data, userData.subject);
-
-                        pThis.serialiseObject(oAction, userData.subject, userData.context);
-                        return;
-                      }//callback from Pipes
-                    );
-                  }//if ( we need to retrieve more data )
-                  else
-                  {
-                    this.serialiseObject(oAction, s, t.user);
-                  }
-                }//if ( the predicate and object match )
-              }
-            }//if ( there is a registered action )
-        }//for (each triple)
-    }//for (each subject)
-
-    return bRet;
-};//walk()
-
 RDFQuery.prototype.walk2 = function(sparql, oAction) {
     var bindings = sparql.results.bindings;
 
@@ -221,202 +138,7 @@ RDFQuery.prototype.walk2 = function(sparql, oAction) {
 };//walk2()
 
 
-RDFQuery.prototype.query = function(q) {
-  var oRet =
-    {
-      head:
-        {
-          vars: [ ]
-        },
-      results:
-        {
-          ordered: false,
-          distinct: false,
-          bindings: [ ]
-        }
-    };
-
-  var resources = this.store.getGraph( "" ).resources;
-  var triples = this.store.getGraph( "" ).triples;
-
-
-  /*
-   * First collect a set of graphs based on the where clauses.
-   */
-
-  var graphList = [ ];
- 
-  for (var i = 0; i < q.where.length; i++)
-  {
-    var pattern = q.where[i];
-    var graph =
-      {
-        pattern: pattern,
-        triples: [ ]
-      }
-
-    for (var j = 0, len = resources.len(); j < len; j++)
-    {
-        var s = resources[j];
-
-        if (pattern.subject.charAt(0) == "?" || pattern.subject.charAt(0) == "$" || (pattern.subject == s.resource))
-        {
-          for (var k = 0; k < s.triples.length; k++)
-          {
-              var t = triples[ s.triples[k] ];
-  
-              if (
-                (pattern.predicate.charAt(0) == "?" || pattern.predicate.charAt(0) == "$" || (pattern.predicate == t.predicate))
-                &&
-                (!(pattern.objectUri) || pattern.objectUri.charAt(0) == "?" || pattern.objectUri.charAt(0) == "$" || ((pattern.objectUri == t.object) && !t.object_literal_p))
-                &&
-                (!(pattern.objectLiteral) || pattern.objectLiteral.charAt(0) == "?" || pattern.objectLiteral.charAt(0) == "$" || ((pattern.objectLiteral == t.object) && t.object_literal_p))
-              )
-                graph.triples.push( t );
-          }//for ( each of triple tied to this resource )
-        }//if ( the subjects match )
-    }//for ( each resource )
-
-    graphList.push( graph );
-
-  }//for ( each pattern )
-
-
-  /*
-   * We now have a list of result-sets; we need to go through them and merge.
-   */
-
-  var y = [ ];
- 
-  for (i = 0; i < graphList.length; i++)
-  {
-    var graph = graphList[i];
-
-    for (var j = 0; j < graph.triples.length; j++)
-    {
-      var o = this.store.serialiseResult(graph.graphURI, graph.triples[j], graph.pattern);
-
-      /*
-       * First we create an object.
-       */
-
-      var x = [ ];
-
-      for (var k = 0; k < 4; k++)
-      {
-        /*
-         * If there is a named value, then use it as a property.
-         */
-  
-        x[k] = (o.bindings[k].name)
-          ? { name: o.bindings[k].name, value: o.bindings[k].uri || o.bindings[k].literal }
-          : null;
-      }
-
-      /*
-       * Now we need to see if we already have a matching object.
-       *
-       * Note that first time through we always push onto the stack.
-       */
-  
-      if (!i)
-      {
-        var z = { matches: true, failed: false, values: [ ] };
-
-        for (k = 0; k < 4; k++)
-        {
-          if (x[k])
-            z.values[x[k].name] = x[k].value;
-        }
-        y.push( z );
-      }
-      else
-      {
-        for (k = 0; k < y.length; k++)
-        {
-          var toMerge = y[k];
-          if (toMerge.failed)
-            continue;
-
-          var merge = true;
-
-          /*
-           * If there is a full match, then we add the additional properties, if there is no match we can ignore it,
-           * and if there is a partial match, we remove the stored value unless the pattern is optional.
-           */
-
-          for (m = 0; m < 4; m++)
-          {
-            if (x[m] && toMerge.values[x[m].name] && (x[m].value != toMerge.values[x[m].name]))
-            {
-              merge = false;
-              break;
-            }
-          }
-  
-          if (merge)
-          {
-            for (m = 0; m < 4; m++)
-            {
-              if (x[m])
-                toMerge.values[x[m].name] = x[m].value;
-            }
-            toMerge.matches = true;
-          }
-        }//for ( each item already found )
-      }//if ( this is the first time through )
-    }
-
-    /*
-     * Now we have to go back through the list again to see if any objects failed to get a match. If they
-     * did then we remove them.
-     */
-
-    for (k = 0; k < y.length; k++)
-    {
-      var o = y[k];
-
-      if (o.matches || graph.pattern.optional)
-        o.matches = false;
-      else
-        o.failed = true;
-    }
-  }//for ( each graph )
-
-  /*
-   * Finally, find all the good matches.
-   */
-
-  for (i = 0; i < y.length; i++)
-  {
-    var o = y[i];
-    var r = { };
-
-    /*
-     * If we have a good match...
-     */
-
-    if (!o.failed)
-    {
-
-      /*
-       * ... copy all of requested properties.
-       */
-
-      for (var j = 0; j < q.select.length; j++)
-      {
-        var variable = q.select[j].substring(1);
-
-        r[variable] = o.values[variable];
-      }
-      r.context = o.values["context"];
-      oRet.results.bindings.push( r );
-    }//if ( the item passed all of where clauses )
-  }//for ( each result )
-  return oRet;
-}//query()
-
-RDFQuery.prototype.query2 = function(q) {
+RDFQuery.prototype.rawQuery = function(graphURI, q) {
   var oRet =
     {
       head:
@@ -437,8 +159,7 @@ RDFQuery.prototype.query2 = function(q) {
   var i, j, k, duplicate;
   var uuid = 0;
 
-
-  this.addGraphs(q.from ? q.from : "", q.where, results, graphList);
+  this.addGraphs(graphURI, q.where, results, graphList);
 
   if (graphList.length)
     this.mergeGraphs(results, graphList);
@@ -521,6 +242,67 @@ RDFQuery.prototype.query2 = function(q) {
 	}
 
   return oRet;
+}//rawQuery()
+
+
+RDFQuery.prototype.query2 = function(q, callback) {
+	var oRet;
+  var graphProcessor;
+	var graphURI = q.from ? q.from : "default";
+  var that = this;
+
+	if (graphURI === "default" || graphURI === "about-graphs") {
+		oRet = this.rawQuery(graphURI, q);
+	} else {
+
+		/*
+		 * See if there is any information about how to handle this graph.
+		 */
+
+	  graphProcessor = document.meta.query2({
+	    select: [ "uri", "params", "adddata" ],
+	    from: "about-graphs",
+	    where:
+	      [
+	        { pattern: [ "?s", "http://argot-hub.googlecode.com/uri", "?uri" ] },
+	        {
+	        	pattern: [ "?s", "http://argot-hub.googlecode.com/matches", "?matches" ],
+	        	filter: function(o) { return graphURI.indexOf(o["matches"].content) === 0; }
+	        },
+	        { pattern: [ "?s", "http://argot-hub.googlecode.com/params", "?params" ] },
+	        { pattern: [ "?s", "http://argot-hub.googlecode.com/adddata", "?adddata" ] }
+	      ]
+	  });
+
+		if ( !graphProcessor.results.bindings.length ) {
+			oRet = this.rawQuery(graphURI, q);
+		} else {
+	    var requestId = document.submissionJSON.run(
+	      graphProcessor.results.bindings[0].uri,
+	      {
+          callbackParamName: "callback",
+          count: "2"
+        },
+	      null,
+	      function(data, userData)
+	      {
+	        if (graphProcessor.results.bindings[0].adddata) {
+	        	execFuncWithObj(graphProcessor.results.bindings[0].adddata.content, { data: data, obj: userData}, "adddata");
+	        }
+	        if (graphProcessor.results.bindings[0].afterpipesdata) {
+	          processFresnelSelectors(graphProcessor.results.bindings[0].afterpipesdata, userData);
+	        }
+					oRet = that.rawQuery(graphURI, q);
+	        if (typeof(callback) === "function") {
+	        	callback.call(null, oRet);
+	        }
+	        return;
+	      }//callback from Pipes
+	    );
+		}
+	}
+
+  return oRet;
 }//query2()
 
 RDFQuery.prototype.getSingleValue = function(where) {
@@ -567,7 +349,6 @@ RDFQuery.prototype.addGraphs = function(graphURI, where, results, graphList) {
       if (subgraphList.length)
       {
         this.mergeGraphs(subresults, subgraphList);
-        this.mergeResultSets(results, subresults, pattern.optional);
       }
     }
     else if (pattern.pattern)
@@ -748,7 +529,7 @@ RDFQuery.prototype.mergeGraphs = function(results, graphList) {
 
     /*
      * Now we have to go back through the list of candidate objects and see if any of them failed to get a match. If they
-     * did then we can mark them as having failed, and they won't feature any further operations. Note that if the current
+     * did then we can mark them as having failed, and they won't feature in any further operations. Note that if the current
      * pattern is optional, then it always counts as a match.
      */
 
@@ -756,10 +537,11 @@ RDFQuery.prototype.mergeGraphs = function(results, graphList) {
     {
       var temp = results[k];
 
-      if (temp.matches || graph.pattern.optional)
-        temp.matches = false;
-      else
+      if (!(temp.matches || graph.pattern.optional) || (typeof(graph.pattern.filter) === "function" && !graph.pattern.filter.call(null, temp.values))) {
         temp.failed = true;
+      } else {
+        temp.matches = false;
+      }
     }
   }//for ( each graph )
 
@@ -773,105 +555,6 @@ RDFQuery.prototype.mergeGraphs = function(results, graphList) {
   return;
 }//mergeGraphs
 
-
-/*
- * Merge two result-sets.
- */
-
-RDFQuery.prototype.mergeResultSets = function(results, subresults, optional) {
-  for (i = 0; i < subresults.length; i++)
-  {
-    var subresult = subresults[i];
-
-    if (!subresult.failed)
-    {
-
-      /*
-       * Now we need to see if we already have an object in our results list to merge with.
-       *
-       * Note that first time through we always push onto the stack, since the first result
-       * 'always matches'.
-       */
-  
-      if (!results.length)
-      {
-        results.push( subresult );
-      }
-      else
-      {
-
-        /*
-         * If this is not the first time through, we need to see if there are any objects already
-         * in the list of results that 'match' our object, and if so, merge the values.
-         */
-
-        for (k = 0; k < results.length; k++)
-        {
-
-          /*
-           * Get the next object, and if it has previously been ruled out by failing a match then
-           * we don't need to process it.
-           */
-
-          var toMerge = results[k];
-          if (toMerge.failed) 
-            continue;
-
-
-          /*
-           * We're now looking to take any properties that are on the object to merge, and add them to any object
-           * we already have that partially matches. The only reason not to do a merge is if there is a variable
-           * that occurs in both objects but the value doesn't match.
-           *
-           * Note that if the two objects have nothing that matches then the match flag will be set to false. This
-           * means that if the current search pattern is not optional, then the existing object will be marked as
-           * failing to match, and be ignored.
-           */
-
-          var merge = true;
-
-          for (var m in subresult.values)
-          {
-            if (subresult.values[m] && toMerge.values[m] && (subresult.values[m] != toMerge.values[m]))
-            {
-              merge = false;
-              break;
-            }
-          }
-  
-          if (merge)
-          {
-            for (m in subresult.values)
-            {
-              if (subresult.values[m])
-                toMerge.values[m] = subresult.values[m];
-            }
-            toMerge.matches = true;
-          }
-        }//for ( each item already found )
-      }//if ( this is the first time through )
-    }//for ( each graph in the results set )
-
-
-    /*
-     * Now we have to go back through the list of candidate objects and see if any of them failed to get a match. If they
-     * did then we can mark them as having failed, and they won't feature any further operations. Note that if the current
-     * pattern is optional, then it always counts as a match.
-     */
-
-    for (k = 0; k < results.length; k++)
-    {
-      var temp = results[k];
-
-      if (temp.matches || optional)
-        temp.matches = false;
-      else
-        temp.failed = true;
-    }
-  }//for ( each graph )
-
-  return results;
-}//mergeResultSets
 
 function getPropertyFromVar(obj, m, errors) {
 	var sRet;
@@ -888,388 +571,20 @@ function getPropertyFromVar(obj, m, errors) {
 }
 
 function execFuncWithObj(f, context, name) {
-	var expanded = f.replace(
-		/\$(?:\{|\%7B)(.*?)(?:\}|\%7D)/g,
-		function (m) { return getPropertyFromVar(context.obj, m); }
-	);
+	var expanded;
 
 	try {
-	  eval( expanded );
+		if (typeof f === "string") {
+			expanded = f.replace(
+				/\$(?:\{|\%7B)(.*?)(?:\}|\%7D)/g,
+				function (m) { return getPropertyFromVar(context.obj, m); }
+			);			
+		  eval( expanded );
+		 } else {
+		 	f.call(null, context);
+		 }
 	} catch(e) {
 		throw "Failed to execute '" + name + "' (" + (e.message ? e.message : e.description) + ")";
 	}
 	return;
 }
-
-function processFresnelSelectors(subj, obj) {
-  /*
-   * First find any Fresnel class styles.
-   */
-
-  //var s = (subj) ? subj : "?format";
-  var s = "?format";
-  var g = (subj) ? subj : "?group";
-  var q;
-
-  var classstyles = document.meta.query2({
-    select: [ "t", "cl", "action", "notify", "yowl", "icon", "tooltip", "pipesdata", "adddata", "afterpipesdata" ],
-    where:
-      [
-        { pattern: [ s,         "a",                                                   "http://www.w3.org/2004/09/fresnel#Format" ] },
-        { pattern: [ s,         "http://www.w3.org/2004/09/fresnel#group",             g ] },
-        { pattern: [ g,         "a",                                                   "http://www.w3.org/2004/09/fresnel#Group" ] },
-        { pattern: [ s,         "http://www.w3.org/2004/09/fresnel#classFormatDomain", "?t" ] },
-        { pattern: [ s,         "http://www.w3.org/2004/09/fresnel#resourceStyle",     "?cl" ],      optional: true },
-        { pattern: [ s,         "http://argot-hub.googlecode.com/action",                 "?action" ],  optional: true },
-        { pattern: [ s,         "http://argot-hub.googlecode.com/yowl",                   "?yowl" ],    optional: true },
-        { pattern: [ s,         "http://argot-hub.googlecode.com/notify",                 "?notify" ],    optional: true },
-        {
-          where:
-            [
-              { pattern: [ s,     "http://argot-hub.googlecode.com/tooltip",          "?tt" ] },
-              { pattern: [ "?tt",     "http://argot-hub.googlecode.com/icon",             "?icon" ], optional: true },
-              { pattern: [ "?tt",     "http://argot-hub.googlecode.com/template",         "?tooltip" ] }
-            ],
-          optional: true
-        },
-        {
-          where:
-            [
-              { pattern: [ s, "http://argot-hub.googlecode.com/pipesdata",        "?pipesdata" ] },
-              { pattern: [ s, "http://argot-hub.googlecode.com/adddata",          "?adddata" ] },
-              { pattern: [ s, "http://argot-hub.googlecode.com/afterpipesdata",   "?afterpipesdata" ], optional: true }
-            ],
-          optional: true
-        }
-      ]
-  });
-
-  /*
-   * Now find all elements that have the types indicated, and set the corresponding CSS class.
-   */
-
-  document.meta.walk2(
-    classstyles,
-    {
-      action: function(classobj)
-      {
-        var instances = document.meta.query2(
-          {
-            select: [ "s" ],
-            where:
-              [
-                { pattern: [ "?s", "a", classobj.t ], setUserData: true }
-              ]
-          }
-        );
-
-        document.meta.walk2(
-          instances,
-          {
-            action: function(instobj)
-              {
-                processFresnelFormats(instobj.user, classobj);
-                processLibXhFormats(instobj, classobj);
-              }
-          }
-        );
-      }
-    }
-  );
-
-  /*
-   * Now do the same for properties.
-   */
-
-  classstyles = document.meta.query2({
-    select: [ "p", "cl" ],
-    where:
-      [
-        { pattern: [ s, "a",                                                      "http://www.w3.org/2004/09/fresnel#Format" ] },
-        { pattern: [ s, "http://www.w3.org/2004/09/fresnel#propertyFormatDomain", "?p" ] },
-        { pattern: [ s, "http://www.w3.org/2004/09/fresnel#resourceStyle",        "?cl" ] }
-      ]
-  });
-
-  /*
-   * Now find all elements that have the predicates indicated, and set the corresponding CSS class.
-   */
-
-  document.meta.walk2(
-    classstyles,
-    {
-      action: function(classobj)
-      {
-        var results = document.meta.query2(
-          {
-            select: [ "o" ],
-            where:
-              [
-                { pattern: [ "?s", classobj.p, "?o" ], setUserData: true }
-              ]
-          }
-        );
-
-        document.meta.walk2(
-          results,
-          {
-            action: function(instobj)
-            {
-              processFresnelFormats(instobj.user, classobj);
-            }
-          }
-        );
-      }
-    }
-  );
-
-
-  /*
-   * Now do the same for any SPARQL queries.
-   */
-
-  classstyles = document.meta.query2({
-    select: [ "q", "cl", "action", "notify", "yowl", "embedInit", "embedTemplate", "embedTitle", "icon", "tooltip", "pipesdata", "adddata", "afterpipesdata" ],
-    where:
-      [
-        { pattern: [ s, "a",                                                      "http://www.w3.org/2004/09/fresnel#Format" ] },
-        { pattern: [ s, "http://www.w3.org/2004/09/fresnel#group",                g ] },
-        { pattern: [ g, "a",                                                      "http://www.w3.org/2004/09/fresnel#Group" ] },
-        { pattern: [ s, "http://www.w3.org/2004/09/fresnel#instanceFormatDomain", "?q" ] },
-        { pattern: [ s, "http://www.w3.org/2004/09/fresnel#resourceStyle",        "?cl" ],      optional: true },
-        { pattern: [ s, "http://argot-hub.googlecode.com/action",                    "?action" ],  optional: true },
-        { pattern: [ s, "http://argot-hub.googlecode.com/yowl",                      "?yowl" ],    optional: true },
-        { pattern: [ s, "http://argot-hub.googlecode.com/notify",                    "?notify" ],  optional: true },
-        {
-          where:
-            [
-              { pattern: [ s, "http://argot-hub.googlecode.com/tooltip",             "?tt" ] },
-              { pattern: [ "?tt",     "http://argot-hub.googlecode.com/icon",                "?icon" ], optional: true },
-              { pattern: [ "?tt",     "http://argot-hub.googlecode.com/template",            "?tooltip" ] }
-            ],
-          optional: true
-        },
-        {
-          where:
-            [
-              { pattern: [ s,        "http://argot-hub.googlecode.com/embed",    "?embed" ] },
-              { pattern: [ "?embed", "http://argot-hub.googlecode.com/template", "?embedTemplate" ] },
-              { pattern: [ "?embed", "http://argot-hub.googlecode.com/init",     "?embedInit" ], optional: true }
-            ],
-          optional: true
-        },
-        {
-          where:
-            [
-              { pattern: [ s, "http://argot-hub.googlecode.com/pipesdata",           "?pipesdata" ] },
-              { pattern: [ s, "http://argot-hub.googlecode.com/adddata",             "?adddata" ] },
-              { pattern: [ s, "http://argot-hub.googlecode.com/afterpipesdata",      "?afterpipesdata" ], optional: true }
-            ],
-          optional: true
-        }
-      ]
-  });
-
-  /*
-   * Now run each of the queries returned.
-   */
-
-  document.meta.walk2(
-    classstyles,
-    {
-      action: function(classobj)
-      {
-				try {
-					q = classobj.q.content.replace(
-						/\$(?:\{|\%7B)(.*?)(?:\}|\%7D)/g,
-						function (m) { return getPropertyFromVar(obj, m); }
-					);
-				} catch(e) {
-				  debugger;
-				}
-
-        var r = document.meta.query2( eval( "({" + q + "})" ) );
-
-        document.meta.walk2(
-          r,
-          {
-            action: function(instobj)
-            {
-              processFresnelFormats(instobj.user, classobj);
-              processLibXhFormats(instobj, classobj);
-            }
-          }
-        );
-      }
-    }
-  );
-  return;
-}//processFresnelSelectors
-
-function processFresnelFormats(user, format) {
-  if (format.cl)
-  {
-    YAHOO.util.Dom.addClass(user, format.cl.content);
-  }
-  return;
-}//processFresnelFormats
-
-function processLibXhFormats(obj, format) {
-  var context = obj.user;
-
-  /*
-   * Prioritise getting external data, just in case we need it.
-   */
-
-  if (format.pipesdata)
-  {
-    var pThis = this;
-    eval(
-      "var rq = {" +
-        format.pipesdata.content.replace(/[\n\r]/g, "").replace(/\"/g, "'").replace(/\$[\{\%7B]([^\}\%7D]*)[\}\%7D]/g, "obj.$1") +
-        "};"
-    );
-
-    var requestId = document.submissionJSON.run(
-      rq.url,
-      rq.params,
-      obj,
-      function(data, userData)
-      {
-        if (format.adddata) {
-        	execFuncWithObj(format.adddata.content, { data: data, obj: userData}, "adddata");
-
-					//eval(
-          //  format.adddata.content.replace(/\$(?:\{|\%7B)(.*?)(?:\}|\%7D)/g, "obj.$1")
-          //);
-        }
-        if (format.afterpipesdata) {
-          processFresnelSelectors(format.afterpipesdata, userData);
-        }
-        return;
-      }//callback from Pipes
-    );
-  }//if ( we need to retrieve more data )
-
-
-  if (context)
-  {
-    var icon = null;
-
-    if (format.icon)
-    {
-      icon = context.ownerDocument.createElement('img');
-  
-      icon.setAttribute("src", format.icon);
-      context.appendChild(icon);
-    }//if ( there is an icon for this action definition )
-
-    if (format.tooltip) {
-      var t;
-      try {
-        eval(
-        	"t = '" +
-        	format.tooltip.content.replace(/\n/g, "").replace(/\'/g, "\\\'").replace(
-        		/\$(?:\{|\%7B)(.*?)(?:\}|\%7D)/g,
-        		"' + obj.$1 + '"
-        	) +
-        	"';"
-       	);
-      } catch(e) {
-        t = "error: " + e.description;
-      }
-      if (icon) {
-        new YAHOO.widget.Tooltip(
-          "anon" + this.somenum++,
-          {
-            context: icon,
-            text: t
-            //text: oAction.tooltip(obj)
-          }
-        );
-      } else {
-        var el = context.ownerDocument.createElement('span');
-  
-        el.innerHTML = t;
-        context.appendChild(el);
-      }
-    }//if ( there is a tooltip definition in the format )
-
-    if (format.embedTemplate) {
-			var t;
-			var el = context.ownerDocument.createElement('span');
-
-			try {
-				t = format.embedTemplate.content.replace(
-					/\$(?:\{|\%7B)(.*?)(?:\}|\%7D)/g,
-					function (m) { return getPropertyFromVar(obj, m, true); }
-				);
-			} catch(e) {
-			  t = "error: " + e.description;
-			}
-			el.innerHTML = t;
-
-      // The new node is a sibling of the node that generated the mark-up, not a child.
-      //
-      context.parentNode.insertBefore(el, context.nextSibling);
-
-      if (format.embedInit) {
-				t = format.embedInit.content.replace(
-					/\$(?:\{|\%7B)(.*?)(?:\}|\%7D)/g,
-					function (m) { return getPropertyFromVar(obj, m); }
-				);
-        eval( t );
-      }
-    }//if ( there is a template to embed )
-  }//if ( there is a context )
-
-  if (format.action) {
-  	if (typeof(format.action.content) === "string") {
-	    eval(
-	      format.action.content.replace(/\$(?:\{|\%7B)(.*?)(?:\}|\%7D)/g, "obj.$1")
-	    );
-	  } else if (typeof(format.action.content) === "function") {
-			format.action.content.call(null, obj);
-	  }
-  }
-
-  if (format.yowl) {
-    eval(
-      format.yowl.content.replace(/\$(?:\{|\%7B)(.*?)(?:\}|\%7D)/g, "obj.$1")
-    );
-  }
-
-  if (format.notify) {
-	  r = document.meta.query2({
-	    select: [ "name", "title", "summary" ],
-	    where:
-	      [
-	        { pattern: [ format.notify, "http://argot-hub.googlecode.com/notifyName", "?name" ] },
-	        { pattern: [ format.notify, "http://purl.org/dc/elements/1.1/title", "?title" ] },
-	        { pattern: [ format.notify, "http://purl.org/dc/elements/1.1/summary", "?summary" ] }
-	      ]
-	  });
-
-    document.meta.walk2(
-      r,
-      {
-        action: function(instobj)
-        {
-			    document.Yowl.notify(
-			      instobj.name.content,
-			      instobj.title.content,
-						instobj.summary.content.replace(
-							/\$(?:\{|\%7B)(.*?)(?:\}|\%7D)/g,
-							function (m) { return getPropertyFromVar(obj, m); }
-						),
-			      "chem",
-			      null,
-			      true,
-			      0
-			    );
-        }
-      }
-    );
-  }
-  return;
-}//processLibXhFormats

@@ -54,8 +54,8 @@ function get_metadata()
 		document.meta = new RDFQuery( new RDFStore() );
 		document.Yowl.register(
 			"RDFa Parser",
-			[ "Parsing started", "Parsing complete" ],
-			[ 0, 1 ],
+			[ "Parsing status" ],
+			[ 0 ],
 			null
 		);
 	}
@@ -99,16 +99,11 @@ function get_metadata()
         document.meta.store.loadFormatters("", oParser);
 
       /*
-       * Query for any constructors that have been loaded...
-       */
-
-      var loader = new YAHOO.util.YUILoader();
-
-      /*
        * Register any formatters.
        */
 
-      var r = document.meta.query2(
+			var loader = new YAHOO.util.YUILoader();
+			var r = document.meta.query2(
         {
           select: [ "formatter" ],
           where:
@@ -117,9 +112,12 @@ function get_metadata()
             ]
         }
       );
+      var uriFormatter;
 
       if (r && r.results.bindings[0] && r.results.bindings[0]["formatter"])
       {
+      	uriFormatter = r.results.bindings[0]["formatter"];
+
         loader.addModule({ name: "fresnel-formatter-css", type: "css", fullpath: r.results.bindings[0]["formatter"] + ".css" });
         loader.addModule({ name: "fresnel-formatter", type: "js", fullpath: r.results.bindings[0]["formatter"] + ".js",
           requires: [ "fresnel-formatter-css" ] });
@@ -175,7 +173,9 @@ function get_metadata()
               {
                 try
                 {
-                  eval( false || obj.init.content );
+                	(typeof obj.init.content === "function")
+                		? obj.init.content.call( null )
+                		: eval( false || obj.init.content );
                 }
                 catch(e)
                 {
@@ -186,7 +186,7 @@ function get_metadata()
           );
           if (window.external && window.external.document)
             oParser.parse(window.external.document, getBaseUrl(window.external.document), null);
-          processFresnelSelectors();
+          processFresnelSelectors( uriFormatter );
           return;
         }//onSuccess;
       }//if there are some formatters to load

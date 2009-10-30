@@ -22,10 +22,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>Unit test</title>
+  	<!--  -->
   	<script type="text/javascript">
   		var mode = { unitTest: true };
   	</script>
-  	<script type="text/javascript" src="../ubiquity-loader.js" >/**/</script>
+  	<!--  -->
+  	<script type="text/javascript" src="../../ubiquity-loader.js" >/**/</script>
+  	
+  	<!--
+  		This loads a Fresnel format that will act on the triples.
+  	-->
+  	<link rel="argot:formatter" href="formats/twitter" />
   </head>
 	<body>
 	  Unit tests <a href="javascript:runTheTests();">Run</a>
