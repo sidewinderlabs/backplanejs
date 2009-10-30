@@ -477,7 +477,7 @@ var DECORATOR = function () {
 		//g_bDocumentLoaded = bDocumentAlreadyLoaded;
 	}
 	
-	if (document.all) {
+	if (UX.isIE) {
 		innerSetupDecorator = ieSetupDecorator;
 	} else if (UX.isXHTML) {
 		innerSetupDecorator = ffXHTMLSetupDecorator;

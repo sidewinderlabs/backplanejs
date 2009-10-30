@@ -74,13 +74,22 @@ document.fileIOFactory = document.fileIOFactory || {
 	// Based on java.io.FileReader
 	//
 	createFileReader: function(fileName) {
-		var file, fileReader, objFSO;
+		var file, fileReader, objFSO, url = makeAbsoluteURI(getBaseUrl(), fileName);
 
-		fileName = getLocalPath(
-			makeAbsoluteURI(getBaseUrl(), fileName)
-		);
+		fileName = getLocalPath(url);
 
-		if (navigator.userAgent.toLowerCase().indexOf("gecko") !== -1) {
+		if (navigator.userAgent.toLowerCase().indexOf('webkit') !== -1) {
+			fileReader = {
+				read: function() {
+					var xhr = new XMLHttpRequest();
+					xhr.open('GET', url, false);
+					xhr.send();
+					return xhr.responseText;
+				},
+				close: function() {
+				}
+			};
+		} else if (navigator.userAgent.toLowerCase().indexOf("gecko") !== -1) {
 			netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
 			file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
 

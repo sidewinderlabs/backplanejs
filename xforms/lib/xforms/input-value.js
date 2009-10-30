@@ -88,13 +88,10 @@ XFormsInputValue.prototype.onDocumentReady = function()
 		}
 
 		var pThis = this;
-		if(document.all)
-		{
-			oInput.attachEvent("on" + eventName, function(e){valueChangedIE(pThis,e);});
-		}
-		else
-		{
-			oInput.addEventListener(eventName,function(e){valueChangedFF(pThis,e);},false);
+		if(typeof oInput.addEventListener === 'function') {
+			oInput.addEventListener(eventName, function(e) { valueChangedFF(pThis, e); }, false);
+		} else {
+			oInput.attachEvent("on" + eventName, function(e) {valueChangedIE(pThis, e); });
 		}
 
 			

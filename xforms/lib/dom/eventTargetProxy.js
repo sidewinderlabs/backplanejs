@@ -61,15 +61,15 @@ function dispatchXformsHintOff(elmnt, e) {
 }
 
 function mapclick2domactivate(elmnt, e) {
-
     var oEvt = document.createEvent("UIEvents");
-
     oEvt.initUIEvent("DOMActivate", true, true, null, 1);
-    // There is no need to run this event in line, and doing so may cause a stack overflow,
-    // if it invokes other actions. 
-    // oEvt._actionDepth = -1;
+
+    // HACK: WebKit issues its own DOMActivate that we need to ignore.
+    //       This property enables us to just NOP for that event.
+    oEvt.mappedFromClick = true;
+
     FormsProcessor.dispatchEvent(elmnt, oEvt);
-    //spawn(function(){elmnt.dispatchEvent(oEvt)});
+
     if (UX.isIE && window.event) {
         window.event.cancelBubble = true;
         window.event.returnValue = false;
@@ -570,9 +570,6 @@ if (UX.isIE) {
         this.element = elmnt;
         this.element.addEventListener("click", function(evt) {
             mapclick2domactivate(elmnt, evt);
-        }, false);
-        this.element.addEventListener("dblclick", function(evt) {
-            mapdblclick2domactivate(elmnt, evt);
         }, false);
         this.element.addEventListener("mouseover", function(evt) {
             StyleHoverishly(elmnt);

@@ -58,7 +58,7 @@ var baseDefaultPath = pathToModule("ubiquity-loader-modular");
 (
   function() {
     var arrScripts = [
-      "http://yui.yahooapis.com/2.5.2/build/yuiloader/yuiloader-beta-min.js",
+      "http://yui.yahooapis.com/2.8.0/build/yuiloader/yuiloader-min.js",
       baseDefaultPath + "lib/sniffer.js",
       baseDefaultPath + "lib/xforms/ie-instance-fixer.js",
       baseDefaultPath + "lib/xforms/ie6-css-selectors-fixer.js",

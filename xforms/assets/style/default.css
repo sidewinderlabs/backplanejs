@@ -5,7 +5,7 @@
   // The Ubiquity XForms module adds XForms 1.1 support to the Ubiquity
   // library.
   //
-  // Copyright (C) 2008 Backplane Ltd.
+  // Copyright (C) 2008-2009 Backplane Ltd.
   //
   // Licensed under the Apache License, Version 2.0 (the "License");
   // you may not use this file except in compliance with the License.
@@ -205,7 +205,6 @@ xf|trigger {
     -webkit-border-radius: 1em;
 }
 
-
 xforms\:submit:hover,
 xf\:submit:hover,
 xforms\:trigger:hover,
@@ -286,6 +285,100 @@ xf|submit xf|label,
 xforms|trigger xforms|label,
 xf|trigger xf|label {
     padding: 3px;
+}
+
+xforms\:trigger.appearance-minimal,
+xf\:submit.appearance-minimal,
+xforms\:trigger.appearance-minimal,
+xf\:trigger.appearance-minimal {
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    -moz-border-radius: 0; 
+    -webkit-border-radius: 0;
+}
+
+xforms|submit.appearance-minimal,
+xf|submit.appearance-minimal,
+xforms|trigger.appearance-minimal,
+xf|trigger.appearance-minimal {
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    -moz-border-radius: 0; 
+    -webkit-border-radius: 0;
+}
+
+xforms\:submit.appearance-minimal:hover,
+xf\:submit.appearance-minimal:hover,
+xforms\:trigger.appearance-minimal:hover,
+xf\:trigger.appearance-minimal:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+xforms|submit.appearance-minimal:hover,
+xf|submit.appearance-minimal:hover,
+xforms|trigger.appearance-minimal:hover,
+xf|trigger.appearance-minimal:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+xforms\:submit.appearance-minimal:active,
+xf\:submit.appearance-minimal:active,
+xforms\:trigger.appearance-minimal:active,
+xf\:trigger.appearance-minimal:active {
+    cursor: pointer;
+}
+
+xforms|submit.appearance-minimal:active,
+xf|submit.appearance-minimal:active,
+xforms|trigger.appearance-minimal:active,
+xf|trigger.appearance-minimal:active {
+    cursor: pointer;
+}
+
+xforms\:submit.appearance-minimal:focus xforms\:label,
+xf\:submit.appearance-minimal:focus xf\:label,
+xforms\:trigger.appearance-minimal:focus xforms\:label,
+xf\:trigger.appearance-minimal:focus xf\:label  {  	
+    border: 0;
+}
+
+xforms|submit.appearance-minimal:focus > xforms|label,
+xf|submit.appearance-minimal:focus > xf|label,
+xforms|trigger.appearance-minimal:focus > xforms|label,
+xf|trigger.appearance-minimal:focus > xf|label {  	
+    border: 0;
+}
+
+xforms\:submit.appearance-minimal:active  xforms\:label,
+xf\:submit.appearance-minimal:active  xf\:label,
+xforms\:trigger.appearance-minimal:active  xforms\:label,
+xf\:trigger.appearance-minimal:active  xf\:label {   	
+    border: 0;
+}
+
+xforms|submit.appearance-minimal:active > xforms|label,
+xf|submit.appearance-minimal:active > xf|label,
+xforms|trigger.appearance-minimal:active > xforms|label,
+xf|trigger.appearance-minimal:active > xf|label {   	
+    border: 0;
+}
+
+xforms\:submit.appearance-minimal xforms\:label,
+xf\:submit.appearance-minimal xf\:label,
+xforms\:trigger.appearance-minimal xforms\:label,
+xf\:trigger.appearance-minimal xf\:label {
+    padding: 0;  
+}
+
+xforms|submit.appearance-minimal xforms|label,
+xf|submit.appearance-minimal xf|label,
+xforms|trigger.appearance-minimal xforms|label,
+xf|trigger.appearance-minimal xf|label {
+    padding: 0;
 }
 
 .invalid > xf\:alert, .invalid > xforms\:alert {

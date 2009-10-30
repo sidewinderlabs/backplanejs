@@ -96,22 +96,7 @@ Control.prototype.AddValuePseudoElement = function () {
         // If innerHTML is used in IE, it does not interpret <pe-value
         // /> as an element, and inserts "".
 
-        // Should remove document.all test and rework order to
-        // if(UX.isFF) ... else
-        if (document.all || UX.isWebKit) {
-          this.m_value = document.createElement("pe-value");
-          // insertBefore will be used to insert the new node, so the
-          // referenceNode will be the one after the node we have
-          // already decided to be reference.
-          // In the absence of a label, the value element should be
-          // added as the first child
-          // If there are no children, this will be null,
-          // insertBefore(newNode, null) is identical to appendChild
-          referenceNode = (labelChild) ? 
-            labelChild.nextSibling:
-            this.element.firstChild;
-          this.element.insertBefore(this.m_value, referenceNode);
-        } else {
+        if (UX.isFF) {
           // ReferenceNode for insertAdjacentHTML must exist, but the
           // insertion point varies,
           // insert after a label, or at the beginning of the parent.
@@ -126,6 +111,19 @@ Control.prototype.AddValuePseudoElement = function () {
           this.m_value = (labelChild) ? 
             labelChild.nextSibling:
             this.element.firstChild;
+        } else {
+          this.m_value = document.createElement("pe-value");
+          // insertBefore will be used to insert the new node, so the
+          // referenceNode will be the one after the node we have
+          // already decided to be reference.
+          // In the absence of a label, the value element should be
+          // added as the first child
+          // If there are no children, this will be null,
+          // insertBefore(newNode, null) is identical to appendChild
+          referenceNode = (labelChild) ? 
+            labelChild.nextSibling:
+            this.element.firstChild;
+          this.element.insertBefore(this.m_value, referenceNode);
         }
         window.status = "";
       }

@@ -66,6 +66,11 @@ Listener.prototype.attachListeners = function () {
         // method. 
         // In order to work around this, a proxy function is required.
         thisAsListener = function (evt) {
+          if (UX.isWebKit && evt.type === 'DOMActivate' && !evt.mappedFromClick) {
+            // HACK: WebKit issues its own DOMActivate that we need to ignore.
+            //       This condition ensures that we just NOP for that event.
+            return;
+          }
           oElement.handleEvent(evt);
         };
       }

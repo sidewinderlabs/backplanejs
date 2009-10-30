@@ -6,7 +6,7 @@ function RegisterDocumentLoaded() {
   }
 }
 
-if (document.all) {
+if (UX.isIE) {
   window.attachEvent("onload",RegisterDocumentLoaded);
 }
 else 

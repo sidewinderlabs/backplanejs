@@ -441,28 +441,29 @@ function XLinkElement(element)
 		return sBase;
 	}
 
+	 ///This function has been refactored by erikj54@gmail.com
+	 ///Assumption: This function is passed a valid URL based on the authors
+	 /// 			knowledge of URLS.
+	 ///Return Val:	Returns only whether the passed URL is relative or absolute
+	 ///			as a boolean value and no information regarding the validity of the URL
 	function isRelativePath(sURL)
 	{
 		var bRet = true;
 
 		if (sURL.charAt(0) == "/")
 		{
-			//Signifies a URL relative to the root directory,
-			//	This will still need to be modified, if an ancestor base
-			//	specifies a different root, this requires different handling
-			//	to pure relative URLs.
-			//	Ignoring this case for now, current user story involves only relative bases
+			///Signifies a URL relative to the root directory,
+			///	This will still need to be modified, if an ancestor base
+			///	specifies a different root, this requires different handling
+			///	to pure relative URLs.
+			///	Ignoring this case for now, current user story involves only relative bases
 			bRet = false;	
 		}
 		else
 		{
-			var sScheme = sURL.substr(0, 7);
-
-			if (sScheme == "http://" || sScheme == "file://")
-			{
-				//signifies an absolute URL.  obviously other schemes exist,
-				//	but these are the more common.
-				bRet = false;
+			//Using backplane splitUrl function to check the validity of the URL scheme
+			if ((spliturl( sURL ).scheme)){
+				bRet = false; // valid URI and therefore is not relative but Absolute
 			}
 		} 
 		return bRet;

@@ -139,8 +139,19 @@ var g_sBehaviourDirectory  = "";
   	
   	loader.addModule({ name: "libxh-decorator",            type: "js",  fullpath: moduleBase + "../decorate.js", 
   		requires:["libxh-namespace-manager"]});
+  	
+  ///The XForms loading of external data js files
+  	loader.addModule({ name: "xforms-load-external-mixin", type: "js", fullpath: moduleBase + "LoadExternalMixin.js",
+		   requires: [ "xforms-dom", "xforms-dom2events", "xforms-ajaxslt-improvements", 
+		               "xforms-core-function-library","libxh-xlink" ]});
+  	
+  	loader.addModule({ name: "xforms-instance", type: "js", fullpath: moduleBase + "Instance.js",
+		   requires: [ "xforms-load-external-mixin"]});
+  	
   
     // crypto
+    loader.addModule({ name: "functions-hmac", type: "js", fullpath: moduleBase + "../functions/hmac.js",
+		requires: [ "xforms-core-function-library", "xpath-extension-md5", "xpath-extension-sha" ] });
     loader.addModule({ name: "xpath-extension-md5",          type: "js",  fullpath: moduleBase + "../third-party/md5.js" });
     loader.addModule({ name: "xpath-extension-sha",        type: "js",  fullpath: moduleBase + "../third-party/jsSHA/src/sha.js" });
 
@@ -152,7 +163,7 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-ajaxslt-improvements", type: "js",  fullpath: moduleBase + "ajaxslt-improvements.js",
   		requires: [ "xforms-dom", "xforms-xpath" ] });
   	loader.addModule({ name: "xforms-core-function-library", type: "js",  fullpath: moduleBase + "xforms-core-function-library.js",
-  	requires: [ "xforms-xpath", "xpath-extension-md5", "xpath-extension-sha" ] });
+  	requires: [ "xforms-xpath" ] });
 
 
   	loader.addModule({ name: "xforms-instance",
@@ -175,6 +186,7 @@ var g_sBehaviourDirectory  = "";
   		requires: ["output-googleMap"]});
   	loader.addModule({ name: "xforms-range-value",        type: "js",  fullpath: moduleBase + "range-value.js",
   		requires: ["slider", "range-googleMap"]});
+    loader.addModule({ name: "xforms-trigger-minimal", type: "js", fullpath: moduleBase + "TriggerMinimalMixin.js" });
 
 	// Map controls
   	loader.addModule({ name: "output-googleMap", type: "js", fullpath: moduleBase + "../extensions/output-googleMap.js", requires: ["base-googleMap"]});
@@ -203,6 +215,10 @@ var g_sBehaviourDirectory  = "";
   	
   	loader.addModule({ name: "xforms-optional-binding",             type: "js",  fullpath: moduleBase + "optional-binding.js",
   		requires: [ "xforms-mip-handler" ] });
+  	loader.addModule({ name: "xforms-src-mixin",             type: "js",  fullpath: moduleBase + "SrcMixin.js",
+  		requires: [ "xforms-load-external-mixin", "xforms-dom", "xforms-dom2events", "xforms-ajaxslt-improvements",
+  		  		"xforms-core-function-library", "libxh-xlink"] });
+  	
   	loader.addModule({ name: "xforms-control",             type: "js",  fullpath: moduleBase + "Control.js",
   		requires: [ "xforms-mip-eventtarget", "dirtystate", "xforms-model", "xforms-processor", "xforms-state", "xforms-utils" ] });
   	loader.addModule({ name: "xforms-navigable-control",             type: "js",  fullpath: moduleBase + "navigable-control.js",
@@ -271,21 +287,21 @@ var g_sBehaviourDirectory  = "";
     // ColorPicker widget
   	loader.addModule({ name: "yui-input-color",     type: "js",  fullpath: moduleBase + "../extensions/input-color.js",
   		requires: ["yui-color","yui-colorpicker-css"]});
-  	loader.addModule({ name: "yui-color",           type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/colorpicker/colorpicker-min.js",
+  	loader.addModule({ name: "yui-color",           type: "js",  fullpath: "http://yui.yahooapis.com/2.8.0/build/colorpicker/colorpicker-min.js",
   		requires: ["yui-slider"]});
-  	loader.addModule({ name: "yui-slider",          type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/slider/slider-min.js" });
-  	loader.addModule({ name: "yui-colorpicker-css", type: "css", fullpath: "http://yui.yahooapis.com/2.5.2/build/colorpicker/assets/skins/sam/colorpicker.css" });
+  	loader.addModule({ name: "yui-slider",          type: "js",  fullpath: "http://yui.yahooapis.com/2.8.0/build/slider/slider-min.js" });
+  	loader.addModule({ name: "yui-colorpicker-css", type: "css", fullpath: "http://yui.yahooapis.com/2.8.0/build/colorpicker/assets/skins/sam/colorpicker.css" });
 
     // Calendar widget
     loader.addModule({ name: "yui-input-calendar",  type: "js",  fullpath: moduleBase + "../extensions/input-calendar.js",
             requires: ["yui-element","yui-dom-event","yui-button","yui-container-core","yui-calendar","yui-calendar-css","yui-button-css"]});
-    loader.addModule({ name: "yui-calendar",        type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/calendar/calendar-min.js" });
-    loader.addModule({ name: "yui-container-core",  type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/container/container_core-min.js" });
-    loader.addModule({ name: "yui-button",          type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/button/button-min.js" });
-    loader.addModule({ name: "yui-dom-event",       type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js" });
-    loader.addModule({ name: "yui-element",         type: "js",  fullpath: "http://yui.yahooapis.com/2.5.2/build/element/element-beta-min.js" });
-    loader.addModule({ name: "yui-calendar-css",    type: "css", fullpath: "http://yui.yahooapis.com/2.5.2/build/calendar/assets/skins/sam/calendar.css" });
-    loader.addModule({ name: "yui-button-css",      type: "css", fullpath: "http://yui.yahooapis.com/2.5.2/build/button/assets/skins/sam/button.css" });
+    loader.addModule({ name: "yui-calendar",        type: "js",  fullpath: "http://yui.yahooapis.com/2.8.0/build/calendar/calendar-min.js" });
+    loader.addModule({ name: "yui-container-core",  type: "js",  fullpath: "http://yui.yahooapis.com/2.8.0/build/container/container_core-min.js" });
+    loader.addModule({ name: "yui-button",          type: "js",  fullpath: "http://yui.yahooapis.com/2.8.0/build/button/button-min.js" });
+    loader.addModule({ name: "yui-dom-event",       type: "js",  fullpath: "http://yui.yahooapis.com/2.8.0r4/build/yahoo-dom-event/yahoo-dom-event.js" });
+    loader.addModule({ name: "yui-element",         type: "js",  fullpath: "http://yui.yahooapis.com/2.8.0/build/element/element-min.js" });
+    loader.addModule({ name: "yui-calendar-css",    type: "css", fullpath: "http://yui.yahooapis.com/2.8.0/build/calendar/assets/skins/sam/calendar.css" });
+    loader.addModule({ name: "yui-button-css",      type: "css", fullpath: "http://yui.yahooapis.com/2.8.0/build/button/assets/skins/sam/button.css" });
 
     // Messaging work
     loader.addModule({ name: "yui-style-css",       type: "css", fullpath: moduleBase + "../_platform/yui/message-panel.css" });
@@ -314,23 +330,24 @@ var g_sBehaviourDirectory  = "";
 
     loader.addModule({ name: "xforms-defs",                type: "js",  fullpath: moduleBase + "xforms-defs.js",
       requires: [
-        "ux-default-css",
-        "libxh-decorator",
-        "xforms-listener", "xforms-event-target-proxy",
-        "xforms-conditional-invocation", "xforms-type-validator",
-        "xforms-model", "xforms-instance", "xforms-submission",
-        "xforms-action", "xforms-context", "xforms-control", "xforms-navigable-control", "xforms-optional-binding",
-        "xforms-pe-value", "xforms-input-value-boolean", "xforms-input-value", "xforms-output-value", "xforms-range-value", 
-        "xforms-container", "xforms-group","xforms-repeat","xforms-switch",
-        "xforms-select","xforms-select1", "xforms-item", "xforms-copy",
-        "xforms-actions","xforms-model-actions",
-        "xforms-setindex", "xforms-setvalue", "xforms-setfocus", "xforms-insert", "xforms-delete",
-        "xforms-toggle", 
-        "xforms-submit",
-        "xforms-hint", "xforms-help",
-        "xforms-header",
-        "yui-input-calendar","yui-input-color",
-        "xf4h","xforms-submission-core-yui"
+		"ux-default-css",
+		"libxh-decorator",
+		"xforms-listener", "xforms-event-target-proxy",
+		"xforms-conditional-invocation", "xforms-type-validator",
+		"xforms-model", "xforms-load-external-mixin", "xforms-submission",
+		"xforms-action", "xforms-context", "xforms-control", "xforms-navigable-control", "xforms-optional-binding",
+		"xforms-pe-value", "xforms-input-value-boolean", "xforms-input-value", "xforms-output-value", "xforms-range-value", 
+		"xforms-container", "xforms-group","xforms-repeat","xforms-switch", "xforms-instance",
+		"xforms-select","xforms-select1", "xforms-item", "xforms-copy", "xforms-src-mixin" , 
+		"xforms-submit", "xforms-trigger-minimal",
+		"xforms-actions","xforms-model-actions",
+		"xforms-setindex", "xforms-setvalue", "xforms-setfocus", "xforms-insert", "xforms-delete",
+		"xforms-toggle", 
+		"xforms-hint", "xforms-help",
+		"xforms-header",
+		"yui-input-calendar","yui-input-color",
+		"xf4h","xforms-submission-core-yui",
+		"functions-hmac"
       ]
     });
     loader.require( "xforms-defs" );
