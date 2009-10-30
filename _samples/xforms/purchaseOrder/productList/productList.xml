@@ -1,6 +1,0 @@
-<products xmlns="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-Instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <product name="Pencils, 10-pack" code="P1" unitcost="1.99" xsi:type="xsd:anyURI">productList/images/pencil.png</product>
-    <product name="Pens, 10-pack" code="P2" unitcost="2.49" xsi:type="xsd:anyURI">productList/images/pen.png</product>
-    <product name="Notebook, 5-subject" code="N1" unitcost="3.29" xsi:type="xsd:anyURI">productList/images/notebook.png</product>
-    <product name="Printer Paper, 500 sheets" code="P3" unitcost="5.95" xsi:type="xsd:anyURI">productList/images/paper.png</product>
-</products>

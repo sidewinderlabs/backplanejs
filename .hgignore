@@ -1,5 +1,9 @@
 syntax: glob
 
-.DS_Store
+xforms/build
+xforms/samples
+xforms/testsuite
+xforms/tools
+xforms/unit-tests
 
-.*.bak
+xforms/src/lib/backplane/_unit-tests
