@@ -301,6 +301,7 @@ submission.prototype.submit = function(oSubmission) {
 		var oBody;
     var oContext;
     var bHasHeaders = false;
+    var isSetSoapHeaders = false;
 	var sReplace = null;
     var xmlDoc = new XDocument();
     var oSubmissionBody = xmlDoc.createTextNode("");
@@ -426,7 +427,8 @@ submission.prototype.submit = function(oSubmission) {
     ns = NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "method");  
       
     sMethod = (ns && ns.length > 0) ? getElementValueOrContent(oContext, ns[0]) : oSubmission.getAttribute("method") || "get";  
-     
+    
+    
     // ===== M E T H O D =========
     // The XForms method is mapped to the right method for the protocol.
     //
@@ -441,7 +443,7 @@ submission.prototype.submit = function(oSubmission) {
 		// build SOAP Header information
  		//
  		if (sMediatype && sMediatype.indexOf("application/soap+xml") === 0) {
- 			bHasHeaders = this.setSOAPHeaders(oContext.node, sMethod, sMediatype, sEncoding);
+ 			isSetSoapHeaders = this.setSOAPHeaders(oContext.node, sMethod, sMediatype, sEncoding);
  		}
   		break;
 
@@ -466,7 +468,7 @@ submission.prototype.submit = function(oSubmission) {
 		// build SOAP Header information
 		//
 		if (sMediatype && sMediatype.indexOf("application/soap+xml") === 0) {
-			bHasHeaders = this.setSOAPHeaders(oContext.node, sMethod, sMediatype, sEncoding); 
+			isSetSoapHeaders = this.setSOAPHeaders(oContext.node, sMethod, sMediatype, sEncoding); 
 		}
 		
 		break;
@@ -490,6 +492,11 @@ submission.prototype.submit = function(oSubmission) {
     }
 	
 	sContentType = sMediatype || sSerialization;
+	///Sets the default contentType for a non-SOAP submissions
+	///SOAP submissions have their headers set in the setSOAPHeaders method.
+	if(!isSetSoapHeaders){
+			this.setHeader("content-type", sContentType);
+		}
 
     // Dispatch xforms-submit-serialize.
     // If the event context submission-body property string is empty, then no
@@ -507,9 +514,9 @@ submission.prototype.submit = function(oSubmission) {
         oSubmission.ownerDocument.logger.log(
                 "Error: " + e.description, "error");
     }
-
+    
 	// If the submission contains headers, or is a SOAP submission there are headers.
-	bHasHeaders = bHasHeaders || (NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "header").length > 0);
+	bHasHeaders = isSetSoapHeaders || (NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "header").length > 0);
 	
 	sReplace = oSubmission.getAttribute("replace") || "all";
 
@@ -548,7 +555,6 @@ submission.prototype.submit = function(oSubmission) {
 		// callback
 
 		var oCallback = new callback(this, oSubmission, oContext);
-		this.setHeader("content-type", sContentType);
 		this.setHeaders(oContext.model, oSubmission);
 
 		try {
@@ -575,10 +581,10 @@ submission.prototype.submit = function(oSubmission) {
 			sResource = makeAbsoluteURI(currentUrl, sResource);
 			schemeHandler = schemeHandlers[spliturl(sResource).scheme];
 
-			if (UX.isFF && schemeHandler && schemeHandler[sMethod]) {
+			if ((UX.isFF || UX.isWebKit) && schemeHandler && schemeHandler[sMethod]) {
 				spawn(function() {
-						  schemeHandler[sMethod](sResource, oBody, nTimeout, oCallback);
-					  });
+					schemeHandler[sMethod](sResource, oBody, nTimeout, oCallback);
+				});
 			}
 
 			// ...otherwise use the default handler.
@@ -912,8 +918,8 @@ submission.prototype.setSOAPHeaders = function(oContextNode, sMethod, sMediatype
 submission.prototype.replaceDocumentContent = function(data) {
 	var xhtmlContainer, htmlElement;
 
-	if (UX.isFF) {
-		// In Firefox, any XML processing instruction must be stripped out.
+	if (UX.isFF || UX.isWebKit) {
+		// For Firefox and WebKit, any XML processing instruction must be stripped out.
 		if (data.indexOf("<?", 0) === 0) {
 			data = data.substr(data.indexOf("?>") + 2);
 		}

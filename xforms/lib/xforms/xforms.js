@@ -603,6 +603,43 @@ XFormsProcessor.prototype.isAccessKeyEvent = function (keyEvent) {
 	return UX.isAltKeyPressed(keyEvent);
 };
 
+XFormsProcessor.prototype.fn = {};
+
+XFormsProcessor.prototype.extend = function (extension) {
+	for(var name in extension) {
+		if(extension.hasOwnProperty(name)) {
+			this.fn[name] = extension[name];
+			FunctionCallExpr.prototype.xpathfunctions[name] = function (context) {
+				return FormsProcessor.callExtension(name, context, this.args);
+			};
+		}
+	}
+};
+
+XFormsProcessor.prototype.callExtension = function (name, context, args) {
+	var i, marshalledArgs = [];
+
+	try {
+		for(i = 0; i < args.length; ++i) {
+			marshalledArgs.push(args[i].evaluate(context).stringValue());
+		}
+
+		return new StringValue(this.fn[name].apply(null, marshalledArgs));
+	} catch(e) {
+		this.dispatchExceptionEvent(context);
+	}
+
+	return new StringValue('');
+};
+
+XFormsProcessor.prototype.dispatchExceptionEvent = function (context) {
+	if (NamespaceManager.compareFullName(context.resolverElement, 'bind', 'http://www.w3.org/2002/xforms')) {
+		UX.dispatchEvent(context.currentModel || document.defaultModel, 'xforms-compute-exception', true, false, false);
+	} else {
+		UX.dispatchEvent(context.resolverElement, 'xforms-binding-exception', true, false, false);
+	}
+};
+
 var FormsProcessor = new XFormsProcessor();
 
 //override of DOM flushEventQueue, to ensure that deferred update, 

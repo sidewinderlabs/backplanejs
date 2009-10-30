@@ -293,9 +293,6 @@ Model.prototype.addControl = function(oTarget) {
             try {
                 if (oTargetSaved && typeof oTargetSaved.element == "object") {
                     oTargetSaved.rewire();
-                    if (oTargetSaved.isWired !== undefined) {
-                        oTargetSaved.isWired = true;
-                    }
                     oTargetSaved.refresh();
                 }
             } catch (e) {

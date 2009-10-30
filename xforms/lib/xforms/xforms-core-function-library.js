@@ -466,47 +466,6 @@ FunctionCallExpr.prototype.xpathfunctions["digest"] = function(ctx) {
     return new StringValue(digest);
 };
 
-/**@addon
-	http://www.w3.org/TR/xforms11/#fn-hmac
-*/
-FunctionCallExpr.prototype.xpathfunctions["hmac"] = function(ctx) {
-    if (!this.args || this.args.length < 3 || this.args.length > 4) {
-        return new StringValue("");
-    }
-
-    var hmac = "", shaCrypt;
-    var key = this.args[0].evaluate(ctx).stringValue();
-    var data = this.args[1].evaluate(ctx).stringValue();
-    var algorithm = this.args[2].evaluate(ctx).stringValue();
-    var encoding = (this.args.length === 4) ? this.args[3].evaluate(ctx).stringValue() : "base64";
-
-    if (encoding === "hex" || encoding === "base64") {
-        switch (algorithm) {
-            case "MD5":
-                 if (encoding === "base64") {
-                    hmac = MD5.b64_hmac_md5(key, data);
-                } else if (encoding === "hex") {
-                    hmac = MD5.hex_hmac_md5(key, data);
-                }
-                break;
-            case "SHA-1":
-            case "SHA-256":
-            case "SHA-384":
-            case "SHA-512":
-                shaCrypt = new jsSHA(data);
-                hmac = shaCrypt.getHMAC(key, algorithm, encoding === "hex" ? "HEX" : "B64");
-                break;
-            default:
-                this.dispatchExceptionEvent(ctx);
-                break;
-        }
-    } else {
-        this.dispatchExceptionEvent(ctx);
-    }
-
-    return new StringValue(hmac);
-};
-
 //	http://www.w3.org/TR/xforms11/#expr-lib-date
 
 /**@addon

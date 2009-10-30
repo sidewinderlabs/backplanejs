@@ -153,16 +153,8 @@ if (UX.isXHTML) {
 	which is what happens in IE and Firefox (HTML), and for Firefox( XML) the class is added as
 	an attribute to the element.
 */
-    UX.addClassName = function(oElement, classString) {
-	   //HACK: is there a better place to initialize the className from the class attribute?
-	   //Synchronize with any class attribute predefines
-	    if (UX.isXHTML && oElement.className === "") {
-	      oElement.className = oElement.getAttribute("class");
-	    }	   
-		YAHOO.util.Dom.addClass(oElement, classString);
-		if (UX.isXHTML && oElement.setAttribute) {		   
-		   oElement.setAttribute("class", oElement.className);
-		}	    
+    UX.addClassName = function(oElement, classString) {	   
+		YAHOO.util.Dom.addClass(oElement, classString);    
 	};
 
 /**
@@ -174,9 +166,6 @@ if (UX.isXHTML) {
 */
    UX.removeClassName = function (oElement, classString) {
         YAHOO.util.Dom.removeClass(oElement, classString);
-        if (UX.isXHTML && oElement.setAttribute) {
-		   oElement.setAttribute("class", oElement.className);
-		}
 	};
 
 /**
@@ -188,9 +177,6 @@ if (UX.isXHTML) {
 */
    UX.replaceClassName = function (oElement, oldClassString, newClassString) {
         YAHOO.util.Dom.replaceClass(oElement, oldClassString, newClassString);
-        if (UX.isXHTML && oElement.setAttribute) {
-		   oElement.setAttribute("class", oElement.className);
-		}
 	};
 
 

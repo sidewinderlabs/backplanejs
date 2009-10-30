@@ -61,6 +61,10 @@ document.notify.messageWindow = function(pThis, activate) {
     
     UX.addClassName(pThis.yahooPanel2.element, "background-shadow");
     
+    //Based on YUI spec the yui-skin-sam class must be added to the container
+ 	//element it reccomends the body tag.
+    UX.addClassName(document.body, "yui-skin-sam");
+    
     // The OK button and its functionality is added with this code.
     var handleOK = function() {
         this.hide();

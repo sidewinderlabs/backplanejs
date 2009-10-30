@@ -37,16 +37,23 @@ MIPHandler.prototype.addcontroltomodel = function () {
 };
 
 MIPHandler.prototype.rewire = function () {
-	var ctxBoundNode = this.getBoundNode(1);
+	var result = false, ctxBoundNode = this.getBoundNode(1);
 
 	this.m_model = ctxBoundNode.model;
 
 	if (ctxBoundNode.node) {
 		this.m_proxy = getProxyNode(ctxBoundNode.node);
-		return true;
+		result = true;
 	}
 
-	return false;
+	if (this.isWired === false) {
+		// Note that this tests explicitly against false because we don't want
+		// the undefined case to enter this condition (the isWired property is
+		// set by Container but not by Control, for instance).
+		this.isWired = true;
+	}
+
+	return result;
 };
 
 
@@ -121,7 +128,10 @@ MIPHandler.prototype.rewire = function () {
 			return false;
 		}
 	
-		if (self.element.isWired === false) { // defensive exact test
+		if (self.element.isWired === false) {
+			// Note that this tests explicitly against false because we don't want
+			// the undefined case to enter this condition (the isWired property is
+			// set by Container but not by Control, for instance).
 			return true;
 		}
 

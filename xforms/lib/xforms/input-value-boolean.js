@@ -46,10 +46,10 @@ XFormsBooleanValue.prototype.onDocumentReady = function() {
 		UX.addClassName(this.element, "ux-boolean-value");
 
 		var pThis = this;
-		if(document.all) {
-			oInput.attachEvent("on" + eventName, function(e){booleanValueChanged(pThis);});
+		if(typeof oInput.addEventListener === 'function') {
+			oInput.addEventListener(eventName, function(e) { booleanValueChanged(pThis); }, false);
 		} else {
-			oInput.addEventListener(eventName,function(e){booleanValueChanged(pThis);},false);
+			oInput.attachEvent("on" + eventName, function(e) { booleanValueChanged(pThis); });
 		}
 
 		this.element.appendChild(oInput);

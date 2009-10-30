@@ -46,6 +46,8 @@ Value.prototype.setValue = function (s) {
 				ownerSelect.refreshDisplayValue();
 			}
 		}
+	} else{
+		this.m_sValue = s;
 	}
 };
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Backplane Ltd.
+ * Copyright © 2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,7 @@
  * limitations under the License.
  */
 
-dojo.require("dojo.behavior");
-debugger;
-dojo.behavior.add({
-	"xf:trigger":function(el){d(EventTarget,el),
-	"xf:submit":function(el){d(EventTarget,el),
-	"xf:label":function(el){d(EventTarget,el)},
-	"xf:action":function(el){d(Listener,el);d(XFAction,el);}
-	});
-	
+function TriggerMinimalMixin(element) {
+	this.element = element;
+	UX.addClassName(this.element.parentNode.parentNode, 'appearance-minimal');
+}

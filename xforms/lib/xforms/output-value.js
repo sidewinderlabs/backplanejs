@@ -24,6 +24,7 @@ function XFormsOutputValue(elmnt) {
 XFormsOutputValue.prototype.setValue = function(sValue) {
     var mediatypeAttr;
     var renderAsString = true;
+    var textValue;
     
     var sTagNameLC = NamespaceManager.getLowerCaseLocalName(this.element.parentNode);
     
@@ -41,17 +42,18 @@ XFormsOutputValue.prototype.setValue = function(sValue) {
         renderAsString = this.setValueForOutputRendering( sValue );
     } 
 
-    if (renderAsString) {
-        document.all ?  this.element.innerText = sValue : this.element.textContent = sValue;   
+    textValue = renderAsString ? sValue : '';
+    if (typeof this.element.textContent === 'string') {
+        this.element.textContent = textValue;
     } else {
-        document.all ?  this.element.innerText = "" : this.element.textContent = "";   
+        this.element.innerText = textValue;
     }
-    
+
     return true;
 };
 
 XFormsOutputValue.prototype.getValue = function() {
-    var sRet = document.all ?  this.element.innerText : this.element.textContent; 
+    var sRet = this.element.textContent || this.element.innerText; 
     var composedLabels = null;
     var sTagNameLC = NamespaceManager.getLowerCaseLocalName(this.element.parentNode);
     
