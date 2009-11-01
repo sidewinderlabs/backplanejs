@@ -33,14 +33,19 @@ var g_sBehaviourDirectory  = "";
 	   * When the ubiquity-backplane library has a rollup that can be consumed the unrolled dependencies
 	   * can be removed and ../lib/backplane-loader.js can be deleted.
 	   */
-	  
+
+		loader.addModule({
+							name: "ub-threads",
+		 					type: "js",
+		 					fullpath: moduleBase + "../backplane/core/threads.js" });
+
 	  loader.addModule({ name: "ub-array",
 						 type: "js",  
-						 fullpath: moduleBase + "../backplane/array.js" });
+						 fullpath: moduleBase + "../backplane/core/array.js" });
 	  
 	  loader.addModule({ name: "ub-tokmap",
 						 type: "js",
-						 fullpath: moduleBase + "../backplane/tokmap.js",
+						 fullpath: moduleBase + "../backplane/core/tokmap.js",
 						 requires: [ "ub-array" ] });
 
 	  loader.addModule({ name: "ub-uri",
@@ -79,14 +84,16 @@ var g_sBehaviourDirectory  = "";
 	  loader.addModule({ name: "ubiquity-backplane",
 						 type: "js",
 						 fullpath: moduleBase + "../backplane/backplane-loader.js",
-						 requires: ["ub-array",
-									 "ub-tokmap",
-									 "ub-uri",
-									 "ub-io-submission-json",
-									 "ub-file",
-									 "ub-io-file",
-									 "ub-dom3ls",
-									 "ub-io-scheme-file" ]});
+						 requires: [
+						 				"ub-threads",
+						 				"ub-array",
+										"ub-tokmap",
+										"ub-uri",
+										"ub-io-submission-json",
+										"ub-file",
+										"ub-io-file",
+										"ub-dom3ls",
+										"ub-io-scheme-file" ]});
 
 	  /*
 	   * End of ubiquity-backplane
@@ -99,7 +106,6 @@ var g_sBehaviourDirectory  = "";
     loader.addModule({ name: "libxh-xlink",          type: "js",  fullpath: moduleBase + "../_backplane/xlink.js",
     	 requires: [ "connection", "ubiquity-backplane" ] });
   	loader.addModule({ name: "xforms-listener",            type: "js",  fullpath: moduleBase + "../dom/listener.js" });
-  	loader.addModule({ name: "xforms-threads",             type: "js",  fullpath: moduleBase + "../threads.js" });
   	loader.addModule({ name: "xforms-dom2events",          type: "js",  fullpath: moduleBase + "../dom/dom2events.js",
   		requires: [ "yahoo" ] });
     loader.addModule({ name: "xforms-dom2",                type: "js", fullpath: moduleBase + "../dom/dom2.js"});
@@ -121,7 +127,7 @@ var g_sBehaviourDirectory  = "";
   		requires: [ "xforms-mip-handler" ] });
 
 		loader.addModule({ name: "xforms-model",               type: "js",  fullpath: moduleBase + "modelObj.js",
-  		requires: ["xforms-instance",  "backplane-model", "libxh-namespace-manager", "xforms-threads", "xforms-vertex-target" ] });
+  		requires: ["xforms-instance",  "backplane-model", "libxh-namespace-manager", "ub-threads", "xforms-vertex-target" ] });
 
   	loader.addModule({ name: "xforms-submission-core",     type: "js",  fullpath: moduleBase + "xforms-submission.js",
   		requires: [ "ubiquity-backplane" ] });
@@ -234,7 +240,7 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-actions",              type: "js",  fullpath: moduleBase + "actions.js",
   		requires:["container", "xforms-message-css", "yui-style-css", "xforms-notify", "message-yui"]});  
   	loader.addModule({ name: "xforms-action",              type: "js",  fullpath: moduleBase + "xf-action.js",
-  		requires: [ "xforms-listener", "xforms-threads", "xforms-actions" ] });
+  		requires: [ "xforms-listener", "ub-threads", "xforms-actions" ] });
   	loader.addModule({ name: "xforms-model-actions",        type: "js",  fullpath: moduleBase + "modelactions.js",
   		requires:["xforms-actions","xforms-processor"]});  
 

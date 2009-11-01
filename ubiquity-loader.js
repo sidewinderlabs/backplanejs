@@ -177,7 +177,6 @@ Performs those loading steps that precede loading with either YUI or the rollup,
           addScript("http://yui.yahooapis.com/combo?2.7.0/build/yuiloader-dom-event/yuiloader-dom-event.js", 
             function () {
               addScript(baseDefaultPath + "xforms/lib/xforms/loader-begin.js", function () {
-                addScript(baseDefaultPath + "core-loader.js");
                 addScript(baseDefaultPath + "yowl-loader.js");
                 addScript(baseDefaultPath + "rdfa-loader.js");
                 addScript(baseDefaultPath + "smil-loader.js");
@@ -227,7 +226,6 @@ if (0) {
 			try {
 				loader = new YAHOO.util.YUILoader();
 
-				loader.addModule({ name: "backplane-core",   type: "js",  fullpath: baseDefaultPath + "core-loader.js" });
 				loader.addModule({ name: "backplane-yowl", type: "js",  fullpath: baseDefaultPath + "yowl-loader.js" });
 				loader.addModule({ name: "backplane-smil", type: "js",  fullpath: baseDefaultPath + "smil-loader.js" });
 

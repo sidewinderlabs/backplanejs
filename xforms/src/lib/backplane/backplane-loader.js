@@ -39,8 +39,8 @@
 	function() {
 	 	var moduleBase = pathToModule("backplane-loader");
 
-		loader.addModule({ name: "ub-array",           type: "js",  fullpath: moduleBase + "array.js" });
-		loader.addModule({ name: "ub-tokmap",          type: "js",  fullpath: moduleBase + "tokmap.js",
+		loader.addModule({ name: "ub-array",           type: "js",  fullpath: moduleBase + "core/array.js" });
+		loader.addModule({ name: "ub-tokmap",          type: "js",  fullpath: moduleBase + "core/tokmap.js",
 			requires: [ "ub-array" ] });
 
 		loader.addModule({ name: "ub-uri",             type: "js",  fullpath: moduleBase + "uri/uri.js" });
