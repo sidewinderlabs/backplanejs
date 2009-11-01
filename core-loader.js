@@ -42,8 +42,6 @@
 
 		loader.addModule({ name: "ub-security",        type: "js",  fullpath: moduleBase + "security/security.js" });
 
-		loader.addModule({ name: "ub-io-submission-json", type: "js",  fullpath: moduleBase + "io/submission-json.js",
-			requires: [ "ub-uri" ] });
 		loader.addModule({ name: "ub-file",            type: "js",  fullpath: moduleBase + "io/file.js",
 			requires: [ "ub-uri", "ub-security" ] });
 		loader.addModule({ name: "ub-io-file",         type: "js",  fullpath: moduleBase + "io/file.js",
@@ -57,7 +55,7 @@
 			"ub-array", "ub-tokmap", "ub-threads",
 			"ub-uri",
 			"ub-security",
-			"ub-io-submission-json", "ub-file", "ub-io-file", "ub-dom3ls", "ub-io-scheme-file"
+			"ub-file", "ub-io-file", "ub-dom3ls", "ub-io-scheme-file"
 		);
 		loader.insert();
 		return;
