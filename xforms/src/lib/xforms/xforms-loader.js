@@ -150,7 +150,7 @@ var g_sBehaviourDirectory  = "";
   	
   
     // crypto
-    loader.addModule({ name: "functions-hmac", type: "js", fullpath: moduleBase + "../functions/hmac.js",
+    loader.addModule({ name: "functions-hmac", type: "js", fullpath: moduleBase + "../functions/xforms/hmac.js",
 		requires: [ "xforms-core-function-library", "xpath-extension-md5", "xpath-extension-sha" ] });
     loader.addModule({ name: "xpath-extension-md5",          type: "js",  fullpath: moduleBase + "../third-party/md5.js" });
     loader.addModule({ name: "xpath-extension-sha",        type: "js",  fullpath: moduleBase + "../third-party/jsSHA/src/sha.js" });
