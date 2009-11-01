@@ -45,7 +45,7 @@ var g_sBehaviourDirectory  = "";
 
 	  loader.addModule({ name: "ub-uri",
 						 type: "js",
-						 fullpath: moduleBase + "../backplane/uri.js" });
+						 fullpath: moduleBase + "../backplane/uri/uri.js" });
 
 	  loader.addModule({ name: "ub-security",
 						 type: "js",

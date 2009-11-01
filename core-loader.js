@@ -38,14 +38,12 @@
 			requires: [ "ub-array" ] });
 		loader.addModule({ name: "ub-threads",        type: "js",  fullpath: moduleBase + "core/threads.js" });
 
-		loader.addModule({ name: "ub-uri",             type: "js",  fullpath: moduleBase + "uri/uri.js" });
-
 		loader.addModule({ name: "ub-security",        type: "js",  fullpath: moduleBase + "security/security.js" });
 
 		loader.addModule({ name: "ub-file",            type: "js",  fullpath: moduleBase + "io/file.js",
-			requires: [ "ub-uri", "ub-security" ] });
+			requires: [ "ub-security" ] });
 		loader.addModule({ name: "ub-io-file",         type: "js",  fullpath: moduleBase + "io/file.js",
-			requires: [ "ub-uri", "ub-security" ] });
+			requires: [ "ub-security" ] });
 		loader.addModule({ name: "ub-dom3ls",          type: "js",  fullpath: moduleBase + "dom/dom3ls.js",
 			requires: [ "ub-io-file" ] });
 		loader.addModule({ name: "ub-io-scheme-file", type: "js",  fullpath: moduleBase + "io/scheme-file.js",
@@ -53,7 +51,6 @@
 
 	 	loader.require(
 			"ub-array", "ub-tokmap", "ub-threads",
-			"ub-uri",
 			"ub-security",
 			"ub-file", "ub-io-file", "ub-dom3ls", "ub-io-scheme-file"
 		);

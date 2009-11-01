@@ -43,7 +43,7 @@
 		loader.addModule({ name: "ub-tokmap",          type: "js",  fullpath: moduleBase + "tokmap.js",
 			requires: [ "ub-array" ] });
 
-		loader.addModule({ name: "ub-uri",             type: "js",  fullpath: moduleBase + "uri.js" });
+		loader.addModule({ name: "ub-uri",             type: "js",  fullpath: moduleBase + "uri/uri.js" });
 
 		loader.addModule({ name: "ub-security",        type: "js",  fullpath: moduleBase + "security/security.js" });
 		loader.addModule({ name: "ub-io-submission-json", type: "js",  fullpath: moduleBase + "io/submission-json.js",
