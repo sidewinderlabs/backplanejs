@@ -53,7 +53,7 @@ var g_sBehaviourDirectory  = "";
 
 	  loader.addModule({ name: "ub-io-submission-json",
 						 type: "js",
-						 fullpath: moduleBase + "../backplane/submission-json.js",
+						 fullpath: moduleBase + "../backplane/io/submission-json.js",
 						 requires: [ "ub-uri" ] });
 	  
 	  loader.addModule({ name: "ub-file",

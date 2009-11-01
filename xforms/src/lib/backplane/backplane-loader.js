@@ -46,7 +46,7 @@
 		loader.addModule({ name: "ub-uri",             type: "js",  fullpath: moduleBase + "uri.js" });
 
 		loader.addModule({ name: "ub-security",        type: "js",  fullpath: moduleBase + "security/security.js" });
-		loader.addModule({ name: "ub-io-submission-json", type: "js",  fullpath: moduleBase + "submission-json.js",
+		loader.addModule({ name: "ub-io-submission-json", type: "js",  fullpath: moduleBase + "io/submission-json.js",
 			requires: [ "ub-uri" ] });
 		loader.addModule({ name: "ub-file",            type: "js",  fullpath: moduleBase + "io/file.js",
 			requires: [ "ub-uri", "ub-security" ] });
