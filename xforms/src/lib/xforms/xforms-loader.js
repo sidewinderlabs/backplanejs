@@ -48,6 +48,32 @@ var g_sBehaviourDirectory  = "";
 						 fullpath: moduleBase + "../backplane/core/tokmap.js",
 						 requires: [ "ub-array" ] });
 
+		loader.addModule({
+			name: "ub-dom2",
+			type: "js",
+			fullpath: moduleBase + "../backplane/dom/dom2.js"
+		});
+
+		loader.addModule({
+			name: "ub-dom2events",
+			type: "js",
+			fullpath: moduleBase + "../backplane/dom/dom2events.js",
+		  requires: [ "yahoo" ]
+		});
+
+		loader.addModule({
+			name: "ub-event-target-proxy",
+			type: "js",
+			fullpath: moduleBase + "../backplane/dom/eventTargetProxy.js",
+			requires: [ "ub-dom2events" ]
+		});
+
+		loader.addModule({
+			name: "ub-listener",
+			type: "js",
+			fullpath: moduleBase + "../backplane/dom/listener.js"
+		});
+
 	  loader.addModule({ name: "ub-uri",
 						 type: "js",
 						 fullpath: moduleBase + "../backplane/uri/uri.js" });
@@ -86,8 +112,8 @@ var g_sBehaviourDirectory  = "";
 						 fullpath: moduleBase + "../backplane/backplane-loader.js",
 						 requires: [
 						 				"ub-threads",
-						 				"ub-array",
-										"ub-tokmap",
+						 				"ub-array", "ub-tokmap",
+						 				"ub-dom2", "ub-dom2events",
 										"ub-uri",
 										"ub-io-submission-json",
 										"ub-file",
@@ -105,10 +131,6 @@ var g_sBehaviourDirectory  = "";
 	  
     loader.addModule({ name: "libxh-xlink",          type: "js",  fullpath: moduleBase + "../_backplane/xlink.js",
     	 requires: [ "connection", "ubiquity-backplane" ] });
-  	loader.addModule({ name: "xforms-listener",            type: "js",  fullpath: moduleBase + "../dom/listener.js" });
-  	loader.addModule({ name: "xforms-dom2events",          type: "js",  fullpath: moduleBase + "../dom/dom2events.js",
-  		requires: [ "yahoo" ] });
-    loader.addModule({ name: "xforms-dom2",                type: "js", fullpath: moduleBase + "../dom/dom2.js"});
 
   	loader.addModule({ name: "xforms-utils", type: "js",  fullpath: moduleBase + "../UXUtils.js" });
   	
@@ -148,7 +170,7 @@ var g_sBehaviourDirectory  = "";
   	
   ///The XForms loading of external data js files
   	loader.addModule({ name: "xforms-load-external-mixin", type: "js", fullpath: moduleBase + "LoadExternalMixin.js",
-		   requires: [ "xforms-dom", "xforms-dom2events", "xforms-ajaxslt-improvements", 
+		   requires: [ "xforms-dom", "ub-dom2events", "xforms-ajaxslt-improvements", 
 		               "xforms-core-function-library","libxh-xlink" ]});
   	
   	loader.addModule({ name: "xforms-instance", type: "js", fullpath: moduleBase + "Instance.js",
@@ -176,7 +198,7 @@ var g_sBehaviourDirectory  = "";
 					   type: "js",
 					   fullpath: moduleBase + "Instance.js",
   					   requires: [ "xforms-dom",
-								   "xforms-dom2events",
+								   "ub-dom2events",
 								   "xforms-ajaxslt-improvements",
 								   "xforms-core-function-library",
 								   "libxh-xlink" ]});
@@ -207,10 +229,10 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-group",        type: "js",  fullpath: moduleBase + "Group.js" ,
         requires: [ "xforms-mip-eventtarget"]});
   	loader.addModule({ name: "xforms-repeat",        type: "js",  fullpath: moduleBase + "Repeat.js",
-        requires: [ "xforms-model","xforms-group","xforms-dom2"]});
+        requires: [ "xforms-model","xforms-group","ub-dom2"]});
 	  
     loader.addModule({ name: "xforms-header",     type: "js", fullpath: moduleBase + "Header.js",
-		requires: [ "libxh-decorator", "xforms-dom2" ] });
+		requires: [ "libxh-decorator", "ub-dom2" ] });
   	
   	loader.addModule({ name: "backplane-case",        type: "js",  fullpath: moduleBase + "../_backplane/case.js" });
   	loader.addModule({ name: "xforms-case",        type: "js",  fullpath: moduleBase + "case.js", 
@@ -222,7 +244,7 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-optional-binding",             type: "js",  fullpath: moduleBase + "optional-binding.js",
   		requires: [ "xforms-mip-handler" ] });
   	loader.addModule({ name: "xforms-src-mixin",             type: "js",  fullpath: moduleBase + "SrcMixin.js",
-  		requires: [ "xforms-load-external-mixin", "xforms-dom", "xforms-dom2events", "xforms-ajaxslt-improvements",
+  		requires: [ "xforms-load-external-mixin", "xforms-dom", "ub-dom2events", "xforms-ajaxslt-improvements",
   		  		"xforms-core-function-library", "libxh-xlink"] });
   	
   	loader.addModule({ name: "xforms-control",             type: "js",  fullpath: moduleBase + "Control.js",
@@ -232,15 +254,13 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-navigable-control-list",             type: "js",  fullpath: moduleBase + "navigable-control-list.js",
   		requires: [ "xforms-utils" ] });
   	loader.addModule({ name: "xforms-context",             type: "js",  fullpath: moduleBase + "context.js",
-        requires:[ "libxh-namespace-manager", "xforms-dom2" ]});
-  	loader.addModule({ name: "xforms-event-target-proxy",  type: "js",  fullpath: moduleBase + "../dom/eventTargetProxy.js",
-  		requires: [ "xforms-dom2events" ] });
+        requires:[ "libxh-namespace-manager", "ub-dom2" ]});
   
   	//actions
   	loader.addModule({ name: "xforms-actions",              type: "js",  fullpath: moduleBase + "actions.js",
   		requires:["container", "xforms-message-css", "yui-style-css", "xforms-notify", "message-yui"]});  
   	loader.addModule({ name: "xforms-action",              type: "js",  fullpath: moduleBase + "xf-action.js",
-  		requires: [ "xforms-listener", "ub-threads", "xforms-actions" ] });
+  		requires: [ "ub-listener", "ub-threads", "xforms-actions" ] });
   	loader.addModule({ name: "xforms-model-actions",        type: "js",  fullpath: moduleBase + "modelactions.js",
   		requires:["xforms-actions","xforms-processor"]});  
 
@@ -269,13 +289,13 @@ var g_sBehaviourDirectory  = "";
   	loader.addModule({ name: "xforms-common-select",             type: "js",  fullpath: moduleBase + "commonselect.js",
   	    	requires:["xforms-dropbox-yui"]});
   	loader.addModule({ name: "xforms-select1",             type: "js",  fullpath: moduleBase + "select1.js",
-  	    	requires:["xforms-dom2events", "backplane-select", "finite-control", "xforms-common-select"]});
+  	    	requires:["ub-dom2events", "backplane-select", "finite-control", "xforms-common-select"]});
   	loader.addModule({ name: "xforms-select",             type: "js",  fullpath: moduleBase + "select.js",
-  	    	requires:["xforms-dom2events", "backplane-select", "finite-control","xforms-common-select"]});
+  	    	requires:["ub-dom2events", "backplane-select", "finite-control","xforms-common-select"]});
   	loader.addModule({ name: "xforms-item",             type: "js",  fullpath: moduleBase + "item.js",
-  	    	requires:["xforms-dom2events"]});
+  	    	requires:["ub-dom2events"]});
   	loader.addModule({ name: "xforms-copy",             type: "js",  fullpath: moduleBase + "copy.js",
-  	    	requires:["xforms-dom2events"]});
+  	    	requires:["ub-dom2events"]});
   	    	
 
     loader.addModule({ name: "xforms-submit",             type: "js",  fullpath: moduleBase + "submit.js"});
@@ -338,7 +358,7 @@ var g_sBehaviourDirectory  = "";
       requires: [
 		"ux-default-css",
 		"libxh-decorator",
-		"xforms-listener", "xforms-event-target-proxy",
+		"ub-listener", "ub-event-target-proxy",
 		"xforms-conditional-invocation", "xforms-type-validator",
 		"xforms-model", "xforms-load-external-mixin", "xforms-submission",
 		"xforms-action", "xforms-context", "xforms-control", "xforms-navigable-control", "xforms-optional-binding",
