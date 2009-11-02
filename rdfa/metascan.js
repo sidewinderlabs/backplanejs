@@ -29,6 +29,20 @@
 
 var oDoc = getMainDoc();
 
+/*
+ * Create a triple store to put all the triples into.
+ */
+
+if (!document.meta) {
+	document.meta = new RDFQuery( new RDFStore() );
+	document.Yowl.register(
+		"RDFa Parser",
+		[ "Parsing status" ],
+		[ 0 ],
+		null
+	);
+}
+
 function getMainDoc() {
 
 	/*
@@ -45,21 +59,6 @@ function getMainDoc() {
 
 function get_metadata()
 {
-
-  /*
-   * Create a triple store to put all the triples into.
-   */
-
-	if (!document.meta) {
-		document.meta = new RDFQuery( new RDFStore() );
-		document.Yowl.register(
-			"RDFa Parser",
-			[ "Parsing status" ],
-			[ 0 ],
-			null
-		);
-	}
-
 
   /*
    * Create a parser, and give it access to the triple store.
