@@ -156,12 +156,12 @@ Performs those loading steps that precede loading with either YUI or the rollup,
     
     //Add preliminary scripts - in particular, ie-instance-fixer must come here, since adding it as part of addApplicationScripts is too late for it to have any effect
     //  The others may not need to be here, but I have left this set of scripts in the same order as I found them.
-    addScript(baseDefaultPath + "xforms/lib/sniffer.js");
-    addScript(baseDefaultPath + "xforms/lib/xforms/ie-instance-fixer.js");
-    addScript(baseDefaultPath + "xforms/lib/xforms/ie6-css-selectors-fixer.js");
-    addScript(baseDefaultPath + "xforms/lib/xforms/set-document-loaded.js");
+    addScript(baseDefaultPath + "xforms/src/lib/sniffer.js");
+    addScript(baseDefaultPath + "xforms/src/lib/xforms/ie-instance-fixer.js");
+    addScript(baseDefaultPath + "xforms/src/lib/xforms/ie6-css-selectors-fixer.js");
+    addScript(baseDefaultPath + "xforms/src/lib/xforms/set-document-loaded.js");
     //Add the script to determine whether or not to use the rollup.  Once this is ready, the application scripts can be added.
-    addScript(baseDefaultPath + "uri/fragmentParsing.js", 
+    addScript(baseDefaultPath + "xforms/src/lib/backplane/uri/fragmentParsing.js", 
       function () {
         //Inspect the URL to see whether the application should be  loaded from the rollup, 
         //  or with the loader.
@@ -176,11 +176,11 @@ Performs those loading steps that precede loading with either YUI or the rollup,
         } else {
           addScript("http://yui.yahooapis.com/combo?2.7.0/build/yuiloader-dom-event/yuiloader-dom-event.js", 
             function () {
-              addScript(baseDefaultPath + "xforms/lib/xforms/loader-begin.js", function () {
+              addScript(baseDefaultPath + "xforms/src/lib/xforms/loader-begin.js", function () {
                 addScript(baseDefaultPath + "yowl-loader.js");
                 addScript(baseDefaultPath + "rdfa-loader.js");
                 addScript(baseDefaultPath + "smil-loader.js");
-                addScript(baseDefaultPath + "xforms/lib/xforms/xforms-loader.js");
+                addScript(baseDefaultPath + "xforms/src/lib/xforms/xforms-loader.js");
 
 								loader.onSuccess = function(o) {
 							    document.Yowl.register(
@@ -205,7 +205,7 @@ Performs those loading steps that precede loading with either YUI or the rollup,
 										500
 									);
 								};
-                addScript(baseDefaultPath + "xforms/lib/xforms/loader-end.js", self.onFinish);
+                addScript(baseDefaultPath + "xforms/src/lib/xforms/loader-end.js", self.onFinish);
               });
             }
           );
@@ -235,8 +235,8 @@ if (0) {
 					loader.addModule({ name: "backplane-rdfa",  type: "js",  fullpath: baseDefaultPath + "rdfa-loader.js" });
 				}
 				if (mode.unitTest) {
-					loader.addModule({ name: "backplane-core-unit-test-loader", type: "js",  fullpath: baseDefaultPath + "_unit-tests/core/unit-test-loader.js" });
-					loader.require( "backplane-core-unit-test-loader" );
+					loader.addModule({ name: "unit-test-loader", type: "js",  fullpath: "unit-test-loader.js" });
+					loader.require( "unit-test-loader" );
 				}
 				loader.require( "backplane-yowl", "backplane-core", "backplane-rdfa", "backplane-smil" );
 
