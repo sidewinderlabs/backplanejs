@@ -18,9 +18,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-(
-	function() {
+function runTheTests() {
 	 	var moduleBase = pathToModule("unit-test-loader");
+		var loader = new YAHOO.util.YUILoader();
 
 		// There is no 'short name' for these two CSS files, so we need to reference them directly.
 		//
@@ -30,7 +30,7 @@
 		// Add references to unit test scripts here.
 		//
 		loader.addModule({ name: "ur-ut-library-loaded", type: "js",  fullpath: moduleBase + "ut-rdfa-library-loaded.js",
-			requires: [ "yuitest", "logger-css", "test-logger-css", "ubiquity-metascan" ] });
+			requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
 		loader.addModule({ name: "ur-ut-kb",   type: "js",  fullpath: moduleBase + "ut-kb.js",
 			requires: [ "yuitest", "logger-css", "test-logger-css" ] });
@@ -38,42 +38,38 @@
 		// RDFStore
 		//
 		loader.addModule({ name: "ur-ut-store",   type: "js",  fullpath: moduleBase + "ut-store.js",
-			requires: [ "yuitest", "logger-css", "test-logger-css", "ubiquity-metascan" ] });
+			requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 		loader.addModule({ name: "ur-ut-store-insert",   type: "js",  fullpath: moduleBase + "ut-store-insert.js",
-			requires: [ "yuitest", "logger-css", "test-logger-css", "ubiquity-metascan" ] });
+			requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 		loader.addModule({ name: "ur-ut-store-named-graph",   type: "js",  fullpath: moduleBase + "ut-store-named-graph.js",
-			requires: [ "yuitest", "logger-css", "test-logger-css", "ubiquity-metascan" ] });
+			requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 		loader.addModule({ name: "ur-ut-store-pipes",   type: "js",  fullpath: moduleBase + "ut-store-pipes.js",
-			requires: [ "yuitest", "logger-css", "test-logger-css", "ubiquity-metascan", "ubiquity-rdfparser" ] });
+			requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
 		// RDFParser
 		//
 		loader.addModule({ name: "ur-ut-w3c-ts",   type: "js",  fullpath: moduleBase + "ut-w3c-ts.js",
-			requires: [ "yuitest", "logger-css", "test-logger-css", "ubiquity-metascan" ] });
+			requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
 		// RDFQuery
 		//
 		loader.addModule({ name: "ur-ut-store-query",   type: "js",  fullpath: moduleBase + "ut-store-query.js",
-			requires: [ "yuitest", "logger-css", "test-logger-css", "ubiquity-metascan", "ubiquity-rdfquery" ] });
+			requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
 		loader.require(
-			"logger",
 			"ur-ut-library-loaded", "ur-ut-store-insert",
 			"ur-ut-store", "ur-ut-store-pipes", "ur-ut-store-named-graph", /* "ur-ut-w3c-ts", */
 			"ur-ut-kb",
 			"ur-ut-store-query"
 		);
 
-		loader.insert();
-		return;
- 	}()
-);
+  loader.onSuccess = function(o) {
+    var logger = new YAHOO.tool.TestLogger();
 
-function runTheTests() {
-	//create the logger
-	var logger = new YAHOO.tool.TestLogger();
+		YAHOO.tool.TestRunner.run();
+    return;
+  };
 
-	//run the tests
-	YAHOO.tool.TestRunner.run();
+  loader.insert();
 	return;
 }
