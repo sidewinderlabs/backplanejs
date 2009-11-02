@@ -1,10 +1,7 @@
-// Ubiquity provides a standards-based suite of browser enhancements for
-// building a new generation of internet-related applications.
+// backplanejs provides a standards-based suite of browser enhancements
+// for building a new generation of internet-related applications.
 //
-// The Ubiquity RDFa module adds RDFa 1.1 support to the Ubiquity
-// library.
-//
-// Copyright (C) 2007-8 Mark Birbeck
+// Copyright (C) 2007-9 Mark Birbeck
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,8 +21,8 @@ function runTheTests() {
 
   // There is no 'short name' for these two CSS files, so we need to reference them directly.
   //
-  loader.addModule({ name: "logger-css",      type: "css",  fullpath: "http://yui.yahooapis.com/2.5.2/build/logger/assets/logger.css" });
-  loader.addModule({ name: "test-logger-css", type: "css",  fullpath: "http://yui.yahooapis.com/2.5.2/build/yuitest/assets/testlogger.css" });
+  loader.addModule({ name: "logger-css",      type: "css",  fullpath: "http://yui.yahooapis.com/2.7.0/build/logger/assets/logger.css" });
+  loader.addModule({ name: "test-logger-css", type: "css",  fullpath: "http://yui.yahooapis.com/2.7.0/build/yuitest/assets/testlogger.css" });
 
   // Add references to unit test scripts here.
   //
