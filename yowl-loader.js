@@ -37,7 +37,7 @@
 
     loader.addModule({ name: "ubiquity-message-css", type: "css", fullpath: moduleBase + "yowl/yowl.css" });
 
-    loader.addModule({ name: "yui-container-css",  type: "css", fullpath: "http://yui.yahooapis.com/2.7.0/build/container/assets/container.css" });
+    loader.addModule({ name: "yui-container-css",  type: "css", fullpath: "http://yui.yahooapis.com/2.8.0/build/container/assets/container.css" });
 
     loader.addModule({ name: "ubiquity-message-yui", type: "js",  fullpath: moduleBase + "yowl/display-yui.js",
       requires: [ "animation", "container", "ubiquity-message", "ubiquity-message-css", "yui-container-css" ] });

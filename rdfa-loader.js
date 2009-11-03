@@ -48,7 +48,7 @@
 
 		loader.addModule({ name: "ubiquity-kb",             type: "js",  fullpath: moduleBase + "kb/kb.js" });
 
-		loader.addModule({ name: "yui-datatable-css",				type: "css", fullpath: "http://yui.yahooapis.com/2.7.0/build/datatable/assets/skins/sam/datatable.css" });
+		loader.addModule({ name: "yui-datatable-css",				type: "css", fullpath: "http://yui.yahooapis.com/2.8.0/build/datatable/assets/skins/sam/datatable.css" });
 
 		if (mode.unitTest) {
 			loader.addModule({ name: "backplane-rdfa-unit-test-loader", type: "js",  fullpath: baseDefaultPath + "_unit-tests/rdfa/unit-test-loader.js" });

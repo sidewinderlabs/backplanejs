@@ -54,7 +54,7 @@ var baseDefaultPath = pathToModule("ubiquity-loader"),
 
 (
 	function() {
-		addScript("http://yui.yahooapis.com/combo?2.7.0/build/yuiloader-dom-event/yuiloader-dom-event.js");
+		addScript("http://yui.yahooapis.com/combo?2.8.0/build/yuiloader-dom-event/yuiloader-dom-event.js");
 
 		function waitForYahoo() {
 			try {

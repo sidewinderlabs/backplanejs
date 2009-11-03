@@ -174,7 +174,7 @@ Performs those loading steps that precede loading with either YUI or the rollup,
           addStyle(baseDefaultPath + "xforms/assets/style/ubiquity-xforms.css");
           addScript(baseDefaultPath + "xforms/package/ubiquity-xforms.js", self.onFinish);
         } else {
-          addScript("http://yui.yahooapis.com/combo?2.7.0/build/yuiloader-dom-event/yuiloader-dom-event.js", 
+          addScript("http://yui.yahooapis.com/combo?2.8.0/build/yuiloader-dom-event/yuiloader-dom-event.js", 
             function () {
               addScript(baseDefaultPath + "xforms/src/lib/xforms/loader-begin.js", function () {
                 addScript(baseDefaultPath + "yowl-loader.js");
@@ -220,7 +220,7 @@ Performs those loading steps that precede loading with either YUI or the rollup,
 if (0) {
 (
 	function() {
-		addScript("http://yui.yahooapis.com/combo?2.7.0/build/yuiloader-dom-event/yuiloader-dom-event.js");
+		addScript("http://yui.yahooapis.com/combo?2.8.0/build/yuiloader-dom-event/yuiloader-dom-event.js");
 
 		function waitForYahoo() {
 			try {
