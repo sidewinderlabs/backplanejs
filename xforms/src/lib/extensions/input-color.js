@@ -44,8 +44,8 @@ InputValueColor.prototype.onDocumentReady = function()
         this.element.innerHTML = "<div id='ux-color-bg" + UX.colorcount + "' class='ux-color-bg'></div>";
         this.m_value = new YAHOO.widget.ColorPicker("ux-color-bg" + UX.colorcount, {
             images: {
-                PICKER_THUMB : "http://yui.yahooapis.com/2.5.2/build/colorpicker/assets/picker_thumb.png",
-                HUE_THUMB : "http://yui.yahooapis.com/2.5.2/build/colorpicker/assets/hue_thumb.png"
+                PICKER_THUMB : "http://yui.yahooapis.com/2.8.0/build/colorpicker/assets/picker_thumb.png",
+                HUE_THUMB : "http://yui.yahooapis.com/2.8.0/build/colorpicker/assets/hue_thumb.png"
             }
         });
         UX.colorcount++;
