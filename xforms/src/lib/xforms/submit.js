@@ -25,6 +25,12 @@ Submit.prototype.performAction = function(oEvt) {
     var oSubmission = null;
     var oDocument = control.element.ownerDocument;
     if (oEvt.type === "DOMActivate") {
+        if (UX.isWebKit && !oEvt.mappedFromClick) {
+            // HACK: WebKit issues its own DOMActivate that we need to ignore.
+            //       This condition ensures that we just NOP for that event.
+            return;
+        }
+
         var sID = control.element.getAttribute("submission");
 
         if (sID) {
