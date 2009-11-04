@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xforms="http://www.w3.org/2002/xforms">
+  	<head>
+    	<title>9.3.7.a copy element</title>
+    	<script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    	
+    	
+  	</head>
+  	<body>
+      <xforms:model id="cone">
+       		<xforms:instance xmlns="">
+				        <icecream>
+					          <order/>
+				        </icecream>
+       		</xforms:instance>
+    	</xforms:model>
+      <xforms:model id="flavors">
+    		   <xforms:instance xmlns="">
+    			     <flavors>
+    				       <flavor description="vanilla">vanilla</flavor>
+    				       <flavor description="strawberry">strawberry</flavor>
+    				       <flavor description="chocolate">chocolate</flavor>
+    			     </flavors>
+    		   </xforms:instance>
+    	</xforms:model>
+  		  <xforms:group>
+  			    <xforms:label class="title">9.3.7.a copy element</xforms:label>
+  		  </xforms:group>	
+  		  <xforms:group>
+  			    <xforms:label>
+	  			When you select a flavor from the select control below you must see the output "Icecream Order : 
+	  			" and 
+	  			the selected flavor. If no flavor is selected (including if the chosen flavor is deselected) the 
+	  			output control, including label, must not be visible on the page. 
+	  		</xforms:label>	
+  		  </xforms:group>
+  		
+		    <xforms:group>	
+			      <xforms:select model="cone" ref="/icecream/order">
+				        <xforms:label>Flavors</xforms:label>
+				        <xforms:itemset model="flavors" nodeset="/flavors/flavor">
+					          <xforms:label ref="@description"/>
+					          <xforms:copy ref="."/>
+				        </xforms:itemset>
+			      </xforms:select>
+		    </xforms:group>
+
+		    <xforms:output ref="/icecream/order/flavor">
+  			    <xforms:label>Icecream Order : </xforms:label>
+  		  </xforms:output>
+
+  </body>
+</html>

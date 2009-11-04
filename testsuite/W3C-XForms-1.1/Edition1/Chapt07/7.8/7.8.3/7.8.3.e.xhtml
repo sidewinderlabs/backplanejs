@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events">
+    <head>
+        <title>7.8.3.e digest() function with invalid encoding method</title>
+        <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+        
+    </head>
+    <body>
+      <xforms:model>
+            <xforms:instance xmlns="">
+                <root/>
+            </xforms:instance>
+        </xforms:model>
+        <xforms:group>
+            <xforms:label class="title">7.8.3.e digest() function with invalid encoding method</xforms:label>
+        </xforms:group>
+        <xforms:group>
+            <xforms:label>
+	          You must have seen an xforms-binding-exception message or a fatal error due to an 
+			  xforms-binding-exception. 
+            </xforms:label>
+        </xforms:group>
+        <xforms:output value="digest('abc', 'SHA-1', 'INVALID')">
+          <xforms:label>Invalid Digest : </xforms:label>
+          <xforms:message ev:event="xforms-binding-exception" level="modal">xforms-binding-exception</xforms:message>
+        </xforms:output>
+        
+    </body>
+</html>

@@ -1,0 +1,45 @@
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+ xmlns:ev="http://www.w3.org/2001/xml-events"
+>
+	<head>
+		<title>
+			Issue 595
+		</title>
+
+		<script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+	</head>
+
+	<body>
+		<h1>
+			<a href="http://code.google.com/p/ubiquity-xforms/issues/detail?id=595">Issue 595</a>
+		</h1>
+
+		<h2>Activation of submit control causes multiple dispatches of xforms-submit event in Safari</h2>
+
+		<p>Each time the `Submit` trigger is pressed, the `Count` value should be incremented by one.</p>
+
+		<xf:model>
+			<xf:instance>
+				<inst xmlns="">
+					<data>data</data>
+
+					<count>0</count>
+				</inst>
+			</xf:instance>
+
+			<xf:submission ref="/inst/data" method="post" resource="http://xformstest.org/cgi-bin/echo.sh" replace="none" id="submission">
+				<xf:setvalue ev:event="xforms-submit" ref="/inst/count" value="number(.) + 1"></xf:setvalue>
+			</xf:submission>
+		</xf:model>
+
+		<xf:submit submission="submission" id="submit">
+			<xf:label>Submit</xf:label>
+		</xf:submit>
+
+		<xf:output ref="/inst/count" id="count">
+			<xf:label>Count:</xf:label>
+		</xf:output>
+	</body>
+</html>

@@ -1,0 +1,66 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>7.8.4.e hmac() function with invalid encoding method</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+				  <td rowspan="1" colspan="3">7.8.4.e hmac() function with invalid encoding method<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../Chapt07/7.8/7.8.4/7.8.4.e.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>				<tr>
+					<td>verifyTitle</td>
+					<td>7.8.4.e hmac() function with invalid encoding method</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>waitForTextPresent</td>
+					<td>[XForms]*xforms-compute-exception*OK</td>
+					<td></td>
+					<td>Waits for the message to show up</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:model/xforms:bind[@calculate="hmac('key', 'abc', 'SHA-1', 'INVALID')"]</td>
+					<td></td>
+					<td>Checks that the bind has hmac() in it</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:model/xforms:message[@ev:event='xforms-compute-exception']</td>
+					<td></td>
+					<td>Checks that the message is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyTextPresent</td>
+					<td>[XForms]*xforms-compute-exception*OK</td>
+					<td></td>
+					<td>Checks to see if the message showed up</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

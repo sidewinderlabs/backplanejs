@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events">
+  <head>
+  	   <title>4.5.2.a xforms-compute-exception</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+  	      <xforms:instance xmlns="">
+            <data>Hello world!</data>
+         </xforms:instance>
+         <xforms:bind nodeset="/data" calculate="es@#invalidXpath"/>
+    	    <xforms:message ev:event="xforms-compute-exception" level="modal">xforms-compute-exception</xforms:message>
+      </xforms:model>
+  
+        <p class="title">4.5.2.a xforms-compute-exception</p>
+        <p>You may see an xforms-compute-exception message. 
+              Processing must halt after dispatching an xforms-compute-exception with implementation-specific error-message in the event context information.
+            	Processor specific testing is required to listen for the xforms-compute-exception and provide the error-message.
+            	You must not see 'Hello world!' beneath this paragraph.</p>
+        <xforms:output ref="/data">
+          <xforms:label>You shouldn't see this : </xforms:label>
+        </xforms:output>
+  
+  </body>
+</html>

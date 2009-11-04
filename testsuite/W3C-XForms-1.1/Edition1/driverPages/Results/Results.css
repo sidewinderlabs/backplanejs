@@ -1,0 +1,156 @@
+@namespace xforms url(http://www.w3.org/2002/xforms);
+
+.docTitle {font-weight: bold; font-size: 20pt;}
+
+*:required { background-color: #00ff00; }
+.green { background-color: #00ff00; text-align: center; }
+.red { background-color: #ff3333; text-align: center; }
+.white { background-color: #ffffff; text-align: center; }
+.orange { background-color: orange; text-align: center; }
+
+.title
+{
+    font-size: 25pt; 
+    font-weight: bold;
+    color: #000099;
+    margin-bottom: 2em;
+}
+
+.subtitle
+{
+	font-size: 15pt;
+	font-weight: bold;
+    color: #000099;
+	margin-bottom: 2em;
+}
+
+xf\:label, xforms|label
+{
+	font-size: 9pt;
+	color: black;
+	margin-bottom: 1em;
+}
+
+
+.heading
+{
+   padding:          1px 1px 1px 3px;
+   color:            white;
+   background-color: #4169E1;
+   font-weight:      bold;
+   border:           thin solid;
+}
+.chapter
+{
+   padding:          1px 1px 1px 3px;
+   text-align:       left;
+   overflow:         auto;
+   background-color: orange;
+   border:           thin solid;
+}
+.outer
+{
+   clear: both;      
+}
+
+.innerTitle
+{
+   display:          table-cell;
+   padding:          1px 1px 1px 3px;
+   float:            left;
+   width:            100px;
+   text-align:       center;
+   overflow:         auto;
+   border:           thin solid;
+}
+
+.innerCellFailedOptional
+{
+   display:          table-cell;
+   padding:          1px 1px 1px 3px;
+   float:            left;
+   width:            100px;
+   text-align:       center;
+   overflow:         auto;
+   border:           thin solid;
+   background-color: orange;
+}
+
+.innerCellFailed
+{
+   display:          table-cell;
+   padding:          1px 1px 1px 3px;
+   float:            left;
+   width:            100px;
+   text-align:       center;
+   overflow:         auto;
+   border:           thin solid;
+   background-color: #ff3333;
+}
+.innerCellPassed
+{
+   display:          table-cell;
+   padding:          1px 1px 1px 3px;
+   float:            left;
+   width:            100px;
+   text-align:       center;
+   overflow:         auto;
+   border:           thin solid;
+   background-color: #00ff00;
+}
+ .inner130
+{
+   display:          table-cell;
+   padding:          1px 1px 1px 3px;
+   float:            left;
+   width:            130px;
+   text-align:       left;
+   overflow:         auto;
+   border:           thin solid;
+}
+.innerLongCell
+{
+   display:          table-cell;
+   padding:          1px 1px 1px 3px;
+   float:            left;
+   width:            500px;
+   text-align:       left;
+   overflow:         auto;
+   border:           thin solid;
+}
+
+.inner
+{
+   display:          table-cell;
+   padding:          1px 1px 1px 3px;
+   float:            left;
+   width:            58px;
+   text-align:       left;
+   border:           thin solid;
+  
+}
+
+.inner_description
+{
+   display:          table-cell;
+   padding:          1px 1px 1px 3px;
+   float:            left;
+   width:            420px;
+   text-align:       left;
+   border:           thin solid;
+  
+}
+
+.inner_name
+{
+   display:          table-cell;
+   padding:          1px 1px 1px 3px;
+   float:            left;
+   width:            130px;
+   text-align:       left;
+   border:           thin solid;
+  
+}
+
+h3 {color: black;}
+h4 {color: black;}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <head>
+        <title>8.1.6.a mediatype attribute for upload element (non-normative)</title>
+        
+        <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link href="../../../driverPages/forms/TestSuite11.css" rel="stylesheet"/>
+    </head>
+    <body>
+      <xforms:model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <xforms:instance xmlns="">
+                <mail>
+                    <picture>
+                        <attach xsi:type="xsd:base64Binary"/>
+                        <name xsi:type="xsd:anyURI"/>
+                        <type/>
+                    </picture>
+                </mail>
+            </xforms:instance>
+        </xforms:model>
+        <xforms:group xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <xforms:label class="title">8.1.6.a mediatype attribute for upload element (non-normative)</xforms:label>
+        </xforms:group>
+        <xforms:group xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <xforms:label>
+              When you activate the Upload Image upload control your choice of files may be limited to those 
+              that are the same media type as the ones in the mediatype attribute. The mediatype attribute 
+              contains the value "image/jpeg image/png". 
+  			</xforms:label>
+        </xforms:group>
+        <xforms:upload xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     mediatype="image/jpeg image/png"
+                     ref="/mail/picture/attach">
+            <xforms:label>Upload Image</xforms:label>
+            <xforms:mediatype ref="@mediatype"/>
+        </xforms:upload>
+    </body>
+</html>

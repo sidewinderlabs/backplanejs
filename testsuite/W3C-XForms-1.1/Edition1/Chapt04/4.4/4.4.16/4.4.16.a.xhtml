@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <head>
+  	   <title>4.4.16.a xforms-in-range event</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model id="car">
+         <xforms:instance xmlns="">
+            <car>
+               <quantity xsi:type="xsd:integer">1000</quantity>
+               <mileage xsi:type="xsd:integer">2</mileage>
+               <volume xsi:type="xsd:integer">-5</volume>
+            </car>
+         </xforms:instance>
+      </xforms:model>
+  	   <xforms:group>
+  		     <xforms:label class="title">4.4.16.a xforms-in-range event</xforms:label>
+  	   </xforms:group>
+  	   <xforms:group>
+  		     <xforms:label>
+  			You must see an xforms-in-range message when you activate the In Range trigger. 
+	  	</xforms:label>	
+	     </xforms:group>
+      <xforms:group>
+		       <xforms:trigger>
+			         <xforms:label>In Range</xforms:label>
+			         <xforms:setvalue ref="/car/quantity" ev:event="DOMActivate">5</xforms:setvalue>
+		       </xforms:trigger>
+	    
+	        <xforms:range ref="/car/quantity" start="0" end="10" step="1">
+	           <xforms:label>Range 1: </xforms:label>
+	           <xforms:action ev:event="xforms-in-range">
+	              <xforms:message level="modal">xforms-in-range</xforms:message>
+	           </xforms:action>
+	           <xforms:message ev:event="xforms-in-range" level="modal">xforms-in-range</xforms:message>
+	        </xforms:range>
+      </xforms:group>
+	
+  </body>
+</html>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <title>3.3.2.b instance with inline data</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+         <xforms:instance xmlns="" resource="inst1.xml">
+            <entry>
+               <name>Wendy</name>
+               <age>20</age>
+               <education>college</education>
+            </entry>
+         </xforms:instance>
+      </xforms:model>
+      <xforms:group>
+         <xforms:label class="title">3.3.2.b instance with inline data</xforms:label>
+      </xforms:group>
+      <xforms:group>
+         <xforms:label>
+        You must see three output fields. The Name output field must have the value "Wendy", 
+        the Age output field must have the value "20", and the Education output field must 
+        have the value "college".
+      </xforms:label>
+      </xforms:group>
+      <xforms:group>
+         <xforms:output ref="name">
+            <xforms:label>Name : </xforms:label>
+         </xforms:output>
+      </xforms:group>
+      <xforms:group>
+         <xforms:output ref="age">
+            <xforms:label>Age : </xforms:label>
+         </xforms:output>
+      </xforms:group>
+      <xforms:group>
+         <xforms:output ref="education">
+            <xforms:label>Education : </xforms:label>
+         </xforms:output>
+      </xforms:group>
+  </body>
+</html>

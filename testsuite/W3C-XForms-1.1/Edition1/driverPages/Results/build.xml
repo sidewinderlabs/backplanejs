@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<project name="xf-copy-test-suite" default="gen">
+	<target name="gen">    
+		<xslt basedir="IE7" destdir="IE7" extension=".xml" style="counter.xsl" force="true">
+			<mapper type="glob" from="*.xml" to="*.counts" />
+		</xslt>
+		<xslt basedir="FF3" destdir="FF3" extension=".xml" style="counter.xsl" force="true">
+			<mapper type="glob" from="*.xml" to="*.counts" />
+		</xslt>
+		<xslt basedir="IE7" destdir="IE7" extension=".sums" style="summer.xsl" force="true">
+			<param name="dir" expression="IE7" />
+			<mapper type="glob" from="*.sumstemplate" to="*.sums" />
+		</xslt>
+		<xslt basedir="FF3" destdir="FF3" extension=".sums" style="summer.xsl" force="true">
+			<param name="dir" expression="FF3" />
+			<mapper type="glob" from="*.sumstemplate" to="*.sums" />
+		</xslt>
+		<xslt basedir="IE7" destdir="IE7/html" extension=".xml" style="buildChapterReport.xsl" force="true">
+			<param name="dir" expression="IE7" />
+			<mapper type="glob" from="*.xml" to="*.html" />
+		</xslt>
+		<xslt basedir="FF3" destdir="FF3/html" extension=".xml" style="buildChapterReport.xsl" force="true">
+			<param name="dir" expression="FF3" />
+			<mapper type="glob" from="*.xml" to="*.html" />
+		</xslt>   
+	</target>
+</project>

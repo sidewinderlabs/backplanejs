@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xml:lang="en" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fp="urn:formsplayer.com">
+	<head>
+		<title>Testing Reset</title>
+		<script>
+//    debugger;
+		</script>
+		<link rel="stylesheet" type="text/css" href="/runtime/ajax/ajaxfP/xf-behaviors-test-suite.css"></link>
+	  <script src="../../../src/ubiquity-loader.js">/**/</script>
+	</head>
+	<body>
+	    
+	   <xf:model id="m0">
+			<xf:instance id="inst0">
+				<x xmlns="">
+					<y>hello</y>
+					<z>sailor</z>
+				</x>
+			</xf:instance>
+		</xf:model>
+
+	  <xf:model id="m1">
+	    <xf:instance id="inst1">
+	      <x xmlns="">
+	        <y>bonjour</y>
+	        <z>matelot</z>
+	      </x>
+	    </xf:instance>
+	    <xf:instance id="inst2">
+	      <x xmlns="">
+	        <y>god dag</y>
+	        <z>sjoemann</z>
+	      </x>
+	    </xf:instance>
+	  </xf:model>
+	  
+	  <script type="text/javascript">
+		//  var oLogReader = new YAHOO.widget.LogReader("fc-logger",{top:"50%",right:"10px"});
+		//  document.logger = new YAHOO.widget.LogWriter("ajaxfP");
+			document.logger = { log: function(sText, sContext) { } };
+		</script>
+		<h1>Testing Input</h1>
+		<hr />
+		<xf:output id="o0" ref="y"></xf:output>
+		<hr />
+		<xf:input id="i0" ref="z">
+			<xf:label id="l0">Hello</xf:label>
+		</xf:input>
+    
+    <xf:input id="i1" model="m1" ref="instance('inst1')/z">
+      <xf:label id="l1">Hello</xf:label>
+    </xf:input>
+    <xf:input id="i2" model="m1" ref="instance('inst2')/z">
+      <xf:label id="l2">Hello</xf:label>
+    </xf:input>
+    
+    <xf:trigger id="t0">
+      <xf:label id="tl0">t0</xf:label>
+      <xf:reset model="m0" ev:event="DOMActivate"></xf:reset>
+    </xf:trigger>
+    <xf:trigger id="t1">
+      <xf:label id="tl1">t1</xf:label>
+      <xf:reset ev:event="DOMActivate"></xf:reset>
+    </xf:trigger>
+	  
+	  <xf:trigger id="t2">
+	    <xf:label id="tl2">t2</xf:label>
+	    <xf:reset model="m1" ev:event="DOMActivate"></xf:reset>
+	  </xf:trigger> 
+	  <xf:trigger id="t3">
+	    <xf:label id="tl3">t3</xf:label>
+	    <xf:action ev:event="DOMActivate">
+  	    <xf:reset model="m1"></xf:reset>
+	    </xf:action>
+	  </xf:trigger>
+	  <hr />
+	</body>
+</html>

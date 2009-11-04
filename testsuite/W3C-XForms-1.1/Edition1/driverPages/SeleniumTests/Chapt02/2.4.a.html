@@ -1,0 +1,213 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>2.4.a Example: Multiple Forms</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+				  <td rowspan="1" colspan="3">2.4.a Example: Multiple Forms<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../Chapt02/2.4.a.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>waitForModelReady</td>
+					<td>xpath=/html/body/xf:model[1]</td>
+					<td>&nbsp;</td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>2.4.a Example: Multiple Forms</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:select1[@ref='@method']/pe-value/input</td>
+					<td></td>
+					<td>Checks that the select1 is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyXformsControlValue</td>
+					<td>xpath=/html/body/xforms:select1[@ref='@method']</td>
+					<td>cc</td>
+					<td>Checks that the select1 has the right value</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:submit[@submission='pollsubmit']/xforms:label</td>
+					<td></td>
+					<td>Clicks on submit button</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>2000</td>
+					<td></td>
+					<td>Waits for the form data page to load</td>
+				</tr>
+				<tr>
+					<td>verifyElementNotPresent</td>
+					<td>xpath=//html/body/pre</td>
+					<td></td>
+					<td>Checks that the form data is not shown</td>
+				</tr>
+				<tr>
+				    <td>click</td>
+				    <td>xpath=/html/body/xforms:select1[@ref='@method']/pe-value/input</td>
+				    <td></td>
+				    <td>Clicks in the select1</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+				    <td>xpath=/html/body/xforms:select1[@ref='@method']//div[@class='pe-choices']</td>
+				    <td></td>
+				    <td>Checks that the choices section is in the form</td>
+				</tr>
+				<tr>
+			    	<td>verifyText</td>
+				    <td>xpath=/html/body/xforms:select1[@ref='@method']//div[@class='pe-choices']/xforms:item[1]/xforms:label</td>
+				    <td>Cash</td>
+			    	<td>Checks that the first item is "Cash"</td>
+				</tr>
+				<tr>
+			    	<td>verifyText</td>
+				    <td>xpath=/html/body/xforms:select1[@ref='@method']//div[@class='pe-choices']/xforms:item[2]/xforms:label</td>
+				    <td>Credit</td>
+			    	<td>Checks that the second item is "Credit"</td>
+				</tr>
+		        <tr>
+					<td>type</td>
+					<td>xpath=/html/body/xforms:input[@ref='my:number']/pe-value/input</td>
+					<td>1234567890123456</td>
+			    	<td>Sets the credit card number</td>
+				</tr>
+				<tr>
+					<td>type</td>
+					<td>xpath=/html/body/xforms:input[@ref='/my:payment/my:expiry']/pe-value/input</td>
+					<td>2008-12</td>
+			    	<td>Sets the expiration date of the credit card</td>
+				</tr>
+<!--
+Choose an option
+-->
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:select1[@ref='@method']//div[@class='pe-choices']/xforms:item[2]/xforms:label</td>
+					<td></td>
+					<td>Clicks on "Credit"</td>
+				</tr> 
+				<tr>
+					<td>waitForXformsControlValue</td>
+					<td>xpath=/html/body/xforms:select1[@ref='@method']</td>
+					<td>cc</td>
+					<td>Checks that the select1 is bound correctly</td>
+				</tr>
+				<tr>
+					<td>verifyXformsControlValue</td>
+					<td>xpath=/html/body/xforms:select1[@ref='@method']</td>
+					<td>cc</td>
+					<td>Checks that the select1 is bound correctly</td>
+				</tr>
+				
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:select1[@ref='helpful']/pe-value/input</td>
+					<td></td>
+					<td>Checks that the other select1 is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyXformsControlValue</td>
+					<td>xpath=/html/body/xforms:select1[@ref='helpful']</td>
+					<td>3</td>
+					<td>Checks that the other select1 has the right value</td>
+				</tr>
+				<tr>
+				    <td>click</td>
+				    <td>xpath=/html/body/xforms:select1[@ref='helpful']/pe-value/input</td>
+				    <td></td>
+				    <td>Clicks in the other select1</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+				    <td>xpath=/html/body/xforms:select1[@ref='helpful']//div[@class='pe-choices']</td>
+				    <td></td>
+				    <td>Checks that the choices section is in the form</td>
+				</tr>
+				<tr>
+			    	<td>verifyText</td>
+				    <td>xpath=/html/body/xforms:select1[@ref='helpful']//div[@class='pe-choices']/xforms:item[1]/xforms:label</td>
+				    <td>Not at all helpful (0)</td>
+			    	<td>Checks that the first item is "Not at all helpful (0)"</td>
+				</tr>
+				<tr>
+			    	<td>verifyText</td>
+				    <td>xpath=/html/body/xforms:select1[@ref='helpful']//div[@class='pe-choices']/xforms:item[4]/xforms:label</td>
+				    <td>Very helpful (3)</td>
+			    	<td>Checks that the fourth item is "Very helpful (3)"</td>
+				</tr>
+<!--
+Choose an option
+-->
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:select1[@ref='helpful']//div[@class='pe-choices']/xforms:item[1]/xforms:label</td>
+					<td></td>
+					<td>Clicks on "Not at all helpful (0)"</td>
+				</tr> 
+				<tr>
+					<td>waitForXformsControlValue</td>
+					<td>xpath=/html/body/xforms:select1[@ref='helpful']</td>
+					<td>0</td>
+					<td>Checks that the other select1 is bound correctly</td>
+				</tr>
+				<tr>
+					<td>verifyXformsControlValue</td>
+					<td>xpath=/html/body/xforms:select1[@ref='helpful']</td>
+					<td>0</td>
+					<td>Checks that the other select1 is bound correctly</td>
+				</tr>
+				
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:submit[@submission='pollsubmit']/xforms:label</td>
+					<td></td>
+					<td>Clicks on submit button</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>2000</td>
+					<td></td>
+					<td>Waits for the form data page to load</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=//html/body/pre</td>
+					<td>*&lt;helpful&gt;0&lt;/helpful&gt;*</td>
+					<td>Checks that the form data is shown</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

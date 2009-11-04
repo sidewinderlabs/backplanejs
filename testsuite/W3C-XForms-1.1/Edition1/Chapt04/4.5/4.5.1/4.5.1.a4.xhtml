@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <head>
+        <title>4.5.1.a4 xforms-binding-exception, invalid instance attribute of submission attribute</title>
+        
+        <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link href="../../../driverPages/forms/TestSuite11.css" rel="stylesheet"/>
+    </head>
+    <body>
+      <xforms:model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="form1">
+            <xforms:submission action="response.xml" id="submit" method="get" replace="instance"
+                            instance="INVALID">
+		          <xforms:action ev:event="xforms-binding-exception">
+		             <xforms:message level="modal">xforms-binding-exception</xforms:message>
+		          </xforms:action>
+            </xforms:submission>
+            <xforms:instance xmlns="" id="instance1">
+                <car>
+                    <carOwner>Henry</carOwner>
+                    <make>Acura</make>
+                    <color>White</color>
+                </car>
+            </xforms:instance>
+        </xforms:model>
+        <xforms:group xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <xforms:label class="title">4.5.1.a4 xforms-binding-exception, invalid instance attribute of submission attribute</xforms:label>
+        </xforms:group>
+       	<xforms:group xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+       		<xforms:label>
+       			When you activate the Submit Now submit control you must see an xforms-binding-exception message or a 
+       			fatal error due to an xforms-binding-exception. 
+			
+			</xforms:label>
+        </xforms:group>
+        
+        <xforms:submit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" submission="submit">
+            <xforms:label>Submit Now</xforms:label>
+        </xforms:submit>
+        
+    </body>
+</html>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <head>
+      <title>11.7.1.a method element</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+        <xforms:instance xmlns="">
+            <data>
+                <mthd>post</mthd>
+                 <lore>geordi</lore>
+             </data>
+        </xforms:instance>
+    	    <xforms:submission id="submit" action="http://xformstest.org/cgi-bin/echo.sh">
+    		      <xforms:method value="mthd">other</xforms:method>    	
+    	    </xforms:submission>     	
+      </xforms:model>
+  	   <xforms:group>
+  		     <xforms:label class="title">11.7.1.a method element</xforms:label>
+  	   </xforms:group>
+      <xforms:group>
+        <xforms:label>
+          When the Submit With Method trigger is activated the page will be replaced by the form data. 
+          The variable on the page for the request method must equal "post". 
+		</xforms:label>
+	     </xforms:group>
+      <xforms:submit submission="submit">
+        <xforms:label>Submit With Method</xforms:label>
+      </xforms:submit>  	
+  </body>
+</html>

@@ -1,0 +1,80 @@
+<!--
+	* Copyright (C) 2008 Backplane Ltd.
+	*
+	* Licensed under the Apache License, Version 2.0 (the "License");
+	* you may not use this file except in compliance with the License.
+	* You may obtain a copy of the License at
+	*
+	*  http://www.apache.org/licenses/LICENSE-2.0
+	*
+	* Unless required by applicable law or agreed to in writing, software
+	* distributed under the License is distributed on an "AS IS" BASIS,
+	* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	* See the License for the specific language governing permissions and
+	* limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+			<title>Test Suite</title>
+			<link rel="stylesheet" type="text/css" href="../../../../selenium/core/selenium.css" />
+			<script language="JavaScript" type="text/javascript" src="../../../../selenium/core/scripts/selenium-browserdetect.js"></script>
+			<script language="JavaScript" type="text/javascript">//<![CDATA[
+    var DISABLED = true; // used to flag failing tests
+
+    function filterTestsForBrowser() {
+        var suiteTable = document.getElementById("suiteTable");
+        var skippedTests = document.getElementById("skippedTests");
+
+        for(rowNum = suiteTable.rows.length - 1; rowNum >= 0; rowNum--)
+        {
+            var row = suiteTable.rows[rowNum];
+            var filterString = row.getAttribute("unless");
+            if (filterString && eval(filterString))
+            {
+              var cellHTML = row.cells[0].innerHTML;
+              suiteTable.deleteRow(rowNum);
+
+              var newRow = skippedTests.insertRow(1);
+              var newCell = newRow.insertCell(0)
+              newCell.innerHTML = cellHTML;
+            }
+        }
+    }
+//]]>
+			</script>
+	</head>
+	<body onload="filterTestsForBrowser()">
+		<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium">
+			<tbody>
+				<tr>
+					<td><b>XForms 1.1 Chapter 5 Test Suite</b></td>
+				</tr>
+				<tr><td><a href="./Chapt05/5.1/5.1.a.html">5.1.a built-in primitive types</a></td></tr>
+				<tr><td><a href="./Chapt05/5.1/5.1.b.html">5.1.b built-in derived types</a></td></tr>
+				<tr><td><a href="./Chapt05/5.1/5.1.c.html">5.1.c supported primitive XML schema types in basic processors</a></td></tr>
+				<tr><td><a href="./Chapt05/5.1/5.1.d.html">5.1.d supported derived XML schema types in basic processors</a></td></tr>
+				<tr><td><a href="./Chapt05/5.1/5.1.e.html">5.1.e built-in primitive type via xsi:type</a></td></tr>
+				<tr><td><a href="./Chapt05/5.2/5.2.1/5.2.1.a.html">5.2.1.a built-in primitive types which allow empty content</a></td></tr>
+				<tr><td><a href="./Chapt05/5.2/5.2.1/5.2.1.b.html">5.2.1.b built-in derived types which allow empty content</a></td></tr>
+				<tr><td><a href="./Chapt05/5.2/5.2.1/5.2.1.c.html">5.2.1.c built-in data types which allow empty content for basic processors</a></td></tr>
+				<tr><td><a href="./Chapt05/5.2/5.2.2/5.2.2.a.html">5.2.2.a listItem datatype</a></td></tr>
+				<tr><td><a href="./Chapt05/5.2/5.2.3/5.2.3.a.html">5.2.3.a listItems datatype</a></td></tr>
+				<tr><td><a href="./Chapt05/5.2/5.2.4/5.2.4.a.html">5.2.4.a dayTimeDuration datatype</a></td></tr>
+				<tr><td><a href="./Chapt05/5.2/5.2.5/5.2.5.a.html">5.2.5.a yearMonthDuration datatype</a></td></tr>
+				<tr><td><a href="./Chapt05/5.2/5.2.6/5.2.6.a.html">5.2.6.a email datatype</a></td></tr>
+				<tr><td><a href="./Chapt05/5.2/5.2.7/5.2.7.a.html">5.2.7.a card-number datatype</a></td></tr>
+				<tr><td><a href="./Chapt05/5.2/5.2.7/5.2.7.b.html">5.2.7.b card-number datatype - credit card example</a></td></tr>
+			</tbody>
+		</table>
+		<br />
+		<em>Not supported in this browser</em>
+		<table id="skippedTests" cellpadding="1" cellspacing="1" border="1" class="selenium">
+			<tbody>
+				<tr>
+					<td><b>Skipped Tests</b></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

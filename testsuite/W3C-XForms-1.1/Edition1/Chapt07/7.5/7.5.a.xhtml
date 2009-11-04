@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:ex="http://www.example.com">
+    <head>
+        <title>7.5.a error in modal item property causes an xforms-compute-exception</title>
+        
+        <script type="text/javascript"
+              src="../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/>
+    </head>
+    <body>
+      <xforms:model>
+            <xforms:instance xmlns="">
+                <box_description>
+                    <description>The box has more than 2 items.</description>
+                    <box>
+                        <box_item/>
+                        <box_item/>
+                        <box_item/>
+                    </box>
+                </box_description>
+            </xforms:instance>
+            <xforms:bind nodeset="/box_description/description"
+                      readonly="digest('abc', 'SHA-1', 'INVALID') != ''"/>
+            <xforms:message ev:event="xforms-compute-exception" level="modal">xforms-compute-exception</xforms:message>
+        </xforms:model>
+        <xforms:group>
+            <xforms:label class="title">7.5.a error in modal item property causes an xforms-compute-exception</xforms:label>
+        </xforms:group>
+        <xforms:group>
+            <xforms:label>
+                You must see an xforms-compute-exception message or a fatal error due to an 
+				xforms-compute-exception. 
+            </xforms:label>
+        </xforms:group>
+        <xforms:input ref="/box_description/description">
+            <xforms:label>Box description:</xforms:label>
+        </xforms:input>
+    </body>
+</html>

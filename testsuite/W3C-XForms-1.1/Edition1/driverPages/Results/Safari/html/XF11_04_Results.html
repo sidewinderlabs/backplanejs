@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html exclude-result-prefixes="ts" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ts="http://www.w3c.org/MarkUp/Forms/XForms/Test/11" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>XForms Results Table</title>
+    <link rel="stylesheet" href="../Results.css" type="text/css"/>
+    <link rel="stylesheet" href="../TestSuite11.css" type="text/css"/>
+  </head>
+  <body>
+    <h1 class="title">XForms 1.1 Test Suite Implementation Status for Ubiquity XForms</h1>
+    <h2 class="subtitle">XForms 1.1 Test</h2>
+    <h3>This report describes the results from testing the XForms 1.1 Test Suite with Ubiquity XForms.</h3>
+    <h2 class="subtitle">Legend</h2>
+    <table cellpadding="2" cellspacing="1" border="1">
+      <tr>
+        <th class="testCaseNameTitle" width="80">Type</th>
+        <th class="testCaseNameTitle" width="300">Description</th>
+      </tr>
+      <tr>
+        <td class="green">Passed</td>
+        <td>The test passed when it was run manually.</td>
+      </tr>
+      <tr>
+        <td class="red">Failed</td>
+        <td>The test failed when it was run manually.</td>
+      </tr>
+      <tr>
+        <td class="orange">Failed</td>
+        <td>The OPTIONAL test failed when it was run manually.</td>
+      </tr>
+      <tr>
+        <td class="white">Unknown</td>
+        <td>The test was not run, or an unknown result occurred.</td>
+      </tr>
+    </table>
+    <h2 class="subtitle">Chapter Results Summary</h2>
+    <table cellpadding="2" cellspacing="1" border="1" width="500">
+      <tr>
+        <td colspan="2">
+          <strong>64 normative tests</strong>
+        </td>
+      </tr>
+      <tr>
+        <td>Passed</td>
+        <td>56</td>
+      </tr>
+      <tr>
+        <td>Failed</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <td>Unknown</td>
+        <td>not calculated</td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <strong>64 basic tests</strong>
+        </td>
+      </tr>
+      <tr>
+        <td>Passed</td>
+        <td>56</td>
+      </tr>
+      <tr>
+        <td>Failed</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <td>Unknown</td>
+        <td>not calculated</td>
+      </tr>
+    </table>
+    <h2 class="subtitle">Results Table</h2>
+    <table cellpadding="2" cellspacing="1" border="1">
+      <tr class="heading">
+        <td class="inner130">Test Case Number</td>
+        <td class="innerLongCell">Test Case Name</td>
+        <td class="innerTitle">Safari</td>
+      </tr>
+      <tr class="chapter">
+        <td colspan="3">4. Processing Model</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.2.1.a</td>
+        <td class="innerLongCell">xforms-model-construct event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.2.1.b1</td>
+        <td class="innerLongCell">schemas loaded sucessfully</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.2.1.b2</td>
+        <td class="innerLongCell">schemas loaded with an xforms-link-exception</td>
+        <td class="innerCellFailed">Failed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.2.1.c1</td>
+        <td class="innerLongCell">initial instance defined in external source</td>
+        <td class="innerCellFailed">Failed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.2.1.c2</td>
+        <td class="innerLongCell">external source takes precedence over inline source for initial instance data</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.2.1.c3</td>
+        <td class="innerLongCell">initial instance defined in invalid external source</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.2.1.d</td>
+        <td class="innerLongCell">xforms-model-construct-done event is dispatched for each model</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.2.2.a</td>
+        <td class="innerLongCell">xforms-model-construct and xforms-model-construct-done events</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.2.2.b</td>
+        <td class="innerLongCell">xforms-model-construct-done</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.2.2.c1</td>
+        <td class="innerLongCell">form control referenced instance that did not exist yet</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.2.2.c2</td>
+        <td class="innerLongCell">invalid QNAME causes xforms-binding-exception</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.2.3.a</td>
+        <td class="innerLongCell">xforms-model-construct-done and xforms-ready events</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.2.4.a</td>
+        <td class="innerLongCell">xforms-model-destruct dispatched after form submission</td>
+        <td class="innerCellFailed">Failed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.3.1.a</td>
+        <td class="innerLongCell">xforms-rebuild event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.3.2.a</td>
+        <td class="innerLongCell">xforms-recalculate event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.3.3.a</td>
+        <td class="innerLongCell">xforms-revalidate event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.3.4.a</td>
+        <td class="innerLongCell">xforms-refresh event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.3.5.a</td>
+        <td class="innerLongCell">xforms-reset event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.3.6.a</td>
+        <td class="innerLongCell">xforms-previous and xforms-next</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.3.6.b</td>
+        <td class="innerLongCell">navigation sequence with navindex</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.3.7.a</td>
+        <td class="innerLongCell">xforms-focus event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.3.8.a</td>
+        <td class="innerLongCell">xforms-help and xforms-hint events</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.4.1.a</td>
+        <td class="innerLongCell">xforms-insert event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.4.2.a</td>
+        <td class="innerLongCell">xforms-delete action</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.4.3.a</td>
+        <td class="innerLongCell">xforms-value-changed event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.4.4.a</td>
+        <td class="innerLongCell">xforms-valid event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.4.5.a</td>
+        <td class="innerLongCell">xforms-invalid event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.4.6.a</td>
+        <td class="innerLongCell">xforms-readonly event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.4.7.a</td>
+        <td class="innerLongCell">xforms-readwrite event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.4.8.a</td>
+        <td class="innerLongCell">xforms-required event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.4.9.a</td>
+        <td class="innerLongCell">xforms-optional event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.4.10.a</td>
+        <td class="innerLongCell">xforms-enabled event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.4.11.a</td>
+        <td class="innerLongCell">xforms-disabled event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.4.12.a</td>
+        <td class="innerLongCell">DOMActivate event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.4.13.a</td>
+        <td class="innerLongCell">DOMFocusIn event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.4.14.a</td>
+        <td class="innerLongCell">DOMFocusOut event</td>
+        <td class="innerCellFailed">Failed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.4.15.a</td>
+        <td class="innerLongCell">xforms-select and xforms-deselect events</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.4.16.a</td>
+        <td class="innerLongCell">xforms-in-range event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.4.17.a</td>
+        <td class="innerLongCell">xforms-out-of-range event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.4.18.a</td>
+        <td class="innerLongCell">xforms-scroll-first and xforms-scroll-last events</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.5.1.a1</td>
+        <td class="innerLongCell">xforms-binding-exception, invalid model attribute</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.5.1.a2</td>
+        <td class="innerLongCell">xforms-binding-exception, invalid bind attribute</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.5.1.a3</td>
+        <td class="innerLongCell">xforms-binding-exception, invalid submission attribute</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.5.1.a4</td>
+        <td class="innerLongCell">xforms-binding-exception, invalid instance attribute of submission attribute</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.5.1.a5</td>
+        <td class="innerLongCell">xforms-binding-exception, illegal binding expression</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.5.2.a</td>
+        <td class="innerLongCell">xforms-compute-exception</td>
+        <td class="innerCellFailed">Failed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.5.3.a</td>
+        <td class="innerLongCell">xforms-version-exception</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.5.4.a</td>
+        <td class="innerLongCell">xforms-link-exception</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.5.5.a</td>
+        <td class="innerLongCell">xforms-output-error event</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.6.1.a1</td>
+        <td class="innerLongCell">event sequencing for input, secret, textarea controls</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.6.1.a2</td>
+        <td class="innerLongCell">event sequenceing for range and upload controls</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.6.1.b1</td>
+        <td class="innerLongCell">event sequencing for input, secret, textarea controls - focus change with value change</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.6.1.b2</td>
+        <td class="innerLongCell">event sequenceing for range and upload controls - focus change with value change</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.6.3.a</td>
+        <td class="innerLongCell">event sequencing for select/select1 controls with incremental="true"</td>
+        <td class="innerCellFailed">Failed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.6.3.b</td>
+        <td class="innerLongCell">event sequencing for select/select1 controls without incremental="true"</td>
+        <td class="innerCellFailed">Failed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.6.3.c</td>
+        <td class="innerLongCell">event sequencing for select/select1 controls (focus changes)</td>
+        <td class="innerCellFailed">Failed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.6.4.a</td>
+        <td class="innerLongCell">event sequencing for trigger controls</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.6.5.a</td>
+        <td class="innerLongCell">event sequencing for submit controls</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.7.a</td>
+        <td class="innerLongCell">invalid ID references that terminate with no effect</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.7.b</td>
+        <td class="innerLongCell">xforms-submit event not dispatched</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.7.c</td>
+        <td class="innerLongCell">null result of IDREF search by index() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.7.d</td>
+        <td class="innerLongCell">null result of IDREF search by instance() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.7.e1</td>
+        <td class="innerLongCell">null search for bind causes exception</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.7.e2</td>
+        <td class="innerLongCell">null search for model causes exception</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.7.e3</td>
+        <td class="innerLongCell">null search for instance causes exception</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.8.1.a</td>
+        <td class="innerLongCell">getInstanceDocument() method</td>
+        <td class="innerCellFailedOptional">Failed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">4.8.1.b</td>
+        <td class="innerLongCell">getInstanceDocument() throws a DOMException</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+    </table>
+  </body>
+</html>

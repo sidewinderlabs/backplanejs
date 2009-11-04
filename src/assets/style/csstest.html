@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+ xmlns:ev="http://www.w3.org/2001/xml-events"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-Instance"
+>
+	<head>
+		<title>
+			Ubiquity XForms CSS Test
+		</title>
+
+		<script src="../../ubiquity-loader.js" type="text/javascript">/**/</script>
+	</head>
+
+	<body>
+		<xf:model id="mdl">
+			<xf:instance id="inst">
+				<inst xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-Instance">
+					<data xsi:type="xsd:integer">3</data>
+					<bool xsi:type="xsd:boolean">false</bool>
+				</inst>
+			</xf:instance>
+
+			<xf:bind nodeset="instance('inst')/data" constraint=". != 3"></xf:bind>
+
+			<xf:submission id="sbm" method="get" resource="wibble" replace="instance" instance="inst"></xf:submission>
+		</xf:model>
+
+		<h1>
+			Ubiquity XForms CSS Test
+		</h1>
+
+		<xf:input ref="instance('inst')/data">
+			<xf:label>
+				Input:
+			</xf:label>
+
+			<xf:alert>Alert</xf:alert>
+
+			<xf:hint>Hint</xf:hint>
+
+			<xf:help>Help</xf:help>
+		</xf:input>
+
+		<xf:input ref="instance('inst')/bool">
+			<xf:label>
+				Input/Boolean:
+			</xf:label>
+
+			<xf:hint>Hint</xf:hint>
+		</xf:input>
+
+		<xf:secret ref="instance('inst')/data">
+			<xf:label>
+				Secret:
+			</xf:label>
+
+			<xf:alert>Alert</xf:alert>
+
+			<xf:hint>Hint</xf:hint>
+
+			<xf:help>Help</xf:help>
+		</xf:secret>
+
+		<xf:textarea ref="instance('inst')/data">
+			<xf:label>
+				Textarea:
+			</xf:label>
+
+			<xf:alert>Alert</xf:alert>
+
+			<xf:hint>Hint</xf:hint>
+
+			<xf:help>Help</xf:help>
+		</xf:textarea>
+
+		<xf:output ref="instance('inst')/data">
+			<xf:label>
+				Output:
+			</xf:label>
+		</xf:output>
+
+		<xf:range ref="instance('inst')/data" start="1" end="5" step="2">
+			<xf:label>
+				Range:
+			</xf:label>
+		</xf:range>
+
+		<xf:trigger>
+			<xf:label>
+				Trigger
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:setvalue ref="instance('inst')/data" value="1"></xf:setvalue>
+
+				<xf:message level="modal">Modal message</xf:message>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:trigger appearance="minimal">
+			<xf:label>
+				Trigger/Minimal
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:setvalue ref="instance('inst')/data" value="5"></xf:setvalue>
+
+				<xf:message level="ephemeral">Ephemeral message</xf:message>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:submit submission="sbm">
+			<xf:label>
+				Submit
+			</xf:label>
+		</xf:submit>
+
+		<xf:submit submission="sbm" appearance="minimal">
+			<xf:label>
+				Submit/Minimal
+			</xf:label>
+		</xf:submit>
+
+		<xf:select ref="instance('inst')/data">
+			<xf:label>
+				Select:
+			</xf:label>
+
+			<xf:item>
+				<xf:label>One</xf:label>
+				<xf:value>1</xf:value>
+			</xf:item>
+
+			<xf:item>
+				<xf:label>Three</xf:label>
+				<xf:value>3</xf:value>
+			</xf:item>
+
+			<xf:item>
+				<xf:label>Five</xf:label>
+				<xf:value>5</xf:value>
+			</xf:item>
+		</xf:select>
+
+		<xf:select ref="instance('inst')/data" appearance="minimal">
+			<xf:label>
+				Select/Minimal:
+			</xf:label>
+
+			<xf:item>
+				<xf:label>One</xf:label>
+				<xf:value>1</xf:value>
+			</xf:item>
+
+			<xf:item>
+				<xf:label>Three</xf:label>
+				<xf:value>3</xf:value>
+			</xf:item>
+
+			<xf:item>
+				<xf:label>Five</xf:label>
+				<xf:value>5</xf:value>
+			</xf:item>
+		</xf:select>
+
+		<xf:select ref="instance('inst')/data" appearance="compact">
+			<xf:label>
+				Select/Compact:
+			</xf:label>
+
+			<xf:item>
+				<xf:label>One</xf:label>
+				<xf:value>1</xf:value>
+			</xf:item>
+
+			<xf:item>
+				<xf:label>Three</xf:label>
+				<xf:value>3</xf:value>
+			</xf:item>
+
+			<xf:item>
+				<xf:label>Five</xf:label>
+				<xf:value>5</xf:value>
+			</xf:item>
+		</xf:select>
+
+		<xf:select ref="instance('inst')/data" appearance="full">
+			<xf:label>
+				Select/Full:
+			</xf:label>
+
+			<xf:item>
+				<xf:label>One</xf:label>
+				<xf:value>1</xf:value>
+			</xf:item>
+
+			<xf:item>
+				<xf:label>Three</xf:label>
+				<xf:value>3</xf:value>
+			</xf:item>
+
+			<xf:item>
+				<xf:label>Five</xf:label>
+				<xf:value>5</xf:value>
+			</xf:item>
+		</xf:select>
+
+		<xf:select1 ref="instance('inst')/data">
+			<xf:label>
+				Select1:
+			</xf:label>
+
+			<xf:item>
+				<xf:label>One</xf:label>
+				<xf:value>1</xf:value>
+			</xf:item>
+
+			<xf:item>
+				<xf:label>Three</xf:label>
+				<xf:value>3</xf:value>
+			</xf:item>
+
+			<xf:item>
+				<xf:label>Five</xf:label>
+				<xf:value>5</xf:value>
+			</xf:item>
+		</xf:select1>
+
+		<xf:select1 ref="instance('inst')/data" appearance="minimal">
+			<xf:label>
+				Select1/Minimal:
+			</xf:label>
+
+			<xf:item>
+				<xf:label>One</xf:label>
+				<xf:value>1</xf:value>
+			</xf:item>
+
+			<xf:item>
+				<xf:label>Three</xf:label>
+				<xf:value>3</xf:value>
+			</xf:item>
+
+			<xf:item>
+				<xf:label>Five</xf:label>
+				<xf:value>5</xf:value>
+			</xf:item>
+		</xf:select1>
+
+		<xf:select1 ref="instance('inst')/data" appearance="compact">
+			<xf:label>
+				Select1/Compact:
+			</xf:label>
+
+			<xf:item>
+				<xf:label>One</xf:label>
+				<xf:value>1</xf:value>
+			</xf:item>
+
+			<xf:item>
+				<xf:label>Three</xf:label>
+				<xf:value>3</xf:value>
+			</xf:item>
+
+			<xf:item>
+				<xf:label>Five</xf:label>
+				<xf:value>5</xf:value>
+			</xf:item>
+		</xf:select1>
+
+		<xf:select1 ref="instance('inst')/data" appearance="full">
+			<xf:label>
+				Select1/Full:
+			</xf:label>
+
+			<xf:item>
+				<xf:label>One</xf:label>
+				<xf:value>1</xf:value>
+			</xf:item>
+
+			<xf:item>
+				<xf:label>Three</xf:label>
+				<xf:value>3</xf:value>
+			</xf:item>
+
+			<xf:item>
+				<xf:label>Five</xf:label>
+				<xf:value>5</xf:value>
+			</xf:item>
+		</xf:select1>
+	</body>
+</html>

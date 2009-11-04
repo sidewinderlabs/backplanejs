@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xsi="http://www.w3.org/2001/XMLschema-instance"
+            xmlns:xsd="http://www.w3.org/2001/XMLschema">
+  <head>
+      <title>8.3.3.c value element with inline content</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+         <xforms:instance xmlns="">
+            <colors>
+               <mycolor/>
+               <primary1>red</primary1>
+               <primary2>blue</primary2>
+               <primary3>green</primary3>
+            </colors>
+         </xforms:instance>
+      </xforms:model>
+      <xforms:group>
+         <xforms:label class="title">8.3.3.c value element with inline content</xforms:label>
+      </xforms:group>
+      <xforms:group>
+         <xforms:label>
+         When you pick a value from the Select A Color select1 control you must see the same value as the 
+         output for the Your Color output control. 
+       </xforms:label>
+      </xforms:group>
+      <xforms:select1 ref="/colors/mycolor">
+        <xforms:label>Select A Color:</xforms:label>
+        <xforms:item>
+            <xforms:label>red</xforms:label>
+            <xforms:value>red</xforms:value>
+        </xforms:item>
+        <xforms:item>
+            <xforms:label>blue</xforms:label>
+            <xforms:value>blue</xforms:value>
+        </xforms:item>
+        <xforms:item>
+            <xforms:label>green</xforms:label>
+            <xforms:value>green</xforms:value>
+        </xforms:item>
+      </xforms:select1>
+      <xforms:group>
+         <xforms:output ref="/colors/mycolor">
+      	     <xforms:label>Your Color : </xforms:label>
+         </xforms:output>
+      </xforms:group>
+      
+  </body>
+</html>

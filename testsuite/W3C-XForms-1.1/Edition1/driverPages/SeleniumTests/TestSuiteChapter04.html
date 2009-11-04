@@ -1,0 +1,132 @@
+<!--
+	* Copyright (C) 2008 Backplane Ltd.
+	*
+	* Licensed under the Apache License, Version 2.0 (the "License");
+	* you may not use this file except in compliance with the License.
+	* You may obtain a copy of the License at
+	*
+	*  http://www.apache.org/licenses/LICENSE-2.0
+	*
+	* Unless required by applicable law or agreed to in writing, software
+	* distributed under the License is distributed on an "AS IS" BASIS,
+	* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	* See the License for the specific language governing permissions and
+	* limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+			<title>Test Suite</title>
+			<link rel="stylesheet" type="text/css" href="../../../../selenium/core/selenium.css" />
+			<script language="JavaScript" type="text/javascript" src="../../../../selenium/core/scripts/selenium-browserdetect.js"></script>
+			<script language="JavaScript" type="text/javascript">//<![CDATA[
+    var DISABLED = true; // used to flag failing tests
+
+    function filterTestsForBrowser() {
+        var suiteTable = document.getElementById("suiteTable");
+        var skippedTests = document.getElementById("skippedTests");
+
+        for(rowNum = suiteTable.rows.length - 1; rowNum >= 0; rowNum--)
+        {
+            var row = suiteTable.rows[rowNum];
+            var filterString = row.getAttribute("unless");
+            if (filterString && eval(filterString))
+            {
+              var cellHTML = row.cells[0].innerHTML;
+              suiteTable.deleteRow(rowNum);
+
+              var newRow = skippedTests.insertRow(1);
+              var newCell = newRow.insertCell(0)
+              newCell.innerHTML = cellHTML;
+            }
+        }
+    }
+//]]>
+			</script>
+	</head>
+	<body onload="filterTestsForBrowser()">
+		<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium">
+			<tbody>
+				<tr>
+					<td><b>XForms 1.1 Chapter 4 Test Suite</b></td>
+				</tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.1/4.2.1.a.html">4.2.1.a xforms-model-construct event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.1/4.2.1.b1.html">4.2.1.b1 schemas loaded sucessfully</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.1/4.2.1.b2.html">4.2.1.b2 schemas loaded with an xforms-link-exception</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.1/4.2.1.c1.html">4.2.1.c1 initial instance defined in external source</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.1/4.2.1.c2.html">4.2.1.c2 inline source takes precedence over external source for initial instance data</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.1/4.2.1.c3.html">4.2.1.c3 initial instance defined in invalid external source</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.1/4.2.1.d.html">4.2.1.d xforms-model-construct-done event is dispatched for each model</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.2/4.2.2.a.html">4.2.2.a xforms-model-construct and xforms-model-construct-done events</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.2/4.2.2.b.html">4.2.2.b xforms-model-construct-done</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.2/4.2.2.c1.html">4.2.2.c1 form control referenced instance that did not exist yet</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt04/4.2/4.2.2/4.2.2.c2.html">4.2.2.c2 invalid QNAME causes xforms-binding-exception</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.3/4.2.3.a.html">4.2.3.a xforms-model-construct-done and xforms-ready events</a></td></tr>
+				<tr><td><a href="./Chapt04/4.2/4.2.4/4.2.4.a.html">4.2.4.a xforms-model-destruct dispatched after form submission</a></td></tr>
+				<tr><td><a href="./Chapt04/4.3/4.3.1/4.3.1.a.html">4.3.1.a xforms-rebuild event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.3/4.3.2/4.3.2.a.html">4.3.2.a xforms-recalculate event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.3/4.3.3/4.3.3.a.html">4.3.3.a xforms-revalidate event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.3/4.3.4/4.3.4.a.html">4.3.4.a xforms-refresh event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.3/4.3.5/4.3.5.a.html">4.3.5.a xforms-reset event</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt04/4.3/4.3.6/4.3.6.a.html">4.3.6.a xforms-previous and xforms-next</a></td></tr>
+				<tr><td><a href="./Chapt04/4.3/4.3.6/4.3.6.b.html">4.3.6.b navigation sequence with navindex (non-normative)</a></td></tr>
+				<tr><td><a href="./Chapt04/4.3/4.3.7/4.3.7.a.html">4.3.7.a xforms-focus event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.3/4.3.8/4.3.8.a.html">4.3.8.a xforms-help and xforms-hint events</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.1/4.4.1.a.html">4.4.1.a xforms-insert event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.2/4.4.2.a.html">4.4.2.a xforms-delete action</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.3/4.4.3.a.html">4.4.3.a xforms-value-changed event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.4/4.4.4.a.html">4.4.4.a xforms-valid event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.5/4.4.5.a.html">4.4.5.a xforms-invalid event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.6/4.4.6.a.html">4.4.6.a xforms-readonly event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.7/4.4.7.a.html">4.4.7.a xforms-readwrite event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.8/4.4.8.a.html">4.4.8.a xforms-required event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.9/4.4.9.a.html">4.4.9.a xforms-optional event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.10/4.4.10.a.html">4.4.10.a xforms-enabled event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.11/4.4.11.a.html">4.4.11.a xforms-disabled event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.12/4.4.12.a.html">4.4.12.a DOMActivate event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.13/4.4.13.a.html">4.4.13.a DOMFocusIn event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.14/4.4.14.a.html">4.4.14.a DOMFocusOut event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.15/4.4.15.a.html">4.4.15.a xforms-select and xforms-deselect events</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.16/4.4.16.a.html">4.4.16.a xforms-in-range event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.17/4.4.17.a.html">4.4.17.a xforms-out-of-range event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.4/4.4.18/4.4.18.a.html">4.4.18.a xforms-scroll-first and xforms-scroll-last events</a></td></tr>
+				<tr><td><a href="./Chapt04/4.5/4.5.1/4.5.1.a1.html">4.5.1.a1 xforms-binding-exception, invalid model attribute</a></td></tr>
+				<tr><td><a href="./Chapt04/4.5/4.5.1/4.5.1.a2.html">4.5.1.a2 xforms-binding-exception, invalid bind attribute</a></td></tr>
+				<tr><td><a href="./Chapt04/4.5/4.5.1/4.5.1.a3.html">4.5.1.a3 xforms-binding-exception, invalid submission attribute</a></td></tr>
+				<tr><td><a href="./Chapt04/4.5/4.5.1/4.5.1.a4.html">4.5.1.a4 xforms-binding-exception, invalid instance attribute of submission attribute</a></td></tr>
+				<tr><td><a href="./Chapt04/4.5/4.5.1/4.5.1.a5.html">4.5.1.a5 xforms-binding-exception, illegal binding expression</a></td></tr>
+				<tr><td><a href="./Chapt04/4.5/4.5.2/4.5.2.a.html">4.5.2.a xforms-compute-exception</a></td></tr>
+				<tr><td><a href="./Chapt04/4.5/4.5.3/4.5.3.a.html">4.5.3.a xforms-version-exception</a></td></tr>
+				<tr><td><a href="./Chapt04/4.5/4.5.4/4.5.4.a.html">4.5.4.a xforms-link-exception</a></td></tr>
+				<tr><td><a href="./Chapt04/4.5/4.5.5/4.5.5.a.html">4.5.5.a xforms-output-error event</a></td></tr>
+				<tr><td><a href="./Chapt04/4.6/4.6.1/4.6.1.a1.html">4.6.1.a1 event Sequencing for input, secret, textarea controls</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt04/4.6/4.6.1/4.6.1.a2.html">4.6.1.a2 event sequencing for range and upload controls</a></td></tr>
+				<tr><td><a href="./Chapt04/4.6/4.6.1/4.6.1.b1.html">4.6.1.b1 event sequencing for input, secret, textarea controls - focus change with value change</a></td></tr>
+				<tr><td><a href="./Chapt04/4.6/4.6.1/4.6.1.b2.html">4.6.1.b2 event sequenceing for range and upload controls - focus change with value change</a></td></tr>
+				<tr><td><a href="./Chapt04/4.6/4.6.3/4.6.3.a.html">4.6.3.a event sequencing for select/select1 controls with incremental="true"</a></td></tr>
+				<tr><td><a href="./Chapt04/4.6/4.6.3/4.6.3.b.html">4.6.3.b event sequencing for select/select1 controls without incremental="true"</a></td></tr>
+				<tr><td><a href="./Chapt04/4.6/4.6.3/4.6.3.c.html">4.6.3.c event sequencing for select/select1 controls (focus changes)</a></td></tr>
+				<tr><td><a href="./Chapt04/4.6/4.6.4/4.6.4.a.html">4.6.4.a event sequencing for trigger controls</a></td></tr>
+				<tr><td><a href="./Chapt04/4.6/4.6.5/4.6.5.a.html">4.6.5.a event sequencing for submit controls</a></td></tr>
+				<tr><td><a href="./Chapt04/4.7/4.7.a.html">4.7.a invalid ID references that terminate with no effect</a></td></tr>
+				<tr><td><a href="./Chapt04/4.7/4.7.b.html">4.7.b xforms-submit event not dispatched</a></td></tr>
+				<tr><td><a href="./Chapt04/4.7/4.7.c.html">4.7.c null result of IDREF search by index() function</a></td></tr>
+				<tr><td><a href="./Chapt04/4.7/4.7.d.html">4.7.d null result of IDREF search by instance() function</a></td></tr>
+				<tr><td><a href="./Chapt04/4.7/4.7.e1.html">4.7.e1 null search for bind causes exception</a></td></tr>
+				<tr><td><a href="./Chapt04/4.7/4.7.e2.html">4.7.e2 null search for model causes exception</a></td></tr>
+				<tr><td><a href="./Chapt04/4.7/4.7.e3.html">4.7.e3 null search for instance causes exception</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt04/4.8/4.8.1/4.8.1.a.html">4.8.1.a getInstanceDocument() method (non-normative)</a></td></tr>
+				<tr unless="true"><td><a style="color:red" href="./Chapt04/4.8/4.8.1/4.8.1.b.html">4.8.1.b getInstanceDocument() throws a DOMException (non-normative)</a></td></tr>
+			</tbody>
+		</table>
+		<br />
+		<em>Not supported in this browser</em>
+		<table id="skippedTests" cellpadding="1" cellspacing="1" border="1" class="selenium">
+			<tbody>
+				<tr>
+					<td><b>Skipped Tests</b></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

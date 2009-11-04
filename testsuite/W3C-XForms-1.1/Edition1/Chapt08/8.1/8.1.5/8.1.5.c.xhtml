@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:ex="http://www.example.com">
+	  <head>
+		    <title>8.1.5.c UI Common added to output element</title>
+		    <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+		
+	  </head>
+	  <body>
+      <xforms:model>
+			      <xforms:instance xmlns="">
+				        <ID>
+					          <name>Bill</name>
+				        </ID>
+			      </xforms:instance>
+			      <xforms:bind nodeset="name" constraint="string-length(string(/ID/name)) &gt; 0"/>
+		    </xforms:model>
+		    <xforms:group>
+			      <xforms:label class="title">8.1.5.c UI Common added to output element</xforms:label>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:label>
+			  When you activate the Enter An Invalid Value trigger you must see a message that says "That is 
+			  an invalid name". 
+			  When you activate the Dispatch Hint Message trigger you must see a message that says "This is 
+			  the hint message". 
+			  When you activate the Dispatch Help Message trigger you must see a message that says "This is 
+			  the help message". 
+			</xforms:label>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:output ref="name" xsi:type="xsd:string" id="name_output">
+				        <xforms:label>Name : </xforms:label>
+				        <xforms:hint>This is the hint message</xforms:hint>
+				        <xforms:help>This is the help message</xforms:help>
+				        <xforms:alert>That is an invalid name</xforms:alert>
+   			   </xforms:output>
+   		</xforms:group>
+		    <xforms:trigger>
+			      <xforms:label>Enter An Invalid Value</xforms:label>
+			      <xforms:setvalue ev:event="DOMActivate" ref="name"/>
+		    </xforms:trigger>
+		    <xforms:trigger>
+			      <xforms:label>Dispatch Hint Message</xforms:label>
+			      <xforms:action ev:event="DOMActivate">
+      			   <xforms:dispatch name="xforms-hint" targetid="name_output"/> 
+     		  </xforms:action>
+		    </xforms:trigger>
+		    <xforms:trigger>
+			      <xforms:label>Dispatch Help Message</xforms:label>
+			      <xforms:action ev:event="DOMActivate">
+      			   <xforms:dispatch name="xforms-help" targetid="name_output"/> 
+     		  </xforms:action>
+		    </xforms:trigger>
+
+	  </body>
+</html>

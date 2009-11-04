@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>3.2.3.c single-node binding - bind attribute</title>
+        <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+        
+    </head>
+    <body>
+      <xforms:model id="myCar">
+            <xforms:instance xmlns="">
+                <car>
+                    <make>Mercedes</make>
+                    <year>2004</year>
+                    <color>silver</color>
+                    <hp>450</hp>
+                </car>
+            </xforms:instance>
+            <xforms:bind id="bind_001" nodeset="/car/color"/>
+        </xforms:model>
+        <xforms:group>
+            <xforms:label class="title">3.2.3.c single-node binding - bind attribute</xforms:label>
+        </xforms:group>
+        <xforms:group>
+            <xforms:label>
+				
+				You must see the value "silver": 
+			</xforms:label>
+        </xforms:group>
+        <xforms:output bind="bind_001">
+            <xforms:label/>
+        </xforms:output>
+    </body>
+</html>

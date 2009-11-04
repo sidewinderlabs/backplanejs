@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <head>
+        <title>11.1.p standalone attribute of submission element</title>
+        <script type="text/javascript"
+              src="../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../driverPages/html/TestSuite11.css" type="text/css"/>
+        
+    </head>
+    <body>
+      <xforms:model>
+			      <xforms:instance xmlns="">
+				        <car>
+					          <make>Acura</make>
+					          <year>2005</year>
+					          <color>blue</color>
+				        </car>
+			      </xforms:instance>
+			      <xforms:bind id="make_bind" nodeset="/car/make"/>
+			      <xforms:bind id="year_bind" nodeset="/car/year"/>
+			      <xforms:bind id="color_bind" nodeset="/car/color"/>
+			
+			      <xforms:submission id="submit" action="http://xformstest.org/cgi-bin/echo.sh" method="post"
+                            standalone="true"/>
+			      <xforms:submission id="submit2" action="http://xformstest.org/cgi-bin/echo.sh" method="post"
+                            standalone="false"/>
+			      <xforms:submission id="submit3" action="http://xformstest.org/cgi-bin/echo.sh" method="post"/>
+        </xforms:model>
+    	<xforms:group>
+  			    <xforms:label class="title">11.1.p standalone attribute of submission element</xforms:label>
+  		  </xforms:group>
+  		  <xforms:group>
+  			    <xforms:label>
+  			  When you activate the Submit With Standalone true submit control you must see a standalone 
+  			  declaration in the form data. It may appear as the value " standalone="yes" " or 
+  			  " standalone="true" ".
+  			  When you activate the Submit With Standalone false submit control you must see a standalone 
+  			  declaration in the form data. It may appear as the value " standalone="no" " or 
+  			  " standalone="false" ". 
+  			  When you activate the Submit Without Standalone submit control you must not see a standalone 
+  			  declaration in the form data. 
+  			</xforms:label>
+  		  </xforms:group>
+  		  <xforms:submit submission="submit">
+  			    <xforms:label>Submit With Standalone true</xforms:label>
+  		  </xforms:submit>
+  		  <xforms:submit submission="submit2">
+  			    <xforms:label>Submit With Standalone false</xforms:label>
+  		  </xforms:submit>
+  		  <xforms:submit submission="submit3">
+  			    <xforms:label>Submit Without Standalone</xforms:label>
+  		  </xforms:submit>
+  		
+    </body>
+</html>

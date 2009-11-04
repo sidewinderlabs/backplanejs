@@ -1,0 +1,138 @@
+<!--
+  * Copyright (c) 2009 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="content-type">
+
+		<title>
+			Issue 293
+		</title>
+	</head>
+
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+					<td colspan="3">Issue 293</td>
+				</tr>
+
+				<tr>
+					<td>open</td>
+					<td>../../00293.html</td>
+					<td></td>
+				</tr>
+
+				<tr>
+					<td>waitForText</td>
+					<td>id=ready</td>
+					<td>Ready: TRUE 0</td>
+				</tr>
+				
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xf:repeat[@id='rpt0']/xf:group[1]/xf:switch/xf:case/xf:trigger[@id='test']</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:repeat[@id='rpt0']/xf:group[1]/xf:switch/xf:case[2]</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xf:repeat[@id='rpt0']/xf:group[2]/xf:switch/xf:case[2]</td>
+					<td></td>
+				</tr>
+				
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xf:repeat[@id='rpt0']/xf:group[2]/xf:switch/xf:case/xf:trigger[@id='test']</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:repeat[@id='rpt0']/xf:group[2]/xf:switch/xf:case[2]</td>
+					<td></td>
+				</tr>
+				
+				<tr>
+					<td>click</td>
+					<td>id=toggle-ext</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:repeat[@id='rpt1']/xf:group[2]/xf:switch/xf:case[2]</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xf:repeat[@id='rpt1']/xf:group[1]/xf:switch/xf:case[2]</td>
+					<td></td>
+				</tr>
+				
+				<tr>
+					<td>click</td>
+					<td>id=ix-1</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>id=toggle-ext</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:repeat[@id='rpt1']/xf:group[2]/xf:switch/xf:case[2]</td>
+					<td></td>
+				</tr>
+				
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xf:repeat[@id='rpt2']/xf:group[1]/xf:output</td>
+					<td>1</td>
+				</tr>				
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xf:repeat[@id='rpt2']/xf:group[1]/xf:trigger</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xf:repeat[@id='rpt2']/xf:group[1]/xf:output</td>
+					<td>2</td>
+				</tr>		
+				
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xf:repeat[@id='rpt2']/xf:group[2]/xf:output</td>
+					<td>1</td>
+				</tr>				
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xf:repeat[@id='rpt2']/xf:group[2]/xf:trigger</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xf:repeat[@id='rpt2']/xf:group[2]/xf:output</td>
+					<td>2</td>
+				</tr>				
+				
+			</tbody>
+		</table>
+	</body>
+</html>

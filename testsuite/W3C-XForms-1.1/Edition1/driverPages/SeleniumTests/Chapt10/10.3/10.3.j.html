@@ -1,0 +1,103 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>10.3.j insert action - copying an attribute</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+				  <td rowspan="1" colspan="3">10.3.j insert action - copying an attribute<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../Chapt10/10.3/10.3.j.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>waitForModelReady</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>10.3.j insert action - copying an attribute</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:model/xforms:action[@ev:event='xforms-ready']/xforms:insert[@origin="instance('second')/item_list/item[1]/@price" and @nodeset="instance('first')/item_list/item[1]"]</td>
+					<td></td>
+					<td>Checks that insert1 is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:model/xforms:action[@ev:event='xforms-ready']/xforms:insert[@origin="instance('second')/item_list/item[2]/@price" and @nodeset="instance('first')/item_list/item[2]"]</td>
+					<td></td>
+					<td>Checks that insert2 is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:model/xforms:action[@ev:event='xforms-ready']/xforms:insert[@origin="instance('second')/item_list/item[3]/@price" and @nodeset="instance('first')/item_list/item[3]"]</td>
+					<td></td>
+					<td>Checks that insert3 is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:group[2]/xforms:output[@ref="instance('first')/item_list/item[1]/@price"]</td>
+					<td></td>
+					<td>Checks that output1 is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:output[@ref="instance('first')/item_list/item[2]/@price"]</td>
+					<td></td>
+					<td>Checks that output2 is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:group[4]/xforms:output[@ref="instance('first')/item_list/item[3]/@price"]</td>
+					<td></td>
+					<td>Checks that output3 is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyNotText</td>
+					<td>xpath=/html/body/xforms:group[2]/xforms:output[@ref="instance('first')/item_list/item[1]/@price"]</td>
+					<td>4.00</td>
+					<td>Checks that output1 has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyNotText</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:output[@ref="instance('first')/item_list/item[2]/@price"]</td>
+					<td>5.00</td>
+					<td>Checks that output2 has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyNotText</td>
+					<td>xpath=/html/body/xforms:group[4]/xforms:output[@ref="instance('first')/item_list/item[3]/@price"]</td>
+					<td>6.00</td>
+					<td>Checks that output3 has the right value</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

@@ -1,0 +1,81 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:xf="http://www.w3.org/2002/xforms"
+	xmlns:ev="http://www.w3.org/2001/xml-events">
+	<head>
+		<title> Issue 284 </title>
+	
+		<script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+
+	</head>
+
+	<body>
+		<h1>
+			<a href="http://code.google.com/p/ubiquity-xforms/issues/detail?id=284">Issue 284</a>
+		</h1>
+		<xf:model id="mod1">
+			<xf:instance id="first">
+				<number_lists>
+					<number_list>
+						<number>1</number>
+						<number>2</number>
+						<number>3</number>
+					</number_list>
+					<number_list id="pick_me">
+						<number>4</number>
+						<number>5</number>
+						<number>6</number>
+					</number_list>
+					<number_list ></number_list>
+				</number_lists>
+			</xf:instance>
+			<xf:instance id="ready-instance">
+				<ready>FALSE</ready>
+			</xf:instance>
+			<xf:bind id="bind1" nodeset="number_list[2]/number"></xf:bind>
+			<xf:bind id="bind2" nodeset="number_list[2]/number[2]"></xf:bind>
+			
+			<xf:action ev:event="xforms-ready">
+				<xf:insert bind="bind1" context="number_list/number"></xf:insert>
+				<xf:setvalue ref="instance('ready-instance')" value="'TRUE'"></xf:setvalue>
+			</xf:action>
+		</xf:model>
+		
+		
+		<xf:group>
+			<xf:label> You must see the correct values for each output control below. </xf:label>
+		</xf:group>
+		<xf:group>
+			<xf:label>You must see the numbers 4, 5, 6, and 6 : </xf:label>
+			<xf:repeat nodeset="instance('first')/number_list[2]/number" id="r0">
+				<xf:output value="concat(. , ' ')">
+					<xf:label ></xf:label>
+				</xf:output>
+			</xf:repeat>
+		</xf:group>
+
+		<xf:group>
+			<xf:label>You must see the numbers 4, 5, 6, and 6 : </xf:label>
+			<xf:repeat bind="bind1" id="r1">
+				<xf:output value="concat(. , ' ')">
+					<xf:label ></xf:label>
+				</xf:output>
+			</xf:repeat>
+		</xf:group>
+
+		<xf:group bind="bind1">
+			<xf:label>You must see the number 4: </xf:label>
+			<xf:output ref="." id="o0">
+				<xf:label></xf:label>
+			</xf:output>
+		</xf:group>
+		
+		<xf:group>
+			<xf:label>You must see the number 5: </xf:label>
+			<xf:output bind="bind2" id="o1">
+				<xf:label ></xf:label>
+			</xf:output>
+		</xf:group>
+		<xf:output ref="instance('ready-instance')" id="ready"><xf:label>Ready: </xf:label></xf:output>
+		
+	</body>
+</html>

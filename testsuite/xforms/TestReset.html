@@ -1,0 +1,198 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>Test Output</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+					<td rowspan="1" colspan="3">Test Reset<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../xforms/html/test_reset.html</td>
+					<td>&nbsp;</td>
+					<td>opens the form</td>
+				</tr>
+			  <tr>
+			    <td>assertTitle</td>
+			    <td>Testing Reset</td>
+			    <td></td>
+			    <td>Ensures correct form loaded</td>
+			  </tr>
+			  
+				<tr>
+					<td>waitForElementPresent</td>
+					<td>xpath=/html/body/xf:input[@id='i0']/pe-value/input</td>
+					<td>&nbsp;</td>
+					<td>waits for the input control to be present</td>
+				</tr>
+				<tr>
+					<td>waitForNotValue</td>
+					<td>xpath=/html/body/xf:input[@id='i0']/pe-value/input</td>
+					<td></td>
+					<td>waits for the input control to be bound</td>
+				</tr>
+				<tr>
+					<td>assertValue</td>
+					<td>xpath=/html/body/xf:input[@id='i0']/pe-value/input</td>
+					<td>sailor</td>
+					<td>Checks that the value has been set correctly</td>
+				</tr>
+				<tr>
+					<td>assertValue</td>
+					<td>xpath=/html/body/xf:input[@id='i1']/pe-value/input</td>
+					<td>matelot</td>
+					<td>Checks that the value has been set correctly</td>
+				</tr>
+			  <tr>
+			    <td>assertValue</td>
+			    <td>xpath=/html/body/xf:input[@id='i2']/pe-value/input</td>
+			    <td>sjoemann</td>
+			    <td>Checks that the value has been set correctly</td>
+			  </tr>
+			  <tr>
+					<td>type
+					</td>
+					<td>xpath=/html/body/xf:input[@id='i0']/pe-value/input</td>
+					<td>dolly</td>
+					<td>types "dolly" into the first input</td>
+				</tr>
+				<tr>
+					<td>type
+					</td>
+					<td>xpath=/html/body/xf:input[@id='i1']/pe-value/input</td>
+					<td>kitty</td>
+					<td>types "kitty" into the second input</td>
+				</tr>
+			  <tr>
+			    <td>type
+			    </td>
+			    <td>xpath=/html/body/xf:input[@id='i2']/pe-value/input</td>
+			    <td>is it me you're looking for?</td>
+			    <td>types "is it me you're looking for?" into the third input</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>click</td>
+			    <td>t0</td>
+			    <td></td>
+			    <td>resets the first model</td>
+			  </tr>
+			  <tr>
+			    <td>waitForNotValue</td>
+			    <td>xpath=/html/body/xf:input[@id='i0']/pe-value/input</td>
+			    <td>dolly</td>
+			    <td>waits for the input control to be bound</td>
+			  </tr>
+			  <tr>
+			    <td>assertValue</td>
+			    <td>xpath=/html/body/xf:input[@id='i0']/pe-value/input</td>
+			    <td>sailor</td>
+			    <td>Checks that the first input has been reset</td>
+			  </tr>
+			  <tr>
+			    <td>assertValue</td>
+			    <td>xpath=/html/body/xf:input[@id='i1']/pe-value/input</td>
+			    <td>kitty</td>
+			    <td>Checks second input is still bound to "kitty"</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>type
+			    </td>
+			    <td>xpath=/html/body/xf:input[@id='i0']/pe-value/input</td>
+			    <td>dolly</td>
+			    <td>types "dolly" into the first input</td>
+			  </tr>
+
+			  <tr>
+			    <td>click</td>
+			    <td>t2</td>
+			    <td></td>
+			    <td>resets the second model</td>
+			  </tr>
+			  <tr>
+			    <td>assertValue</td>
+			    <td>xpath=/html/body/xf:input[@id='i0']/pe-value/input</td>
+			    <td>dolly</td>
+			    <td>Checks that the first input has not been reset</td>
+			  </tr>
+			  <tr>
+			    <td>assertValue</td>
+			    <td>xpath=/html/body/xf:input[@id='i1']/pe-value/input</td>
+			    <td>matelot</td>
+			    <td>Checks that the second input has been reset</td>
+			  </tr>
+			  <tr>
+			    <td>assertValue</td>
+			    <td>xpath=/html/body/xf:input[@id='i2']/pe-value/input</td>
+			    <td>sjoemann</td>
+			    <td>Checks that the third input has been reset</td>
+			  </tr>			  
+
+			  <tr>
+			    <td>type
+			    </td>
+			    <td>xpath=/html/body/xf:input[@id='i1']/pe-value/input</td>
+			    <td>kitty</td>
+			    <td>types "kitty" into the second input</td>
+			  </tr>
+			  <tr>
+			    <td>type
+			    </td>
+			    <td>xpath=/html/body/xf:input[@id='i2']/pe-value/input</td>
+			    <td>is it me you're looking for?</td>
+			    <td>types "is it me you're looking for?" into the third input</td>
+			  </tr>
+			  <tr>
+			    <td>click</td>
+			    <td>t1</td>
+			    <td></td>
+			    <td>resets the default (first) model</td>
+			  </tr>
+			  <tr>
+			    <td>assertValue</td>
+			    <td>xpath=/html/body/xf:input[@id='i0']/pe-value/input</td>
+			    <td>sailor</td>
+			    <td>Checks that the first input has been reset</td>
+			  </tr>
+			  <tr>
+			    <td>assertValue</td>
+			    <td>xpath=/html/body/xf:input[@id='i1']/pe-value/input</td>
+			    <td>kitty</td>
+			    <td>Checks that the second input has not been reset</td>
+			  </tr>
+			  <tr>
+			    <td>assertValue</td>
+			    <td>xpath=/html/body/xf:input[@id='i2']/pe-value/input</td>
+			    <td>is it me you're looking for?</td>
+			    <td>Checks that the third input has not been reset</td>
+			  </tr>
+				<tr>
+					<td>close</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

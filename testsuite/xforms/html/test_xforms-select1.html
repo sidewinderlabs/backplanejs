@@ -1,0 +1,116 @@
+<?xml version="1.0" ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/xmlschema" xmlns:xsi="http://www.w3.org/2001/xmlschema-instance">
+	<head>
+		<meta content="text/html; charset=iso-8859-1" http-equiv="content-type" />
+		<title>test select1</title>
+	  <script>
+	    var g_sBehaviourDirectory = "../../../src/behaviours/";
+	  </script>
+	  <script type="text/javascript" src="../../../src/ubiquity-loader.js"> </script>
+		<link href="style/gen_default.css" rel="stylesheet" />
+	</head>
+	<body>
+	  
+		<xf:model id="loan_model">
+			<xf:instance id="loan">
+				<loanrecord xmlns="" id="lr">
+			
+					<principal currency="usd">10000</principal>
+				</loanrecord>
+			</xf:instance>
+			<xf:instance id="rate">
+				<rate xmlns=""></rate>
+			</xf:instance>
+		  <xf:instance id="currencies">
+		    <currencies>
+		      <currency>
+		        <name>Pounds Sterling</name>
+		        <abbr>GBP</abbr>
+		      </currency>
+		      <currency>
+		        <name>Australian Dollars</name>
+		        <abbr>AUD</abbr>
+		      </currency>
+		      <currency>
+		        <name>Swiss Francs</name>
+		        <abbr>CHF</abbr>
+		      </currency>
+		    </currencies>
+		  </xf:instance>
+	
+		</xf:model>
+	  <xf:select1 ref="principal/@currency" appearance="minimal" incremental="true" id="s0">
+			<xf:label>choose currency</xf:label>
+			<xf:item>
+				<xf:label>us dollars</xf:label>
+				<xf:value>usd</xf:value>
+			</xf:item>
+			<xf:item>
+				<xf:label>canadian dollars</xf:label>
+				<xf:value>cdn</xf:value>
+			</xf:item>
+		  <xf:item>
+		    <xf:label>euros</xf:label>
+		    <xf:value>eur</xf:value>
+		  </xf:item>
+		  <xf:item>
+		    <xf:label ref="instance('currencies')/currency/name"></xf:label>
+		    <xf:value ref="instance('currencies')/currency/abbr"></xf:value>
+		  </xf:item>
+		  <xf:item ref="instance('currencies')/currency[2]">
+		    <xf:label ref="name"></xf:label>
+		    <xf:value ref="abbr"></xf:value>
+		  </xf:item>
+	    <xf:itemset nodeset="instance('currencies')/currency">
+	      <xf:label ref="name"></xf:label>
+	      <xf:value ref="abbr"></xf:value>
+	    </xf:itemset>	  
+	  </xf:select1>
+	  
+	  <xf:select1 ref="principal/@currency" appearance="minimal" incremental="true" id="s1">
+	    <xf:label>choose currency</xf:label>
+	    <xf:item>
+	      <xf:label>us dollars</xf:label>
+	      <xf:value>usd</xf:value>
+	    </xf:item>
+	    <xf:item>
+	      <xf:label>canadian dollars</xf:label>
+	      <xf:value>cdn</xf:value>
+	    </xf:item>
+	    <xf:item>
+	      <xf:label>euros</xf:label>
+	      <xf:value>eur</xf:value>
+	    </xf:item>
+	    <xf:item>
+	      <xf:label value="concat('Proper', ' Money')"></xf:label>
+	      <xf:value ref="instance('currencies')/currency/abbr"></xf:value>
+	    </xf:item>
+	    <xf:item ref="instance('currencies')/currency[2]">
+	      <xf:label ref="name"></xf:label>
+	      <xf:value ref="abbr"></xf:value>
+	    </xf:item>
+	  </xf:select1>
+	  
+	  <xf:select1 ref="principal/@currency" appearance="minimal" incremental="true" id="s2" selection="open">
+	    <xf:label>Dead Currency</xf:label>
+	    <xf:item>
+	      <xf:label>French Francs</xf:label>
+	      <xf:value>FFR</xf:value>
+	    </xf:item>
+	    <xf:item>
+	      <xf:label>German Marks</xf:label>
+	      <xf:value>DM</xf:value>
+	    </xf:item>
+	    <xf:item>
+	      <xf:label>Dutch Guilders</xf:label>
+	      <xf:value>DFL</xf:value>
+	    </xf:item>
+	  </xf:select1>	  
+	  <hr />
+	  <xf:input ref="instance('currencies')/currency/name" id="i0"></xf:input>
+	  <xf:input ref="instance('currencies')/currency/abbr" id="i1"></xf:input>
+	  <xf:input ref="principal/@currency" id="i2"></xf:input>
+	  <br />
+
+	</body>
+</html>

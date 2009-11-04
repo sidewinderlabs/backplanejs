@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="ASCII"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:xforms="http://www.w3.org/2002/xforms"
+    xmlns:ts="http://www.w3c.org/MarkUp/Forms/XForms/Test/11">
+  <head>
+    <title>XForms Test Suite</title>
+    <script src="../../../../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+    <link href="Results.css" rel="stylesheet"></link>
+    <link href="TestSuite11.css" rel="stylesheet"></link>
+  </head>
+  <body>
+   
+    <xforms:model id="chapterModel" >
+        <xforms:instance id="instance_chapter2" src="FF3/XF11_02_Results.counts" ></xforms:instance>
+        <xforms:instance id="instance_chapter3" src="FF3/XF11_03_Results.counts" ></xforms:instance>
+    	<xforms:instance id="instance_chapter4" src="FF3/XF11_04_Results.counts" ></xforms:instance>
+        <xforms:instance id="instance_chapter5" src="FF3/XF11_05_Results.counts" ></xforms:instance>
+        <xforms:instance id="instance_chapter6" src="FF3/XF11_06_Results.counts" ></xforms:instance>
+        <xforms:instance id="instance_chapter7" src="FF3/XF11_07_Results.counts" ></xforms:instance>
+        <xforms:instance id="instance_chapter8" src="FF3/XF11_08_Results.counts" ></xforms:instance>
+        <xforms:instance id="instance_chapter9" src="FF3/XF11_09_Results.counts" ></xforms:instance>
+        <xforms:instance id="instance_chapter10" src="FF3/XF11_10_Results.counts" ></xforms:instance>
+        <xforms:instance id="instance_chapter11" src="FF3/XF11_11_Results.counts" ></xforms:instance>
+        <xforms:instance id="instance_chapterB" src="FF3/XF11_AppendixB_Results.counts" ></xforms:instance>
+
+        <xforms:instance id="form" src="FF3/XF11_Results.sums">
+           <results xmlns="">
+              <numNormTotal>not summed</numNormTotal>
+              <numNormPass>not summed</numNormPass>
+              <numNormFail>not summed</numNormFail>
+              <numBasicTotal>not summed</numBasicTotal>
+              <numBasicPass>not summed</numBasicPass>
+              <numBasicFail>not summed</numBasicFail>
+           </results>
+        </xforms:instance>
+
+<!--           
+        <xforms:bind nodeset="instance('form')/numNormTotal" 
+                     calculate="instance('instance_chapter2')/numNormTotal +
+                                instance('instance_chapter3')/numNormTotal +
+                                instance('instance_chapter4')/numNormTotal +
+                                instance('instance_chapter5')/numNormTotal +
+                                instance('instance_chapter6')/numNormTotal +
+                                instance('instance_chapter7')/numNormTotal +
+                                instance('instance_chapter8')/numNormTotal +
+                                instance('instance_chapter9')/numNormTotal +
+                                instance('instance_chapter10')/numNormTotal +
+                                instance('instance_chapter11')/numNormTotal +
+                                instance('instance_chapterB')/numNormTotal"></xforms:bind>
+                                                                    
+        <xforms:bind nodeset="instance('form')/numNormPass" 
+                     calculate="instance('instance_chapter2')/numNormPass+
+                                instance('instance_chapter3')/numNormPass+
+                                instance('instance_chapter4')/numNormPass+
+                                instance('instance_chapter5')/numNormPass+
+                                instance('instance_chapter6')/numNormPass+
+                                instance('instance_chapter7')/numNormPass+
+                                instance('instance_chapter8')/numNormPass+
+                                instance('instance_chapter9')/numNormPass+
+                                instance('instance_chapter10')/numNormPass+
+                                instance('instance_chapter11')/numNormPass+
+                                instance('instance_chapterB')/numNormPass"></xforms:bind>
+                                                                        
+       <xforms:bind nodeset="instance('form')/numNormFail" 
+                    calculate="instance('instance_chapter2')/numNormFail+
+                               instance('instance_chapter3')/numNormFail+
+                               instance('instance_chapter4')/numNormFail+
+                               instance('instance_chapter5')/numNormFail+
+                               instance('instance_chapter6')/numNormFail+
+                               instance('instance_chapter7')/numNormFail+
+                               instance('instance_chapter8')/numNormFail+
+                               instance('instance_chapter9')/numNormFail+
+                               instance('instance_chapter10')/numNormFail+
+                               instance('instance_chapter11')/numNormFail+
+                               instance('instance_chapterB')/numNormFail"></xforms:bind> 
+ 
+     <xforms:bind nodeset="instance('form')/numBasicTotal" 
+                  calculate="instance('instance_chapter2')/numBasicTotal+
+                             instance('instance_chapter3')/numBasicTotal+
+                             instance('instance_chapter4')/numBasicTotal+
+                             instance('instance_chapter5')/numBasicTotal+
+                             instance('instance_chapter6')/numBasicTotal+
+                             instance('instance_chapter7')/numBasicTotal+
+                             instance('instance_chapter8')/numBasicTotal+
+                             instance('instance_chapter9')/numBasicTotal+
+                             instance('instance_chapter10')/numBasicTotal+
+                             instance('instance_chapter11')/numBasicTotal+
+                             instance('instance_chapterB')/numBasicTotal"></xforms:bind>
+                                                                       
+        <xforms:bind nodeset="instance('form')/numBasicPass" 
+                     calculate="instance('instance_chapter2')/numBasicPass+
+                                instance('instance_chapter3')/numBasicPass+
+                                instance('instance_chapter4')/numBasicPass+
+                                instance('instance_chapter5')/numBasicPass+
+                                instance('instance_chapter6')/numBasicPass+
+                                instance('instance_chapter7')/numBasicPass+
+                                instance('instance_chapter8')/numBasicPass+
+                                instance('instance_chapter9')/numBasicPass+
+                                instance('instance_chapter10')/numBasicPass+
+                                instance('instance_chapter11')/numBasicPass+
+                                instance('instance_chapterB')/numBasicPass"></xforms:bind>
+                                                                        
+       <xforms:bind nodeset="instance('form')/numBasicFail" 
+                    calculate="instance('instance_chapter2')/numBasicFail+
+                               instance('instance_chapter3')/numBasicFail+
+                               instance('instance_chapter4')/numBasicFail+
+                               instance('instance_chapter5')/numBasicFail+
+                               instance('instance_chapter6')/numBasicFail+
+                               instance('instance_chapter7')/numBasicFail+
+                               instance('instance_chapter8')/numBasicFail+
+                               instance('instance_chapter9')/numBasicFail+
+                               instance('instance_chapter10')/numBasicFail+
+                               instance('instance_chapter11')/numBasicFail+
+                               instance('instance_chapterB')/numBasicFail"></xforms:bind>  
+-->
+    </xforms:model>
+    
+    <h1 class="title">XForms Test Suite</h1>
+	<h2 class="subtitle">FF3 Results</h2>
+	
+	<table>
+	  <tr>
+	    <td class="chapter">Chapter Numbers</td>
+	    <td class="innerCellPassed">Passed</td>
+	    <td class="innerCellFailed">Failed</td>
+	    <td class="innerTitle">Total</td>
+	  </tr>
+	  <tr>
+	    <td class="chapter">2 Normative:</td>
+	    <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapter2')/numNormPass"/></td>
+	    <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapter2')/numNormFail"/></td>
+	    <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapter2')/numNormTotal"/></td>
+	  </tr>
+	  <tr>
+	    <td class="chapter">2 Basic:</td>
+	    <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapter2')/numBasicPass"/></td>
+	    <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapter2')/numBasicFail"/></td>
+	    <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapter2')/numBasicTotal"/></td>
+	  </tr>
+      <tr>
+        <td class="chapter">3 Normative:</td>
+        <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapter3')/numNormPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapter3')/numNormFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapter3')/numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="chapter">3 Basic:</td>
+        <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapter3')/numBasicPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapter3')/numBasicFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapter3')/numBasicTotal"/></td>
+      </tr>
+      <tr>
+        <td class="chapter">4 Normative:</td>
+        <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapter4')/numNormPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapter4')/numNormFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapter4')/numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="chapter">4 Basic:</td>
+        <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapter4')/numBasicPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapter4')/numBasicFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapter4')/numBasicTotal"/></td>
+      </tr>
+      <tr>
+        <td class="chapter">5 Normative:</td>
+        <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapter5')/numNormPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapter5')/numNormFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapter5')/numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="chapter">5 Basic:</td>
+        <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapter5')/numBasicPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapter5')/numBasicFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapter5')/numBasicTotal"/></td>
+      </tr>
+      <tr>
+        <td class="chapter">6 Normative:</td>
+        <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapter6')/numNormPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapter6')/numNormFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapter6')/numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="chapter">6 Basic:</td>
+        <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapter6')/numBasicPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapter6')/numBasicFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapter6')/numBasicTotal"/></td>
+      </tr>
+      <tr>
+        <td class="chapter">7 Normative:</td>
+        <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapter7')/numNormPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapter7')/numNormFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapter7')/numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="chapter">7 Basic:</td>
+        <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapter7')/numBasicPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapter7')/numBasicFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapter7')/numBasicTotal"/></td>
+      </tr>
+      <tr>
+        <td class="chapter">8 Normative:</td>
+        <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapter8')/numNormPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapter8')/numNormFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapter8')/numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="chapter">8 Basic:</td>
+        <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapter8')/numBasicPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapter8')/numBasicFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapter8')/numBasicTotal"/></td>
+      </tr>
+      <tr>
+        <td class="chapter">9 Normative:</td>
+        <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapter9')/numNormPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapter9')/numNormFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapter9')/numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="chapter">9 Basic:</td>
+        <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapter9')/numBasicPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapter9')/numBasicFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapter9')/numBasicTotal"/></td>
+      </tr>
+      <tr>
+        <td class="chapter">10 Normative:</td>
+        <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapter10')/numNormPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapter10')/numNormFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapter10')/numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="chapter">10 Basic:</td>
+        <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapter10')/numBasicPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapter10')/numBasicFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapter10')/numBasicTotal"/></td>
+      </tr>
+      <tr>
+        <td class="chapter">11 Normative:</td>
+        <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapter11')/numNormPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapter11')/numNormFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapter11')/numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="chapter">11 Basic:</td>
+        <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapter11')/numBasicPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapter11')/numBasicFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapter11')/numBasicTotal"/></td>
+      </tr>
+      <tr>
+        <td class="chapter">B Normative:</td>
+        <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapterB')/numNormPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapterB')/numNormFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapterB')/numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="chapter">B Basic:</td>
+        <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('instance_chapterB')/numBasicPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('instance_chapterB')/numBasicFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('instance_chapterB')/numBasicTotal"/></td>
+      </tr>
+      
+      <!-- This is to break up the Chapter table above with the Total table below. -->
+      <tr>
+        <td>-------------------</td>
+        <td>---------------------------------------------</td>
+      </tr>
+      
+      <tr>
+        <td class="chapter">Total Normative:</td>
+        <td class="innerCellPassed"><xforms:output xmlns="" model="chapterModel" ref="instance('form')/numNormPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('form')/numNormFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('form')/numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="chapter">Total Basic:</td>
+        <td class="innerCellPassed"><xforms:output model="chapterModel" ref="instance('form')/numBasicPass"/></td>
+        <td class="innerCellFailed"><xforms:output model="chapterModel" ref="instance('form')/numBasicFail"/></td>
+        <td class="innerTitle"><xforms:output model="chapterModel" ref="instance('form')/numBasicTotal"/></td>
+      </tr>
+    </table> 
+  </body>
+</html>

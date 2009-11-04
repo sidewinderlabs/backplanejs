@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>3.2.1.a id attribute</title>
+        <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+        
+    </head>
+    <body>
+      <xforms:model id="mymodel">
+            <xforms:instance xmlns="" id="myinstance">
+                <car>
+                    <make>Mazda</make>
+                    <color>metallic silver</color>
+                </car>
+            </xforms:instance>
+        </xforms:model>
+        <xforms:group id="mygroup1">
+            <xforms:label id="mylabel" class="title">3.2.1.a id attribute</xforms:label>
+        </xforms:group>
+        <xforms:group id="mygroup2">
+            <xforms:label id="myotherlabel">
+                Every XForms element has an id attribute. You must not see any errors. 
+            </xforms:label>
+        </xforms:group>
+    </body>
+</html>

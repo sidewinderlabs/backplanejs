@@ -1,0 +1,39 @@
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+>
+	<head>
+		<title>
+			range as a map
+		</title>
+
+		<script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+		<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAAtiayLvivBA_sjLrjcC0kKBRhlq5YDsICSvAE4QEaDS5Kp1-FyxQXAjoNJnUMVsqAC2QxvtZV5NSE5w" type="text/javascript">/**/</script>
+	</head>
+
+	<body>
+		<h1>
+			range as a map
+		</h1>
+
+		<p>
+			You should see a range control displayed as a map.
+		</p>
+
+		<xf:model>
+			<xf:instance>
+				<data xmlns="">
+					<x>51.523811;-0.107878</x>
+				</data>
+			</xf:instance>
+		</xf:model>
+
+		<xf:range ref="/data/x" class="geolocation">
+			<xf:label>Range:</xf:label>
+		</xf:range>
+
+		<xf:input ref="/data/x">
+			<xf:label>Input:</xf:label>
+		</xf:input>
+	</body>
+</html>

@@ -1,0 +1,202 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>Test Output</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+					<td rowspan="1" colspan="3">Test Output<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../xforms/html/test-output-mediatype.html</td>
+					<td>&nbsp;</td>
+					<td>opens the form</td>
+				</tr>
+ 				
+			    <tr>
+					<td>pause</td>
+					<td>6000</td>
+					<td></td>
+					<td>Wait for the xforms to load</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:group/xf:output[@bind='image']/img</td>
+					<td></td>
+					<td>Is the base64Binary image visible?</td>
+				</tr>
+				
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:group/xf:output[2]/img[contains(@src,'KnowledgeTreeLogo.jpg')]</td>
+					<td></td>
+					<td>Is the KnowledgeTreeLogo.jpg visible?</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:group/xf:output[3]/img[contains(@src,'KnowledgeTreeLogo.jpg')]</td>
+					<td></td>
+					<td>Is the KnowledgeTreeLogo.jpg visible?</td>
+				</tr>				
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xf:group/xf:output/xf:mediatype/pe-value</td>
+					<td>image/*</td>
+					<td>Determine if there is an overriding mediatype element</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:group/xf:output[4]/img[contains(@src,'KnowledgeTreeLogo.jpg')]</td>
+					<td></td>
+					<td>Is the KnowledgeTreeLogo.jpg visible?</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:group/xf:output[5]/img[contains(@src,'KnowledgeTreeLogo.jpg')]</td>
+					<td></td>
+					<td>Is the KnowledgeTreeLogo.jpg visible?</td>
+				</tr>
+		
+				<tr>
+			        <td>click</td>
+			        <td>xpath=/html/body/xf:group/xf:select1//div[@class='pe-choices']/xf:item[2]/xf:label</td>
+			        <td></td>
+			        <td>select no image</td>
+			    </tr>
+			    <tr>
+					<td>pause</td>
+					<td>2000</td>
+					<td></td>
+					<td>Wait for images to change</td>
+				</tr>
+			    <tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xf:group/xf:output[@bind='image']/pe-value</td>
+					<td>R0lGODlhCwALAIAAAAAA3pn/ZiH5BAEAAAEALAAAAAALAAsAAAIUhA+hkcuO4lmNVindo7qyrIXiGBYAOw==</td>
+					<td>The base64Binary image should not be visible</td>
+				</tr>
+				<tr>
+					<td>verifyElementNotPresent</td>
+					<td>xpath=/html/body/xf:group/xf:output[@bind='image']/img</td>
+					<td></td>
+					<td>There should not be an img element</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xf:group/xf:output[2]/pe-value</td>
+					<td>KnowledgeTreeLogo.jpg</td>
+					<td>The KnowledgeTreeLogo.jpg should not be visible</td>
+				</tr>
+				<tr>
+					<td>verifyElementNotPresent</td>
+					<td>xpath=/html/body/xf:group/xf:output[@bind='image2']/img</td>
+					<td></td>
+					<td>There should not be an img element</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xf:group/xf:output[3]/pe-value</td>
+					<td>KnowledgeTreeLogo.jpg</td>
+					<td>The KnowledgeTreeLogo.jpg should not be visible</td>
+				</tr>
+				<tr>
+					<td>verifyElementNotPresent</td>
+					<td>xpath=/html/body/xf:group/xf:output[3]/img</td>
+					<td></td>
+					<td>There should not be an img element</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xf:group/xf:output[4]/pe-value</td>
+					<td>KnowledgeTreeLogo.jpg</td>
+					<td>The KnowledgeTreeLogo.jpg should not be visible</td>
+				</tr>
+				<tr>
+					<td>verifyElementNotPresent</td>
+					<td>xpath=/html/body/xf:group/xf:output[4]/img</td>
+					<td></td>
+					<td>There should not be an img element</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:group/xf:output[5]/img[contains(@src,'KnowledgeTreeLogo.jpg')]</td>
+					<td></td>
+					<td>The KnowledgeTreeLogo.jpg should stay visible</td>
+				</tr>
+			    <tr>
+			        <td>click</td>
+			        <td>xpath=/html/body/xf:group/xf:select1//div[@class='pe-choices bd']/xf:item[3]/xf:label</td>
+			        <td></td>
+			        <td>select html/xhtml content</td>
+			    </tr>
+			    <tr>
+					<td>pause</td>
+					<td>2000</td>
+					<td></td>
+					<td>Wait for images to change</td>
+				</tr>
+				<tr>
+					<td>verifyElementNotPresent</td>
+					<td>xpath=/html/body/xf:group/xf:output[1]/img</td>
+					<td></td>
+					<td>There should not be an img element</td>
+				</tr>
+				<tr>
+					<td>verifyElementNotPresent</td>
+					<td>xpath=/html/body/xf:group/xf:output[2]/img</td>
+					<td></td>
+					<td>There should not be an img element</td>
+				</tr>
+				<tr>
+					<td>verifyElementNotPresent</td>
+					<td>xpath=/html/body/xf:group/xf:output[3]/img</td>
+					<td></td>
+					<td>There should not be an img element</td>
+				</tr>
+				<tr>
+					<td>verifyElementNotPresent</td>
+					<td>xpath=/html/body/xf:group/xf:output[4]/img</td>
+					<td></td>
+					<td>There should not be an img element</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:group/xf:output[5]/img[contains(@src,'KnowledgeTreeLogo.jpg')]</td>
+					<td></td>
+					<td>The KnowledgeTreeLogo.jpg should stay visible</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xf:group/xf:output[6]/div</td>
+					<td></td>
+					<td></td>
+				</tr>			    							
+				<tr>
+					<td>close</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

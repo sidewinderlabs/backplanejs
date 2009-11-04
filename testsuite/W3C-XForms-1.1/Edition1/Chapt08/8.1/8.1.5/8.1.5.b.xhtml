@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xforms="http://www.w3.org/2002/xforms">
+  	<head>
+    	<title>8.1.5.b value attribute of output element</title>
+    	<script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    	
+  	</head>
+  	<body>
+      <xforms:model>
+       		<xforms:instance xmlns="">
+ 		    	    <car>
+   			   		    <make>Lotus</make>
+   			   		    <year>2005</year>
+   			   		    <color>Aztec Bronze</color>
+   			   		    <price>43000</price>
+        		  </car>
+       		</xforms:instance>
+       		<xforms:bind id="year_bind" nodeset="/car/year"/>
+    	</xforms:model>
+  	    <xforms:group>
+  		    <xforms:label class="title">8.1.5.b value attribute of output element</xforms:label>
+  		  </xforms:group>
+  		  <xforms:group>
+  			    <xforms:label>
+  			  You must see the value "1032" for the Tax output control and 
+  			  the value "2005" for the Car Year output control. 
+			</xforms:label>
+		    </xforms:group>
+		    <xforms:group>
+	  		    <xforms:output value="0.024 * /car/price">
+	     		    <xforms:label>Tax : </xforms:label>
+	  		    </xforms:output>
+	  	  </xforms:group>
+  		  <xforms:group>
+	  		    <xforms:output value="/car/price" bind="year_bind">
+	  			      <xforms:label>Car Year : </xforms:label>
+			      </xforms:output>
+		    </xforms:group>
+  </body>
+</html>

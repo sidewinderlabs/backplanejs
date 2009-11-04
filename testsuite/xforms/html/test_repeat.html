@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xf="http://www.w3.org/2002/xforms"
+      xmlns:ev="http://www.w3.org/2001/xml-events"
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      xml:lang="en"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:fp="urn:formsplayer.com"
+>
+
+<head>
+
+     <title>Testing Repeat</title>	<script>
+          //    debugger;
+     </script>
+     <link rel="stylesheet" type="text/css" href="/runtime/ajax/ajaxfP/xf-behaviors-test-suite.css"></link>
+     
+    <script>
+        var g_sBehaviourDirectory = "../../../src/behaviours/";
+    </script>
+    <script src="../../../src/ubiquity-loader.js">/**/</script>
+    
+     
+</head>
+<body>
+	 <xf:model id="m1">
+		<xf:instance id="i0"><x><y>1</y><y>2</y><y>3</y><z>0</z></x></xf:instance>
+     </xf:model>
+ 
+
+
+		<script type="text/javascript">
+		//  var oLogReader = new YAHOO.widget.LogReader("fc-logger",{top:"50%",right:"10px"});
+		//  document.logger = new YAHOO.widget.LogWriter("ajaxfP");
+			document.logger = { log: function(sText, sContext) { } };
+		</script>
+<hr />		<h1>Testing Repeat</h1>
+<hr />
+<xf:repeat nodeset="y">
+	<xf:output ref="." class="in-first-repeat"></xf:output>
+</xf:repeat>
+<hr />
+<xf:repeat nodeset="y" number="2">
+	<xf:output ref="." class="in-second-repeat"></xf:output>
+</xf:repeat>
+<hr />
+<xf:repeat nodeset="y" startindex="2">
+	<xf:output ref="." class="in-third-repeat"></xf:output>
+</xf:repeat>
+</body>
+</html>

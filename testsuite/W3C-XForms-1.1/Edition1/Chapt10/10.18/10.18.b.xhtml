@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <head>
+        <title>10.18.b iteration of XForms actions using action element</title>
+        <script type="text/javascript"
+              src="../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/>
+        
+    </head>
+    <body>
+      <xforms:model id="mod1">
+            <xforms:instance xmlns="" id="first">
+                <numbers>
+                  <number/>
+                </numbers>
+            </xforms:instance>
+        </xforms:model>
+        <xforms:group>
+            <xforms:label class="title">10.18.b iteration of XForms actions using action element</xforms:label>
+        </xforms:group>
+        <xforms:group>
+            <xforms:label>
+              After you activate the Run Test trigger the Number Of Nodes output must show the value "10". 
+            </xforms:label>
+        </xforms:group>
+        <xforms:group>
+          <xforms:trigger>
+            <xforms:label>Run Test</xforms:label>
+            <xforms:action ev:event="DOMActivate" while="count(number) &lt; 10">
+              <xforms:insert ev:event="xforms-ready" nodeset="number" at="1" position="after"/>
+            </xforms:action>
+          </xforms:trigger>
+        </xforms:group>
+        <xforms:output value="count(number)">
+            <xforms:label>Number Of Nodes : </xforms:label>
+        </xforms:output>
+        
+    </body>
+</html>

@@ -1,0 +1,61 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ev="http://www.w3.org/2001/xml-events" 
+      xmlns:xf="http://www.w3.org/2002/xforms" 
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
+<head>
+	<title>Test submit</title>
+	<script type="text/javascript" src="../src/ubiquity-loader.js" >/**/</script>
+	<script>
+	function showModel() {
+	    var model = document.getElementById('flickrModel');
+	    var instDoc = model.getInstanceDocument('inst-rs');
+	    var str = xmlText(instDoc.documentElement);
+	    alert(str);
+	}
+	</script>
+</head>
+<body>
+<xf:model id="flickrModel" >
+  <!-- The data sent to flickr -->
+  <xf:instance id="i1">
+    <instanceData xmlns="">
+      <method>flickr.photos.search</method>
+        <api_key>68149024a667e0be3c63708f002ffe1e</api_key>
+        <tags>China</tags>
+        <per_page>50</per_page>
+      </instanceData>
+  </xf:instance>
+  <!-- The data received by flickr -->
+  <xf:instance id="inst-rs" xmlns="">
+    <dummy/>
+  </xf:instance>
+  <xf:submission id="sub-flickr" method="get" 
+      action="http://www.flickr.com/services/rest/"
+      separator="&amp;" replace="instance" instance="inst-rs" >
+      <xf:message level="modal" ev:event="xforms-submit-done" >submit done</xf:message>
+  </xf:submission>
+</xf:model>
+
+<xf:submit submission="sub-flickr">
+    <xf:label>Flickr Submit</xf:label>
+</xf:submit>
+<br/>
+<br/>
+<input type="button" value="show instance" onclick="showModel()" />
+</body>
+</html>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xforms="http://www.w3.org/2002/xforms">
+  <head>
+      <title>8.1.7.d incremental attribute of range element</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+         <xforms:instance xmlns="">       
+			         <car>
+				           <mileage xsi:type="xsd:integer">5</mileage>
+				           <age xsi:type="xsd:integer">5</age>	
+			         </car>
+         </xforms:instance>
+      </xforms:model>
+      <xforms:group>
+  	      <xforms:label class="title">8.1.7.d incremental attribute of range element</xforms:label>
+  	   </xforms:group>
+  	   <xforms:group>
+  		     <xforms:label>
+  			You must see a range control that displays an xforms-value-changed message 
+  			when you change its value.
+  		</xforms:label>
+  	   </xforms:group>
+  	   <xforms:group>
+  		     <xforms:range ref="/car/age" start="0" end="10" incremental="true">
+  			       <xforms:label>Car age</xforms:label>
+ 	       	  <xforms:action ev:event="xforms-value-changed">
+ 	       		    <xforms:message level="modal">xforms-value-changed</xforms:message>
+ 	       	  </xforms:action>
+  		     </xforms:range>
+	     </xforms:group>
+  	   <xforms:group>
+		       <xforms:output ref="/car/age">
+			         <xforms:label>Car age : </xforms:label>
+		       </xforms:output>
+	     </xforms:group>	
+  </body>
+</html>

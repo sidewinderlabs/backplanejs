@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xforms="http://www.w3.org/2002/xforms">
+	  <head>
+		    <title>11.10.b submission response with the target data node receiving text</title>
+		    <script type="text/javascript"
+              src="../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../driverPages/html/TestSuite11.css" type="text/css"/>
+		
+	  </head>
+	  <body>
+      <xforms:model id="form1">
+			      <xforms:submission id="submit01" method="get" replace="text" instance="instance2"
+                            action="11.10.data2.txt"
+                            targetref="carOwner"/>
+			      <xforms:instance xmlns="" id="instance1">
+				        <car>
+					          <carOwner>Henry</carOwner>
+				        </car>
+			      </xforms:instance>
+			      <xforms:instance xmlns="" id="instance2">
+				        <car>
+					          <carOwner>Thomas</carOwner>
+				        </car>
+			      </xforms:instance>
+			      <xforms:message ev:event="xforms-submit-error" level="modal">xforms-submit-error</xforms:message>
+		    </xforms:model>
+	    <xforms:group>
+		       <xforms:label class="title">11.10.b submission response with the target data node receiving text</xforms:label>
+		    </xforms:group>
+		    <xforms:group>
+		       <xforms:label>
+			  You must see the value "Thomas" for the Car Owner output control. When you activate the 
+			  Replace Instance submit control the value must change to "Janel". 
+		    </xforms:label>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:output ref="instance('instance2')/carOwner">
+				        <xforms:label>Car Owner : </xforms:label>
+			      </xforms:output>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:submit submission="submit01">
+				        <xforms:label>Replace Instance</xforms:label>
+			      </xforms:submit>
+		    </xforms:group>
+		
+	  </body>
+</html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xforms="http://www.w3.org/2002/xforms">
+  <head>
+      <title>8.1.6.2.a mediatype element</title>
+      <script type="text/javascript"
+              src="../../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+         <xforms:instance xmlns="">       
+            <mail>
+          	    <attachment xsi:type="xsd:base64Binary" filename="" type=""/>
+            </mail>
+         </xforms:instance>
+      </xforms:model>
+      <xforms:group>
+  	      <xforms:label class="title">8.1.6.2.a mediatype element</xforms:label>
+  	   </xforms:group>
+	     <xforms:group>
+		       <xforms:label>
+		  After using the upload control to select a file you must see the file type displayed in the Mediatype output 
+		  control. 
+		</xforms:label>
+	     </xforms:group>
+   	  <xforms:upload ref="/mail/attachment" mediatype="image/*">
+   		    <xforms:label>Select an image to attach</xforms:label>
+   		    <xforms:filename ref="@filename"/>
+   		    <xforms:mediatype ref="@type"/>
+   	  </xforms:upload>
+   	  <xforms:group>
+		       <xforms:output ref="/mail/attachment/@type">
+			         <xforms:label>Mediatype : </xforms:label>
+		       </xforms:output>
+	     </xforms:group>
+	
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <title>4.2.1.c2 inline source takes precedence over external source for initial instance data</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+    <!-- in XForms 1.0 external instance data took precedence over inline data -->
+    <!-- in XForms 1.1, however, inline data is what takes precedence -->
+      <xforms:instance xmlns="" resource="4.2.1.instance1.xml">
+      	     <number>100</number>
+         </xforms:instance>
+      </xforms:model>
+      <xforms:group>
+    	    <xforms:label class="title">4.2.1.c2 inline source takes precedence over external source for initial instance data</xforms:label>
+      </xforms:group>
+	     <xforms:group>
+    	    <xforms:label>You must see the value "100":</xforms:label>
+      </xforms:group>
+   	  <xforms:output ref="/number">
+   		    <xforms:label/>
+   	  </xforms:output>
+	
+  </body>
+</html>

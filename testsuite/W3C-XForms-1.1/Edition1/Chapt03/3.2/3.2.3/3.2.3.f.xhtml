@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events">
+  <head>
+      <title>3.2.3.f single-node binding - invalid model IDREF</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+    
+  </head>
+  <body>
+      <xforms:model id="car1">
+         <xforms:instance xmlns="" id="i_001">
+            <car>
+               <make>Honda</make>
+               <year>2002</year>
+               <color>white</color>
+               <hp>150</hp>
+            </car>
+         </xforms:instance>
+      </xforms:model>
+      <xforms:model id="car2">
+         <xforms:instance xmlns="" id="i_002">
+            <car>
+               <make>Toyota</make>
+               <year>2004</year>
+               <color>midnight blue</color>
+               <hp>175</hp>
+            </car>
+         </xforms:instance>
+      </xforms:model>
+	     <xforms:group>
+		       <xforms:label class="title">3.2.3.f single-node binding - invalid model IDREF</xforms:label>
+	     </xforms:group>
+  	   <xforms:group>
+  		     <xforms:label>
+  		  You must have seen an xforms-binding-exception message or a fatal error due to an 
+		  xforms-binding-exception. 
+  		</xforms:label>
+  	   </xforms:group>    
+    
+      <xforms:input model="myInvalidModel" ref="/car/hp">
+        <xforms:label>
+        	
+        </xforms:label>
+        <xforms:action ev:event="xforms-binding-exception">
+        	   <xforms:message level="modal">xforms-binding-exception</xforms:message>
+        </xforms:action>
+      </xforms:input>
+
+	
+  </body>
+</html>

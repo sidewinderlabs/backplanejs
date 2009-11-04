@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xforms="http://www.w3.org/2002/xforms">
+  	<head>
+    	<title>10.a action syntax example</title>
+    	<script type="text/javascript"
+              src="../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../driverPages/forms/TestSuite11.css" type="text/css"/>
+    	
+  	</head>
+  	<body>
+      <xforms:model id="thismodel">
+       		<xforms:instance xmlns="">
+				        <car>Del Sol</car>
+       		</xforms:instance>
+    	</xforms:model>
+  		  <xforms:group>
+	  		    <xforms:label class="title">10.a action syntax example</xforms:label>
+	  	  </xforms:group>
+  		  <xforms:group>
+  			    <xforms:label>
+  			  If you change the value in the Car Model 
+  			  input control and activate the Reset trigger the value must be set back to the initial value of 
+  			  "Del Sol". 
+  			</xforms:label>
+  		  </xforms:group>
+
+		    <xforms:input ref="/car">
+			      <xforms:label>Car Model : </xforms:label>
+		    </xforms:input>
+			
+		    <xforms:trigger>
+  			    <xforms:label>Reset</xforms:label>
+  			    <xforms:reset ev:event="DOMActivate" model="thismodel"/>
+		    </xforms:trigger>
+
+		
+  </body>
+</html>

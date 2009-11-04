@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xforms="http://www.w3.org/2002/xforms">
+  	<head>
+    	<title>9.3.1.a repeat element</title>
+    	<script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    	
+  	</head>
+  	<body>
+      <xforms:model>
+       		<xforms:instance xmlns="">
+				        <cart>
+					          <items>
+						            <item>windshield wipers</item>
+						            <item>tires</item>
+						            <item>exhaust</item>
+						            <item>air freshener</item>
+					          </items>
+				        </cart>
+       		</xforms:instance>
+    	</xforms:model>
+  		  <xforms:group>
+  			    <xforms:label class="title">9.3.1.a repeat element</xforms:label>
+  		  </xforms:group>	
+  		  <xforms:group>
+  			    <xforms:label>
+  				You must see the values "winshield wipers", "tires", "exhaust", and 
+  				"air freshener" output below. 
+  			</xforms:label>	
+  		  </xforms:group>
+		    <xforms:repeat nodeset="/cart/items/item">
+			      <xforms:output ref=".">
+				        <xforms:label/>
+			      </xforms:output>
+		    </xforms:repeat>
+		
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<job id="make-rollup">
+  <runtime>
+  <named 
+    name="paths"
+    helpstring="comma separated list of name/path pairs in the format 'moduleName:path', to be used to resolve the location of modules to rollup  "
+    type="string"
+  />
+  <named 
+    name="js"
+    helpstring="path to the output script file"
+    type="string"
+  />
+  <named 
+    name="css"
+    helpstring="path to the output style file"
+    type="string"
+  />
+  </runtime>
+  <script language="jscript" src="fulljsmin.js" />
+  <script>
+    //yuiloader assumes the existence of  the "window" and "navigator" objects, as it is assumed to be running in a browser.
+    //  The only compulsory read that it does for either in this context is navigator.userAgent
+    var navigator = {userAgent:""};
+    var window = {};
+  </script>
+  <script language="jscript" src="yuiloader-beta.js" />
+  
+  <script language="jscript" src="make-rollup.js" />
+
+
+  <script language="jscript">
+    (function(){
+      var dStart = new Date();
+      WScript.StdErr.WriteLine("Rollup Started at: " + dStart);
+      var fso = WScript.CreateObject("Scripting.FileSystemObject");
+      var outScriptStream =  fso.CreateTextFile(WScript.Arguments.Named.Item('js'),true);
+      var outStyleStream =  fso.CreateTextFile(WScript.Arguments.Named.Item('css'),true);
+
+      var roller = new Roller();
+      roller.parsePathDeclarations(WScript.Arguments.Named.Item('paths'));
+      roller.makeRollup(WScript.StdIn.ReadAll(),{"js":outScriptStream,"css":outStyleStream},function(){return WScript.CreateObject("MSXML2.XMLHTTP")},WScript.StdErr);
+      
+      //informative guff
+      {
+        var dEnd = new Date();
+        WScript.StdErr.WriteLine("\n Rollup generation completed at: " + dEnd);
+        var duration = dEnd - dStart;
+        var durMins = Math.floor(duration/60000);
+        var durSecs = Math.floor((duration - (durMins * 60000))/1000);
+        WScript.StdErr.WriteLine(durMins + "mins, " + durSecs + " secs\n");
+       }
+
+    }());
+  </script>
+</job>

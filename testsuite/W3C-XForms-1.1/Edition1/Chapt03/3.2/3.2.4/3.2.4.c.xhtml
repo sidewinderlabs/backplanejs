@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <title>3.2.4.c node-set binding - bind attribute of itemset element</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model id="carsForSale">
+         <xforms:instance xmlns="">
+            <carsAvailable>
+               <car>Audi</car>
+               <car>BMW</car>
+               <car>Mercedes</car>
+               <car>Porsche</car>
+               <car>Volkswagen</car>
+               <carOrder/>
+            </carsAvailable>
+         </xforms:instance>
+         <xforms:bind id="bind_carOrder" nodeset="/carsAvailable/carOrder"/>
+         <xforms:bind id="bind_car" nodeset="/carsAvailable/car"/>
+         <!-- submission has a bind to bind_carOrder, and should only submit that element -->
+      <xforms:submission id="submit_carOrder" action="http://xformstest.org/cgi-bin/echo.sh"
+                            bind="bind_carOrder"
+                            method="post"/>
+      </xforms:model>
+  	   <xforms:group>
+  		     <xforms:label class="title">3.2.4.c node-set binding - bind attribute of itemset element</xforms:label>
+  	   </xforms:group>
+      <xforms:group>
+    	    <xforms:label>
+	      You must be able to select any or all of the items in the select control. After activating the Submit Cars 
+      	trigger you must be able to see all the values you selected displayed on the screen in the form data.
+	    </xforms:label>
+	    
+      </xforms:group>    
+
+      <xforms:select bind="bind_carOrder">
+     	   <xforms:label>Cars</xforms:label>
+      	
+        <xforms:itemset bind="bind_car">
+	           <xforms:label ref="."/>
+    	       <xforms:value ref="."/>
+        </xforms:itemset>
+      </xforms:select>
+    
+      <xforms:submit submission="submit_carOrder">
+        <xforms:label>Submit Cars</xforms:label>
+      </xforms:submit>
+
+	
+  </body>
+</html>

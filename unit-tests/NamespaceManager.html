@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<html  xmlns:xf="http://www.w3.org/2002/xforms"
+	xmlns:xforms="http://www.w3.org/2002/xforms"
+	xmlns:umahasha="http://www.w3.org/2002/xforms"
+	xmlns:x="urn:someNamespace"
+	xmlns:a="http://www.example.org/ns0"
+	xmlns:a0="http://www.example.org/ns0"
+	xmlns:b="http://www.example.org/ns1"
+	xmlns:b0="http://www.example.org/ns1"
+	xmlns:we="http://www.example.org/WE"
+	>
+	
+	<head>
+		
+		<title>Testing NamespaceManager</title>
+		
+		<script>
+			//    debugger;
+		</script>
+		<!--CSS-->
+		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/logger/assets/logger.css" />
+		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/yuitest/assets/testlogger.css" />
+		
+		<!-- Dependencies --> 
+		<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+		<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/logger/logger-min.js"></script>
+		
+		<!-- Source File -->
+		<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/yuitest/yuitest-min.js"></script>
+		<script src="http://yui.yahooapis.com/2.5.2/build/dom/dom-min.js">/**/</script> 
+		
+		<script src="../lib/NamespaceManager.js">/**/</script>
+		
+	
+		<script src="ut-NamespaceManager.js">/**/</script>
+	</head>
+	<body>
+		<div id="testLogger"></div>
+		<script type="text/javascript">
+			var oLogger = new YAHOO.tool.TestLogger();
+			YAHOO.tool.TestRunner.add(suiteNamespaceManager);
+			YAHOO.tool.TestRunner.run();
+		</script>
+		
+		<!--a:man>
+			<a:plan>
+				<a:canal id="aCanal"></a:canal>
+			</a:plan>
+		</a:man>
+		<a0:man>
+			<a0:plan>
+				<a0:canal id="a0Canal"></a0:canal>
+			</a0:plan>
+		</a0:man>
+		<b:man>
+			<b:plan>
+				<b:canal id="bCanal"></b:canal>
+			</b:plan>
+		</b:man>
+		<man>
+			<plan>
+				<canal id="noNamespaceCanal"></canal>
+			</plan>
+		</man-->
+	</body>
+	</html>

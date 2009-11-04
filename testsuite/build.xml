@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<project name="check-results" default="run-selenium-test">
+	<property name="browser" value="ff"/>
+	<property name="ts-dir" value="W3C-XForms-1.1/Edition1" />
+	<property name="results-dir" location="${ts-dir}/driverPages/Results" />
+	<property name="reports-dir" location="${ts-dir}/reports" />
+	<property name="test-type" value="xforms11"/>
+	<property name="test-section" value="Chapter"/>
+	<property name="section" value="01" />
+	<property name="test-number" value="${test-section}${section}"/>
+	<property name="test-suite" value="../../${ts-dir}/driverPages/SeleniumTests/TestSuite${test-number}.html" />
+	<property name="test-name" value="${test-type}-${test-number}"/>
+	<property name="results-file-name" value="${test-name}-${browser}-results"/>
+	<property name="results-file" value="${results-file-name}.html" />
+	<property name="auto" value="true"/>
+
+	<property name="merge_base_dir" value="W3C-XForms-1.1/Edition1/driverPages/Results" />
+	<property name="merge_src_dir" value="FF3" />
+	<property name="destination" location="${merge_base_dir}/${merge_src_dir}" />
+
+	<target name="run-selenium-test">
+		<condition property="sel-params" value="auto=${auto}&amp;save=true&amp;close=true&amp;test=${test-suite}&amp;resultsUrl=..\..\${results-file}">
+			<equals arg1="${browser}" arg2="ff"/>
+		</condition>
+		<property name="browser-runtime" value="&quot;C:\Program Files\Mozilla Firefox\firefox.exe&quot;" />
+		<property name="sel-runner" location="selenium/core/TestRunner.html" />
+
+		<exec executable="${browser-runtime}">
+			<arg line="-no-remote -P buildbot 'file:///${sel-runner}?${sel-params}'" />
+		</exec>
+		<loadfile property="results" srcFile="${results-file}" />
+		<condition property="failed">
+			<matches string="${results}" pattern="&lt;td&gt;failed&lt;/td&gt;"/>
+		</condition>
+		<fail if="failed"
+			message="Test '${test-name}' failed for browser '${browser}'."
+			status="1"
+		/>
+	</target>
+
+	<target name="run-selenium-test-ie">
+		<property name="sel-runner" location="selenium/core/TestRunner.hta" />
+
+		<exec executable="cmd">
+			<arg value="/c" />
+			<arg value="run-hta" />
+			<arg value="&quot;${sel-runner}&quot;" />
+			<arg value="${test-suite}" />
+			<arg value="${auto}" />
+			<arg value="true" />
+			<arg value="true" />
+			<arg value="${results-file}" />
+		</exec>
+		<loadfile property="results" srcFile="${results-file}" />
+		<condition property="failed">
+			<matches string="${results}" pattern="&lt;td&gt;failed&lt;/td&gt;"/>
+		</condition>
+		<fail if="failed"
+			message="Test '${test-name}' failed for browser '${browser}'."
+			status="1"
+		/>
+	</target>
+	
+	<!-- 
+		ant -Dsection=Chapter -Dsub_section=3 -Dbrowser=ie -Ddestination=W3C-XForms-1.1/Edition1/driverPages/Results/IE7 tidy-selenium-results
+		ant -Dsection=Appendix -Dsub_section=B -Dbrowser=ie -Ddestination=W3C-XForms-1.1/Edition1/driverPages/Results/IE7 tidy-selenium-results
+		
+		ant -Dsection=Chapter -Dsub_section=3 -Dbrowser=ff -Ddestination=W3C-XForms-1.1/Edition1/driverPages/Results/FF3 tidy-selenium-results
+		ant -Dsection=Appendix -Dsub_section=B -Dbrowser=ff -Ddestination=W3C-XForms-1.1/Edition1/driverPages/Results/FF3 tidy-selenium-results
+		
+		How to get <exec /> to run on multiple files?
+	-->
+	<target name="tidy-selenium-results" description="Run 'Tidy' on the HTML result files produced by Selenium nad move to another dir.">
+		<exec executable="tidy">
+			<arg value="-m" />
+			<arg value="-q" />
+			<arg value="-asxhtml" />
+			<arg value="${results-file}" />
+		</exec>
+		<!-- mkdir / -->
+		<move file="${results-file}" todir="${destination}" />		
+	</target>
+
+	<!-- 
+		ant -Dsection=06 -Dbrowser=ff convert-selenium-results
+		ant -Dsection=B -Dbrowser=ie convert-selenium-results
+	-->
+	<target name="convert-selenium-results">
+		<property name="xslt" location="../tools/seleniumresults2w3c.xsl" />
+		<condition property="section-expanded" value="Appendix${section}" else="${section}">
+			<or>
+				<equals casesensitive="false" arg1="${section}" arg2="B" />
+				<equals casesensitive="false" arg1="${section}" arg2="G" />
+				<equals casesensitive="false" arg1="${section}" arg2="H" />
+			</or>
+		</condition>
+		<xslt basedir="${destination}" destdir="${destination}" style="${xslt}" in="${destination}/XF11_${section-expanded}_Results.xml" out="${destination}/updated/XF11_${section-expanded}_Results.xml" force="true">
+			<param name="browser" expression="${browser}" />
+			<param name="selenium_file_dir" expression="${destination}" />
+			<param name="chapter" expression="${section}" />
+			<xmlcatalog>
+				<dtd publicId="-//W3C//DTD XHTML 1.0 Transitional//EN" location="../tools/xhtml1-transitional.dtd" />
+				<dtd publicId="-//W3C//DTD XHTML 1.0 Strict//EN" location="../tools/xhtml1-strict.dtd" />
+			</xmlcatalog>
+		</xslt>
+	</target>
+
+	<!-- 
+		Take browser specific test suite XML result files (1) and transform into XHTML, containing detailed information
+		about which test passed/failed for each chapter, in a 'reports' (2) directory.
+		
+		1 - W3C-XForms-1.1/Edition1/driverPages/Results/<browser>/*.xml
+		2 - W3C-XForms-1.1/Edition1/Reports/<browser>/*.html
+	-->
+	<target name="process-w3c-ts-chapter-results">
+		<xslt basedir="${results-dir}/IE7" destdir="${reports-dir}/IE7" style="section-test-results.xsl">
+			<param name="dir" expression="IE7" />
+			<mapper type="glob" from="*.xml" to="*.html" />
+		</xslt>
+		<xslt basedir="${results-dir}/FF3" destdir="${reports-dir}/FF3" style="section-test-results.xsl">
+			<param name="dir" expression="FF3" />
+			<mapper type="glob" from="*.xml" to="*.html" />
+		</xslt>
+		<xslt basedir="${results-dir}/Safari" destdir="${reports-dir}/Safari" style="section-test-results.xsl">
+			<param name="dir" expression="Safari" />
+			<mapper type="glob" from="*.xml" to="*.html" />
+		</xslt>
+	</target>
+
+	<!--
+	   Based on the above, but operates on the 'updated' sub-directory and the browser is passed in.
+	-->
+	<target name="process-w3c-ts-chapter-results-updated">
+		<xslt basedir="${results-dir}/${merge_src_dir}/updated" destdir="${results-dir}/${merge_src_dir}/updated" style="section-test-results.xsl">
+			<param name="dir" expression="${merge_src_dir}" />
+			<mapper type="glob" from="*.xml" to="*.html" />
+		</xslt>
+	</target>
+
+	<!-- 
+		Produce a overview XHTML file that lists test suite chapter names and the total tests that passed/failed
+		for each chapter for a browser.
+		
+		Note: 'url' param should have a trailing slash.
+	-->
+	<target name="browser-results-summary">
+		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${reports-dir}/FF3/index.html" force="true">
+			<param name="url" expression="http://uxf-bb.webbackplane.com:8080/reports/" />
+			<param name="browser_dir" expression="FF3" />
+		</xslt>
+		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${reports-dir}/IE7/index.html" force="true">
+			<param name="url" expression="http://uxf-bb.webbackplane.com:8080/reports/" />
+			<param name="browser_dir" expression="IE7" />
+		</xslt>
+	</target>
+
+	<!--
+	   Based on the above, but operates on the 'updated' sub-directory and the browser is passed in.
+	-->
+	<target name="browser-results-summary-updated">
+		<!-- This list of tests is used by the XSLT so copy it into the updated directory beforehand. -->
+		<copy file="${results-dir}/${merge_src_dir}/test-list.html" todir="${results-dir}/${merge_src_dir}/updated" />
+
+		<!-- Section 1 and appendices G and H are not tested, so enable the XSLT to operate over those manual results. -->
+		<copy file="${results-dir}/${merge_src_dir}/XF11_01_Results.xml" todir="${results-dir}/${merge_src_dir}/updated" />
+		<copy file="${results-dir}/${merge_src_dir}/XF11_AppendixG_Results.xml" todir="${results-dir}/${merge_src_dir}/updated" />
+		<copy file="${results-dir}/${merge_src_dir}/XF11_AppendixH_Results.xml" todir="${results-dir}/${merge_src_dir}/updated" />
+
+		<xslt style="browser-results-summary.xsl" in="${ts-dir}/driverPages/html/index.html" out="${results-dir}/${merge_src_dir}/updated/index.html" force="true">
+			<param name="url" expression="./" />
+			<param name="browser_dir" expression="${merge_src_dir}/updated" />
+		</xslt>
+	</target>
+</project>

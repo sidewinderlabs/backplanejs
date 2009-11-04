@@ -1,0 +1,52 @@
+<!--
+// Ubiquity provides a standards-based suite of browser enhancements for
+// building a new generation of internet-related applications.
+//
+// The Ubiquity XForms module adds XForms 1.1 support to the Ubiquity
+// library.
+//
+// Copyright (C) 2008 Backplane Ltd.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//  http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+-->
+<html	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:xf="http://www.w3.org/2002/xforms"
+	xmlns:xforms="http://www.w3.org/2002/xforms"
+	xmlns:umahasha="http://www.w3.org/2002/xforms"
+	xmlns:x="urn:someNamespace"
+	xmlns:a="http://www.example.org/ns0"
+	xmlns:a0="http://www.example.org/ns0"
+	xmlns:b="http://www.example.org/ns1"
+	xmlns:b0="http://www.example.org/ns1"
+	xmlns:we="http://www.example.org/WE"
+	xmlns:javascript="http://www.w3.org/2002/xforms#inline"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+>
+  <head>
+    <title>Unit test</title>
+    
+    <!-- For application/xhtml+xml content-type (in FF the *.xhtml extension), there are no properties like className
+         or style, and with *.css files the prefix/namespace qualifiers have to be specified and declared.
+         In this particular unit test, there is an extra namespace declared called umahasha, this needs to be declared in the
+         defaults.css file so that errors do not happen when css selectors are being changed in the xhtml mode.  If not declared
+         a user would see an obtuse error "uncaught exception: An invalid or illegal string was specified (NS_ERROR_DOM_SYNTAX_ERR)"
+         -->
+    
+    <script type="text/javascript" src="../src/ubiquity-loader.js" >/**/</script>
+    <script type="text/javascript" src="unit-test-loader.js">/**/</script>
+  </head>
+  <body>
+    Unit tests <a href="javascript:runTheTests();">Run</a>
+  </body>
+</html>

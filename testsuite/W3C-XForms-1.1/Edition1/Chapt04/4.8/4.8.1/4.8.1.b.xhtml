@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xforms="http://www.w3.org/2002/xforms">
+	  <head>
+		    <title>4.8.1.b getInstanceDocument() throws a DOMException (non-normative)</title>
+		    <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+		
+	  </head>
+	  <body>
+      <xforms:model id="my_model1">
+			      <xforms:instance xmlns="" id="my_data1">
+				        <car>
+					          <color>blue</color>
+				        </car>
+			      </xforms:instance>
+		    </xforms:model>
+	    <xforms:group>
+		       <xforms:label class="title">4.8.1.b getInstanceDocument() throws a DOMException (non-normative)</xforms:label>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:label>
+				This test case uses Javascript to execute the getInstanceDocument() method. 
+				You may have seen a message box with the value "DOMException".
+			</xforms:label>
+		    </xforms:group>
+		    <script type="text/javascript">
+			try	{
+				var model = document.getElementById('my_model1');
+				var inst1 = model.getInstanceDocument('my_INVALID');
+				var my_color = inst1.getElementsByTagName('color')[0];
+				alert(my_color.textContent);
+			}
+			catch(DOMException)	{
+				alert('DOMException');
+			}
+		</script>
+	  </body>
+	
+</html>

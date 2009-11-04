@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:et="http://w3c.org/eventtracker"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <head>
+      <title>4.7.a invalid ID references that terminate with no effect</title>
+      <script type="text/javascript"
+              src="../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+         <xforms:instance xmlns="">
+            <root/>
+         </xforms:instance>
+         <xforms:message level="modal" ev:event="xforms-binding-exception">xforms-binding-exception</xforms:message>
+         <xforms:message level="modal" ev:event="xforms-link-exception">xforms-link-exception</xforms:message>
+      </xforms:model>
+      <xforms:group>
+    	    <xforms:label class="title">4.7.a invalid ID references that terminate with no effect</xforms:label>
+      </xforms:group>
+      <xforms:group>
+    	    <xforms:label>
+    	  This case tests invalid ID references of dispatch, send, setfocus, setindex, and toggle elements. 
+    	  You must not see any errors or messages. 
+    	</xforms:label>	
+      </xforms:group>
+    
+      <xforms:dispatch ev:event="xforms-refresh" targetid="invalid"/>
+      <xforms:send submission="invalid"/>
+      <xforms:setfocus control="invalid"/>
+      <xforms:setindex repeat="invalid" index="1"/>
+      <xforms:toggle ev:event="DOMActivate" case="in"/>
+    
+  </body>
+</html>

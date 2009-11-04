@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <title>11.1.b bind attribute of submission element</title>
+      <script type="text/javascript"
+              src="../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../driverPages/html/TestSuite11.css" type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model id="m_001">
+         <xforms:instance xmlns="" id="i1">
+            <car>
+               <make>Acura</make>
+               <year>1994</year>
+               <color>white</color>
+               <hp>120</hp>
+            </car>
+         </xforms:instance>
+         <xforms:instance xmlns="" id="i2">
+            <tires/>
+         </xforms:instance>
+         <!-- submission submits only what the bind is attached to -->
+      <xforms:submission id="submit" action="http://xformstest.org/cgi-bin/echo.sh" bind="color_bind"
+                            method="post"/>
+         <xforms:bind id="make_bind" nodeset="/car/make"/>
+         <xforms:bind id="year_bind" nodeset="/car/year"/>
+         <xforms:bind id="color_bind" nodeset="/car/color"/>
+         <xforms:bind id="hp_bind" nodeset="/car/hp"/>
+      </xforms:model>
+  	   <xforms:group>
+  		     <xforms:label class="title">11.1.b bind attribute of submission element</xforms:label>
+  	   </xforms:group>
+      <xforms:group>
+         <xforms:label>
+        When you activate the Submit trigger the page must be replaced by the form data. You must see the value 
+        "white" in the form data. You must not see the values "Acura", "1994", or 
+        "120". 
+      </xforms:label>
+      </xforms:group>    
+      <xforms:submit submission="submit">
+        <xforms:label>Submit</xforms:label>
+      </xforms:submit>
+
+  </body>
+</html>

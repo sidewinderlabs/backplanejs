@@ -1,0 +1,201 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>Test Alert</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+					<td rowspan="1" colspan="3">Test Alert<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../../samples/xforms-alert.html</td>
+					<td>&nbsp;</td>
+					<td>Opens the form.</td>
+				</tr>
+				<tr>
+					<td>waitForText</td>
+					<td>o1</td>
+					<td>2</td>
+					<td>Waits for the xforms to load</td>
+				</tr>
+				<tr>
+					<td>waitForText</td>
+					<td>o2</td>
+					<td>4</td>
+					<td>Waits for the xforms to load</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:trigger[@id='t0']/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert appeared</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xf:trigger[@id='t1']/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert appeared</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:trigger[@id='t2']/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert appeared</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xf:trigger[@id='t3']/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert appeared</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:input[@ref='number[2]']/xf:alert</td>
+					<td></td>
+					<td>Makes sure the test is set up right</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xf:input[@ref='number[2]']/pe-value/input</td>
+					<td></td>
+					<td>Makes sure the test is set up right</td>
+				</tr>
+				<tr>
+					<td>type</td>
+					<td>xpath=/html/body/xf:input[@ref='number[2]']/pe-value/input</td>
+					<td>21</td>
+					<td>Types 21 into the first input box</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the value to disappear</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xf:input[@ref='number[2]']/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert disappeared</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xf:trigger[@id='t0']/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert disappeared</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xf:trigger[@id='t2']/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert disappeared</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:input[@ref='number[3]']/xf:alert</td>
+					<td></td>
+					<td>Makes sure the test is set up right</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xf:input[@ref='number[3]']/pe-value/input</td>
+					<td></td>
+					<td>Makes sure the test is set up right</td>
+				</tr>
+				<tr>
+					<td>type</td>
+					<td>xpath=/html/body/xf:input[@ref='number[3]']/pe-value/input</td>
+					<td>25</td>
+					<td>Types 25 into the second input box</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>1000</td>
+					<td></td>
+					<td>Waits for the value to disappear</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xf:input[@ref='number[3]']/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert disappeared</td>
+				</tr>
+				
+				<tr>
+					<td>type</td>
+					<td>xpath=/html/body/xf:input[@ref='number[3]']/pe-value/input</td>
+					<td>18</td>
+					<td>Types 18 into the second input box</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the value to appear</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:input[3]/xf:alert</td>
+					<td></td>
+					<td>Makes sure the test is set up right</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xf:input[4]/xf:alert</td>
+					<td></td>
+					<td>Makes sure the test is set up right</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xf:input[3]/xf:alert/xf:trigger</td>
+					<td></td>
+					<td>Clicks the trigger inside of the alert</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the value to disappear</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xf:input[3]/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert disappeared</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xf:input[4]/xf:alert</td>
+					<td></td>
+					<td>Checks to see if the alert disappeared</td>
+				</tr>
+				
+				<tr>
+					<td>close</td>
+					<td></td>
+					<td></td>
+					<td>Closes the form</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

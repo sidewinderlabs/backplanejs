@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xf="http://www.w3.org/2002/xforms"
+      xmlns:ev="http://www.w3.org/2001/xml-events"
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      xml:lang="en"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:fp="urn:formsplayer.com"
+>
+
+<head>
+	<title>Testing Conditional Invocation</title>
+	<script>
+		//    debugger;
+	</script>
+	<link rel="stylesheet" type="text/css" href="/runtime/ajax/ajaxfP/xf-behaviors-test-suite.css"></link>
+    <script>
+        var g_sBehaviourDirectory = "../../../src/behaviours/";
+    </script>
+    <script src="../../../src/ubiquity-loader.js">/**/</script>
+    
+<style>
+	xf\:trigger
+	{
+		border:solid black 1px;
+		background-color:white;
+		margin:5px;
+		
+	}
+ </style>
+
+</head>
+<body>
+	 <xf:model id="m1">
+		<xf:instance id="i0"><x><y>hello</y><z>sailor</z></x></xf:instance>
+     </xf:model>
+ 
+
+		<script type="text/javascript">
+		//  var oLogReader = new YAHOO.widget.LogReader("fc-logger",{top:"50%",right:"10px"});
+		//  document.logger = new YAHOO.widget.LogWriter("ajaxfP");
+			document.logger = { log: function(sText, sContext) { } };
+		</script>
+		<h1>Testing Conditional Invocation</h1>
+<hr />
+<xf:output id="o0" ref="z"></xf:output>
+<hr/>
+<xf:trigger id="t0">
+	<xf:label>[(dolly) (no condition)]</xf:label>
+	<xf:setvalue ev:event="DOMActivate" ref="z" value="'dolly'"></xf:setvalue>
+</xf:trigger>
+
+<xf:trigger id="t1">
+	<xf:label>(kitty)(if z == 'dolly')</xf:label>
+	<xf:setvalue ev:event="DOMActivate" ref="z" value="'kitty'" if="z='dolly'" ></xf:setvalue>
+</xf:trigger>
+
+<xf:trigger id="t2">
+	<xf:label>(is it me you're looking for?)(if z == 'sailor')</xf:label>
+	<xf:setvalue ev:event="DOMActivate" ref="z" value="&quot;is it me you're looking for?&quot;"  if="z='sailor'"></xf:setvalue>
+</xf:trigger>
+
+<xf:trigger id="t3">
+	<xf:label>(sailor)(no condition)</xf:label>
+	<xf:setvalue ev:event="DOMActivate" ref="z" value="'sailor'"></xf:setvalue>
+</xf:trigger>
+
+<hr/>
+</body>
+</html>

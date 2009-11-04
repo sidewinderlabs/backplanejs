@@ -1,0 +1,148 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>Test Suite</title>
+		<link rel="stylesheet" type="text/css" href="../../../../selenium/core/selenium.css" />
+		<script language="JavaScript" type="text/javascript" src="../../../../selenium/core/scripts/selenium-browserdetect.js"></script>
+		<script language="JavaScript" type="text/javascript">//<![CDATA[
+    var DISABLED = true; // used to flag failing tests
+
+    function filterTestsForBrowser() {
+        var suiteTable = document.getElementById("suiteTable");
+        var skippedTests = document.getElementById("skippedTests");
+        for(rowNum = suiteTable.rows.length - 1; rowNum >= 0; rowNum--)
+        {
+            var row = suiteTable.rows[rowNum];
+            var filterString = row.getAttribute("unless");
+            if (filterString && eval(filterString))
+            {
+              var cellHTML = row.cells[0].innerHTML;
+              suiteTable.deleteRow(rowNum);
+
+              var newRow = skippedTests.insertRow(1);
+              var newCell = newRow.insertCell(0)
+              newCell.innerHTML = cellHTML;
+            }
+        }
+    }
+//]]>
+		</script>
+	</head>
+	<body onload="filterTestsForBrowser()">
+		<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium">
+			<tbody>
+				<tr>
+					<td><b>XForms 1.1 Chapter 11 Test Suite</b></td>
+				</tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.a.html">11.1.a ref attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.b.html">11.1.b bind attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.c.html">11.1.c resource attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.d.html">11.1.d action attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.e.html">11.1.e mode attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.f.html">11.1.f method attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.h.html">11.1.h validate attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.i.html">11.1.i relevant attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.j.html">11.1.j serialization attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.k.html">11.1.k version attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.l.html">11.1.l indent attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.m.html">11.1.m mediatype attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.n.html">11.1.n encoding attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.o.html">11.1.o omit-xml-declaration attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.p.html">11.1.p standalone attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.q.html">11.1.q cdata-section-elements attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.r.html">11.1.r replace attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.s1.html">11.1.s1 instance attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.s2.html">11.1.s2 invalid instance attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.t.html">11.1.t target attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.u.html">11.1.u separator attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.1/11.1.v.html">11.1.v includenamespaceprefixes attribute of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.2/11.2.a.html">11.2.a only one concurrent submit per submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.2/11.2.b.html">11.2.b non-relevant nodes are not serialized</a></td></tr>
+				<tr><td><a href="./Chapt11/11.2/11.2.c.html">11.2.c xforms-submit with empty instance data</a></td></tr>
+				<tr><td><a href="./Chapt11/11.2/11.2.d.html">11.2.d xforms-submit with empty instance data and required attribute</a></td></tr>
+				<tr><td><a href="./Chapt11/11.2/11.2.e.html">11.2.e xforms-submit stops with invalid instance data</a></td></tr>
+				<tr><td><a href="./Chapt11/11.3/11.3.a.html">11.3.a xforms-submit-serialize event</a></td></tr>
+				<tr><td><a href="./Chapt11/11.3/11.3.b.html">11.3.b xforms-submit-serialize event with submission-body property</a></td></tr>
+				<tr><td><a href="./Chapt11/11.4/11.4.a.html">11.4.a xforms-submit-done event</a></td></tr>
+				<tr><td><a href="./Chapt11/11.4/11.4.b.html">11.4.b accessing context information for xforms-submit-done event</a></td></tr>
+				<tr><td><a href="./Chapt11/11.5/11.5.a.html">11.5.a xforms-submit-error event</a></td></tr>
+				<tr><td><a href="./Chapt11/11.5/11.5.b.html">11.5.b accessing context information for xforms-submit-error event</a></td></tr>
+				<tr><td><a href="./Chapt11/11.6/11.6.1/11.6.1.a.html">11.6.1.a resource element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.6/11.6.1/11.6.1.b.html">11.6.1.b resource element with value attribute</a></td></tr>
+				<tr><td><a href="./Chapt11/11.7/11.7.1/11.7.1.a.html">11.7.1.a method element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.8/11.8.a.html">11.8.a header element of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.8/11.8.b.html">11.8.b header element with nodeset attribute</a></td></tr>
+				<tr><td><a href="./Chapt11/11.8/11.8.c.html">11.8.c header element of submission element</a></td></tr>
+				<tr><td><a href="./Chapt11/11.8/11.8.1/11.8.1.a.html">11.8.1.a name element with value attribute</a></td></tr>
+				<tr><td><a href="./Chapt11/11.8/11.8.1/11.8.1.b.html">11.8.1.b name element with empty value attribute</a></td></tr>
+				<tr><td><a href="./Chapt11/11.8/11.8.2/11.8.2.a.html">11.8.2.a value element with value attribute</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.a.html">11.9.a HTTP Post as a submission option</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.b.html">11.9.b HTTP Get as a submission option</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.c.html">11.9.c HTTP Put as a submission option</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.d.html">11.9.d HTTP multipart-post as a submission option</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.e.html">11.9.e HTTP form-data-post as a submission option</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.f.html">11.9.f HTTP urlencoded-posts as a submission option</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.g.html">11.9.g HTTPS Post as a submission option (non-normative)</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.h.html">11.9.h HTTPS Get as a submission option (non-normative)</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.i.html">11.9.i HTTPS Put as a submission option (non-normative)</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.j.html">11.9.j HTTPS multipart-post as a submission option (non-normative)</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.k.html">11.9.k HTTPS form-data-post as a submission option (non-normative)</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.l.html">11.9.l HTTPS urlencoded-posts as a submission option (non-normative)</a></td></tr>
+				<tr unless="true"><td><a href="./Chapt11/11.9/11.9.m.html">11.9.m mailto Post as a submission option (non-normative)</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.n.html">11.9.n File Get as a submission option (non-normative)</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt11/11.9/11.9.o.html">11.9.o File Put as a submission option (non-normative)</a></td></tr>
+				<tr unless="true"><td><a href="./Chapt11/11.9/11.9.p.html">11.9.p mailto urlencoded-posts as a submission option (non-normative)</a></td></tr>
+				<tr unless="true"><td><a href="./Chapt11/11.9/11.9.q.html">11.9.q mailto form-data-post as a submission option (non-normative)</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.1/11.9.1.a.html">11.9.1.a get submission method</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.2/11.9.2.a.html">11.9.2.a post submission method</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.2/11.9.2.b.html">11.9.2.b multipart-post submission method</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.2/11.9.2.c.html">11.9.2.c form-data-post submission method</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.2/11.9.2.d.html">11.9.2.d urlencoded-post submission method</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.3/11.9.3.a.html">11.9.3.a put submission method</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.3/11.9.3.b.html">11.9.3.b put submission method to local file (non-normative)</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.4/11.9.4.a.html">11.9.4.a delete submission method</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.4/11.9.4.b.html">11.9.4.b delete submission method deletes a file (non-normative)</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.5/11.9.5.a.html">11.9.5.a serialization as application/xml</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.6/11.9.6.a.html">11.9.6.a serialization as multipart/related</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.7/11.9.7.a.html">11.9.7.a serialization as multipart/form-data</a></td></tr>
+				<tr><td><a href="./Chapt11/11.9/11.9.8/11.9.8.a.html">11.9.8.a serialization as application/x-www-form-urlencoded</a></td></tr>
+				<tr><td><a href="./Chapt11/11.10/11.10.a.html">11.10.a submission response with invalid target</a></td></tr>
+				<tr><td><a href="./Chapt11/11.10/11.10.b.html">11.10.b submission response with target receiving text</a></td></tr>
+				<tr><td><a href="./Chapt11/11.10/11.10.c.html">11.10.c submission response with target receiving instance</a></td></tr>
+				<tr><td><a href="./Chapt11/11.11/11.11.1/11.11.1.a.html">11.11.1.a representation of SOAP envelope</a></td></tr>
+				<tr><td><a href="./Chapt11/11.11/11.11.2/11.11.2.a.html">11.11.2.a indicating a SOAP submission</a></td></tr>
+				<tr><td><a href="./Chapt11/11.11/11.11.3/11.11.3.a.html">11.11.3.a SOAP HTTP binding with get method</a></td></tr>
+				<tr><td><a href="./Chapt11/11.11/11.11.3/11.11.3.b.html">11.11.3.b SOAP HTTP binding with post method</a></td></tr>
+				<tr><td><a href="./Chapt11/11.11/11.11.3/11.11.3.c.html">11.11.3.c SOAP HTTP binding</a></td></tr>
+				<tr><td><a href="./Chapt11/11.11/11.11.3/11.11.3.d.html">11.11.3.d SOAP HTTP binding with get method and encoding attribute</a></td></tr>
+				<tr><td><a href="./Chapt11/11.11/11.11.3/11.11.3.e.html">11.11.3.e SOAP HTTP binding with post method and encoding attribute</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt11/11.11/11.11.4/11.11.4.a.html">11.11.4.a handling SOAP error response</a></td></tr>
+				<tr><td><a href="./Chapt11/11.11/11.11.4/11.11.4.b.html">11.11.4.b handling SOAP success response</a></td></tr>
+			</tbody>
+		</table>
+		<br />
+		<em>Not supported in this browser</em>
+		<table id="skippedTests" cellpadding="1" cellspacing="1" border="1" class="selenium">
+			<tbody>
+				<tr>
+					<td><b>Skipped Tests</b></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

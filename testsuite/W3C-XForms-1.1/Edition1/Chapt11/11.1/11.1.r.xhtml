@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xforms="http://www.w3.org/2002/xforms">
+	  <head>
+		    <title>11.1.r replace attribute of submission element</title>
+		    <script type="text/javascript"
+              src="../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../driverPages/html/TestSuite11.css" type="text/css"/>
+		
+	  </head>
+	  <body>
+      <xforms:model id="form1">
+			      <xforms:submission id="submit01" method="get" replace="instance" instance="instance2"
+                            action="11.1.r.data.xml"/>
+			      <xforms:instance xmlns="" id="instance1">
+				        <car>
+					          <carOwner>Henry</carOwner>
+					          <make>Acura</make>
+					          <color>white</color>
+				        </car>
+			      </xforms:instance>
+			      <xforms:instance xmlns="" id="instance2">
+				        <car>
+					          <carOwner>Thomas</carOwner>
+					          <make>Toyota</make>
+					          <color>silver</color>
+				        </car>
+			      </xforms:instance>
+		    </xforms:model>
+	    <xforms:group>
+		       <xforms:label class="title">11.1.r replace attribute of submission element</xforms:label>
+		    </xforms:group>
+		    <xforms:group>
+		       <xforms:label>
+			  You must see the values "Henry", "Acura", and "white" in the First 
+			  Instance. You must see the values "Thomas", "Toyota", and "silver" in 
+			  the Second Instance. When you activate the Replace Instance submit control the values in the First 
+			  Instance must stay the same. The values in the second instance must change to "Janel", 
+			  "Saturn", and "red". 
+		    </xforms:label>
+		    </xforms:group>
+		    <xforms:group>
+		       <xforms:label class="subtitle">First Instance</xforms:label>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:output ref="/car/carOwner">
+				        <xforms:label>Car Owner : </xforms:label>
+			      </xforms:output>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:output ref="/car/make">
+				        <xforms:label>Car Make : </xforms:label>
+			      </xforms:output>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:output ref="/car/color">
+				        <xforms:label>Car Color : </xforms:label>
+			      </xforms:output>
+		    </xforms:group>
+		    <xforms:group>
+		       <xforms:label class="subtitle">Second Instance</xforms:label>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:output ref="instance('instance2')/carOwner">
+				        <xforms:label>Car Owner : </xforms:label>
+			      </xforms:output>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:output ref="instance('instance2')/make">
+				        <xforms:label>Car Make : </xforms:label>
+			      </xforms:output>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:output ref="instance('instance2')/color">
+				        <xforms:label>Car Color : </xforms:label>
+			      </xforms:output>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:submit submission="submit01">
+				        <xforms:label>Replace Instance</xforms:label>
+			      </xforms:submit>
+		    </xforms:group>
+	  </body>
+</html>

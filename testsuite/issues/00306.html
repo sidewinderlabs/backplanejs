@@ -1,0 +1,85 @@
+﻿<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+ xmlns:ev="http://www.w3.org/2001/xml-events"
+>
+	<head>
+		<title>
+			Issue 306
+		</title>
+
+		<script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+	</head>
+
+	<body>
+		<h1>
+			<a href="http://code.google.com/p/ubiquity-xforms/issues/detail?id=306">Issue 306</a>
+		</h1>
+
+		<h2>
+			setfocus is not being correctly targeted to the current repeat index
+		</h2>
+		<ol>
+			<li>
+				Click on the button labelled 'Test'.
+			</li>
+
+			<li>
+				If focus is passed to the third input field and the result field displays the text 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+			</li>
+		</ol>
+
+		<xf:model id="mdl">
+			<xf:instance id="inst-test">
+				<test xmlns="">
+					<foo></foo>
+					<foo></foo>
+					<foo></foo>
+				</test>
+			</xf:instance>
+
+			<xf:instance id="inst-ready">
+				<ready xmlns="">FALSE</ready>
+			</xf:instance>
+
+			<xf:setvalue ev:event="xforms-ready" ref="instance('inst-ready')" value="'TRUE 1'"></xf:setvalue>
+		</xf:model>
+
+
+		<xf:trigger id="test">
+			<xf:label>
+				Test
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:setindex repeat="repeat" index="3"></xf:setindex>
+
+				<xf:setfocus control="input"></xf:setfocus>
+
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE 2'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:repeat id="repeat" nodeset="instance('inst-test')/foo">
+			<xf:input id="input" ref=".">
+				<xf:label>
+					Input:
+				</xf:label>
+
+				<xf:setvalue ev:event="DOMFocusIn" if="count(preceding-sibling::foo) = 2" ref="." value="'TEST PASSED'"></xf:setvalue>
+			</xf:input>
+		</xf:repeat>
+
+		<xf:output id="result" ref="instance('inst-test')/foo[3]">
+			<xf:label>
+				Result:
+			</xf:label>
+		</xf:output>
+
+		<xf:output id="ready" ref="instance('inst-ready')">
+			<xf:label>
+				Ready:
+			</xf:label>
+		</xf:output>
+	</body>
+</html>

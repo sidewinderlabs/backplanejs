@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events">
+  <head>
+      <title>3.3.1.d1 version attribute</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model id="model1" version="1.0 1.1">
+    	    <xforms:instance xmlns="">
+    		      <number>
+    			        <one/>
+    		      </number>
+    	    </xforms:instance>
+		       <xforms:message level="modal" ev:event="xforms-version-exception">xforms-version-exception</xforms:message>
+      </xforms:model>
+  	   <xforms:group>
+  		     <xforms:label class="title">3.3.1.d1 version attribute</xforms:label>
+  	   </xforms:group>
+      <xforms:group>
+    	    <xforms:label>
+    	  You must not have seen an xforms-version-exception message or a fatal error due to an 
+    	  xforms-version-exception. 
+      	</xforms:label>	
+      </xforms:group>
+	
+  </body>
+</html>

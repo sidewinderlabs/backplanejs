@@ -1,0 +1,121 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>7.8.3.a digest() function using sha1, md5, and sha256</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+				  <td rowspan="1" colspan="3">7.8.3.a digest() function using sha1, md5, and sha256<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../Chapt07/7.8/7.8.3/7.8.3.a.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>waitForModelReady</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>7.8.3.a digest() function using sha1, md5, and sha256</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xforms:group/xforms:group[@ref="self::node()[translate(digest('abc', 'SHA-1', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')= 'a9993e364706816aba3e25717850c26c9cd0d89d']"]</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xforms:group/xforms:group[@ref="self::node()[translate(digest('abc', 'SHA-1', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') != 'a9993e364706816aba3e25717850c26c9cd0d89d']"]</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xforms:group/xforms:group[@ref="self::node()[translate(digest('abc', 'MD5', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = '900150983cd24fb0d6963f7d28e17f72']"]</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xforms:group/xforms:group[@ref="self::node()[translate(digest('abc', 'MD5', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') != '900150983cd24fb0d6963f7d28e17f72']"]</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xforms:group/xforms:group[@ref="self::node()[translate(digest('abc', 'SHA-256', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad']"]</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xforms:group/xforms:group[@ref="self::node()[translate(digest('abc', 'SHA-256', 'hex'), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') != 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad']"]</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xforms:group/xforms:group[@ref="self::node()[digest('abc', 'SHA-1', 'base64')= 'qZk+NkcGgWq6PiVxeFDCbJzQ2J0=']"]</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xforms:group/xforms:group[@ref="self::node()[digest('abc', 'SHA-1', 'base64')!= 'qZk+NkcGgWq6PiVxeFDCbJzQ2J0=']"]</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xforms:group/xforms:group[@ref="self::node()[digest('abc', 'MD5', 'base64')='kAFQmDzST7DWlj99KOF/cg==']"]</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xforms:group/xforms:group[@ref="self::node()[digest('abc', 'MD5', 'base64')!= 'kAFQmDzST7DWlj99KOF/cg==']"]</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xforms:group/xforms:group[@ref="self::node()[digest('abc', 'SHA-256', 'base64')='ungWv48Bz+pBQUDeXa4iI7ADYaOWF3qctBD/YfIAFa0=']"]</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xforms:group/xforms:group[@ref="self::node()[digest('abc', 'SHA-256', 'base64')!= 'ungWv48Bz+pBQUDeXa4iI7ADYaOWF3qctBD/YfIAFa0=']"]</td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

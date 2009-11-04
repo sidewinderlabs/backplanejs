@@ -1,0 +1,266 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>Test Dispatch</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+					<td rowspan="1" colspan="3">Test Dispatch<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../../samples/xforms-dispatch.html</td>
+					<td>&nbsp;</td>
+					<td>Opens the form.</td>
+				</tr>
+				<tr>
+					<td>waitForText</td>
+					<td>xpath=/html/body/div[1]/xf:output[@ref="number"]/pe-value</td>
+					<td>1</td>
+					<td>Waits for the values to be set</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[1]/xf:trigger</td>
+					<td></td>
+					<td>Clicks the simple example trigger</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the value to be set</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/div[1]/xf:output[@ref="number"]/pe-value</td>
+					<td>2</td>
+					<td>Checks to see if the output's text is right</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[2]/xf:trigger</td>
+					<td></td>
+					<td>Clicks the no name trigger</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the value to be set</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/div[2]/xf:output[@ref="number"]/pe-value</td>
+					<td>4</td>
+					<td>Checks to see if the output's text is right</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[3]/xf:trigger</td>
+					<td></td>
+					<td>Clicks the name element trigger</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the value to be set</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/div[3]/xf:output[@ref="number"]/pe-value</td>
+					<td>5</td>
+					<td>Checks to see if the output's text is right</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[4]/xf:trigger</td>
+					<td></td>
+					<td>Clicks the value of name trigger</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the value to be set</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/div[4]/xf:output[@ref="number"]/pe-value</td>
+					<td>6</td>
+					<td>Checks to see if the output's text is right</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[5]/xf:trigger</td>
+					<td></td>
+					<td>Clicks the no target trigger</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the value to be set</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/div[5]/xf:output[@ref="number"]/pe-value</td>
+					<td>14</td>
+					<td>Checks to see if the output's text is right</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[6]/xf:trigger</td>
+					<td></td>
+					<td>Clicks the target element trigger</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the value to be set</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/div[6]/xf:output[@ref="number"]/pe-value</td>
+					<td>15</td>
+					<td>Checks to see if the output's text is right</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[7]/xf:trigger</td>
+					<td></td>
+					<td>Clicks the value of target trigger</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the value to be set</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/div[7]/xf:output[@ref="number"]/pe-value</td>
+					<td>16</td>
+					<td>Checks to see if the output's text is right</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[8]/xf:trigger</td>
+					<td></td>
+					<td>Clicks the delay_attribute trigger</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>1000</td>
+					<td></td>
+					<td>Waits for the value to be set</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/div[8]/xf:output[@ref="number"]/pe-value</td>
+					<td>16</td>
+					<td>Checks to see if the output's text is right</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>2100</td>
+					<td></td>
+					<td>Waits for the value to be set</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/div[8]/xf:output[@ref="number"]/pe-value</td>
+					<td>24</td>
+					<td>Checks to see if the output's text is right</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[9]/xf:trigger</td>
+					<td></td>
+					<td>Clicks the delay element trigger</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>1000</td>
+					<td></td>
+					<td>Waits for the value to be set</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/div[9]/xf:output[@ref="number"]/pe-value</td>
+					<td>24</td>
+					<td>Checks to see if the output's text is right</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>2100</td>
+					<td></td>
+					<td>Waits for the value to be set</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/div[9]/xf:output[@ref="number"]/pe-value</td>
+					<td>25</td>
+					<td>Checks to see if the output's text is right</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[10]/xf:trigger</td>
+					<td></td>
+					<td>Clicks the value of delay trigger</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>1000</td>
+					<td></td>
+					<td>Waits for the value to be set</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/div[10]/xf:output[@ref="number"]/pe-value</td>
+					<td>25</td>
+					<td>Checks to see if the output's text is right</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>2100</td>
+					<td></td>
+					<td>Waits for the value to be set</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/div[10]/xf:output[@ref="number"]/pe-value</td>
+					<td>26</td>
+					<td>Checks to see if the output's text is right</td>
+				</tr>
+				
+				<tr>
+					<td>close</td>
+					<td></td>
+					<td></td>
+					<td>Closes the form</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

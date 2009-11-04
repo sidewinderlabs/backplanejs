@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	  <head>
+		    <script type="text/javascript"
+              src="../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css"/>
+		    <title>11.2.d xforms-submit with empty instance data and required attribute</title>
+		
+	  </head>
+	  <body>
+      <xforms:model>
+			      <xforms:instance xmlns="">
+				        <root>
+					          <data/>
+				        </root>
+			      </xforms:instance>
+			      <xforms:bind nodeset="data" required="true()"/>
+			      <xforms:instance xmlns="" id="error_holder">
+				        <root>
+					          <error_name/>
+				        </root>
+			      </xforms:instance>
+			      <xforms:submission id="sub1" method="post" ref="data"
+                            action="http://xformstest.org/cgi-bin/echo.sh"
+                            replace="none"/>
+		    </xforms:model>
+		    <xforms:group>
+			      <xforms:label class="title">11.2.d xforms-submit with empty instance data and required attribute</xforms:label>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:label>
+			  After you activate the Submit Here submit control you must see an xforms-submit-error 
+			  message and see the value "validation-error" as output from the Error Name output control. 
+			</xforms:label>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:output ref="instance('error_holder')/error_name">
+				        <xforms:label>Error Name : </xforms:label>
+			      </xforms:output>
+		    </xforms:group>
+		    <xforms:submit submission="sub1">
+			      <xforms:label>Submit Here</xforms:label>
+		    </xforms:submit>
+		    <xforms:action ev:event="xforms-submit-error" ev:observer="sub1">
+			      <xforms:message level="modal">xforms-submit-error</xforms:message>
+			      <xforms:setvalue ref="instance('error_holder')/error_name" value="event('error-type')"/>
+		    </xforms:action>
+		
+	  </body>
+</html>

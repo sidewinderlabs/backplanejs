@@ -1,0 +1,133 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>10.7.a setfocus element</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+				  <td rowspan="1" colspan="3">10.7.a setfocus element<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../Chapt10/10.7/10.7.a.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>waitForModelReady</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>10.7.a setfocus element</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:input</td>
+					<td></td>
+					<td>Checks that input is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:repeat</td>
+					<td></td>
+					<td>Checks that input is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:trigger[1]</td>
+					<td></td>
+					<td>Checks that trigger is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:trigger[1]/xforms:action/xforms:setfocus</td>
+					<td></td>
+					<td>Checks that setfocus is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:trigger[2]</td>
+					<td></td>
+					<td>Checks that trigger is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:trigger[2]/xforms:action/xforms:setfocus</td>
+					<td></td>
+					<td>Checks that setfocus is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:trigger[3]</td>
+					<td></td>
+					<td>Checks that trigger is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:trigger[3]/xforms:action/xforms:setfocus</td>
+					<td></td>
+					<td>Checks that setfocus is in the form</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:trigger[1]</td>
+					<td></td>
+					<td>Clicks on the button</td>
+				</tr>
+				<tr>
+					<td>verifyCursorPosition</td>
+					<td>xpath=/html/body/xforms:input/pe-value/input</td>
+					<td>0</td>
+					<td>Checks that the cursor is at the right position</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:trigger[2]</td>
+					<td></td>
+					<td>Clicks on the button</td>
+				</tr>
+				<tr>
+					<td>verifyCursorPosition</td>
+					<td>dom=document.activeElement</td>
+					<td>9</td>
+					<td>Checks that the cursor is at the right position</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:trigger[3]</td>
+					<td></td>
+					<td>Clicks on the button</td>
+				</tr>
+				<tr>
+					<td>verifyCursorPosition</td>
+					<td>dom=document.activeElement</td>
+					<td>9</td>
+					<td>Checks that the cursor is at the right position</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

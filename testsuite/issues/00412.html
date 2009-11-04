@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  * Copyright © 2009 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<!DOCTYPE html
+ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+ xmlns:ev="http://www.w3.org/2001/xml-events"
+>
+	<head>
+		<title>
+			Issue 412
+		</title>
+
+		<script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+	</head>
+
+	<body>
+		<h1>
+			<a href="http://code.google.com/p/ubiquity-xforms/issues/detail?id=412">Issue 412</a>
+		</h1>
+
+		<h2>
+			navigation sequence with @navindex
+		</h2>
+
+		<p>
+			Pressing the tab key should cycle through the controls in order of navindex. Pressing shift and tab together should cycle through them in reverse order.
+		</p>
+
+		<xf:model id="mdl">
+			<xf:instance id="inst-ready">
+				<ready xmlns="">FALSE</ready>
+			</xf:instance>
+
+			<xf:instance id="inst-test">
+				<test xmlns="">
+					<first></first>
+					<second></second>
+					<third></third>
+					<fourth></fourth>
+					<fifth></fifth>
+				</test>
+			</xf:instance>
+
+			<xf:bind nodeset="instance('inst-test')/third" relevant=". = 'relevant'"></xf:bind>
+
+			<xf:action ev:event="xforms-ready">
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE'"></xf:setvalue>
+			</xf:action>
+		</xf:model>
+
+		<xf:input ref="instance('inst-test')/first" id="input1" navindex="0">
+			<xf:label>
+				navindex="0"
+			</xf:label>
+		</xf:input>
+
+		<xf:input ref="instance('inst-test')/second" id="input2" navindex="4">
+			<xf:label>
+				navindex="4"
+			</xf:label>
+		</xf:input>
+
+		<xf:input ref="instance('inst-test')/third" id="input3" navindex="3">
+			<xf:label>
+				navindex="3", not relevant
+			</xf:label>
+		</xf:input>
+
+		<xf:input ref="instance('inst-test')/fourth" id="input4" navindex="2">
+			<xf:label>
+				navindex="2"
+			</xf:label>
+		</xf:input>
+
+		<xf:input ref="instance('inst-test')/fifth" id="input5" navindex="1">
+			<xf:label>
+				navindex="1"
+			</xf:label>
+		</xf:input>
+
+		<xf:output ref="instance('inst-ready')" id="ready">
+			<xf:label>
+				Ready:
+			</xf:label>
+		</xf:output>
+	</body>
+</html>

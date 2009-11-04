@@ -1,0 +1,117 @@
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+ xmlns:ev="http://www.w3.org/2001/xml-events"
+>
+	<head>
+		<title>
+			Issue 418
+		</title>
+
+		<script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+	</head>
+
+	<body>
+		<h1>
+			<a href="http://code.google.com/p/ubiquity-xforms/issues/detail?id=418">Issue 418</a>
+		</h1>
+
+		<h2>
+				10.8.d - dispatch element dispatches custom event that bubbles
+		</h2>
+
+		<xf:model id="mdl">
+			<xf:instance id="inst-ready">
+				<ready xmlns="">FALSE</ready>
+			</xf:instance>
+
+			<xf:instance id="inst-result">
+				<result xmlns="">TEST FAILED</result>
+			</xf:instance>
+
+			<xf:setvalue ev:event="xforms-ready" ref="instance('inst-ready')" value="'TRUE 1'"></xf:setvalue>
+		</xf:model>
+
+		<hr />
+
+		<ol>
+			<li>
+				Click on the button labelled 'Test 1'.
+			</li>
+
+			<li>
+				If the result field shows 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+			</li>
+		</ol>
+
+		<xf:trigger id="test1">
+			<xf:label>
+				Test 1
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:dispatch name="test1" target="target1" bubbles="true"></xf:dispatch>
+
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE 2'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:group>
+			foo
+
+			<xf:setvalue ev:event="test1" ref="instance('inst-result')" value="'TEST PASSED'"></xf:setvalue>
+
+			<xf:group id="target1">
+				bar
+			</xf:group>
+		</xf:group>
+
+		<hr />
+
+		<ol>
+			<li>
+				Click on the button labelled 'Test 2'.
+			</li>
+
+			<li>
+				If the result field shows 'TEST FAILED', the test has failed. Otherwise, the test has passed.
+			</li>
+		</ol>
+
+		<xf:trigger id="test2">
+			<xf:label>
+				Test 2
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:dispatch name="test2" target="target2" bubbles="false"></xf:dispatch>
+
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE 3'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:group>
+			foo
+
+			<xf:setvalue ev:event="test2" ref="instance('inst-result')" value="'TEST FAILED'"></xf:setvalue>
+
+			<xf:group id="target2">
+				bar
+			</xf:group>
+		</xf:group>
+
+		<hr />
+
+		<xf:output id="result" ref="instance('inst-result')">
+			<xf:label>
+				Result:
+			</xf:label>
+		</xf:output>
+
+		<xf:output id="ready" ref="instance('inst-ready')">
+			<xf:label>
+				Ready:
+			</xf:label>
+		</xf:output>
+	</body>
+</html>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <head>
+        <title>11.1.n encoding attribute of submission element</title>
+        <script type="text/javascript"
+              src="../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../driverPages/html/TestSuite11.css" type="text/css"/>
+        
+    </head>
+    <body>
+      <xforms:model>
+			      <xforms:instance xmlns="">
+				        <carA>
+					          <make>Acura</make>
+					          <year>2005</year>
+					          <color>blue</color>
+				        </carA>
+			      </xforms:instance>
+			      <xforms:instance xmlns="">
+				        <carB>
+					          <make>Acura</make>
+					          <year>2005</year>
+					          <color>blue</color>
+				        </carB>
+			      </xforms:instance>
+			      <xforms:bind id="make_bindA" nodeset="/carA/make"/>
+			      <xforms:bind id="year_bindA" nodeset="/carA/year"/>
+			      <xforms:bind id="color_bindA" nodeset="/carA/color"/>
+			      <xforms:submission id="submitA" action="http://xformstest.org/cgi-bin/echo.sh" method="post"/>
+			      <xforms:submission id="submitB" action="http://xformstest.org/cgi-bin/echo.sh" method="post"
+                            encoding="ISO-8859-1"/>
+        </xforms:model>
+    	<xforms:group>
+  			    <xforms:label class="title">11.1.n encoding attribute of submission element</xforms:label>
+  		  </xforms:group>
+  		  <xforms:group>
+  			    <xforms:label>
+  			  When you activate the Submit (UTF-8) control you must see the value 
+  			  " encoding="UTF-8" " at the top of the form data. 
+  			  When you activate the Submit (ISO) control you must see the value 
+  			  " encoding="ISO-8859-1" " at the top of the form data. 
+  			</xforms:label>
+  		  </xforms:group>
+  		  <xforms:submit submission="submitA">
+  			    <xforms:label>Submit (UTF-8)</xforms:label>
+  		  </xforms:submit>
+  		  <xforms:submit submission="submitB">
+  			    <xforms:label>Submit (ISO)</xforms:label>
+  		  </xforms:submit>
+
+    </body>
+</html>

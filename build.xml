@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   - Copyright (c) 2009 Backplane Ltd.
+   -
+   - Licensed under the Apache License, Version 2.0 (the "License");
+   - you may not use this file except in compliance with the License.
+   - You may obtain a copy of the License at
+   -
+   -  http://www.apache.org/licenses/LICENSE-2.0
+   -
+   - Unless required by applicable law or agreed to in writing, software
+   - distributed under the License is distributed on an "AS IS" BASIS,
+   - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   - See the License for the specific language governing permissions and
+   - limitations under the License.
+   -->
+<project name="ubiquity-xforms" default="test-rollup" basedir=".">
+	<description>
+		Ant project for the Ubiquity XForms javascript library, a cross-
+		browser implementation of the W3C's XForms 1.1 recommendation.
+		There do exist some other instances of build.xml at other levels
+		in the directory hierarchy, but the intention going forwards is
+		to gradually bring everything into this single top-level Ant
+		project.
+	</description>
+
+	<condition property="osfamily-windows">
+		<os family="windows" />
+	</condition>
+
+	<property name="regression-suite" value="../../issues/driverPages/SeleniumTests/TestSuite.html" />
+	<property name="selenium-parameters-regression" value="auto=true&amp;save=true&amp;close=true&amp;test=${regression-suite}" />
+
+	<target name="create-rollup">
+		<description>
+			Creates the rolled-up version of the library.
+		</description>
+
+		<exec executable="cmd" dir="build" osfamily="windows" failonerror="true">
+			<arg value="/C" />
+			<arg value="prepare-distribution.bat" />
+		</exec>
+	</target>
+
+	<target name="test-rollup-ff" depends="create-rollup">
+		<description>
+			Tests the rolled-up version of the library in Mozilla Firefox.
+		</description>
+
+		<property name="selenium-runner-relative" value="testsuite/selenium/core/TestRunner.html" />
+		<property name="selenium-runner-rollup" location="build/dist/${selenium-runner-relative}" />
+		<property name="regression-results-ff-file" value="regression-results-ff.html" />
+		<property name="selenium-parameters-regression-ff" value="${selenium-parameters-regression}&amp;resultsUrl=../../${regression-results-ff-file}" />
+
+		<exec executable="C:\Program Files\Mozilla Firefox\firefox.exe">
+			<arg value="-no-remote" />
+			<arg value="-P" />
+			<arg value="buildbot" />
+			<arg value="file:///${selenium-runner-rollup}?${selenium-parameters-regression-ff}" />
+		</exec>
+
+		<loadfile property="regression-results-ff" srcFile="build/dist/testsuite/${regression-results-ff-file}" />
+
+		<condition property="regression-ff-failed">
+			<matches string="${regression-results-ff}" pattern="&lt;td&gt;failed&lt;/td&gt;" />
+		</condition>
+
+		<fail message="Regression test suite failed on Firefox." status="1" if="regression-ff-failed" />
+	</target>
+
+	<target name="test-rollup-ie" depends="create-rollup">
+		<description>
+			Tests the rolled-up version of the library in Microsoft Internet Explorer.
+		</description>
+
+		<property name="selenium-runner-relative" value="testsuite/selenium/core/TestRunner.hta" />
+		<property name="selenium-runner-rollup" location="build/dist/${selenium-runner-relative}" />
+		<property name="regression-results-ie-file" value="regression-results-ie.html" />
+
+		<exec executable="cmd">
+			<arg value="/c" />
+			<arg value="&quot;testsuite\run-hta.bat&quot;" />
+			<arg value="${selenium-runner-rollup}" />
+			<arg value="${regression-suite}" />
+			<arg value="true" />
+			<arg value="true" />
+			<arg value="true" />
+			<arg value="../../${regression-results-ie-file}" />
+		</exec>
+
+		<loadfile property="regression-results-ie" srcFile="build/dist/testsuite/${regression-results-ie-file}" />
+
+		<condition property="regression-ie-failed">
+			<matches string="${regression-results-ie}" pattern="&lt;td&gt;failed&lt;/td&gt;" />
+		</condition>
+
+		<fail message="Regression test suite failed on Internet Explorer." status="1" if="regression-ie-failed" />
+	</target>
+
+	<target name="test-rollup" depends="test-rollup-ff">
+		<description>
+			Tests the rolled-up version of the library.
+		</description>
+	</target>
+</project>

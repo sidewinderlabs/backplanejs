@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results xmlns="">
+<numNormTotal></numNormTotal>
+<numNormPass></numNormPass>
+<numNormFail></numNormFail>
+<numNormUnknown></numNormUnknown>
+<numBasicTotal></numBasicTotal>
+<numBasicPass></numBasicPass>
+<numBasicFail></numBasicFail>
+<numBasicUnknown></numBasicUnknown>
+</results>

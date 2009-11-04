@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<project name="merge-selenium-results" default="merge">
+	<target name="merge">
+		<!-- Run tidy on the selenium results -->
+		<exec executable="cmd">
+			<arg value="/c"/>
+			<arg value="multi_file_tidy.bat"/>
+			<arg value="IE7" />
+		</exec>
+		<!-- merge the manually updated results with the selenium ones -->
+		<xslt basedir="IE7" destdir="IE7/merged" extension=".xml" style="merge.xsl" excludesfile="XF11_01_Results.xml" includes="*.xml">
+			<param name="browser" expression="ie" />
+			<param name="selenium_file_dir" expression="IE7" />
+		</xslt>
+	</target>
+</project>

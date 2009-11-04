@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xforms="http://www.w3.org/2002/xforms">
+  <head>
+      <title>8.2.3.b hint element uses inline text</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+         <xforms:instance xmlns="">       
+            <msg/>
+         </xforms:instance>
+      </xforms:model>
+  	   <xforms:group>
+  		     <xforms:label class="title">8.2.3.b hint element uses inline text</xforms:label>
+  	   </xforms:group>	
+	     <xforms:group>
+		       <xforms:label>
+		  When you activate the Dispatch Hint Message trigger you must see a message that says 
+		  "Inline Hint Message". 
+		</xforms:label>	
+	     </xforms:group>
+	     <xforms:input id="input1">
+		       <xforms:label>Input : </xforms:label>
+		       <xforms:hint id="hintInv">Inline Hint Message</xforms:hint>
+  	   </xforms:input>
+	     <xforms:trigger id="hint_trigger">
+  		     <xforms:label>Dispatch Hint Message</xforms:label>
+  		     <xforms:action ev:event="DOMActivate">
+  			       <xforms:dispatch name="xforms-hint" targetid="input1"/>
+  		     </xforms:action>
+  	   </xforms:trigger>
+	
+  </body>
+</html>

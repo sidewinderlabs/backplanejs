@@ -1,0 +1,80 @@
+<!--
+	* Copyright (C) 2008 Backplane Ltd.
+	*
+	* Licensed under the Apache License, Version 2.0 (the "License");
+	* you may not use this file except in compliance with the License.
+	* You may obtain a copy of the License at
+	*
+	*  http://www.apache.org/licenses/LICENSE-2.0
+	*
+	* Unless required by applicable law or agreed to in writing, software
+	* distributed under the License is distributed on an "AS IS" BASIS,
+	* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	* See the License for the specific language governing permissions and
+	* limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+			<title>Test Suite</title>
+			<link rel="stylesheet" type="text/css" href="../../../../selenium/core/selenium.css" />
+			<script language="JavaScript" type="text/javascript" src="../../../../selenium/core/scripts/selenium-browserdetect.js"></script>
+			<script language="JavaScript" type="text/javascript">//<![CDATA[
+    var DISABLED = true; // used to flag failing tests
+
+    function filterTestsForBrowser() {
+        var suiteTable = document.getElementById("suiteTable");
+        var skippedTests = document.getElementById("skippedTests");
+
+        for(rowNum = suiteTable.rows.length - 1; rowNum >= 0; rowNum--)
+        {
+            var row = suiteTable.rows[rowNum];
+            var filterString = row.getAttribute("unless");
+            if (filterString && eval(filterString))
+            {
+              var cellHTML = row.cells[0].innerHTML;
+              suiteTable.deleteRow(rowNum);
+
+              var newRow = skippedTests.insertRow(1);
+              var newCell = newRow.insertCell(0)
+              newCell.innerHTML = cellHTML;
+            }
+        }
+    }
+//]]>
+			</script>
+	</head>
+	<body onload="filterTestsForBrowser()">
+		<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium">
+			<tbody>
+				<tr>
+					<td><b>XForms 1.1 Appendix B Test Suite</b></td>
+				</tr>
+				<tr><td><a href="./Appendix/B/B.1/b.1.a.html">b.1.a Prepend Element Copy</a></td></tr>
+				<tr><td><a href="./Appendix/B/B.2/b.2.a.html">b.2.a Append Element Copy</a></td></tr>
+				<tr><td><a href="./Appendix/B/B.3/b.3.a.html">b.3.a Duplicate Element</a></td></tr>
+				<tr><td><a href="./Appendix/B/B.4/b.4.a.html">b.4.a Set Attribute</a></td></tr>
+				<tr><td><a href="./Appendix/B/B.5/b.5.a.html">b.5.a Remove Element</a></td></tr>
+				<tr><td><a href="./Appendix/B/B.6/b.6.a.html">b.6.a Remove Attribute</a></td></tr>
+				<tr><td><a href="./Appendix/B/B.7/b.7.a.html">b.7.a Remove Nodeset</a></td></tr>
+				<tr><td><a href="./Appendix/B/B.8/b.8.a.html">b.8.a Copy Nodeset</a></td></tr>
+				<tr><td><a href="./Appendix/B/B.9/b.9.a.html">b.9.a Copy Attribute List</a></td></tr>
+				<tr><td><a href="./Appendix/B/B.10/b.10.a.html">b.10.a Replace Element</a></td></tr>
+				<tr><td><a href="./Appendix/B/B.11/b.11.a.html">b.11.a Replace Attribute</a></td></tr>
+				<tr><td><a href="./Appendix/B/B.12/b.12.a.html">b.12.a Replace Instance with Insert</a></td></tr>
+				<tr><td><a href="./Appendix/B/B.13/b.13.a.html">b.13.a Move Element</a></td></tr>
+				<tr><td><a href="./Appendix/B/B.14/b.14.a.html">b.14.a Move Attribute</a></td></tr>
+				<tr><td><a href="./Appendix/B/B.15/b.15.a.html">b.15.a Insert Element into Non-Contiguous, Heterogeneous Nodeset</a></td></tr>
+			</tbody>
+		</table>
+		<br />
+		<em>Not supported in this browser</em>
+		<table id="skippedTests" cellpadding="1" cellspacing="1" border="1" class="selenium">
+			<tbody>
+				<tr>
+					<td><b>Skipped Tests</b></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

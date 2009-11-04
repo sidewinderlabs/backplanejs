@@ -1,0 +1,669 @@
+<html><body>
+<h1>Test suite results </h1>
+
+<table>
+<tr>
+<td>result:</td>
+<td>failed</td>
+</tr>
+<tr>
+<td>totalTime:</td>
+<td>53</td>
+</tr>
+<tr>
+<td>numTestPasses:</td>
+<td>0</td>
+</tr>
+<tr>
+<td>numTestFailures:</td>
+<td>15</td>
+</tr>
+<tr>
+<td>numCommandPasses:</td>
+<td>49</td>
+</tr>
+<tr>
+<td>numCommandFailures:</td>
+<td>16</td>
+</tr>
+<tr>
+<td>numCommandErrors:</td>
+<td>0</td>
+</tr>
+<tr>
+<td><TABLE class=selenium id=suiteTable cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD><B>XForms 1.1 Appendix B Test Suite</B></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Appendix/B/B.1/b.1.a.html">b.1.a Prepend Element Copy</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Appendix/B/B.2/b.2.a.html">b.2.a Append Element Copy</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Appendix/B/B.3/b.3.a.html">b.3.a Duplicate Element</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Appendix/B/B.4/b.4.a.html">b.4.a Set Attribute</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Appendix/B/B.5/b.5.a.html">b.5.a Remove Element</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Appendix/B/B.6/b.6.a.html">b.6.a Remove Attribute</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Appendix/B/B.7/b.7.a.html">b.7.a Remove Nodeset</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Appendix/B/B.8/b.8.a.html">b.8.a Copy Nodeset</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Appendix/B/B.9/b.9.a.html">b.9.a Copy Attribute List</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Appendix/B/B.10/b.10.a.html">b.10.a Replace Element</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Appendix/B/B.11/b.11.a.html">b.11.a Replace Attribute</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Appendix/B/B.12/b.12.a.html">b.12.a Replace Instance with Insert</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Appendix/B/B.13/b.13.a.html">b.13.a Move Element</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Appendix/B/B.14/b.14.a.html">b.14.a Move Attribute</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Appendix/B/B.15/b.15.a.html">b.15.a Insert Element into Non-Contiguous, Heterogeneous Nodeset</A></TD></TR></TBODY></TABLE><BR><EM>Not supported in this browser</EM> 
+<TABLE class=selenium id=skippedTests cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR>
+<TD><B>Skipped Tests</B></TD></TR></TBODY></TABLE></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>b.1.a Prepend Element Copy<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/B/B.1/b.1.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>b.1.a Prepend Element Copy</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:action[@ev:event="xforms-ready"]/xforms:insert[@context="people" and @origin="instance('prototypes')/person"]</TD>
+<TD originalHTML></TD>
+<TD>Checks that the insert is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset="people/person"]</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset="people/person"]</TD>
+<TD originalHTML="Person Name : *Person Name : Jane Doe">Actual value 'Person Name : Jane Doe' did not match 'Person Name : *Person Name : Jane Doe'</TD>
+<TD>Checks that repeat has the right values</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>b.2.a Append Element Copy<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/B/B.2/b.2.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>b.2.a Append Element Copy</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:action[@ev:event="xforms-ready"]/xforms:insert[@context="people" and @nodeset="person" and @origin="instance('prototypes')/person"]</TD>
+<TD originalHTML></TD>
+<TD>Checks that the insert is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset="people/person"]</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset="people/person"]</TD>
+<TD originalHTML="Person Name : Jane Doe*Person Name : ">Actual value 'Person Name : Jane Doe' did not match 'Person Name : Jane Doe*Person Name :'</TD>
+<TD>Checks that repeat has the right values</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>b.3.a Duplicate Element<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/B/B.3/b.3.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>b.3.a Duplicate Element</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:action[@ev:event='xforms-ready']/xforms:insert[@nodeset='paragraph[2]']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the insert is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset='paragraph']</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset='paragraph']</TD>
+<TD originalHTML="Paragraph : Lorem ipsum verterem voluptaria*Paragraph : Primis abhorreant delicatissimi*Paragraph : Primis abhorreant delicatissimi">Actual value 'Paragraph : Lorem ipsum verterem voluptaria Paragraph : Primis abhorreant delicatissimi' did not match 'Paragraph : Lorem ipsum verterem voluptaria*Paragraph : Primis abhorreant delicatissimi*Paragraph : Primis abhorreant delicatissimi'</TD>
+<TD>Checks that repeat has the right values</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>b.4.a Set Attribute<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/B/B.4/b.4.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>b.4.a Set Attribute</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:action[@ev:event='xforms-ready']/xforms:insert[@context='item[2]' and @origin='../item[1]/@rating']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the insert is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:action[@ev:event='xforms-ready']/xforms:insert[@context='item[3]' and @origin='../item[1]/@rating']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the insert is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset='item']</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset='item']</TD>
+<TD originalHTML="key : 23 classified*key : 42 classified*key : 68 classified">Actual value 'key : 23 classified key : 42 key : 68 unknown' did not match 'key : 23 classified*key : 42 classified*key : 68 classified'</TD>
+<TD>Checks that repeat has the right values</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>b.5.a Remove Element<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/B/B.5/b.5.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>b.5.a Remove Element</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:action[@ev:event='xforms-ready']/xforms:delete[@nodeset='item[2]']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the delete is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset='item']</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset='item']</TD>
+<TD originalHTML="Product : SKU-0815">Actual value 'Product : SKU-0815 Product : SKU-4711' did not match 'Product : SKU-0815'</TD>
+<TD>Checks that repeat has the right value</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>b.6.a Remove Attribute<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/B/B.6/b.6.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>b.6.a Remove Attribute</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:action[@ev:event='xforms-ready']/xforms:delete[@nodeset='item/@rating']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the delete is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset='item']</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset='item']</TD>
+<TD originalHTML="key : 23">Actual value 'key : 23 classified' did not match 'key : 23'</TD>
+<TD>Checks that repeat has the right values</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>b.7.a Remove Nodeset<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/B/B.7/b.7.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>b.7.a Remove Nodeset</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:action[@ev:event='xforms-ready']/xforms:delete[@nodeset='track']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the delete is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset='track']</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyNotText</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset='track']</TD>
+<TD originalHTML="*Track ID : *">Actual value 'Track ID : Track ID : Track ID :' did match '*Track ID : *'</TD>
+<TD>Checks that repeat has the right values</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>b.8.a Copy Nodeset<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/B/B.8/b.8.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>b.8.a Copy Nodeset</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:action[@ev:event="xforms-ready"]/xforms:insert[@context="people" and @nodeset="person" and @origin="instance('prototypes')/person"]</TD>
+<TD originalHTML></TD>
+<TD>Checks that the insert is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset="people/person"]</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset="people/person"]</TD>
+<TD originalHTML="Jane Doe*John Doe*Joe Sixpack">Actual value '' did not match 'Jane Doe*John Doe*Joe Sixpack'</TD>
+<TD>Checks that repeat has the right values</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>b.9.a Copy Attribute List<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/B/B.9/b.9.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>b.9.a Copy Attribute List</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:action[@ev:event='xforms-ready']/xforms:insert[@nodeset='item[2]' and @origin='item[1]/@*']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the insert is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset='item']</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset='item']</TD>
+<TD originalHTML="key : 0 classified*key : 0 classified">Actual value 'key : 0 classified key :' did not match 'key : 0 classified*key : 0 classified'</TD>
+<TD>Checks that repeat has the right values</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>b.10.a Replace Element<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/B/B.10/b.10.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>b.10.a Replace Element</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:action[@ev:event="xforms-ready"]/xforms:insert[@nodeset="person[1]" and @origin="instance('prototypes')/person"]</TD>
+<TD originalHTML></TD>
+<TD>Checks that the insert is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:action[@ev:event="xforms-ready"]/xforms:delete[@nodeset="person[1]"]</TD>
+<TD originalHTML></TD>
+<TD>Checks that the delete is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset="person"]</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset="person"]</TD>
+<TD originalHTML="Person Name : ">Actual value 'Person Name : John Doe' did not match 'Person Name :'</TD>
+<TD>Checks that repeat has the right values</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>b.11.a Replace Attribute<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/B/B.11/b.11.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>b.11.a Replace Attribute</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:action[@ev:event='xforms-ready']/xforms:insert[@nodeset='item[2]/@key' and @origin='item[1]/@key']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the insert is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset='item']</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset='item']</TD>
+<TD originalHTML="Key : 0*Key : 0">Actual value 'Key : 0 Key : 4711' did not match 'Key : 0*Key : 0'</TD>
+<TD>Checks that repeat has the right values</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>b.12.a Replace Instance with Insert<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/B/B.12/b.12.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>b.12.a Replace Instance with Insert</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:action[@ev:event="xforms-ready"]/xforms:insert[@nodeset="." and @origin="instance('prototypes')/shoppingcart"]</TD>
+<TD originalHTML></TD>
+<TD>Checks that the insert is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset="item"]</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyNotText</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset="item"]</TD>
+<TD originalHTML="*SKU-0815*">Actual value 'Product : SKU-0815 Product : SKU-4711' did match '*SKU-0815*'</TD>
+<TD>Checks that repeat has the right values</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyNotText</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset="item"]</TD>
+<TD originalHTML="*SKU-4711*">Actual value 'Product : SKU-0815 Product : SKU-4711' did match '*SKU-4711*'</TD>
+<TD>Checks that repeat has the right values</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>b.13.a Move Element<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/B/B.13/b.13.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>b.13.a Move Element</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:action[@ev:event='xforms-ready']/xforms:insert[@context='playlist[2]' and @nodeset='track' and @origin='../playlist[1]/track[2]']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the insert is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:action[@ev:event='xforms-ready']/xforms:delete[@nodeset='playlist[1]/track[2]']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the delete is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset='playlist[2]/track']</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset='playlist[2]/track']</TD>
+<TD originalHTML="*251*331*461*">Actual value 'Track id : 251 Track id : 331' did not match '*251*331*461*'</TD>
+<TD>Checks that repeat has the right values</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>b.14.a Move Attribute<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/B/B.14/b.14.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>b.14.a Move Attribute</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:action[@ev:event='xforms-ready']/xforms:insert[@nodeset='item[2]' and @origin='item[1]/@rating']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the insert is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:action[@ev:event='xforms-ready']/xforms:delete[@nodeset='item[1]/@rating']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the delete is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset='item[2]']</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset='item[2]']</TD>
+<TD originalHTML="Key : 42 classified">Actual value 'Key : 42' did not match 'Key : 42 classified'</TD>
+<TD>Checks that repeat has the right values</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>b.15.a Insert Element into Non-Contiguous, Heterogeneous Nodeset<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/B/B.15/b.15.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>b.15.a Insert Element into Non-Contiguous, Heterogeneous Nodeset</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:action[@ev:event="xforms-ready"]/xforms:insert[@nodeset="chapter/*" and @origin="instance('prototypes')/paragraph" and @at="7" and @position="before"]</TD>
+<TD originalHTML></TD>
+<TD>Checks that the insert is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset="chapter[2]/paragraph"]</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:group[2]/xforms:repeat[@nodeset="chapter[2]/paragraph"]</TD>
+<TD originalHTML="Paragraph: ">Actual value '' did not match 'Paragraph:'</TD>
+<TD>Checks that repeat has the right values</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+</table></body></html>

@@ -1,0 +1,133 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xfe="http://www.w3.org/2002/xforms/extensions">
+	<head>
+		<title>Test xf:switch</title>
+
+	<script>
+		//    debugger;
+	</script>
+	<link rel="stylesheet" type="text/css" href="/runtime/ajax/ajaxfP/xf-behaviors-test-suite.css"></link>
+	    <script>
+	        var g_sBehaviourDirectory = "../../../src/behaviours/";
+	    </script>
+	    <script src="../../../src/ubiquity-loader.js">/**/</script>
+	    
+<style>
+	xf\:trigger
+	{
+		border:solid black 1px;
+		background-color:white;
+		margin:5px;
+		
+	}
+ </style>
+
+	</head>
+	<body>
+		<xf:model>
+			<xf:instance>
+				<data xmlns="">
+					<number>7</number>
+					<number>3</number>
+					<number>1</number>
+				</data>
+			</xf:instance>
+		</xf:model>
+		<h2>first case selected by default</h2>
+		<xf:switch id="s0">
+			<xf:case id="s0c0">
+				<xf:output ref="number">
+					<xf:label>Number:</xf:label>
+				</xf:output>
+			</xf:case>
+			<xf:case id="s0c1">
+				<xf:output ref="number[2]">
+					<xf:label>Number:</xf:label>
+				</xf:output>
+			</xf:case>
+			<xf:case id="s0c2">
+				<xf:output ref="number[3]">
+					<xf:label>Number:</xf:label>
+				</xf:output>
+			</xf:case>
+		</xf:switch>
+		<h2>second case @selected="true"</h2>
+		<xf:switch id="s1">
+			<xf:case id="s1c0">
+				<xf:output ref="number">
+					<xf:label>Number:</xf:label>
+				</xf:output>
+			</xf:case>
+			<xf:case id="s1c1" selected="true">
+				<xf:toggle case="s0c2" ev:event="xforms-deselect"></xf:toggle>
+				<xf:output ref="number[2]">
+					<xf:label>Number:</xf:label>
+				</xf:output>
+			</xf:case>
+			<xf:case id="s1c2">
+				<xf:toggle case="s2c2" ev:event="xforms-select"></xf:toggle>
+				<xf:output ref="number[3]">
+					<xf:label>Number:</xf:label>
+				</xf:output>
+			</xf:case>
+		</xf:switch>
+		<h2>second and third cases @selected="true" - second is default.</h2>
+		<xf:switch id="s2">
+			<xf:case id="s2c0">
+				<xf:output ref="number">
+					<xf:label>Number:</xf:label>
+				</xf:output>
+			</xf:case>
+			<xf:case id="s2c1" selected="true">
+				<xf:output ref="number[2]">
+					<xf:label>Number:</xf:label>
+				</xf:output>
+			</xf:case>
+			<xf:case id="s2c2" selected="true">
+				<xf:output ref="number[3]">
+					<xf:label>Number:</xf:label>
+				</xf:output>
+			</xf:case>
+		</xf:switch>
+		<hr />
+		<xf:trigger id="t0">
+			<xf:label>s0c0</xf:label>
+			<xf:toggle case="s0c0" ev:event="DOMActivate"></xf:toggle>
+		</xf:trigger>
+		<xf:trigger id="t1">
+			<xf:label>s0c1</xf:label>
+			<xf:toggle case="s0c1" ev:event="DOMActivate"></xf:toggle>
+		</xf:trigger>
+		<xf:trigger id="t2">
+			<xf:label>s0c2</xf:label>
+			<xf:toggle case="s0c2" ev:event="DOMActivate"></xf:toggle>
+		</xf:trigger>
+		
+		<xf:trigger id="t3">
+			<xf:label>s1c2</xf:label>
+			<xf:toggle case="s1c2" ev:event="DOMActivate"></xf:toggle>
+		</xf:trigger>
+		
+		
+		<hr />
+		<xf:repeat nodeset="number">
+			<xf:input ref=".">
+				<xf:label>Number:</xf:label>
+			</xf:input>
+		</xf:repeat>
+	</body>
+</html>

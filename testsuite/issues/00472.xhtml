@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms">
+  <head>
+    <title>Issue 472</title>
+    <script type="text/javascript" src="../../src/ubiquity-loader.js">/**/</script>
+  </head>
+  <body>
+    <xforms:model>
+      <xforms:instance xmlns="">
+      	<carColors>
+      		<color>pheonix yellow metallic</color>
+      		<color>imola red</color>
+      		<color>interlago blue metallic</color>
+      		<color>alpine white</color>
+      	</carColors>
+      </xforms:instance>
+    </xforms:model>
+    <h1><a href="http://code.google.com/p/ubiquity-xforms/issues/detail?id=472">Issue 472</a></h1>
+    <h2>Inexplicable blank message appears in IE</h2>
+	You must see an xforms-scroll-first message when you activate the Scroll First trigger. 
+	You must see an xforms-scroll-last message when you activate the Scroll Last trigger. 
+    <p>
+    Why a blank message box appears after activating either control in IE is a mystery.
+    </p>
+    <xforms:trigger>
+        <xforms:label>Scroll First</xforms:label>
+        
+        <xforms:action ev:event="DOMActivate">
+          <xforms:setindex repeat="repeat_001" index="index('repeat_001')-500"/>
+        </xforms:action>
+    </xforms:trigger>
+    
+    <xforms:trigger>
+        <xforms:label>Scroll Last</xforms:label>
+        
+        <xforms:action ev:event="DOMActivate">
+          <xforms:setindex repeat="repeat_001" index="index('repeat_001')+500"/>
+        </xforms:action>
+    </xforms:trigger>
+    
+    <xforms:repeat id="repeat_001" nodeset="/carColors/color" startindex="1">
+    	<xforms:group>
+    		<xforms:label/>
+	    	<xforms:action ev:event="xforms-scroll-first" ev:observer="repeat_001">
+	    		<xforms:message level="modal">xforms-scroll-first</xforms:message>
+	    	</xforms:action>
+	    </xforms:group>
+	    <xforms:group>
+	    	<xforms:label/>
+	    	<xforms:action ev:event="xforms-scroll-last" ev:observer="repeat_001">
+	    		<xforms:message level="modal">xforms-scroll-last</xforms:message>
+	    	</xforms:action>
+	    </xforms:group>
+    </xforms:repeat>
+	
+  </body>
+</html>

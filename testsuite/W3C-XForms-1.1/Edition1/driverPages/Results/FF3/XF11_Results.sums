@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+<numNormTotal>417</numNormTotal>
+<numNormPass>369</numNormPass>
+<numNormFail>48</numNormFail>
+<numNormUnknown>not calculated</numNormUnknown>
+<numBasicTotal>399</numBasicTotal>
+<numBasicPass>355</numBasicPass>
+<numBasicFail>44</numBasicFail>
+<numBasicUnknown>not calculated</numBasicUnknown>
+</results>

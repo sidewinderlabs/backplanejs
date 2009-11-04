@@ -1,0 +1,144 @@
+<!--
+  * Copyright (c) 2009 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+ xmlns:ev="http://www.w3.org/2001/xml-events"
+>
+	<head>
+		<title>
+			Issue 246
+		</title>
+
+		<script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+	</head>
+
+	<body>
+		<h1>
+			<a href="http://code.google.com/p/ubiquity-xforms/issues/detail?id=246">Issue 246</a>
+		</h1>
+
+		<h2>
+			xforms-valid and xforms-invalid events should be dispatched when a value conforms to or violates xf:bind/@constraint
+		</h2>
+
+	    <xf:model id="mdl">
+			<xf:instance id="instanceTest">
+				<test xmlns="">
+					<foo></foo>
+					<bar>baz</bar>
+					<validity></validity>
+					<invalidity></invalidity>
+					<ready>FALSE</ready>
+				</test>
+			</xf:instance>
+
+			<xf:bind nodeset="/test/foo" constraint=". = 'bar'"></xf:bind>
+ 
+			<xf:bind nodeset="/test/bar" constraint=". = 'baz'"></xf:bind>
+
+			<xf:setvalue ev:event="xforms-ready" ref="/test/ready" value="'TRUE 1'"></xf:setvalue>
+       </xf:model>
+
+		<hr />
+
+		<ol>
+			<li>
+				Press the button labelled 'Test Validity'.
+			</li>
+
+			<li>
+				If the result field contains the text 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+ 			</li>
+		</ol>
+
+        <xf:trigger id="testValidity">
+            <xf:label>Test Validity</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+	           	<xf:setvalue ref="/test/foo" value="'bar'"></xf:setvalue>
+
+				<xf:setvalue ref="/test/ready" value="'TRUE 2'"></xf:setvalue>
+           	</xf:action>
+        </xf:trigger>
+
+         <xf:output ref="/test/foo">
+            <xf:label>
+				Test:
+			</xf:label>
+ 
+			<xf:setvalue ev:event="xforms-valid" ref="/test/validity" value="'TEST PASSED'"></xf:setvalue>
+
+			<xf:setvalue ev:event="xforms-invalid" ref="/test/validity" value="'TEST FAILED'"></xf:setvalue>
+       </xf:output>
+
+        <xf:output ref="/test/validity" id="resultValidity">
+            <xf:label>
+				Validity Result:
+			</xf:label>
+        </xf:output>
+
+		<hr />
+
+		<ol>
+			<li>
+				Press the button labelled 'Test Invalidity'.
+			</li>
+
+			<li>
+				If the result field contains the text 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+ 			</li>
+		</ol>
+
+        <xf:trigger id="testInvalidity">
+            <xf:label>Test Invalidity</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+	           	<xf:setvalue ref="/test/bar" value="'foo'"></xf:setvalue>
+
+				<xf:setvalue ref="/test/ready" value="'TRUE 3'"></xf:setvalue>
+           	</xf:action>
+        </xf:trigger>
+
+         <xf:output ref="/test/bar">
+            <xf:label>
+				Test:
+			</xf:label>
+
+			<xf:setvalue ev:event="xforms-valid" ref="/test/invalidity" value="'TEST FAILED'"></xf:setvalue>
+
+			<xf:setvalue ev:event="xforms-invalid" ref="/test/invalidity" value="'TEST PASSED'"></xf:setvalue>
+        </xf:output>
+
+       <xf:output ref="/test/invalidity" id="resultInvalidity">
+            <xf:label>
+				Invalidity Result:
+			</xf:label>
+        </xf:output>
+
+		<hr />
+
+		<xf:output ref="/test/ready" id="ready">
+			<xf:label>
+				Ready:
+			</xf:label>
+		</xf:output>
+	</body>
+</html>

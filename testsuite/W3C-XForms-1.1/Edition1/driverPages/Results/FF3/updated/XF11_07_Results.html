@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html exclude-result-prefixes="ts" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ts="http://www.w3c.org/MarkUp/Forms/XForms/Test/11" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>XForms Results Table</title>
+    <link rel="stylesheet" href="../Results.css" type="text/css"/>
+    <link rel="stylesheet" href="../TestSuite11.css" type="text/css"/>
+  </head>
+  <body>
+    <h1 class="title">XForms 1.1 Test Suite Implementation Status for Ubiquity XForms</h1>
+    <h2 class="subtitle">XForms 1.1 Test</h2>
+    <h3>This report describes the results from testing the XForms 1.1 Test Suite with Ubiquity XForms.</h3>
+    <h2 class="subtitle">Legend</h2>
+    <table cellpadding="2" cellspacing="1" border="1">
+      <tr>
+        <th class="testCaseNameTitle" width="80">Type</th>
+        <th class="testCaseNameTitle" width="300">Description</th>
+      </tr>
+      <tr>
+        <td class="green">Passed</td>
+        <td>The test passed when it was run manually.</td>
+      </tr>
+      <tr>
+        <td class="red">Failed</td>
+        <td>The test failed when it was run manually.</td>
+      </tr>
+      <tr>
+        <td class="orange">Failed</td>
+        <td>The OPTIONAL test failed when it was run manually.</td>
+      </tr>
+      <tr>
+        <td class="white">Unknown</td>
+        <td>The test was not run, or an unknown result occurred.</td>
+      </tr>
+    </table>
+    <h2 class="subtitle">Chapter Results Summary</h2>
+    <table cellpadding="2" cellspacing="1" border="1" width="500">
+      <tr>
+        <td colspan="2">
+          <strong>62 normative tests</strong>
+        </td>
+      </tr>
+      <tr>
+        <td>Passed</td>
+        <td>53</td>
+      </tr>
+      <tr>
+        <td>Failed</td>
+        <td>9</td>
+      </tr>
+      <tr>
+        <td>Unknown</td>
+        <td>not calculated</td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <strong>62 basic tests</strong>
+        </td>
+      </tr>
+      <tr>
+        <td>Passed</td>
+        <td>53</td>
+      </tr>
+      <tr>
+        <td>Failed</td>
+        <td>9</td>
+      </tr>
+      <tr>
+        <td>Unknown</td>
+        <td>not calculated</td>
+      </tr>
+    </table>
+    <h2 class="subtitle">Results Table</h2>
+    <table cellpadding="2" cellspacing="1" border="1">
+      <tr class="heading">
+        <td class="inner130">Test Case Number</td>
+        <td class="innerLongCell">Test Case Name</td>
+        <td class="innerTitle">FF3</td>
+      </tr>
+      <tr class="chapter">
+        <td colspan="3">7. XPath Expressions in XForms</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.2.a</td>
+        <td class="innerLongCell">evaluation context for the outermost binding elements</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.2.b</td>
+        <td class="innerLongCell">evaluation context for the non-outermost binding elements</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.2.c</td>
+        <td class="innerLongCell">context node always resides within the context model</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.2.d</td>
+        <td class="innerLongCell">context node for the computed expression is the node currently being processed</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.2.e</td>
+        <td class="innerLongCell">context size and position</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.2.f</td>
+        <td class="innerLongCell">namespace declarations in scope for the attribute are applied to the expression</td>
+        <td class="innerCellFailed">Failed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.4.6.a</td>
+        <td class="innerLongCell">binding examples</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.5.a</td>
+        <td class="innerLongCell">error in modal item property causes an xforms-compute-exception</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.5.b</td>
+        <td class="innerLongCell">error not in modal item property causes an xforms-binding-exception</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.6.1.a</td>
+        <td class="innerLongCell">boolean-from-string() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.6.2.a</td>
+        <td class="innerLongCell">is-card-number() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.7.1.a</td>
+        <td class="innerLongCell">avg() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.7.1.b</td>
+        <td class="innerLongCell">avg() function negative test</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.7.2.a</td>
+        <td class="innerLongCell">min() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.7.2.b</td>
+        <td class="innerLongCell">min() function negative test</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.7.3.a</td>
+        <td class="innerLongCell">max() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.7.3.b</td>
+        <td class="innerLongCell">max() function negative test</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.7.4.a</td>
+        <td class="innerLongCell">count-non-empty() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.7.5.a</td>
+        <td class="innerLongCell">index() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.7.5.b</td>
+        <td class="innerLongCell">index() function negative test</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.7.6.a</td>
+        <td class="innerLongCell">power() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.7.7.a</td>
+        <td class="innerLongCell">random() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.7.8.a</td>
+        <td class="innerLongCell">compare() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.8.1.a</td>
+        <td class="innerLongCell">if() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.8.2.a</td>
+        <td class="innerLongCell">property() function with version property</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.8.2.b</td>
+        <td class="innerLongCell">property() function with conformance-level property</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.8.2.c</td>
+        <td class="innerLongCell">property() function with invalid NCNAME property</td>
+        <td class="innerCellFailed">Failed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.8.2.d</td>
+        <td class="innerLongCell">property() function with invalid QNamebutnotNCNAME property</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.8.3.a</td>
+        <td class="innerLongCell">digest() function using sha1, md5, and sha256</td>
+        <td class="innerCellFailed">Failed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.8.3.b</td>
+        <td class="innerLongCell">digest() function using sha384 and sha512</td>
+        <td class="innerCellFailedOptional">Failed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.8.3.c</td>
+        <td class="innerLongCell">digest() function negative test with invalid NCNAME property</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.8.3.d</td>
+        <td class="innerLongCell">digest() function negative test with a QNameButNotNCNAME</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.8.3.e</td>
+        <td class="innerLongCell">digest() function with invalid encoding method</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.8.3.f</td>
+        <td class="innerLongCell">digest() function default encoding base64</td>
+        <td class="innerCellFailed">Failed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.8.4.a</td>
+        <td class="innerLongCell">hmac() function using sha1, md5, and sha256</td>
+        <td class="innerCellFailed">Failed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.8.4.b</td>
+        <td class="innerLongCell">hmac() function using sha384 and sha512</td>
+        <td class="innerCellFailed">Failed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.8.4.c</td>
+        <td class="innerLongCell">hmac() function with invalid NCNAME property</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.8.4.d</td>
+        <td class="innerLongCell">hmac() function with invalid QNameButNotNCNAME</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.8.4.e</td>
+        <td class="innerLongCell">hmac() function with invalid encoding method</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.8.4.f</td>
+        <td class="innerLongCell">hmac() function using default encoding base64</td>
+        <td class="innerCellFailed">Failed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.9.1.a</td>
+        <td class="innerLongCell">local-date() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.9.2.a</td>
+        <td class="innerLongCell">local-dateTime() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.9.3.a</td>
+        <td class="innerLongCell">now() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.9.4.a</td>
+        <td class="innerLongCell">days-from-date() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.9.4.b</td>
+        <td class="innerLongCell">days-from-date() function ignores hours, minutes, and seconds components</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.9.4.c</td>
+        <td class="innerLongCell">days-from-date() function negative test</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.9.5.a</td>
+        <td class="innerLongCell">days-to-date() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.9.6.a</td>
+        <td class="innerLongCell">seconds-from-dateTime() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.9.7.a</td>
+        <td class="innerLongCell">seconds-to-dateTime() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.9.8.a</td>
+        <td class="innerLongCell">adjust-dateTime-to-timezone() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.9.9.a</td>
+        <td class="innerLongCell">seconds() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.9.10.a</td>
+        <td class="innerLongCell">months() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.10.1.a</td>
+        <td class="innerLongCell">instance() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.10.2.a</td>
+        <td class="innerLongCell">current() function example 1</td>
+        <td class="innerCellFailed">Failed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.10.2.b</td>
+        <td class="innerLongCell">current() function example 2</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.10.3.a</td>
+        <td class="innerLongCell">id() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.10.3.b</td>
+        <td class="innerLongCell">id() function with xml:id</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.10.3.c</td>
+        <td class="innerLongCell">id() function with xsi:type</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.10.4.a</td>
+        <td class="innerLongCell">context() function</td>
+        <td class="innerCellFailed">Failed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.11.1.a</td>
+        <td class="innerLongCell">choose() function</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.11.2.a</td>
+        <td class="innerLongCell">event() function with inserted-nodes property</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.11.2.b</td>
+        <td class="innerLongCell">event() function with resource-uri property</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+      <tr class="outer">
+        <td class="inner130">7.12.a</td>
+        <td class="innerLongCell">invalid functions attribute in model element</td>
+        <td class="innerCellPassed">Passed</td>
+      </tr>
+    </table>
+  </body>
+</html>

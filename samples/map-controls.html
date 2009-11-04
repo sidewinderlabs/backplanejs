@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<title>Map controls</title>
+
+		<script src="../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+		<!-- Google Maps API key for http://ubiquity-xforms.googlecode.com/svn/ -->
+		<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAtiayLvivBA_sjLrjcC0kKBRKMUyLv4oRi_lvsQdMrleumPyeXhRoyVV1aNlK3TGv27YYxSX6d-zC8Q" type="text/javascript">/**/</script>
+
+		<style type="text/css">
+			body {
+				padding: 20px 80px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>Maps in Ubiquity XForms</h1>
+
+		<p>
+			This sample demonstrates a number of different ways to use map controls in your forms.
+			Currently, two controls have map realisations: <code>output</code> and <code>range</code>.
+			To display them as a map, they must have the CSS class <code>geolocation</code>. The bound
+			data may be in the form or a semi-colon-separated latitude and logitude pair of co-ordinates,
+			or alternatively a more free-form address or location string. Most of the controls that follow
+			are bound to an instance containing a pair of co-ordinates, which looks like this:
+		</p>
+
+<pre>
+    &lt;xf:instance>
+        &lt;map xmlns="">
+            &lt;coords>51.523811;-0.107878&lt;/coords>
+        &lt;/map>
+    &lt;/xf:instance>
+</pre>
+
+		<xf:model>
+			<xf:instance>
+				<map xmlns="">
+					<coords>51.523811;-0.107878</coords>
+					<address>4 Pear Tree Court, London, EC1R 0DS</address>
+				</map>
+			</xf:instance>
+		</xf:model>
+
+		<hr />
+
+		<p>
+			The simplest map control is <code>output</code>, it
+			allows a user to zoom in and out but not to pan.
+		</p>
+
+<pre>
+    &lt;xf:output ref="/map/coords" class="geolocation">
+        &lt;xf:label>Output:&lt;/xf:label>
+    &lt;/xf:output>
+</pre>
+
+		<xf:output ref="/map/coords" class="geolocation">
+			<xf:label>Output:</xf:label>
+		</xf:output>
+
+		<hr />
+
+		<p>
+			The <code>range</code> control, on the other hand, does allow
+			users to move the map. When a user moves the map, the updated
+			location is then reflected in the instance data.
+		</p>
+
+<pre>
+    &lt;xf:range ref="/map/coords" class="geolocation">
+        &lt;xf:label>Output:&lt;/xf:label>
+    &lt;/xf:range>
+</pre>
+
+		<xf:range ref="/map/coords" class="geolocation">
+			<xf:label>Range:</xf:label>
+		</xf:range>
+
+		<hr />
+
+		<p>
+			If you increase the size of a map, Ubiquity XForms ensures that it
+			gets adorned with whatever overlay items will comfortably fit.
+		</p>
+
+<pre>
+    &lt;xf:range ref="/map/coords" class="geolocation" style="width: 650px; height: 400px;">
+        &lt;xf:label>Output:&lt;/xf:label>
+    &lt;/xf:range>
+</pre>
+
+		<xf:range ref="/map/coords" class="geolocation" style="width: 650px; height: 400px;">
+			<xf:label>Range:</xf:label>
+		</xf:range>
+
+		<hr />
+
+		<p>
+			Equally, if you decrease the size of a map, Ubiquity XForms ensures that
+			the adornments and zoom level are reduced according to the available area.
+		</p>
+
+<pre>
+    &lt;xf:range ref="/map/coords" class="geolocation" style="width: 100px; height: 80px;">
+        &lt;xf:label>Output:&lt;/xf:label>
+    &lt;/xf:range>
+</pre>
+
+		<xf:range ref="/map/coords" class="geolocation" style="width: 100px; height: 80px;">
+			<xf:label>Range:</xf:label>
+		</xf:range>
+
+		<hr />
+
+		<p>
+			The <code>hint</code> element, as a child of a map, is styled to be an
+			information window that is invoked when the user clicks on the map marker.
+		</p>
+
+<pre>
+    &lt;xf:range ref="/map/coords" class="geolocation" style="width: 400px; height: 300px;">
+        &lt;xf:label>Output:&lt;/xf:label>
+        &lt;xf:hint>webBackplane Office, Clerkenwell&lt;/xf:hint>
+    &lt;/xf:range>
+</pre>
+
+		<xf:range ref="/map/coords" class="geolocation" style="width: 400px; height: 300px;">
+			<xf:label>Range:</xf:label>
+			<xf:hint>webBackplane Office, Clerkenwell</xf:hint>
+		</xf:range>
+
+		<hr />
+
+		<p>
+			Until now, all of the controls demonstrated have been bound to a pair of
+			co-ordinates, separated by a semi-colon. The next control is bound to an
+			address, however:
+		</p>
+
+<pre>
+    &lt;xf:instance>
+        &lt;map xmlns="">
+            &lt;address>4 Pear Tree Court, London, EC1R 0DS&lt;/address>
+        &lt;/map>
+    &lt;/xf:instance>
+
+    &lt;xf:output ref="/map/address" class="geolocation">
+        &lt;xf:label>Output:&lt;/xf:label>
+    &lt;/xf:output>
+</pre>
+
+		<xf:output ref="/map/address" class="geolocation">
+			<xf:label>Output:</xf:label>
+		</xf:output>
+	</body>
+</html>

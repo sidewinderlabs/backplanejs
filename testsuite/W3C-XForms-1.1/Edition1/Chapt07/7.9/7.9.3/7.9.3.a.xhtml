@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:ex="http://example.org">
+	  <head>
+		    <title>7.9.3.a now() function</title>
+		    <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+		
+	  </head>
+	  <body>
+      <xforms:model>
+			      <xforms:instance xmlns="">
+				        <ex:root/>
+			      </xforms:instance>
+		    </xforms:model>
+	    <xforms:group>
+		       <xforms:label class="title">
+		   	    7.9.3.a now() function
+		    </xforms:label>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:label>
+				You must see the current system date and time. The format of the output is data for the 
+				year, month, day, hour, minute, and second. There may be optional timezone information at the 
+				end of the value. 
+			</xforms:label>
+		    </xforms:group>
+		    <xforms:output value="now()">
+			      <xforms:label>Current Time : </xforms:label>
+		    </xforms:output>
+		
+	  </body>
+</html>

@@ -1,0 +1,95 @@
+<!--
+  * Copyright (c) 2009 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<!DOCTYPE html
+ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+ xmlns:ev="http://www.w3.org/2001/xml-events"
+>
+	<head>
+		<title>
+			Issue 241
+		</title>
+
+		<script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+	</head>
+
+	<body>
+		<h1>
+			<a href="http://code.google.com/p/ubiquity-xforms/issues/detail?id=241">Issue 241</a>
+		</h1>
+
+		<h2>
+			DOMFocusIn is not dispatched to controls
+		</h2>
+
+        <ol>
+			<li>
+				Give focus to the input field.
+			</li>
+
+			<li>
+				If the result field contains the text 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+ 			</li>
+       </ol>
+
+		<xf:model id="mdl">
+			<xf:instance id="instTest">
+				<test xmlns="">TEST FAILED</test>
+			</xf:instance>
+
+			<xf:instance id="instReady">
+				<ready xmlns="">FALSE</ready>
+			</xf:instance>
+
+			<xf:setvalue ev:event="xforms-ready" ref="instance('instReady')" value="'TRUE 1'"></xf:setvalue>
+		</xf:model>
+
+		<xf:trigger id="test">
+			<xf:label>
+				Test
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:setfocus control="input"></xf:setfocus>
+
+				<xf:setvalue ref="instance('instReady')" value="'TRUE 2'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+
+        <xf:input ref="instance('instTest')" id="input">
+            <xf:label>
+				Input:
+			</xf:label>
+
+           	<xf:setvalue ev:event="DOMFocusIn" ref="." value="'TEST PASSED'"></xf:setvalue>
+        </xf:input>
+
+        <xf:output ref="instance('instTest')" id="result">
+            <xf:label>
+				Result:
+			</xf:label>
+        </xf:output>
+
+		<xf:output ref="instance('instReady')" id="ready">
+			<xf:label>
+				Ready:
+			</xf:label>
+		</xf:output>
+	</body>
+</html>

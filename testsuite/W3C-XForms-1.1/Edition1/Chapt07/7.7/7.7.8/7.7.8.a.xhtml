@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <title>7.7.8.a compare() function</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+         <xforms:instance xmlns="">
+		          <root/>
+         </xforms:instance>
+      </xforms:model>
+  	   <xforms:group>
+  		     <xforms:label class="title">7.7.8.a compare() function</xforms:label>
+  	   </xforms:group>
+  	
+  	   <xforms:group>
+  		     <xforms:label>
+  		    You must see a value of "-1" for the compare('apple','orange') output control.
+  		    You must see a value of "0" for the compare('apple','apple') output control.
+  		    You must see a value of "1" for the compare('orange','apple') output control.   			
+  		</xforms:label>
+  	   </xforms:group>
+  	
+  	   <xforms:group>
+         <xforms:output value="compare('apple','orange')">
+            <xforms:label>compare('apple','orange') : </xforms:label>
+         </xforms:output>
+      </xforms:group>
+      <xforms:group>
+         <xforms:output value="compare('apple','apple')">
+      	     <xforms:label>compare('apple','apple') : </xforms:label>
+         </xforms:output>
+      </xforms:group>
+      <xforms:group>
+         <xforms:output value="compare('orange','apple')">
+      	     <xforms:label>compare('orange','apple') : </xforms:label>
+         </xforms:output>
+      </xforms:group> 
+		
+  </body>
+</html>

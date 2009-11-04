@@ -1,0 +1,155 @@
+<?xml version="1.0" ?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:xf="http://www.w3.org/2002/xforms" 
+      xmlns:ev="http://www.w3.org/2001/xml-events" 
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+      xml:lang="en" 
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <head>
+	    <title>Testing Output with mediatype</title>
+ 	    <script src="../../../src/ubiquity-loader.js">/**/</script>
+        <link rel="stylesheet" type="text/css" href="ubiquity-test-suite.css"/>	    
+	</head>
+	<body>
+        <xf:model id="model-inst">
+            <xf:instance id="inst">       
+	            <pic xmlns="">
+	                <tree xsi:type="xsd:anyURI">KnowledgeTreeLogo.jpg</tree>
+	                <images xsi:type="xsd:anyURI" filename="KnowledgeTreeLogo.jpg">R0lGODlhCwALAIAAAAAA3pn/ZiH5BAEAAAEALAAAAAALAAsAAAIUhA+hkcuO4lmNVindo7qyrIXiGBYAOw==</images>
+	                <media>image/*</media>
+	            </pic>
+           </xf:instance>
+           <xf:instance id="instance_table"><root><![CDATA[<table>
+                                    <tbody>
+                                        <tr>
+                                            <th>Date / Time</th>
+                                            <th>April 7, 2000 14:30</th>
+                                            <th>April 7, 2000 15:30</th>
+                                        </tr>
+                                        <tr>
+
+                                            <th>Height</th>
+                                            <td>177 cm (69.7 in)</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Weight</th>
+                                            <td>194.0 lbs (88.0 kg)</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>BMI</th>
+                                            <td>28.1 kg/m2</td>
+                                        </tr>
+                                        <tr>
+                                            <th>BSA</th>
+                                            <td>2.05 m2</td>
+
+                                        </tr>
+                                        <tr>
+                                            <th>Temperature</th>
+                                            <td>36.9 C (98.5 F)</td>
+                                            <td>36.9 C (98.5 F)</td>
+                                        </tr>
+                                        <tr>
+
+                                            <th>Pulse</th>
+                                            <td>86 / minute</td>
+                                            <td>84 / minute</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Rhythm</th>
+                                            <td>Regular</td>
+
+                                            <td>Regular</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Respirations</th>
+                                            <td>16 / minute, unlabored</td>
+                                            <td>14 / minute</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Systolic</th>
+                                            <td>132 mmHg</td>
+                                            <td>135 mmHg</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Diastolic</th>
+
+                                            <td>86 mmHg</td>
+                                            <td>88 mmHg</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Position / Cuff</th>
+                                            <td>Left Arm</td>
+                                            <td>Left Arm</td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+        ]]>                  
+                </root>
+            </xf:instance>
+            <xf:bind id="image" nodeset="/pic/images" type="xsd:base64Binary"></xf:bind>
+            <xf:bind id="image2" nodeset="/pic/tree" type="xsd:anyURI"></xf:bind>
+		</xf:model>
+		<script type="text/javascript">
+		//  var oLogReader = new YAHOO.widget.LogReader("fc-logger",{top:"50%",right:"10px"});
+		//  document.logger = new YAHOO.widget.LogWriter("ajaxfP");
+			document.logger = { log: function(sText, sContext) { } };
+		</script>
+		<hr />
+		<h1>Testing Output with mediatype</h1>
+		<hr />
+		<xf:group>      
+       <xf:output bind="image">
+			<xf:label>1: xsd:base64Binary with mediatype element: </xf:label>
+            <xf:mediatype ref="/pic/media"></xf:mediatype> 
+ 	    </xf:output>
+        
+        <xf:output bind="image2">
+            <xf:label>2: xsd:anyURI with mediatype element: </xf:label>
+            <xf:mediatype ref="/pic/media"></xf:mediatype> 
+        </xf:output>
+        
+        <xf:output ref="/pic/tree">
+            <xf:label>3: xsd:anyURI with mediatype element: </xf:label>
+            <xf:mediatype ref="/pic/media"></xf:mediatype> 
+        </xf:output>
+        
+        <xf:output ref="/pic/tree" mediatype="test">
+            <xf:label>4: xsd:anyURI with mediatype element and mediatype attribute: </xf:label>
+            <xf:mediatype ref="/pic/media"></xf:mediatype> 
+        </xf:output>
+        
+        <xf:output ref="/pic/tree" mediatype="image/*">
+            <xf:label>5: xsd:anyURI image with mediatype attribute: </xf:label>
+        </xf:output>
+      
+        <xf:output ref="instance('instance_table')" mediatype="application/xhtml+xml">      
+         <xf:label>6: HTML/XHTML Content rendered: </xf:label>
+         <xf:mediatype ref="instance('inst')/media"></xf:mediatype> 
+       </xf:output>
+       
+	</xf:group>
+	
+     <xf:group>
+        <xf:select1 ref="/pic/media">
+            <xf:label>Select mediatype: </xf:label>
+            <xf:item>
+               <xf:label>image</xf:label>
+               <xf:value>image/*</xf:value>
+            </xf:item>
+            <xf:item>
+               <xf:label>no image</xf:label>
+               <xf:value></xf:value>
+            </xf:item>
+            <xf:item>
+               <xf:label>html/xhtml content</xf:label>
+               <xf:value>application/xhtml+xml</xf:value>
+            </xf:item>
+        </xf:select1>
+    </xf:group>   
+		<hr />
+	</body>
+</html>

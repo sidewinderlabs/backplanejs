@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xforms="http://www.w3.org/2002/xforms">
+	  <head>
+		    <title>7.2.e context size and position</title>
+		    <script type="text/javascript"
+              src="../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/>
+		
+	  </head>
+	  <body>
+      <xforms:model xmlns:test="http://example.org">
+			      <xforms:instance xmlns="">
+				        <test:root>
+					          <test:child/>
+					          <test:child/>
+					          <test:child/>
+				        </test:root>
+			      </xforms:instance>
+			      <xforms:bind nodeset="test:child" calculate="position() + last()"/>
+		    </xforms:model>
+		    <xforms:group>
+			      <xforms:label class="title">
+				7.2.e context size and position
+			</xforms:label>
+		    </xforms:group>	
+		    <xforms:group>
+			      <xforms:label>
+			You must see a value of "4" for the first Total output, a value of "5" for the second 
+			Total output, and a value of "6" for the third Total output. 
+			
+			</xforms:label>	
+		    </xforms:group>
+		    <xforms:repeat xmlns:test="http://example.org" nodeset="test:child">
+			      <xforms:output ref=".">
+				        <xforms:label>Total : </xforms:label>
+			      </xforms:output>
+		    </xforms:repeat>
+		
+	  </body>
+</html>

@@ -1,0 +1,45 @@
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+ xmlns:ev="http://www.w3.org/2001/xml-events"
+>
+	<head>
+		<title>
+			Issue 439
+		</title>
+
+		<script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+	</head>
+
+	<body>
+		<h1>
+			<a href="http://code.google.com/p/ubiquity-xforms/issues/detail?id=439">Issue 439</a>
+		</h1>
+
+		<h2>
+			Tab key pressed in last control in navigation order does not give focus to first control
+		</h2>
+
+		<p>
+			Pressing the tab key should cycle sequentially give focus to the two input controls in document order. When tab is pressed from the second input control, focus should return to the first control.
+		</p>
+
+		<xf:model id="mdl">
+			<xf:instance id="inst-test">
+				<test xmlns=""></test>
+			</xf:instance>
+		</xf:model>
+
+		<xf:input ref="/test" id="input-1">
+			<xf:label>
+				1:
+			</xf:label>
+		</xf:input>
+
+		<xf:input ref="/test" id="input-2">
+			<xf:label>
+				2:
+			</xf:label>
+		</xf:input>
+	</body>
+</html>

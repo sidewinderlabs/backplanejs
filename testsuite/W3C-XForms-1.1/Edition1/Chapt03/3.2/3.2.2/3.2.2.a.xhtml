@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>3.2.2.a src Attribute (non-normative)</title>
+        <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+        
+    </head>
+    <body>
+      <xforms:model>
+            <xforms:instance xmlns="" src="3.2.2.a.data.xml"/>
+        </xforms:model>
+        <xforms:group>
+            <xforms:label class="title">3.2.2.a src Attribute (non-normative)</xforms:label>
+        </xforms:group>
+        <xforms:group>
+            <xforms:label>
+            	This test case uses the src attribute to pull instance data from a file. 
+            	You must see an input control labeled "Color:" and it must contain the value 
+            	"red". 
+            </xforms:label>
+        </xforms:group>
+        <xforms:input ref="/car/color">
+            <xforms:label src="label.txt"/>
+        </xforms:input>
+    </body>
+</html>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <title>11.1.a ref attribute of submission element</title>
+      <script type="text/javascript"
+              src="../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../driverPages/html/TestSuite11.css" type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model id="car1">
+         <xforms:instance xmlns="" id="information">
+        <!-- make now has a descendant, which should be submitted if make is submitted -->
+        <car>
+               <make>Acura
+          	<model>Integra</model>
+               </make>
+               <year>1994</year>
+               <color>white</color>
+               <hp>120</hp>
+            </car>
+         </xforms:instance>
+         <xforms:submission id="submitMakeModel" ref="/car/make"
+                            action="http://xformstest.org/cgi-bin/echo.sh"
+                            method="post"/>
+         <xforms:submission id="submitColor" ref="/car/color"
+                            action="http://xformstest.org/cgi-bin/echo.sh"
+                            method="post"/>
+      </xforms:model>
+  	   <xforms:group>
+  		     <xforms:label class="title">11.1.a ref attribute of submission element</xforms:label>
+  	   </xforms:group>
+      <xforms:group>
+		       <xforms:label>
+		  When you activate the Submit Make And Model trigger the page must be replaced by the form data. 
+		  The form data must contain the values "Acura" and "Integra", but not the value 
+		  "white". 
+		</xforms:label>
+      </xforms:group>
+      <xforms:submit id="makeModelButton" submission="submitMakeModel">
+        <xforms:label>Submit Make And Model</xforms:label>
+      </xforms:submit>
+      <xforms:group>
+    	    <xforms:label>
+    	  When you activate the Submit Color trigger the page must be replaced by the form data. 
+		  The form data must contain the value "white" but not the values "Acura" or 
+		  "Integra". 
+    	</xforms:label>
+      </xforms:group>
+	     <xforms:submit id="colorSubmit" submission="submitColor">
+	        <xforms:label>Submit Color</xforms:label>
+	     </xforms:submit>
+	
+  </body>
+</html>

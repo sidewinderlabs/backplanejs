@@ -1,0 +1,105 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+		<title>Test XForms 1.1 datetime functions</title>
+	<script>
+	function hello(d)
+	{
+		"" + d.getFullYear() + "-" + d.getMonth() > 9?"0":"" + d.getMonth() + "-" + d.getDate() > 9?"0":"" + d.getDate()//"T" d.getHours > 9?'0':'' + d.getMinutes
+	}
+	document.hello = hello;
+	</script>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+					<td rowspan="1" colspan="3">Test Output<br/>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../xforms/issues/487-s.html</td>
+					<td>&nbsp;</td>
+					<td>opens the form</td>
+				</tr>
+				<tr>
+					<td>assertElementPresent</td>
+					<td>xpath=/html/body/xf:group[@ref="days[1]"]</td>
+					<td>&nbsp;</td>
+					<td>checks that the form is the correct one</td>
+				</tr>
+				<tr>
+					<td>waitForText</td>
+					<td>id=intro</td>
+					<td>hello</td>
+					<td>waits for the test form to be ready.</td>
+				</tr>
+				
+				<tr>
+					<td>assertText</td>
+					<td>id=n0</td>
+					<td>javascript{var d = new Date(); d.getFullYear() + "-" + (d.getMonth() &lt; 9?"0":"")+(d.getMonth()+1) + "-" + (d.getDate() &lt;= 9?"0":"") + d.getDate() +"Z"}</td>
+					<td>local-date</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>id=n1</td>
+					<td>javascript{var d = new Date(); d.getFullYear() + "-" + (d.getMonth() &lt; 9?"0":"")+(d.getMonth()+1) + "-" + (d.getDate() &lt;= 9?"0":"") + d.getDate()+"T" + (d.getHours() &lt;= 9?"0":"") + d.getHours() + ":" + (d.getMinutes() &lt;= 9?"0":"") + d.getMinutes() + (d.getSeconds() &lt;= 9?"0":"") + d.getSeconds() + "Z"}</td>
+					<td>local-dateTime</td>
+				</tr>
+				<tr>
+					<td>assertText</td>
+					<td>id=d0</td>
+					<td>1970-01-02</td>
+					<td>days-to-date(1)</td>
+				</tr>
+				<tr>
+					<td>assertText</td>
+					<td>id=d1</td>
+					<td>1969-12-31</td>
+					<td>days-to-date(-1)</td>
+				</tr>
+				<tr>
+					<td>assertText</td>
+					<td>id=d2</td>
+					<td>1971-01-01</td>
+					<td>days-to-date(365)</td>
+				</tr>
+				<tr>
+					<td>assertText</td>
+					<td>id=s0</td>
+					<td>1970-01-01T00:00:01Z</td>
+					<td>seconds-to-dateTime(1)</td>
+				</tr>
+				<tr>
+					<td>assertText</td>
+					<td>id=s1</td>
+					<td>1969-12-31T23:59:59Z</td>
+					<td>seconds-to-dateTime(-1)</td>
+				</tr>
+				<tr>
+					<td>assertText</td>
+					<td>id=s2</td>
+					<td>1970-01-05T00:00:00Z</td>
+					<td>seconds-to-dateTime(345600) (= 4 days)</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

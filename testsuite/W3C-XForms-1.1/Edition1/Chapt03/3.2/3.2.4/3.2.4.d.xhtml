@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <title>3.2.4.d node-set binding - bind attribute overrides model attribute</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+    
+  </head>
+  <body>
+      <xforms:model id="model1">
+         <xforms:instance xmlns="">
+            <carsAvailable>
+               <car>Audi</car>
+            </carsAvailable>
+         </xforms:instance>
+      </xforms:model>
+      <xforms:model id="model2">
+         <xforms:instance xmlns="">
+            <carsAvailable>
+               <car>BMW</car>
+            </carsAvailable>
+         </xforms:instance>
+         <xforms:bind id="bind1" nodeset="car"/>
+      </xforms:model>
+  	   <xforms:group>
+  		     <xforms:label class="title">3.2.4.d node-set binding - bind attribute overrides model attribute</xforms:label>
+  	   </xforms:group>
+      <xforms:group>
+		       <xforms:label>
+      		You must see the value "BMW": 
+      	</xforms:label>
+      </xforms:group>
+
+	     <xforms:output ref="car" model="model1" bind="bind1">
+    	    <xforms:label/>
+      </xforms:output>
+
+  </body>
+</html>

@@ -1,0 +1,180 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>4.6.3.b event sequencing for select/select1 controls with incremental="false"</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+				  <td rowspan="1" colspan="3">4.6.3.b event sequencing for select/select1 controls with incremental="false"<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../Chapt04/4.6/4.6.3/4.6.3.b.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>waitForModelReady</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>4.6.3.b event sequencing for select/select1 controls with incremental="false"</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:group/xforms:select</td>
+					<td></td>
+					<td>Checks that the select is in the form</td>
+				</tr>
+				<tr>
+				    <td>click</td>
+				    <td>xpath=/html/body/xforms:group[2]/xforms:select/pe-value/input</td>
+				    <td></td>
+				    <td>Clicks in the select</td>
+				</tr>
+<!--
+Choose an option
+-->
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:group[2]/xforms:select/div[@class='pe-choices']/xforms:item[2]</td>
+					<td></td>
+					<td>Clicks on "Honda"</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>200</td>
+					<td></td>
+					<td>Waits for the select to get the right value</td>
+				</tr>
+				<tr>
+					<td>verifyValue</td>
+					<td>xpath=/html/body/xforms:group/xforms:select/pe-value/input</td>
+					<td>hon</td>
+					<td>Checks that the select is bound correctly</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:repeat</td>
+					<td></td>
+					<td>Checks that the repeat is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:repeat</td>
+					<td>*xforms-select (select)*</td>
+					<td>Checks that the "Value Change" sequence showed up</td>
+				</tr>
+				
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:group/xforms:select1/pe-value/input</td>
+					<td></td>
+					<td>Checks that the select1 is in the form</td>
+				</tr>
+				<tr>
+				    <td>click</td>
+				    <td>xpath=/html/body/xforms:group/xforms:select1/pe-value/input</td>
+				    <td></td>
+				    <td>Clicks in the select1</td>
+				</tr>
+<!--
+Choose an option
+-->
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:group/xforms:select1//div[@class='pe-choices']/xforms:item[2]/xforms:label</td>
+					<td></td>
+					<td>Clicks on "Honda"</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>200</td>
+					<td></td>
+					<td>Waits for the select1 to get the right value</td>
+				</tr>
+				<tr>
+					<td>verifyValue</td>
+					<td>xpath=/html/body/xforms:group/xforms:select1/pe-value/input</td>
+					<td>Honda</td>
+					<td>Checks that the select1 is bound correctly</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:repeat</td>
+					<td></td>
+					<td>Checks that the repeat is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:repeat</td>
+					<td>*xforms-select (select)*xforms-select (select1)*</td>
+					<td>Checks that the "Value Change" sequence showed up</td>
+				</tr>
+				
+				<tr>
+				    <td>click</td>
+				    <td>xpath=/html/body/xforms:group/xforms:select1/pe-value/input</td>
+				    <td></td>
+				    <td>Clicks in the select1</td>
+				</tr>
+<!--
+Choose an option
+-->
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:group/xforms:select1//div[@class='pe-choices']/xforms:item[4]/xforms:label</td>
+					<td></td>
+					<td>Clicks on "Toyota"</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>200</td>
+					<td></td>
+					<td>Waits for the select1 to get the right value</td>
+				</tr>
+				<tr>
+					<td>verifyValue</td>
+					<td>xpath=/html/body/xforms:group/xforms:select1/pe-value/input</td>
+					<td>Toyota</td>
+					<td>Checks that the select1 is bound correctly</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:repeat</td>
+					<td></td>
+					<td>Checks that the repeat is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:repeat</td>
+					<td>*xforms-select (select)*xforms-select (select1)*xforms-deselect (select1)*xforms-select (select1)*</td>
+					<td>Checks that the "Value Change" sequence showed up</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

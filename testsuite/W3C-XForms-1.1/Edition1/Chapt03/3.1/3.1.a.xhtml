@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>3.1.a XForms namespace</title>
+        <script type="text/javascript"
+              src="../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/>
+        
+    </head>
+    <body>
+      <xforms:model>
+            <xforms:instance xmlns="">
+                <car>
+                    <make>Honda</make>
+                    <year>2005</year>
+                    <color>tango red pearl</color>
+                    <hp>127</hp>
+                </car>
+            </xforms:instance>
+        </xforms:model>
+        <xforms:group>
+            <xforms:label class="title">3.1.a XForms namespace</xforms:label>
+        </xforms:group>
+        <xforms:group>
+            <xforms:label>
+            
+            	You must see a value of "Honda":
+            </xforms:label>
+        </xforms:group>
+        <xforms:output ref="/car/make">
+            <xforms:label/>
+        </xforms:output>
+    </body>
+</html>

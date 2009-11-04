@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapterCounts xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ts="http://www.w3c.org/MarkUp/Forms/XForms/Test/11" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<numNormTotal>62</numNormTotal>
+<numNormPass>55</numNormPass>
+<numNormFail>7</numNormFail>
+<numNormUnknown>not calculated</numNormUnknown>
+<numBasicTotal>62</numBasicTotal>
+<numBasicPass>53</numBasicPass>
+<numBasicFail>7</numBasicFail>
+<numBasicUnknown>not calculated</numBasicUnknown>
+</chapterCounts>

@@ -1,0 +1,117 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>11.2.b non-relevant nodes are not serialized</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+				  <td rowspan="1" colspan="3">11.2.b non-relevant nodes are not serialized<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../Chapt11/11.2/11.2.b.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>waitForModelReady</td>
+					<td></td>
+					<td></td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>11.2.b non-relevant nodes are not serialized</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:model/xforms:submission[@action='http://www.xformstest.org/cgi-bin/echo.sh' and @id='show' and @method='post' and @includenamespaceprefixes='']</td>
+					<td></td>
+					<td>Checks that submission is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:model/xforms:bind[@nodeset='/data/test1' and @relevant='true()']</td>
+					<td></td>
+					<td>Checks that bind is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:model/xforms:bind[@nodeset='/data/test2' and @relevant='true()']</td>
+					<td></td>
+					<td>Checks that bind is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:model/xforms:bind[@nodeset='/data/test3' and @relevant='false()']</td>
+					<td></td>
+					<td>Checks that bind is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:model/xforms:bind[@nodeset='/data/test4' and @relevant='false()']</td>
+					<td></td>
+					<td>Checks that bind is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:submit[@submission='show']</td>
+					<td></td>
+					<td>Checks that submit is in the form</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:submit[@submission='show']/xforms:label</td>
+					<td></td>
+					<td>Clicks on submit button</td>
+				</tr>
+				<tr>
+					<td>waitForElementPresent</td>
+					<td>xpath=//pre[1]</td>
+					<td></td>
+					<td>Checks that the form data is shown</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=//pre[1]</td>
+					<td>*&lt;data*&lt;test1*/&gt;*&lt;test2 x="a"/&gt;*&lt;/data&gt;*</td>
+					<td>Checks that the form data is shown</td>
+				</tr>
+				<tr>
+					<td>verifyNotText</td>
+					<td>xpath=//pre[1]</td>
+					<td>*&lt;test3/&gt;*</td>
+					<td></td>
+					<td>Checks that the form data is shown</td>
+				</tr>
+				<tr>
+					<td>verifyNotText</td>
+					<td>xpath=//pre[1]</td>
+					<td>*&lt;test4 x="a"/&gt;*</td>
+					<td></td>
+					<td>Checks that the form data is shown</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

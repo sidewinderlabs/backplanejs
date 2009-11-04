@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:ev="http://www.w3.org/2001/xml-events">
+    <head>
+        <title>4.5.3.a xforms-version-exception</title>
+        
+        <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link href="../../../driverPages/forms/TestSuite11.css" rel="stylesheet"/>
+    </head>
+    <body>
+      <xforms:model version="10.0">
+        	  <xforms:instance xmlns="">
+                <data>Hello world!</data>
+            </xforms:instance>
+            <xforms:message ev:event="xforms-version-exception" level="modal">xforms-version-exception</xforms:message>
+        </xforms:model>
+        <p class="title">4.5.3.a xforms-version-exception</p>
+        <p>You may see an xforms-version-exception message. 
+              Processing must halt after dispatching an xforms-version-exception with implementation-specific error-information in the event context information.
+            	Processor specific testing is required to listen for the xforms-version-exception and provide the error-information.
+            	You must not see 'Hello world!' beneath this paragraph.</p>
+        <xforms:output ref="/data">
+          <xforms:label>You shouldn't see this : </xforms:label>
+        </xforms:output>
+
+    </body>
+</html>

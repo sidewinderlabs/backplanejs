@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <title>7.8.4.f hmac() function using default encoding base64</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+         <xforms:instance xmlns="">
+	           <root/>
+         </xforms:instance>
+      </xforms:model>
+      <xforms:group>
+         <xforms:label class="title">7.8.4.f hmac() function using default encoding base64</xforms:label>
+      </xforms:group>
+
+      <xforms:group>
+         <xforms:label>
+	You must see the group label "PASS" for all Tests. 
+	If the function does not return the correct value you will see a group label
+	with the word "FAIL" and the incorrect value.
+      </xforms:label>
+      </xforms:group>
+
+    
+      <xforms:group> 
+         <xforms:group ref="self::node()[hmac('key', 'abc', 'SHA-256')='nBluMtwBdfhvSxy4konWYZ3mvuaZ5MN45oMJ7Zehpqs=']">
+	           <xforms:label>Test 1 PASS </xforms:label>
+         </xforms:group>
+         <xforms:group ref="self::node()[hmac('key', 'abc', 'SHA-256')!='nBluMtwBdfhvSxy4konWYZ3mvuaZ5MN45oMJ7Zehpqs=']">
+	           <xforms:label>Test 1 FAIL: </xforms:label>
+	           <xforms:output value="hmac('key', 'abc', 'SHA-256')">
+	              <xforms:label>Bad Value =</xforms:label>
+	           </xforms:output>
+         </xforms:group>
+      </xforms:group>
+  </body>
+</html>

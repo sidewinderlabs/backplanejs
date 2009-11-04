@@ -1,0 +1,79 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>11.9.c HTTP Put as a submission option</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+				  <td rowspan="1" colspan="3">11.9.c HTTP Put as a submission option<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../Chapt11/11.9/11.9.c.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>waitForModelReady</td>
+					<td>xpath=//xforms:model</td>
+					<td></td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>11.9.c HTTP Put as a submission option</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:model/xforms:submission[@id='submit01' and @method='put' and @action='http://xformstest.org/cgi-bin/echo.sh']</td>
+					<td></td>
+					<td>Checks that submission is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:submit[@submission='submit01']</td>
+					<td></td>
+					<td>Checks that submit is in the form</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:submit[@submission='submit01']/xforms:label</td>
+					<td></td>
+					<td>Clicks on submit button</td>
+				</tr>
+				<tr>
+					<td>waitForElementPresent</td>
+					<td>xpath=//pre[2]</td>
+					<td></td>
+					<td>waits for the form data to be shown</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=//pre[2]</td>
+					<td>*REQUEST_METHOD=PUT*</td>
+					<td>Checks that the form data is shown</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

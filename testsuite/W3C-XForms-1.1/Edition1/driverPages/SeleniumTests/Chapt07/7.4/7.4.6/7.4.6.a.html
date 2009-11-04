@@ -1,0 +1,91 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>7.4.6.a binding examples</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+				  <td rowspan="1" colspan="3">7.4.6.a binding examples<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../Chapt07/7.4/7.4.6/7.4.6.a.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>waitForModelReady</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>7.4.6.a binding examples</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:input[@ref='/orderForm/shipTo/firstName']</td>
+					<td></td>
+					<td>Checks that input1 is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:input[@bind='fn']</td>
+					<td></td>
+					<td>Checks that input2 is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:input[@model='orders' and @ref='/orderForm/shipTo/firstName']</td>
+					<td></td>
+					<td>Checks that input3 is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:model/xforms:bind[@nodeset='/orderForm/shipTo/firstName' and @id='fn']</td>
+					<td></td>
+					<td>Checks that the bind is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyValue</td>
+					<td>xpath=/html/body/xforms:input[@ref='/orderForm/shipTo/firstName']/pe-value/input</td>
+					<td>John</td>
+					<td>Checks that the input1 has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyValue</td>
+					<td>xpath=/html/body/xforms:input[@bind='fn']/pe-value/input</td>
+					<td>John</td>
+					<td>Checks that the input2 has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyValue</td>
+					<td>xpath=/html/body/xforms:input[@model='orders' and @ref='/orderForm/shipTo/firstName']/pe-value/input</td>
+					<td>John</td>
+					<td>Checks that the input3 has the right value</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

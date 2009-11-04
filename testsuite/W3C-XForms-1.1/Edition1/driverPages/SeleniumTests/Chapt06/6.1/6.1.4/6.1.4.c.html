@@ -1,0 +1,103 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>6.1.4.c relevant property inheritance to attributes</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+				  <td rowspan="1" colspan="3">6.1.4.c relevant property inheritance to attributes<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../Chapt06/6.1/6.1.4/6.1.4.c.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>waitForModelReady</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>6.1.4.c relevant property inheritance to attributes</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:model/xforms:bind[@nodeset='personA' and @relevant='true()']</td>
+					<td></td>
+					<td>Checks that the bind has a relevant attribute</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:model/xforms:bind[@nodeset='personB/favcolor' and @relevant='false()']</td>
+					<td></td>
+					<td>Checks that the bind has a relevant attribute</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:model/xforms:bind[@nodeset='personC' and @relevant='false()']</td>
+					<td></td>
+					<td>Checks that the bind has a relevant attribute</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:input[@ref='personA/value']</td>
+					<td></td>
+					<td>Checks that this input is visible</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:input[@ref='personA/favcolor']</td>
+					<td></td>
+					<td>Checks that this input is visible</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/xforms:group[4]/xforms:input[@ref='personB/value']</td>
+					<td></td>
+					<td>Checks that this input is visible</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xforms:group[4]/xforms:input[@ref='personB/favcolor']</td>
+					<td></td>
+					<td>Checks that this input is not visible</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xforms:group[5]/xforms:input[@ref='personC/value']</td>
+					<td></td>
+					<td>Checks that this input is not visible</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/xforms:group[5]/xforms:input[@ref='personC/favcolor']</td>
+					<td></td>
+					<td>Checks that this input is not visible</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

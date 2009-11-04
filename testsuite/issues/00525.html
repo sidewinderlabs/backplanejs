@@ -1,0 +1,49 @@
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+ xmlns:ev="http://www.w3.org/2001/xml-events"
+>
+	<head>
+		<title>
+			Issue 525
+		</title>
+
+		<script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+	</head>
+
+	<body>
+		<h1>
+			<a href="http://code.google.com/p/ubiquity-xforms/issues/detail?id=525">Issue 525</a>
+		</h1>
+
+		<h2>
+			Dispatch of DOMActivate from trigger elements is not reliable
+		</h2>
+
+		<xf:model>
+			<xf:instance>
+				<data xmlns="">
+					<count>0</count>
+					<ready></ready>
+				</data>
+			</xf:instance>
+		</xf:model>
+
+		<xf:trigger id="trigger">
+			<xf:label>Test</xf:label>
+			<xf:action ev:event="DOMActivate">
+				<xf:setvalue ref="/data/count" value="number(.) + 1"></xf:setvalue>
+				<xf:setvalue ref="/data/ready" value="'TRUE'"></xf:setvalue>
+			</xf:action>
+			<xf:setvalue ev:event="DOMFocusOut" ref="/data/ready" value="'FALSE'"></xf:setvalue>
+		</xf:trigger>
+
+		<xf:output ref="/data/count" id="result">
+			<xf:label>Click count:</xf:label>
+		</xf:output>
+
+		<xf:output ref="/data/ready" id="ready">
+			<xf:label>Ready:</xf:label>
+		</xf:output>
+	</body>
+</html>

@@ -1,0 +1,157 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>8.1.7.g data binding restrictions on range element for basic processors</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+				  <td rowspan="1" colspan="3">8.1.7.g data binding restrictions on range element for basic processors<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../Chapt08/8.1/8.1.7/8.1.7.g.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>waitForModelReady</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>8.1.7.g data binding restrictions on range element for basic processors</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:range[@ref='car_dateTime']</td>
+					<td></td>
+					<td>Checks that the range is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyXFormsControlStatus</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:range[@ref='car_dateTime']</td>
+					<td>valid</td>
+					<td>Verifies that the range is valid</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:group[4]/xforms:range[@ref='car_date']</td>
+					<td></td>
+					<td>Checks that the range is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyXFormsControlStatus</td>
+					<td>xpath=/html/body/xforms:group[4]/xforms:range[@ref='car_date']</td>
+					<td>valid</td>
+					<td>Verifies that the range is valid</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:group[5]/xforms:range[@ref='car_time']</td>
+					<td></td>
+					<td>Checks that the range is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyXFormsControlStatus</td>
+					<td>xpath=/html/body/xforms:group[5]/xforms:range[@ref='car_time']</td>
+					<td>valid</td>
+					<td>Verifies that the range is valid</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:group[6]/xforms:range[@ref='car_gYearMonth']</td>
+					<td></td>
+					<td>Checks that the range is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyXFormsControlStatus</td>
+					<td>xpath=/html/body/xforms:group[6]/xforms:range[@ref='car_gYearMonth']</td>
+					<td>valid</td>
+					<td>Verifies that the range is valid</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:group[7]/xforms:range[@ref='car_gYear']</td>
+					<td></td>
+					<td>Checks that the range is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyXFormsControlStatus</td>
+					<td>xpath=/html/body/xforms:group[7]/xforms:range[@ref='car_gYear']</td>
+					<td>valid</td>
+					<td>Verifies that the range is valid</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:group[8]/xforms:range[@ref='car_gMonthDay']</td>
+					<td></td>
+					<td>Checks that the range is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyXFormsControlStatus</td>
+					<td>xpath=/html/body/xforms:group[8]/xforms:range[@ref='car_gMonthDay']</td>
+					<td>valid</td>
+					<td>Verifies that the range is valid</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:group[9]/xforms:range[@ref='car_gDay']</td>
+					<td></td>
+					<td>Checks that the range is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyXFormsControlStatus</td>
+					<td>xpath=/html/body/xforms:group[9]/xforms:range[@ref='car_gDay']</td>
+					<td>valid</td>
+					<td>Verifies that the range is valid</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:group[10]/xforms:range[@ref='car_gMonth']</td>
+					<td></td>
+					<td>Checks that the range is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyXFormsControlStatus</td>
+					<td>xpath=/html/body/xforms:group[10]/xforms:range[@ref='car_gMonth']</td>
+					<td>valid</td>
+					<td>Verifies that the range is valid</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:group[11]/xforms:range[@ref='car_decimal']</td>
+					<td></td>
+					<td>Checks that the range is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyXFormsControlStatus</td>
+					<td>xpath=/html/body/xforms:group[11]/xforms:range[@ref='car_decimal']</td>
+					<td>valid</td>
+					<td>Verifies that the range is valid</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <title>7.6.2.a is-card-number() function</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+         <xforms:instance xmlns="">
+		          <root>341111111111111</root>
+         </xforms:instance>
+      </xforms:model>
+  	   <xforms:group>
+  		     <xforms:label class="title">7.6.2.a is-card-number() function</xforms:label>
+  	   </xforms:group>
+  	
+  	   <xforms:group>
+  		     <xforms:label>
+  			You must see the value "true" for the Test 1, Test 2, and Test 3 output controls. 
+  			You must see the value "false" for the Test 4, Test 5, and Test 6 output controls.
+  		</xforms:label>
+  	   </xforms:group>
+  	
+  	   <xforms:group>
+         <xforms:output value="is-card-number('541234567890125')">
+            <xforms:label>Test 1 : </xforms:label>
+        
+         </xforms:output>
+      </xforms:group>
+      <xforms:group>
+         <xforms:output value="is-card-number('1002312234567990000')">
+      	     <xforms:label>Test 2 : </xforms:label>
+      	
+         </xforms:output>
+      </xforms:group>
+      <xforms:group>
+         <xforms:output value="is-card-number(.)"> 
+      	     <xforms:label>Test 3 : </xforms:label>
+      	
+         </xforms:output>
+      </xforms:group> 
+      <xforms:group>
+         <xforms:output value="is-card-number('123456789012')">
+            <xforms:label>Test 4 : </xforms:label>
+        
+         </xforms:output>
+      </xforms:group>
+      <xforms:group>
+         <xforms:output value="is-card-number('123')">
+            <xforms:label>Test 5 : </xforms:label>
+        
+         </xforms:output>
+      </xforms:group>
+      <xforms:group>
+         <xforms:output value="is-card-number('12345a789012')">
+      	     <xforms:label>Test 6 : </xforms:label>
+      	
+         </xforms:output>
+      </xforms:group>
+		
+  </body>
+</html>

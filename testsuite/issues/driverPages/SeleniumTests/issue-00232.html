@@ -1,0 +1,156 @@
+<!--
+  * Copyright (c) 2009 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="content-type">
+
+		<title>
+			Issue 232
+		</title>
+	</head>
+
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+					<td colspan="3">Issue 232</td>
+				</tr>
+
+				<tr>
+					<td>open</td>
+					<td>../../00232.html</td>
+					<td></td>
+				</tr>
+
+				<tr>
+					<td>waitForText</td>
+					<td>id=ready</td>
+					<td>Ready: TRUE 1</td>
+				</tr>
+
+				<tr>
+					<td>click</td>
+					<td>id=test1</td>
+					<td></td>
+				</tr>
+
+				<tr>
+					<td>setTimeout</td>
+					<td>2000</td>
+					<td></td>
+				</tr>
+
+				<tr>
+					<td>waitForText</td>
+					<td>id=ready</td>
+					<td>Ready: TRUE 2</td>
+				</tr>
+
+				<tr>
+					<td>verifyText</td>
+					<td>id=result1</td>
+					<td>Test 1, first result: TEST PASSED</td>
+				</tr>
+
+				<tr>
+					<td>type</td>
+					<td>dom=document.activeElement</td>
+					<td>TEST PASSED</td>
+				</tr>
+
+				<tr>
+					<td>click</td>
+					<td>id=test2</td>
+					<td></td>
+				</tr>
+
+				<tr>
+					<td>waitForText</td>
+					<td>id=ready</td>
+					<td>Ready: TRUE 3</td>
+				</tr>
+
+				<tr>
+					<td>verifyNotText</td>
+					<td>id=result3</td>
+					<td>Test 2, result: TEST FAILED</td>
+				</tr>
+
+				<!-- This is postponed from test 1, because we need to know
+				     that change has been confirmed before verifying the text. -->
+				<tr>
+					<td>verifyText</td>
+					<td>id=result2</td>
+					<td>Test 1, second result: TEST PASSED</td>
+				</tr>
+
+				<tr>
+					<td>click</td>
+					<td>id=test3</td>
+					<td></td>
+				</tr>
+
+				<tr>
+					<td>waitForText</td>
+					<td>id=ready</td>
+					<td>Ready: TRUE 4</td>
+				</tr>
+
+				<tr>
+					<td>verifyText</td>
+					<td>id=result4</td>
+					<td>Test 3, result: TEST PASSED</td>
+				</tr>
+
+				<tr>
+					<td>click</td>
+					<td>id=test4</td>
+					<td></td>
+				</tr>
+
+				<tr>
+					<td>waitForText</td>
+					<td>id=ready</td>
+					<td>Ready: TRUE 5</td>
+				</tr>
+
+				<tr>
+					<td>verifyText</td>
+					<td>id=result5</td>
+					<td>Test 4, result: 2</td>
+				</tr>
+
+				<tr>
+					<td>click</td>
+					<td>id=test5</td>
+					<td></td>
+				</tr>
+
+				<tr>
+					<td>waitForText</td>
+					<td>id=ready</td>
+					<td>Ready: TRUE 6</td>
+				</tr>
+
+				<tr>
+					<td>verifyText</td>
+					<td>id=result6</td>
+					<td>Test 5, result: TEST PASSED</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <title>3.3.4.a nodeset attribute of bind element</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+         <xforms:instance xmlns="" id="i_001">
+            <car>
+               <make>Honda
+          	<model>S2000</model>
+               </make>
+               <year>2005</year>
+               <color>suzuka blue</color>
+               <hp>240</hp>
+            </car>
+         </xforms:instance>
+         <xforms:bind id="bind_001" nodeset="/car/color"/>
+      </xforms:model>
+  	   <xforms:group>
+  		     <xforms:label class="title">3.3.4.a nodeset attribute of bind element</xforms:label>
+  	   </xforms:group>
+	     <xforms:group>
+		       <xforms:label>You must see the value "suzuka blue":</xforms:label>
+	     </xforms:group>
+      <xforms:output bind="bind_001">
+        <xforms:label/>
+      </xforms:output>
+  </body>
+</html>

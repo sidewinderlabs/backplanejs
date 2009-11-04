@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xml:lang="en" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fp="urn:formsplayer.com">
+	<head>
+		<title>Testing Model Attribute</title>
+		<script>
+//     debugger;
+		</script>
+		<link rel="stylesheet" type="text/css" href="ubiquity-test-suite.css" />
+	    <script>
+	        var g_sBehaviourDirectory = "../../../src/behaviours/";
+	    </script>
+	    <script src="../../../src/ubiquity-loader.js">/**/</script>
+	    
+	</head>
+	<body>
+		<xf:model id="m0">
+			<xf:instance id="i0">
+				<x>
+					<y>hello</y>
+					<z>sailor</z>
+				</x>
+			</xf:instance>
+		</xf:model>
+	    <xf:model id="m1">
+	        <xf:instance id="i1">
+	            <x>
+	                <y>bonjour</y>
+	                <z>matelot</z>
+	            </x>
+	        </xf:instance>
+	    </xf:model>		
+	    <script type="text/javascript">
+		//  var oLogReader = new YAHOO.widget.LogReader("fc-logger",{top:"50%",right:"10px"});
+		//  document.logger = new YAHOO.widget.LogWriter("ajaxfP");
+			document.logger = { log: function(sText, sContext) { } };
+		</script>
+		<hr />
+		<h1>Testing the model attribute</h1>
+		<hr />
+	    
+	    
+	    no model attribute
+	    <xf:output id="o0" ref="y"></xf:output>
+	    
+	    model="m0"
+	    <xf:output id="o1" model="m0" ref="y"></xf:output>
+	    
+	    model="m1"
+	    <xf:output id="o2" model="m1" ref="y"></xf:output>
+	    
+	    group/@model="m1"
+	    <xf:group ref="z" model="m1">
+            no model attribute
+	        <xf:output id="o3" ref="."></xf:output>
+	        model="m0"
+	        <xf:output id="o4" model="m0" ref="y"></xf:output>
+	        model="m1"
+	        <xf:output id="o5" model="m1" ref="."></xf:output>
+	    </xf:group>
+	    
+	    <hr />
+	</body>
+</html>

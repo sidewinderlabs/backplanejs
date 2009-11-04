@@ -1,0 +1,619 @@
+<html><body>
+<h1>Test suite results </h1>
+
+<table>
+<tr>
+<td>result:</td>
+<td>failed</td>
+</tr>
+<tr>
+<td>totalTime:</td>
+<td>35</td>
+</tr>
+<tr>
+<td>numTestPasses:</td>
+<td>0</td>
+</tr>
+<tr>
+<td>numTestFailures:</td>
+<td>10</td>
+</tr>
+<tr>
+<td>numCommandPasses:</td>
+<td>41</td>
+</tr>
+<tr>
+<td>numCommandFailures:</td>
+<td>0</td>
+</tr>
+<tr>
+<td>numCommandErrors:</td>
+<td>10</td>
+</tr>
+<tr>
+<td><TABLE class=selenium id=suiteTable cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD><B>XForms 1.1 Appendix G Test Suite</B></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A style="COLOR: red" href="./Appendix/G/G.1/g.1.a.html">g.1.a enabled and disabled pseudo-classes (non-normative)</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A style="COLOR: red" href="./Appendix/G/G.1/g.1.b.html">g.1.b required and optional pseudo-classes (non-normative)</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A style="COLOR: red" href="./Appendix/G/G.1/g.1.c.html">g.1.c valid and invalid pseudo-classes (non-normative)</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A style="COLOR: red" href="./Appendix/G/G.1/g.1.d.html">g.1.d read-only and read-write pseudo-classes (non-normative)</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A style="COLOR: red" href="./Appendix/G/G.1/g.1.e.html">g.1.e out-of-range and in-range pseudo-classes (non-normative)</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A style="COLOR: red" href="./Appendix/G/G.2/g.2.a.html">g.2.a value pseudo-element (non-normative)</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A style="COLOR: red" href="./Appendix/G/G.2/g.2.b.html">g.2.b repeat-item pseudo-element (non-normative)</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A style="COLOR: red" href="./Appendix/G/G.2/g.2.c.html">g.2.c repeat-index pseudo-element (non-normative)</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A style="COLOR: red" href="./Appendix/G/G.2/g.2.d.html">g.2.d repeat-index precedence over repeat-item (non-normative)</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A style="COLOR: red" href="./Appendix/G/G.3/g.3.html">g.3 namespace example (non-normative)</A></TD></TR></TBODY></TABLE><BR><EM>Not supported in this browser</EM> 
+<TABLE class=selenium id=skippedTests cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR>
+<TD><B>Skipped Tests</B></TD></TR></TBODY></TABLE></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>g.1.a enabled and disabled pseudo-classes (non-normative)<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/G/G.1/g.1.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>g.1.a enabled and disabled pseudo-classes (non-normative)</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@id='make' and @nodeset='/car/make' and @relevant='true()']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the relevant is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@id='model' and @nodeset='/car/model' and @relevant='false()']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the relevant is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:input[@bind='make']</TD>
+<TD originalHTML></TD>
+<TD>Checks that input is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:input[@bind='model']</TD>
+<TD originalHTML></TD>
+<TD>Checks that input is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyColor</TD>
+<TD>xpath=/html/body/xforms:input[@bind='make']</TD>
+<TD originalHTML="red">Unknown command: 'verifyColor'</TD>
+<TD>Checks that input color is in the form</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>g.1.b required and optional pseudo-classes (non-normative)<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/G/G.1/g.1.b.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>g.1.b required and optional pseudo-classes (non-normative)</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@id='make' and @nodeset='/car/make' and @required='true()']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the required is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@id='model' and @nodeset='/car/model' and @required='false()']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the required is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:output[@bind='make']</TD>
+<TD originalHTML></TD>
+<TD>Checks that output is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:output[@bind='model']</TD>
+<TD originalHTML></TD>
+<TD>Checks that output is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyColor</TD>
+<TD>xpath=/html/body/xforms:output[@bind='make']</TD>
+<TD originalHTML="red">Unknown command: 'verifyColor'</TD>
+<TD>Checks that output color is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyColor</TD>
+<TD>xpath=/html/body/xforms:output[@bind='make']</TD>
+<TD originalHTML="blue">blue</TD>
+<TD>Checks that output color is in the form</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>g.1.c valid and invalid pseudo-classes (non-normative)<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/G/G.1/g.1.c.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>g.1.c valid and invalid pseudo-classes (non-normative)</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@id='oil' and @nodeset='/car/oilChange' and @type='xsd:boolean']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the type is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@id='tire' and @nodeset='/car/tireRotation' and @type='xsd:boolean']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the type is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:output[@ref='/car/oilChange']</TD>
+<TD originalHTML></TD>
+<TD>Checks that output is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:output[@ref='/car/tireRotation']</TD>
+<TD originalHTML></TD>
+<TD>Checks that output is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyColor</TD>
+<TD>xpath=/html/body/xforms:output[@ref='/car/oilChange']</TD>
+<TD originalHTML="teal">Unknown command: 'verifyColor'</TD>
+<TD>Checks that output color is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyColor</TD>
+<TD>xpath=/html/body/xforms:output[@ref='/car/tireRotation']</TD>
+<TD originalHTML="red">red</TD>
+<TD>Checks that output color is in the form</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>g.1.d read-only and read-write pseudo-classes (non-normative)<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/G/G.1/g.1.d.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>g.1.d read-only and read-write pseudo-classes (non-normative)</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@id='oil' and @nodeset='/car/oilChange' and @readonly='true()']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the type is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@id='tire' and @nodeset='/car/tireRotation' and @readonly='false()']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the type is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:output[@ref='/car/oilChange']</TD>
+<TD originalHTML></TD>
+<TD>Checks that output is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:output[@ref='/car/tireRotation']</TD>
+<TD originalHTML></TD>
+<TD>Checks that output is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyColor</TD>
+<TD>xpath=/html/body/xforms:output[@ref='/car/oilChange']</TD>
+<TD originalHTML="pink">Unknown command: 'verifyColor'</TD>
+<TD>Checks that output color is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyColor</TD>
+<TD>xpath=/html/body/xforms:output[@ref='/car/tireRotation']</TD>
+<TD originalHTML="orange">orange</TD>
+<TD>Checks that output color is in the form</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>g.1.e out-of-range and in-range pseudo-classes (non-normative)<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/G/G.1/g.1.e.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>g.1.e out-of-range and in-range pseudo-classes (non-normative)</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:range[@ref='/car/year' and @start='1975' and @end='2010' and @step='1']</TD>
+<TD originalHTML></TD>
+<TD>Checks that range is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:range[@ref='/car/horsepower' and @start='0' and @end='2000' and @step='100']</TD>
+<TD originalHTML></TD>
+<TD>Checks that range is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyColor</TD>
+<TD>xpath=/html/body/xforms:range[@ref='/car/year' and @start='1975' and @end='2010' and @step='1']</TD>
+<TD originalHTML="yellow">Unknown command: 'verifyColor'</TD>
+<TD>Checks that range color is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyColor</TD>
+<TD>xpath=/html/body/xforms:range[@ref='/car/horsepower' and @start='0' and @end='2000' and @step='100']</TD>
+<TD originalHTML="blue">blue</TD>
+<TD>Checks that range color is in the form</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>g.2.a value pseudo-element (non-normative)<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/G/G.2/g.2.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>g.2.a value pseudo-element (non-normative)</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/car/year']</TD>
+<TD originalHTML></TD>
+<TD>Checks that input is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyColor</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/car/year']</TD>
+<TD originalHTML="orange">Unknown command: 'verifyColor'</TD>
+<TD>Checks that input color is in the form</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>g.2.b repeat-item pseudo-element (non-normative)<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/G/G.2/g.2.b.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>g.2.b repeat-item pseudo-element (non-normative)</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:repeat[@nodeset='/car/make']</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:repeat[@nodeset='/car/make']//xforms:output</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat's output is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyColor</TD>
+<TD>xpath=/html/body/xforms:repeat[@nodeset='/car/make']//xforms:output</TD>
+<TD originalHTML="yellow">Unknown command: 'verifyColor'</TD>
+<TD>Checks that repeat's output color is in the form</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>g.2.c repeat-index pseudo-element (non-normative)<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/G/G.2/g.2.c.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>g.2.c repeat-index pseudo-element (non-normative)</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[3]</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat's output is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:output[@value="index('repeat1')"]</TD>
+<TD originalHTML></TD>
+<TD>Checks that output is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:trigger[1]</TD>
+<TD originalHTML></TD>
+<TD>Clicks on the button1</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:output[@value="index('repeat1')"]</TD>
+<TD originalHTML="*1*">*1*</TD>
+<TD>Checks that output is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>assertColor</TD>
+<TD>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[1]</TD>
+<TD originalHTML="yellow">Unknown command: 'assertColor'</TD>
+<TD>Checks that repeat's output color is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:trigger[2]</TD>
+<TD originalHTML></TD>
+<TD>Clicks on the button2</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:output[@value="index('repeat1')"]</TD>
+<TD originalHTML="*2*">*2*</TD>
+<TD>Checks that output is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>assertColor</TD>
+<TD>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[2]</TD>
+<TD originalHTML="yellow">yellow</TD>
+<TD>Checks that repeat's output color is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:trigger[3]</TD>
+<TD originalHTML></TD>
+<TD>Clicks on the button3</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:output[@value="index('repeat1')"]</TD>
+<TD originalHTML="*3*">*3*</TD>
+<TD>Checks that output is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyColor</TD>
+<TD>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[3]</TD>
+<TD originalHTML="yellow">yellow</TD>
+<TD>Checks that repeat's output color is in the form</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>g.2.d repeat-index precedence over repeat-item (non-normative)<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/G/G.2/g.2.d.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>g.2.d repeat-index precedence over repeat-item (non-normative)</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[3]</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat's output is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:output[@value="index('repeat1')"]</TD>
+<TD originalHTML></TD>
+<TD>Checks that output is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:trigger[1]</TD>
+<TD originalHTML></TD>
+<TD>Clicks on the button1</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:output[@value="index('repeat1')"]</TD>
+<TD originalHTML="*1*">*1*</TD>
+<TD>Checks that output is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>assertColor</TD>
+<TD>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[1]</TD>
+<TD originalHTML="yellow">Unknown command: 'assertColor'</TD>
+<TD>Checks that repeat's output color is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>assertColor</TD>
+<TD>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[2]</TD>
+<TD originalHTML="orange">orange</TD>
+<TD>Checks that repeat's output color is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>assertColor</TD>
+<TD>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[3]</TD>
+<TD originalHTML="orange">orange</TD>
+<TD>Checks that repeat's output color is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:trigger[2]</TD>
+<TD originalHTML></TD>
+<TD>Clicks on the button2</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:output[@value="index('repeat1')"]</TD>
+<TD originalHTML="*2*">*2*</TD>
+<TD>Checks that output is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>assertColor</TD>
+<TD>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[1]</TD>
+<TD originalHTML="orange">orange</TD>
+<TD>Checks that repeat's output color is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>assertColor</TD>
+<TD>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[2]</TD>
+<TD originalHTML="yellow">yellow</TD>
+<TD>Checks that repeat's output color is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>assertColor</TD>
+<TD>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[3]</TD>
+<TD originalHTML="orange">orange</TD>
+<TD>Checks that repeat's output color is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:trigger[3]</TD>
+<TD originalHTML></TD>
+<TD>Clicks on the button3</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:output[@value="index('repeat1')"]</TD>
+<TD originalHTML="*3*">*3*</TD>
+<TD>Checks that output is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyColor</TD>
+<TD>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[1]</TD>
+<TD originalHTML="orange">orange</TD>
+<TD>Checks that repeat's output color is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyColor</TD>
+<TD>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[2]</TD>
+<TD originalHTML="orange">orange</TD>
+<TD>Checks that repeat's output color is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyColor</TD>
+<TD>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[3]</TD>
+<TD originalHTML="yellow">yellow</TD>
+<TD>Checks that repeat's output color is in the form</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>g.3 namespace example (non-normative)<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Appendix/G/G.3/g.3.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>g.3 namespace example (non-normative)</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:repeat[@nodeset='/car/make']</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:repeat[@nodeset='/car/make']//xforms:output</TD>
+<TD originalHTML></TD>
+<TD>Checks that repeat's output is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyColor</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:repeat[@nodeset='/car/make']//xforms:output</TD>
+<TD originalHTML="teal">Unknown command: 'verifyColor'</TD>
+<TD>Checks that repeat's output color is in the form</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+</table></body></html>

@@ -1,0 +1,73 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>5.2.1.b built-in derived types which allow empty content</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+				  <td rowspan="1" colspan="3">5.2.1.b built-in derived types which allow empty content<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../Chapt05/5.2/5.2.1/5.2.1.b.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>waitForModelReady</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>5.2.1.b built-in derived types which allow empty content</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:repeat</td>
+					<td></td>
+					<td>Checks that repeat is in the form</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:trigger</td>
+					<td></td>
+					<td>Clicks on the button</td>
+				</tr>
+				<tr>
+					<td>waitForText</td>
+					<td>xpath=/html/body/xforms:repeat</td>
+					<td>*</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:repeat</td>
+					<td>Result: xforms-valid (normalizedString)*Result: xforms-valid (token)*Result: xforms-valid (language)*Result: xforms-valid (Name)*Result: xforms-valid (NCName)*Result: xforms-valid (ID)*Result: xforms-valid (IDREF)*Result: xforms-valid (IDREFS)*Result: xforms-valid (NMTOKEN)*Result: xforms-valid (NMTOKENS)*Result: xforms-valid (integer)*Result: xforms-valid (nonPositiveInteger)*Result: xforms-valid(negativeInteger)*Result: xforms-valid (long)*Result: xforms-valid (int)*Result: xforms-valid (short)*Result: xforms-valid (byte)*Result: xforms-valid (nonNegativeInteger)*Result: xforms-valid (unsignedLong)*Result: xforms-valid (unsignedInt)*Result: xforms-valid (unsignedShort)*Result: xforms-valid (unsignedByte)*xforms-valid event (positiveInteger)</td>
+					<td>Checks that repeat has the right content.</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

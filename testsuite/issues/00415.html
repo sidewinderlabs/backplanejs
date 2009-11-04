@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  * Copyright � 2009 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<!DOCTYPE html
+ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+ xmlns:ev="http://www.w3.org/2001/xml-events"
+>
+	<head>
+		<title>
+			Issue 415
+		</title>
+
+		<script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+	</head>
+
+	<body>
+		<h1>
+			<a href="http://code.google.com/p/ubiquity-xforms/issues/detail?id=415">Issue 415</a>
+		</h1>
+
+		<h2>
+			navindex and accesskey
+		</h2>
+
+		<p>
+			Pressing Alt and the indicated access key should give focus to the correct control.
+		</p>
+
+		<xf:model id="mdl">
+			<xf:instance id="inst-test">
+				<test xmlns="">
+					<first></first>
+					<second></second>
+					<third></third>
+				</test>
+			</xf:instance>
+		</xf:model>
+
+		<xf:input ref="instance('inst-test')/first" id="input1" accesskey="1">
+			<xf:label>
+				accesskey="1":
+			</xf:label>
+		</xf:input>
+
+		<xf:input ref="instance('inst-test')/second" id="input2" accesskey="b">
+			<xf:label>
+				accesskey="b":
+			</xf:label>
+		</xf:input>
+
+		<xf:input ref="instance('inst-test')/third" id="input3" accesskey="C">
+			<xf:label>
+				accesskey="C":
+			</xf:label>
+		</xf:input>
+	</body>
+</html>

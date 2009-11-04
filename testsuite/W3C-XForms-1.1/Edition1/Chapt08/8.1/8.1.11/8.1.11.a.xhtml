@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events">
+  <head>
+      <title>8.1.11.a selection attribute of select1 element</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+    	    <xforms:instance xmlns="">
+    		      <icecream>
+    			        <flavor/>
+    		      </icecream>
+    	    </xforms:instance>
+      </xforms:model>
+      <xforms:group>
+    	    <xforms:label class="title">8.1.11.a selection attribute of select1 element</xforms:label>
+      </xforms:group>
+	     <xforms:group>
+		       <xforms:label>
+		  You must be able to both select a value from the Select A Flavor select1 control and enter your own value 
+		  into it. 
+		</xforms:label>
+	     </xforms:group>
+	     <xforms:group>
+	        <xforms:output ref="/icecream/flavor">
+		          <xforms:label>Selected Flavor : </xforms:label>
+	        </xforms:output>
+	     </xforms:group>
+	     <xforms:group>
+	        <xforms:select1 ref="/icecream/flavor" selection="open">
+	           <xforms:label>Select a Flavor :</xforms:label>
+		          <xforms:item>
+			            <xforms:label>Vanilla</xforms:label>
+			            <xforms:value>v</xforms:value>
+		          </xforms:item>
+		          <xforms:item>
+			            <xforms:label>Strawberry</xforms:label>
+			            <xforms:value>s</xforms:value>
+		          </xforms:item>
+		          <xforms:item>
+			            <xforms:label>Chocolate</xforms:label>
+			            <xforms:value>c</xforms:value>
+		          </xforms:item>
+	        </xforms:select1>
+	     </xforms:group>
+  </body>
+</html>

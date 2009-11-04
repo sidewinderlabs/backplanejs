@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:xsi="http://www.w3.org/XMLSchema-instance"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+     <head>
+          <title>7.10.3.c id() function with xsi:type</title>
+          
+          <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link href="../../../driverPages/forms/TestSuite11.css" rel="stylesheet"
+                  type="text/css"/>
+     </head>
+     <body>
+      <xforms:model>
+               <xforms:instance xmlns="">
+                    <root>
+                         <level_1a>
+                              <level_1achild xsi:type="xsd:ID" name="Node-A">a</level_1achild>
+                              <level_1achild xsi:type="xsd:ID" name="Node-D">d</level_1achild>
+                         </level_1a>
+                         <level_1b>
+                              <level_1bchild xsi:type="xsd:ID" name="Node-B">b</level_1bchild>
+                              <level_1bchild xsi:type="xsd:ID" name="Node-F">f</level_1bchild>
+                              <level_1bchild xsi:type="xsd:ID" name="Node-C">c</level_1bchild>
+                         </level_1b>
+                    </root>
+               </xforms:instance>
+          </xforms:model>
+          <xforms:group>
+               <xforms:label class="title">7.10.3.c id() function with xsi:type</xforms:label>
+          </xforms:group>
+          <xforms:group>
+               <xforms:label>
+                 You must see the values "Node-A", "Node-B", and "Node-C" for the Node 
+                 Values output. 
+            </xforms:label>
+          </xforms:group>
+          <xforms:repeat nodeset="id('a b c')">
+               <xforms:output ref="@name">
+                    <xforms:label>Node Values : </xforms:label>
+               </xforms:output>
+          </xforms:repeat>
+     </body>
+</html>

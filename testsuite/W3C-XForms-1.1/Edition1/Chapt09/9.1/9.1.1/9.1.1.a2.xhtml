@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:et="http://w3c.org/eventtracker">
+   <head>
+	     <title>9.1.1.a2 group element inside case element of a switch</title>
+	     <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+	
+   </head>
+	  <body>
+      <xforms:model>
+		       <xforms:instance xmlns="">
+			         <yourname/>
+		       </xforms:instance>
+	     </xforms:model>
+		    <xforms:group>
+			      <xforms:label class="title">9.1.1.a2 group element inside case element of a switch</xforms:label>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:label>
+			  When you activate the Show Out Case trigger you must see "You are now in the Out case" 
+			  output to the screen and a Show In Case trigger. 
+			  When you activate the Show In Case trigger you must see "You are now in the In case" 
+			  output to the screen and a Show Out Case trigger. 
+			  When either switch is activated you must see an xforms-disabled message and an xforms-enabled message. 
+			</xforms:label>
+		    </xforms:group>
+		    <xforms:switch>
+			      <xforms:case id="in">
+				        <xforms:group>
+					          <xforms:label>You are now in the In case</xforms:label>
+					          <xforms:message level="modal" ev:event="xforms-disabled">xforms-disabled</xforms:message>
+					          <xforms:message level="modal" ev:event="xforms-enabled">xforms-enabled</xforms:message>
+				        </xforms:group>
+				        <xforms:trigger ref="/yourname">
+					          <xforms:label>Show Out Case</xforms:label>
+					          <xforms:toggle ev:event="DOMActivate" case="out"/>
+				        </xforms:trigger>
+			      </xforms:case>
+			      <xforms:case id="out">
+				        <xforms:group>
+					          <xforms:label>You are now in the Out case</xforms:label>
+					          <xforms:message level="modal" ev:event="xforms-disabled">xforms-disabled</xforms:message>
+					          <xforms:message level="modal" ev:event="xforms-enabled">xforms-enabled</xforms:message>
+				        </xforms:group>
+				        <xforms:trigger>
+					          <xforms:label>Show In Case</xforms:label>
+					          <xforms:toggle ev:event="DOMActivate" case="in"/>
+				        </xforms:trigger>
+			      </xforms:case>
+		    </xforms:switch>
+		
+	  </body>
+</html>

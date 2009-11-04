@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:ev="http://www.w3.org/2001/xml-events">
+    <head>
+        <title>4.5.4.a xforms-link-exception</title>
+        <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+        
+    </head>
+    <body>
+      <xforms:model>
+        	  <xforms:instance xmlns="">
+                <data>Hello world!</data>
+            </xforms:instance>
+            <xforms:instance xmlns="" resource="badfile.xml"/>
+            <xforms:message ev:event="xforms-link-exception" level="modal">xforms-link-exception</xforms:message>
+        </xforms:model>
+        <p class="title">4.5.4.a xforms-link-exception</p>
+        <p>You may see an xforms-link-exception message. 
+              Processing must halt after dispatching an xforms-link-exception with a resource-uri of the link that failed.
+            	Processor specific testing is required to listen for an xforms-link-exception and validate the resource-uri.
+            	You must not see 'Hello world!' beneath this paragraph.</p>
+        <xforms:output ref="/data">
+          <xforms:label>You shouldn't see this : </xforms:label>
+        </xforms:output>
+    </body>
+</html>

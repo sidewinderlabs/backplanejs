@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:xf="http://www.w3.org/2002/xforms"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+>
+    <head>
+        <title>Boolean input control</title>
+        <script src="../src/ubiquity-loader.js">/**/</script>
+        <link rel="stylesheet" href="samples.css"></link>
+    </head>
+
+    <body>
+
+    <xf:model>
+        <xf:instance>
+            <instanceData xmlns="">
+                <check>false</check>
+            </instanceData>
+        </xf:instance>
+    </xf:model>
+
+    <p>
+      This sample contains an input widget bound to a checkbox.
+    </p>
+    <h3>Simple input control</h3>
+    <xf:input ref="check">
+        <xf:label>Enter true or false: </xf:label>
+    </xf:input>
+
+    <h3>Bound to two checkboxes</h3>
+
+<pre>
+&lt;xf:input ref="check" datatype="xf:boolean"&gt;
+  &lt;xf:label&gt;Check:&lt;/xf:label&gt;
+&lt;/xf:input&gt;
+</pre>
+
+    <xf:input ref="check" datatype="xf:boolean">
+      <xf:label>Check (datatype xf:boolean): </xf:label>
+    </xf:input>
+
+    <xf:input ref="check" datatype="xsd:boolean">
+      <xf:label>Check (datatype xsd:boolean): </xf:label>
+    </xf:input>
+
+    </body>
+</html>

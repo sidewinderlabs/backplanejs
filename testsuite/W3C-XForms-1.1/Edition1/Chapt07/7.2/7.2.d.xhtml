@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xforms="http://www.w3.org/2002/xforms">
+	  <head>
+		    <title>7.2.d context node for the computed expression is the node currently being processed</title>
+		    <script type="text/javascript"
+              src="../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/>
+		
+	  </head>
+	  <body>
+      <xforms:model xmlns:test="http://example.org">
+			      <xforms:instance xmlns="">
+				        <test:Lines>
+					          <test:Line>
+						            <test:Units>2</test:Units>
+						            <test:Price>3</test:Price>
+						            <test:Subtotal/>
+					          </test:Line>
+					          <test:Line>
+						            <test:Units>4</test:Units>
+						            <test:Price>5</test:Price>
+						            <test:Subtotal/>
+					          </test:Line>
+					          <test:Line>
+						            <test:Units>6</test:Units>
+						            <test:Price>7</test:Price>
+						            <test:Subtotal/>
+					          </test:Line>
+				        </test:Lines>
+			      </xforms:instance>
+			      <xforms:bind nodeset="test:Line/test:Subtotal" calculate="../test:Units * ../test:Price"/>
+		    </xforms:model>
+		    <xforms:group>
+			      <xforms:label class="title">
+				7.2.d context node for the computed expression is the node currently being processed
+			</xforms:label>
+		    </xforms:group>	
+		    <xforms:group>
+			      <xforms:label>
+			
+				You must see a value of "6" for the first Subtotal output, a value of "20" for the 
+				second Subtotal output, and a value of "42" for the third Subtotal output. 
+			</xforms:label>	
+		    </xforms:group>
+		
+		    <xforms:repeat xmlns:test="http://example.org" nodeset="test:Line">
+			      <xforms:group>
+				        <xforms:output ref="test:Subtotal">
+					          <xforms:label>Subtotal : </xforms:label>
+				        </xforms:output>
+			      </xforms:group>
+		    </xforms:repeat>
+		
+	  </body>
+</html>

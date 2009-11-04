@@ -1,0 +1,79 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>4.2.2.c1 form control referenced instance that did not exist yet</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+				  <td rowspan="1" colspan="3">4.2.2.c1 form control referenced instance that did not exist yet<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../Chapt04/4.2/4.2.2/4.2.2.c1.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>waitForModelReady</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>4.2.2.c1 form control referenced instance that did not exist yet</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:input[@ref='car']</td>
+					<td></td>
+					<td>Checks that the output is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:output[@value="concat(local-name(*[1]),'=',car)"]</td>
+					<td></td>
+					<td>Checks that the output is in the form</td>
+				</tr>
+				<tr>
+					<td>type</td>
+					<td>xpath=/html/body/xforms:input[@ref='car']/pe-value/input</td>
+					<td>Mitsubishi</td>
+					<td>Enter a car name in the textbox.</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>200</td>
+					<td></td>
+					<td>Give it sometime to update.</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:output[@value="concat(local-name(*[1]),'=',car)"]</td>
+					<td>car=Mitsubishi</td>
+					<td>Checks that the output has the car entered in the input.</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

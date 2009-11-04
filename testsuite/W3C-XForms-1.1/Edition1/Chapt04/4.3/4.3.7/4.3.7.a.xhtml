@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events">
+  <head>
+      <title>4.3.7.a xforms-focus event</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+         <xforms:instance xmlns="">
+            <car>
+        	      <make/>
+        	      <year/>
+            </car>
+         </xforms:instance>
+      </xforms:model>
+      <xforms:group>
+    	    <xforms:label class="title">4.3.7.a xforms-focus event</xforms:label>
+      </xforms:group>
+      <xforms:group>
+    	    <xforms:label>
+    	  When you activate the Set Focus trigger you must see an xforms-focus message. 
+    	</xforms:label>	
+      </xforms:group>
+    
+      <xforms:trigger>
+        <xforms:label>Set Focus</xforms:label>
+        <xforms:action ev:event="DOMActivate">
+			         <xforms:setfocus control="input1"/>
+		       </xforms:action>
+      </xforms:trigger>
+
+	     <xforms:group>
+	        <xforms:input ref="/car/year" id="input1">
+	           <xforms:label>Target control:</xforms:label>
+			         <xforms:action ev:event="xforms-focus">
+				           <xforms:message level="modal">xforms-focus</xforms:message>
+			         </xforms:action>
+	        </xforms:input>
+	     </xforms:group>
+	
+  </body>
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <title>g.2.a value pseudo-element (non-normative)</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="g2a.css" type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+         <xforms:instance xmlns="">
+            <car>
+               <year xsi:type="xsd:integer">2000</year>
+               <horsepower xsi:type="xsd:integer">-100</horsepower>
+            </car>
+         </xforms:instance>
+      </xforms:model>
+  	   <xforms:group>
+  		     <xforms:label class="title">g.2.a value pseudo-element (non-normative)</xforms:label>
+  	   </xforms:group>
+  	   <xforms:group>
+  		     <xforms:label>
+  		The input must have a dotted border around it with an orange 
+  		background, excluding the label.
+  		</xforms:label>
+  	   </xforms:group>
+	     <xforms:input ref="/car/year">
+		       <xforms:label>Car Year : </xforms:label>
+	     </xforms:input>
+	
+  </body>
+</html>

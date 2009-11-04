@@ -1,0 +1,89 @@
+<!--
+	* Copyright (C) 2008 Backplane Ltd.
+	*
+	* Licensed under the Apache License, Version 2.0 (the "License");
+	* you may not use this file except in compliance with the License.
+	* You may obtain a copy of the License at
+	*
+	*  http://www.apache.org/licenses/LICENSE-2.0
+	*
+	* Unless required by applicable law or agreed to in writing, software
+	* distributed under the License is distributed on an "AS IS" BASIS,
+	* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	* See the License for the specific language governing permissions and
+	* limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+			<title>Test Suite</title>
+			<link rel="stylesheet" type="text/css" href="../../../../selenium/core/selenium.css" />
+			<script language="JavaScript" type="text/javascript" src="../../../../selenium/core/scripts/selenium-browserdetect.js"></script>
+			<script language="JavaScript" type="text/javascript">//<![CDATA[
+    var DISABLED = true; // used to flag failing tests
+
+    function filterTestsForBrowser() {
+        var suiteTable = document.getElementById("suiteTable");
+        var skippedTests = document.getElementById("skippedTests");
+
+        for(rowNum = suiteTable.rows.length - 1; rowNum >= 0; rowNum--)
+        {
+            var row = suiteTable.rows[rowNum];
+            var filterString = row.getAttribute("unless");
+            if (filterString && eval(filterString))
+            {
+              var cellHTML = row.cells[0].innerHTML;
+              suiteTable.deleteRow(rowNum);
+
+              var newRow = skippedTests.insertRow(1);
+              var newCell = newRow.insertCell(0)
+              newCell.innerHTML = cellHTML;
+            }
+        }
+    }
+//]]>
+			</script>
+	</head>
+	<body onload="filterTestsForBrowser()">
+		<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium">
+			<tbody>
+				<tr>
+					<td><b>XForms 1.1 Chapter 9 Test Suite</b></td>
+				</tr>
+				<tr><td><a href="./Chapt09/9.1/9.1.1/9.1.1.a1.html">9.1.1.a1 precedence of group element</a></td></tr>
+				<tr><td><a href="./Chapt09/9.1/9.1.1/9.1.1.a2.html">9.1.1.a2 group element inside case element of a switch</a></td></tr>
+				<tr><td><a href="./Chapt09/9.1/9.1.1/9.1.1.b.html">9.1.1.b label element in a group element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt09/9.1/9.1.1/9.1.1.c.html">9.1.1.c focus set to group element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt09/9.2/9.2.1/9.2.1.a1.html">9.2.1.a1 switch element</a></td></tr>
+				<tr><td><a href="./Chapt09/9.2/9.2.1/9.2.1.a2.html">9.2.1.a2 switch element receives events</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt09/9.2/9.2.1/9.2.1.b.html">9.2.1.b switch element example</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt09/9.2/9.2.2/9.2.2.a.html">9.2.2.a case element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt09/9.2/9.2.2/9.2.2.b.html">9.2.2.b case element with selected attribute</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt09/9.2/9.2.2/9.2.2.c.html">9.2.2.c case element with multiple selected attributes</a></td></tr>
+				<tr><td><a href="./Chapt09/9.2/9.2.3/9.2.3.a.html">9.2.3.a events dispatched by toggle element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt09/9.2/9.2.3/9.2.3.1/9.2.3.1.a.html">9.2.3.1.a case element child of the toggle element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt09/9.2/9.2.3/9.2.3.1/9.2.3.1.b.html">9.2.3.1.b case element child of the toggle element precedence testing</a></td></tr>
+				<tr><td><a href="./Chapt09/9.3/9.3.1/9.3.1.a.html">9.3.1.a repeat element</a></td></tr>
+				<tr><td><a href="./Chapt09/9.3/9.3.1/9.3.1.b.html">9.3.1.b startindex attribute of repeat element</a></td></tr>
+				<tr><td><a href="./Chapt09/9.3/9.3.1/9.3.1.c.html">9.3.1.c number attribute of repeat element (non-normative)</a></td></tr>
+				<tr><td><a href="./Chapt09/9.3/9.3.1/9.3.1.d.html">9.3.1.d unrolling the repeat element</a></td></tr>
+				<tr><td><a href="./Chapt09/9.3/9.3.1/9.3.1.e.html">9.3.1.e repeat element example</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt09/9.3/9.3.1/9.3.1.f.html">9.3.1.f switch element within repeat element</a></td></tr>
+				<tr><td><a href="./Chapt09/9.3/9.3.4/9.3.4.a.html">9.3.4.a switch element inside a repeat element</a></td></tr>
+				<tr><td><a href="./Chapt09/9.3/9.3.5/9.3.5.a.html">9.3.5.a repeating structures via attributes (non-normative)</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt09/9.3/9.3.6/9.3.6.a.html">9.3.6.a itemset element example</a></td></tr>
+				<tr><td><a href="./Chapt09/9.3/9.3.7/9.3.7.a.html">9.3.7.a copy element</a></td></tr>
+				<tr><td><a href="./Chapt09/9.3/9.3.7/9.3.7.b.html">9.3.7.b copy element has xforms-binding-exception event</a></td></tr>
+			</tbody>
+		</table>
+		<br />
+		<em>Not supported in this browser</em>
+		<table id="skippedTests" cellpadding="1" cellspacing="1" border="1" class="selenium">
+			<tbody>
+				<tr>
+					<td><b>Skipped Tests</b></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

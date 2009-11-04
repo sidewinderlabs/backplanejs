@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events">
+  <head>
+      <title>4.4.15.a xforms-select and xforms-deselect events</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+         <xforms:instance xmlns="">
+            <selectedCar/>
+         </xforms:instance>
+      </xforms:model>
+      <xforms:group>
+    	    <xforms:label class="title">4.4.15.a xforms-select and xforms-deselect events</xforms:label>
+      </xforms:group>
+      <xforms:group>
+    	    <xforms:label>  	
+      		You must see an xforms-select message when the value "Subaru" is selected in 
+      		the select control. 
+      		You must see an xforms-deselect message when the value "Subaru" is deselected in 
+      		the select control. 
+      	</xforms:label>	
+      </xforms:group>
+    
+      <xforms:select ref="/selectedCar">
+      	  <xforms:label>Cars</xforms:label>
+        <xforms:item>
+          	<xforms:label>Pinto</xforms:label>
+          	<xforms:value>pin</xforms:value>
+        </xforms:item>
+        
+        <xforms:item>
+          	<xforms:label>Subaru</xforms:label>
+          	<xforms:value>sub</xforms:value>
+          	<xforms:action ev:event="xforms-select">
+          		   <xforms:message level="modal">xforms-select</xforms:message>
+          	</xforms:action>
+          	<xforms:action ev:event="xforms-deselect">
+          		   <xforms:message level="modal">xforms-deselect</xforms:message>
+          	</xforms:action>
+        </xforms:item>
+      </xforms:select>
+	
+  </body>
+</html>

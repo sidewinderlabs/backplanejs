@@ -1,0 +1,135 @@
+<!--
+	* Copyright (C) 2008 Backplane Ltd.
+	*
+	* Licensed under the Apache License, Version 2.0 (the "License");
+	* you may not use this file except in compliance with the License.
+	* You may obtain a copy of the License at
+	*
+	*  http://www.apache.org/licenses/LICENSE-2.0
+	*
+	* Unless required by applicable law or agreed to in writing, software
+	* distributed under the License is distributed on an "AS IS" BASIS,
+	* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	* See the License for the specific language governing permissions and
+	* limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+			<title>Test Suite</title>
+			<link rel="stylesheet" type="text/css" href="../../../../selenium/core/selenium.css" />
+			<script language="JavaScript" type="text/javascript" src="../../../../selenium/core/scripts/selenium-browserdetect.js"></script>
+			<script language="JavaScript" type="text/javascript">//<![CDATA[
+    var DISABLED = true; // used to flag failing tests
+
+    function filterTestsForBrowser() {
+        var suiteTable = document.getElementById("suiteTable");
+        var skippedTests = document.getElementById("skippedTests");
+
+        for(rowNum = suiteTable.rows.length - 1; rowNum >= 0; rowNum--)
+        {
+            var row = suiteTable.rows[rowNum];
+            var filterString = row.getAttribute("unless");
+            if (filterString && eval(filterString))
+            {
+              var cellHTML = row.cells[0].innerHTML;
+              suiteTable.deleteRow(rowNum);
+
+              var newRow = skippedTests.insertRow(1);
+              var newCell = newRow.insertCell(0)
+              newCell.innerHTML = cellHTML;
+            }
+        }
+    }
+//]]>
+			</script>
+	</head>
+	<body onload="filterTestsForBrowser()">
+		<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium">
+			<tbody>
+				<tr>
+					<td><b>XForms 1.1 Chapter 10 Test Suite</b></td>
+				</tr>
+				<tr><td><a href="./Chapt10/10.a.html">10.a action syntax example</a></td></tr>
+				<tr><td><a href="./Chapt10/10.b.html">10.b rebuild in action element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.c.html">10.c recalculate in action element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.d.html">10.d revalidate in action element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.e.html">10.e refresh in action element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.f.html">10.f insert in action element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.g.html">10.g delete in action element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.h.html">10.h setvalue in action element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.i.html">10.i reset in action element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.1/10.1.a.html">10.1.a action element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.2/10.2.a.html">10.2.a setvalue elements with expression or literal</a></td></tr>
+				<tr><td><a href="./Chapt10/10.2/10.2.b.html">10.2.b setvalue element with expression and literal, element with neither</a></td></tr>
+				<tr><td><a href="./Chapt10/10.3/10.3.a.html">10.3.a insert action using context attribute</a></td></tr>
+				<tr><td><a href="./Chapt10/10.3/10.3.b.html">10.3.b insert action with bind and model attributes</a></td></tr>
+				<tr><td><a href="./Chapt10/10.3/10.3.c.html">10.3.c insert action using origin attribute</a></td></tr>
+				<tr><td><a href="./Chapt10/10.3/10.3.d.html">10.3.d insert action using at attribute</a></td></tr>
+				<tr><td><a href="./Chapt10/10.3/10.3.e.html">10.3.e insert action using position attribute</a></td></tr>
+				<tr><td><a href="./Chapt10/10.3/10.3.f.html">10.3.f insert action in repeat bound to collection</a></td></tr>
+				<tr><td><a href="./Chapt10/10.3/10.3.g.html">10.3.g insert action - nodeset indicates root element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.3/10.3.h.html">10.3.h insert action and repeat element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.3/10.3.i.html">10.3.i insert action - xforms-insert event</a></td></tr>
+				<tr><td><a href="./Chapt10/10.3/10.3.j.html">10.3.j insert action - copying an attribute</a></td></tr>
+				<tr><td><a href="./Chapt10/10.4/10.4.a.html">10.4.a delete action using context attribute</a></td></tr>
+				<tr><td><a href="./Chapt10/10.4/10.4.b.html">10.4.b delete action using context and bind attributes</a></td></tr>
+				<tr><td><a href="./Chapt10/10.4/10.4.c.html">10.4.c delete action using context attribute terminates with no effect</a></td></tr>
+				<tr><td><a href="./Chapt10/10.4/10.4.d.html">10.4.d delete action using at attribute</a></td></tr>
+				<tr><td><a href="./Chapt10/10.4/10.4.e.html">10.4.e delete element rules</a></td></tr>
+				<tr><td><a href="./Chapt10/10.4/10.4.f.html">10.4.f delete action and repeat element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.4/10.4.g.html">10.4.g delete action with xforms-delete event</a></td></tr>
+				<tr><td><a href="./Chapt10/10.5/10.5.a.html">10.5.a setindex element rules</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt10/10.6/10.6.a.html">10.6.a events dispatched by toggle element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt10/10.6/10.6.1/10.6.1.a.html">10.6.1.a case element child of the toggle element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt10/10.6/10.6.1/10.6.1.b.html">10.6.1.b case element child of the toggle element precedence testing</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt10/10.7/10.7.a.html">10.7.a setfocus element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt10/10.7/10.7.1/10.7.1.a.html">10.7.1.a setfocus element with control child element</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt10/10.7/10.7.1/10.7.1.b.html">10.7.1.b control element precedence tests</a></td></tr>
+				<tr><td><a href="./Chapt10/10.8/10.8.a.html">10.8.a dispatch element dispatches predefined event</a></td></tr>
+				<tr><td><a href="./Chapt10/10.8/10.8.b.html">10.8.b dispatch element dispatches custom event</a></td></tr>
+				<tr><td><a href="./Chapt10/10.8/10.8.c.html">10.8.c dispatch element with delay attribute</a></td></tr>
+				<tr><td><a href="./Chapt10/10.8/10.8.d.html">10.8.d dispatch element dispatches custom event that bubbles</a></td></tr>
+				<tr><td><a href="./Chapt10/10.8/10.8.e.html">10.8.e dispatch element dispatches cancelled custom event</a></td></tr>
+				<tr><td><a href="./Chapt10/10.8/10.8.f.html">10.8.f dispatch element dispatches cancelled predefined event</a></td></tr>
+				<tr><td><a href="./Chapt10/10.8/10.8.1/10.8.1.a.html">10.8.1.a dispatch element with name child element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.8/10.8.1/10.8.1.b.html">10.8.1.b name element has precedence over attribute</a></td></tr>
+				<tr><td><a href="./Chapt10/10.8/10.8.1/10.8.1.c.html">10.8.1.c value attribute has precedence in name element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.8/10.8.2/10.8.2.a.html">10.8.2.a dispatch element with target child element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.8/10.8.2/10.8.2.b.html">10.8.2.b target element has precedence over attribute</a></td></tr>
+				<tr><td><a href="./Chapt10/10.8/10.8.2/10.8.2.c.html">10.8.2.c value attribute has precedence in target element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.8/10.8.3/10.8.3.a.html">10.8.3.a dispatch element with delay child element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.8/10.8.3/10.8.3.b.html">10.8.3.b delay element has precedence over attribute</a></td></tr>
+				<tr><td><a href="./Chapt10/10.8/10.8.3/10.8.3.c.html">10.8.3.c value attribute has precedence in delay element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.13/10.13.a.html">10.13.a reset element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.13/10.13.b.html">10.13.b reset element with model attribute</a></td></tr>
+				<tr><td><a href="./Chapt10/10.14/10.14.a.html">10.14.a load element attributes</a></td></tr>
+				<tr><td><a href="./Chapt10/10.14/10.14.b.html">10.14.b show attribute of load element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.14/10.14.1/10.14.1.a.html">10.14.1.a load element with resource child element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.14/10.14.1/10.14.1.b.html">10.14.1.b value attribute has precedence in load element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.15/10.15.a.html">10.15.a send element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.16/10.16.a.html">10.16.a message element using single node binding</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt10/10.16/10.16.b.html">10.16.b level attribute of message element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.16/10.16.c.html">10.16.c message element interface created at run time</a></td></tr>
+				<tr><td><a href="./Chapt10/10.17/10.17.a.html">10.17.a conditional execution of XForms actions</a></td></tr>
+				<tr><td><a href="./Chapt10/10.17/10.17.b.html">10.17.b conditional execution of XForms actions using action element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.17/10.17.c.html">10.17.c conditional execution of XForms actions - Automatic Focus Advancement example</a></td></tr>
+				<tr><td><a style="color:red" href="./Chapt10/10.17/10.17.d.html">10.17.d conditional execution of XForms actions - Handling Focus for Empty Repeats example</a></td></tr>
+				<tr><td><a href="./Chapt10/10.18/10.18.a.html">10.18.a iteration of XForms actions</a></td></tr>
+				<tr><td><a href="./Chapt10/10.18/10.18.b.html">10.18.b iteration of XForms actions using action element</a></td></tr>
+				<tr><td><a href="./Chapt10/10.18/10.18.c.html">10.18.c iteration executed zero times</a></td></tr>
+				<tr><td><a href="./Chapt10/10.18/10.18.d.html">10.18.d XForms actions with if and while attributes</a></td></tr>
+				<tr><td><a href="./Chapt10/10.18/10.18.e.html">10.18.e iteration of XForms actions - Summing Selected Results example</a></td></tr>
+			</tbody>
+		</table>
+		<br />
+		<em>Not supported in this browser</em>
+		<table id="skippedTests" cellpadding="1" cellspacing="1" border="1" class="selenium">
+			<tbody>
+				<tr>
+					<td><b>Skipped Tests</b></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

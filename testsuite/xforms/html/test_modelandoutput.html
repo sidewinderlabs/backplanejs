@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xml:lang="en" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fp="urn:formsplayer.com">
+	<head>
+		<title>Testing Output</title>
+		<script>
+//     debugger;
+		</script>
+		<link rel="stylesheet" type="text/css" href="ubiquity-test-suite.css" />
+
+	  <script src="../../../src/ubiquity-loader.js">/**/</script>
+	    
+	</head>
+	<body>
+		<xf:model id="m1">
+			<xf:instance id="i0">
+				<x>
+					<y>hello</y>
+					<z>sailor</z>
+				</x>
+			</xf:instance>
+		</xf:model>
+		<script type="text/javascript">
+		//  var oLogReader = new YAHOO.widget.LogReader("fc-logger",{top:"50%",right:"10px"});
+		//  document.logger = new YAHOO.widget.LogWriter("ajaxfP");
+			document.logger = { log: function(sText, sContext) { } };
+		</script>
+		<hr />
+		<h1>Testing Output</h1>
+		<hr />
+		<xf:output id="o0" ref="y"></xf:output>
+		<xf:output id="o1" ref="/x/z">
+			<xf:label id="l0" ref="../y"></xf:label>
+		</xf:output>
+		<hr />
+	</body>
+</html>

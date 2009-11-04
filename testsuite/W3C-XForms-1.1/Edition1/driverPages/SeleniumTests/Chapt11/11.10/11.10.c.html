@@ -1,0 +1,151 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>11.10.c submission response with target receiving instance</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+				  <td rowspan="1" colspan="3">11.10.c submission response with the target data node receiving instance<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../Chapt11/11.10/11.10.c.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>waitForModelReady</td>
+					<td></td>
+					<td></td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>11.10.c submission response with the target data node receiving instance</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:model[@id='form1']/xforms:submission[@id='submit01']</td>
+					<td></td>
+					<td>Checks that submission is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:model[@id='form1']/xforms:message[@ev:event='xforms-submit-error']</td>
+					<td></td>
+					<td>Checks that message is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:group[11]/xforms:submit[@submission='submit01']</td>
+					<td></td>
+					<td>Checks that submit is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:group[4]/xforms:output</td>
+					<td>*Henry*</td>
+					<td>Checks that output has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:group[5]/xforms:output</td>
+					<td>*Acura*</td>
+					<td>Checks that output has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:group[6]/xforms:output</td>
+					<td>*white*</td>
+					<td>Checks that output has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:group[8]/xforms:output</td>
+					<td>*Thomas*</td>
+					<td>Checks that output has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:group[9]/xforms:output</td>
+					<td>*Toyota*</td>
+					<td>Checks that output has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:group[10]/xforms:output</td>
+					<td>*silver*</td>
+					<td>Checks that output has the right value</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:group[11]/xforms:submit[@submission='submit01']/xforms:label</td>
+					<td></td>
+					<td>Clicks on submit button</td>
+				</tr>
+				<tr>
+					<td>waitForText</td>
+					<td>xpath=/html/body/xforms:group[4]/xforms:output</td>
+					<td>*Henry*</td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:group[4]/xforms:output</td>
+					<td>*Henry*</td>
+					<td>Checks that output has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:group[5]/xforms:output</td>
+					<td>*Acura*</td>
+					<td>Checks that output has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:group[6]/xforms:output</td>
+					<td>*white*</td>
+					<td>Checks that output has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:group[8]/xforms:output</td>
+					<td>*Janel*</td>
+					<td>Checks that output has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:group[9]/xforms:output</td>
+					<td>*Saturn*</td>
+					<td>Checks that output has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:group[10]/xforms:output</td>
+					<td>*red*</td>
+					<td>Checks that output has the right value</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events">
+  <head>
+      <title>4.3.8.a xforms-help and xforms-hint events</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+         <xforms:instance xmlns="">
+      	     <car/>
+         </xforms:instance>
+      </xforms:model>
+  	   <xforms:group>
+  		     <xforms:label class="title">4.3.8.a xforms-help and xforms-hint events</xforms:label>
+  	   </xforms:group>
+  	   <xforms:group>
+  	      <xforms:label>
+  	    When you activate the Trigger Help Event trigger control you must see an xforms-help message. 
+  	    and you must see a message that says "This is the help". 
+  	    When you activate the Trigger Hint Event trigger control you must see an xforms-hint message. 
+  	    and you must see a message that says "This is the hint". The messages may also be triggered by 
+  	    other actions you may perform on the input control. What actions may trigger the messages depends on your 
+  	    renderer. 
+  	  </xforms:label>
+  	   </xforms:group>
+	
+  	   <xforms:trigger>
+  	  	   <xforms:label>Dispatch Help</xforms:label>
+  	  	   <xforms:action ev:event="DOMActivate">
+  	  		     <xforms:dispatch name="xforms-help" targetid="car_input"/>
+  	  	   </xforms:action>
+  	   </xforms:trigger>
+  	   <xforms:trigger>
+  	  	   <xforms:label>Dispatch Hint</xforms:label>
+  	  	   <xforms:action ev:event="DOMActivate">
+  	  		     <xforms:dispatch name="xforms-hint" targetid="car_input"/>
+  	  	   </xforms:action>
+  	   </xforms:trigger>
+    
+      <xforms:group>
+	        <xforms:input id="car_input" ref="/car">
+	           <xforms:label>Target:</xforms:label>
+	           <xforms:hint>This is the hint</xforms:hint>
+	           <xforms:help>This is the help</xforms:help>
+	           <xforms:action ev:event="xforms-hint">
+		             <xforms:message level="modal">xforms-hint</xforms:message>
+	           </xforms:action>
+	           <xforms:action ev:event="xforms-help">
+		             <xforms:message level="modal">xforms-help</xforms:message>
+	    	      </xforms:action>
+	        </xforms:input>
+      </xforms:group>
+	
+  </body>
+</html>

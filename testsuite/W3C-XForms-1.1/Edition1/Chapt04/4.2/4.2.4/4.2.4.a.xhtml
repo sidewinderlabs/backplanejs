@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events">
+  <head>
+      <title>4.2.4.a xforms-model-destruct dispatched after form submission</title>
+  	   <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+         <xforms:instance xmlns="">
+	           <data>
+	              <tested>false</tested>
+	           </data>
+         </xforms:instance>
+         <!-- @if prevents this test from running when this page is closed for other reasons. -->
+      <xforms:load ev:event="xforms-model-destruct" if="boolean-from-string(tested)"
+                      resource="http://www.w3.org"
+                      show="new"/>
+         <xforms:submission id="submission" action="http://xformstest.org/cgi-bin/echo.sh" method="post"/>
+      </xforms:model>
+      <xforms:group>
+         <xforms:label class="title">4.2.4.a xforms-model-destruct dispatched after form submission</xforms:label>
+      </xforms:group>
+      <xforms:group>
+         <xforms:label>
+	After activating the Submit trigger the W3C home page must show in a new context. This page will be 
+	replaced by the form data. 
+      </xforms:label>	
+      </xforms:group>
+
+      <xforms:group>
+         <xforms:output ref="tested">
+	           <xforms:label>Tested: </xforms:label>
+         </xforms:output>
+      </xforms:group>
+
+      <xforms:submit submission="submission">
+         <xforms:label>Submit</xforms:label>
+         <xforms:setvalue ev:event="DOMActivate" ref="tested">true</xforms:setvalue>
+      </xforms:submit>
+
+    
+  </body>
+</html>

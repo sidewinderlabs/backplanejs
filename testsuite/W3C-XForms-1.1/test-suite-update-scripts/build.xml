@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<project name="xf-copy-test-suite" default="copy">
+	<target name="copy">
+		<move todir="." includeemptydirs="false">
+			<fileset dir=".">
+				<exclude name="**/*.bak"/>
+			</fileset>
+			<mapper type="glob" from="*.xhtml" to="*.xhtml.bak"/>
+		</move>
+		<xslt basedir="." destdir="." style="ubiquityxforms.xsl">
+			<mapper type="glob" from="*.xhtml.bak" to="*.xhtml"/>
+			<xmlcatalog refid="html"/>
+		</xslt>		
+		<delete>
+			<fileset dir="." includes="**/*.xhtml.bak"/>
+		</delete>
+		
+		<replaceregexp flags="g">
+			<fileset dir=".">
+				<include name="**/*.xhtml"/>
+			</fileset>
+            <regexp pattern="xhtml:"/>
+			<substitution expression=""/>
+		</replaceregexp>
+				
+		<replaceregexp flags="g">
+			<fileset dir=".">
+				<include name="**/*.xhtml"/>
+			</fileset>
+            <regexp pattern=":xhtml"/>
+			<substitution expression=""/>
+		</replaceregexp>
+	</target>
+	<xmlcatalog id="html">
+		<dtd publicId="-//W3C//DTD XHTML 1.0 Transitional//EN" location="xhtml1-transitional.dtd"/>
+	</xmlcatalog>
+</project>

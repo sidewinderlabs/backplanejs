@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <title>3.3.4.b more bind element examples</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+         <xforms:instance xmlns="" id="i_001">
+            <car>
+		             <avg>not 3000</avg>
+		             <prices>
+		                <price>1000.00</price>
+		                <price>2000.00</price>
+		                <price>3000.00</price>
+		             </prices>
+            </car>
+         </xforms:instance>
+         <xforms:bind id="bind_001" nodeset="avg">
+        <!-- bind with no nodeset -->
+        <xforms:bind calculate="avg(../prices/price)"/>
+         </xforms:bind>
+      </xforms:model>
+  	   <xforms:group>
+  		     <xforms:label class="title">3.3.4.b more bind element examples</xforms:label>
+  	   </xforms:group>
+	     <xforms:group>
+	        <xforms:label>You must see the value "2000":</xforms:label>
+         <xforms:output bind="bind_001">
+            <xforms:label>Average car price: </xforms:label>
+         </xforms:output>
+	     </xforms:group>
+  </body>
+</html>

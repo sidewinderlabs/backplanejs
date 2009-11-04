@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <title>3.3.2.f instance with inline data, resource attribute, and src attribute (non-normative)</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+    
+  </head>
+  <body>
+      <xforms:model id="model1">
+         <xforms:instance xmlns="" src="3.3.2.f.data.xml">
+            <entry>
+               <name>Wendy</name>
+               <age>20</age>
+               <education>college</education>
+            </entry>
+         </xforms:instance>
+      </xforms:model>
+      <xforms:model id="model2">
+    	    <xforms:instance xmlns="" resource="3.3.2.c.data.xml" src="3.3.2.f.data.xml"/>
+      </xforms:model>
+      <xforms:group>
+         <xforms:label class="title">3.3.2.f instance with inline data, resource attribute, and src attribute (non-normative)</xforms:label>
+      </xforms:group>
+      <xforms:group>
+         <xforms:label>
+      	This test case uses the src attribute to pull instance data from a file. 
+      </xforms:label>
+      </xforms:group>
+      <xforms:group>
+         <xforms:label>
+      	If your processor is set to override inline content with content from a linking attribute the Name output field below 
+      	must have the value "Suzie", the Age output field must have the value "7", and the 
+      	Education output field must have the value "elementary school". 
+      </xforms:label>
+	        <xforms:group>  
+	           <xforms:output model="model1" ref="name">
+	              <xforms:label>Name : </xforms:label>
+	           </xforms:output>
+	        </xforms:group>
+	        <xforms:group>
+	           <xforms:output model="model1" ref="age">
+	              <xforms:label>Age : </xforms:label>
+	           </xforms:output>
+	        </xforms:group>
+	        <xforms:group>
+	           <xforms:output model="model1" ref="education">
+	              <xforms:label>Education : </xforms:label>
+	           </xforms:output>
+	        </xforms:group>
+      </xforms:group>
+    
+      <xforms:group>
+         <xforms:label>
+      	If your processor is set to override data linked to with the resource attribute with content from a linking attribute 
+      	the Name output field below must have the value "Suzie", the Age output field must have the 
+      	value "7", and the Education output field must have the value "elementary school". 
+      </xforms:label>
+	        <xforms:group>  
+	           <xforms:output model="model2" ref="name">
+	              <xforms:label>Name : </xforms:label>
+	           </xforms:output>
+	        </xforms:group>
+	        <xforms:group>
+	           <xforms:output model="model2" ref="age">
+	              <xforms:label>Age : </xforms:label>
+	           </xforms:output>
+	        </xforms:group>
+	        <xforms:group>
+	           <xforms:output model="model2" ref="education">
+	              <xforms:label>Education : </xforms:label>
+	           </xforms:output>
+	        </xforms:group>
+      </xforms:group>
+  </body>
+</html>

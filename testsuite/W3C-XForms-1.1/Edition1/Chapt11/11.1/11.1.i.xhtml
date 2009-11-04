@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xforms="http://www.w3.org/2002/xforms">
+  <head>
+      <title>11.1.i relevant attribute of submission element</title>
+      <script type="text/javascript"
+              src="../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../driverPages/html/TestSuite11.css" type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model id="m1">
+         <xforms:instance xmlns="">       
+            <sportbike>
+          	    <make>Suzuki</make>
+          	    <model>Hayabusa 1300</model>
+          	    <dateOfPurchase>2006-04-26</dateOfPurchase>
+            </sportbike>
+         </xforms:instance>
+         <xforms:bind nodeset="/sportbike/dateOfPurchase" relevant="false()"/>
+         <xforms:submission id="sub_true" method="post" action="http://xformstest.org/cgi-bin/echo.sh"
+                            relevant="true"/>
+         <xforms:submission id="sub_false" method="post" action="http://xformstest.org/cgi-bin/echo.sh"
+                            relevant="false"/>
+      </xforms:model>
+  	   <xforms:group>
+  		     <xforms:label class="title">11.1.i relevant attribute of submission element</xforms:label>
+  	   </xforms:group>
+	     <xforms:group>
+		       <xforms:label>
+		  Both submit controls must replace the page with the form data when activated. 
+		  When you activate the Submit (relevant=true) submit control you must see the values "Suzuki" and 
+		  "Hayabusa 1300" in the form data. 
+		  When you activate the Submit (relevant=false) submit control you must see the values "Suzuki", 
+		  "Hayabusa 1300", and "2006-04-26" in the form data. 
+		</xforms:label>
+	     </xforms:group>
+	     <xforms:group>
+		       <xforms:submit submission="sub_true">
+	      	    <xforms:label>Submit (relevant=true)</xforms:label>
+      	  </xforms:submit>
+	     </xforms:group>
+	     <xforms:group>
+		       <xforms:submit submission="sub_false">
+	      	    <xforms:label>Submit (relevant=false)</xforms:label>
+      	  </xforms:submit>
+	     </xforms:group>
+	
+  </body>
+</html>

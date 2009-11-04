@@ -1,0 +1,157 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>g.2.d repeat-index precedence over repeat-item (non-normative)</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+				  <td rowspan="1" colspan="3">g.2.d repeat-index precedence over repeat-item (non-normative)<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../Appendix/G/G.2/g.2.d.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>3000</td>
+					<td></td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>g.2.d repeat-index precedence over repeat-item (non-normative)</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']</td>
+					<td></td>
+					<td>Checks that repeat is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[3]</td>
+					<td></td>
+					<td>Checks that repeat's output is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:output[@value="index('repeat1')"]</td>
+					<td></td>
+					<td>Checks that output is in the form</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:trigger[1]</td>
+					<td></td>
+					<td>Clicks on the button1</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:output[@value="index('repeat1')"]</td>
+					<td>*1*</td>
+					<td>Checks that output is in the form</td>
+				</tr>
+				<tr>
+					<td>assertColor</td>
+					<td>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[1]</td>
+					<td>yellow</td>
+					<td>Checks that repeat's output color is in the form</td>
+				</tr>
+				<tr>
+					<td>assertColor</td>
+					<td>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[2]</td>
+					<td>orange</td>
+					<td>Checks that repeat's output color is in the form</td>
+				</tr>
+				<tr>
+					<td>assertColor</td>
+					<td>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[3]</td>
+					<td>orange</td>
+					<td>Checks that repeat's output color is in the form</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:trigger[2]</td>
+					<td></td>
+					<td>Clicks on the button2</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:output[@value="index('repeat1')"]</td>
+					<td>*2*</td>
+					<td>Checks that output is in the form</td>
+				</tr>
+				<tr>
+					<td>assertColor</td>
+					<td>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[1]</td>
+					<td>orange</td>
+					<td>Checks that repeat's output color is in the form</td>
+				</tr>
+				<tr>
+					<td>assertColor</td>
+					<td>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[2]</td>
+					<td>yellow</td>
+					<td>Checks that repeat's output color is in the form</td>
+				</tr>
+				<tr>
+					<td>assertColor</td>
+					<td>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[3]</td>
+					<td>orange</td>
+					<td>Checks that repeat's output color is in the form</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:trigger[3]</td>
+					<td></td>
+					<td>Clicks on the button3</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:output[@value="index('repeat1')"]</td>
+					<td>*3*</td>
+					<td>Checks that output is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyColor</td>
+					<td>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[1]</td>
+					<td>orange</td>
+					<td>Checks that repeat's output color is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyColor</td>
+					<td>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[2]</td>
+					<td>orange</td>
+					<td>Checks that repeat's output color is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyColor</td>
+					<td>xpath=/html/body/xforms:repeat[@id='repeat1' and @nodeset='/car/make']//xforms:output[3]</td>
+					<td>yellow</td>
+					<td>Checks that repeat's output color is in the form</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

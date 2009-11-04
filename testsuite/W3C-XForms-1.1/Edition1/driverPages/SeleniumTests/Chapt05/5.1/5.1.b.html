@@ -1,0 +1,103 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>5.1.b built-in derived types</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+				  <td rowspan="1" colspan="3">5.1.b built-in derived types<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../Chapt05/5.1/5.1.b.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>waitForModelReady</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>5.1.b built-in derived types</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:repeat</td>
+					<td></td>
+					<td>Checks that repeat is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:trigger[1]</td>
+					<td></td>
+					<td>Checks that trigger is in the form</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:trigger[1]</td>
+					<td></td>
+					<td>Clicks on the button</td>
+				</tr>
+				<tr>
+					<td>waitForText</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:repeat</td>
+					<td>*</td>
+					<td>Waits for the values to be set</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:repeat</td>
+					<td>xforms-valid (normalizedString)*xforms-valid (token)*xforms-valid (language)*xforms-valid (Name)*xforms-valid (NCName)*xforms-valid (ID)*xforms-valid (IDREF)*xforms-valid (IDREFS)*xforms-valid (NMTOKEN)*xforms-valid (NMTOKENS)*xforms-valid (integer)*xforms-valid (nonPositiveInteger)*xforms-valid (negativeInteger)*xforms-valid (long)*xforms-valid (int)*xforms-valid (short)*xforms-valid (byte)*xforms-valid (nonNegativeInteger)*xforms-valid (unsignedLong)*xforms-valid (unsignedInt)*xforms-valid (unsignedShort)*xforms-valid (unsignedByte)*xforms-valid (positiveInteger)</td>
+					<td>Checks that the repeat has the right values</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:trigger[2]</td>
+					<td></td>
+					<td>Checks that trigger is in the form</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:trigger[2]</td>
+					<td></td>
+					<td>Clicks on the button</td>
+				</tr>
+				<tr>
+					<td>waitForText</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:repeat</td>
+					<td>*</td>
+					<td>Waits for the values to be set</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:repeat</td>
+					<td>XFORMS-INVALID (normalizedString)*XFORMS-INVALID (token)*XFORMS-INVALID (language)*XFORMS-INVALID (Name)*XFORMS-INVALID (NCName)*XFORMS-INVALID (ID)*XFORMS-INVALID (IDREF)*XFORMS-INVALID (IDREFS)*XFORMS-INVALID (NMTOKEN)*XFORMS-INVALID (NMTOKENS)*XFORMS-INVALID (integer)*XFORMS-INVALID (nonPositiveInteger)*XFORMS-INVALID (negativeInteger)*XFORMS-INVALID (long)*XFORMS-INVALID (int)*XFORMS-INVALID (short)*XFORMS-INVALID (byte)*XFORMS-INVALID (nonNegativeInteger)*XFORMS-INVALID (unsignedLong)*XFORMS-INVALID (unsignedInt)*XFORMS-INVALID (unsignedShort)*XFORMS-INVALID (unsignedByte)*XFORMS-INVALID (positiveInteger)</td>
+					<td>Checks that the repeat has the right values</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

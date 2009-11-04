@@ -1,0 +1,97 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>7.2.b evaluation context for the non-outermost binding elements</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+				  <td rowspan="1" colspan="3">7.2.b evaluation context for the non-outermost binding elements<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../Chapt07/7.2/7.2.b.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>waitForModelReady</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>7.2.b evaluation context for the non-outermost binding elements</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:input[@bind='firstname']</td>
+					<td></td>
+					<td>Checks that input is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:input[@bind='lastname']</td>
+					<td></td>
+					<td>Checks that input is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:output[@ref='contact/email']</td>
+					<td></td>
+					<td>Checks that output is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:model/xforms:bind[@id='firstname' and @nodeset='name/first']</td>
+					<td></td>
+					<td>Checks that bind is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:model/xforms:bind[@id='lastname' and @nodeset='name/last']</td>
+					<td></td>
+					<td>Checks that bind is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyValue</td>
+					<td>xpath=/html/body/xforms:input[@bind='firstname']/pe-value/input</td>
+					<td>Curtiss</td>
+					<td>Checks that the input has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyValue</td>
+					<td>xpath=/html/body/xforms:input[@bind='lastname']/pe-value/input</td>
+					<td>Hewie</td>
+					<td>Checks that the input has the right value</td>
+				</tr>
+				<tr>
+					<td>verifyText</td>
+					<td>xpath=/html/body/xforms:output[@ref='contact/email']</td>
+					<td>*chewie@example.com*</td>
+					<td>Checks that the output has the right value</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <head>
+        <title>11.1.k version attribute of submission element</title>
+        <script type="text/javascript"
+              src="../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../driverPages/html/TestSuite11.css" type="text/css"/>
+        
+    </head>
+    <body>
+      <xforms:model>
+			      <xforms:instance xmlns="">
+				        <car>
+					          <make>Acura</make>
+					          <year>2005</year>
+					          <color>blue</color>
+				        </car>
+			      </xforms:instance>
+			      <xforms:bind id="make_bind" nodeset="/car/make"/>
+			      <xforms:bind id="year_bind" nodeset="/car/year"/>
+			      <xforms:bind id="color_bind" nodeset="/car/color"/>
+			
+			      <xforms:submission id="submit10" action="http://xformstest.org/cgi-bin/echo.sh" method="post"
+                            version="1.0"/>
+			      <xforms:submission id="submit11" action="http://xformstest.org/cgi-bin/echo.sh" method="post"
+                            version="1.1"/>
+        </xforms:model>
+    	<xforms:group>
+  			    <xforms:label class="title">11.1.k version attribute of submission element (non-normative)</xforms:label>
+  		  </xforms:group>
+  		  <xforms:group>
+  			    <xforms:label>
+  				Each submit control below replaces the page with the form instance data. The Submit As 1.0 submits the 
+  				form with a submission element that has a version attribute set to "1.0". The Submit As 1.1 
+  				submits the form with a submission element that has a version attribute set to "1.1". 
+  				The differences between the two submissions, if any, are dependent on your renderer. 
+  			</xforms:label>
+  		  </xforms:group>
+
+  		  <xforms:submit submission="submit10">
+  			    <xforms:label>Submit as 1.0</xforms:label>
+  		  </xforms:submit>
+  		
+  		  <xforms:submit submission="submit11">
+  			    <xforms:label>Submit as 1.1</xforms:label>
+  		  </xforms:submit>
+  		
+    </body>
+</html>

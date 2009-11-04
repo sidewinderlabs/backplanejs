@@ -1,0 +1,61 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <head>
+        <title>Issue 229</title>
+        
+    <script  src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+    <link href="../../../driverPages/forms/TestSuite11.css" rel="stylesheet"/>
+    </head>
+    <body>
+      <ol>
+        <li>Activate the trigger labelled "Reset"</li>
+        <li>If the Result field reads "xforms-reset|xforms-rebuild|xforms-recalculate|xforms-revalidate|xforms-refresh", the test has passed
+        </li>
+      </ol>
+    <xf:model id="m0">
+            <xf:instance>
+                <inst>
+                  <rebuild>NOT DONE</rebuild>
+                  <recalculate>NOT DONE</recalculate>
+                  <revalidate>NOT DONE</revalidate>
+                  <refresh>NOT DONE</refresh>
+                </inst>
+            </xf:instance>
+      <xf:instance id="inst-ready">
+        <inst>TRUE</inst>
+      </xf:instance>
+      <!-- the following actions are supposed to occur after xforms-reset event -->
+    </xf:model>
+      <!--
+        This is a separate model, as anything actioned by a reset event will be overwritten by 
+        the default behaviour of xforms-reset.
+      -->
+      <xf:model id="m1">
+        <xf:instance id="reset-instance">
+          <inst>NOT DONE</inst>
+        </xf:instance>
+      </xf:model>
+      
+      <xf:setvalue model="m1" ref="instance('reset-instance')" ev:observer="m0" ev:event="xforms-reset">xforms-reset</xf:setvalue> 
+      <xf:setvalue model="m1" ref="instance('reset-instance')" ev:event="xforms-rebuild" value="concat(.,'|xforms-rebuild')" ev:observer="m0"></xf:setvalue>
+      <xf:setvalue model="m1" ref="instance('reset-instance')" ev:event="xforms-recalculate" value="concat(.,'|xforms-recalculate')" ev:observer="m0"></xf:setvalue>
+      <xf:setvalue model="m1" ref="instance('reset-instance')" ev:event="xforms-revalidate" value="concat(.,'|xforms-revalidate')" ev:observer="m0"></xf:setvalue>
+      <xf:setvalue model="m1" ref="instance('reset-instance')" ev:event="xforms-refresh" value="concat(.,'|xforms-refresh')" ev:observer="m0"></xf:setvalue>
+      
+      <hr />    
+      <xf:output model="m1" ref="instance('reset-instance')" id="reset-result">
+        <xf:label>Result: </xf:label>
+      </xf:output>
+      <hr />
+      
+      <xf:trigger id="reset">
+        <xf:label>Reset</xf:label>
+        <xf:reset model="m0" ev:event="DOMActivate"></xf:reset>
+      </xf:trigger>
+      
+      <xf:output ref="instance('inst-ready')" id="ready">
+        <xf:label>Ready: </xf:label>
+      </xf:output>
+      
+      
+    </body>
+</html>

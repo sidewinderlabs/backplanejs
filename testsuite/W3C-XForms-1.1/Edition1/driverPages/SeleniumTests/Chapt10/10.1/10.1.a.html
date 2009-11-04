@@ -1,0 +1,91 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>10.1.a action element</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+				  <td rowspan="1" colspan="3">10.1.a action element<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../Chapt10/10.1/10.1.a.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>waitForModelReady</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>10.1.a action element</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:input[@ref='car']</td>
+					<td></td>
+					<td>Checks that input is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:group[4]/xforms:trigger</td>
+					<td></td>
+					<td>Checks that trigger is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:group[4]/xforms:trigger/xforms:action[@ev:event='DOMActivate']</td>
+					<td></td>
+					<td>Checks that action is in the form</td>
+				</tr>
+				<tr>
+					<td>verifyValue</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:input[@ref='car']/pe-value/input</td>
+					<td>Porche</td>
+					<td>Checks that input has the right value</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:group[4]/xforms:trigger</td>
+					<td></td>
+					<td>Clicks on the button</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the form to load</td>
+				</tr>
+				<tr>
+					<td>verifyValue</td>
+					<td>xpath=/html/body/xforms:group[3]/xforms:input[@ref='car']/pe-value/input</td>
+					<td>BMW</td>
+					<td>Checks that input has the right value</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

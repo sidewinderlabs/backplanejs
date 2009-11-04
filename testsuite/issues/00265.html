@@ -1,0 +1,114 @@
+<!--
+  * Copyright (c) 2009 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<!DOCTYPE html
+ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+ xmlns:ev="http://www.w3.org/2001/xml-events"
+>
+	<head>
+		<title>
+			Issue 265
+		</title>
+
+		<script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+	</head>
+
+	<body>
+		<h1>
+			<a href="http://code.google.com/p/ubiquity-xforms/issues/detail?id=265">Issue 265</a>
+		</h1>
+
+		<h2>
+			xf:control/@value should take precedecence over xf:control/text()
+		</h2>
+
+		<ol>
+			<li>
+				Click on the button labelled 'Begin Test'.
+			</li>
+
+			<li>
+				If focus is passed to the input field and the first result field displays the text 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+			</li>
+		</ol>
+
+		<xf:model id="mdl">
+			<xf:instance id="inst-test">
+				<test xmlns="">
+					<foo></foo>
+					<bar></bar>
+				</test>
+			</xf:instance>
+
+			<xf:instance id="inst-ready">
+				<ready xmlns="">FALSE</ready>
+			</xf:instance>
+
+			<xf:setvalue ev:event="xforms-ready" ref="instance('inst-ready')" value="'TRUE 1'"></xf:setvalue>
+		</xf:model>
+
+		<xf:trigger id="testBegin">
+			<xf:label>
+				Begin Test
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:setfocus>
+					<xf:control value="'input'">bad_idref</xf:control>
+				</xf:setfocus>
+
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE 2'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:trigger id="testEnd">
+			<xf:label>
+				End Test
+			</xf:label>
+
+			<xf:setvalue ev:event="DOMActivate" ref="instance('inst-ready')" value="'TRUE 3'"></xf:setvalue>
+		</xf:trigger>
+
+		<xf:input id="input" ref="instance('inst-test')/bar">
+			<xf:label>
+				Test:
+			</xf:label>
+
+			<xf:setvalue ev:event="DOMFocusIn" ref="../foo" value="'TEST PASSED'"></xf:setvalue>
+		</xf:input>
+
+		<xf:output ref="instance('inst-test')/foo" id="result1">
+			<xf:label>
+				First result:
+			</xf:label>
+		</xf:output>
+
+		<xf:output ref="instance('inst-test')/bar" id="result2">
+			<xf:label>
+				Second result:
+			</xf:label>
+		</xf:output>
+
+		<xf:output ref="instance('inst-ready')" id="ready">
+			<xf:label>
+				Ready:
+			</xf:label>
+		</xf:output>
+	</body>
+</html>

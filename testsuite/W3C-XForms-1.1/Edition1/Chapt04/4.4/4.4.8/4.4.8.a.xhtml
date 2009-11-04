@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <head>
+      <title>4.4.8.a xforms-required event</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+         <xforms:instance xmlns="">
+	           <car>
+	              <make>Toyota</make>
+	           </car>
+         </xforms:instance>
+	        <xforms:bind nodeset="make" required=".='Honda'"/>
+	        <xforms:setvalue ev:event="xforms-ready" ref="make">Honda</xforms:setvalue>
+      </xforms:model>
+      <xforms:group>
+    	    <xforms:label class="title">4.4.8.a xforms-required event</xforms:label>
+      </xforms:group>
+    
+      <xforms:group>
+    	    <xforms:label>
+	    	You must have seen an xforms-required event message.
+	    </xforms:label>	
+      </xforms:group>
+    
+      <xforms:input ref="make">
+    	    <xforms:label>Car make : </xforms:label>
+    	    <xforms:message ev:event="xforms-required" level="modal">xforms-required event</xforms:message>
+      </xforms:input>
+  </body>
+</html>

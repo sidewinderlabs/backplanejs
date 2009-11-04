@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:ev="http://www.w3.org/2001/xml-events">
+    <head>
+        <title>4.7.e3 null search for instance causes exception</title>
+        <script type="text/javascript"
+              src="../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../driverPages/html/TestSuite11.css" type="text/css"/>
+        
+    </head>
+    <body>
+      <xforms:model id="model_1">
+            <xforms:instance xmlns="" id="instance_1">
+                <data1>This is data from instance 1.</data1>
+            </xforms:instance>
+            <xforms:submission id="submission_1" method="get" replace="instance" action="4.7.e3_data.xml"
+                            instance="invalid"/>
+        	<xforms:message level="modal" ev:event="xforms-binding-exception">xforms-binding-exception</xforms:message>
+        </xforms:model>
+        <xforms:group>
+            <xforms:label class="title">4.7.e3 null search for instance causes exception</xforms:label>
+        </xforms:group>
+        <xforms:group>
+            <xforms:label>
+                When you activate the Submit control below you must see an xforms-binding-exception message or a fatal 
+                error due to an xforms-binding-exception message.
+            </xforms:label>
+        </xforms:group>
+        <xforms:submit submission="submission_1">
+            <xforms:label>Submit</xforms:label>
+        </xforms:submit>
+        
+    </body>
+</html>

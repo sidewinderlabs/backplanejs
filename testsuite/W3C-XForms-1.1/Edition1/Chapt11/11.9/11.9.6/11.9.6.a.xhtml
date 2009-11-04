@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xforms="http://www.w3.org/2002/xforms">
+	  <head>
+		    <title>11.9.6.a serialization as multipart/related</title>
+		    <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+		
+	  </head>
+	  <body>
+      <xforms:model id="form1">
+			      <xforms:submission id="submit01" method="multipart-post"
+                            action="http://xformstest.org/cgi-bin/echo.sh"/>
+			      <xforms:instance xmlns="" id="instance1">
+				        <car>
+					          <carOwner>Henry</carOwner>
+					          <make>Acura</make>
+					          <color>white</color>
+				        </car>
+			      </xforms:instance>
+		    </xforms:model>
+		    <xforms:group>
+			      <xforms:label class="title">11.9.6.a serialization as multipart/related</xforms:label>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:label>
+			  When you activate the Submit Data submit control the page must be replaced by the form 
+			  data. 
+			  The data must contain the values "Henry", "Acura", and "white". 
+			  The form data must be in multipart/related format according to the W3C specification at this link: 
+			  <a href="http://www.w3.org/TR/xforms11/#serialize-multipart" target="_blank">XForms 1.1 
+			  specification</a>
+			      </xforms:label>
+		    </xforms:group>
+		
+		    <xforms:submit submission="submit01">
+			      <xforms:label>Submit Data</xforms:label>
+		    </xforms:submit>
+		
+	  </body>
+</html>

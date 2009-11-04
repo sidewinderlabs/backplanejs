@@ -1,0 +1,176 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>Test Output</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+					<td rowspan="1" colspan="3">Test Output<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../xforms/html/test_conditionalinvoke.html</td>
+					<td>&nbsp;</td>
+					<td>opens the form</td>
+				</tr>
+				<tr>
+					<td>assertElementPresent</td>
+					<td>t0</td>
+					<td>&nbsp;</td>
+					<td>checks that the form is the correct one</td>
+				</tr>
+				<tr>
+					<td>waitForText</td>
+					<td>o0</td>
+					<td>sailor</td>
+					<td>checks that the output is bound correctly</td>
+				</tr>
+				<tr>
+					<td>setTimeout</td>
+					<td>1000</td>
+					<td></td>
+					<td>Set the timeout to 1 second, for subsequent waitfor actions.</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>t0</td>
+					<td></td>
+					<td>clicks on the first trigger</td>
+				</tr>
+				<tr>
+					<td>waitForText</td>
+					<td>o0</td>
+					<td>dolly</td>
+					<td>waits for the output to get its new value</td>
+				</tr>
+				<tr>
+					<td>assertText</td>
+					<td>o0</td>
+					<td>dolly</td>
+					<td>checks that the output has changed after the action</td>
+				</tr>
+
+				<tr>
+					<td>click</td>
+					<td>t1</td>
+					<td></td>
+					<td>clicks on the second trigger</td>
+				</tr>
+				<tr>
+					<td>waitForText</td>
+					<td>o0</td>
+					<td>kitty</td>
+					<td>waits for the output to get its new value</td>
+				</tr>
+				<tr>
+					<td>assertText</td>
+					<td>o0</td>
+					<td>kitty</td>
+					<td>checks that the output has changed after the action</td>
+				</tr>
+				
+				<tr>
+					<td>click</td>
+					<td>t2</td>
+					<td></td>
+					<td>clicks on the third trigger</td>
+				</tr>
+				<tr>
+					<td>justWait</td>
+					<td>1000</td>
+					<td></td>
+					<td>waits for the output to get its new value</td>
+				</tr>
+				<tr>
+					<td>assertNotText</td>
+					<td>o0</td>
+					<td>is it me you're looking for?</td>
+					<td>checks that the output has not changed after the action has been conditionally supressed</td>
+				</tr>
+				
+				<tr>
+					<td>click</td>
+					<td>t3</td>
+					<td></td>
+					<td>clicks on the fourth trigger, to reset to sailor</td>
+				</tr>
+				<tr>
+					<td>waitForText</td>
+					<td>o0</td>
+					<td>sailor</td>
+					<td>waits for the output to get its new value</td>
+				</tr>
+
+				<tr>
+					<td>assertText</td>
+					<td>o0</td>
+					<td>sailor</td>
+					<td>checks that the output has been reset</td>
+				</tr>
+				
+				<tr>
+					<td>click</td>
+					<td>t2</td>
+					<td></td>
+					<td>clicks on the third trigger</td>
+				</tr>
+				<tr>
+					<td>waitForText</td>
+					<td>o0</td>
+					<td>is it me you're looking for?</td>
+					<td>waits for the output to get its new value</td>
+				</tr>
+				<tr>
+					<td>assertText</td>
+					<td>o0</td>
+					<td>is it me you're looking for?</td>
+					<td>checks that the output has changed now that the action has been conditionally permitted</td>
+				</tr>
+
+				<tr>
+					<td>click</td>
+					<td>t1</td>
+					<td></td>
+					<td>clicks on the second trigger</td>
+				</tr>
+				<tr>
+					<td>justWait</td>
+					<td>1000</td>
+					<td></td>
+					<td>waits for the output to get its new value</td>
+				</tr>
+				<tr>
+					<td>assertNotText</td>
+					<td>o0</td>
+					<td>kitty</td>
+					<td>checks that the output has not changed after the action has been conditionally supressed</td>
+				</tr>
+				
+				<tr>
+					<td>close</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

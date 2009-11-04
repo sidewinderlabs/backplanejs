@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <head>
+      <title>g.1.c valid and invalid pseudo-classes (non-normative)</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="g1c.css" type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+         <xforms:instance xmlns="">
+            <car>
+               <oilChange>true</oilChange>
+               <tireRotation>not yet</tireRotation>
+            </car>
+         </xforms:instance>
+         <xforms:bind id="oil" nodeset="/car/oilChange" type="xsd:boolean"/>
+         <xforms:bind id="tire" nodeset="/car/tireRotation" type="xsd:boolean"/>
+      </xforms:model>
+  	   <xforms:group>
+  		     <xforms:label class="title">g.1.c valid and invalid pseudo-classes (non-normative)</xforms:label>
+  	   </xforms:group>
+  	   <xforms:group>
+  		     <xforms:label>
+  		The valid output must have a teal background, the invalid output 
+  		must have a red background.
+  		</xforms:label>
+  	   </xforms:group>
+  	
+	     <xforms:output ref="/car/oilChange">
+		       <xforms:label>Oil Change (valid)</xforms:label>
+	     </xforms:output>
+	
+	     <xforms:output ref="/car/tireRotation">
+		       <xforms:label>Tire Rotation (invalid)</xforms:label>
+	     </xforms:output>
+    
+	
+  </body>
+</html>

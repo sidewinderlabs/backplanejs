@@ -1,0 +1,96 @@
+<!--
+  * Copyright (c) 2009 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+ xmlns:ev="http://www.w3.org/2001/xml-events"
+>
+	<head>
+		<title>
+			Issue 206
+		</title>
+
+		<script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+	</head>
+
+	<body>
+		<h1>
+			<a href="http://code.google.com/p/ubiquity-xforms/issues/detail?id=206">Issue 206</a>
+		</h1>
+
+		<h2>
+			xf:submission should dispatch xforms-binding-exception if @instance does not resolve to an instance
+		</h2>
+
+		<ol>
+			<li>
+				Press the button labelled 'Test'.
+			</li>
+
+			<li>
+				If the result field contains the text 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+			</li>
+		</ol>
+
+		<xf:model id="mdl">
+			<xf:instance id="inst-ready">
+				<ready xmlns="">FALSE</ready>
+			</xf:instance>
+
+			<xf:instance id="inst-test">
+				<test>TEST FAILED</test>
+			</xf:instance>
+
+			<xf:action ev:event="xforms-ready">
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE'"></xf:setvalue>
+			</xf:action>
+
+			<xf:submission id="sbm-test" method="get" resource="00206.html" replace="instance" instance="invalid-instance">
+				<xf:action ev:event="xforms-binding-exception">
+					<xf:setvalue ref="instance('inst-test')" value="'TEST PASSED'"></xf:setvalue>
+
+					<xf:setvalue ref="instance('inst-ready')" value="'TRUE'"></xf:setvalue>
+				</xf:action>
+			</xf:submission>
+		</xf:model>
+
+		<xf:submit submission="sbm-test" id="test">
+			<xf:label>
+				Test
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:setvalue ref="instance('inst-ready')" value="'FALSE'"></xf:setvalue>
+			</xf:action>
+		</xf:submit>
+
+		<xf:output ref="instance('inst-test')" id="result">
+			<xf:label>
+				Result:
+			</xf:label>
+		</xf:output>
+
+		<xf:output ref="instance('inst-ready')" id="ready">
+			<xf:label>
+				Ready:
+			</xf:label>
+		</xf:output>
+	</body>
+</html>

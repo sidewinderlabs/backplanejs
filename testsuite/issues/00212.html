@@ -1,0 +1,92 @@
+<!--
+  * Copyright (c) 2009 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+ xmlns:ev="http://www.w3.org/2001/xml-events"
+>
+	<head>
+		<title>
+			Issue 212
+		</title>
+
+		<script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+
+		<style type="text/css">
+			.disabled {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>
+			<a href="http://code.google.com/p/ubiquity-xforms/issues/detail?id=212">Issue 212</a>
+		</h1>
+
+		<h2>
+			Elements with @model but no @ref should set context to document element of first instance of that model
+		</h2>
+
+		<ol>
+			<li>
+				If there is a single result field containing the text 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+			</li>
+		</ol>
+
+		<xf:model id="mdl-1">
+			<xf:instance id="inst-1">
+				<inst>TEST FAILED</inst>
+			</xf:instance>
+		</xf:model>
+
+		<xf:model id="mdl-2">
+			<xf:instance id="inst-2">
+				<inst xmlns="">TEST FAILED</inst>
+			</xf:instance>
+
+			<xf:bind nodeset="/inst" relevant="false()"></xf:bind>
+
+			<xf:instance id="inst-ready">
+				<ready xmlns="">FALSE</ready>
+			</xf:instance>
+
+			<xf:action ev:event="xforms-ready">
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE'"></xf:setvalue>
+			</xf:action>
+		</xf:model>
+
+		<xf:group model="mdl-2" id="result">
+			<xf:output ref="." id="invisible">
+				<xf:label>
+					Result:
+				</xf:label>
+			</xf:output>
+
+			Result: TEST PASSED
+		</xf:group>
+
+		<xf:output model="mdl-2" ref="instance('inst-ready')" id="ready">
+			<xf:label>
+				Ready:
+			</xf:label>
+		</xf:output>
+	</body>
+</html>

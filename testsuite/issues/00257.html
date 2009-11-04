@@ -1,0 +1,421 @@
+<!--
+  * Copyright (c) 2009 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<!DOCTYPE html
+ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+ xmlns:ev="http://www.w3.org/2001/xml-events"
+>
+	<head>
+		<title>
+			Issue 257
+		</title>
+
+		<script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+	</head>
+
+	<body>
+		<h1>
+			<a href="http://code.google.com/p/ubiquity-xforms/issues/detail?id=257">Issue 257</a>
+		</h1>
+
+		<h2>
+			Add SHA-256 support to hmac() and digest()
+		</h2>
+
+		<xf:model id="mdl">
+			<xf:instance id="inst-test">
+				<test xmlns=""></test>
+			</xf:instance>
+
+			<xf:instance id="inst-ready">
+				<ready xmlns="">FALSE</ready>
+			</xf:instance>
+
+			<xf:setvalue ev:event="xforms-ready" ref="instance('inst-ready')" value="'TRUE 1'"></xf:setvalue>
+		</xf:model>
+
+		<hr />
+
+		<h3>
+			MD5 Digest
+		</h3>
+
+		<ol>
+			<li>
+				Click on the button labelled 'Test 1'.
+			</li>
+
+			<li>
+				If the result field displays the text 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+			</li>
+		</ol>
+
+		<xf:trigger id="test1">
+			<xf:label>
+				Test 1
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:setvalue ref="instance('inst-test')" value="'TEST FAILED'"></xf:setvalue>
+
+				<xf:setvalue if="digest('In theory there is no difference between theory and practice. In practice there is.', 'MD5', 'hex') = '8f3eaac86c5a34f6bf4fb1adea0f4ddc'" ref="instance('inst-test')" value="'TEST PASSED'"></xf:setvalue>
+
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE 2'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:output ref="instance('inst-test')" id="result1">
+			<xf:label>
+				Test 1 result:
+			</xf:label>
+		</xf:output>
+
+		<hr />
+
+		<h3>
+			SHA-1 Digest
+		</h3>
+
+		<ol>
+			<li>
+				Click on the button labelled 'Test 2'.
+			</li>
+
+			<li>
+				If the result field displays the text 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+			</li>
+		</ol>
+
+		<xf:trigger id="test2">
+			<xf:label>
+				Test 2
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:setvalue ref="instance('inst-test')" value="'TEST FAILED'"></xf:setvalue>
+
+				<xf:setvalue if="digest('In theory there is no difference between theory and practice. In practice there is.', 'SHA-1', 'hex') = '2e283f34c3533d7b9734a2ed870d73fce61d7a7b'" ref="instance('inst-test')" value="'TEST PASSED'"></xf:setvalue>
+
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE 3'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:output ref="instance('inst-test')" id="result2">
+			<xf:label>
+				Test 2 result:
+			</xf:label>
+		</xf:output>
+
+		<hr />
+
+		<h3>
+			SHA-256 Digest
+		</h3>
+
+		<ol>
+			<li>
+				Click on the button labelled 'Test 3'.
+			</li>
+
+			<li>
+				If the result field displays the text 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+			</li>
+		</ol>
+
+		<xf:trigger id="test3">
+			<xf:label>
+				Test 3
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:setvalue ref="instance('inst-test')" value="'TEST FAILED'"></xf:setvalue>
+
+				<xf:setvalue if="digest('In theory there is no difference between theory and practice. In practice there is.', 'SHA-256', 'hex') = 'b54f1f590c534bf9134ae8ce92283af9ab7d829d36d5df828b53877b18df7a7e'" ref="instance('inst-test')" value="'TEST PASSED'"></xf:setvalue>
+
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE 4'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:output ref="instance('inst-test')" id="result3">
+			<xf:label>
+				Test 3 result:
+			</xf:label>
+		</xf:output>
+
+		<hr />
+
+		<h3>
+			SHA-384 Digest
+		</h3>
+
+		<ol>
+			<li>
+				Click on the button labelled 'Test 4'.
+			</li>
+
+			<li>
+				If the result field displays the text 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+			</li>
+		</ol>
+
+		<xf:trigger id="test4">
+			<xf:label>
+				Test 4
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:setvalue ref="instance('inst-test')" value="'TEST FAILED'"></xf:setvalue>
+
+				<xf:setvalue if="digest('In theory there is no difference between theory and practice. In practice there is.', 'SHA-384', 'hex') = '6b864303beac9c61310b952677f3199d81f133b6ab567cfc9ca988bbe7adbc20b0c70463906a8de6240c966c0e96cb49'" ref="instance('inst-test')" value="'TEST PASSED'"></xf:setvalue>
+
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE 5'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:output ref="instance('inst-test')" id="result4">
+			<xf:label>
+				Test 4 result:
+			</xf:label>
+		</xf:output>
+
+		<hr />
+
+		<h3>
+			SHA-512 Digest
+		</h3>
+
+		<ol>
+			<li>
+				Click on the button labelled 'Test 5'.
+			</li>
+
+			<li>
+				If the result field displays the text 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+			</li>
+		</ol>
+
+		<xf:trigger id="test5">
+			<xf:label>
+				Test 5
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:setvalue ref="instance('inst-test')" value="'TEST FAILED'"></xf:setvalue>
+
+				<xf:setvalue if="digest('In theory there is no difference between theory and practice. In practice there is.', 'SHA-512', 'hex') = '576663284e129c66ba2279756e06f53ede092e4b521f4f880b5cbb94dcef5cc94d94c7fab54de65ebc8c769630e280d46916403d2b362ea88d3e8758beb8486f'" ref="instance('inst-test')" value="'TEST PASSED'"></xf:setvalue>
+
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE 6'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:output ref="instance('inst-test')" id="result5">
+			<xf:label>
+				Test 5 result:
+			</xf:label>
+		</xf:output>
+
+		<hr />
+
+		<h3>
+			MD5 HMAC
+		</h3>
+
+		<ol>
+			<li>
+				Click on the button labelled 'Test 6'.
+			</li>
+
+			<li>
+				If the result field displays the text 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+			</li>
+		</ol>
+
+		<xf:trigger id="test6">
+			<xf:label>
+				Test 6
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:setvalue ref="instance('inst-test')" value="'TEST FAILED'"></xf:setvalue>
+
+				<xf:setvalue if="hmac('Yogi Berra', 'In theory there is no difference between theory and practice. In practice there is.', 'MD5', 'hex') = '478e312b83e114fb90f7b16301418f1a'" ref="instance('inst-test')" value="'TEST PASSED'"></xf:setvalue>
+
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE 7'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:output ref="instance('inst-test')" id="result6">
+			<xf:label>
+				Test 6 result:
+			</xf:label>
+		</xf:output>
+
+		<hr />
+
+		<h3>
+			SHA-1 HMAC
+		</h3>
+
+		<ol>
+			<li>
+				Click on the button labelled 'Test 7'.
+			</li>
+
+			<li>
+				If the result field displays the text 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+			</li>
+		</ol>
+
+		<xf:trigger id="test7">
+			<xf:label>
+				Test 7
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:setvalue ref="instance('inst-test')" value="'TEST FAILED'"></xf:setvalue>
+
+				<xf:setvalue if="hmac('Yogi Berra', 'In theory there is no difference between theory and practice. In practice there is.', 'SHA-1', 'hex') = '6f5e6364fd62c18ff03bac26ecba611423dbf075'" ref="instance('inst-test')" value="'TEST PASSED'"></xf:setvalue>
+
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE 8'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:output ref="instance('inst-test')" id="result7">
+			<xf:label>
+				Test 7 result:
+			</xf:label>
+		</xf:output>
+
+		<hr />
+
+		<h3>
+			SHA-256 HMAC
+		</h3>
+
+		<ol>
+			<li>
+				Click on the button labelled 'Test 8'.
+			</li>
+
+			<li>
+				If the result field displays the text 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+			</li>
+		</ol>
+
+		<xf:trigger id="test8">
+			<xf:label>
+				Test 8
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:setvalue ref="instance('inst-test')" value="'TEST FAILED'"></xf:setvalue>
+
+				<xf:setvalue if="hmac('Yogi Berra', 'In theory there is no difference between theory and practice. In practice there is.', 'SHA-256', 'hex') = 'e05aaa8a057a001b4fcd596c16c595b3b83c62882228cf2c8ed2cd85b60804cc'" ref="instance('inst-test')" value="'TEST PASSED'"></xf:setvalue>
+
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE 9'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:output ref="instance('inst-test')" id="result8">
+			<xf:label>
+				Test 8 result:
+			</xf:label>
+		</xf:output>
+
+		<hr />
+
+		<h3>
+			SHA-384 HMAC
+		</h3>
+
+		<ol>
+			<li>
+				Click on the button labelled 'Test 9'.
+			</li>
+
+			<li>
+				If the result field displays the text 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+			</li>
+		</ol>
+
+		<xf:trigger id="test9">
+			<xf:label>
+				Test 9
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:setvalue ref="instance('inst-test')" value="'TEST FAILED'"></xf:setvalue>
+
+				<xf:setvalue if="hmac('Yogi Berra', 'In theory there is no difference between theory and practice. In practice there is.', 'SHA-384', 'hex') = 'cade07d071123b06aa6bcfb3cfbeb63c718e43139344415f6fe82762af3949272f6716fc0334f7cb37e95e092031af63'" ref="instance('inst-test')" value="'TEST PASSED'"></xf:setvalue>
+
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE 10'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:output ref="instance('inst-test')" id="result9">
+			<xf:label>
+				Test 9 result:
+			</xf:label>
+		</xf:output>
+
+		<hr />
+
+		<h3>
+			SHA-512 HMAC
+		</h3>
+
+		<ol>
+			<li>
+				Click on the button labelled 'Test 10'.
+			</li>
+
+			<li>
+				If the result field displays the text 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+			</li>
+		</ol>
+
+		<xf:trigger id="test10">
+			<xf:label>
+				Test 10
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:setvalue ref="instance('inst-test')" value="'TEST FAILED'"></xf:setvalue>
+
+				<xf:setvalue if="hmac('Yogi Berra', 'In theory there is no difference between theory and practice. In practice there is.', 'SHA-512', 'hex') = '9959d9c0015c735ce5728de2e2e662e657564fb8da32f3c33fe36bf5fa9a52a751bd179ab6ceaeb3a552782637a2380984ca66cb1a266d512293e9ef11b543d9'" ref="instance('inst-test')" value="'TEST PASSED'"></xf:setvalue>
+
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE 11'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:output ref="instance('inst-test')" id="result10">
+			<xf:label>
+				Test 10 result:
+			</xf:label>
+		</xf:output>
+
+		<hr />
+
+		<xf:output ref="instance('inst-ready')" id="ready">
+			<xf:label>
+				Ready:
+			</xf:label>
+		</xf:output>
+	</body>
+</html>

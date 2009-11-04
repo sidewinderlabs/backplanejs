@@ -1,0 +1,122 @@
+<?xml version="1.0" ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xml:lang="en" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fp="urn:formsplayer.com">
+	<head>
+		<title>Testing Conditional Invocation</title>
+		<style>
+	p{display:block;}
+	xf\:output
+	{
+		display:inline;
+		visibility:visible;
+	}
+	pe-value
+	{
+		display:inline;
+		visibility:visible;
+	}
+	
+     </style>
+		<script>
+//     debugger;
+		</script>
+		<link rel="stylesheet" type="text/css" href="/runtime/ajax/ajaxfP/xf-behaviors-test-suite.css"></link>
+		<link rel="stylesheet" type="text/css" href="/runtime/smil.css"></link>
+	    <script>
+	        var g_sBehaviourDirectory = "../../../src/behaviours/";
+	    </script>
+	    <script src="../../../src/ubiquity-loader.js">/**/</script>
+	    
+		<style>
+	xf\:trigger
+	{
+		border:solid black 1px;
+		background-color:white;
+		margin:5px;
+		
+	}
+ </style>
+	</head>
+	<body>
+		<xf:model id="form1" functions="fp:HTMLSerialise">
+			<xf:submission method="post" action="http://www.formsplayer.com/info/echo.asp" replace="all" media="application/xml" ref="img" ></xf:submission>
+			<xf:submission id="submit01" method="post" action="http://www.formsplayer.com/info/echo.asp" replace="all" media="application/xml" ref="img" ></xf:submission>
+			<xf:submission id="submit02" method="post" action="http://www.formsplayer.com/info/echo.asp" replace="instance" media="application/xml" ref="img" ></xf:submission>
+			<xf:submission id="submit03" method="get" action="file://c:/form01saved.xml" replace="instance" media="application/xml" ref="img" ></xf:submission>
+			<xf:submission id="submit04" method="post" action="http://www.formsplayer.com/info/echo.asp" replace="all" serialize="false" media="application/xml" ref="img" ></xf:submission>
+			<xf:submission id="submit05" method="post" action="http://www.formsplayer.com/info/echo.asp" replace="instance" mode="asynchronous" media="application/xml" ref="img" ></xf:submission>
+			<xf:submission id="submit06" method="post" action="http://www.formsplayer.com/info/echo.asp" replace="instance" mode="synchronous" instance="instanceX" media="application/xml" ref="img" ></xf:submission>
+			<xf:submission id="submit07" method="post" action="http://www.formsplayer.com/info/echo.asp" replace="instance" mode="synchronous" media="application/xml" ref="img" ></xf:submission>
+			<xf:submission id="submit08" method="post" action="http://www.formsplayer.com/info/echo.asp" replace="instance" mode="asynchronous" instance="instanceX" media="application/xml" ref="img" ></xf:submission>
+			<xf:submission id="submit09" action="http://www.formsplayer.com/info/echo.asp" replace="instance" mode="asynchronous" instance="instanceX" media="application/xml" ref="img">
+				<xf:verb value="concat('po','st')"></xf:verb>
+			</xf:submission>
+			<xf:submission id="submit10" method="post" replace="instance" mode="asynchronous" instance="instanceX" media="application/xml" ref="img">
+				<xf:resource value="concat('http://www.formsplayer.com','/info/echo.asp')" ></xf:resource>
+			</xf:submission>
+			<xf:submission id="submit11" action="http://www.formsplayer.com/info/echo.asp" replace="instance" mode="asynchronous" instance="instanceX" media="application/xml" ref="img">
+				<xf:verb value="@verb" ></xf:verb>
+			</xf:submission>
+			<xf:submission id="submit12" method="post" replace="instance" mode="asynchronous" instance="instanceX" media="application/xml" ref="img">
+				<xf:resource value="@res" ></xf:resource>
+			</xf:submission>
+			<xf:instance id="instance1">
+				<p>If you see an image here:<img src="bug247.gif" res="http://www.formsplayer.com/info/echo.asp" verb="post" />
+					The test was a success ssssss
+				</p>
+			</xf:instance>
+			<xf:instance id="instanceX">
+				<z></z>
+			</xf:instance>
+		</xf:model>
+		<xf:input ref="@src"></xf:input>
+		<xf:submit>
+			<xf:label>xxx</xf:label>
+		</xf:submit>
+		<xf:trigger>
+			<xf:label> 1 </xf:label>
+			<xf:send submission="submit01" ev:event="DOMActivate" ></xf:send>
+		</xf:trigger>
+		<xf:trigger>
+			<xf:label>2</xf:label>
+			<xf:send submission="submit02" ev:event="DOMActivate" ></xf:send>
+		</xf:trigger><xf:trigger>
+			<xf:label>3</xf:label>
+			<xf:send submission="submit03" ev:event="DOMActivate" ></xf:send>
+		</xf:trigger>
+		<xf:trigger>
+			<xf:label>4</xf:label>
+			<xf:send submission="submit04" ev:event="DOMActivate" ></xf:send>
+		</xf:trigger>
+		<xf:trigger>
+			<xf:label>5</xf:label>
+			<xf:send submission="submit05" ev:event="DOMActivate" ></xf:send>
+			<xf:send submission="submit06" ev:event="DOMActivate" ></xf:send>
+		</xf:trigger>
+		<xf:trigger>
+			<xf:label>6</xf:label>
+			<xf:send submission="submit07" ev:event="DOMActivate" ></xf:send>
+			<xf:send submission="submit08" ev:event="DOMActivate" ></xf:send>
+		</xf:trigger>
+		<xf:trigger>
+			<xf:label>7</xf:label>
+			<xf:send submission="submit09" ev:event="DOMActivate" ></xf:send>
+		</xf:trigger>
+		<xf:trigger>
+			<xf:label>8</xf:label>
+			<xf:send submission="submit10" ev:event="DOMActivate" ></xf:send>
+		</xf:trigger>
+		<xf:trigger>
+			<xf:label>9</xf:label>
+			<xf:send submission="submit11" ev:event="DOMActivate" ></xf:send>
+		</xf:trigger>
+		<xf:trigger>
+			<xf:label>10</xf:label>
+			<xf:send submission="submit12" ev:event="DOMActivate" ></xf:send>
+		</xf:trigger>
+		<hr />
+		<!--xf:output value="fp:HTMLSerialise(.)"></xf:output-->
+		<hr />
+		<!--xf:output value="fp:HTMLSerialise(instance('instanceX'))"> </xf:output-->
+		<hr />
+	</body>
+</html>

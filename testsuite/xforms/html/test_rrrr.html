@@ -1,0 +1,130 @@
+<?xml version="1.0" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xf="http://www.w3.org/2002/xforms"
+      xmlns:ev="http://www.w3.org/2001/xml-events"
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      xml:lang="en"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:fp="urn:formsplayer.com"
+>
+
+<head>
+
+  <title>Testing RRRR actions</title>	<script>
+          //    debugger;
+     </script>
+     <link rel="stylesheet" type="text/css" href="/runtime/ajax/ajaxfP/xf-behaviors-test-suite.css"></link>
+    <script src="../../../src/ubiquity-loader.js">/**/</script>
+    
+     
+</head>
+<body>
+  <xf:model id="m0">
+    <xf:instance id="i0"><x><y>0</y></x></xf:instance>
+  </xf:model>
+  <xf:model id="m1">
+    <xf:instance id="i0"><x><y>1</y></x></xf:instance>
+  </xf:model>
+  <xf:model id="m2">
+    <xf:instance id="i0"><x><y>2</y></x></xf:instance>
+  </xf:model>
+  <xf:model id="m4">
+    <xf:instance>
+      <x>
+       <data>hello</data>   
+      </x>
+     </xf:instance>
+  </xf:model>
+  
+  <script type="text/javascript">
+    var m0 = document.getElementById("m0");
+    var m1 = document.getElementById("m1");
+    var m2 = document.getElementById("m2");
+    var m3 = document.getElementById("m3");
+    
+    //  var oLogReader = new YAHOO.widget.LogReader("fc-logger",{top:"50%",right:"10px"});
+		//  document.logger = new YAHOO.widget.LogWriter("ajaxfP");
+			document.logger = { log: function(sText, sContext) { } };
+		</script>
+		<h1>Testing RRRR actions</h1>
+<hr />
+  <xf:output model="m4" ref="data" id="o0"></xf:output>
+    <h2>actions with @model="m0"</h2>
+  <xf:trigger id="t00">
+    <xf:label>rebuild m0</xf:label>
+    <xf:rebuild model="m0" ev:event="DOMActivate"></xf:rebuild>
+  </xf:trigger>
+  <xf:trigger id="t01">
+    <xf:label>recalculate m0</xf:label>
+    <xf:recalculate model="m0" ev:event="DOMActivate"></xf:rebuild>
+  </xf:trigger>
+  <xf:trigger id="t02">
+    <xf:label>revalidate m0</xf:label>
+    <xf:revalidate model="m0" ev:event="DOMActivate"></xf:rebuild>
+  </xf:trigger>
+  <xf:trigger id="t03">
+    <xf:label>refresh m0</xf:label>
+    <xf:refresh model="m0" ev:event="DOMActivate"></xf:rebuild>
+  </xf:trigger>
+
+    <h2>actions with @model="m1"</h2>
+    <xf:trigger id="t10">
+    <xf:label>rebuild m1</xf:label>
+    <xf:rebuild model="m1" ev:event="DOMActivate"></xf:rebuild>
+  </xf:trigger>
+  <xf:trigger id="t11">
+    <xf:label>recalculate m1</xf:label>
+    <xf:recalculate model="m1" ev:event="DOMActivate"></xf:rebuild>
+  </xf:trigger>
+  <xf:trigger id="t12">
+    <xf:label>revalidate m1</xf:label>
+    <xf:revalidate model="m1" ev:event="DOMActivate"></xf:rebuild>
+  </xf:trigger>
+  <xf:trigger id="t13">
+    <xf:label>refresh m1</xf:label>
+    <xf:refresh model="m1" ev:event="DOMActivate"></xf:rebuild>
+  </xf:trigger>
+  
+<hr />
+    <h2>actions with no @model, but within a group with model="m2"</h2>
+    
+  <xf:group model="m2">
+    <xf:trigger id="t20">
+      <xf:label>rebuild m2</xf:label>
+      <xf:rebuild  ev:event="DOMActivate"></xf:rebuild>
+    </xf:trigger>
+    <xf:trigger id="t21">
+      <xf:label>recalculate m2</xf:label>
+      <xf:recalculate  ev:event="DOMActivate"></xf:rebuild>
+    </xf:trigger>
+    <xf:trigger id="t22">
+      <xf:label>revalidate m2</xf:label>
+      <xf:revalidate  ev:event="DOMActivate"></xf:rebuild>
+    </xf:trigger>
+    <xf:trigger id="t23">
+      <xf:label>refresh m2</xf:label>
+      <xf:refresh  ev:event="DOMActivate"></xf:rebuild>
+    </xf:trigger>
+  </xf:group>
+    
+    <h2>actions with no @model, which are "outermost binding elements"</h2>
+    
+    <xf:trigger id="t30">
+      <xf:label>rebuild m2</xf:label>
+      <xf:rebuild  ev:event="DOMActivate"></xf:rebuild>
+    </xf:trigger>
+    <xf:trigger id="t31">
+      <xf:label>recalculate m2</xf:label>
+      <xf:recalculate  ev:event="DOMActivate"></xf:rebuild>
+    </xf:trigger>
+    <xf:trigger id="t32">
+      <xf:label>revalidate m2</xf:label>
+      <xf:revalidate  ev:event="DOMActivate"></xf:rebuild>
+    </xf:trigger>
+    <xf:trigger id="t33">
+      <xf:label>refresh m2</xf:label>
+      <xf:refresh  ev:event="DOMActivate"></xf:rebuild>
+    </xf:trigger>
+    
+</body>
+</html>

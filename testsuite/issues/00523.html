@@ -1,0 +1,48 @@
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+ xmlns:ev="http://www.w3.org/2001/xml-events"
+>
+	<head>
+		<title>
+			Issue 523
+		</title>
+
+		<script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+	</head>
+
+	<body>
+		<h1>
+			<a href="http://code.google.com/p/ubiquity-xforms/issues/detail?id=523">Issue 523</a>
+		</h1>
+
+		<h2>
+			Implement minimal appearance on trigger controls
+		</h2>
+
+		<xf:model>
+			<xf:instance>
+				<data xmlns="">
+					<count>0</count>
+					<ready></ready>
+				</data>
+			</xf:instance>
+		</xf:model>
+
+		<xf:trigger appearance="minimal" id="trigger">
+			<xf:label>Test</xf:label>
+			<xf:action ev:event="DOMActivate">
+				<xf:setvalue ref="/data/count" value="number(.) + 1"></xf:setvalue>
+				<xf:setvalue ref="/data/ready" value="'TRUE'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:output ref="/data/count" id="result">
+			<xf:label>Click count:</xf:label>
+		</xf:output>
+
+		<xf:output ref="/data/ready" id="ready">
+			<xf:label>Ready:</xf:label>
+		</xf:output>
+	</body>
+</html>

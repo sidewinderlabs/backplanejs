@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <!--CSS-->
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/logger/assets/logger.css" />
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/yuitest/assets/testlogger.css" />
+    
+    <!-- Dependencies --> 
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/logger/logger-min.js"></script>
+    
+    <!-- Source File -->
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/yuitest/yuitest-min.js"></script>
+    <script src="http://yui.yahooapis.com/2.5.2/build/dom/dom-min.js">/**/</script> 
+
+    <script src="http://yui.yahooapis.com/2.5.2/build/yuiloader/yuiloader-beta.js"></script>
+    <script src="../make-rollup.js"></script>
+    <script src="testMakeRollup.js"></script>
+  </head>
+  <body>
+    <div id="testLogger"></div>
+    <script type="text/javascript">
+      var oLogger = new YAHOO.tool.TestLogger();
+      YAHOO.tool.TestRunner.run();
+    </script>
+  </body>
+  
+</html>

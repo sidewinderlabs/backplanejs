@@ -1,0 +1,134 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>Test Suite</title>
+		<link rel="stylesheet" type="text/css" href="../selenium/core/selenium.css" />
+		<script language="JavaScript" type="text/javascript" src="../selenium/core/scripts/selenium-browserdetect.js"></script>
+		<script language="JavaScript" type="text/javascript">//<![CDATA[
+    var DISABLED = true; // used to flag failing tests
+
+    function filterTestsForBrowser() {
+        var suiteTable = document.getElementById("suiteTable");
+        var skippedTests = document.getElementById("skippedTests");
+
+        for(rowNum = suiteTable.rows.length - 1; rowNum >= 0; rowNum--)
+        {
+            var row = suiteTable.rows[rowNum];
+            var filterString = row.getAttribute("unless");
+            if (filterString && eval(filterString))
+            {
+              var cellHTML = row.cells[0].innerHTML;
+              suiteTable.deleteRow(rowNum);
+
+              var newRow = skippedTests.insertRow(1);
+              var newCell = newRow.insertCell(0)
+              newCell.innerHTML = cellHTML;
+            }
+        }
+    }
+//]]>
+		</script>
+	</head>
+	<body onload="filterTestsForBrowser()">
+		<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium">
+			<tbody>
+				<tr>
+					<td><b>Test Suite</b></td>
+				</tr>
+				<tr>
+					<td><a href="TestOutput.html">TestOutput</a></td>
+				</tr>
+				<tr>
+					<td><a href="TestInput.html">TestInput</a></td>
+				</tr>
+				<tr>
+					<td><a href="TestInstanceSrc.html">TestInstanceSrc</a></td>
+				</tr>
+				<tr>
+					<td><a href="TestInstanceResource.html">TestInstanceResource</a></td>
+				</tr>
+				<tr>
+					<td><a href="TestContext.html">TestContext</a></td>
+				</tr>
+				<tr>
+					<td><a href="TestConditionalInvoke.html">TestConditionalInvoke</a></td>
+				</tr>
+				<tr>
+					<td><a href="TestIterativeInvoke.html">TestIterativeInvoke</a></td>
+				</tr>
+				<tr>
+					<td><a href="TestRepeat.html">TestRepeat</a></td>
+				</tr>
+				<tr>
+					<td><a href="TestXFormsRepeat.html">TestXFormsRepeat</a></td>
+				</tr>
+				<tr>
+					<td><a href="TestSwitch.html">TestSwitch</a></td>
+				</tr>
+				<tr>
+					<td><a href="TestLocalName.html">TestLocalName</a></td>
+				</tr>
+				<tr>
+					<td><a href="TestCurrent.html">TestCurrent</a></td>
+				</tr>
+				<tr>
+					<td><a href="TestGetInstanceDocument.html">TestGetInstanceDocument</a></td>
+				</tr>
+			    <tr>
+			        <td><a href="TestModelAttribute.html">TestModelAttribute</a></td>
+			    </tr>
+			  <tr>
+			    <td><a href="TestRRRR.html">TestRRRR</a></td>
+			  </tr>
+			  <tr>
+			    <td><a href="TestReset.html">TestReset</a></td>
+			  </tr>
+			  <tr>
+			    <td><a href="TestAlert.html">TestAlert</a></td>
+			  </tr>
+			  <tr>
+			    <td><a href="TestSelect1.html">TestSelect1</a></td>
+			  </tr>
+			  <tr>
+			    <td><a href="TestDispatch.html">TestDispatch</a></td>
+			  </tr>
+			  <tr>
+			    <td><a href="TestMessage.html">TestMessage</a></td>
+			  </tr>
+              <tr>
+		  		<td><a href="TestOutputMediatype.html">TestOutputMediatype</a></td>
+		  	  </tr>
+			</tbody>
+		</table>
+		<br />
+		<em>Not supported in this browser</em>
+		<table id="skippedTests" cellpadding="1" cellspacing="1" border="1" class="selenium">
+			<tbody>
+				<tr>
+					<td><b>Skipped Tests</b></td>
+				</tr>
+			</tbody>
+		</table>
+<!--
+	Currently irrelevant tests.
+		<tr>
+			<td><a href="TestDate.html">TestDate</a></td>
+		</tr>
+-->		
+	</body>
+</html>

@@ -1,0 +1,288 @@
+<!--
+  * Copyright (c) 2009 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<!DOCTYPE html
+ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+ xmlns:ev="http://www.w3.org/2001/xml-events"
+>
+	<head>
+		<title>
+			Issue 232
+		</title>
+
+		<script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+	</head>
+
+	<body>
+		<h1>
+			<a href="http://code.google.com/p/ubiquity-xforms/issues/detail?id=232">Issue 232</a>
+		</h1>
+
+		<h2>
+			xf:setfocus should dispatch the xforms-focus event
+		</h2>
+
+		<xf:model id="mdl">
+			<xf:instance id="inst-test">
+				<test xmlns="">
+					<first></first>
+					<second></second>
+					<third></third>
+					<fourth></fourth>
+					<fifth></fifth>
+					<sixth></sixth>
+				</test>
+			</xf:instance>
+
+			<xf:bind nodeset="instance('inst-test')/third" relevant="false()"></xf:bind>
+
+			<xf:instance id="inst-ready">
+				<ready xmlns="">FALSE</ready>
+			</xf:instance>
+
+			<xf:setvalue ev:event="xforms-ready" ref="instance('inst-ready')" value="'TRUE 1'"></xf:setvalue>
+		</xf:model>
+
+		<hr />
+
+		<ol>
+			<li>
+				Click on the button labelled 'Test 1'.
+			</li>
+
+			<li>
+				If focus is passed to the input field and the first result field displays the text 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+			</li>
+		</ol>
+
+		<xf:trigger id="test1">
+			<xf:label>
+				Test 1
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:setfocus control="input1"></xf:setfocus>
+
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE 2'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:input id="input1" ref="instance('inst-test')/second">
+			<xf:label>
+				Test:
+			</xf:label>
+
+			<xf:setvalue ev:event="xforms-focus" ref="../first" value="'TEST PASSED'"></xf:setvalue>
+		</xf:input>
+
+		<xf:output ref="instance('inst-test')/first" id="result1">
+			<xf:label>
+				Test 1, first result:
+			</xf:label>
+		</xf:output>
+
+		<xf:output ref="instance('inst-test')/second" id="result2">
+			<xf:label>
+				Test 1, second result:
+			</xf:label>
+		</xf:output>
+
+		<hr />
+
+		<ol>
+			<li>
+				Click on the button labelled 'Test 2'.
+			</li>
+
+			<li>
+				If focus is not passed to the input field and the result field does not display the text 'TEST FAILED', the test has passed. Otherwise, the test has failed.
+			</li>
+		</ol>
+
+		<xf:trigger id="test2">
+			<xf:label>
+				Test 2
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:setfocus control="input2"></xf:setfocus>
+
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE 3'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:input ref="instance('inst-test')/third" id="input2" style="display: block; visibility: visible;">
+			<xf:label>
+				Not relevant:
+			</xf:label>
+
+			<xf:setvalue ev:event="DOMFocusIn" ref="." value="'TEST FAILED'"></xf:setvalue>
+		</xf:input>
+
+		<xf:output ref="instance('inst-test')/third" id="result3" style="display: block; visibility: visible;">
+			<xf:label>
+				Test 2, result:
+			</xf:label>
+		</xf:output>
+
+		<hr />
+
+		<ol>
+			<li>
+				Click on the button labelled 'Test 3'.
+			</li>
+
+			<li>
+				If focus is passed to the second input field and the result field displays the text 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+			</li>
+		</ol>
+
+		<xf:trigger id="test3">
+			<xf:label>
+				Test 3
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:setfocus control="group"></xf:setfocus>
+
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE 4'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:group ref="instance('inst-test')" id="group">
+			<xf:input ref="instance('inst-test')/third" id="input3" style="display: block; visibility: visible;">
+				<xf:label>
+					Not relevant:
+				</xf:label>
+			</xf:input>
+
+			<xf:input ref="instance('inst-test')/fourth" id="input4">
+				<xf:label>
+					Test:
+				</xf:label>
+
+				<xf:setvalue ev:event="DOMFocusIn" ref="." value="'TEST PASSED'"></xf:setvalue>
+			</xf:input>
+		</xf:group>
+
+		<xf:output ref="instance('inst-test')/fourth" id="result4" style="display: block; visibility: visible;">
+			<xf:label>
+				Test 3, result:
+			</xf:label>
+		</xf:output>
+
+		<hr />
+
+		<ol>
+			<li>
+				Click on the button labelled 'Test 4'.
+			</li>
+
+			<li>
+				If focus is passed to the second input field and the result field displays the text '2', the test has passed. Otherwise, the test has failed.
+			</li>
+		</ol>
+
+		<xf:trigger id="test4">
+			<xf:label>
+				Test 4
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:setfocus control="repeat"></xf:setfocus>
+
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE 5'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:repeat id="repeat" nodeset="instance('inst-test')/*" startindex="2">
+			<xf:input ref=".">
+				<xf:label>
+					Repeat item:
+				</xf:label>
+
+				<xf:setvalue ev:event="DOMFocusIn" ref="../fifth" if="index('repeat') = 2" value="index('repeat')"></xf:setvalue>
+			</xf:input>
+		</xf:repeat>
+
+		<xf:output ref="instance('inst-test')/fifth" id="result5">
+			<xf:label>
+				Test 4, result:
+			</xf:label>
+		</xf:output>
+
+		<hr />
+
+		<ol>
+			<li>
+				Click on the button labelled 'Test 5'.
+			</li>
+
+			<li>
+				If focus is passed to the visible input field and the result field displays the text 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+			</li>
+		</ol>
+
+		<xf:trigger id="test5">
+			<xf:label>
+				Test 5
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:setfocus control="switch"></xf:setfocus>
+
+				<xf:setvalue ref="instance('inst-ready')" value="'TRUE 6'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+
+		<xf:switch id="switch">
+			<xf:case>
+				<xf:input ref="instance('inst-test')/sixth">
+					<xf:label>
+						Case:
+					</xf:label>
+				</xf:input>
+			</xf:case>
+
+			<xf:case selected="true">
+				<xf:input ref="instance('inst-test')/sixth">
+					<xf:label>
+						Case:
+					</xf:label>
+
+					<xf:setvalue ev:event="DOMFocusIn" ref="." value="'TEST PASSED'"></xf:setvalue>
+				</xf:input>
+			</xf:case>
+		</xf:switch>
+
+		<xf:output ref="instance('inst-test')/sixth" id="result6">
+			<xf:label>
+				Test 5, result:
+			</xf:label>
+		</xf:output>
+
+		<hr />
+
+		<xf:output ref="instance('inst-ready')" id="ready">
+			<xf:label>
+				Ready:
+			</xf:label>
+		</xf:output>
+	</body>
+</html>

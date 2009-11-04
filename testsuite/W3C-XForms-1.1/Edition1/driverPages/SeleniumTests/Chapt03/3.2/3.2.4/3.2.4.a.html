@@ -1,0 +1,70 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>3.2.4.a node-set binding - nodeset attribute and bind attribute override</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+				  <td rowspan="1" colspan="3">3.2.4.a node-set binding - nodeset attribute and bind attribute override<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../Chapt03/3.2/3.2.4/3.2.4.a.xhtml</td>
+					<td>&nsp;</td>
+					<td>Opens the form</td>
+				</tr>
+				<tr>
+					<td>waitForModelReady</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>verifyTitle</td>
+					<td>3.2.4.a node-set binding - nodeset attribute and bind attribute override</td>
+					<td></td>
+					<td>Makes sure this is the right form</td>
+				</tr>
+				<tr>
+					<td>verifyElementPresent</td>
+					<td>xpath=/html/body/xforms:select[@ref='/carsAvailable/carOrder']</td>
+					<td></td>
+					<td>Checks that the select is in the form</td>
+				</tr>
+<!--
+Choose an option
+-->
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/xforms:select[@ref='/carsAvailable/carOrder']//xforms:item[1]/xforms:label</td>
+					<td></td>
+					<td>Clicks on "Audi"</td>
+				</tr>
+				<tr>
+					<td>verifyValue</td>
+					<td>xpath=/html/body/xforms:select[@ref='/carsAvailable/carOrder']/pe-value/input</td>
+					<td>Audi</td>
+					<td>Checks that the select is bound correctly</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

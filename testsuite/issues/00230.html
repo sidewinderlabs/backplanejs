@@ -1,0 +1,87 @@
+<!--
+  * Copyright (c) 2009 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<!DOCTYPE html
+ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+ xmlns:ev="http://www.w3.org/2001/xml-events"
+>
+	<head>
+		<title>
+			Issue 230
+		</title>
+
+		<script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+	</head>
+
+	<body>
+		<h1>
+			<a href="http://code.google.com/p/ubiquity-xforms/issues/detail?id=230">Issue 230</a>
+		</h1>
+
+		<h2>
+			xf:setfocus should dispatch the xforms-focus event
+		</h2>
+
+		<xf:model id="mdl">
+			<xf:instance id="inst-test">
+				<test xmlns="">TEST FAILED</test>
+			</xf:instance>
+
+			<xf:bind nodeset="instance('inst-test')/third" relevant="false()"></xf:bind>
+
+			<xf:setvalue ev:event="xforms-ready" ref="instance('inst-test')" value="'NOT RUN'"></xf:setvalue>
+		</xf:model>
+
+		<xf:model id="mdl-ready">
+			<xf:instance id="inst-ready">
+				<ready xmlns="">FALSE</ready>
+			</xf:instance>
+			<xf:setvalue ev:event="xforms-ready" ref="instance('inst-ready')" value="'TRUE'"></xf:setvalue>
+		</xf:model>
+		
+		<hr />
+
+		<ol>
+			<li>
+				Activate the trigger labelled 'Test 1'.
+			</li>
+			<li>
+				If the "Result" field reads "TEST PASSED", then the test has passed, otherwise, it has failed.
+			</li>			
+		</ol>
+		<xf:output ref="instance('inst-test')" id="result">
+				<xf:label>Result: </xf:label>
+		</xf:output>
+		<xf:output model="mdl-ready" ref="instance('inst-ready')" id="ready">
+			<xf:label>Ready: </xf:label>
+		</xf:output>
+		<hr />
+		<xf:trigger id="test1">
+			<xf:label>
+				Test 1
+			</xf:label>
+
+			<xf:action ev:event="DOMActivate">
+				<xf:reset></xf:reset>
+				<xf:setvalue ref="instance('inst-test')" value="'TEST PASSED'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+		
+	</body>
+</html>

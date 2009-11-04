@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xforms="http://www.w3.org/2002/xforms">
+  	<head>
+  		
+    	<title>10.8.f dispatch element dispatches cancelled predefined event</title>
+    	<script type="text/javascript"
+              src="../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../driverPages/forms/TestSuite11.css" type="text/css"/>
+    	
+    	<xforms:setvalue ev:event="xforms-ready" ref="/car">Kia</xforms:setvalue>
+  	</head>
+  	<body>
+      <xforms:model id="model1" ev:event="xforms-reset" ev:defaultAction="cancel">
+       		<xforms:instance xmlns="">
+				        <car>Audi</car>
+       		</xforms:instance>
+    	</xforms:model>
+  		  <xforms:group>
+	  		    <xforms:label class="title">10.8.f dispatch element dispatches cancelled predefined event</xforms:label>
+	  	  </xforms:group>	
+  		  <xforms:group>
+  			    <xforms:label>
+  				When you activate the Reset trigger the value in the input control must NOT change to "Audi".
+			</xforms:label>
+  		  </xforms:group>
+		    <xforms:trigger>
+	        <xforms:label>Reset</xforms:label>
+	        <xforms:action ev:event="DOMActivate">
+				        <xforms:reset model="model1"/>
+			      </xforms:action>
+		    </xforms:trigger>
+
+		    <xforms:input id="input1" ref="/car">
+			      <xforms:label>Car Input : </xforms:label>
+		    </xforms:input>
+		
+  </body>
+</html>

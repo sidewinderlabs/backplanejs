@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xforms="http://www.w3.org/2002/xforms">
+	  <head>
+		    <title>4.5.5.a xforms-output-error event</title>
+		    <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+		
+	  </head>
+	
+	  <body>
+      <xforms:model>
+			      <xforms:instance xmlns="">
+				        <root>
+					          <data/>
+				        </root>
+			      </xforms:instance>
+		    </xforms:model>
+	
+		    <xforms:group>
+			      <xforms:label class="title">4.5.5.a xforms-output-error event</xforms:label>
+		    </xforms:group>
+		
+		    <xforms:group>
+			      <xforms:label>
+				You must see an xforms-output-error message.
+			</xforms:label>
+		    </xforms:group>
+		
+		    <xforms:group>
+			      <xforms:output ref="data" mediatype="unknownMediatype">
+			         <xforms:label>Output of unknownMediatype : </xforms:label>
+			         <xforms:message level="modal" ev:event="xforms-output-error">xforms-output-error</xforms:message>			
+			      </xforms:output>
+		    </xforms:group>
+		
+	  </body>
+</html>

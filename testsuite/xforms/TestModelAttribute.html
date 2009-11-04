@@ -1,0 +1,92 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>Test Output</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+				    <td rowspan="1" colspan="3">Test Model Attribute<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../xforms/html/test_modelattribute.html</td>
+					<td>&nbsp;</td>
+					<td>opens the form</td>
+				</tr>
+
+			    <tr>
+			        <td>assertTitle</td>
+			        <td>Testing Model Attribute</td>
+			        <td>&nbsp;</td>
+			        <td>checks that the form is the correct one</td>
+			    </tr>
+			    <tr>
+					<td>waitForText</td>
+					<td>xpath=/html/body/xf:output[@id="o0"]/pe-value</td>
+					<td>hello</td>
+					<td>checks that the first output is bound correctly</td>
+				</tr>
+				<tr>
+					<td>assertText</td>
+				    <td>xpath=/html/body/xf:output[@id="o0"]/pe-value</td>
+					<td>hello</td>
+				    <td>checks that no attribute means first model</td>
+				</tr>
+			    <tr>
+			        <td>assertText</td>
+			        <td>xpath=/html/body/xf:output[@id="o1"]/pe-value</td>
+			        <td>hello</td>
+			        <td>checks that the first model can be bound to explicitly</td>
+			    </tr>
+			    <tr>
+			        <td>assertText</td>
+			        <td>xpath=/html/body/xf:output[@id="o2"]/pe-value</td>
+			        <td>bonjour</td>
+			        <td>checks the second model can be bound to explicitly</td>
+			    </tr>
+			    <tr>
+			        <td>assertText</td>
+			        <td>xpath=/html/body/xf:group/xf:output[@id="o3"]/pe-value</td>
+			        <td>matelot</td>
+			        <td>checks that group with model gives context to children without</td>
+			    </tr>
+			    <tr>
+			        <td>assertText</td>
+			        <td>xpath=/html/body/xf:group/xf:output[@id="o4"]/pe-value</td>
+			        <td>hello</td>
+			        <td>checks that group's model can be overridden by a child with a model attribute</td>
+			    </tr>
+			    <tr>
+			        <td>assertText</td>
+			        <td>xpath=/html/body/xf:group/xf:output[@id="o5"]/pe-value</td>
+			        <td>matelot</td>
+			        <td>checks that context is observed when both models are the same.</td>
+			    </tr>
+			    <tr>
+					<td>close</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events">
+  <head>
+      <title>4.4.13.a DOMFocusIn event</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+         <xforms:instance xmlns="">
+            <car>
+               <make/>
+               <year/>
+            </car>
+         </xforms:instance>
+         <xforms:setfocus control="input_year" ev:event="xforms-ready"/>
+      </xforms:model>
+      <xforms:group>
+    	    <xforms:label class="title">4.4.13.a DOMFocusIn event</xforms:label>
+      </xforms:group>
+      <xforms:group>
+    	    <xforms:label>
+	    	You must have seen a DOMFocusIn message.
+	    </xforms:label>	
+      </xforms:group>
+      <xforms:input id="input_make" ref="/car/make">
+    	    <xforms:label>Car make</xforms:label>
+      </xforms:input>
+      <xforms:input id="input_year" ref="/car/year">
+       	<xforms:label>Car year</xforms:label>
+       	<xforms:action ev:event="DOMFocusIn">
+        	   <xforms:message level="modal">DOMFocusIn</xforms:message>
+          	
+          	<xforms:setfocus control="input_make"/>
+       	</xforms:action>
+      </xforms:input>
+	
+  </body>
+</html>

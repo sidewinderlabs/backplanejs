@@ -1,0 +1,990 @@
+<html><body>
+<h1>Test suite results </h1>
+
+<table>
+<tr>
+<td>result:</td>
+<td>failed</td>
+</tr>
+<tr>
+<td>totalTime:</td>
+<td>55</td>
+</tr>
+<tr>
+<td>numTestPasses:</td>
+<td>6</td>
+</tr>
+<tr>
+<td>numTestFailures:</td>
+<td>6</td>
+</tr>
+<tr>
+<td>numCommandPasses:</td>
+<td>103</td>
+</tr>
+<tr>
+<td>numCommandFailures:</td>
+<td>8</td>
+</tr>
+<tr>
+<td>numCommandErrors:</td>
+<td>0</td>
+</tr>
+<tr>
+<td><TABLE class=selenium id=suiteTable cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD><B>XForms 1.1 Chapter 6 Test Suite</B></TD></TR>
+<TR bgColor=#ccffcc>
+<TD><A href="./Chapt06/6.1/6.1.1/6.1.1.a.html">6.1.1.a type property</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Chapt06/6.1/6.1.2/6.1.2.a.html">6.1.2.a readonly property</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Chapt06/6.1/6.1.2/6.1.2.b.html">6.1.2.b inheritance rules of readonly property</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Chapt06/6.1/6.1.3/6.1.3.a.html">6.1.3.a required property</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TR bgColor=#ccffcc>
+<TD><A href="./Chapt06/6.1/6.1.4/6.1.4.a.html">6.1.4.a inheritance rules for relevant property</A></TD></TR>
+<TR bgColor=#ccffcc>
+<TD><A href="./Chapt06/6.1/6.1.4/6.1.4.b.html">6.1.4.b relevant property</A></TD></TR>
+<TR bgColor=#ccffcc>
+<TD><A href="./Chapt06/6.1/6.1.4/6.1.4.c.html">6.1.4.c relevant property inheritance to attributes</A></TD></TR>
+<TR bgColor=#ccffcc>
+<TD><A href="./Chapt06/6.1/6.1.5/6.1.5.a.html">6.1.5.a calculate property</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Chapt06/6.1/6.1.6/6.1.6.a.html">6.1.6.a constraint property</A></TD></TR>
+<TR bgColor=#ccffcc>
+<TD><A href="./Chapt06/6.1/6.1.7/6.1.7.a.html">6.1.7.a p3ptype property (non-normative)</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Chapt06/6.2/6.2.1/6.2.1.a.html">6.2.1.a atomic datatype</A></TD></TR></TBODY></TABLE><BR><EM>Not supported in this browser</EM> 
+<TABLE class=selenium id=skippedTests cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR>
+<TD><B>Skipped Tests</B></TD></TR></TBODY></TABLE></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ccffcc>
+<TD colSpan=3>6.1.1.a type property<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Chapt06/6.1/6.1.1/6.1.1.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>6.1.1.a type property</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:input[@bind='month_bind']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the input is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:input[@bind='month_bind']/xforms:action[@ev:event='xforms-valid']/xforms:message</TD>
+<TD originalHTML></TD>
+<TD>Checks that the message is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@id='month_bind' and @type='xsd:gMonth' and @nodeset='/person/month']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the bind has the type attribute on it</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:trigger[1]</TD>
+<TD originalHTML></TD>
+<TD>Checks that the trigger is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:trigger[1]</TD>
+<TD originalHTML></TD>
+<TD>Clicks on the button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>200</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTextPresent</TD>
+<TD>[XForms]*You have entered a valid gMonth*OK</TD>
+<TD originalHTML></TD>
+<TD>Checks to see if the message showed up</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/div[contains(@class, 'yui-panel-container')]//div[@class='ft']/span/span/span/button</TD>
+<TD originalHTML></TD>
+<TD>Clicks on OK button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:input[@ref='/person/year']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the input is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:input[@ref='/person/year']/xforms:action[@ev:event='xforms-valid']/xforms:message</TD>
+<TD originalHTML></TD>
+<TD>Checks that the message is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:trigger[2]</TD>
+<TD originalHTML></TD>
+<TD>Checks that the trigger is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:trigger[2]</TD>
+<TD originalHTML></TD>
+<TD>Clicks on the button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>200</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTextPresent</TD>
+<TD>[XForms]*You have entered a valid gYear*OK</TD>
+<TD originalHTML></TD>
+<TD>Checks to see if the message showed up</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/div[contains(@class, 'yui-panel-container')]//div[@class='ft']/span/span/span/button</TD>
+<TD originalHTML></TD>
+<TD>Clicks on OK button</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>6.1.2.a readonly property<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Chapt06/6.1/6.1.2/6.1.2.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>6.1.2.a readonly property</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@nodeset='/person-name/first-name' and @readonly='true()']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the bind has a readonly attribute</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:input[@ref='/person-name/first-name']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the first input is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyValue</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:input[@ref='/person-name/first-name']/pe-value/input</TD>
+<TD originalHTML="Roland">Roland</TD>
+<TD>Checks that the first input has the right value</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>type</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:input[@ref='/person-name/first-name']/pe-value/input</TD>
+<TD originalHTML="John">John</TD>
+<TD>Try to type into the readonly field</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[4]/xforms:input[@ref='/person-name/last-name']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the second input is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyValue</TD>
+<TD>xpath=/html/body/xforms:group[4]/xforms:input[@ref='/person-name/last-name']/pe-value/input</TD>
+<TD originalHTML="Orlando">Orlando</TD>
+<TD>Checks that the second input has the right value</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>type</TD>
+<TD>xpath=/html/body/xforms:group[4]/xforms:input[@ref='/person-name/last-name']/pe-value/input</TD>
+<TD originalHTML="Smith">Smith</TD>
+<TD>Try to type into the other field</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyValue</TD>
+<TD>xpath=/html/body/xforms:group[4]/xforms:input[@ref='/person-name/last-name']/pe-value/input</TD>
+<TD originalHTML="Smith">Smith</TD>
+<TD>Checks that the second input has the right value</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyValue</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:input[@ref='/person-name/first-name']/pe-value/input</TD>
+<TD originalHTML="Roland">Actual value 'John' did not match 'Roland'</TD>
+<TD>Checks that the first input has the right value</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>6.1.2.b inheritance rules of readonly property<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Chapt06/6.1/6.1.2/6.1.2.b.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>6.1.2.b inheritance rules of readonly property</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@nodeset='/person-name' and @readonly='true()']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the bind has a readonly attribute</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@nodeset='/person-name/last-name' and @readonly='false()']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the bind has a readonly attribute</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:input[@ref='/person-name/first-name']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the first input is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyValue</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:input[@ref='/person-name/first-name']/pe-value/input</TD>
+<TD originalHTML="Roland">Roland</TD>
+<TD>Checks that the first input has the right value</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>type</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:input[@ref='/person-name/first-name']/pe-value/input</TD>
+<TD originalHTML="John">John</TD>
+<TD>Try to type into the readonly field</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[4]/xforms:input[@ref='/person-name/last-name']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the second input is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyValue</TD>
+<TD>xpath=/html/body/xforms:group[4]/xforms:input[@ref='/person-name/last-name']/pe-value/input</TD>
+<TD originalHTML="Orlando">Orlando</TD>
+<TD>Checks that the second input has the right value</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>type</TD>
+<TD>xpath=/html/body/xforms:group[4]/xforms:input[@ref='/person-name/last-name']/pe-value/input</TD>
+<TD originalHTML="Smith">Smith</TD>
+<TD>Try to type into the other field</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyValue</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:input[@ref='/person-name/first-name']/pe-value/input</TD>
+<TD originalHTML="Roland">Actual value 'John' did not match 'Roland'</TD>
+<TD>Checks that the first input has the right value</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyValue</TD>
+<TD>xpath=/html/body/xforms:group[4]/xforms:input[@ref='/person-name/last-name']/pe-value/input</TD>
+<TD originalHTML="Orlando">Actual value 'Smith' did not match 'Orlando'</TD>
+<TD>Checks that the second input has the right value</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>6.1.3.a required property<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Chapt06/6.1/6.1.3/6.1.3.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>6.1.3.a required property</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@nodeset='/person-name/first-name' and @required='true()']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the bind has a required attribute</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/person-name/first-name']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the input is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:submit[@submission='fname']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the submit is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:submit[@submission='fname']</TD>
+<TD originalHTML></TD>
+<TD>Clicks on submit button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:submit[@submission='fname']</TD>
+<TD originalHTML></TD>
+<TD>Clicks on submit button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/person-name/first-name']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the input is still in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>type</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/person-name/first-name']/pe-value/input</TD>
+<TD originalHTML="John">John</TD>
+<TD>Try to type into the input field</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyValue</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/person-name/first-name']/pe-value/input</TD>
+<TD originalHTML="John">John</TD>
+<TD>Checks that the input has the right value</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:submit[@submission='fname']</TD>
+<TD originalHTML></TD>
+<TD>Clicks on submit button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>1000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=//html/body/pre</TD>
+<TD originalHTML="*John*">Actual value '<FIRST-NAME></FIRST-NAME>' did not match '*John*'</TD>
+<TD>Checks that the form data is shown</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ccffcc>
+<TD colSpan=3>6.1.4.a inheritance rules for relevant property<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Chapt06/6.1/6.1.4/6.1.4.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>6.1.4.a inheritance rules for relevant property</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@nodeset='/person-name/first-name' and @relevant='false()']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the bind has a relevant attribute</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/person-name/first-name/title']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the input is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/person-name/first-name/name']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the input is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyNotVisible</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/person-name/first-name/title']/pe-value/input</TD>
+<TD originalHTML></TD>
+<TD>Checks that this input is not visible</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyNotVisible</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/person-name/first-name/name']/pe-value/input</TD>
+<TD originalHTML></TD>
+<TD>Checks that this input is not visible</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyVisible</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/person-name/last-name']/pe-value/input</TD>
+<TD originalHTML></TD>
+<TD>Checks that this input is visible</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ccffcc>
+<TD colSpan=3>6.1.4.b relevant property<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Chapt06/6.1/6.1.4/6.1.4.b.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>6.1.4.b relevant property</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@nodeset='/order/item/discount' and @relevant='/order/item/amount &gt; 1000']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the bind has a relevant attribute</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/order/item/amount']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the input is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:output[@ref='/order/item/discount']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the output is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:trigger[1]</TD>
+<TD originalHTML></TD>
+<TD>Checks that the trigger is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:trigger[2]</TD>
+<TD originalHTML></TD>
+<TD>Checks that the trigger is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:trigger[1]</TD>
+<TD originalHTML></TD>
+<TD>Clicks on the button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>200</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyNotVisible</TD>
+<TD>xpath=/html/body/xforms:output[@ref='/order/item/discount']/pe-value</TD>
+<TD originalHTML></TD>
+<TD>Checks that the output is not visible</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:trigger[2]</TD>
+<TD originalHTML></TD>
+<TD>Clicks on the button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>200</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyVisible</TD>
+<TD>xpath=/html/body/xforms:output[@ref='/order/item/discount']/pe-value</TD>
+<TD originalHTML></TD>
+<TD>Checks that the output is visible</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ccffcc>
+<TD colSpan=3>6.1.4.c relevant property inheritance to attributes<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Chapt06/6.1/6.1.4/6.1.4.c.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>6.1.4.c relevant property inheritance to attributes</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@nodeset='personA' and @relevant='true()']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the bind has a relevant attribute</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@nodeset='personB/favcolor' and @relevant='false()']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the bind has a relevant attribute</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@nodeset='personC' and @relevant='false()']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the bind has a relevant attribute</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyVisible</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:input[@ref='personA/value']/pe-value/input</TD>
+<TD originalHTML></TD>
+<TD>Checks that this input is visible</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyVisible</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:input[@ref='personA/favcolor']/pe-value/input</TD>
+<TD originalHTML></TD>
+<TD>Checks that this input is visible</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyVisible</TD>
+<TD>xpath=/html/body/xforms:group[4]/xforms:input[@ref='personB/value']/pe-value/input</TD>
+<TD originalHTML></TD>
+<TD>Checks that this input is visible</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyNotVisible</TD>
+<TD>xpath=/html/body/xforms:group[4]/xforms:input[@ref='personB/favcolor']/pe-value/input</TD>
+<TD originalHTML></TD>
+<TD>Checks that this input is not visible</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyNotVisible</TD>
+<TD>xpath=/html/body/xforms:group[5]/xforms:input[@ref='personC/value']/pe-value/input</TD>
+<TD originalHTML></TD>
+<TD>Checks that this input is not visible</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyNotVisible</TD>
+<TD>xpath=/html/body/xforms:group[5]/xforms:input[@ref='personC/favcolor']/pe-value/input</TD>
+<TD originalHTML></TD>
+<TD>Checks that this input is not visible</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ccffcc>
+<TD colSpan=3>6.1.5.a calculate property<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Chapt06/6.1/6.1.5/6.1.5.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>6.1.5.a calculate property</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@nodeset='/order/item/discount' and @calculate='/order/item/amount * 0.5' and @relevant='/order/item/amount &gt; 1000']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the bind has a calculate attribute on it</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:trigger[1]</TD>
+<TD originalHTML></TD>
+<TD>Checks that the trigger is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:trigger[2]</TD>
+<TD originalHTML></TD>
+<TD>Checks that the trigger is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:trigger[3]</TD>
+<TD originalHTML></TD>
+<TD>Checks that the trigger is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:output[@ref='/order/item/discount']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the output is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:trigger[1]</TD>
+<TD originalHTML></TD>
+<TD>Clicks on the button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>200</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyNotVisible</TD>
+<TD>xpath=/html/body/xforms:output[@ref='/order/item/discount']/pe-value</TD>
+<TD originalHTML></TD>
+<TD>Checks that the output is not visible</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:trigger[2]</TD>
+<TD originalHTML></TD>
+<TD>Clicks on the button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>200</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyVisible</TD>
+<TD>xpath=/html/body/xforms:output[@ref='/order/item/discount']/pe-value</TD>
+<TD originalHTML></TD>
+<TD>Checks that the output is visible</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:output[@ref='/order/item/discount']</TD>
+<TD originalHTML="*750*">*750*</TD>
+<TD>Checks that the output has the right value</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:group[3]/xforms:trigger[3]</TD>
+<TD originalHTML></TD>
+<TD>Clicks on the button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>200</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyVisible</TD>
+<TD>xpath=/html/body/xforms:output[@ref='/order/item/discount']/pe-value</TD>
+<TD originalHTML></TD>
+<TD>Checks that the output is visible</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:output[@ref='/order/item/discount']</TD>
+<TD originalHTML="*1000*">*1000*</TD>
+<TD>Checks that the output has the right value</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>6.1.6.a constraint property<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Chapt06/6.1/6.1.6/6.1.6.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>6.1.6.a constraint property</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@nodeset='/range/to' and @constraint='. &gt; /range/from']</TD>
+<TD originalHTML>false</TD>
+<TD>Checks that the bind has the card-number datatype</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/range/from']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the input is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/range/to']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the input is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/range/to']/xforms:action[@ev:event='xforms-valid']/xforms:message</TD>
+<TD originalHTML></TD>
+<TD>Checks that the message is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:trigger[1]</TD>
+<TD originalHTML></TD>
+<TD>Checks that the trigger is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:trigger[1]</TD>
+<TD originalHTML></TD>
+<TD>Clicks on the button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>200</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTextPresent</TD>
+<TD>[XForms]*xforms-valid*OK</TD>
+<TD originalHTML></TD>
+<TD>Checks to see if the message showed up</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/div[contains(@class, 'yui-panel-container')]//div[@class='ft']/span/span/span/button</TD>
+<TD originalHTML></TD>
+<TD>Clicks on OK button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@nodeset='/range/to' and @constraint='. &gt; /range/from']</TD>
+<TD originalHTML>false</TD>
+<TD>Checks that the bind has the card-number datatype</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/range/from']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the input is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/range/to']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the input is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/range/to']/xforms:action[@ev:event='xforms-invalid']/xforms:message</TD>
+<TD originalHTML></TD>
+<TD>Checks that the message is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:trigger[2]</TD>
+<TD originalHTML></TD>
+<TD>Checks that the trigger is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:trigger[2]</TD>
+<TD originalHTML></TD>
+<TD>Clicks on the button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>200</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTextPresent</TD>
+<TD>[XForms]*xforms-invalid*OK</TD>
+<TD originalHTML></TD>
+<TD>Checks to see if the message showed up</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/div[contains(@class, 'yui-panel-container')]//div[@class='ft']/span/span/span/button</TD>
+<TD originalHTML></TD>
+<TD>Clicks on OK button</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ccffcc>
+<TD colSpan=3>6.1.7.a p3ptype property (non-normative)<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Chapt06/6.1/6.1.7/6.1.7.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>6.1.7.a p3ptype property (non-normative)</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@nodeset='/person-name/first-name' and @p3ptype='user.name.given']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the bind has a p3ptype attribute on it</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@nodeset='/person-name/last-name' and @p3ptype='user.name.family']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the bind has a p3ptype attribute on it</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/person-name/first-name']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the first input is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>type</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/person-name/first-name']/pe-value/input</TD>
+<TD originalHTML="John">John</TD>
+<TD>Try to type into the input field</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyValue</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/person-name/first-name']/pe-value/input</TD>
+<TD originalHTML="John">John</TD>
+<TD>Checks that the input has the right value</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/person-name/last-name']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the second input is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>type</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/person-name/last-name']/pe-value/input</TD>
+<TD originalHTML="Smith">Smith</TD>
+<TD>Try to type into the second input field</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyValue</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/person-name/last-name']/pe-value/input</TD>
+<TD originalHTML="Smith">Smith</TD>
+<TD>Checks that the second input has the right value</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:submit[@submission='submit_names']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the submit is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:submit[@submission='submit_names']</TD>
+<TD originalHTML></TD>
+<TD>Clicks on submit button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>1000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=//html/body/pre</TD>
+<TD originalHTML="*John*">*John*</TD>
+<TD>Checks that the form data is shown</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=//html/body/pre</TD>
+<TD originalHTML="*Smith*">*Smith*</TD>
+<TD>Checks that the form data is shown</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>6.2.1.a atomic datatype<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Chapt06/6.2/6.2.1/6.2.1.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>6.2.1.a atomic datatype</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@type='nonEmptyString' and @nodeset='/first-name']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the bind has a p3ptype attribute on it</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/first-name']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the input is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/first-name']/xforms:message[@ev:event='xforms-valid']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the message is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:trigger[2]</TD>
+<TD originalHTML></TD>
+<TD>Checks that the trigger is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:trigger[2]</TD>
+<TD originalHTML></TD>
+<TD>Clicks on the button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>200</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTextPresent</TD>
+<TD>[XForms]*xforms-valid*OK</TD>
+<TD originalHTML></TD>
+<TD>Checks to see if the message showed up</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/div[contains(@class, 'yui-panel-container')]//div[@class='ft']/span/span/span/button</TD>
+<TD originalHTML></TD>
+<TD>Clicks on OK button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:model/xforms:bind[@type='nonEmptyString' and @nodeset='/first-name']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the bind has a p3ptype attribute on it</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/first-name']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the input is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/first-name']/xforms:message[@ev:event='xforms-invalid']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the message is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:trigger[1]</TD>
+<TD originalHTML></TD>
+<TD>Checks that the trigger is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:trigger[1]</TD>
+<TD originalHTML></TD>
+<TD>Clicks on the button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>200</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyTextPresent</TD>
+<TD>[XForms]*xforms-invalid*OK</TD>
+<TD originalHTML>false</TD>
+<TD>Checks to see if the message showed up</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/div[contains(@class, 'yui-panel-container')]//div[@class='ft']/span/span/span/button</TD>
+<TD originalHTML></TD>
+<TD>Clicks on OK button</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+</table></body></html>

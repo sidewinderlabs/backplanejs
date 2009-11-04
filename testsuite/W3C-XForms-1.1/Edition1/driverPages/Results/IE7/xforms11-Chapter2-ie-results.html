@@ -1,0 +1,497 @@
+<html><body>
+<h1>Test suite results </h1>
+
+<table>
+<tr>
+<td>result:</td>
+<td>failed</td>
+</tr>
+<tr>
+<td>totalTime:</td>
+<td>23</td>
+</tr>
+<tr>
+<td>numTestPasses:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>numTestFailures:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>numCommandPasses:</td>
+<td>22</td>
+</tr>
+<tr>
+<td>numCommandFailures:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>numCommandErrors:</td>
+<td>2</td>
+</tr>
+<tr>
+<td><TABLE class=selenium id=suiteTable cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD><B>XForms 1.1 Chapter 2 Test Suite</B></TD></TR>
+<TR bgColor=#ccffcc>
+<TD><A href="./Chapt02/2.1.a.html">2.1.a Introductory Example No. 1</A></TD></TR>
+<TR bgColor=#ccffcc>
+<TD><A href="./Chapt02/2.2.a.html">2.2.a Example: Encapsulation of Instance Data</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Chapt02/2.3.a.html">2.3.a Example: Value Constraints</A></TD></TR>
+<TR bgColor=#ffcccc>
+<TD><A href="./Chapt02/2.4.a.html">2.4.a Example: Multiple Forms</A></TD></TR></TBODY></TABLE><BR><EM>Not supported in this browser</EM> 
+<TABLE class=selenium id=skippedTests cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR>
+<TD><B>Skipped Tests</B></TD></TR></TBODY></TABLE></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ccffcc>
+<TD colSpan=3>2.1.a Introductory Example No. 1<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Chapt02/2.1.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>2.1.a Introductory Example No. 1</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xf:select1[@ref='method']/pe-value/input</TD>
+<TD originalHTML></TD>
+<TD>Checks that the select1 is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyValue</TD>
+<TD>xpath=/html/body/xf:select1[@ref='method']/pe-value/input</TD>
+<TD originalHTML="Credit">Credit</TD>
+<TD>Checks that the select1 has the right value</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xf:select1[@ref='method']/pe-value/input</TD>
+<TD originalHTML></TD>
+<TD>Clicks in the select1</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xf:select1[@ref='method']//div[@class='pe-choices']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the choices section is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xf:select1[@ref='method']//div[@class='pe-choices']/xf:item[1]/xf:label</TD>
+<TD originalHTML="Cash">Cash</TD>
+<TD>Checks that the first item is "Cash"</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xf:select1[@ref='method']//div[@class='pe-choices']/xf:item[2]/xf:label</TD>
+<TD originalHTML="Credit">Credit</TD>
+<TD>Checks that the second item is "Credit"</TD></TR><!--
+Choose an option
+-->
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xf:select1[@ref='method']//div[@class='pe-choices']/xf:item[1]/xf:label</TD>
+<TD originalHTML></TD>
+<TD>Clicks on "Cash"</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>waitForValue</TD>
+<TD>xpath=/html/body/xf:select1[@ref='method']/pe-value/input</TD>
+<TD originalHTML="Cash">Cash</TD>
+<TD>Checks that the select1 is bound correctly</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyValue</TD>
+<TD>xpath=/html/body/xf:select1[@ref='method']/pe-value/input</TD>
+<TD originalHTML="Cash">Cash</TD>
+<TD>Checks that the select1 is bound correctly</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xf:submit[@submission='submit']/xf:label</TD>
+<TD originalHTML></TD>
+<TD>Clicks on submit button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>2000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form data page to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=//html/body/pre</TD>
+<TD originalHTML="*&amp;lt;method&amp;gt;cash&amp;lt;/method&amp;gt;*">*&lt;method&gt;cash&lt;/method&gt;*</TD>
+<TD>Checks that the form data is shown</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ccffcc>
+<TD colSpan=3>2.2.a Example: Encapsulation of Instance Data<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Chapt02/2.2.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>2.2.a Example: Encapsulation of Instance Data</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']/pe-value/input</TD>
+<TD originalHTML></TD>
+<TD>Checks that the select1 is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyValue</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']/pe-value/input</TD>
+<TD originalHTML="Credit">Credit</TD>
+<TD>Checks that the select1 has the right value</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']/pe-value/input</TD>
+<TD originalHTML></TD>
+<TD>Clicks in the select1</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']//div[@class='pe-choices']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the choices section is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']//div[@class='pe-choices']/xforms:item[1]/xforms:label</TD>
+<TD originalHTML="Cash">Cash</TD>
+<TD>Checks that the first item is "Cash"</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']//div[@class='pe-choices']/xforms:item[2]/xforms:label</TD>
+<TD originalHTML="Credit">Credit</TD>
+<TD>Checks that the second item is "Credit"</TD></TR><!--
+Choose an option
+-->
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']//div[@class='pe-choices']/xforms:item[1]/xforms:label</TD>
+<TD originalHTML></TD>
+<TD>Clicks on "Cash"</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>waitForValue</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']/pe-value/input</TD>
+<TD originalHTML="Cash">Cash</TD>
+<TD>Checks that the select1 is bound correctly</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyValue</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']/pe-value/input</TD>
+<TD originalHTML="Cash">Cash</TD>
+<TD>Checks that the select1 is bound correctly</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:submit[@submission='submit']/xforms:label</TD>
+<TD originalHTML></TD>
+<TD>Clicks on submit button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>2000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form data page to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=//html/body/pre</TD>
+<TD originalHTML='*method="cash"*'>*method="cash"*</TD>
+<TD>Checks that the form data is shown</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>2.3.a Example: Value Constraints<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Chapt02/2.3.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>2.3.a Example: Value Constraints</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']/pe-value/input</TD>
+<TD originalHTML></TD>
+<TD>Checks that the select1 is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyValue</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']/pe-value/input</TD>
+<TD originalHTML="Credit">Credit</TD>
+<TD>Checks that the select1 has the right value</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:submit[@submission='submit01']/xforms:label</TD>
+<TD originalHTML></TD>
+<TD>Clicks on submit button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>2000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form data page to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyElementNotPresent</TD>
+<TD>xpath=//html/body/pre</TD>
+<TD originalHTML>true</TD>
+<TD>Checks that the form data is not shown</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']/pe-value/input</TD>
+<TD originalHTML>Element xpath=/html/body/xforms:select1[@ref='@method']/pe-value/input not found</TD>
+<TD>Clicks in the select1</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']//div[@class='pe-choices']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the choices section is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']//div[@class='pe-choices']/xforms:item[1]/xforms:label</TD>
+<TD originalHTML="Cash">Cash</TD>
+<TD>Checks that the first item is "Cash"</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']//div[@class='pe-choices']/xforms:item[2]/xforms:label</TD>
+<TD originalHTML="Credit">Credit</TD>
+<TD>Checks that the second item is "Credit"</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>type</TD>
+<TD>xpath=/html/body/xforms:input[@ref='my:number']/pe-value/input</TD>
+<TD originalHTML="1234567890123456">1234567890123456</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>type</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/my:payment/my:expiry']/pe-value/input</TD>
+<TD originalHTML="2008-12">2008-12</TD></TR><!--
+Choose an option
+-->
+<TR style="CURSOR: pointer" _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']//div[@class='pe-choices']/xforms:item[2]/xforms:label</TD>
+<TD originalHTML></TD>
+<TD>Clicks on "Credit"</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>waitForValue</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']/pe-value/input</TD>
+<TD originalHTML="Credit">Credit</TD>
+<TD>Checks that the select1 is bound correctly</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyValue</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']/pe-value/input</TD>
+<TD originalHTML="Credit">Credit</TD>
+<TD>Checks that the select1 is bound correctly</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:submit[@submission='submit01']/xforms:label</TD>
+<TD originalHTML></TD>
+<TD>Clicks on submit button</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>pause</TD>
+<TD>2000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form data page to load</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=//html/body/pre</TD>
+<TD originalHTML='*method="cc"*'>*method="cc"*</TD>
+<TD>Checks that the form data is shown</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=//html/body/pre</TD>
+<TD originalHTML="*1234567890123456*">*1234567890123456*</TD>
+<TD>Checks that the form data is shown</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=//html/body/pre</TD>
+<TD originalHTML="*2008-12*">*2008-12*</TD>
+<TD>Checks that the form data is shown</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><DIV>
+<TABLE id=testDefs cellSpacing=1 cellPadding=1 border=1>
+<TBODY>
+<TR bgColor=#ffcccc>
+<TD colSpan=3>2.4.a Example: Multiple Forms<BR></TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>open</TD>
+<TD>../../W3C-XForms-1.1/Edition1/Chapt02/2.4.a.html</TD>
+<TD originalHTML="&amp;amp;nsp;">&amp;nsp;</TD>
+<TD>Opens the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>3000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyTitle</TD>
+<TD>2.4.a Example: Multiple Forms</TD>
+<TD originalHTML></TD>
+<TD>Makes sure this is the right form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']/pe-value/input</TD>
+<TD originalHTML></TD>
+<TD>Checks that the select1 is in the form</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ccffcc _extended="true">
+<TD>verifyValue</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']/pe-value/input</TD>
+<TD originalHTML="Credit">Credit</TD>
+<TD>Checks that the select1 has the right value</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:submit[@submission='pollsubmit']/xforms:label</TD>
+<TD originalHTML></TD>
+<TD>Clicks on submit button</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#eeffee _extended="true">
+<TD>pause</TD>
+<TD>2000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form data page to load</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>verifyElementNotPresent</TD>
+<TD>xpath=//html/body/pre</TD>
+<TD originalHTML>true</TD>
+<TD>Checks that the form data is not shown</TD></TR>
+<TR style="CURSOR: pointer" bgColor=#ffcccc _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']/pe-value/input</TD>
+<TD originalHTML>Element xpath=/html/body/xforms:select1[@ref='@method']/pe-value/input not found</TD>
+<TD>Clicks in the select1</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']//div[@class='pe-choices']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the choices section is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']//div[@class='pe-choices']/xforms:item[1]/xforms:label</TD>
+<TD originalHTML="Cash">Cash</TD>
+<TD>Checks that the first item is "Cash"</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']//div[@class='pe-choices']/xforms:item[2]/xforms:label</TD>
+<TD originalHTML="Credit">Credit</TD>
+<TD>Checks that the second item is "Credit"</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>type</TD>
+<TD>xpath=/html/body/xforms:input[@ref='my:number']/pe-value/input</TD>
+<TD originalHTML="1234567890123456">1234567890123456</TD>
+<TD>Sets the credit card number</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>type</TD>
+<TD>xpath=/html/body/xforms:input[@ref='/my:payment/my:expiry']/pe-value/input</TD>
+<TD originalHTML="2008-12">2008-12</TD>
+<TD>Sets the expiration date of the credit card</TD></TR><!--
+Choose an option
+-->
+<TR style="CURSOR: pointer" _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']//div[@class='pe-choices']/xforms:item[2]/xforms:label</TD>
+<TD originalHTML></TD>
+<TD>Clicks on "Credit"</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>waitForValue</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']/pe-value/input</TD>
+<TD originalHTML="Credit">Credit</TD>
+<TD>Checks that the select1 is bound correctly</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyValue</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='@method']/pe-value/input</TD>
+<TD originalHTML="Credit">Credit</TD>
+<TD>Checks that the select1 is bound correctly</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='helpful']/pe-value/input</TD>
+<TD originalHTML></TD>
+<TD>Checks that the other select1 is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyValue</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='helpful']/pe-value/input</TD>
+<TD originalHTML="Very helpful (3)">Very helpful (3)</TD>
+<TD>Checks that the other select1 has the right value</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='helpful']/pe-value/input</TD>
+<TD originalHTML></TD>
+<TD>Clicks in the other select1</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyElementPresent</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='helpful']//div[@class='pe-choices']</TD>
+<TD originalHTML></TD>
+<TD>Checks that the choices section is in the form</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='helpful']//div[@class='pe-choices']/xforms:item[1]/xforms:label</TD>
+<TD originalHTML="Not at all helpful (0)">Not at all helpful (0)</TD>
+<TD>Checks that the first item is "Not at all helpful (0)"</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='helpful']//div[@class='pe-choices']/xforms:item[4]/xforms:label</TD>
+<TD originalHTML="Very helpful (3)">Very helpful (3)</TD>
+<TD>Checks that the fourth item is "Very helpful (3)"</TD></TR><!--
+Choose an option
+-->
+<TR style="CURSOR: pointer" _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='helpful']//div[@class='pe-choices']/xforms:item[1]/xforms:label</TD>
+<TD originalHTML></TD>
+<TD>Clicks on "Not at all helpful (0)"</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>waitForValue</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='helpful']/pe-value/input</TD>
+<TD originalHTML="Not at all helpful (0)">Not at all helpful (0)</TD>
+<TD>Checks that the other select1 is bound correctly</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyValue</TD>
+<TD>xpath=/html/body/xforms:select1[@ref='helpful']/pe-value/input</TD>
+<TD originalHTML="Not at all helpful (0)">Not at all helpful (0)</TD>
+<TD>Checks that the other select1 is bound correctly</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>click</TD>
+<TD>xpath=/html/body/xforms:submit[@submission='pollsubmit']/xforms:label</TD>
+<TD originalHTML></TD>
+<TD>Clicks on submit button</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>pause</TD>
+<TD>2000</TD>
+<TD originalHTML></TD>
+<TD>Waits for the form data page to load</TD></TR>
+<TR style="CURSOR: pointer" _extended="true">
+<TD>verifyText</TD>
+<TD>xpath=//html/body/pre</TD>
+<TD originalHTML="*&amp;lt;helpful&amp;gt;0&amp;lt;/helpful&amp;gt;*">*&lt;helpful&gt;0&lt;/helpful&gt;*</TD>
+<TD>Checks that the form data is shown</TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr>
+</table></body></html>

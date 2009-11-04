@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xf="http://www.w3.org/2002/xforms"
+      xmlns:ev="http://www.w3.org/2001/xml-events"
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      xml:lang="en"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:fp="urn:formsplayer.com"
+>
+
+<head>
+     <title>Testing Context</title>
+     <script>
+          //     debugger;
+     </script>
+     <link rel="stylesheet" type="text/css" href="ubiquity-test-suite.css" />
+    <script>
+        var g_sBehaviourDirectory = "../../../src/behaviours/";
+    </script>
+    <script src="../../../src/ubiquity-loader.js">/**/</script>
+</head>
+<body>
+	 <xf:model id="m1">
+		<xf:instance id="i0"><x><y>1</y><y>2</y><y>3</y><z>0</z></x></xf:instance>
+                    </xf:model>
+ 
+
+
+		<script type="text/javascript">
+		//  var oLogReader = new YAHOO.widget.LogReader("fc-logger",{top:"50%",right:"10px"});
+		//  document.logger = new YAHOO.widget.LogWriter("ajaxfP");
+			document.logger = { log: function(sText, sContext) { } };
+		</script>
+<hr />		<h1>Testing Context</h1>
+<xf:output ref="y[1]" id="o0"></xf:output>
+<xf:output ref="y[2]" id="o1"></xf:output>
+<xf:output ref="y[3]" id="o2"></xf:output>
+<hr />
+
+<xf:group ref="y[1]">
+	<xf:output ref="." id="g0o0"></xf:output>
+</xf:group>
+<xf:group ref="y[2]">
+	<xf:output ref="." id="g1o0"></xf:output>
+</xf:group>
+<xf:group ref="y[3]">
+	<xf:output ref="." id="g2o0"></xf:output>
+</xf:group>
+<hr />
+</body>
+</html>

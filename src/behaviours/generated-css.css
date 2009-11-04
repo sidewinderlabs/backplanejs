@@ -1,0 +1,284 @@
+xf\:instance, xforms\:instance {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:model, xforms\:model {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:submission, xforms\:submission {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:submit, xforms\:submit {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:trigger, xforms\:trigger {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:output >  pe-value, xforms\:output >  pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:mediatype >  pe-value, xforms\:mediatype >  pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:value  > pe-value,  xforms\:value  > pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:copy  > pe-value,  xforms\:copy  > pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:help >  pe-value, xforms\:help >  pe-value,
+xf\:hint >  pe-value, xforms\:hint >  pe-value,
+xf\:message >  pe-value, xforms\:message >  pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:alert >  pe-value, xforms\:alert >  pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:alert, xforms\:alert {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:input, xforms\:input {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:range, xforms\:range {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:output, xforms\:output {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:textarea, xforms\:textarea {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:secret, xforms\:secret {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:label, xforms\:label {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:mediatype, xforms\:mediatype {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:value, xforms\:value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:copy, xforms\:copy {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:item, xforms\:item {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:input > pe-value, xforms\:input > pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:secret  > pe-value, xforms\:secret  > pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:textarea > pe-value, xforms\:textarea > pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:select > pe-value, xforms\:select > pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:select1 >  pe-value , xforms\:select1 >  pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:range > pe-value, xforms\:range > pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:range.geolocation > pe-value, xforms\:range.geolocation > pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:range.geolocation > xf\:label > pe-value, xforms\:range.geolocation > xforms\:label > pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:output.geolocation > pe-value, xforms\:output.geolocation > pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:output.geolocation > xf\:label > pe-value, xforms\:output.geolocation > xforms\:label > pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:input.yui-widget-color > pe-value, xforms\:input.yui-widget-color > pe-value,
+xf\:input[datatype='xhd:color'] > pe-value, xforms\:input[datatype='xhd:color'] > pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+  border: none;
+  background-color: transparent;
+}
+xf\:input.yui-widget-color > xf\:label > pe-value, xforms\:input.yui-widget-color > xforms\:label > pe-value,
+xf\:input[datatype='xhd:color'] > xf\:label > pe-value, xforms\:input[datatype='xhd:color'] > xforms\:label > pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:input.yui-widget-calendar > pe-value, xforms\:input.yui-widget-calendar > pe-value,
+xf\:input[datatype='xsd\:date'] > pe-value, xforms\:input[datatype='xsd\:date'] > pe-value,
+xf\:input[datatype='xf\:date'] > pe-value, xforms\:input[datatype='xforms\:date'] > pe-value,
+xf\:input[x4h\:datatype='date'] > pe-value  {
+  -moz-binding: url("decorator.xml#decorator");
+  border: none;
+  background-color: transparent;
+}
+xf\:input.yui-widget-calendar > xf\:label > pe-value, xforms\:input.yui-widget-calendar > xforms\:label > pe-value,
+xf\:input[datatype='xsd\:date'] > xf\:label > pe-value, xforms\:input[datatype='xsd\:date'] > xforms\:label > pe-value,
+xf\:input[datatype='xf\:date'] > xf\:label > pe-value, xforms\:input[datatype='xforms\:date'] > xforms\:label > pe-value,
+xf\:input[x4h\:datatype='date'] > xf\:label > pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:input[datatype='xf\:date'][appearance='minimal'] > pe-value, xforms\:input[datatype='xforms\:date'][appearance='minimal'] > pe-value,
+xf\:input[datatype='xsd\:date'][appearance='minimal'] > pe-value, xforms\:input[datatype='xsd\:date'][appearance='minimal'] > pe-value,
+xf\:input[x4h\:datatype='date'][appearance='minimal'] > pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+  border: 2px inset #f0f0f0;
+  background-color: white;
+}
+xf\:input[datatype='xf\:date'][appearance='minimal'] > xf\:label > pe-value, xforms\:input[datatype='xforms\:date'][appearance='minimal'] > xforms\:label > pe-value,
+xf\:input[datatype='xsd\:date'][appearance='minimal'] > xf\:label > pe-value, xforms\:input[datatype='xsd\:date'][appearance='minimal'] > xforms\:label > pe-value,
+xf\:input[x4h\:datatype='date'][appearance='minimal'] > xf\:label > pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:select, xforms\:select {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:select1, xforms\:select1 {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:repeat, xforms\:repeat {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:group, xforms\:group {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:case, xforms\:case {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:switch, xforms\:switch {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:action, xforms\:action {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:load, xforms\:load {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:help, xforms\:help,
+xf\:hint, xforms\:hint,
+xf\:message, xforms\:message {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:setvalue, xforms\:setvalue {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:insert, xforms\:insert,
+xf\:delete, xforms\:delete {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:send, xforms\:send {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:dispatch, xforms\:dispatch {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:toggle, xforms\:toggle {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:rebuild, xforms\:rebuild {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:recalculate, xforms\:recalculate {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:revalidate, xforms\:revalidate {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:refresh, xforms\:refresh {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:reset, xforms\:reset {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:setindex, xforms\:setindex {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:setfocus, xforms\:setfocus {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:label >  pe-value, xforms\:label >  pe-value {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:repeat *, xforms\:repeat *, xf\:itemset *, xforms\:itemset *, xforms\:header *, xf\:header * {
+  -binding-ignore:true;
+}
+
+xf\:repeat.repeat-ready *, xforms\:repeat.repeat-ready *, xf\:itemset.repeat-ready *, xforms\:itemset.repeat-ready *, xf\:header.header-ready *, xforms\:header.header-ready * {
+  -binding-ignore:false;
+}
+
+
+xf\:select > xf\:item , xforms\:select > xforms\:item,
+xf\:select > xf\:itemset , xforms\:select >  xforms\:itemset,
+xf\:select > xf\:choices, xforms\:select >  xforms\:choices {
+  -binding-ignore:true;
+}
+xforms\:select .pe-choices xforms\:item, xforms\:select .pe-choices xforms\:item * {
+  -binding-ignore:false;
+}
+
+xf\:itemset.repeat-ready > xf\:item, xforms\:itemset.repeat-ready > xforms\:item {
+  -moz-binding: url("decorator.xml#decorator");
+}
+xf\:itemset, xforms\:itemset {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+xf\:select1 > xf\:item , xforms\:select1 > xforms\:item,
+xf\:select1 > xf\:itemset , xforms\:select1 >  xforms\:itemset {
+  -moz-binding:url();
+}
+xf\:select1 > xf\:item *, xforms\:select1 >  xforms\:item *,
+xf\:select1 > xf\:itemset *, xforms\:select1 >  xforms\:itemset * {
+  -moz-binding:url();
+}
+
+xf\:select > xf\:item , xforms\:select > xforms\:item,
+xf\:select > xf\:itemset , xforms\:select >  xforms\:itemset,
+xf\:select > xf\:choices, xforms\:select >  xforms\:choices {
+  -moz-binding:url();
+}
+xf\:select > xf\:item *, xforms\:select >  xforms\:item *,
+xf\:select > xf\:itemset *, xforms\:select >  xforms\:itemset *,
+xf\:select > xf\:choices *, xforms\:select >  xforms\:choices *
+{
+  -moz-binding:url();
+}
+xf\:repeat > *, xforms\:repeat > *, xf\:itemset > *, xforms\:itemset > *, xf\:header > *, xforms\:header > * {
+  -moz-binding:url();
+}
+
+xf\:repeat.repeat-ready > xf\:group, xforms\:repeat.repeat-ready >  xforms\:group, xf\:header.header-ready > *, xforms\:header.header-ready > * {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
+smil\:animate {
+  -moz-binding: url("decorator.xml?Listener&SmilAnimate#decorator");
+}
+smil\:animateColor {
+  -moz-binding: url("decorator.xml?Listener&SmilAnimate#decorator");
+}
+smil\:set {
+  -moz-binding: url("decorator.xml?Listener&SmilSet#decorator");
+}

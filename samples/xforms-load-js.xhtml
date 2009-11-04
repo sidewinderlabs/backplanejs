@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xforms="http://www.w3.org/2002/xforms">
+  <head>
+    	<title>isRelative</title>
+    	<script type="text/javascript"
+              src="../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../Edition1/driverPages/forms/TestSuite11.css" type="text/css"/>
+    	
+      <script type="text/javascript">
+      var testJS= function()
+                  {
+                    alert('Javascript was called properly');
+                  }            
+    </script>
+  </head>
+  
+  <body>
+    <xforms:model id="auctionItems">
+      <xforms:instance id="auctions" src="auctions.xml"/>
+       <xforms:instance id="data">
+        <data url="javascript:testJS()"/>
+      </xforms:instance>
+    </xforms:model>
+
+    <xforms:group>
+      <xforms:trigger>
+        <xforms:label>Show action</xforms:label>
+        	<xforms:load ref="instance('data')/@url"
+        					ev:event="DOMActivate"/>
+      </xforms:trigger>
+      
+       <xforms:trigger>
+    <xforms:label>Replace</xforms:label>
+    <xforms:load resource="http://www.w3.org/TR/2009/PR-xforms11-20090818"
+            show="replace" ev:event="DOMActivate"/>
+</xforms:trigger>
+
+<xforms:trigger>
+<xforms:label>Replace with bad URL</xforms:label>
+    <xforms:load resource="htt`p://www.w3.org/TR/2009/PR-xforms11-20090818"
+            show="replace" ev:event="DOMActivate"/>
+</xforms:trigger>
+
+    </xforms:group>
+		
+  </body>
+</html>

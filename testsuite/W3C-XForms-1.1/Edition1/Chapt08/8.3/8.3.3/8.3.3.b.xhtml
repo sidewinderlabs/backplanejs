@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <head>
+      <title>8.3.3.b precedence for value element</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model>
+    	    <xforms:instance xmlns="">
+    		      <icecream>
+    			        <flavor/>
+    			        <default>Neapolitan</default>
+    		      </icecream>
+    	    </xforms:instance>
+      </xforms:model>
+      <xforms:group>
+    	    <xforms:label class="title">8.3.3.b precedence for value element</xforms:label>
+      </xforms:group>
+      <xforms:group>
+    	    <xforms:label>
+    	  No matter what flavor you choose in the Flavors select1 control the value "Neapolitan" must be 
+    	  displayed in the Selected Flavor output control. 
+    	</xforms:label>
+      </xforms:group>
+	     <xforms:select1 ref="/icecream/flavor" appearance="compact">
+		       <xforms:label>Flavors:</xforms:label>
+		       <xforms:item>
+			         <xforms:label>Vanilla</xforms:label>
+			         <xforms:value ref="/icecream/default">vanilla</xforms:value>
+		       </xforms:item>
+		       <xforms:item>
+			         <xforms:label>Strawberry</xforms:label>
+			         <xforms:value ref="/icecream/default">strawberry</xforms:value>
+		       </xforms:item>
+		       <xforms:item>
+			         <xforms:label>Chocolate</xforms:label>
+			         <xforms:value ref="/icecream/default">chocolate</xforms:value>
+		       </xforms:item>
+	     </xforms:select1>
+	     <xforms:output ref="/icecream/flavor">
+		       <xforms:label>Selected Flavor : </xforms:label>
+	     </xforms:output>
+	
+  </body>
+</html>

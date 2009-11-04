@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:ex="http://example.org">
+	  <head>
+		    <title>7.9.9.a seconds() function</title>
+		    <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+		
+	  </head>
+	  <body>
+      <xforms:model>
+			      <xforms:instance xmlns="">			
+				        <ex:root/>
+			      </xforms:instance>
+		    </xforms:model>
+	    <xforms:group>
+		       <xforms:label class="title">
+			7.9.9.a seconds() function
+		    </xforms:label>
+		    </xforms:group>
+		    <xforms:group>
+		       <xforms:label>
+		      You must see the value "0" for the Test 1 output. 
+			</xforms:label>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:output value="seconds('P1Y2M')">
+				        <xforms:label>Test 1 : </xforms:label>
+			      </xforms:output>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:label>
+			  You must see the value "297001.5" for the Test 2 output. 
+			</xforms:label>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:output value="seconds('P3DT10H30M1.5S')">
+				        <xforms:label>Test 2 : </xforms:label>
+			      </xforms:output>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:label>
+			  You must see the value "NaN" for the Test 3 output. 
+			</xforms:label>
+		    </xforms:group>
+		    <xforms:group>
+			      <xforms:output value="seconds('3')">
+				        <xforms:label>Test 3 : </xforms:label>
+			      </xforms:output>
+		    </xforms:group>
+		
+	  </body>
+</html>

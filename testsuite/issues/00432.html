@@ -1,0 +1,66 @@
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+ xmlns:ev="http://www.w3.org/2001/xml-events"
+>
+	<head>
+		<title>
+			Issue 432
+		</title>
+
+		<script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+
+		<style type="text/css">
+			.disabled {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>
+			<a href="http://code.google.com/p/ubiquity-xforms/issues/detail?id=432">Issue 432</a>
+		</h1>
+
+		<h2>
+				Repeat leaf elements are disabled
+		</h2>
+
+		<hr />
+
+		<p>
+			Test 1: If you see the text 'TEST PASSED', the test has passed. Otherwise, the test has failed.
+		</p>
+
+		<xf:model id="mdl-1">
+			<xf:instance id="inst-test-1">
+				<test xmlns="">
+					<item>TEST PASSED</item>
+				</test>
+			</xf:instance>
+		</xf:model>
+
+		<xf:repeat model="mdl-1" nodeset="/test/item">
+			<xf:output id="result-1" ref="."></xf:output>
+		</xf:repeat>
+
+		<hr />
+
+		<p>
+			Test 2: If you see the text 'TEST FAILED', the test has failed. Otherwise, the test has passed.
+		</p>
+
+		<xf:model id="mdl-2">
+			<xf:instance id="inst-test-2">
+				<test xmlns="">
+					<item>TEST FAILED</item>
+				</test>
+			</xf:instance>
+			<xf:bind nodeset="/test/item" relevant="false()"></xf:bind>
+		</xf:model>
+
+		<xf:repeat model="mdl-2" nodeset="/test/item">
+			<xf:output id="result-2" ref="."></xf:output>
+		</xf:repeat>
+	</body>
+</html>

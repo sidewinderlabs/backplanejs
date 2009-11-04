@@ -1,0 +1,549 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>Test Output</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+					<td rowspan="1" colspan="3">Test Output<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../xforms/html/test_rrrr.html</td>
+					<td>&nbsp;</td>
+					<td>opens the form</td>
+				</tr>
+			  
+			  <tr>
+			    <td>assertTitle</td>
+			    <td>Testing RRRR actions</td>
+			    <td></td>
+			    <td>checks that the form is the correct one</td>
+			  </tr>
+
+			  <tr>
+			    <td>waitForText</td>
+			    <td>xpath=/html/body/xf:output[@ref="data"]/pe-value</td>
+			    <td>hello</td>
+			    <td>awaits readiness</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>storeEval</td>
+			    <td>this.page().findElement('m0');</td>
+			    <td>m0</td>
+			    <td>fetches the first model</td>
+			  </tr>
+			  <tr>
+			    <td>storeEval</td>
+			    <td>this.page().findElement('m1');</td>
+			    <td>m1</td>
+			    <td>fetches the second model</td>
+			  </tr>
+			  <tr>
+			    <td>storeEval</td>
+			    <td>this.page().findElement('m2');</td>
+			    <td>m2</td>
+			    <td>fetches the third model</td>
+			  </tr>
+
+			  <!--rebuild-->			  
+			  <tr>
+			    <td>storeEval</td>
+			    <td>storedVars["m0"].flagRebuild()</td>
+			    <td></td>
+			    <td>flags the first model to need a rebuild</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m0"].m_bNeedRebuild</td>
+			    <td>true</td>
+			    <td>checks that the first model needs a rebuild</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>click</td>
+			    <td>t00</td>
+			    <td></td>
+			    <td>rebuilds the first model</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m0"].m_bNeedRebuild</td>
+			    <td>false</td>
+			    <td>checks that the first model no longer needs a rebuild</td>
+			  </tr>
+<!--recalculate-->			  
+			  <tr>
+			    <td>storeEval</td>
+			    <td>storedVars["m0"].flagRecalculate()</td>
+			    <td></td>
+			    <td>flags the first model to need a recalculate</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m0"].m_bNeedRecalculate</td>
+			    <td>true</td>
+			    <td>checks that the first model needs a recalculate</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>click</td>
+			    <td>t01</td>
+			    <td></td>
+			    <td>recalculates the first model</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m0"].m_bNeedRecalculate</td>
+			    <td>false</td>
+			    <td>checks that the first model no longer needs a recalculate</td>
+			  </tr>
+<!--revalidate-->			  
+			  <tr>
+			    <td>storeEval</td>
+			    <td>storedVars["m0"].flagRevalidate()</td>
+			    <td></td>
+			    <td>flags the first model to need a revalidate</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m0"].m_bNeedRevalidate</td>
+			    <td>true</td>
+			    <td>checks that the first model needs a revalidate</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>click</td>
+			    <td>t02</td>
+			    <td></td>
+			    <td>revalidates the first model</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m0"].m_bNeedRevalidate</td>
+			    <td>false</td>
+			    <td>checks that the first model needs a revalidate</td>
+			  </tr>
+<!--refresh-->			  
+			  <tr>
+			    <td>storeEval</td>
+			    <td>storedVars["m0"].flagRefresh()</td>
+			    <td></td>
+			    <td>flags the first model to need a refresh</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m0"].m_bNeedRefresh;</td>
+			    <td>true</td>
+			    <td>checks that the first model needs a refresh</td>
+			  </tr>
+			  <tr>
+			    <td>click</td>
+			    <td>t03</td>
+			    <td></td>
+			    <td>refreshes the first model</td>
+			  </tr>
+			  <tr>
+			    <td>waitForEval</td>
+			    <td>storedVars["m0"].m_bNeedRefresh</td>
+			    <td>false</td>
+			    <td>awaits the refresh - as it is spawned.</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m0"].m_bNeedRefresh</td>
+			    <td>false</td>
+			    <td>checks that the first model no longer needs a refresh</td>
+			  </tr>
+			  
+			  <!--rebuild-->			  
+			  <tr>
+			    <td>storeEval</td>
+			    <td>storedVars["m1"].flagRebuild()</td>
+			    <td></td>
+			    <td>flags the second model to need a rebuild</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m1"].m_bNeedRebuild</td>
+			    <td>true</td>
+			    <td>checks that the second model needs a rebuild</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>click</td>
+			    <td>t10</td>
+			    <td></td>
+			    <td>rebuilds the second model</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m1"].m_bNeedRebuild</td>
+			    <td>false</td>
+			    <td>checks that the second model no longer needs a rebuild</td>
+			  </tr>
+			  <!--recalculate-->			  
+			  <tr>
+			    <td>storeEval</td>
+			    <td>storedVars["m1"].flagRecalculate()</td>
+			    <td></td>
+			    <td>flags the second model to need a recalculate</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m1"].m_bNeedRecalculate</td>
+			    <td>true</td>
+			    <td>checks that the second model needs a recalculate</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>click</td>
+			    <td>t11</td>
+			    <td></td>
+			    <td>recalculates the second model</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m1"].m_bNeedRecalculate</td>
+			    <td>false</td>
+			    <td>checks that the second model no longer needs a recalculate</td>
+			  </tr>
+			  <!--revalidate-->			  
+			  <tr>
+			    <td>storeEval</td>
+			    <td>storedVars["m1"].flagRevalidate()</td>
+			    <td></td>
+			    <td>flags the second model to need a revalidate</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m1"].m_bNeedRevalidate</td>
+			    <td>true</td>
+			    <td>checks that the second model needs a revalidate</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>click</td>
+			    <td>t12</td>
+			    <td></td>
+			    <td>revalidates the first model</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m1"].m_bNeedRevalidate</td>
+			    <td>false</td>
+			    <td>checks that the first model needs a revalidate</td>
+			  </tr>
+			  <!--refresh-->			  
+			  <tr>
+			    <td>storeEval</td>
+			    <td>storedVars["m1"].flagRefresh()</td>
+			    <td></td>
+			    <td>flags the first model to need a refresh</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m1"].m_bNeedRefresh;</td>
+			    <td>true</td>
+			    <td>checks that the first model needs a refresh</td>
+			  </tr>
+			  <tr>
+			    <td>click</td>
+			    <td>t13</td>
+			    <td></td>
+			    <td>refreshes the first model</td>
+			  </tr>
+			  <tr>
+			    <td>waitForEval</td>
+			    <td>storedVars["m1"].m_bNeedRefresh</td>
+			    <td>false</td>
+			    <td>awaits the refresh - as it is spawned.</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m1"].m_bNeedRefresh</td>
+			    <td>false</td>
+			    <td>checks that the first model no longer needs a refresh</td>
+			  </tr>
+
+			  <!--rebuild-->			  
+			  <tr>
+			    <td>storeEval</td>
+			    <td>storedVars["m2"].flagRebuild()</td>
+			    <td></td>
+			    <td>flags the first model to need a rebuild</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m2"].m_bNeedRebuild</td>
+			    <td>true</td>
+			    <td>checks that the first model needs a rebuild</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>click</td>
+			    <td>t00</td>
+			    <td></td>
+			    <td>rebuilds the first model</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m2"].m_bNeedRebuild</td>
+			    <td>false</td>
+			    <td>checks that the first model no longer needs a rebuild</td>
+			  </tr>
+			  <!--recalculate-->			  
+			  <tr>
+			    <td>storeEval</td>
+			    <td>storedVars["m2"].flagRecalculate()</td>
+			    <td></td>
+			    <td>flags the first model to need a recalculate</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m2"].m_bNeedRecalculate</td>
+			    <td>true</td>
+			    <td>checks that the first model needs a recalculate</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>click</td>
+			    <td>t01</td>
+			    <td></td>
+			    <td>recalculates the first model</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m2"].m_bNeedRecalculate</td>
+			    <td>false</td>
+			    <td>checks that the first model no longer needs a recalculate</td>
+			  </tr>
+			  <!--revalidate-->			  
+			  <tr>
+			    <td>storeEval</td>
+			    <td>storedVars["m2"].flagRevalidate()</td>
+			    <td></td>
+			    <td>flags the first model to need a revalidate</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m2"].m_bNeedRevalidate</td>
+			    <td>true</td>
+			    <td>checks that the first model needs a revalidate</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>click</td>
+			    <td>t02</td>
+			    <td></td>
+			    <td>revalidates the first model</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m2"].m_bNeedRevalidate</td>
+			    <td>false</td>
+			    <td>checks that the first model needs a revalidate</td>
+			  </tr>
+			  <!--refresh-->			  
+			  <tr>
+			    <td>storeEval</td>
+			    <td>storedVars["m2"].flagRefresh()</td>
+			    <td></td>
+			    <td>flags the first model to need a refresh</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m2"].m_bNeedRefresh;</td>
+			    <td>true</td>
+			    <td>checks that the first model needs a refresh</td>
+			  </tr>
+			  <tr>
+			    <td>click</td>
+			    <td>t03</td>
+			    <td></td>
+			    <td>refreshes the first model</td>
+			  </tr>
+			  <tr>
+			    <td>waitForEval</td>
+			    <td>storedVars["m2"].m_bNeedRefresh</td>
+			    <td>false</td>
+			    <td>awaits the refresh - as it is spawned.</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m2"].m_bNeedRefresh</td>
+			    <td>false</td>
+			    <td>checks that the first model no longer needs a refresh</td>
+			  </tr>
+
+			  
+			  <!--rebuild-->			  
+			  <tr>
+			    <td>storeEval</td>
+			    <td>storedVars["m0"].flagRebuild()</td>
+			    <td></td>
+			    <td>flags the first model to need a rebuild</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m0"].m_bNeedRebuild</td>
+			    <td>true</td>
+			    <td>checks that the first model needs a rebuild</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>click</td>
+			    <td>t30</td>
+			    <td></td>
+			    <td>rebuilds the first model</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m0"].m_bNeedRebuild</td>
+			    <td>false</td>
+			    <td>checks that the first model no longer needs a rebuild</td>
+			  </tr>
+			  <!--recalculate-->			  
+			  <tr>
+			    <td>storeEval</td>
+			    <td>storedVars["m0"].flagRecalculate()</td>
+			    <td></td>
+			    <td>flags the first model to need a recalculate</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m0"].m_bNeedRecalculate</td>
+			    <td>true</td>
+			    <td>checks that the first model needs a recalculate</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>click</td>
+			    <td>t31</td>
+			    <td></td>
+			    <td>recalculates the first model</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m0"].m_bNeedRecalculate</td>
+			    <td>false</td>
+			    <td>checks that the first model no longer needs a recalculate</td>
+			  </tr>
+			  <!--revalidate-->			  
+			  <tr>
+			    <td>storeEval</td>
+			    <td>storedVars["m0"].flagRevalidate()</td>
+			    <td></td>
+			    <td>flags the first model to need a revalidate</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m0"].m_bNeedRevalidate</td>
+			    <td>true</td>
+			    <td>checks that the first model needs a revalidate</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>click</td>
+			    <td>t32</td>
+			    <td></td>
+			    <td>revalidates the first model</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m0"].m_bNeedRevalidate</td>
+			    <td>false</td>
+			    <td>checks that the first model needs a revalidate</td>
+			  </tr>
+			  <!--refresh-->			  
+			  <tr>
+			    <td>storeEval</td>
+			    <td>storedVars["m0"].flagRefresh()</td>
+			    <td></td>
+			    <td>flags the first model to need a refresh</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m0"].m_bNeedRefresh;</td>
+			    <td>true</td>
+			    <td>checks that the first model needs a refresh</td>
+			  </tr>
+			  <tr>
+			    <td>click</td>
+			    <td>t33</td>
+			    <td></td>
+			    <td>refreshes the first model</td>
+			  </tr>
+			  <tr>
+			    <td>waitForEval</td>
+			    <td>storedVars["m0"].m_bNeedRefresh</td>
+			    <td>false</td>
+			    <td>awaits the refresh - as it is spawned.</td>
+			  </tr>
+			  
+			  <tr>
+			    <td>assertEval</td>
+			    <td>storedVars["m0"].m_bNeedRefresh</td>
+			    <td>false</td>
+			    <td>checks that the first model no longer needs a refresh</td>
+			  </tr>			  
+			  <tr>
+					<td>close</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

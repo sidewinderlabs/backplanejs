@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ev="http://www.w3.org/2001/xml-events"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <title>4.5.1.a3 xforms-binding-exception, invalid submission attribute</title>
+      <script type="text/javascript"
+              src="../../../../../../src/ubiquity-loader.js">/**/</script>
+      <link rel="stylesheet" href="../../../driverPages/forms/TestSuite11.css"
+                  type="text/css"/>
+    
+  </head>
+  <body>
+      <xforms:model id="car">
+         <xforms:instance xmlns="">
+            <make/>
+         </xforms:instance>
+      </xforms:model>
+      <xforms:group>
+    	    <xforms:label class="title">4.5.1.a3 xforms-binding-exception, invalid submission attribute</xforms:label>
+      </xforms:group>
+	     <xforms:group>
+		       <xforms:label>
+			When you activate the Submit Now submit control you must see an xforms-binding-exception message or a 
+			fatal error due to an xforms-binding-exception. 
+		</xforms:label>	
+	     </xforms:group>
+    
+    
+      <xforms:submit submission="invalid">
+        <xforms:label>Submit Now</xforms:label>
+        <xforms:action ev:event="xforms-binding-exception">
+            <xforms:message level="modal">xforms-binding-exception</xforms:message>
+        </xforms:action>
+      </xforms:submit>
+	
+  </body>
+</html>

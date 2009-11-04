@@ -1,0 +1,288 @@
+<!--
+  * Copyright (C) 2008 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<title>Test Message</title>
+	</head>
+	<body>
+		<table cellpadding="1" cellspacing="1" border="1" id="testDefs">
+			<tbody>
+				<tr>
+					<td rowspan="1" colspan="3">Test Message<br>
+					</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../../samples/xforms-message.html</td>
+					<td>&nbsp;</td>
+					<td>Opens the form.</td>
+				</tr>
+				<tr>
+					<td>waitForText</td>
+					<td>xpath=/html/body/xf:output[@ref="status"]/pe-value</td>
+					<td>ready</td>
+					<td>Waits for the page to be loaded</td>
+				</tr>
+				<tr>
+					<td>verifyTextNotPresent</td>
+					<td>[XForms]*You are about to delete File A.*OK</td>
+					<td></td>
+					<td>Checks to see if the page is set up right</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[1]/xf:trigger</td>
+					<td></td>
+					<td>Clicks the default example trigger</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the message to show up</td>
+				</tr>
+				<tr>
+					<td>verifyTextPresent</td>
+					<td>[XForms]*You are about to delete File A.*OK</td>
+					<td></td>
+					<td>Checks to see if the message showed up</td>
+				</tr>
+				
+				<tr>
+					<td>open</td>
+					<td>../../../samples/xforms-message.html</td>
+					<td>&nbsp;</td>
+					<td>Resets the form.</td>
+				</tr>
+				<tr>
+					<td>waitForText</td>
+					<td>xpath=/html/body/xf:output[@ref="status"]/pe-value</td>
+					<td>ready</td>
+					<td>Waits for the page to be loaded</td>
+				</tr>
+				<tr>
+					<td>verifyTextNotPresent</td>
+					<td>[XForms]*You are about to delete File B.*OK</td>
+					<td></td>
+					<td>Checks to see if the page is set up right</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[2]/xf:trigger</td>
+					<td></td>
+					<td>Clicks the modal message trigger</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the message to show up</td>
+				</tr>
+				<tr>
+					<td>verifyTextPresent</td>
+					<td>[XForms]*You are about to delete File B.*OK</td>
+					<td></td>
+					<td>Checks to see if the message showed up</td>
+				</tr>
+				<tr>
+					<td>open</td>
+					<td>../../../samples/xforms-message.html</td>
+					<td>&nbsp;</td>
+					<td>Resets the form.</td>
+				</tr>
+				<tr>
+					<td>waitForText</td>
+					<td>xpath=/html/body/xf:output[@ref="status"]/pe-value</td>
+					<td>ready</td>
+					<td>Waits for the page to be loaded</td>
+				</tr>
+				<tr>
+					<td>verifyTextNotPresent</td>
+					<td>[XForms]*Correct!*OK</td>
+					<td></td>
+					<td>Checks to see if the page is set up right</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[3]/xf:trigger</td>
+					<td></td>
+					<td>Clicks the ref modal message trigger</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the message to show up</td>
+				</tr>
+				<tr>
+					<td>verifyTextPresent</td>
+					<td>[XForms]*Correct!*OK</td>
+					<td></td>
+					<td>Checks to see if the message showed up</td>
+				</tr>
+				
+				<tr>
+					<td>open</td>
+					<td>../../../samples/xforms-message.html</td>
+					<td>&nbsp;</td>
+					<td>Resets the form.</td>
+				</tr>
+				<tr>
+					<td>waitForText</td>
+					<td>xpath=/html/body/xf:output[@ref="status"]/pe-value</td>
+					<td>ready</td>
+					<td>Waits for the page to be loaded</td>
+				</tr>
+				<tr>
+					<td>verifyTextNotPresent</td>
+					<td>[XForms]*Reminder: Don't forget to Save your work, so you will not lose it.*OK</td>
+					<td></td>
+					<td>Checks to see if the page is set up right</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[4]/xf:trigger</td>
+					<td></td>
+					<td>Clicks the modeless message trigger</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the message to show up</td>
+				</tr>
+				<tr>
+					<td>verifyTextPresent</td>
+					<td>[XForms]*Reminder: Don't forget to Save your work, so you will not lose it.*OK</td>
+					<td></td>
+					<td>Checks to see if the message showed up</td>
+				</tr>
+				<tr>
+					<td>verifyTextNotPresent</td>
+					<td>[XForms]*Reminder: Don't forget to check over your work when you are finished.*OK</td>
+					<td></td>
+					<td>Checks to see if the page is set up right</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[5]/xf:trigger</td>
+					<td></td>
+					<td>Clicks the value modeless message trigger</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the message to show up</td>
+				</tr>
+				<tr>
+					<td>verifyTextPresent</td>
+					<td>[XForms]*Reminder: Don't forget to check over your work when you are finished.*OK</td>
+					<td></td>
+					<td>Checks to see if the message showed up</td>
+				</tr>
+				
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/div[6]/xf:trigger/xf:action/xf:message</td>
+					<td></td>
+					<td>Checks to see if the page is set up right</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[6]/xf:trigger</td>
+					<td></td>
+					<td>Clicks the ephemeral message trigger</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the message to show up</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/div[6]/xf:trigger/xf:action/xf:message</td>
+					<td></td>
+					<td>Checks to see if the message became visible</td>
+				</tr>
+				<tr>
+					<td>verifyNotVisible</td>
+					<td>xpath=/html/body/div[7]/xf:input/xf:message</td>
+					<td></td>
+					<td>Checks to see if the page is set up right</td>
+				</tr>
+				<tr>
+					<td>mouseOver</td>
+					<td>xpath=/html/body/div[7]/xf:input</td>
+					<td></td>
+					<td>MouseOver the ephemeral message trigger</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the message to show up</td>
+				</tr>
+				<tr>
+					<td>verifyVisible</td>
+					<td>xpath=/html/body/div[7]/xf:input/xf:message</td>
+					<td></td>
+					<td>Checks to see if the message became visible</td>
+				</tr>
+				
+				<tr>
+					<td>verifyTextNotPresent</td>
+					<td>[XForms]*Message says:*ref Message Works*!*OK</td>
+					<td></td>
+					<td>Checks to see if the page is set up right</td>
+				</tr>
+				<tr>
+					<td>click</td>
+					<td>xpath=/html/body/div[8]/xf:trigger</td>
+					<td></td>
+					<td>Clicks the styling trigger</td>
+				</tr>
+				<tr>
+					<td>pause</td>
+					<td>100</td>
+					<td></td>
+					<td>Waits for the message to show up</td>
+				</tr>
+				<tr>
+					<td>verifyTextPresent</td>
+					<td>[XForms]*You are about to delete:*File X*. I hope that was right.*OK</td>
+					<td></td>
+					<td>Checks to see if the message showed up</td>
+				</tr>
+				
+				<tr>
+					<td>open</td>
+					<td>../../../samples/xforms-message.html</td>
+					<td>&nbsp;</td>
+					<td>Resets the form.</td>
+				</tr>
+				<tr>
+					<td>close</td>
+					<td></td>
+					<td></td>
+					<td>Closes the form</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

@@ -1,0 +1,98 @@
+<!--
+  * Copyright (c) 2008-2009 Backplane Ltd.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *  http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+-->
+<html>
+	<head>
+		<title>Tests</title>
+	</head>
+	<body>
+		<h1>Tests</h1>
+		<h2>Running Tests</h2>
+		<div>
+			<p>
+				<strong>The Selenium core has been upgraded from 0.8.0 to 0.8.2.</strong><br/>
+				The reason is that we needed a fix for a problem with the <em>waitFor*</em> actions, where they were never
+				actually timing out. (Does Selenium not test itself with Selenium?)
+			</p>
+			<p>
+				Everything should be much as it was, with the only major change being that the URLs use in driver
+				pages are now relative to the test file, rather than relative to <em>TestRunner.html</em>. In the longer term
+				this is actually better, because it makes it easier to relocate a test suite. But in the short term, until we
+				change our URLs, it will break all of our tests. Fortunately, 0.8.2 also provides a new parameter
+				which can be used to get around this, called <em>baseUrl</em>, but the problem with that is that it
+				must be absolute. Which means that the following links will no longer work, until we modify the URLs.
+			</p>
+		</div>
+		<a href="selenium/core/TestRunner.html?test=..%2F..%2Fxforms%2FTestSuite.html">
+			Run XForms Selenium Tests</a> 
+		<h4 style="color:red">*Note: Red Tests can not be run by Selenium, because Selenium commands aren't testing those tests correctly.*</h4>
+		<a href="selenium/core/TestRunner.html?test=..%2F..%2FW3C-XForms-1.1%2FEdition1%2FdriverPages%2FSeleniumTests%2FW3CTestSuite.html">Run All W3C Selenium Tests</a><br />
+		<a href="selenium/core/TestRunner.html?test=..%2F..%2FW3C-XForms-1.1%2FEdition1%2FdriverPages%2FSeleniumTests%2FTestSuiteAppendixB.html">Run W3C Appendix B Tests</a><br />
+		<a href="selenium/core/TestRunner.html?test=..%2F..%2FW3C-XForms-1.1%2FEdition1%2FdriverPages%2FSeleniumTests%2FTestSuiteAppendixG.html">Run W3C Appendix G Tests</a><br />
+		<a href="selenium/core/TestRunner.html?test=..%2F..%2FW3C-XForms-1.1%2FEdition1%2FdriverPages%2FSeleniumTests%2FTestSuiteAppendixH.html">Run W3C Appendix H Tests</a><br />
+		<a href="selenium/core/TestRunner.html?test=..%2F..%2FW3C-XForms-1.1%2FEdition1%2FdriverPages%2FSeleniumTests%2FTestSuiteChapter02.html">Run W3C Chapter 2 Tests</a><br />
+		<a href="selenium/core/TestRunner.html?test=..%2F..%2FW3C-XForms-1.1%2FEdition1%2FdriverPages%2FSeleniumTests%2FTestSuiteChapter03.html">Run W3C Chapter 3 Tests</a><br />
+		<a href="selenium/core/TestRunner.html?test=..%2F..%2FW3C-XForms-1.1%2FEdition1%2FdriverPages%2FSeleniumTests%2FTestSuiteChapter04.html">Run W3C Chapter 4 Tests</a><br />
+		<a href="selenium/core/TestRunner.html?test=..%2F..%2FW3C-XForms-1.1%2FEdition1%2FdriverPages%2FSeleniumTests%2FTestSuiteChapter05.html">Run W3C Chapter 5 Tests</a><br />
+		<a href="selenium/core/TestRunner.html?test=..%2F..%2FW3C-XForms-1.1%2FEdition1%2FdriverPages%2FSeleniumTests%2FTestSuiteChapter06.html">Run W3C Chapter 6 Tests</a><br />
+		<a href="selenium/core/TestRunner.html?test=..%2F..%2FW3C-XForms-1.1%2FEdition1%2FdriverPages%2FSeleniumTests%2FTestSuiteChapter07.html">Run W3C Chapter 7 Tests</a><br />
+		<a href="selenium/core/TestRunner.html?test=..%2F..%2FW3C-XForms-1.1%2FEdition1%2FdriverPages%2FSeleniumTests%2FTestSuiteChapter08.html">Run W3C Chapter 8 Tests</a><br />
+		<a href="selenium/core/TestRunner.html?test=..%2F..%2FW3C-XForms-1.1%2FEdition1%2FdriverPages%2FSeleniumTests%2FTestSuiteChapter09.html">Run W3C Chapter 9 Tests</a><br />
+		<a href="selenium/core/TestRunner.html?test=..%2F..%2FW3C-XForms-1.1%2FEdition1%2FdriverPages%2FSeleniumTests%2FTestSuiteChapter10.html">Run W3C Chapter 10 Tests</a><br />
+		<a href="selenium/core/TestRunner.html?test=..%2F..%2FW3C-XForms-1.1%2FEdition1%2FdriverPages%2FSeleniumTests%2FTestSuiteChapter11.html">Run W3C Chapter 11 Tests</a><br />
+		<p>
+			These tests should run, though, since the URLs in the driver pages have been modified:<br/>
+			<a href="selenium/core/TestRunner.html?test=..%2F..%2Fissues%2FdriverPages%2FSeleniumTests%2FTestSuite.html">
+			Run Regression Tests</a>
+		</p>
+
+		<h2>Adding XForms Tests</h2>
+		<p>
+			In order to add a new test, the following procedure should be followed:
+			<ol>
+				<li>
+					Create the test form in the appropriate ././html directory.
+				</li>
+				<li>
+					Create a document called "TestSomething.html" where Something is the name of 
+					the set of tests to run on the test form. This will contain the test 
+					instructions in tabular format:
+					<ul>
+						<li>
+							instructions on writing selenese can be found <a href="selenium/reference.html">here</a>,
+						</li>
+						<li>
+							and <a href="xforms/TestOutput.html">TestOutput.html</a> is a reasonable 
+							document to use as a kick-start/template.</li>
+					</ul>
+				</li>
+				<li>
+					Add a row:<br />
+					&lt;tr>&lt;td>&lt;a 
+					href="TestSomething.html">TestSomething&lt;/a>&lt;/td>&lt;tr/>
+					<br />
+					to the table with @id="suiteTable" in the appropriate TestSuite.html
+				</li>
+				<li>
+					The test will now appear in the list of tests available under the <a href="selenium/core/TestRunner.html">
+						Selenium TestRunner.</a>
+				</li>
+			</ol>
+			Important: when writing "open" tests, the path is relative to selenium/core, so 
+			in order to reach the testsuite directory, the path will begin with ../../ 
+			(Unless you map a drive.)
+		</p>
+	</body>
+</html>

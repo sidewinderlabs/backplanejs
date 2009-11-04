@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="ASCII"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xforms="http://www.w3.org/2002/xforms"
+    xmlns:ts="http://www.w3c.org/MarkUp/Forms/XForms/Test/11">
+  <head>
+    <title>XForms Test Suite</title>
+   
+    <xforms:model id="chapterModel" >
+        <xforms:instance id="instance_chapter2" src="FF3/XF11_02_Results.xml" />
+        <xforms:instance id="instance_chapter3" src="FF3/XF11_03_Results.xml" />
+    	<xforms:instance id="instance_chapter4" src="FF3/XF11_04_Results.xml" />
+        <xforms:instance id="instance_chapter5" src="FF3/XF11_05_Results.xml" />
+        <xforms:instance id="instance_chapter6" src="FF3/XF11_06_Results.xml" />
+        <xforms:instance id="instance_chapter7" src="FF3/XF11_07_Results.xml" />
+        <xforms:instance id="instance_chapter8" src="FF3/XF11_08_Results.xml" />
+        <xforms:instance id="instance_chapter9" src="FF3/XF11_09_Results.xml" />
+        <xforms:instance id="instance_chapter10" src="FF3/XF11_10_Results.xml" />
+        <xforms:instance id="instance_chapter11" src="FF3/XF11_11_Results.xml" />
+        <xforms:instance id="instance_chapterB" src="FF3/XF11_AppendixB_Results.xml" />
+        <xforms:instance id="form">
+           <results xmlns="">
+              <numNormTotal></numNormTotal>
+              <numNormPass></numNormPass>
+              <numNormFail></numNormFail>
+              <numBasicTotal></numBasicTotal>
+              <numBasicPass></numBasicPass>
+              <numBasicFail></numBasicFail>
+           </results>
+        </xforms:instance>
+			  
+		<xforms:bind nodeset="instance('instance_chapter2')/ts:specChapter/ts:statusSummary/ts:numNormTotal" calculate="count(instance('instance_chapter2')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'])" />
+		<xforms:bind nodeset="instance('instance_chapter2')/ts:specChapter/ts:statusSummary/ts:numNormPass" calculate="count(instance('instance_chapter2')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Passed'])" />
+		<xforms:bind nodeset="instance('instance_chapter2')/ts:specChapter/ts:statusSummary/ts:numNormFail" calculate="count(instance('instance_chapter2')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Failed'])" />
+
+		<xforms:bind nodeset="instance('instance_chapter2')/ts:specChapter/ts:statusSummary/ts:numBasicTotal" calculate="count(instance('instance_chapter2')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'])" />
+		<xforms:bind nodeset="instance('instance_chapter2')/ts:specChapter/ts:statusSummary/ts:numBasicPass" calculate="count(instance('instance_chapter2')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Passed'])" />
+		<xforms:bind nodeset="instance('instance_chapter2')/ts:specChapter/ts:statusSummary/ts:numBasicFail" calculate="count(instance('instance_chapter2')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Failed'])" />
+
+        <xforms:bind nodeset="instance('instance_chapter3')/ts:specChapter/ts:statusSummary/ts:numNormTotal" calculate="count(instance('instance_chapter3')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'])" />
+        <xforms:bind nodeset="instance('instance_chapter3')/ts:specChapter/ts:statusSummary/ts:numNormPass" calculate="count(instance('instance_chapter3')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Passed'])" />
+        <xforms:bind nodeset="instance('instance_chapter3')/ts:specChapter/ts:statusSummary/ts:numNormFail" calculate="count(instance('instance_chapter3')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Failed'])" />
+
+        <xforms:bind nodeset="instance('instance_chapter3')/ts:specChapter/ts:statusSummary/ts:numBasicTotal" calculate="count(instance('instance_chapter3')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'])" />
+        <xforms:bind nodeset="instance('instance_chapter3')/ts:specChapter/ts:statusSummary/ts:numBasicPass" calculate="count(instance('instance_chapter3')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Passed'])" />
+        <xforms:bind nodeset="instance('instance_chapter3')/ts:specChapter/ts:statusSummary/ts:numBasicFail" calculate="count(instance('instance_chapter3')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Failed'])" />
+        
+        <xforms:bind nodeset="instance('instance_chapter4')/ts:specChapter/ts:statusSummary/ts:numNormTotal" calculate="count(instance('instance_chapter4')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'])" />
+        <xforms:bind nodeset="instance('instance_chapter4')/ts:specChapter/ts:statusSummary/ts:numNormPass" calculate="count(instance('instance_chapter4')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Passed'])" />
+        <xforms:bind nodeset="instance('instance_chapter4')/ts:specChapter/ts:statusSummary/ts:numNormFail" calculate="count(instance('instance_chapter4')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Failed'])" />
+
+        <xforms:bind nodeset="instance('instance_chapter4')/ts:specChapter/ts:statusSummary/ts:numBasicTotal" calculate="count(instance('instance_chapter4')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'])" />
+        <xforms:bind nodeset="instance('instance_chapter4')/ts:specChapter/ts:statusSummary/ts:numBasicPass" calculate="count(instance('instance_chapter4')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Passed'])" />
+        <xforms:bind nodeset="instance('instance_chapter4')/ts:specChapter/ts:statusSummary/ts:numBasicFail" calculate="count(instance('instance_chapter4')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Failed'])" />
+        
+        <xforms:bind nodeset="instance('instance_chapter5')/ts:specChapter/ts:statusSummary/ts:numNormTotal" calculate="count(instance('instance_chapter5')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'])" />
+        <xforms:bind nodeset="instance('instance_chapter5')/ts:specChapter/ts:statusSummary/ts:numNormPass" calculate="count(instance('instance_chapter5')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Passed'])" />
+        <xforms:bind nodeset="instance('instance_chapter5')/ts:specChapter/ts:statusSummary/ts:numNormFail" calculate="count(instance('instance_chapter5')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Failed'])" />
+
+        <xforms:bind nodeset="instance('instance_chapter5')/ts:specChapter/ts:statusSummary/ts:numBasicTotal" calculate="count(instance('instance_chapter5')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'])" />
+        <xforms:bind nodeset="instance('instance_chapter5')/ts:specChapter/ts:statusSummary/ts:numBasicPass" calculate="count(instance('instance_chapter5')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Passed'])" />
+        <xforms:bind nodeset="instance('instance_chapter5')/ts:specChapter/ts:statusSummary/ts:numBasicFail" calculate="count(instance('instance_chapter5')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Failed'])" />
+        
+        <xforms:bind nodeset="instance('instance_chapter6')/ts:specChapter/ts:statusSummary/ts:numNormTotal" calculate="count(instance('instance_chapter6')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'])" />
+        <xforms:bind nodeset="instance('instance_chapter6')/ts:specChapter/ts:statusSummary/ts:numNormPass" calculate="count(instance('instance_chapter6')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Passed'])" />
+        <xforms:bind nodeset="instance('instance_chapter6')/ts:specChapter/ts:statusSummary/ts:numNormFail" calculate="count(instance('instance_chapter6')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Failed'])" />
+
+        <xforms:bind nodeset="instance('instance_chapter6')/ts:specChapter/ts:statusSummary/ts:numBasicTotal" calculate="count(instance('instance_chapter6')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'])" />
+        <xforms:bind nodeset="instance('instance_chapter6')/ts:specChapter/ts:statusSummary/ts:numBasicPass" calculate="count(instance('instance_chapter6')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Passed'])" />
+        <xforms:bind nodeset="instance('instance_chapter6')/ts:specChapter/ts:statusSummary/ts:numBasicFail" calculate="count(instance('instance_chapter6')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Failed'])" />
+        
+        <xforms:bind nodeset="instance('instance_chapter7')/ts:specChapter/ts:statusSummary/ts:numNormTotal" calculate="count(instance('instance_chapter7')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'])" />
+        <xforms:bind nodeset="instance('instance_chapter7')/ts:specChapter/ts:statusSummary/ts:numNormPass" calculate="count(instance('instance_chapter7')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Passed'])" />
+        <xforms:bind nodeset="instance('instance_chapter7')/ts:specChapter/ts:statusSummary/ts:numNormFail" calculate="count(instance('instance_chapter7')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Failed'])" />
+
+        <xforms:bind nodeset="instance('instance_chapter7')/ts:specChapter/ts:statusSummary/ts:numBasicTotal" calculate="count(instance('instance_chapter7')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'])" />
+        <xforms:bind nodeset="instance('instance_chapter7')/ts:specChapter/ts:statusSummary/ts:numBasicPass" calculate="count(instance('instance_chapter7')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Passed'])" />
+        <xforms:bind nodeset="instance('instance_chapter7')/ts:specChapter/ts:statusSummary/ts:numBasicFail" calculate="count(instance('instance_chapter7')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Failed'])" />
+        
+        <xforms:bind nodeset="instance('instance_chapter8')/ts:specChapter/ts:statusSummary/ts:numNormTotal" calculate="count(instance('instance_chapter8')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'])" />
+        <xforms:bind nodeset="instance('instance_chapter8')/ts:specChapter/ts:statusSummary/ts:numNormPass" calculate="count(instance('instance_chapter8')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Passed'])" />
+        <xforms:bind nodeset="instance('instance_chapter8')/ts:specChapter/ts:statusSummary/ts:numNormFail" calculate="count(instance('instance_chapter8')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Failed'])" />
+
+        <xforms:bind nodeset="instance('instance_chapter8')/ts:specChapter/ts:statusSummary/ts:numBasicTotal" calculate="count(instance('instance_chapter8')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'])" />
+        <xforms:bind nodeset="instance('instance_chapter8')/ts:specChapter/ts:statusSummary/ts:numBasicPass" calculate="count(instance('instance_chapter8')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Passed'])" />
+        <xforms:bind nodeset="instance('instance_chapter8')/ts:specChapter/ts:statusSummary/ts:numBasicFail" calculate="count(instance('instance_chapter8')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Failed'])" />
+        
+        <xforms:bind nodeset="instance('instance_chapter9')/ts:specChapter/ts:statusSummary/ts:numNormTotal" calculate="count(instance('instance_chapter9')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'])" />
+        <xforms:bind nodeset="instance('instance_chapter9')/ts:specChapter/ts:statusSummary/ts:numNormPass" calculate="count(instance('instance_chapter9')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Passed'])" />
+        <xforms:bind nodeset="instance('instance_chapter9')/ts:specChapter/ts:statusSummary/ts:numNormFail" calculate="count(instance('instance_chapter9')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Failed'])" />
+
+        <xforms:bind nodeset="instance('instance_chapter9')/ts:specChapter/ts:statusSummary/ts:numBasicTotal" calculate="count(instance('instance_chapter9')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'])" />
+        <xforms:bind nodeset="instance('instance_chapter9')/ts:specChapter/ts:statusSummary/ts:numBasicPass" calculate="count(instance('instance_chapter9')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Passed'])" />
+        <xforms:bind nodeset="instance('instance_chapter9')/ts:specChapter/ts:statusSummary/ts:numBasicFail" calculate="count(instance('instance_chapter9')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Failed'])" />
+        
+        <xforms:bind nodeset="instance('instance_chapter10')/ts:specChapter/ts:statusSummary/ts:numNormTotal" calculate="count(instance('instance_chapter10')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'])" />
+        <xforms:bind nodeset="instance('instance_chapter10')/ts:specChapter/ts:statusSummary/ts:numNormPass" calculate="count(instance('instance_chapter10')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Passed'])" />
+        <xforms:bind nodeset="instance('instance_chapter10')/ts:specChapter/ts:statusSummary/ts:numNormFail" calculate="count(instance('instance_chapter10')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Failed'])" />
+
+        <xforms:bind nodeset="instance('instance_chapter10')/ts:specChapter/ts:statusSummary/ts:numBasicTotal" calculate="count(instance('instance_chapter10')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'])" />
+        <xforms:bind nodeset="instance('instance_chapter10')/ts:specChapter/ts:statusSummary/ts:numBasicPass" calculate="count(instance('instance_chapter10')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Passed'])" />
+        <xforms:bind nodeset="instance('instance_chapter10')/ts:specChapter/ts:statusSummary/ts:numBasicFail" calculate="count(instance('instance_chapter10')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Failed'])" />
+  
+          <xforms:bind nodeset="instance('instance_chapter11')/ts:specChapter/ts:statusSummary/ts:numNormTotal" calculate="count(instance('instance_chapter11')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'])" />
+        <xforms:bind nodeset="instance('instance_chapter11')/ts:specChapter/ts:statusSummary/ts:numNormPass" calculate="count(instance('instance_chapter11')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Passed'])" />
+        <xforms:bind nodeset="instance('instance_chapter11')/ts:specChapter/ts:statusSummary/ts:numNormFail" calculate="count(instance('instance_chapter11')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Failed'])" />
+
+        <xforms:bind nodeset="instance('instance_chapter11')/ts:specChapter/ts:statusSummary/ts:numBasicTotal" calculate="count(instance('instance_chapter11')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'])" />
+        <xforms:bind nodeset="instance('instance_chapter11')/ts:specChapter/ts:statusSummary/ts:numBasicPass" calculate="count(instance('instance_chapter11')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Passed'])" />
+        <xforms:bind nodeset="instance('instance_chapter11')/ts:specChapter/ts:statusSummary/ts:numBasicFail" calculate="count(instance('instance_chapter11')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Failed'])" />
+  
+          <xforms:bind nodeset="instance('instance_chapterB')/ts:specChapter/ts:statusSummary/ts:numNormTotal" calculate="count(instance('instance_chapterB')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'])" />
+        <xforms:bind nodeset="instance('instance_chapterB')/ts:specChapter/ts:statusSummary/ts:numNormPass" calculate="count(instance('instance_chapterB')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Passed'])" />
+        <xforms:bind nodeset="instance('instance_chapterB')/ts:specChapter/ts:statusSummary/ts:numNormFail" calculate="count(instance('instance_chapterB')/ts:specChapter/ts:testCase[ts:testCaseNormative = 'true'][ts:testCaseStatus = 'Failed'])" />
+
+        <xforms:bind nodeset="instance('instance_chapterB')/ts:specChapter/ts:statusSummary/ts:numBasicTotal" calculate="count(instance('instance_chapterB')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'])" />
+        <xforms:bind nodeset="instance('instance_chapterB')/ts:specChapter/ts:statusSummary/ts:numBasicPass" calculate="count(instance('instance_chapterB')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Passed'])" />
+        <xforms:bind nodeset="instance('instance_chapterB')/ts:specChapter/ts:statusSummary/ts:numBasicFail" calculate="count(instance('instance_chapterB')/ts:specChapter/ts:testCase[ts:testCaseBasic = 'true'][ts:testCaseStatus = 'Failed'])" />
+  
+ 
+        <xforms:bind nodeset="instance('form')/numNormTotal" calculate="instance('instance_chapter2')/ts:specChapter/ts:statusSummary/ts:numNormTotal +
+                                                                        instance('instance_chapter3')/ts:specChapter/ts:statusSummary/ts:numNormTotal +
+                                                                        instance('instance_chapter4')/ts:specChapter/ts:statusSummary/ts:numNormTotal +
+                                                                        instance('instance_chapter5')/ts:specChapter/ts:statusSummary/ts:numNormTotal +
+                                                                        instance('instance_chapter6')/ts:specChapter/ts:statusSummary/ts:numNormTotal +
+                                                                        instance('instance_chapter7')/ts:specChapter/ts:statusSummary/ts:numNormTotal +
+                                                                        instance('instance_chapter8')/ts:specChapter/ts:statusSummary/ts:numNormTotal +
+                                                                        instance('instance_chapter9')/ts:specChapter/ts:statusSummary/ts:numNormTotal +
+                                                                        instance('instance_chapter10')/ts:specChapter/ts:statusSummary/ts:numNormTotal +
+                                                                        instance('instance_chapter11')/ts:specChapter/ts:statusSummary/ts:numNormTotal +
+                                                                        instance('instance_chapterB')/ts:specChapter/ts:statusSummary/ts:numNormTotal"/>
+                                                                    
+        <xforms:bind nodeset="instance('form')/numNormPass" calculate="instance('instance_chapter2')/ts:specChapter/ts:statusSummary/ts:numNormPass+
+                                                                        instance('instance_chapter3')/ts:specChapter/ts:statusSummary/ts:numNormPass+
+                                                                        instance('instance_chapter4')/ts:specChapter/ts:statusSummary/ts:numNormPass+
+                                                                        instance('instance_chapter5')/ts:specChapter/ts:statusSummary/ts:numNormPass+
+                                                                        instance('instance_chapter6')/ts:specChapter/ts:statusSummary/ts:numNormPass+
+                                                                        instance('instance_chapter7')/ts:specChapter/ts:statusSummary/ts:numNormPass+
+                                                                        instance('instance_chapter8')/ts:specChapter/ts:statusSummary/ts:numNormPass+
+                                                                        instance('instance_chapter9')/ts:specChapter/ts:statusSummary/ts:numNormPass+
+                                                                        instance('instance_chapter10')/ts:specChapter/ts:statusSummary/ts:numNormPass+
+                                                                        instance('instance_chapter11')/ts:specChapter/ts:statusSummary/ts:numNormPass+
+                                                                        instance('instance_chapterB')/ts:specChapter/ts:statusSummary/ts:numNormPass" />
+                                                                        
+       <xforms:bind nodeset="instance('form')/numNormFail" calculate="instance('instance_chapter2')/ts:specChapter/ts:statusSummary/ts:numNormFail+
+                                                                        instance('instance_chapter3')/ts:specChapter/ts:statusSummary/ts:numNormFail+
+                                                                        instance('instance_chapter4')/ts:specChapter/ts:statusSummary/ts:numNormFail+
+                                                                        instance('instance_chapter5')/ts:specChapter/ts:statusSummary/ts:numNormFail+
+                                                                        instance('instance_chapter6')/ts:specChapter/ts:statusSummary/ts:numNormFail+
+                                                                        instance('instance_chapter7')/ts:specChapter/ts:statusSummary/ts:numNormFail+
+                                                                        instance('instance_chapter8')/ts:specChapter/ts:statusSummary/ts:numNormFail+
+                                                                        instance('instance_chapter9')/ts:specChapter/ts:statusSummary/ts:numNormFail+
+                                                                        instance('instance_chapter10')/ts:specChapter/ts:statusSummary/ts:numNormFail+
+                                                                        instance('instance_chapter11')/ts:specChapter/ts:statusSummary/ts:numNormFail+
+                                                                        instance('instance_chapterB')/ts:specChapter/ts:statusSummary/ts:numNormFail" /> 
+ 
+     <xforms:bind nodeset="instance('form')/numBasicTotal" calculate="instance('instance_chapter2')/ts:specChapter/ts:statusSummary/ts:numBasicTotal+
+                                                                        instance('instance_chapter3')/ts:specChapter/ts:statusSummary/ts:numBasicTotal+
+                                                                        instance('instance_chapter4')/ts:specChapter/ts:statusSummary/ts:numBasicTotal+
+                                                                        instance('instance_chapter5')/ts:specChapter/ts:statusSummary/ts:numBasicTotal+
+                                                                        instance('instance_chapter6')/ts:specChapter/ts:statusSummary/ts:numBasicTotal+
+                                                                        instance('instance_chapter7')/ts:specChapter/ts:statusSummary/ts:numBasicTotal+
+                                                                        instance('instance_chapter8')/ts:specChapter/ts:statusSummary/ts:numBasicTotal+
+                                                                        instance('instance_chapter9')/ts:specChapter/ts:statusSummary/ts:numBasicTotal+
+                                                                        instance('instance_chapter10')/ts:specChapter/ts:statusSummary/ts:numBasicTotal+
+                                                                        instance('instance_chapter11')/ts:specChapter/ts:statusSummary/ts:numBasicTotal+
+                                                                        instance('instance_chapterB')/ts:specChapter/ts:statusSummary/ts:numBasicTotal" />
+                                                                       
+        <xforms:bind nodeset="instance('form')/numBasicPass" calculate="instance('instance_chapter2')/ts:specChapter/ts:statusSummary/ts:numBasicPass+
+                                                                        instance('instance_chapter3')/ts:specChapter/ts:statusSummary/ts:numBasicPass+
+                                                                        instance('instance_chapter4')/ts:specChapter/ts:statusSummary/ts:numBasicPass+
+                                                                        instance('instance_chapter5')/ts:specChapter/ts:statusSummary/ts:numBasicPass+
+                                                                        instance('instance_chapter6')/ts:specChapter/ts:statusSummary/ts:numBasicPass+
+                                                                        instance('instance_chapter7')/ts:specChapter/ts:statusSummary/ts:numBasicPass+
+                                                                        instance('instance_chapter8')/ts:specChapter/ts:statusSummary/ts:numBasicPass+
+                                                                        instance('instance_chapter9')/ts:specChapter/ts:statusSummary/ts:numBasicPass+
+                                                                        instance('instance_chapter10')/ts:specChapter/ts:statusSummary/ts:numBasicPass+
+                                                                        instance('instance_chapter11')/ts:specChapter/ts:statusSummary/ts:numBasicPass+
+                                                                        instance('instance_chapterB')/ts:specChapter/ts:statusSummary/ts:numBasicPass" />
+                                                                        
+       <xforms:bind nodeset="instance('form')/numBasicFail" calculate="instance('instance_chapter2')/ts:specChapter/ts:statusSummary/ts:numBasicFail+
+                                                                        instance('instance_chapter3')/ts:specChapter/ts:statusSummary/ts:numBasicFail+
+                                                                        instance('instance_chapter4')/ts:specChapter/ts:statusSummary/ts:numBasicFail+
+                                                                        instance('instance_chapter5')/ts:specChapter/ts:statusSummary/ts:numBasicFail+
+                                                                        instance('instance_chapter6')/ts:specChapter/ts:statusSummary/ts:numBasicFail+
+                                                                        instance('instance_chapter7')/ts:specChapter/ts:statusSummary/ts:numBasicFail+
+                                                                        instance('instance_chapter8')/ts:specChapter/ts:statusSummary/ts:numBasicFail+
+                                                                        instance('instance_chapter9')/ts:specChapter/ts:statusSummary/ts:numBasicFail+
+                                                                        instance('instance_chapter10')/ts:specChapter/ts:statusSummary/ts:numBasicFail+
+                                                                        instance('instance_chapter11')/ts:specChapter/ts:statusSummary/ts:numBasicFail+
+                                                                        instance('instance_chapterB')/ts:specChapter/ts:statusSummary/ts:numBasicFail" />  
+
+    </xforms:model>
+    
+    <link href="TestSuite11.css" rel="stylesheet"/>
+  </head>
+  <body>
+    <h1>XForms Test Suite</h1>
+	
+	<h3>Results</h3>
+	
+	<table>
+	  <tr>
+	    <td class="testCaseSummaryTitle">2 Normative:</td>
+	    <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter2')/ts:specChapter/ts:statusSummary/ts:numNormPass"/></td>
+	    <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter2')/ts:specChapter/ts:statusSummary/ts:numNormFail"/></td>
+	    <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter2')/ts:specChapter/ts:statusSummary/ts:numNormTotal"/></td>
+	  </tr>
+	  <tr>
+	    <td class="testCaseSummaryTitle">2 Basic:</td>
+	    <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter2')/ts:specChapter/ts:statusSummary/ts:numBasicPass"/></td>
+	    <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter2')/ts:specChapter/ts:statusSummary/ts:numBasicFail"/></td>
+	    <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter2')/ts:specChapter/ts:statusSummary/ts:numBasicTotal"/></td>
+	  </tr>
+	</table>
+    
+    <table>
+      <tr>
+        <td class="testCaseSummaryTitle">3 Normative:</td>
+        <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter3')/ts:specChapter/ts:statusSummary/ts:numNormPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter3')/ts:specChapter/ts:statusSummary/ts:numNormFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter3')/ts:specChapter/ts:statusSummary/ts:numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="testCaseSummaryTitle">3 Basic:</td>
+        <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter3')/ts:specChapter/ts:statusSummary/ts:numBasicPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter3')/ts:specChapter/ts:statusSummary/ts:numBasicFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter3')/ts:specChapter/ts:statusSummary/ts:numBasicTotal"/></td>
+      </tr>
+    </table>
+    
+    <table>
+      <tr>
+        <td class="testCaseSummaryTitle">4 Normative:</td>
+        <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter4')/ts:specChapter/ts:statusSummary/ts:numNormPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter4')/ts:specChapter/ts:statusSummary/ts:numNormFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter4')/ts:specChapter/ts:statusSummary/ts:numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="testCaseSummaryTitle">4 Basic:</td>
+        <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter4')/ts:specChapter/ts:statusSummary/ts:numBasicPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter4')/ts:specChapter/ts:statusSummary/ts:numBasicFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter4')/ts:specChapter/ts:statusSummary/ts:numBasicTotal"/></td>
+      </tr>
+    </table>
+    
+    <table>
+      <tr>
+        <td class="testCaseSummaryTitle">5 Normative:</td>
+        <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter5')/ts:specChapter/ts:statusSummary/ts:numNormPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter5')/ts:specChapter/ts:statusSummary/ts:numNormFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter5')/ts:specChapter/ts:statusSummary/ts:numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="testCaseSummaryTitle">5 Basic:</td>
+        <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter5')/ts:specChapter/ts:statusSummary/ts:numBasicPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter5')/ts:specChapter/ts:statusSummary/ts:numBasicFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter5')/ts:specChapter/ts:statusSummary/ts:numBasicTotal"/></td>
+      </tr>
+    </table>
+    
+    <table>
+      <tr>
+        <td class="testCaseSummaryTitle">6 Normative:</td>
+        <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter6')/ts:specChapter/ts:statusSummary/ts:numNormPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter6')/ts:specChapter/ts:statusSummary/ts:numNormFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter6')/ts:specChapter/ts:statusSummary/ts:numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="testCaseSummaryTitle">6 Basic:</td>
+        <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter6')/ts:specChapter/ts:statusSummary/ts:numBasicPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter6')/ts:specChapter/ts:statusSummary/ts:numBasicFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter6')/ts:specChapter/ts:statusSummary/ts:numBasicTotal"/></td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td class="testCaseSummaryTitle">7 Normative:</td>
+        <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter7')/ts:specChapter/ts:statusSummary/ts:numNormPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter7')/ts:specChapter/ts:statusSummary/ts:numNormFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter7')/ts:specChapter/ts:statusSummary/ts:numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="testCaseSummaryTitle">7 Basic:</td>
+        <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter7')/ts:specChapter/ts:statusSummary/ts:numBasicPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter7')/ts:specChapter/ts:statusSummary/ts:numBasicFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter7')/ts:specChapter/ts:statusSummary/ts:numBasicTotal"/></td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td class="testCaseSummaryTitle">8 Normative:</td>
+        <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter8')/ts:specChapter/ts:statusSummary/ts:numNormPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter8')/ts:specChapter/ts:statusSummary/ts:numNormFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter8')/ts:specChapter/ts:statusSummary/ts:numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="testCaseSummaryTitle">8 Basic:</td>
+        <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter8')/ts:specChapter/ts:statusSummary/ts:numBasicPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter8')/ts:specChapter/ts:statusSummary/ts:numBasicFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter8')/ts:specChapter/ts:statusSummary/ts:numBasicTotal"/></td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td class="testCaseSummaryTitle">9 Normative:</td>
+        <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter9')/ts:specChapter/ts:statusSummary/ts:numNormPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter9')/ts:specChapter/ts:statusSummary/ts:numNormFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter9')/ts:specChapter/ts:statusSummary/ts:numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="testCaseSummaryTitle">9 Basic:</td>
+        <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter9')/ts:specChapter/ts:statusSummary/ts:numBasicPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter9')/ts:specChapter/ts:statusSummary/ts:numBasicFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter9')/ts:specChapter/ts:statusSummary/ts:numBasicTotal"/></td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td class="testCaseSummaryTitle">10 Normative:</td>
+        <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter10')/ts:specChapter/ts:statusSummary/ts:numNormPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter10')/ts:specChapter/ts:statusSummary/ts:numNormFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter10')/ts:specChapter/ts:statusSummary/ts:numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="testCaseSummaryTitle">10 Basic:</td>
+        <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter10')/ts:specChapter/ts:statusSummary/ts:numBasicPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter10')/ts:specChapter/ts:statusSummary/ts:numBasicFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter10')/ts:specChapter/ts:statusSummary/ts:numBasicTotal"/></td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td class="testCaseSummaryTitle">11 Normative:</td>
+        <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter11')/ts:specChapter/ts:statusSummary/ts:numNormPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter11')/ts:specChapter/ts:statusSummary/ts:numNormFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter11')/ts:specChapter/ts:statusSummary/ts:numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="testCaseSummaryTitle">11 Basic:</td>
+        <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter11')/ts:specChapter/ts:statusSummary/ts:numBasicPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter11')/ts:specChapter/ts:statusSummary/ts:numBasicFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapter11')/ts:specChapter/ts:statusSummary/ts:numBasicTotal"/></td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td class="testCaseSummaryTitle">B Normative:</td>
+        <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapterB')/ts:specChapter/ts:statusSummary/ts:numNormPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapterB')/ts:specChapter/ts:statusSummary/ts:numNormFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapterB')/ts:specChapter/ts:statusSummary/ts:numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="testCaseSummaryTitle">B Basic:</td>
+        <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapterB')/ts:specChapter/ts:statusSummary/ts:numBasicPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('instance_chapterB')/ts:specChapter/ts:statusSummary/ts:numBasicFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('instance_chapterB')/ts:specChapter/ts:statusSummary/ts:numBasicTotal"/></td>
+      </tr>
+    </table>
+    
+    <table>
+      <tr>
+        <td class="testCaseSummaryTitle">Total Normative:</td>
+        <td>Passed</td><td><xforms:output xmlns="" model="chapterModel" ref="instance('form')/numNormPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('form')/numNormFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('form')/numNormTotal"/></td>
+      </tr>
+      <tr>
+        <td class="testCaseSummaryTitle">Total Basic:</td>
+        <td>Passed</td><td><xforms:output model="chapterModel" ref="instance('form')/numBasicPass"/></td>
+        <td>Failed</td><td><xforms:output model="chapterModel" ref="instance('form')/numBasicFail"/></td>
+        <td>Total</td><td><xforms:output model="chapterModel" ref="instance('form')/numBasicTotal"/></td>
+      </tr>
+    </table> 
+  </body>
+</html>
