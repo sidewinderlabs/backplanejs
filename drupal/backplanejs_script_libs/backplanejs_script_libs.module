@@ -1,0 +1,1004 @@
+<?php
+// $Id$
+/**
+ * @file
+ * Drupal 6.x module.
+ *
+ * TODO: Make the New Library's 'Key' field a generated value not a user supplied one.
+ * TODO: Make an existing library's description info updatable. 
+ *
+ * @see http://
+ */
+
+// Module name may change...
+define('MODULE_NAME', 'backplanejs_script_libs');
+
+/**
+ * Implementation of hook_help().
+ */
+function backplanejs_script_libs_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#backplanejs':
+      return '<p>'. t('backplanejs Modules are...') .'</p>';
+
+    case 'admin/help/#backplanejs_script_libs':
+      return '<p>'. t('This module lets you configure which backplanejs script libraries can be included in your Drupal content.') .'</p>';
+  }
+}
+
+/**
+ * Implementation of hook_init()
+ *
+ * Include external CSS file(s)
+ */
+function backplanejs_script_libs_init() {
+  $module_path = drupal_get_path('module', MODULE_NAME);
+  $full_path = $module_path .'/admin_style.css';
+  drupal_add_css($full_path);
+}
+
+
+/**
+ * Implementation of hook_menu()
+ */
+function backplanejs_script_libs_menu() {
+  $items['admin/backplanejs'] = array(
+    'title' => 'backplanejs Modules',
+    'description' => 'Description required.',
+    'page callback' => 'backplanejs_info',
+    'access arguments' => array('administer libraries'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+  $items['admin/backplanejs/backplanejs_script_libs'] = array(
+    'title' => 'Script libraries',
+    'page callback' => 'script_libs_list',
+    'access arguments' => array('administer libraries'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+ 
+  // List available libs
+  $items['admin/backplanejs/backplanejs_script_libs/list'] = array(
+    'title' => 'List',
+    'page callback' => 'script_libs_list',
+    'access arguments' => array('administer libraries'),
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+	'weight' => 0,
+  );
+  
+  // Add another lib
+  $items['admin/backplanejs/backplanejs_script_libs/create'] = array(
+    'title' => 'Create',
+    'description' => 'Add another library that can be included into Drupal content.',
+    'page callback' => 'script_libs_create',
+    'access arguments' => array('administer libraries'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 1,
+  );
+  
+  // View lib details
+  $items['admin/backplanejs/backplanejs_script_libs/view/%'] = array(
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('library_version_delete_form', 4),
+    'access arguments' => array('administer libraries'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+  // Default tab
+  $items['admin/backplanejs/backplanejs_script_libs/view/%/default'] = array(
+    'title' => 'Library Detail',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('library_version_delete_form', 4),
+    'access arguments' => array('administer libraries'),
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => 0,
+  );
+  
+  $items['admin/backplanejs/backplanejs_script_libs/view/%/versions'] = array(
+    'title' => 'Add version',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('library_version_add_form', 4),
+    'access arguments' => array('administer libraries'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 1,
+  );
+  
+  //
+  $items['admin/backplanejs/backplanejs_script_libs/library/delete/%'] = array(
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('library_delete_confirm_form', 5),
+    'access arguments' => array('administer libraries'),
+    'type' => MENU_CALLBACK,
+  );
+  
+  return $items;
+}
+
+/**
+ * Implementation of hook_perm()
+ */
+function backplanejs_script_libs_perm() {
+	return array('administer libraries');
+}
+
+/**
+ * Return placeholder text about 'backplanejs Modules' project as a whole
+ */
+function backplanejs_info() {
+  return '<p>'. t('Some general information about the \'backplanejs Modules\' project.') .'</p>';
+}
+
+/**
+ * List the script libraries currently available to be included in content
+ */
+function script_libs_list() {
+
+  $output = '<p>'. t('Below is a list of all the script libraries that can be included in your Drupal content via the node edit form. Use the \'Create\' tab '
+  . 'at the top of the page to add further libraries not yet shown below and click on one of the library names to view the details '
+  . 'of a particular library.'). '</p>';
+
+  $libs = _get_script_libs();
+  
+  $header = array(
+    array('data' => t('Library name'), 'width' => '20%'),
+    array('data' => t('Description'), 'width' => '75%'),
+    array('data' => '', width => '5%')
+  );
+  
+  $rows = array();
+  
+  if (count($libs) > 0) {
+    foreach ($libs as $l) {
+      $rows[] = array(
+	      l($l['name'], 'admin/backplanejs/backplanejs_script_libs/view/'. $l['lid']), 
+	      $l['description'],
+	      l('Delete', 'admin/backplanejs/backplanejs_script_libs/library/delete/' . $l['lid']),
+      );
+    }
+  }
+  else {
+    $rows[] = array(
+      array('data' => t('No libraries found.'), 'colspan' => '2')
+    );
+  }
+
+  $output .= theme('table', $header, $rows);
+  
+  return $output;
+}
+
+/**
+ * Page to allow addition of a new library
+ */
+function script_libs_create() {
+  $output = '<p>'. t('Complete details in the form below to record a new script library in the database. Once created, you must add a version of the library before it can be used with node content.') .'</p>';
+  $output .= drupal_get_form('library_add_form');
+  
+  return $output;
+}
+
+/**
+ * Define the library version(s) delete form
+ */
+function library_version_delete_form($form_state, $lib_id = 0) {
+	
+	// get all the info related to a library
+  $libs = _get_script_libs($lib_id);
+  $lib = $libs[0];
+  
+  // remove the empty version from the array (which is used to disassociate a node and library on 
+  // the node edit form)
+  unset($lib['versions'][0]);
+	
+  /*
+   * This is the point where you need to jump in and return the confirm form, in certain circumstances.
+   * */
+  if($form_state['values']['versions'] && array_sum($form_state['values']['versions']) > 0) {
+  	return library_version_delete_confirm_form($form_state);
+  }
+  
+  $markup1 = '<h3>'.t($lib['name']).'</h3>';
+  $markup1 .= '<p>'.t($lib['description']).'</p>';
+  
+  $form['library-detail'] = array(
+	  '#value' => $markup1
+  );
+  
+  $form['lid'] = array(
+    '#type' => 'hidden',
+    '#value' => $lib['lid']
+  );
+  
+  if (count($lib['versions']) > 0) {
+	  $form['versions'] = array(
+	    '#type' => 'checkboxes',
+	    '#title' => t('Current versions'),
+	    '#default_value' => array(),
+	    '#required' => TRUE,
+	    '#options' => $lib['versions'],
+	  );
+	  
+	  $form['submit'] = array(
+	    '#type' => 'submit',
+	    '#value' => t('Delete version(s)'),
+	  );
+	  
+	  $markup2 = '<p>'. t('Deleting a <em>version</em> of a library will have the following consequences:'). '</p>';
+	  $markup2 .= '<ul><li>'. t('All node/library version associations will be removed').'</li>';
+	  $markup2 .= '<li>'. t('All node type/library version associations will be removed') .'</li></ul>';
+	  
+	  $form['delete-consequence'] = array(
+	    '#value' => $markup2
+	  );
+  }
+  else {
+  	$form['no-versions'] = array(
+      '#value' => '<p>'. t('There are currently no versions of this library recorded.') .'</p>'
+    );
+  }
+	  
+  return $form;
+}
+
+/*
+ * Validate that at least one version has been selected for deletion and indicate a rebuild is required
+ */
+function library_version_delete_form_validate($form, &$form_state) {
+  if(!$form_state['values']['delete-versions']) {
+    $form_state['rebuild'] = TRUE;
+  } 
+}
+
+/**
+ * Process the library version(s) delete form
+ */
+function library_version_delete_form_submit($form, &$form_state) {
+  // Remove the library version, any node association and any node_type association with library version
+  // $k = backplanejs_script_lib_ver.id, $v =, if checkbox selected, same as $k. If unselected value is '0'.
+  foreach ($form_state['values']['delete-versions'] as $k => $v) {
+    if ($v > 0) {
+      db_query(
+        "DELETE slv.*, nsl.*, ntsl.* FROM {backplanejs_script_lib_ver} slv LEFT JOIN {backplanejs_node_script_lib} nsl ON slv.id = nsl.lib_ver_id LEFT JOIN {backplanejs_node_type_script_lib} ntsl ON slv.id = ntsl.lib_ver_id WHERE slv.id = %d",
+        $k
+      );
+      
+      watchdog(MODULE_NAME, t('Deleted library version and association(s). Lib ver id: !slvid', array('!slvid' => $k)));
+    }
+  }
+  drupal_set_message(t('Library version(s) and any node/node type associations deleted.'));
+}
+
+/**
+ *  Form to allow confirmation of library version(s) delete
+ */
+function library_version_delete_confirm_form($form_state) {
+	
+	$details = t('This action cannot be undone. The following library version(s) will be permanently deleted:');
+	$details .= '<ul>';
+	
+	$lv = _get_script_lib_versions($form_state['values']['lid']);
+	
+	$form['delete-lid'] = array(
+    '#type' => 'hidden',
+    '#value' => $form_state['values']['lid']
+  );
+  
+  $form['delete-versions'] = array(
+    '#tree' => TRUE
+  );
+  
+  foreach($form_state['values']['versions'] as $v) {
+    if($v > 0) {
+      $form['delete-versions'][$v] = array (
+        '#type' => 'hidden',
+        '#value' => $v
+      );
+      
+      $details .= '<li>'.$lv[$v].'</li>';
+    }
+  }
+  
+  $details .= '</ul>';
+  
+  return confirm_form(
+    $form, 
+    t('Are you sure you want to delete library version(s)?'),
+    'admin/backplanejs/backplanejs_script_libs/view/'. $form_state['values']['lid'], 
+    $details,
+    t('Delete'),
+    t('Cancel')
+  );
+}
+
+/**
+ * Define a form to allow addition of a library version
+ */
+function library_version_add_form($form_state, $lib = array()) {
+	
+	$markup .= '<h3>'. t('Add New Library Version') .'</h3>';
+  $markup .= '<p>'. t('Add the URL of the version library you want to make available to be included in your Drupal content.') .'</p>'; 
+	
+	$form['new_version_info'] = array(
+    '#value' => $markup
+  );
+	
+  $form['new_version'] = array(
+    '#type' => 'textfield',
+    '#title' => t('New version URL'),
+    '#description' => t('The URL entered here will be used as the value of a @src attribute on a &lt;script/&gt; element that is inserted in the document &lt;head/&gt;.'),
+    '#required' => TRUE,
+    '#default_value' => '',
+    '#size' => 80,
+    '#maxlength' => 1024,
+  );
+  
+   $form['lib_id'] = array(
+     '#type' => 'hidden',
+     '#value' => $lib['lid']
+  );
+  
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Add version'),
+  );
+  
+  $form['#redirect'] = array('admin/backplanejs/backplanejs_script_libs/view/'.$lib['lid']);
+  
+  return $form;
+}
+
+/**
+ * Validate the 'new library version' form
+ */
+function library_version_add_form_validate($form, &$form_state) {
+    $result = db_query(
+      "SELECT url FROM {backplanejs_script_lib_ver} WHERE url = '%s'",
+      $form_state['values']['new_version']
+    );
+    if (db_fetch_object($result)) {
+      form_set_error('new_version', t('That library version (URL) already exists.'));
+    }
+}
+
+/**
+ * Process the 'new library version' form
+ */
+function library_version_add_form_submit($form, &$form_state) {
+  $url = $form_state['values']['new_version'];
+  db_query(
+    "INSERT INTO {backplanejs_script_lib_ver} (lib_id, url) VALUES (%d, '%s')",
+    $form_state['values']['lib_id'], 
+    $url
+  );
+  watchdog(MODULE_NAME, t('Inserted new library version: !url', array('!url' => $url)));
+  drupal_set_message(t('New version of library added.'));
+}
+
+/**
+ * Define a 'new library' form
+ */
+function library_add_form() {
+  $form['library_name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Library name'),
+    '#required' => TRUE,
+    '#default_value' => '',
+    '#size' => 80,
+    '#maxlength' => 1024,
+  );
+  
+  $form['library_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Key'),
+    '#required' => TRUE,
+    '#default_value' => '',
+    '#size' => 20,
+    '#maxlength' => 100,
+    '#description' => 'Eg. my-new-lib'
+  );
+  
+  $form['library_description'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Description'),
+    '#required' => TRUE,
+    '#default_value' => '',
+    '#size' => 80,
+    '#maxlength' => 1024,
+  );
+  
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Create library'),
+  );
+  
+  $form['#redirect'] = array('admin/backplanejs/backplanejs_script_libs');
+  
+  return $form;
+}
+
+/**
+ * Validate the 'new library' form
+ */
+function library_add_form_validate($form, &$form_state) {
+  // Check that the lib 'name' value is unique
+  $result = db_query(
+    "SELECT name FROM {backplanejs_script_lib} WHERE name = '%s'",
+    $form_state['values']['library_name']
+  );
+  if (db_fetch_object($result)) {
+    form_set_error('library_name', t('That \'Name\' is already taken. Choose another.'));
+  }
+  
+  // Check that the lib 'key' value is unique
+  $result = db_query(
+    "SELECT `key` FROM {backplanejs_script_lib} WHERE `key` = '%s'",
+    $form_state['values']['library_key']
+  );
+  if (db_fetch_object($result)) {
+    form_set_error('library_key', t('That \'Key\' value is already taken. Choose another.'));
+  }
+}
+
+/**
+ * Process the 'new library' form
+ */
+function library_add_form_submit($form, &$form_state) {
+  db_query(
+    "INSERT INTO {backplanejs_script_lib} (`key`, name, description) VALUES ('%s', '%s', '%s')",
+    $form_state['values']['library_key'], 
+    $form_state['values']['library_name'],
+	$form_state['values']['library_description']
+  );
+  
+  watchdog(MODULE_NAME, t('Inserted new library : !name', array('!name' => $form_state['values']['library_name'])));
+  drupal_set_message(t('New Library created. Now add some versions!'));
+}
+
+/**
+ * Define the 'delete library confirmation' form
+ */
+function library_delete_confirm_form($form_state, $lib_id = 0) {
+  if ($lib_id > 0) {
+		$form['lib_id'] = array(
+	     '#type' => 'hidden',
+	     '#value' => $lib_id,
+	  );
+	  
+    $form['#redirect'] = array('admin/backplanejs/backplanejs_script_libs');
+    
+	  return confirm_form(
+	    $form,
+	    t('Do you really want to delete this library?'),
+	    'admin/backplanejs/backplanejs_script_libs', /* 'Cancel' path */
+	    '<p>' . t('This action cannot be undone.') . '</p><p>' . t('You will be deleting the library, all of it\'s version information, any node/library version and node type/library version associations(s) that may exist.') . '</p>', /* Additonal text to display on the page */
+	    t('Confirm delete'),
+	    t('Cancel delete'),
+	    t('') /* Internal name. ?? */
+	  );
+  }
+  else {
+  	drupal_goto('admin/backplanejs/backplanejs_script_libs');
+  	drupal_set_message(t('Invalid library to delete'), 'error');
+  }
+}
+
+// function library_delete_confirm_form_validate($form, &$form_state) {
+// }
+
+/**
+ * Process the 'delete library confirmation' form
+ */
+function library_delete_confirm_form_submit($form, &$form_state) {
+	// Here, we need to:
+  // delete all node/library version association records from 'backplanejs_node_script_lib'
+  // delete node TYPE/library association records from 'backplanejs_node_type_script_lib'
+  // delete all library version records from 'backplanejs_script_lib_ver'
+  // delete library record from 'backplanejs_script_lib'
+	
+  $library_id = $form_state['values']['lib_id'];
+  
+  db_query(
+    "DELETE sl.*, slv.*, nsl.*, ntsl.* FROM {backplanejs_script_lib} sl LEFT JOIN {backplanejs_script_lib_ver} slv ON sl.id = slv.lib_id LEFT JOIN {backplanejs_node_script_lib} nsl ON slv.id = nsl.lib_ver_id LEFT JOIN {backplanejs_node_type_script_lib} ntsl ON slv.id = ntsl.lib_ver_id WHERE sl.id = %d",
+    $library_id
+  ); 
+  
+  watchdog(MODULE_NAME, t('Deleted library and all associated information. Lib id: !id', array('!id' => $library_id)));
+  drupal_set_message(t('Library, any node association and any node type association information deleted.'));
+}
+
+/**
+ * Implementation of hook_form_alter()
+ *
+ * For each of the libraries, generate select1 controls that will allow the user to associate a 
+ * script library version with a node.
+ */
+function backplanejs_script_libs_form_alter(&$form, $form_state, $form_id) {
+	
+  if (isset($form['type']) && $form_id == $form['type']['#value'] .'_node_form') {
+
+    // get list of available libraries
+    $libs = _get_script_libs();
+    
+    // If there are some libs, add a fieldset to the 'node form' listing version of the libs in select1 controls.
+    // If the node already has an association with a lib version, show it as selected.
+    if (count($libs) > 0) {
+      $form['backplanejs_script_libs'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Script libraries'),
+        '#tree' => TRUE,
+        '#description' => t('Choose which, if any, of the listed script libraries should be loaded when this node is viewed. If you have already associated one or more libraries and wish to disassociate them, just select the blank value from the dropdown and \'Save\' the node.'),
+        '#collapsible' => TRUE,
+        '#collapsed' => FALSE,
+        '#weight' => 100,
+      );
+
+      // Set any default control value in the form. Ie. If there are associations between the node and 
+      // a script library show them otherwise, set the selected value to '' (0).
+      foreach ($libs as $l) {
+
+      	// All libs have at least the empty value. Don't include libs with only this value
+      	if(count($l['versions']) > 1) {
+      		
+	        $value = 0;
+	        
+	        if($form_state['values']['backplanejs_script_libs']) {
+	        	// We're previewing the node. Need to show potentially changed value for each libs version
+	        	
+	        	// Set $value = the backplanejs_script_lib_ver.id value of the library version that was set before pressing 'preview'
+	          if(array_key_exists($l['key'], $form_state['values']['backplanejs_script_libs'])) {
+	            $value = $form_state['values']['backplanejs_script_libs'][$l['key']];
+	          }
+	        }
+	        else {
+	          // We're editing the node. Show any current saved values of lib/lib version association
+	
+	          // New nodes won't have this property ('backplanejs_node_script_libs') initially
+	          if (property_exists($form['#node'], 'backplanejs_node_script_libs')) {
+	            // if there is this lib already associated with the node
+	            if (array_key_exists($l['key'], $form['#node']->backplanejs_node_script_libs)) {
+	              // find the backplanejs_script_lib_ver.id value of the libs' URL value
+	              $value = array_search($form['#node']->backplanejs_node_script_libs[$l['key']], $l['versions']);
+	            }
+	          }
+	        }
+			    
+	        // Add the select1 to the fieldset (and the form)
+	        $form['backplanejs_script_libs'][$l['key']] = array(
+	          '#type' => 'select',
+	          '#title' => $l['name'],
+	          '#required' => FALSE,
+	          '#default_value' => $value,
+	          '#options' => $l['versions'],
+	        );
+	        
+	        $node_type_libs = _get_node_type_script_libs($form['type']['#value']);
+	        if(count($node_type_libs) > 0) {
+	        	if(array_key_exists($l['key'], $node_type_libs)) {
+	        		$description = "There is already a default version of this library set for this content type: <strong>".$node_type_libs[$l['key']];
+	        		$description .= "</strong><br />Choose a different value to override the default for this node.";
+	        		$form['backplanejs_script_libs'][$l['key']]['#description'] = $description;
+	        	}
+	        }
+        }
+      }
+    }
+  }
+  else if($form_id == 'node_type_form') {
+  	// The content type (node_type) form at Admin -> content types -> <type>
+
+  	$form['backplanejs_script_libs'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Script libraries'),
+      '#tree' => TRUE,
+      '#description' => t('You can set script libraries to be included per node type. Libraries selected here will be included on every node of this type except when the node explicitly overrides the value on the node edit form.'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+      '#weight' => 5,
+    );
+  	
+  	$libs = _get_script_libs();
+    
+  	foreach ($libs as $l) {
+  		// Only show if have something more than the empty option
+	 		if(count($l['versions']) > 1) {
+	      $value = 0;
+	      
+	      // EITHER value in the $form_state['post']['backplanejs_script_libs'] if form errored (incomplete or whatever)
+	      // OR is needed to be got from db, if has been set
+	      // OR is not set (default to 0)
+	      if($form_state['post']['backplanejs_script_libs']) {
+	      	$value = $form_state['post']['backplanejs_script_libs'][$l['key']];
+	      }
+	      else {
+	      	// try and get a value from the db based on the node type and current library
+		      $result = db_query(
+		        "SELECT slv.id FROM {backplanejs_node_type_script_lib} ntsl JOIN {backplanejs_script_lib_ver slv} ON ntsl.lib_ver_id = slv.id JOIN {backplanejs_script_lib sl} ON slv.lib_id = sl.id WHERE ntsl.node_type = '%s' AND sl.id = %d",
+		        $form['#node_type']->type,
+		        $l['lid']
+		      );
+		      
+	      	if ($row = db_fetch_object($result)) {
+		        $value = $row->id;
+		      }
+	      }
+	      
+	  	  $form['backplanejs_script_libs'][$l['key']] = array(
+	        '#type' => 'select',
+	        '#title' => $l['name'],
+	        '#required' => FALSE,
+	        '#default_value' => $value,
+	        '#options' => $l['versions'],
+	      );
+	  	}
+    }   
+
+    $form['#submit'][] = '_node_type_form_submit';
+  } 
+  elseif($form_id == 'node_type_delete_confirm') {
+  	$form['#submit'][] = '_node_type_delete_confirm_submit';
+  }
+}
+
+/**
+ * Implementation of hook_nodeapi()
+ */
+function backplanejs_script_libs_nodeapi(&$node, $op, $teaser = NULL, $page = NULL) {
+  switch ($op) {
+    case 'delete':
+      _update_lib_node_association('delete', $node);
+      break;
+    case 'delete revision':
+      _update_lib_node_association('delete revision', $node);
+      break;
+    case 'insert':
+      _update_lib_node_association('insert', $node);
+      break;
+    case 'update':
+      _update_lib_node_association('update', $node); // updating existing node (inc. making new/reverting to previous revision)
+      break;
+    case 'load':
+      $node->backplanejs_node_script_libs = _get_node_script_libs($node->nid, $node->vid);
+      $node->backplanejs_node_type_script_libs = _get_node_type_script_libs($node->type);
+      break;
+    case 'view':
+      if ($page == TRUE) {
+        _insert_script_lib_tags($node);
+      }
+      break;
+  }
+}
+
+/**
+ * Get script library info associated with a node
+ */
+function _get_node_script_libs($node_id = 0, $vid = 0) {
+  $libs = array();
+  if ($node_id > 0) {
+      $results = db_query(
+        "SELECT sl.key, slv.url FROM {backplanejs_script_lib} sl, {backplanejs_script_lib_ver} slv JOIN {backplanejs_node_script_lib} nsl ON slv.id = nsl.lib_ver_id WHERE sl.id = slv.lib_id AND nsl.nid = %d AND nsl.vid = %d",
+        $node_id,
+        $vid
+      );
+      while ($lib = db_fetch_object($results)) {
+        $libs[$lib->key] = $lib->url;
+      }
+  }
+
+  return $libs;
+}
+
+/**
+ * Get script library info associated with a node type
+ */
+function _get_node_type_script_libs($node_type = '') {
+	$libs = array();
+  
+	$results = db_query(
+		"SELECT sl.key, slv.url FROM backplanejs_script_lib sl, backplanejs_script_lib_ver slv JOIN backplanejs_node_type_script_lib ntsl ON slv.id = ntsl.lib_ver_id WHERE sl.id = slv.lib_id AND ntsl.node_type = '%s'",
+		$node_type
+	);
+			
+	while ($lib = db_fetch_object($results)) {
+		$libs[$lib->key] = $lib->url;
+	}
+
+	return $libs;
+}
+
+/**
+ * Update the script lib version/node associations
+ * 
+ * Scenarios:
+ * 1. Inserting a new node. Insert new script associations info for the node.
+ * 2. Deleting a node in it's entirety, revisions and all, if there are any. Remove all script 
+ * associations with this node for all revisions.
+ * 3. Deleting a single revision of a node. Remove script associations with a specific node revision. 
+ * 4. Updating a node. This can be:
+ *   - Changing a node that is of a single revision (replacing script association, removing association 
+ *     or adding),
+ * 	 - Creating a brand new revision of a node, or,
+ *	 - Reverting from one node revision to a previous one
+ */
+function _update_lib_node_association($action = '', $node) {  
+  // 1.
+  if ($action == 'insert') {
+     _insert_node_script_libs($node->nid, $node->vid, $node->backplanejs_script_libs);
+  }
+  // 2.
+  if ($action == 'delete') {
+     // _delete_node_script_libs($node_id, $vid, TRUE);
+     _delete_node_script_libs($node->nid, $node->vid, TRUE);
+  }
+  // 3.
+  if ($action == 'delete revision') {
+    // _delete_node_script_libs($node_id, $vid, FALSE);
+    _delete_node_script_libs($node->nid, $node->vid, FALSE);
+  }
+  // 4. 
+  if ($action == 'update') {
+     // If there's a $node->old_vid value, we're modifying node revisions, either a new revision
+     // or reverting to an old revision. When reverting you have $node->backplanejs_node_script_libs and 
+     // when creating a new revision you have $node->backplanejs_script_libs.
+     
+     // Reverting to a previous revision involves making a copy of the original, giving a new 
+     // revision id. This means, we need to know the original vid (at this point), the original 
+     // vid ($node->old_vid) and insert any library association records for the new (old!) revision.
+     
+     // Update of a 'normal' node, not doing anything with revisions
+     if (!property_exists($node, 'old_vid')) {
+       _delete_node_script_libs($node->nid, $node->vid, FALSE);
+       _insert_node_script_libs($node->nid, $node->vid, $node->backplanejs_script_libs);
+     }
+     else {
+       // If we are reverting to a previous node, need to:
+       // - Leave any existing node association info for current node as-is
+       // - Insert node association info for the new node by copying the node/lib association(s) of 
+       //   the old_vid (node being reverted to) to the new
+       //
+       // If we are creating a new revision, neeed to:
+       // - Insert the submitted forms library info for the newly created node 
+
+       // Reverting a node to previous version
+       if (property_exists($node, 'backplanejs_node_script_libs')) {
+       	 // The libraries associated with the previous revision node
+         $old_vid_libs = array();
+         $old_vid_libs = _get_node_script_libs($node->nid, $node->old_vid);
+
+         // Array in wrong format means that we need to get backplanejs_script_lib_ver.id for each of the 
+         // URLs in the array. A bit hackish, an extra query, that shouldn't really be required
+         $new_vid_libs = array();
+         foreach ($old_vid_libs as $k => $v) {
+           $new_vid_libs[$k] = _get_script_lib_id_from_url($v);
+         }
+         
+         _insert_node_script_libs($node->nid, $node->vid, $new_vid_libs);
+       }
+       // Creating a new revision (just like a new node)...
+       else if (property_exists($node, 'backplanejs_script_libs')) {
+         _insert_node_script_libs($node->nid, $node->vid, $node->backplanejs_script_libs);
+       }
+       else {
+         // Never!...
+       }
+     }
+   }
+}
+
+/**
+ * This modules function that executed when the node_type form is submitted. This is
+ * required as the module adds extra fields to the form and needs to process the choices made.
+ * _update_lib_node_type_association
+ */
+function _node_type_form_submit($form, &$form_state) {
+	
+	$action = $form_state['values']['op'];
+	if($form_state['values']['backplanejs_script_libs']) {
+	  
+		$libs = $form_state['values']['backplanejs_script_libs'];
+		$node_type = $form_state['values']['type'];
+		$old_node_type = $form_state['values']['old_type'];
+		
+    if(count($libs) > 0) {
+    	
+		  _delete_node_type_script_lib_association($old_node_type);
+    	
+			//	$form_state['values']['op'] used to derive whether or not we are saving or deleting the content 
+			//	type. What happens if someone (probably unlikely) overrides the text on the button differently? 
+			//	Compare the 'op' to the values of the 'submit' and 'delete' siblings to work out what's going on? 
+			//	<home>/modules/node/content_types.inc just uses the t()'d button text.
+		  if($action == t('Save content type')) {
+			 foreach($libs as $k => $lvid) {
+				if($lvid > 0) {
+			      db_query(
+			        "INSERT INTO {backplanejs_node_type_script_lib} (lib_ver_id, node_type) VALUES (%d, '%s')",
+			        $lvid,
+			        $node_type
+			      );
+			    }
+			 }
+		  }
+    }
+	}
+}
+
+/*
+ * Remove node_type/library version association. Called on confirm_form submission.
+ */
+function _node_type_delete_confirm_submit($form, &$form_state) {
+	_delete_node_type_script_lib_association($form_state['values']['type']);
+}
+
+/*
+ * Remove node_type/lib versions associations
+ * 
+ * */
+function _delete_node_type_script_lib_association($type = '')
+{
+	if($type != '') {
+		db_query(
+      "DELETE FROM {backplanejs_node_type_script_lib} WHERE node_type = '%s'",
+      $type
+    );
+	}
+}
+
+/**
+ * Delete association between script libraries and a node
+ */
+function _delete_node_script_libs($node_id = 0, $vid = 0, $all_revisions = TRUE) {
+  if ($node_id > 0) {
+    if ($all_revisions) {
+      db_query(
+        "DELETE FROM {backplanejs_node_script_lib} WHERE nid = %d",
+        $node_id
+      );
+    }
+    else {
+      db_query(
+        "DELETE FROM {backplanejs_node_script_lib} WHERE nid = %d AND vid = %d",
+        $node_id,
+        $vid
+      );
+    }
+  }
+}
+
+/**
+ * Insert association between script lib(s) and a node
+ */
+function _insert_node_script_libs($node_id = 0, $vid = 0, $libs = array()) {
+  if ($node_id > 0) {
+    // Could this be done more efficiently as one SQL statement?
+    foreach ($libs as $k => $v) {
+      // Value of 0 is empty. No lib version selected
+      if ($v > 0) {
+        db_query(
+          "INSERT INTO {backplanejs_node_script_lib} (nid, vid, lib_ver_id) VALUES (%d, %d, %d)",
+          $node_id,
+          $vid,
+          $v
+        );
+      }
+    }
+  }
+}
+
+/**
+ * Given a library URL, get it's unique id
+ */
+function _get_script_lib_id_from_url($url = "") {
+  $result = db_query(
+    "SELECT slv.id FROM {backplanejs_script_lib_ver} slv WHERE slv.url = '%s'",
+    $url
+  );
+  return db_result($result);
+}
+
+/**
+ * Get all info for either a specific library or ALL available script libs
+ */
+function _get_script_libs($lib_id = 0) {
+  $libs = array();
+  $results = '';
+
+  if ($lib_id > 0) {
+    $results = db_query(
+	  "SELECT sl.id, sl.key, sl.name, sl.description FROM {backplanejs_script_lib} sl WHERE sl.id = %d",
+	  $lib_id
+	);
+  }
+  else {
+    $results = db_query("SELECT sl.id, sl.key, sl.name, sl.description FROM {backplanejs_script_lib} sl");
+  }
+  
+  while ($lib = db_fetch_object($results)) {
+      $libs[] = array(
+      'lid' => check_plain($lib->id), 
+      'key' => check_plain($lib->key), 
+      'name' => check_plain($lib->name),
+      'description' => check_plain($lib->description),
+      'versions' => _get_script_lib_versions($lib->id)
+    );
+  }
+  
+  return $libs;
+}
+
+/**
+ * Get all versions of a library
+ */
+function _get_script_lib_versions($lib_id = 0) {
+  $versions = array(''); // leave in blank, used as a select option
+  $results = db_query(
+    "SELECT id, url FROM {backplanejs_script_lib_ver} WHERE lib_id = %d",
+    $lib_id
+  );  
+  while ($ver = db_fetch_object($results)) {
+    $versions[$ver->id] = $ver->url;
+  }
+  return $versions;
+}
+
+/**
+ * Insert <script> tags with @src with value of script library URL
+ * 
+ */
+function _insert_script_lib_tags(&$node) {
+	// Lib include precedence:
+	// If the node version has a lib association, use it instead of any global version
+	// If the node version doesn't have a lib association but there is one for the node type, use the node type version
+	// If there's no node version/lib association and no node type association, don't use anything
+    
+  $node_libs = $node->backplanejs_node_script_libs;
+  $node_type_libs = $node->backplanejs_node_type_script_libs;
+  
+  if (count($node_libs) > 0) {
+    foreach ($node_libs as $key => $lib_url) {
+      // It would be nice to be able to choose where in the <head /> you insert the script tags
+      // Suppose this could be done at the themeing level if needed?
+      drupal_set_html_head('<script src="'. check_url($lib_url) .'" type="text/javascript">/**/</script>');
+      if(array_key_exists($key, $node_type_libs)) {
+        unset($node_type_libs[$key]);
+      }
+    }
+  }
+  if (count($node_type_libs) > 0) {
+    foreach ($node_type_libs as $lib_url) {
+      drupal_set_html_head('<script src="'. check_url($lib_url) .'" type="text/javascript">/**/</script>');
+    }
+  }
+}
+
+/**
+ * Implementation of hook_theme()
+*/
+function backplanejs_script_libs_theme($existing, $type, $theme, $path) {
+  return array(
+	  'library_version_delete_form' => array(
+		  'arguments' => array(
+			  'form' => array()
+		  )
+		),
+		'library_version_add_form' => array(
+		  'arguments' => array(
+			  'form' => array(),
+		  )
+	  ),
+  );
+}
+
+/**
+ * Default theming of the 'library version delete' form
+ */
+function theme_library_version_delete_form($form) {
+  $output .= drupal_render($form);
+  return $output;
+}
+
+/**
+ * Default theming of 'new library version' form
+ */
+function theme_library_version_add_form($form) {
+  $output .= drupal_render($form);
+  return $output;
+}
