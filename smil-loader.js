@@ -35,7 +35,7 @@ gLibrary["animate"] = "YUI";
       requires: [ "animate-factory", "animation" ] });
 
     loader.addModule({ name: "smil-defs",        type: "js", fullpath: moduleBase + "smil/smil-defs.js",
-      requires: [ "libxh-decorator", "xforms-listener", "xforms-conditional-invocation", "animate-impl-yui", "smil-set", "smil-animate" ] });
+      requires: [ "libxh-decorator", "ub-listener", "xforms-conditional-invocation", "animate-impl-yui", "smil-set", "smil-animate" ] });
 
     loader.require( "smil-defs" );
     loader.insert();
