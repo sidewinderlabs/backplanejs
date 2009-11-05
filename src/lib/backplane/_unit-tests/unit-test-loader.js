@@ -1,10 +1,7 @@
 // Ubiquity provides a standards-based suite of browser enhancements for
 // building a new generation of internet-related applications.
 //
-// The Ubiquity RDFa module adds RDFa 1.1 support to the Ubiquity
-// library.
-//
-// Copyright (C) 2007-8 Mark Birbeck
+// Copyright (C) 2007-9 Mark Birbeck
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,9 +15,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-(
-	function() {
+function runTheTests() {
 	 	var moduleBase = pathToModule("unit-test-loader");
+		var loader = new YAHOO.util.YUILoader();
 
 		// There is no 'short name' for these two CSS files, so we need to reference them directly.
 		//
@@ -30,23 +27,25 @@
 		// Add references to unit test scripts here.
 		//
 		loader.addModule({ name: "ub-ut-array",     type: "js",  fullpath: moduleBase + "ut-array.js",
-			requires: [ "yuitest", "logger-css", "test-logger-css", "ub-array" ] });
+			requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 		loader.addModule({ name: "ub-ut-tokmap",    type: "js",  fullpath: moduleBase + "ut-tokmap.js",
-			requires: [ "yuitest", "logger-css", "test-logger-css", "ub-tokmap" ] });
+			requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 		loader.addModule({ name: "ub-ut-curie",     type: "js",  fullpath: moduleBase + "ut-curie.js",
-			requires: [ "yuitest", "logger-css", "test-logger-css", "ub-uri" ] });
+			requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 		loader.addModule({ name: "ub-ut-uri",       type: "js",  fullpath: moduleBase + "ut-uri.js",
-			requires: [ "yuitest", "logger-css", "test-logger-css", "ub-uri" ] });
+			requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+		loader.addModule({ name: "ub-ut-fragment-parser",       type: "js",  fullpath: moduleBase + "ut-fragment-parser.js",
+			requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 		loader.addModule({ name: "ub-ut-build-get-uri", type: "js",  fullpath: moduleBase + "ut-build-get-uri.js",
-			requires: [ "yuitest", "logger-css", "test-logger-css", "ub-uri" ] });
+			requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 		loader.addModule({ name: "ub-ut-file", type: "js",  fullpath: moduleBase + "ut-file.js",
-			requires: [ "yuitest", "logger-css", "test-logger-css", "ub-file" ] });
+			requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 		loader.addModule({ name: "ub-ut-io-file", type: "js",  fullpath: moduleBase + "ut-fileio.js",
-			requires: [ "yuitest", "logger-css", "test-logger-css", "ub-io-file" ] });
+			requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 		loader.addModule({ name: "ub-ut-dom3ls", type: "js",  fullpath: moduleBase + "ut-dom3ls.js",
-			requires: [ "yuitest", "logger-css", "test-logger-css", "ub-dom3ls" ] });
+			requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 		loader.addModule({ name: "ub-ut-scheme-handler", type: "js",  fullpath: moduleBase + "ut-scheme-handler.js",
-			requires: [ "yuitest", "logger-css", "test-logger-css", "ub-io-scheme-file" ] });
+			requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
 		loader.require(
 			"logger",
@@ -56,16 +55,14 @@
 			"ub-ut-dom3ls",
 			"ub-ut-scheme-handler"
 		);
-		loader.insert();
-		return;
- 	}()
-);
 
-function runTheTests() {
-	//create the logger
-	var logger = new YAHOO.tool.TestLogger();
+  loader.onSuccess = function(o) {
+    var logger = new YAHOO.tool.TestLogger();
 
-	//run the tests
-	YAHOO.tool.TestRunner.run();
+		YAHOO.tool.TestRunner.run();
+    return;
+  };
+
+  loader.insert();
 	return;
-}
+};
