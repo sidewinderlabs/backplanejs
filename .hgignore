@@ -1,9 +1,10 @@
 syntax: glob
 
+*.rej
+*.orig
+
 xforms/build
 xforms/samples
 xforms/testsuite
 xforms/tools
 xforms/unit-tests
-
-xforms/src/lib/backplane/_unit-tests
