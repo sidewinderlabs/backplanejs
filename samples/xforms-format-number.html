@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<!--
+  // Ubiquity provides a standards-based suite of browser enhancements for
+  // building a new generation of internet-related applications.
+  //
+  // The Ubiquity XForms module adds XForms 1.1 support to the Ubiquity
+  // library.
+  //
+  // Copyright (C) 2008 Backplane Ltd.
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+-->
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:xf="http://www.w3.org/2002/xforms"
+>
+	<head>
+		<title>Demonstrate xf:output with format-number()</title>
+		<script type="text/javascript" src="../src/ubiquity-loader.js" >/**/</script>
+		<style type="text/css">
+			.sample {
+				border: 1px solid silver;
+				background-color: lightyellow;
+				padding: 30px;
+				margin-left: 30px;
+				width: 85%;
+			}
+			pre {
+				background-color: black;
+				color: green;
+				padding: 5px;
+				overflow: auto;
+				padding: 30px;
+				margin-left: 30px;
+				width: 85%;
+			}
+		</style>
+	</head>
+  <body>
+		<xf:model></xf:model>
+
+		<h1>Using XForms output</h1>
+  	<h2>Formatting numbers</h2>
+		<h2>Prefixes</h2>
+  	<p>
+  		A simple prefix can be specified as any text string, up to a '#' character:
+  	</p>
+  	<pre>
+&lt;xf:output value="format-number(100, '$#')"&gt;
+	&lt;xf:label&gt;Payment:&lt;/xf:label&gt;
+&lt;/xf:output&gt;
+
+&lt;xf:output value="format-number(100, 'CAN #')"&gt;
+	&lt;xf:label&gt;Payment:&lt;/xf:label&gt;
+&lt;/xf:output&gt;
+  	</pre>
+  	<div class="sample">
+  		<xf:output value="format-number(100, '$#')">
+	  		<xf:label>Payment:</xf:label>
+  		</xf:output>
+
+  		<xf:output value="format-number(100, 'CAN #')">
+  			<xf:label>Payment:</xf:label>
+  		</xf:output>
+  	</div>
+
+  	<h2>Suffixes</h2>
+  	<p>
+  		A suffix can be specified in the same way, but following a '#' character:
+  	</p>
+  	<pre>
+&lt;xf:output value="format-number(16, '#¢')"&gt;
+	&lt;xf:label&gt;Payment:&lt;/xf:label&gt;
+&lt;/xf:output&gt;
+
+&lt;xf:output value="format-number(25, '# DEM')"&gt;
+	&lt;xf:label&gt;Payment:&lt;/xf:label&gt;
+&lt;/xf:output&gt;
+  	</pre>
+  	<div class="sample">
+  		<xf:output value="format-number(16, '#¢')">
+  			<xf:label>Payment:</xf:label>
+  		</xf:output>
+  		
+  		<xf:output value="format-number(25, '# DEM')">
+  			<xf:label>Payment:</xf:label>
+  		</xf:output>
+  	</div>
+  	
+  	<h2>Using both prefixes and suffixes</h2>
+  	<p>
+  		And of course both prefixes and suffixes can be used in the same expression:
+  	</p>
+  	<pre>
+&lt;xf:output value="format-number(23.16, '$#¢')"&gt;
+	&lt;xf:label&gt;Payment:&lt;/xf:label&gt;
+&lt;/xf:output&gt;
+
+&lt;xf:output value="format-number(25.89, '£#p')"&gt;
+	&lt;xf:label&gt;Payment:&lt;/xf:label&gt;
+&lt;/xf:output&gt;
+  	</pre>
+  	<div class="sample">
+  		<xf:output value="format-number(23.16, '$#¢')">
+  			<xf:label>Payment:</xf:label>
+  		</xf:output>
+  		
+  		<xf:output value="format-number(25.89, '£#p')">
+  			<xf:label>Payment:</xf:label>
+  		</xf:output>
+  	</div>
+  	
+		<h1>Decimal places</h1>
+  	<p>
+  		A number can have its decimal places formatted by using a decimal point in the format string, followed by a number of '#' characters
+  		to indicate the number of decimal places to apply. Note how rounding and padding with zeros takes place:
+  	</p>
+	  <pre>
+&lt;xf:output value="format-number(23.1534, '#.')"&gt;
+	&lt;xf:label&gt;Payment:&lt;/xf:label&gt;
+&lt;/xf:output&gt;
+
+&lt;xf:output value="format-number(23.1534, '#.#')"&gt;
+	&lt;xf:label&gt;Payment:&lt;/xf:label&gt;
+&lt;/xf:output&gt;
+
+&lt;xf:output value="format-number(23.1534, '#.##')"&gt;
+	&lt;xf:label&gt;Payment:&lt;/xf:label&gt;
+&lt;/xf:output&gt;
+
+&lt;xf:output value="format-number(23.1534, '#.######')"&gt;
+	&lt;xf:label&gt;Payment:&lt;/xf:label&gt;
+&lt;/xf:output&gt;
+	  </pre>
+  	<div class="sample">
+  		<xf:output value="format-number(23.1534, '#.')">
+  			<xf:label>Payment:</xf:label>
+  		</xf:output>
+
+  		<xf:output value="format-number(23.1534, '#.#')">
+  			<xf:label>Payment:</xf:label>
+  		</xf:output>
+
+  		<xf:output value="format-number(23.1534, '#.##')">
+  			<xf:label>Payment:</xf:label>
+  		</xf:output>
+
+  		<xf:output value="format-number(23.1534, '#.######')">
+  			<xf:label>Payment:</xf:label>
+  		</xf:output>
+  	</div>
+  	<p>
+  		Decimal places can also be used with prefixes and suffixes:
+  	</p>
+  	<pre>
+&lt;xf:output value="format-number(23.4567, '$#.##¢')"&gt;
+	&lt;xf:label&gt;Payment:&lt;/xf:label&gt;
+&lt;/xf:output&gt;
+
+&lt;xf:output value="format-number(23.4, '£#.##p')"&gt;
+	&lt;xf:label&gt;Payment:&lt;/xf:label&gt;
+&lt;/xf:output&gt;
+  	</pre>
+  	<div class="sample">
+  		<xf:output value="format-number(23.4567, '$#.##¢')">
+  			<xf:label>Payment:</xf:label>
+  		</xf:output>
+
+  		<xf:output value="format-number(23.4, '£#.##p')">
+  			<xf:label>Payment:</xf:label>
+  		</xf:output>
+  	</div>
+  </body>
+</html>

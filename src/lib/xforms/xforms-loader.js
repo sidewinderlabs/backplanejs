@@ -216,6 +216,14 @@ var g_sBehaviourDirectory  = "";
   		requires: ["slider", "range-googleMap"]});
     loader.addModule({ name: "xforms-trigger-minimal", type: "js", fullpath: moduleBase + "TriggerMinimalMixin.js" });
 
+	// E X T E N S I O N S
+	// ===================
+	//
+
+	// XSLT 2.0 functions
+	//
+	loader.addModule({ name: "functions-format-number", type: "js", fullpath: moduleBase + "../functions/xslt20/format-number.js" });
+
 	// Map controls
   	loader.addModule({ name: "output-googleMap", type: "js", fullpath: moduleBase + "../extensions/output-googleMap.js", requires: ["base-googleMap"]});
   	loader.addModule({ name: "range-googleMap", type: "js", fullpath: moduleBase + "../extensions/range-googleMap.js", requires: ["base-googleMap"]});
@@ -373,7 +381,7 @@ var g_sBehaviourDirectory  = "";
 		"xforms-header",
 		"yui-input-calendar","yui-input-color",
 		"xf4h","xforms-submission-core-yui",
-		"functions-hmac"
+		"functions-hmac", "functions-format-number"
       ]
     });
     loader.require( "xforms-defs" );

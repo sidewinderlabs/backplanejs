@@ -35,7 +35,11 @@ function runTheTests() {
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
   loader.addModule({ name: "ux-ut-xpath-core-functions", type: "js",  fullpath: moduleBase + "ut-xpath-core-functions.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
-  loader.addModule({ name: "ux-ut-NamespaceManager", type: "js",  fullpath: moduleBase + "ut-NamespaceManager.js",
+
+  loader.addModule({ name: "ux-ut-xslt20-functions", type: "js",  fullpath: moduleBase + "ut-xslt20-functions.js",
+    requires: [ "yuitest", "logger-css", "test-logger-css" ] });
+
+	loader.addModule({ name: "ux-ut-NamespaceManager", type: "js",  fullpath: moduleBase + "ut-NamespaceManager.js",
     requires: [ "yuitest", "logger-css", "test-logger-css" ] });
 
   loader.addModule({ name: "ux-ut-event-target", type: "js",  fullpath: moduleBase + "ut-event-target.js",
@@ -118,7 +122,8 @@ function runTheTests() {
 
   loader.require(
     "ux-ut-xforms-library-loaded", 
-    "ux-ut-xpath-core-functions", 
+    "ux-ut-xpath-core-functions",
+    "ux-ut-xslt20-functions",
     "ux-ut-NamespaceManager",
     "ux-ut-event-target",
     "ux-ut-path-to-module", 
@@ -176,7 +181,7 @@ function runTheTests() {
 	YAHOO.tool.TestRunner.add(suiteControl);
 	YAHOO.tool.TestRunner.add(suiteSetFocus);
 	YAHOO.tool.TestRunner.add(suiteContainer);
-	
+
     // Run the tests.
     //
 
