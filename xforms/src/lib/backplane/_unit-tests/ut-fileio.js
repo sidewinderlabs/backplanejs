@@ -29,8 +29,8 @@
 			name: "Test FileWriter and FileReader",
 
 			setUp: function () {
-				this.fileWriter = document.fileIOFactory.createFileWriter("test-file-io.txt");
-				this.fileReader = document.fileIOFactory.createFileReader("test-file-io.txt");
+				this.fileWriter = document.fileIOFactory.createFileWriter("temp/test-file-io.txt");
+				this.fileReader = document.fileIOFactory.createFileReader("temp/test-file-io.txt");
 			},
 
 			tearDown: function () {
