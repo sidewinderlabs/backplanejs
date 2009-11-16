@@ -18,6 +18,9 @@ document.notify = document.notify || { };
 
 var global_window_counter = 0;
 
+//YUI required class for message windows
+UX.addClassName(document.body, "yui-skin-sam");
+
 // A SimpleDialog message is one that shows up in a dialog window
 // and goes away when there is a click on the OK button.
 //
@@ -60,10 +63,6 @@ document.notify.messageWindow = function(pThis, activate) {
     global_window_counter++;
     
     UX.addClassName(pThis.yahooPanel2.element, "background-shadow");
-    
-    //Based on YUI spec the yui-skin-sam class must be added to the container
- 	//element it reccomends the body tag.
-    UX.addClassName(document.body, "yui-skin-sam");
     
     // The OK button and its functionality is added with this code.
     var handleOK = function() {

@@ -22,7 +22,7 @@ function callback(oMediator, oObserver, oContext) {
     this.m_mediator = oMediator;
     this.m_observer = oObserver;
     this.m_context = oContext;
-};
+}
 
 callback.prototype.processResult = function(data, isFailure) {
     this.m_mediator.processResult(data, isFailure, this.m_observer,
@@ -71,13 +71,11 @@ submission.prototype.init = function() {
 submission.prototype.processResult = function(oResult, isFailure, 
                                               oObserver, oContext) {
 
-    var sData, sReplace, sInstance, oInstance, oEvt, oNewDom, contentType = "", sTarget, oTargetContext, oTarget, newXhtml; 
+    var sData, sReplace, sInstance, oInstance, eventContext, oNewDom, contentType = "", sTarget, oTargetContext, oTarget, newXhtml; 
     
     if (oObserver) {
-        var oEvt = oObserver.ownerDocument.createEvent("Events");
-
         // Set context info properties common to both success and failure results.
-        oEvt.context = {
+        eventContext = {
             "resource-uri" : oResult.resourceURI,
             "response-status-code" : oResult.status,
             "response-reason-phrase" : oResult.statusText,
@@ -88,23 +86,22 @@ submission.prototype.processResult = function(oResult, isFailure,
             // When the error response specifies an XML media type as defined by [RFC 3023],
             // the response body is parsed into an XML document and the root element of the
             // document is returned. If the parse fails, or if the error response specifies
-            // a text media type (starting with text/), then the response body is returned
-            // as a string. Otherwise, an empty string is returned. 
-            oEvt.context["error-type"] = "resource-error";
+            // a text media type, then the response body is returned as a string. Otherwise,
+            // an empty string is returned. 
+            eventContext["error-type"] = "resource-error";
             if (oResult.responseHeaders) {
                 contentType = oResult.responseHeaders["Content-Type"];
             }
-            if (contentType && !contentType.indexOf("text/")) {
-                oEvt.context["response-body"] =  oResult.responseText;
-            } else {
+            if (contentType && this.contentTypeIsXML(contentType)) {
                 try {
-                    oEvt.context["response-body"] =  xmlParse(oResult.responseText);
+                    eventContext["response-body"] =  xmlParse(oResult.responseText);
                 } catch (e) {
-                    oEvt.context["response-body"] =  oResult.responseText;
+                    eventContext["response-body"] =  oResult.responseText;
                 }
+            } else {
+                eventContext["response-body"] =  oResult.responseText;
             }
-			oEvt.initEvent("xforms-submit-error", true, false);
-			FormsProcessor.dispatchEvent(oObserver, oEvt);
+            this.dispatchSubmitError(oObserver, eventContext);
         } else {
             sData = oResult.responseText;
 
@@ -137,20 +134,18 @@ submission.prototype.processResult = function(oResult, isFailure,
                     if (oResult.responseHeaders) {
                         contentType = oResult.responseHeaders["Content-Type"];
                     }
-                    if (contentType && !contentType.indexOf("text/")) {
-                        oEvt.context["error-type"] =  "resource-error";
-                        oEvt.initEvent("xforms-submit-error", true, false);
-                        FormsProcessor.dispatchEvent(oObserver, oEvt);
-                        return;
-                    } else {
+                    if (contentType && this.contentTypeIsXML(contentType)) {
                         try {
                             oNewDom = xmlParse(sData);
                         } catch (e) {
-                            oEvt.context["error-type"] =  "parse-error";
-                            oEvt.initEvent("xforms-submit-error", true, false);
-                            FormsProcessor.dispatchEvent(oObserver, oEvt);
+                            eventContext["error-type"] =  "parse-error";
+                            this.dispatchSubmitError(oObserver, eventContext);
                             return;
                         }
+                    } else {
+                        eventContext["error-type"] =  "resource-error";
+                        this.dispatchSubmitError(oObserver, eventContext);
+                        return;
                     }
 
                     // @replace="instance" causes the returned data to overwrite an
@@ -163,7 +158,7 @@ submission.prototype.processResult = function(oResult, isFailure,
                     // the instance attribute if it is specified.
                     sTarget = oObserver.getAttribute("targetref") || oObserver.getAttribute("target");
                     if (sTarget) {
-                        oTarget = this.processTargetAttribute(sTarget, sInstance, oContext, oObserver, oEvt);
+                        oTarget = this.processTargetAttribute(sTarget, sInstance, oContext, oObserver, eventContext);
                         if (!oTarget) {
                             return;
                         } else {
@@ -207,7 +202,7 @@ submission.prototype.processResult = function(oResult, isFailure,
                     sTarget = oObserver.getAttribute("targetref") || oObserver.getAttribute("target");
 
                     if (sTarget) {
-                        oTarget = this.processTargetAttribute(sTarget, sInstance, oContext, oObserver, oEvt);
+                        oTarget = this.processTargetAttribute(sTarget, sInstance, oContext, oObserver, eventContext);
                         if (!oTarget) {
                             return;
                         }
@@ -216,9 +211,8 @@ submission.prototype.processResult = function(oResult, isFailure,
                     }
 
                     if (!oTarget || UX.isNodeReadonly(oTarget.parentNode)) {
-                        oEvt.context["error-type"] =  "target-error";
-                        oEvt.initEvent("xforms-submit-error", true, false);
-                        FormsProcessor.dispatchEvent(oObserver, oEvt);
+                        eventContext["error-type"] =  "target-error";
+                        this.dispatchSubmitError(oObserver, eventContext);
                         return;
                     } else {
                         oTarget.firstChild.nodeValue = sData;
@@ -237,8 +231,7 @@ submission.prototype.processResult = function(oResult, isFailure,
                     break;
                 }
             }
-            oEvt.initEvent("xforms-submit-done", true, false);
-            FormsProcessor.dispatchEvent(oObserver, oEvt);
+            this.dispatchSubmitDone(oObserver, eventContext);
         }
     }
 };
@@ -264,22 +257,21 @@ submission.prototype.processResponseHeaders = function(oHeaders) {
   }
 
   return responseHeaders;
-}
+};
 
-submission.prototype.processTargetAttribute = function(sTarget, sInstance, oContext, oObserver, oEvt) {
-    var oTarget = null, oTargetContext, oEvt;
+submission.prototype.processTargetAttribute = function(sTarget, sInstance, oContext, oObserver, eventContext) {
+    var oTarget = null, oTargetContext;
 
     if (sTarget) {
         oTargetContext = sInstance ? oContext.model.getInstanceDocument(sInstance).documentElement : oContext;
         oTarget = oContext.model.EvaluateXPath(sTarget, oTargetContext).nodeSetValue()[0];
         if (!oTarget || oTarget.nodeType !== DOM_ELEMENT_NODE || UX.isNodeReadonly(oTarget.parentNode)) {
-            oEvt.context["error-type"] = "target-error";
-            oEvt.initEvent("xforms-submit-error", true, false);
-            FormsProcessor.dispatchEvent(oObserver, oEvt);
+            eventContext["error-type"] = "target-error";
+            this.dispatchSubmitError(oObserver, eventContext);
         }
     }
     return oTarget;
-}
+};
 
 /*
  * We give the submit function an object that contains all of the parameters.
@@ -350,12 +342,7 @@ submission.prototype.submit = function(oSubmission) {
     // xforms-submit step 2 test for empty submission data
     //
 	if (!oContext.node) {
-		oEvt = oSubmission.ownerDocument.createEvent("Events");
-		oEvt.initEvent("xforms-submit-error", true, false);
-		oEvt.context = {
-			"error-type" : "no-data"
-		};
-		FormsProcessor.dispatchEvent(oSubmission, oEvt);
+		this.dispatchSubmitError(oSubmission, { "error-type" : "no-data" });
 		return;
 	}
 		
@@ -367,24 +354,14 @@ submission.prototype.submit = function(oSubmission) {
 		submitDataList = this.constructSubmitDataList(oContext, relevancePruning);
 	}
 	if (relevancePruning && submitDataList.length === 0) {
-		oEvt = oSubmission.ownerDocument.createEvent("Events");
-		oEvt.initEvent("xforms-submit-error", true, false);
-		oEvt.context = {
-			"error-type" : "no-data"
-		};
-		FormsProcessor.dispatchEvent(oSubmission, oEvt);
+		this.dispatchSubmitError(oSubmission, { "error-type" : "no-data" });
 		return;
 	}
     
 	// Test validity of the submit data in proxy node list
 	//
 	if (validation && !this.validateSubmitDataList(submitDataList)) {
-		oEvt = oSubmission.ownerDocument.createEvent("Events");
-		oEvt.initEvent("xforms-submit-error", true, false);
-		oEvt.context = {
-			"error-type" : "validation-error"
-		};
-		FormsProcessor.dispatchEvent(oSubmission, oEvt);
+		this.dispatchSubmitError(oSubmission, { "error-type" : "validation-error" });
 		return;
 	}
     
@@ -399,12 +376,7 @@ submission.prototype.submit = function(oSubmission) {
     // xforms-submit step 6 test for no resource specified
     //
     if (!sResource) {
-		oEvt = oSubmission.ownerDocument.createEvent("Events");
-		oEvt.initEvent("xforms-submit-error", true, false);
-	    oEvt.context = {
-	        "error-type" : "resource-error"
-	    };
-		FormsProcessor.dispatchEvent(oSubmission, oEvt);
+		this.dispatchSubmitError(oSubmission, { "error-type" : "resource-error" });
 		return;
 	}
 
@@ -505,11 +477,7 @@ submission.prototype.submit = function(oSubmission) {
     // property string is non-empty, then the serialization data for the
     // submission is set to be the content of the submission-body string.
     try {
-        oEvt = oSubmission.ownerDocument.createEvent("Events"); 
-        oEvt.initEvent("xforms-submit-serialize", true, false);
-        oEvt.context = { "submission-body" : [oSubmissionBody] };
-        FormsProcessor.dispatchEvent(oSubmission, oEvt);
-        oBody = oSubmission.submissionBody[0].nodeValue || oBody;
+        this.dispatchSubmitSerialize(oSubmission, { "submission-body": [ oSubmissionBody ] });
     } catch (e) {
         oSubmission.ownerDocument.logger.log(
                 "Error: " + e.description, "error");
@@ -539,13 +507,7 @@ submission.prototype.submit = function(oSubmission) {
 		try {
 			oForm.submit();
 		} catch (e) {
-			oEvt = oSubmission.ownerDocument.createEvent("Events");
-			oEvt.initEvent("xforms-submit-error", true, false);
-            oEvt.context = {
-                "error-type" : "resource-error",
-                "resource-uri" : sResource
-            };
-			FormsProcessor.dispatchEvent(oSubmission, oEvt);
+			this.dispatchSubmitError(oSubmission, { "error-type" : "resource-error", "resource-uri" : sResource });
 		} finally {
 			oForm.parentNode.removeChild(oForm);
 		}
@@ -600,13 +562,7 @@ submission.prototype.submit = function(oSubmission) {
 				return this.request(sMethod, sResource, oBody, nTimeout, oCallback);
 			}
 		} catch (e) {
-			oEvt = oSubmission.ownerDocument.createEvent("Events");
-			oEvt.initEvent("xforms-submit-error", true, false);
-            oEvt.context = {
-                "error-type" : "resource-error",
-                "resource-uri" : sResource
-            };
-			FormsProcessor.dispatchEvent(oSubmission, oEvt);
+			this.dispatchSubmitError(oSubmission, { "error-type" : "resource-error", "resource-uri" : sResource });
 		}
 	}
 };
@@ -633,7 +589,7 @@ submission.prototype.constructSubmitDataList = function(oContext, relevancePruni
 	} 
 
     return submitDataList; 
-}
+};
 
 submission.prototype.validateSubmitDataList = function(submitDataList) {
 	var i;
@@ -643,7 +599,7 @@ submission.prototype.validateSubmitDataList = function(submitDataList) {
 		}
 	}
 	return true;
-}
+};
 
 submission.prototype.serializeSubmitDataList = function(submitDataList, serializationFormat, separator, encoding, cdataSectionElements, omitXmlDeclaration, standalone, includeNamespacePrefixes) {
 	var serialization = "";
@@ -682,7 +638,7 @@ submission.prototype.serializeSubmitDataList = function(submitDataList, serializ
 	}//if ( there is something to serialize )
 
 	return "";
-}
+};
 
 submission.prototype.constructSubmitDataListDOM = function(submitDataList) {
 	var root;
@@ -705,7 +661,7 @@ submission.prototype.constructSubmitDataListDOM = function(submitDataList) {
 	this._constructSubmitDataListDOM(submitDataList, 0, root);
 	
 	return xmlDoc;
-}
+};
 
 submission.prototype._constructSubmitDataListDOM = function(submitDataList, listPos, parentNode) {
 	var node, submitListParent;
@@ -742,7 +698,7 @@ submission.prototype._constructSubmitDataListDOM = function(submitDataList, list
 	}
 	
 	return listPos;
-}
+};
 
 submission.prototype.serializeURLEncoded = function(node) {
 	var stack = [ node ];
@@ -775,7 +731,7 @@ submission.prototype.serializeURLEncoded = function(node) {
 	}
 	
     return taggedValues;
-}
+};
 
 /**
  * Builds an HTML form element from an object.
@@ -937,4 +893,35 @@ submission.prototype.replaceDocumentContent = function(data) {
 	} else {
 		document.write(data);
 	}
+};
+
+submission.prototype.dispatchSubmitSerialize = function (eventTarget, eventContext) {
+	this.dispatchSubmissionEvent(eventTarget, 'serialize', eventContext);
+};
+
+submission.prototype.dispatchSubmitError = function (eventTarget, eventContext) {
+	this.dispatchSubmissionEvent(eventTarget, 'error', eventContext);
+};
+
+submission.prototype.dispatchSubmitDone = function (eventTarget, eventContext) {
+	this.dispatchSubmissionEvent(eventTarget, 'done', eventContext);
+};
+
+submission.prototype.dispatchSubmissionEvent = function (eventTarget, eventSuffix, eventContext) {
+	var evt = eventTarget.ownerDocument.createEvent('Events');
+	evt.initEvent('xforms-submit-' + eventSuffix, true, false);
+	evt.context = eventContext;
+	FormsProcessor.dispatchEvent(eventTarget, evt);
+};
+
+// Section 11.10 of XForms 1.1 states that, for @replace="instance", the content
+// type of the submission response must indicate XML data in accordance with RFC
+// 3023. RFC 3023 states that valid content types for a well-formed XML document
+// are 'text/xml' and 'application/xml'. Additionally, many documents are served
+// with the suffix '+xml' by convention, for example 'application/xhtml+xml' and
+// 'image/svg+xml'. These content types aren't covered by normative text in the
+// RFC, but there are valid use cases for allowing their use in Ubiquity XForms.
+submission.prototype.contentTypeIsXML = function (contentType) {
+	var type = contentType.toLowerCase();
+	return type === 'text/xml' || type === 'application/xml' || type.indexOf('+xml') === type.length - 4;
 };
