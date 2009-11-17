@@ -1,7 +1,0 @@
-<PUBLIC:COMPONENT lightWeight="true">
-	<PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="callHandlers(element,element.onContentReady);" FOR="element" />
-	<PUBLIC:ATTACH EVENT="ondocumentready" ONEVENT="callHandlers(element,element.onDocumentReady);" FOR="element" />
-	<SCRIPT>
-		DecorateBehaviour(element,false,false);
-	</SCRIPT>
-</PUBLIC:COMPONENT>

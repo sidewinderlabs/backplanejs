@@ -25,11 +25,11 @@ function isFirefox3()
 		calling any initialisation code that would otherwise have been called by onload.
 */
 function FFInsertElementForOnloadXBL() {
-  var oBody = document.getElementsByTagName("body")[0];
+  var oBody = document.getElementsByTagName("body")[0], cssNode, oHead, oStyle;
   oBody.insertAdjacentHTML("beforeEnd","<p id='second-onload-loading-element' style='width:0px;display:inline-block;'>Loading...</p>");
 
-  if(isFirefox3() || UX.isIE) {
-    var cssNode = document.createElement('link');
+  if(isFirefox3() || UX.isIE6 || UX.isIE7 || UX.isQuirksMode) {
+    cssNode = document.createElement('link');
     cssNode.type = 'text/css';
     cssNode.rel = 'stylesheet';
     cssNode.href = g_sBehaviourDirectory +"onload.css";
@@ -39,29 +39,19 @@ function FFInsertElementForOnloadXBL() {
    }
    else
    {
-      var oHead = document.getElementsByTagName("head")[0];
-      var oStyle = document.createElement('style');
-      var s = "";
-  
+      oHead = document.getElementsByTagName("head")[0];
+      oStyle = document.createElement('style');
+
       oStyle.setAttribute("type", "text/css");
-      oStyle.innerHTML = "p#second-onload-loading-element{-moz-binding: url(\""+g_sBehaviourDirectory+"onload.xml#loader\");}";
+      if (UX.isIE) {
+        oStyle.styleSheet.cssText = "p#second-onload-loading-element { behavior: url(" + g_sBehaviourDirectory + "onload.htc); }";
+      } else {
+        oStyle.innerHTML = "p#second-onload-loading-element { -moz-binding: url(" + g_sBehaviourDirectory + "onload.xml#loader); }";
+      }
       oHead.insertBefore(oStyle, null);
    }
 
 }
 
-
 InsertElementForOnloadXBL = (UX.isFF  || UX.isIE) ?
   FFInsertElementForOnloadXBL :  function(){};
-
-//Run immediately if document already loaded, or on the load event, if not. 
-if(document.body) {
-  spawn(InsertElementForOnloadXBL);
-}
-else if(window.addEventListener){
- window.addEventListener("load", function(e){spawn(InsertElementForOnloadXBL);}, false);
-}
-else if(window.attachEvent){
- window.attachEvent("onload", function(e){spawn(InsertElementForOnloadXBL);});
-
-}

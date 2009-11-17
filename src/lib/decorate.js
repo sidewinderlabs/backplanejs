@@ -239,11 +239,12 @@ var DECORATOR = function () {
 		bDocumentAlreadyLoaded = g_bDocumentLoaded;
 		g_bDocumentLoaded = false;
 		oStyleSheet = document.createStyleSheet("", 0);
-		//non-htc method
-		sBehaviourRule = "\n behavior: expression(DECORATOR.decorate(this)); ";
-		//htc method
-		//var sBehaviourRule = ";\n behavior: url("+g_sBehaviourDirectory+"applicator.htc);";
-		
+
+		// IE 8+ doesn't support CSS expressions, so we must defer to an HTC.
+		sBehaviourRule = "\nbehavior: " + (UX.isIE6 || UX.isIE7 ?
+		                                  "expression(DECORATOR.decorate(this));" :
+		                                  "url(" + g_sBehaviourDirectory + "decorate.htc);");
+
 
 		for (i = 0;defs.length > i;++i) {
 			sRule = "";
@@ -618,7 +619,7 @@ var DECORATOR = function () {
 				m_elementsInSuspension.push(element);
 			} else {
 	
-				callConstructionFunctions(element, handleContentReady, handleDocumentReady) 
+				callConstructionFunctions(element, handleContentReady, handleDocumentReady);
 				
 				bReturn =  true;
 			}
