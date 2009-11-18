@@ -43,7 +43,7 @@
 		allowRollup: true,
 		onSuccess: function () {
 			var loader = new YAHOO.util.YUILoader({
-				base: pathToModule(moduleName)
+				base: pathToModule("backplane")
 			});
 			loader.addModule({ name: "notify-css", type: "css", path: "assets/yowl.css" });
 			loader.require("notify-css");
