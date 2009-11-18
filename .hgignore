@@ -3,7 +3,11 @@ syntax: glob
 *.rej
 *.orig
 
-xforms/src/lib/backplane/_unit-tests/temp
+_unit-tests/backplane/temp
+_unit-tests/backplane/unit-tests.js
+_unit-tests/rdfa/unit-tests.js
+
+deploy
 
 xforms/build
 xforms/samples

@@ -26,7 +26,8 @@
  *
  *  mark.birbeck@gmail.com
  */
-
+//= require "RDFGraph"
+//
 /*
  * The triple store holds a list of graphs.
  */

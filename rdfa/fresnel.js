@@ -17,7 +17,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-
+//= require <backplane>
+//= require "metascan"
+//
 function processFresnelSelectors(subj, obj) {
   /*
    * First find any Fresnel class styles.

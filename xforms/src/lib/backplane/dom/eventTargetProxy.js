@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+//= require <dom/dom2events>
+//
 /*global FormsProcessor, document, UX, setTimeout*/
 var EventTarget = null;
 

@@ -26,7 +26,10 @@
  *
  *  mark.birbeck@gmail.com
  */
-
+//= require "RDFQuery"
+//= require "RDFStore"
+//= require "RDFParser"
+//
 var oDoc = getMainDoc();
 
 /*

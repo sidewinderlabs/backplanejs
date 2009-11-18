@@ -26,7 +26,7 @@
  *
  *  mark.birbeck@gmail.com
  */
-
+//= require <uri/uri>
 /* This is a temporary home. */
 
 if (!document.submissionJSON)

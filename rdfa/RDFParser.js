@@ -26,7 +26,9 @@
  *
  *  mark.birbeck@gmail.com
  */
-
+//= require <backplane>
+//= require "metascan"
+//
 function RDFParser(oRDFStore)
 {
   /*

@@ -33,7 +33,7 @@
 // Tests 0099-0121
 // Test 1001
 
-(function() {
+if (0) (function() {
 	var Assert = YAHOO.util.Assert;
 	var r;
 	var meta = new RDFQuery( new RDFStore() );

@@ -1,0 +1,4 @@
+VERSION: 0.6.0
+SRC: xforms/src/lib/backplane
+DIST: deploy
+MAIN_FILE: backplane.js
