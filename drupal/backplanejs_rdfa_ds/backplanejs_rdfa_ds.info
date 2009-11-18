@@ -1,0 +1,14 @@
+;$Id$
+name = "RDFa Datasources"
+;
+description = "Allow management of a list of URLs that are used as sources of RDFa data."
+;
+dependencies[]  = backplanejs_script_libs
+;
+package = "backplanejs Modules"
+; define module version
+version = "6.x-1.0"
+; define the version of drupal this module is written for
+core = 6.x
+; the minimum PHP version required by the module
+php = 5.2

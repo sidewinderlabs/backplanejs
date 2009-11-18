@@ -1,0 +1,152 @@
+/*
+  // Ubiquity provides a standards-based suite of browser enhancements for
+  // building a new generation of internet-related applications.
+  //
+  // The Ubiquity XForms module adds XForms 1.1 support to the Ubiquity
+  // library.
+  //
+  // Copyright (C) 2008 Backplane Ltd.
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+ */
+@namespace xhtml url(http://www.w3.org/1999/xhtml);
+@namespace xforms url(http://www.w3.org/2002/xforms);
+@namespace xf url(http://www.w3.org/2002/xforms);
+
+.yui-panel {
+    border-collapse: separate;
+    position: relative;
+    font: 1em Arial;
+    background-color: #f2f2f2;
+    border: 1px solid #999;
+    z-index: 1;
+    overflow: hidden;
+    text-align: center;
+}
+
+*[class~="yui-panel"] {
+    border-collapse: separate;
+    position: relative;
+    font: 1em Arial;
+    background-color: #f2f2f2;
+    border: 1px solid #999;
+    z-index: 1;
+    overflow: hidden;
+    text-align: center;
+}
+
+.yui-panel .hd {
+    background-color: #d9d9d9;
+    color: #000;
+    font-size: 100%;
+    line-height: 100%;
+    border-bottom: 14px solid #f2f2f2;
+    font-weight: bold;
+    padding: 5px;
+    padding-bottom: 6px;
+    white-space: nowrap;
+    text-align: left;
+}
+
+*[class~="yui-panel"] *[class~="hd"] {
+    background-color: #d9d9d9;
+    color: #000;
+    font-size: 100%;
+    line-height: 100%;
+    border-bottom: 14px solid #f2f2f2;
+    font-weight: bold;
+    padding: 5px;
+    padding-bottom: 6px;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.yui-panel .yui-button {
+    position: relative;
+    top: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 4px;
+    padding-right: 4px;
+    background-color: #d9d9d9;
+    border-width: 2px;
+    border-style: outset;
+    border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
+    color: black;
+}
+
+*[class~="yui-panel"] *[class~="yui-button"] {
+    position: relative;
+    top: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 4px;
+    padding-right: 4px;
+    background-color: #d9d9d9;
+    border-width: 2px;
+    border-style: outset;
+    border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
+    color: black;
+}
+
+.yui-panel .yui-button-hover {
+    background-color: lightblue;
+    cursor: pointer;
+}
+
+*[class~="yui-panel"] *[class~="yui-button-hover"] {
+    background-color: lightblue;
+    cursor: pointer;
+}
+
+.yui-panel .yui-button-active {
+    background-color: #d9d9d9;
+    border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
+    border-style: inset;
+    cursor: pointer;
+}
+
+*[class~="yui-panel"] *[class~="yui-button-active"] {
+    background-color: #d9d9d9;
+    border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
+    border-style: inset;
+    cursor: pointer;
+}
+
+.background-shadow {
+    height: 98%;
+    width: 98%;
+    position: absolute;
+    background-color: #000;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+*[class~="background-shadow"] {
+    height: 98%;
+    width: 98%;
+    position: absolute;
+    background-color: #000;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+.background-shadow .yui-panel {
+    background-color: #000;
+    border: none;
+}
+
+*[class~="background-shadow"] *[class~="yui-panel"] {
+    background-color: #000;
+    border: none;
+}

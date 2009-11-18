@@ -1,0 +1,92 @@
+<!--
+  // Ubiquity provides a standards-based suite of browser enhancements for
+  // building a new generation of internet-related applications.
+  //
+  // The Ubiquity RDFa module adds RDFa support to the Ubiquity library.
+  //
+  // Copyright (C) 2007-8 Mark Birbeck
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+-->
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:dbp="http://dbpedia.org/property/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:argot="http://argot-hub.googlecode.com/"
+>
+	<head>
+		<title>Test RDFa Twitter additions to Ubiquity RDFa</title>
+	  <!--
+	    This loads the RDFa parser.
+	  -->
+
+	  <!--
+	    This loads a Fresnel format that will act on the triples.
+	  -->
+	  <link rel="argot:include" href="formats/twitter.html" />
+	</head>
+	<body style="background: green">
+	  <div about="http://internet-apps.blogspot.com/profile.html#" typeof="foaf:Person">
+	    <h1 property="foaf:name">Mark Birbeck</h1>
+	    <span rel="foaf:depiction">
+	      <img src="http://www.formsplayer.com/files/pictures/picture-11.jpg" alt="My photo" />
+	    </span>
+	    <div>
+	      <h3>Contact info</h3>
+	      <div>Email: <a href="mailto:mark.birbeck@formsPlayer.com" rel="foaf:mbox">mark.birbeck@formsPlayer.com</a></div>
+	      <div>Blog: <a href="http://internet-apps.blogspot.com" rel="foaf:weblog">http://internet-apps.blogspot.com</a></div>
+	      <div>Homepage: <a rel="foaf:homepage" href="http://rdfa-dev.blogspot.com/2007/09/profile.html">Mark Birbeck</a></div>
+	    </div>
+	    <div rev="foaf:member" typeof="foaf:Group">
+	      <h3>Work info</h3>
+	      <div>Employer: <a href="http://www.formsPlayer.com" rel="foaf:workplaceHomepage" property="foaf:name">x-port.net Ltd.</a></div>
+	    </div>
+	  </div>
+	  <div about="http://www.w3.org/People/Ivan/#me" typeof="foaf:Person">
+	    <span rel="owl:sameAs" resource="http://www.ivan-herman.net/Ivan_Herman"></span>
+	    <span rel="foaf:depiction">
+	      <img src="http://www.ivan-herman.net/professional/Ivan.Herman.png" />
+	    </span>
+	    <span property="foaf:name" content="Ivan Herman">Ivan</span>
+	    knows
+	    <a rel="foaf:knows" href="http://internet-apps.blogspot.com/profile.html#">
+	      Mark Birbeck
+	      <div>
+	        <div rel="foaf:holdsAccount">
+	          <span typeof="foaf:OnlineAccount">
+	            <span rel="foaf:accountServiceHomepage" resource="http://www.twitter.com/"></span>
+	            <span property="foaf:accountName" content="markbirbeck"></span>
+	          </span>
+	        </div>
+	      </div>
+	    </a>
+	    and they are meeting
+	    <span content="2007-06-27" datatype="xs:date">today</span>.
+	  </div>
+	  <div about="#duck" typeof="foaf:Person">
+	    <h1 property="foaf:name">Daniel E. Renfer</h1>
+	    <span rel="foaf:depiction">
+	      <img src="http://s3.amazonaws.com/twitter_production/profile_images/14536402/886_bigger.jpg" alt="My photo" />
+	    </span>
+	    <div>
+	      <h3>Contact info</h3>
+	      <div rel="foaf:holdsAccount">
+	        <span typeof="foaf:OnlineAccount">
+	          <span rel="foaf:accountServiceHomepage" resource="http://www.twitter.com/">Twitter Name:</span>
+	          <span property="foaf:accountName">duck1123</span>
+	        </span>
+	      </div>
+	    </div>
+	  </div>
+	</body>
+</html>

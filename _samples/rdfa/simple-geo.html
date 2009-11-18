@@ -1,0 +1,129 @@
+<!--
+  // Ubiquity provides a standards-based suite of browser enhancements for
+  // building a new generation of internet-related applications.
+  //
+  // The Ubiquity RDFa module adds RDFa support to the Ubiquity library.
+  //
+  // Copyright (C) 2007-8 Mark Birbeck
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+-->
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:dc="http://purl.org/dc/terms/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:argot="http://argot-hub.googlecode.com/"
+	xmlns:v="http://www.w3.org/2006/vcard/ns#"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+>
+	<head>
+		<title>Test RDFa Twitter additions to Ubiquity RDFa</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, width=device-width, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<!--
+	    This loads the RDFa parser.
+	  -->
+	  <script src="../../ubiquity-loader.js" type="text/javascript">/**/</script>
+
+	  <!--
+	    This loads a Fresnel format that will act on the triples.
+	  -->
+		<link rel="argot:include" href="formats/foaf.html" />
+		<link rel="argot:include" href="formats/twitter.html" />
+		<link rel="argot:include" href="formats/geo.html" />
+		<meta property="argot:googleapikey" content="ABQIAAAAFfge0ihEFruNovFYyY5Z2BTb-vLQlFZmc2N8bgWI8YDPp5FEVBTl9dQGUkSF12Kh93DyhOc7VOUTQA"/>
+
+		<link rel="stylesheet" href="iphone.css" />
+		<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAFfge0ihEFruNovFYyY5Z2BTb-vLQlFZmc2N8bgWI8YDPp5FEVBTl9dQGUkSF12Kh93DyhOc7VOUTQA" type="text/javascript">/**/</script>
+		<script type="text/javascript">
+			function flip (event) {
+				var element = event.currentTarget;
+				/* Toggle the setting of the classname attribute */
+				element.className = (element.className == 'card') ? 'card flipped' : 'card';
+			}
+		</script>
+	</head>
+	<body>
+		<div id="container">
+			<div id="card" class="card" onclick="flip(event)">
+				<div id="front" class="front face">
+					<div>
+						<div about="#me" typeof="foaf:Person">
+							My name is <span property="foaf:name">Mark Birbeck</span>,
+							and I work for <a rel="foaf:workplaceHomepage"
+								href="http://webBackplane.com">Backplane Ltd.</a>
+							You can follow me on<span rel="foaf:holdsAccount">
+								<span typeof="foaf:OnlineAccount">
+									<a rel="foaf:accountServiceHomepage" href="http://www.twitter.com/">Twitter</a>
+									at @<span property="foaf:accountName">markbirbeck</span>
+								</span>
+							</span>
+							and I have a blog at <a rel="foaf:weblog" href="http://internet-apps.blogspot.com/"
+								>XForms and Internet Applications</a>.
+							<span rel="foaf:img" resource="http://webbackplane.com/files/pictures/picture-2.jpg"></span>
+						</div>
+						<hr />
+						<div about="#ben" typeof="foaf:Person">
+							<span property="foaf:name">John Doe</span>
+							works for <a rel="foaf:workplaceHomepage"
+								href="http://creativecommons.org">Imperial College</a>.
+						</div>
+						<hr />
+						<div about="#backplane" typeof="foaf:Organization v:VCard">
+							<a rel="foaf:homepage" href="http://webBackplane.com"
+								property="foaf:name"
+								>Backplane Ltd.</a> are based at
+							<span property="dc:coverage" datatype="">
+								<span property="v:street-address">4 Pear Tree Court</span>,
+								<span property="v:locality">London</span>,
+								<span property="v:postal-code">EC1R 0DS</span>
+							</span>.
+							You can call them on <span property="v:workTel">+44 20 7689 9232</span>.
+						</div>
+						<hr />
+						<div about="#cc" typeof="foaf:Organization v:VCard">
+							<a rel="foaf:homepage" href="http://creativecommons.org"
+								property="foaf:name"
+								>Creative Commons</a> are based at
+							<span property="v:street-address">Blah Blah</span>
+						</div>
+						<div>
+							<span rel="v:geo">
+								<span property="geo:lat" content="51.523671"></span>
+								<span property="geo:long" content="-0.107841"></span>
+								webBackplane office
+							</span>
+							<span rel="v:geo">
+								<span property="geo:lat" content="51.53182"></span>
+								<span property="geo:long" content="-0.108218"></span>
+								CC office
+							</span>
+						</div>
+					</div>
+				</div>
+				<!-- Shows the back of the card. Hidden when this page initially loads in Safari on iPhone 2.0 or in iPhone simulator. -->
+				<div id="back" class="back face">
+					<div id="header" typeof="argot:meta">
+						<div id="first_button" class="button"></div>
+						<div id="first_title" class="title">Metadata</div>
+						<div id="second_button" class="button"></div>
+						<div id="second_title" class="title"></div>
+					</div>
+					<div id="generalmap"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

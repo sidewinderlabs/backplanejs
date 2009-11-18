@@ -1,0 +1,69 @@
+<!--
+  // Ubiquity provides a standards-based suite of browser enhancements for
+  // building a new generation of internet-related applications.
+  //
+  // The Ubiquity RDFa module adds RDFa support to the Ubiquity library.
+  //
+  // Copyright (C) 2007-8 Mark Birbeck
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+-->
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:argot="http://argot-hub.googlecode.com/"
+>
+  <head>
+    <title property="argot:title">Test Cal Fresnel format</title>
+    <!--
+      This loads the RDFa parser.
+    -->
+    <script src="../ubiquity-loader.js" type="text/javascript">/**/</script>
+
+    <!--
+      This loads a Fresnel format that will act on the triples.
+    -->
+    <link rel="argot:include" href="formats/foaf.html" />
+    <link rel="argot:include" href="formats/cal.html" />
+  </head>
+	<body style="background: green">
+	  <p>
+	    This sample contains a mixture of FOAF and calendar information:
+	  </p>
+	  <h1>An event</h1>
+	  <p about="#talk" typeof="cal:Vevent"
+	    xmlns:cal="http://www.w3.org/2002/12/cal/ical#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	  >
+	    Sam Sethi has invited me to talk about RDFa, formsPlayer and Sidewinder at an interesting meeting in
+	    <span property="cal:location" content="BT Centre, London, EC1A 7AJ">London</span>
+	    next week. It's called
+	    <a rel="cal:description" href="http://www.vecosys.com/2007/02/14/what-comes-next-web-30-preparing-for-semantic-web/"
+	      property="cal:summary">What comes next Web 3.0 - preparing for semantic web?</a>. It's organised as part of a series going under the title of
+	    <a href="http://www.etribes.com/mashup">mashup*</a>, and as well as myself, the speakers are
+
+	    <span about="#hugh"
+	      typeof="foaf:Person"
+	      property="foaf:name">Hugh MacCleod</span>,
+
+	    <span about="#paul"
+	      typeof="foaf:Person"
+	      rel="foaf:depiction" href="http://pub.mybloglog.com/coiserv.php?href=http://segala.com/blog&amp;n=Paul%20Walsh"
+	      property="foaf:name">Paul Walsh</span> and
+
+	    <span about="#tony"
+	      typeof="foaf:Person"
+	      property="foaf:name">Tony Fish</span>.
+
+	    <span property="cal:dtstart" content="20070222T180000Z"></span>
+	  </p>
+	</body>
+</html>

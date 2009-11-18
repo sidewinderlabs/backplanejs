@@ -1,0 +1,190 @@
+<!--
+  // Ubiquity provides a standards-based suite of browser enhancements for
+  // building a new generation of internet-related applications.
+  //
+  // The Ubiquity RDFa module adds RDFa support to the Ubiquity library.
+  //
+  // Copyright (C) 2007-8 Mark Birbeck
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+-->
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:fresnel="http://www.w3.org/2004/09/fresnel#"
+	xmlns:argot="http://argot-hub.googlecode.com/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <head typeof="fresnel:Group">
+		<title>FOAF templates</title>
+    <link rel="stylesheet" href="foaf.css" />
+	</head>
+  <body rev="fresnel:group">
+	  <div property="argot:constructor">
+      document.Yowl.register(
+        "foaf",
+        [ "Found a person", "Loading external file" ],
+        [ "Found a person", "Loading external file" ],
+        "http://www.foaf-project.org/images/foafTiny.gif"
+      );
+
+      /*
+      * Find all 'external' FOAF people. By setting an 'imp' object we get the store object to
+      * load it and add all of the triples.
+      */
+
+      var results = document.meta.query2({
+        select: [ "imp" ],
+        where:
+          [
+            { pattern: [ "?person", "a",                               "http://xmlns.com/foaf/0.1/Person" ] },
+            { pattern: [ "?person", "http://xmlns.com/foaf/0.1/knows", "?imp"                             ] }
+          ]
+      });
+
+      /*
+       * Apply the action to each of the results. The presence of 'imp' causes the external file
+       * to be loaded.
+       */
+
+      document.meta.walk2(results, { });
+	  </div>
+
+    <span typeof="fresnel:Format">
+      <span rev="fresnel:classFormatDomain" resource="http://xmlns.com/foaf/0.1/Person"></span>
+      <span property="fresnel:resourceStyle" datatype="fresnel:styleClass">foaf-person</span>
+      <span property="argot:yowl">
+        document.Yowl.notify(
+          "Found a person",
+          "Found a person",
+          "Testing the classFormatDomain",
+          "foaf",
+          null,
+          true,
+          0
+        );
+      </span>
+    </span>
+
+    <span typeof="fresnel:Format">
+      <span property="fresnel:instanceFormatDomain" datatype="argot:jsparqlSelector">
+        select: [ "person" ],
+        where:
+          [
+            { pattern: [ "?person", "a", "http://xmlns.com/foaf/0.1/Person" ], setUserData: true }
+          ]
+      </span>
+
+      <span property="fresnel:resourceStyle" datatype="fresnel:styleClass">foaf-person</span>
+    </span>
+  	
+  	<span typeof="fresnel:Format">
+  		<span property="fresnel:instanceFormatDomain" datatype="argot:jsparqlSelector">
+  			select: [ "org" ],
+  			where:
+  			[
+  			{ pattern: [ "?org", "a", "http://xmlns.com/foaf/0.1/Organization" ], setUserData: true }
+  			]
+  		</span>
+  		
+  		<span property="fresnel:resourceStyle" datatype="fresnel:styleClass">foaf-org</span>
+  	</span>
+  	
+    <span typeof="fresnel:Format">
+      <span property="fresnel:instanceFormatDomain" datatype="argot:jsparqlSelector">
+        select: [ "name", "mbox", "depiction", "company", "street", "locality", "zip" ],
+        where:
+        [
+	        { pattern: [ "?slot",   "a",                              "http://argot-hub.googlecode.com/meta" ], setUserData: true },
+        	{ pattern: [ "?person", "a",                              "http://xmlns.com/foaf/0.1/Person" ] },
+          { pattern: [ "?person", "http://xmlns.com/foaf/0.1/name", "?name"                            ] },
+          
+          /*
+          * Add any additional properties that we need.
+          */
+
+          { pattern: [ "?person", "http://xmlns.com/foaf/0.1/mbox", "?mbox"      ], optional: true },
+          { pattern: [ "?person", "http://xmlns.com/foaf/0.1/img",  "?depiction" ], optional: true },
+
+					{
+						where:
+						[
+		          { pattern: [ "?person", "http://xmlns.com/foaf/0.1/workplaceHomepage", "?wphp" ] },
+		          { pattern: [ "?org",    "http://xmlns.com/foaf/0.1/homepage",          "?wphp" ] },
+		          { pattern: [ "?org",    "http://xmlns.com/foaf/0.1/name",              "?company" ], optional: true },
+		          { pattern: [ "?org",    "http://www.w3.org/2006/vcard/ns#street-address", "?street" ], optional: true },
+		          { pattern: [ "?org",    "http://www.w3.org/2006/vcard/ns#locality", "?locality" ], optional: true },
+		          { pattern: [ "?org",    "http://www.w3.org/2006/vcard/ns#postal-code", "?zip" ], optional: true }
+		        ],
+			      optional: true
+			    }
+         ]
+      </span>
+
+      <span property="argot:yowl">
+        document.Yowl.notify(
+          "Found a person",
+          ${name.content},
+          ${company.content} + ", " + ${locality.content},
+          "foaf",
+          ${depiction},
+          true,
+          0
+        );
+      </span>
+
+      <div rel="argot:embed">
+        <span rel="argot:icon" resource="hcard.png"></span>
+        <div property="argot:template" datatype="rdf:XMLLiteral">
+        	<div class="entry">
+        		<img src="${depiction}" class="person-depiction" />
+	          <span class="name">${name}</span>
+        		<span class="company">${company}</span>
+        	</div>
+        </div>
+      </div>
+    </span>
+    
+    <!--
+      This Format sets a CSS class on every person who has a friend:
+    -->
+    <span typeof="fresnel:Format">
+      <span property="fresnel:instanceFormatDomain" datatype="argot:jsparqlSelector">
+        select: [ "s" ],
+        where:
+          [
+            { pattern: [ "?s", "a",                               "http://xmlns.com/foaf/0.1/Person" ], setUserData: true },
+            { pattern: [ "?s", "http://xmlns.com/foaf/0.1/knows", "?friend"                          ] }
+          ]
+      </span>
+      <span property="fresnel:resourceStyle" datatype="fresnel:styleClass">foaf-knows</span>
+    </span>
+
+    <!--
+     These two Formats determine how properties should be displayed:
+    -->
+    <span typeof="fresnel:Format">
+      <span rel="fresnel:propertyFormatDomain" resource="http://xmlns.com/foaf/0.1/depiction"></span>
+      <span property="fresnel:resourceStyle" datatype="fresnel:styleClass">foaf-depiction</span>
+    </span>
+
+    <span typeof="fresnel:Format">
+      <span rel="fresnel:propertyFormatDomain" resource="http://xmlns.com/foaf/0.1/name"></span>
+      <span property="fresnel:resourceStyle" datatype="fresnel:styleClass">foaf-name</span>
+    </span>    
+  	
+  	<span typeof="fresnel:Format">
+  		<span rel="fresnel:propertyFormatDomain" resource="http://www.w3.org/2006/vcard/ns#workTel"></span>
+  		<span property="fresnel:resourceStyle" datatype="fresnel:styleClass">foaf-name</span>
+  	</span>    
+  </body>
+</html>

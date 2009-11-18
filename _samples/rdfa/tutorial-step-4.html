@@ -1,0 +1,97 @@
+<!DOCTYPE XHTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <!--
+      // Ubiquity provides a standards-based suite of browser enhancements for
+      // building a new generation of internet-related applications.
+      //
+      // The Ubiquity RDFa module adds RDFa parser support to the Ubiquity
+      // library.
+      //
+      // Copyright (C) 2008 Mark Birbeck
+      //
+      // This program is free software; you can redistribute it and/or
+      // modify it under the terms of the GNU General Public License
+      // as published by the Free Software Foundation; either version 2
+      // of the License, or (at your option) any later version.
+      //
+      // This program is distributed in the hope that it will be useful,
+      // but WITHOUT ANY WARRANTY; without even the implied warranty of
+      // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+      // GNU General Public License for more details.
+      //
+      // You should have received a copy of the GNU General Public License
+      // along with this program; if not, write to the Free Software
+      // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+      //
+      // Mark Birbeck can be contacted at:
+      //
+      //  36 Tritton Road
+      //  London
+      //  SE21 8DE
+      //  United Kingdom
+      //
+      //  mark.birbeck@gmail.com
+      //
+    -->
+    <title>My blog page</title>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.5.1/build/yuiloader/yuiloader-beta-min.js" >/**/</script>
+    <script type="text/javascript" src="http://ubiquity-rdfa.googlecode.com/svn/branches/0.7/main.js" >/**/</script>
+    <style type="text/css">
+      .ebay-item {
+        background-color : yellow;
+        color: black;
+        border: 1px solid black;
+        padding: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      Welcome to my blog. I have lots of things to say, but before I do, let me
+      tell you that I have
+      <span about="#bike" xmlns:ebay="http://ebay.com/"
+        property="ebay:item" content="120245313159"
+        >a bike for sale</span>.
+      Now I think about it, I've also got
+      <span about="#boat" xmlns:ebay="http://ebay.com/"
+        property="ebay:item" content="170225336431"
+        >a speedboat</span>
+      and
+      <span about="#castle" xmlns:ebay="http://ebay.com/"
+        property="ebay:item" content="310056337208"
+        >a castle for sale</span>.
+    </p>
+    <div
+      xmlns:fresnel="http://www.w3.org/2004/09/fresnel#"
+      typeof="fresnel:Group"
+      style="display: none;"
+      >
+      <div rev="fresnel:group">
+        <div typeof="fresnel:Format">
+          <div property="fresnel:instanceFormatDomain">
+            select: [ "s", "item" ],
+            where:
+            [
+              { pattern: [ "?s", "http://ebay.com/item", "?item" ], setUserData: true }
+            ]
+          </div>
+          
+          <span property="fresnel:resourceStyle" datatype="fresnel:styleClass">ebay-item</span>
+
+          <div rel="argot:tooltip" xmlns:argot="http://argot-hub.googlecode.com/">
+            <span rel="argot:icon" resource="http://www.ebay.com/favicon.ico"></span>
+            <div property="argot:template" datatype="rdf:XMLLiteral">
+              <object width="355" height="300">
+                <param name="movie" value="http://togo.ebay.com/togo/togo.swf?2008013100" />
+                <param name="flashvars" value="base=http://togo.ebay.com/togo/&amp;lang=en-us&amp;mode=normal&amp;itemid=${item.content}&amp;query=track%20bike" />
+                <embed src="http://togo.ebay.com/togo/togo.swf?2008013100" type="application/x-shockwave-flash" width="355" height="300"
+                  flashvars="base=http://togo.ebay.com/togo/&amp;lang=en-us&amp;mode=normal&amp;itemid=${item.content}&amp;query=track%20bike"></embed>
+              </object>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

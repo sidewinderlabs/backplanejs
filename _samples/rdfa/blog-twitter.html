@@ -1,0 +1,62 @@
+<!--
+  // Ubiquity provides a standards-based suite of browser enhancements for
+  // building a new generation of internet-related applications.
+  //
+  // The Ubiquity RDFa module adds RDFa support to the Ubiquity library.
+  //
+  // Copyright (C) 2007-8 Mark Birbeck
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+-->
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:argot="http://argot-hub.googlecode.com/"
+>
+	<head>
+		<title>Test RDFa Twitter additions to Ubiquity RDFa</title>
+	  <!--
+	    This loads the RDFa parser.
+	  -->
+	  <script src="../../ubiquity-loader.js" type="text/javascript">/**/</script>
+
+	  <!--
+	    This loads a Fresnel format that will act on the triples.
+	  -->
+	  <link rel="argot:formatter" href="formats/twitter" />
+	</head>
+	<body style="background: silver; color: black;">
+	  <p>
+	    This example shows how you might have a page of references to different Twitter people, based on some
+	    subject that they all have in common. At the moment we just show their latest Tweets, but we could
+	    easily provide a link to allow people to follow them:
+	  </p>
+	  <p>
+  	  If you're interested in RDFa you might consider following
+  	  Mark Birbeck (@<span typeof=""
+  	    rel="foaf:accountServiceHomepage" resource="http://www.twitter.com/"
+  	    property="foaf:accountName">markbirbeck</span>),
+	  	<!--
+      Ben Adida<span typeof=""
+        rel="foaf:accountServiceHomepage" resource="http://www.twitter.com/"
+        property="foaf:accountName" content="benadida"></span>,
+	  	Shane Maccarron<span typeof=""
+	  		rel="foaf:accountServiceHomepage" resource="http://www.twitter.com/"
+	  		property="foaf:accountName" content="halindrome"></span>,
+	  	and Manu Sporny<span typeof=""
+  	    rel="foaf:accountServiceHomepage" resource="http://www.twitter.com/"
+  	    property="foaf:accountName" content="manusporny"></span>.
+  	  -->
+	  </p>
+	</body>
+</html>

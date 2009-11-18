@@ -1,0 +1,79 @@
+<!--
+  // Ubiquity provides a standards-based suite of browser enhancements for
+  // building a new generation of internet-related applications.
+  //
+  // The Ubiquity RDFa module adds RDFa support to the Ubiquity library.
+  //
+  // Copyright (C) 2007-8 Mark Birbeck
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+-->
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:fresnel="http://www.w3.org/2004/09/fresnel#"
+	xmlns:argot="http://argot-hub.googlecode.com/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <head typeof="fresnel:Group">
+		<title>Stock templates</title>
+	</head>
+  <body rev="fresnel:group">
+    <div property="argot:constructor">
+      document.Yowl.register(
+        "stocks",
+        [ "Found a stock" ],
+        [ "Found a stock" ],
+        "formats/chart.png"
+      );
+    </div>
+
+    <div typeof="fresnel:Format">
+      <!--
+        Select all stock tickers.
+      -->
+      <span property="fresnel:instanceFormatDomain" datatype="argot:jsparqlSelector">
+        select: [ "symbol" ],
+        where:
+        [
+          { pattern: [ "?stock", "http://dbpedia.org/property/tickerSymbol", "?symbol" ], setUserData: true }
+        ]
+      </span>
+      <div property="argot:yowl">
+        document.Yowl.notify(
+          "Found a stock",
+          ${symbol.content},
+          ${symbol.content},
+          "stocks",
+          null,
+          true,
+          0
+        );
+      </div>
+      <span property="fresnel:resourceStyle" datatype="fresnel:styleClass">stock-symbol</span>
+      
+      <div rel="argot:tooltip">
+        <span rel="argot:icon" resource="chart.png"></span>
+        
+        <div property="argot:template" datatype="rdf:XMLLiteral">
+          <iframe allowtransparency="true" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"
+            src="http://api.finance.yahoo.com/instrument/1.0/${symbol.content}/badge;quote/HTML?AppID=VrJw4tlE1wulKsSmRHvtLtYQDa.ZMg--&amp;sig=9DOSvMHf6tUU.jbSMDatWkTt56k-&amp;t=1190195170531"
+            width="200px" height="200px"
+            >
+            <a href="http://finance.yahoo.com">Yahoo! Finance</a><br/>
+          </iframe>
+        </div>
+      </div>
+    </div>
+	</body>
+</html>

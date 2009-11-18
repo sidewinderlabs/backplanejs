@@ -1,0 +1,12 @@
+syntax: glob
+
+*.rej
+*.orig
+
+xforms/src/lib/backplane/_unit-tests/temp
+
+xforms/build
+xforms/samples
+xforms/testsuite
+xforms/tools
+xforms/unit-tests

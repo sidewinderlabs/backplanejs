@@ -1,0 +1,132 @@
+<!--
+  // Copyright (C) 2007-8 Mark Birbeck
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+-->
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:fresnel="http://www.w3.org/2004/09/fresnel#"
+	xmlns:argot="http://argot-hub.googlecode.com/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+>
+  <head typeof="fresnel:Group">
+		<title>Geo formats</title>
+  </head>
+  <body rev="fresnel:group">
+    <div property="argot:constructor">
+      document.Yowl.register(
+        "geo",
+        [ "Found a Location" ],
+        [ 0 ],
+        "http://argot-hub.googlecode.com/svn/trunk/_images/geotag_32.png"
+      );
+    </div>
+
+    <span typeof="fresnel:Format">
+      <span property="fresnel:instanceFormatDomain" datatype="argot:jsparqlSelector">
+        select: [ "s", "location", "apikey" ],
+        where:
+          [
+            { pattern: [ "?s", "http://purl.org/dc/terms/coverage", "?location" ] },
+            { pattern: [ "?doc", "http://argot-hub.googlecode.com/googleapikey", "?apikey" ] }
+          ]
+      </span>
+
+      <div property="argot:yowl">
+        document.Yowl.notify(
+          "Found a Location",
+          "Found location: " + ${location.content},
+          "Geocoding...",
+          "geo",
+          null,
+          false,
+          0
+        );
+      </div>
+
+      <div property="argot:pipesdata">
+        url: 'http://maps.google.com/maps/geo',
+        params:
+          {
+            q: ${location.content},
+            callbackParamName: 'callback',
+            key: ${apikey.content},
+            output: 'json'
+          }
+      </div>
+
+      <div property="argot:adddata">
+        if (data.Status && data.Status.code === 200) {
+          document.meta.store.add(
+            ${s},
+            "a",
+            "http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing",
+            false
+          );
+        
+        document.meta.store.add(
+            ${s},
+            "http://www.w3.org/2003/01/geo/wgs84_pos#lat",
+            {
+              content: data.Placemark[0].Point.coordinates[0],
+              datatype: ""
+            },
+            true
+          );
+
+          document.meta.store.add(
+            ${s},
+            "http://www.w3.org/2003/01/geo/wgs84_pos#long",
+            {
+              content: data.Placemark[0].Point.coordinates[1],
+              datatype: ""
+            },
+            true
+          );
+        }
+      </div>
+      
+      <!--
+        Once the data is loaded, run another group of formats.
+      -->
+      <span rel="argot:afterpipesdata">
+        <span typeof="fresnel:Group">
+          <div rev="fresnel:group">
+            <!--
+              The first format sets an icon next to any geo:spatialThing.
+            -->
+            <div typeof="fresnel:Format">
+              <span property="fresnel:instanceFormatDomain" datatype="argot:jsparqlSelector">
+                select: [ "s", "location" ],
+                where:
+                [
+                  { pattern: [ "?s", "http://purl.org/dc/terms/coverage", "?location" ], setUserData: true },
+                  { pattern: [ "?s", "a", "http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing" ] }
+                ]
+              </span>
+
+              <span rel="argot:tooltip">
+                <div property="argot:template" datatype="rdf:XMLLiteral">
+                  <img src="http://argot-hub.googlecode.com/svn/trunk/_images/geotag_16.png" alt="Geocoded: ${location.content}"
+                    title="Geocoded: ${location.content}" />
+                </div>
+              </span>
+            </div>
+          </div>
+        </span>
+
+      </span>
+    </span>
+  </body>
+</html>

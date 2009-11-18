@@ -1,0 +1,77 @@
+<!--
+  // Ubiquity provides a standards-based suite of browser enhancements for
+  // building a new generation of internet-related applications.
+  //
+  // The Ubiquity RDFa module adds RDFa support to the Ubiquity library.
+  //
+  // Copyright (C) 2007-8 Mark Birbeck
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+-->
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:fresnel="http://www.w3.org/2004/09/fresnel#"
+	xmlns:argot="http://argot-hub.googlecode.com/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <head typeof="fresnel:Group">
+		<title>Bookmarking templates</title>
+    <link rel="stylesheet" href="bookmarks.css" />
+  </head>
+  <body rev="fresnel:group">
+    <span typeof="fresnel:Format">
+      <span property="fresnel:instanceFormatDomain" datatype="argot:jsparqlSelector">
+        select: [ "s", "title", "header" ],
+        where:
+          [
+            { pattern: [ "?s", "http://argot-hub.googlecode.com/title", "?title" ] },
+            { pattern: [ "?header", "a", "http://argot-hub.googlecode.com/header" ], setUserData: true }
+          ]
+      </span>
+      
+      <span rel="argot:tooltip">
+        <!-- This works but the tooltip is positioned incorrectly -->
+        <span rel="argot:icon" resource="favicon.ico"></span>
+        <div property="argot:template" datatype="rdf:XMLLiteral">
+          <span class="bookmarks">
+            <ul style="display: inline;">
+              <li><a href="http://del.icio.us/post?url=${s}&amp;title=${title}" title="del.icio.us">
+                <img src="formats/delicious.png" title="Bookmark in del.icio.us" alt="del.icio.us" />
+              </a></li>
+              
+              <li><a href="http://digg.com/submit?phase=2&amp;url=${s}&amp;title=${title}" title="Digg">
+                <img src="formats/digg.png" title="Bookmark in Digg" alt="Digg" />
+              </a></li>
+              
+              <li><a href="http://www.furl.net/storeIt.jsp?u=${s}&amp;t=${title}" title="Furl">
+                <img src="formats/furl.png" title="Bookmark in Furl" alt="Furl" />
+              </a></li>
+              
+              <li><a href="http://reddit.com/submit?url=${s}&amp;title=${title}" title="Reddit">
+                <img src="formats/reddit.png" title="Bookmark in Reddit" alt="Reddit" />
+              </a></li>
+              
+              <li><a href="http://technorati.com/faves?add=${s}" title="Technorati">
+                <img src="formats/technorati.png" title="Bookmark in Technorati" alt="Technorati" />
+              </a></li>
+              
+              <li><a href="http://www.dzone.com/links/add.html?url=${s}&amp;title=${title}" title="DZone">
+                <img src="formats/dzone.png" title="Bookmark in DZone" alt="DZone" />
+              </a></li>
+            </ul>
+          </span>
+        </div>
+      </span>
+    </span>
+  </body>
+</html>

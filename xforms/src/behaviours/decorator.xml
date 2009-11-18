@@ -1,0 +1,12 @@
+<bindings
+  xmlns="http://www.mozilla.org/xbl">
+<binding id="decorator">
+	<implementation>
+		<constructor>
+		<![CDATA[
+			DECORATOR.attachDecoration(this,true,true);
+		]]>
+		</constructor>
+	</implementation>
+</binding>
+</bindings>

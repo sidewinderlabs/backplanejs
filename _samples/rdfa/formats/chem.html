@@ -1,0 +1,115 @@
+<!--
+  // Ubiquity provides a standards-based suite of browser enhancements for
+  // building a new generation of internet-related applications.
+  //
+  // The Ubiquity RDFa module adds RDFa support to the Ubiquity library.
+  //
+  // Copyright (C) 2007-8 Mark Birbeck
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+-->
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:fresnel="http://www.w3.org/2004/09/fresnel#"
+	xmlns:argot="http://argot-hub.googlecode.com/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <head typeof="fresnel:Group">
+		<title>Calendar actions</title>
+    <link rel="stylesheet" href="chem.css" />
+	</head>
+  <body rev="fresnel:group">
+	  <div property="argot:constructor">
+      document.Yowl.register(
+        "chem",
+        [ "Found a CID compound", "Found an INCHI compound" ],
+        [ "Found a CID compound", "Found an INCHI compound" ],
+        "http://pubchem.ncbi.nlm.nih.gov/images/pccompound.gif"
+      );
+	  </div>
+
+    <span typeof="fresnel:Format">
+      <span property="fresnel:instanceFormatDomain" datatype="argot:jsparqlSelector">
+        select: [ "compound", "cid" ],
+        where:
+        [
+          { pattern: [ "?compound", "http://www.blueobelisk.org/chemistryblogs/cid", "?cid" ], setUserData: true }
+        ]
+      </span>
+    	
+    	<span rel="argot:notify">
+    		<span property="argot:notifyName" content="Found a CID compound"></span>
+    		<span property="dc:title" content="Found a CID value"></span>
+    		<span property="dc:summary" content="Found ${cid}"></span>
+    		<span property="argot:type" content="chem"></span>
+    		<span property="foaf:depiction" content="http://cb.openmolecules.net/images/compounds/${cid.content}.png"></span>
+    		<span property="argot:acknowledge" content="true"></span>
+    		<span property="argot:callback" content="0"></span>
+    	</span>
+    	
+      <span property="argot:yowl">
+        document.Yowl.notify(
+          "Found a CID compound",
+          "Found a CID value",
+          ${cid.content},
+          "chem",
+          "http://cb.openmolecules.net/images/compounds/" + ${cid.content} + ".png",
+          true,
+          0
+        );
+      </span>
+
+      <div rel="argot:tooltip">
+        <span rel="argot:icon" resource="http://pubchem.ncbi.nlm.nih.gov/images/pccompound.gif"></span>
+        <div property="argot:template" datatype="rdf:XMLLiteral">
+          <div class="chem-compound" style="width: 150px;">
+            <span class="chem-name">CID: ${cid.content}</span>
+            <span style="float: right;">
+              <img src="http://cb.openmolecules.net/images/compounds/${cid.content}.png" />
+            </span>
+          </div>
+        </div>
+      </div>
+    </span>
+    
+    <span typeof="fresnel:Format">
+      <span property="fresnel:instanceFormatDomain" datatype="argot:jsparqlSelector">
+        select: [ "compound", "inchi" ],
+        where:
+        [
+          { pattern: [ "?compound", "http://www.blueobelisk.org/chemistryblogs/inchi", "?inchi" ], setUserData: true }
+        ]
+      </span>
+      
+      <span property="argot:yowl">
+        document.Yowl.notify(
+        "Found an INCHI compound",
+        "Found an InChI value",
+        ${inchi.content},
+        "chem",
+        null,
+        true,
+        0
+        );
+      </span>
+      
+      <div rel="argot:tooltip">
+        <div property="argot:template" datatype="rdf:XMLLiteral">
+          <a href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?CMD=search&DB=pccompound&term=%22${inchi.content}%22[InChI]">Search PubChem</a>
+        </div>
+      </div>
+    </span>
+    
+	</body>
+</html>

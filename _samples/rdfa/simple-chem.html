@@ -1,0 +1,56 @@
+<!--
+  // Ubiquity provides a standards-based suite of browser enhancements for
+  // building a new generation of internet-related applications.
+  //
+  // The Ubiquity RDFa module adds RDFa support to the Ubiquity library.
+  //
+  // Copyright (C) 2007-8 Mark Birbeck
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+-->
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:argot="http://argot-hub.googlecode.com/"
+>
+  <head>
+    <title>Test Chemistry Fresnel format</title>
+    <!--
+      This loads the RDFa parser.
+    -->
+    <script src="../ubiquity-loader.js" type="text/javascript">/**/</script>
+
+    <!--
+      This loads a Fresnel format that will act on the triples.
+    -->
+    <link rel="argot:include" href="formats/chem.html" />
+  </head>
+	<body style="background: green">
+	  <h1>Chemistry</h1>
+	  <p>
+	    This file contains a simple chemistry example. Below there are two sentences that refer to chemical compounds.
+	    Each compound is identified with RDFa, which provides the 'hook' for the UI processor to add:
+	    <ul>
+	      <li>an icon indicating that a CID value has been found;</li>
+	      <li>a tooltip on that icon, showing its molecular structure;</li>
+	      <li>a link that will search the PubChem database when an InChI value is found;</li>
+	      <li>Yowl notifications for each compound.</li>
+	    </ul>
+	  </p>
+	    <div about="#chem_123" xmlns:chem="http://www.blueobelisk.org/chemistryblogs/">
+	      Viagra has the following CID identifier: <span property="chem:cid">5281023</span>
+	    </div>
+	  <div about="#chem_124" xmlns:chem="http://www.blueobelisk.org/chemistryblogs/">
+	    Methane has the following identifier: <span property="chem:inchi">InChI=1/CH4/h1H4</span>
+	  </div>
+	</body>
+</html>

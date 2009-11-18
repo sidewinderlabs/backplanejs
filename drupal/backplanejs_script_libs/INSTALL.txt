@@ -1,0 +1,22 @@
+Description:
+------------------------------------------------------------------------------------------------
+
+Module to enable inclusion of javascript libraries in Drupal nodes.
+
+Installation:
+------------------------------------------------------------------------------------------------
+
+Place the module files in either:
+
+<drupal_home>/sites/all/modules to make available to all sites on server.
+
+OR 
+
+<drupal_home>/sites/<site_name>/modules to make available to a specific site.
+
+Enable/configure the module in the Drupal admin pages.
+
+------------------------------------------------------------------------------------------------
+WORK IN PROGRESS:
+------------------------------------------------------------------------------------------------
+- See 'TODO:' comments at the top of the .module file.

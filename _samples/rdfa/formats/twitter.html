@@ -1,0 +1,170 @@
+<!--
+  // Ubiquity provides a standards-based suite of browser enhancements for
+  // building a new generation of internet-related applications.
+  //
+  // The Ubiquity RDFa module adds RDFa support to the Ubiquity library.
+  //
+  // Copyright (C) 2007-8 Mark Birbeck
+  //
+  // Licensed under the Apache License, Version 2.0 (the "License");
+  // you may not use this file except in compliance with the License.
+  // You may obtain a copy of the License at
+  //
+  //  http://www.apache.org/licenses/LICENSE-2.0
+  //
+  // Unless required by applicable law or agreed to in writing, software
+  // distributed under the License is distributed on an "AS IS" BASIS,
+  // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  // See the License for the specific language governing permissions and
+  // limitations under the License.
+-->
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:fresnel="http://www.w3.org/2004/09/fresnel#"
+	xmlns:argot="http://argot-hub.googlecode.com/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+>
+  <head typeof="fresnel:Group">
+		<title>Twitter templates</title>
+    <link rel="stylesheet" href="twitter.css" />
+  </head>
+  <body rev="fresnel:group">
+    <div property="argot:constructor">
+      document.Yowl.register(
+        "twitter",
+        [ "Found a Twitter account", "Twittered" ],
+        [ "Found a Twitter account", "Twittered" ],
+        "http://twitter.com/favicon.ico"
+      );
+      document.Yowl.notify(
+      "Found a Twitter account",
+      "Loaded Twitter formatter",
+      "Done",
+      "twitter",
+      null,
+      false,
+      0
+      );
+    </div>
+
+    <span typeof="fresnel:Format">
+      <span property="fresnel:instanceFormatDomain" datatype="argot:jsparqlSelector">
+        select: [ "twittername" ],
+        where:
+          [
+          	{ pattern: [ "?account", "http://xmlns.com/foaf/0.1/accountServiceHomepage", "http://www.twitter.com/" ] },
+          	{ pattern: [ "?account", "http://xmlns.com/foaf/0.1/accountName",            "?twittername"            ], setUserData: true }
+          ]
+      </span>
+
+      <span property="fresnel:resourceStyle" datatype="fresnel:styleClass">twitter-person</span>
+
+      <div property="argot:yowl">
+        document.Yowl.notify(
+          "Found a Twitter account",
+          "Found Twitter account : " + ${twittername.content},
+          "Retrieving more information from Twitter API",
+          "twitter",
+          null,
+          false,
+          0
+        );
+      </div>
+
+      <div property="argot:pipesdata">
+        url: 'http://www.twitter.com/statuses/user_timeline/' + ${twittername.content} + '.json',
+        params:
+          {
+            callbackParamName: 'callback',
+            count: '2'
+          }
+      </div>
+
+      <div property="argot:adddata">
+        for (var i = 0; i != context.data.length; i++) {
+          var item = context.data[i];
+          var uriStatus = "http://twitter.com/" + item.user.screen_name + "/statuses/" + item.id; 
+          var uriPerson = "http://twitter.com/" + item.user.screen_name;
+
+          var sText = item.text.replace(/img(\@src)?\=([^\s]*)/g, "&lt;img src=\'$2\' /&gt;");
+          
+          sText = sText.replace(/tube(\@src)?\=(.*)/g, "&lt;object width=\'425\' height=\'355\'&gt;&lt;param name=\'movie\' value=\'$2\'/&gt;&lt;param name=\'wmode\' value=\'transparent\'/&gt;&lt;embed src=\'$2\' type=\'application/x-shockwave-flash\' wmode=\'transparent\' width=\'425\' height=\'355\'/&gt;&lt;/object&gt;");
+
+          document.meta.store.insert([
+          	{
+	          	name: uriPerson,
+	          	"$": uriStatus,
+		          	"a": "&lt;http://www.twitter.com/status&gt;",
+	          		"http://www.twitter.com/text": sText,
+			        	"http://www.twitter.com/saidby": "&lt;" + uriPerson + "&gt;"
+		        }
+          ]);
+
+          /*
+           * Add information about who said the status.
+           */
+
+           document.meta.store.insert([
+	           {
+		           name: uriPerson,
+		           "$": uriPerson,
+			           "http://xmlns.com/foaf/0.1/depiction": "&lt;" + item.user.profile_image_url + "&gt;",
+			           "http://xmlns.com/foaf/0.1/name": item.user.name
+	           }
+           ]);
+        }
+      </div>
+      
+      <!--
+        Once the data is loaded, run another group of formats.
+      -->
+      <span rel="argot:afterpipesdata">
+        <span typeof="fresnel:Group">
+          <div rev="fresnel:group">
+            <div typeof="fresnel:Format">
+              <span property="fresnel:instanceFormatDomain" datatype="argot:jsparqlSelector">
+                select: [ "twitterer", "tweet", "name", "depiction" ],
+                from: "http://twitter.com/${twittername}",
+                where:
+                [
+                	{ pattern: [ "?s",         "a",                                   "http://www.twitter.com/status" ] },
+                  { pattern: [ "?s",         "http://www.twitter.com/text",         "?tweet" ] },
+                  { pattern: [ "?s",         "http://www.twitter.com/saidby",       "?twitterer" ] },
+                  { pattern: [ "?twitterer", "http://xmlns.com/foaf/0.1/name",      "?name" ] },
+                  { pattern: [ "?twitterer", "http://xmlns.com/foaf/0.1/depiction", "?depiction" ] }
+                ]
+              </span>
+              
+              <div property="argot:yowl">
+                if (${depiction} == undefined)
+                  ${depiction} = null;
+                
+                document.Yowl.notify(
+                  "Twittered",
+                  ${name.content} + " said:",
+                  ${tweet.content},
+                  "twitter",
+                  ${depiction},
+                  true,
+                  0
+                );
+              </div>
+              
+              <span rel="argot:embed">
+                <span rel="argot:icon" resource="http://twitter.com/favicon.ico"></span>
+                <div property="argot:template" datatype="rdf:XMLLiteral">
+                  <div class="tooltip-twitter-person" style="width: 150px;">
+                    <span class="foaf-name">${tweet}</span>
+                    <span style="float: right;"><img src="${depiction}" class="foaf-depiction" /></span>
+                  </div>
+                </div>
+              </span>
+            </div>
+          </div>
+        </span>
+
+      </span>
+    </span>
+  </body>
+</html>

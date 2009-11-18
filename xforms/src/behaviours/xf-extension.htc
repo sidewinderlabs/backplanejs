@@ -1,0 +1,35 @@
+<PUBLIC:COMPONENT TAGNAME="extension" LITERALCONTENT="nested" LIGHTWEIGHT="true">
+	<PUBLIC:METHOD name="getDocument" />
+	<PUBLIC:METHOD name="replaceDocument" />
+	<SCRIPT>
+		var m_oDOM = null;
+
+		/*
+		 * By only loading and parsing when we need the data
+		 * we speed up the load time.
+		 */
+
+		function getDocument()
+		{
+			var sXML = this.element.innerHTML;
+
+			if (sXML != "")
+				this.m_oDOM = xmlParse(sXML);
+			this.element.innerHTML = "";
+			return this.m_oDOM;
+		}
+
+		function replaceDocument(oDom)
+		{
+			/*
+			 * [TODO] Find out if it actually speeds up recovery of the memory
+			 * if we null the object before overwriting it.
+			 */
+
+			this.m_oDOM = null;
+			this.m_oDOM = oDom;
+			this.element.innerHTML = "";
+			return;
+		}
+	</SCRIPT>
+</PUBLIC:COMPONENT>
