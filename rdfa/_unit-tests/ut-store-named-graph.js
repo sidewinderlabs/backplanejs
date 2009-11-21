@@ -155,8 +155,8 @@
 	      document.meta.store.insert([{
 	      	name: "about-graphs",
           "$": "http://www.twitter.com/",
-          "http://argot-hub.googlecode.com/matches": "http://www.twitter.com/",
-          "http://argot-hub.googlecode.com/uri": "<http://www.twitter.com/statuses/user_timeline/markbirbeck.json>",
+          "http://argot-hub.googlecode.com/matches": /^http\:\/\/www\.twitter\.com\/(.*)/,
+          "http://argot-hub.googlecode.com/uri": "http://www.twitter.com/statuses/user_timeline/%s.json",
           "http://argot-hub.googlecode.com/params": {
             "http://argot-hub.googlecode.com/callbackParamName": "callback",
             "http://argot-hub.googlecode.com/count": "2"
