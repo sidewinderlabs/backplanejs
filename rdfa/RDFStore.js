@@ -162,7 +162,8 @@ RDFStore.prototype.insert = function(graph) {
           //  - the property value as the RDF object.
           //
           // If the property value is another JSON object then we recurse, and use the subject from that
-          // JSON object as the RDF object.
+          // JSON object as the RDF object. (Note that a JavaScript regular expression object is unfortunately
+          // just another object, so we need to test for a method.)
 
           this.add(
           	graphName,
@@ -170,7 +171,7 @@ RDFStore.prototype.insert = function(graph) {
             k,
             (isResource)
               ? (
-                (typeof obj == "object")
+                (typeof obj == "object" && !obj.exec)
                   ? this.insert(obj, graphName)
                   : obj
               )
