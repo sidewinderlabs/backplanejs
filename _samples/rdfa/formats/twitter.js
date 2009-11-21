@@ -3,13 +3,13 @@
 document.meta.store.insert(
   [
     {
-      "$": "<file:///Users/markbirbeck/Documents/svn/backplane/_samples/rdfa/formats/twitter>",
+      "$": "<file:///Users/markbirbeck/Documents/svn/backplanejs/_samples/rdfa/formats/twitter>",
 	      "a": "<http://www.w3.org/2004/09/fresnel#Group>"
     },
     {
     	/* bnode */
 	      "a": "<http://www.w3.org/2004/09/fresnel#Format>",
-	      "http://www.w3.org/2004/09/fresnel#group": "<file:///Users/markbirbeck/Documents/svn/backplane/_samples/rdfa/formats/twitter>",
+	      "http://www.w3.org/2004/09/fresnel#group": "<file:///Users/markbirbeck/Documents/svn/backplanejs/_samples/rdfa/formats/twitter>",
 
 				"http://argot-hub.googlecode.com/constructor": function() {
 		      document.Yowl.register(
@@ -27,24 +27,52 @@ document.meta.store.insert(
 			      false,
 			      0
 		      );
-
-		      /*
-		       * Add some tweets, for testing.
-		       */
-
-					document.meta.store.insert([{
-		      	name: "http://twitter.com/markbirbeck",
-            "$": "<http://www.twitter.com/markbirbeck/statuses/test1>",
-            	"a": "<http://www.twitter.com/status>",
-            	"http://www.twitter.com/text": "Hello, world!",
-							"http://www.twitter.com/saidby": "<http://twitter.com/markbirbeck>"
-					}]);
-					document.meta.store.insert([{
-						name: "http://twitter.com/markbirbeck",
-						"$": "<http://twitter.com/markbirbeck>",
-						"http://xmlns.com/foaf/0.1/depiction": "<>",
-						"http://xmlns.com/foaf/0.1/name": "Mark Birbeck"
-					}]);
+		      // Add a Twitter named graph processor.
+		      //
+		      document.meta.store.insert([{
+		      	name: "about-graphs",
+	          "$": "http://www.twitter.com/",
+	          "http://argot-hub.googlecode.com/matches": /^http\:\/\/www.twitter.com\/(.+)/,
+	          "http://argot-hub.googlecode.com/uri": "http://www.twitter.com/statuses/user_timeline/%s.json",
+	          "http://argot-hub.googlecode.com/params": {
+	            "http://argot-hub.googlecode.com/callbackParamName": "callback",
+	            "http://argot-hub.googlecode.com/count": "2"
+	          },
+						"http://argot-hub.googlecode.com/adddata": function(context) {
+			        for (var i = 0; i != context.data.length; i++) {
+			          var item = context.data[i];
+			          var uriStatus = "http://www.twitter.com/" + item.user.screen_name + "/statuses/" + item.id; 
+			          var uriPerson = "http://www.twitter.com/" + item.user.screen_name;
+			
+			          var sText = item.text.replace(/img(\@src)?\=([^\s]*)/g, "&lt;img src=\'$2\' /&gt;");
+			          
+			          sText = sText.replace(/tube(\@src)?\=(.*)/g, "&lt;object width=\'425\' height=\'355\'&gt;&lt;param name=\'movie\' value=\'$2\'/&gt;&lt;param name=\'wmode\' value=\'transparent\'/&gt;&lt;embed src=\'$2\' type=\'application/x-shockwave-flash\' wmode=\'transparent\' width=\'425\' height=\'355\'/&gt;&lt;/object&gt;");
+			
+			          document.meta.store.insert([
+			          	{
+				          	name: uriPerson,
+				          	"$": uriStatus,
+					          	"a": "<http://www.twitter.com/status>",
+				          		"http://www.twitter.com/text": sText,
+						        	"http://www.twitter.com/saidby": "<" + uriPerson + ">"
+					        }
+			          ]);
+			
+			          /*
+			           * Add information about who said the status.
+			           */
+			
+			           document.meta.store.insert([
+				           {
+					           name: uriPerson,
+					           "$": uriPerson,
+						           "http://xmlns.com/foaf/0.1/depiction": "<" + item.user.profile_image_url + ">",
+						           "http://xmlns.com/foaf/0.1/name": item.user.name
+				           }
+			           ]);
+			        }
+			      } //adddata()
+		      }]);
 		    },
 
 				/*
@@ -79,94 +107,42 @@ document.meta.store.insert(
 	          false,
 	          0
 	        );
-	      },
 
-				/*
-				 * Now load their Tweets.
-				 */
-
-				"http://argot-hub.googlecode.com/pipesdata":
-					'url: "http://www.twitter.com/statuses/user_timeline/${twittername}.json",' +
-					'params:' +
-						'{' +
-							'callbackParamName: "callback",' +
-							'count: "2"' +
-						'}',
-				"http://argot-hub.googlecode.com/adddata": function(context) {
-	        for (var i = 0; i != context.data.length; i++) {
-	          var item = context.data[i];
-	          var uriStatus = "http://twitter.com/" + item.user.screen_name + "/statuses/" + item.id; 
-	          var uriPerson = "http://twitter.com/" + item.user.screen_name;
+					/*
+					 * Now load their Tweets.
+					 */
 	
-	          var sText = item.text.replace(/img(\@src)?\=([^\s]*)/g, "&lt;img src=\'$2\' /&gt;");
-	          
-	          sText = sText.replace(/tube(\@src)?\=(.*)/g, "&lt;object width=\'425\' height=\'355\'&gt;&lt;param name=\'movie\' value=\'$2\'/&gt;&lt;param name=\'wmode\' value=\'transparent\'/&gt;&lt;embed src=\'$2\' type=\'application/x-shockwave-flash\' wmode=\'transparent\' width=\'425\' height=\'355\'/&gt;&lt;/object&gt;");
-	
-	          document.meta.store.insert([
-	          	{
-		          	name: uriPerson,
-		          	"$": uriStatus,
-			          	"a": "<http://www.twitter.com/status>",
-		          		"http://www.twitter.com/text": sText,
-				        	"http://www.twitter.com/saidby": "<" + uriPerson + ">"
-			        }
-	          ]);
-	
-	          /*
-	           * Add information about who said the status.
-	           */
-	
-	           document.meta.store.insert([
-		           {
-			           name: uriPerson,
-			           "$": uriPerson,
-				           "http://xmlns.com/foaf/0.1/depiction": "<" + item.user.profile_image_url + ">",
-				           "http://xmlns.com/foaf/0.1/name": item.user.name
-		           }
-	           ]);
-	        }
-	      }, //adddata()
+					document.meta.query2(
+			      {
+			        select: [ "text", "person", "depiction" ],
+			        from: "http://www.twitter.com/" + obj.twittername.content,
+			        where:
+			          [
+			            { pattern: [ "?s", "a", "http://www.twitter.com/status" ] },
+			            { pattern: [ "?s", "http://www.twitter.com/text", "?text" ] },
+			            { pattern: [ "?s", "http://www.twitter.com/saidby", "?person" ] },
+			            { pattern: [ "?person", "http://xmlns.com/foaf/0.1/depiction", "?depiction" ] }
+			          ]
+			      },
+			      function( r ) {
+					    var bindings = r.results.bindings;
 
-				"http://argot-hub.googlecode.com/afterpipesdata": {
-					"$": "<file:///Users/markbirbeck/Documents/svn/backplane/_samples/rdfa/formats/twitter/afterpipesdata>",
-			      "a": "<http://www.w3.org/2004/09/fresnel#Group>"
-				},
+					    for (var i = 0, len = bindings.length; i < len; i++) {
+					      var o = bindings[i];
 
-				"http://argot-hub.googlecode.com/afterpipesdata/format": {
-			      "a": "<http://www.w3.org/2004/09/fresnel#Format>",
-			      "http://www.w3.org/2004/09/fresnel#group": "<file:///Users/markbirbeck/Documents/svn/backplane/_samples/rdfa/formats/twitter/afterpipesdata>",
-
-						/*
-						 * Find all of the Twitter status messages.
-						 */
-
-			      "http://www.w3.org/2004/09/fresnel#instanceFormatDomain":
-			      	'select: [ "twitterer", "tweet", "name", "depiction" ],' +
-              'from: "http://twitter.com/${twittername}",' +
-			        'where:' +
-			          '[' +
-                	'{ pattern: [ "?s",         "a",                                   "http://www.twitter.com/status" ] },' +
-                  '{ pattern: [ "?s",         "http://www.twitter.com/text",         "?tweet" ] },' +
-                  '{ pattern: [ "?s",         "http://www.twitter.com/saidby",       "?twitterer" ] },' +
-                  '{ pattern: [ "?twitterer", "http://xmlns.com/foaf/0.1/name",      "?name" ] },' +
-                  '{ pattern: [ "?twitterer", "http://xmlns.com/foaf/0.1/depiction", "?depiction" ] }' +
-			          ']',
-
-						"http://argot-hub.googlecode.com/action": function(obj) {
-              if (obj.depiction === undefined)
-                obj.depiction = null;
-
-							document.Yowl.notify(
-                "Twittered",
-                obj.name.content + " said:",
-                obj.tweet.content,
-                "twitter",
-                obj.depiction,
-                true,
-                0
-			        );
-			      }//action()
-				}//afterpipesdata()
+								document.Yowl.notify(
+	                "Twittered",
+	                obj.twittername.content + " said:",
+	                o.text.content,
+	                "twitter",
+	                o.depiction,
+	                true,
+	                0
+				        );
+					    }//for (each object)
+			      }
+		      );
+	      }
 		} //end of item
 	] //list of items to insert
 ); //insert
