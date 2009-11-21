@@ -141,7 +141,7 @@ RDFQuery.prototype.walk2 = function(sparql, oAction) {
 };//walk2()
 
 
-RDFQuery.prototype.rawQuery = function(graphURI, q) {
+RDFQuery.prototype.rawQuery = function(graphURI, q, callback) {
   var oRet =
     {
       head:
@@ -244,6 +244,10 @@ RDFQuery.prototype.rawQuery = function(graphURI, q) {
 		}
 	}
 
+  if (typeof(callback) === "function") {
+    callback.call(null, oRet);
+  }
+
   return oRet;
 }//rawQuery()
 
@@ -255,7 +259,7 @@ RDFQuery.prototype.query2 = function(q, callback) {
   var that = this;
 
 	if (graphURI === "default" || graphURI === "about-graphs") {
-		oRet = this.rawQuery(graphURI, q);
+		oRet = this.rawQuery(graphURI, q, callback);
 	} else {
 
 		/*
@@ -278,7 +282,7 @@ RDFQuery.prototype.query2 = function(q, callback) {
 	  });
 
 		if ( !graphProcessor.results.bindings.length ) {
-			oRet = this.rawQuery(graphURI, q);
+			oRet = this.rawQuery(graphURI, q, callback);
 		} else {
 	    var requestId = document.submissionJSON.run(
 	      graphProcessor.results.bindings[0].uri,
@@ -295,10 +299,7 @@ RDFQuery.prototype.query2 = function(q, callback) {
 	        if (graphProcessor.results.bindings[0].afterpipesdata) {
 	          processFresnelSelectors(graphProcessor.results.bindings[0].afterpipesdata, userData);
 	        }
-					oRet = that.rawQuery(graphURI, q);
-	        if (typeof(callback) === "function") {
-	        	callback.call(null, oRet);
-	        }
+					oRet = that.rawQuery(graphURI, q, callback);
 	        return;
 	      }//callback from Pipes
 	    );
