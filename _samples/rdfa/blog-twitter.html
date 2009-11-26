@@ -16,25 +16,15 @@
 	// See the License for the specific language governing permissions and
 	// limitations under the License.
 -->
-<html
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:foaf="http://xmlns.com/foaf/0.1/"
-	xmlns:argot="http://argot-hub.googlecode.com/"
->
+<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title>Test RDFa Twitter additions to Ubiquity RDFa</title>
-		<!--
-			This loads the RDFa parser.
-		-->
+		<title>RDFa Twitter sample</title>
 		<script src="../../deploy/backplane.js" type="text/javascript">/**/</script>
-		<script type="text/javascript">
-			setTimeout(get_metadata, 2000);
-		</script>
 
-		<!--
-			This loads a Fresnel formatter that will act on the triples.
-		-->
-		<link rel="argot:formatter" href="formats/twitter" />
+		<script src="formats/twitter.js" type="text/javascript">/**/</script>
+		<link rel="stylesheet" href="formats/twitter.css" />
+		<link rel="stylesheet" href="../../deploy/assets/yowl.css" />
+		<link rel="stylesheet" href="../../deploy/assets/container.css" />
 	</head>
 	<body style="background: silver; color: black;">
 		<p>
@@ -42,7 +32,7 @@
 			subject that they all have in common. At the moment we just show their latest Tweets, but we could
 			easily provide a link to allow people to follow them:
 		</p>
-		<p>
+		<p xmlns:foaf="http://xmlns.com/foaf/0.1/">
 			If you're interested in RDFa you might consider following
 			Mark Birbeck (@<span typeof=""
 				rel="foaf:accountServiceHomepage" resource="http://www.twitter.com/"

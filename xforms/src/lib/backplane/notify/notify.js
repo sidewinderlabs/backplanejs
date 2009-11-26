@@ -32,28 +32,4 @@
 //= require <notify/yowl>
 //= require <notify/display-yui>
 //= provide "assets"
-//
-(function () {
-	var loader = new YAHOO.util.YUILoader({
-		base: "http://ajax.googleapis.com/ajax/libs/yui/2.8.0r4/build/",
-		require: [ "animation", "container" ],
-		loadOptional: false,
-		combine: false,
-		filter: "MIN",
-		allowRollup: true,
-		onSuccess: function () {
-			var loader = new YAHOO.util.YUILoader({
-				base: pathToModule("backplane")
-			});
-			loader.addModule({ name: "notify-css", type: "css", path: "assets/yowl.css" });
-			loader.require("notify-css");
-			loader.insert();
-		}
-	});
-
-	loader.addModule({
-		name: "container-css", type: "css", path: "container/assets/container.css"
-	});
-	loader.require("container-css");
-	loader.insert();
-})();
+//= provide "../../../../../third-party/yui/assets"

@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-//= require <platform/yuiloader-dom-event>
+//= require <third-party/yui/yuiloader-dom-event>
+//= require <third-party/yui/animation-min>
+//= require <third-party/yui/container_core-min>
 //
 var UX = { };
 //= require <../UXUtils>
