@@ -23,7 +23,7 @@
 		<property file="ant.properties" />
 	</target>
 
-	<target name="js.minify" depends="load.properties">
+	<target name="min" depends="load.properties">
 		<description>
 			Minify the distribution.
 		</description>
@@ -34,6 +34,14 @@
 			failonerror="true"
 		>
 			<arg line="-o ${deploy.dir}/${dist.package.name}-min.js ${deploy.dir}/${product.name}.js" />
+		</java>
+
+		<java
+			classname="com.yahoo.platform.yui.compressor.YUICompressor"
+			fork="true"
+			failonerror="true"
+		>
+			<arg line="-o ${deploy.dir}/${dist.package.name}-min.css ${deploy.dir}/${product.name}.css" />
 		</java>
 	</target>
 </project>
