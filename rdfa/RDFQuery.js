@@ -360,7 +360,6 @@ RDFQuery.prototype.addGraphs = function(graphURI, where, results, graphList) {
     {
 			if (typeof(pattern.pattern) === "string") {
 				var arPattern = pattern.pattern.split("<");
-				debugger;
 
 				if ((typeof(arPattern[0]) === "string") && (arPattern[0].indexOf('<') === 0) && (arPattern[0].lastIndexOf('>') === arPattern[0].length - 1)) {
 					arPattern[0] = arPattern[0].substring(1, arPattern[0].length - 1);

@@ -142,9 +142,6 @@ RDFStore.prototype.insert = function(graph) {
         if (k !== "$") {
         	obj = subgraph[k];
 
-					if (k === "a" && false) {
-						debugger;
-					}
 					// If a string begins with '<' and ends with '>' then it's a full URI.
 					//
 					if ((typeof(obj) === "string") && (obj.indexOf('<') === 0) && (obj.lastIndexOf('>') === obj.length - 1)) {
