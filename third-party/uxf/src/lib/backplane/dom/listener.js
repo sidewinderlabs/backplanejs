@@ -78,7 +78,7 @@ Listener.prototype.attachListeners = function () {
       oObserver.addEventListener(sEvent, thisAsListener, bUseCapture);
     }
   } catch (e) {
-    debugger;
+    console.log("Error adding listener.");
   }
 }; // attach()
 

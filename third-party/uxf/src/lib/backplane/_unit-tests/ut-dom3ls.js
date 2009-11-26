@@ -37,7 +37,7 @@
 			},
 	
 			testWriteToLSSerializer: function () {
-				Assert.isTrue(this.serializer.writeToURI("<data>Hello, world!</data>", "test-lsserializer.xml"));
+				Assert.isTrue(this.serializer.writeToURI("<data>Hello, world!</data>", "temp/test-lsserializer.xml"));
 			}
 		})//new TestCase
 	);

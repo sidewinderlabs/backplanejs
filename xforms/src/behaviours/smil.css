@@ -1,9 +1,0 @@
-smil\:animate {
-  -moz-binding: url("decorator.xml?Listener&SmilAnimate#decorator");
-}
-smil\:animateColor {
-  -moz-binding: url("decorator.xml?Listener&SmilAnimate#decorator");
-}
-smil\:set {
-  -moz-binding: url("decorator.xml?Listener&SmilSet#decorator");
-}

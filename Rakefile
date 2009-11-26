@@ -71,7 +71,7 @@ end
 
 desc "Builds the unit-test files."
 task :unit do
-  Helper.sprocketize("xforms/src/lib/backplane/_unit-tests", "*.js", "_unit-tests/backplane/unit-tests.js")
+  Helper.sprocketize("third-party/uxf/src/lib/backplane/_unit-tests", "*.js", "_unit-tests/backplane/unit-tests.js")
   Helper.sprocketize("rdfa/_unit-tests", "*.js", "_unit-tests/rdfa/unit-tests.js")
 end
 

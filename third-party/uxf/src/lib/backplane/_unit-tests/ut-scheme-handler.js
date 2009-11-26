@@ -37,15 +37,15 @@
 
 			testFilePut: function () {
 				var fileReader, testString = 'a string';
-				this.schemeHandler['PUT']('testFilePut.txt', testString, 0, null);
-				fileReader = document.fileIOFactory.createFileReader("testFilePut.txt");
+				this.schemeHandler['PUT']('temp/testFilePut.txt', testString, 0, null);
+				fileReader = document.fileIOFactory.createFileReader("temp/testFilePut.txt");
 				Assert.areEqual(testString, fileReader.read(null, null, -1));
 			},
 
 			testFileGet: function () {
 				var testStringIn = 'a string', testStringOut = '';
-				this.schemeHandler['PUT']('testFileGet.txt', testStringIn, 0, null);
-				this.schemeHandler['GET']('testFileGet.txt', null, 0,
+				this.schemeHandler['PUT']('temp/testFileGet.txt', testStringIn, 0, null);
+				this.schemeHandler['GET']('temp/testFileGet.txt', null, 0,
 					{
 						processResult: function (arg) {
 							testStringOut = arg.responseText;
@@ -58,8 +58,8 @@
 			testFileDelete: function () {
 				var success = false;
 
-				this.schemeHandler["PUT"]("testFileDelete.txt", "A test string", 0, null);
-				this.schemeHandler["DELETE"]("testFileDelete.txt", null, 0,
+				this.schemeHandler["PUT"]("temp/testFileDelete.txt", "A test string", 0, null);
+				this.schemeHandler["DELETE"]("temp/testFileDelete.txt", null, 0,
 					{
 						processResult: function (arg) {
 							success = true;
