@@ -1,0 +1,84 @@
+body{
+
+}
+#wrapper{
+
+	margin-top:0px;
+	margin-left:-5px;
+	width:100%;
+	min-width:770px;
+	font-family:"Arial";
+	font-size:0.8em;
+	background-image: url("../images/background.jpg");
+	}
+#header{
+	height:100px;
+	width: 100%;
+	min-width:760px;
+	margin-left:-10px;
+	margin-top:20px;
+	z-index:1;
+}
+#logo{
+	width:50px;
+	height:70px;
+	background-image: url("../images/XformsLogo2.gif");
+	margin-left:30px;
+	float:left;
+	display:block;
+	margin-top:-30px;
+}
+#headerInsert{
+	width:80%; margin:auto;
+	margin-top:0px;
+	height:100px;
+	z-index:2;
+}
+#main{
+	min-height:600px;
+	width:80%; 
+	min-width:880px;
+	text-align: left;
+	padding:10px;
+	margin-top:35px;
+	font-weight:bold;
+
+
+}
+#mainContent{
+		float:left;
+		margin-top:-500px;
+}
+
+#leftNav{
+	padding-top:30px;
+	height:500px;
+	width:110px;
+	margin-right:10px;
+	float:left;
+}
+#navigation{
+
+	width:380px;
+	height:50px;
+	margin-left:60px;
+	font-weight:bold;
+}
+#navigation ul{list-style:none; }
+#navigation ul li{float:left; display:block; margin-top:-10px;width:90px;height:30px; padding:5px;}
+#navigation ul li:hover{ color:#aaa;}
+#mainContent{
+	width:85%;
+	min-width:520px;
+	margin-left:140px;
+}
+xforms\:submit,
+xf\:submit,
+xforms\:trigger,
+xf\:trigger {
+  color:#333;
+  font-size:0.8em;
+}
+
+
+
