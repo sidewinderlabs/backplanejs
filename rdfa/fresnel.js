@@ -27,8 +27,8 @@ function processFresnelSelectors(subj, obj) {
 
   //var s = (subj) ? subj : "?format";
   var s = "?format";
-  var g = (subj) ? subj : "?group";
-  var q;
+	var g = (subj) ? subj : "?group";
+	var q;
 
   var classstyles = document.meta.query2({
     select: [ "t", "cl", "action", "notify", "yowl", "icon", "tooltip", "pipesdata", "adddata", "afterpipesdata" ],
@@ -396,3 +396,71 @@ function processLibXhFormats(obj, format) {
   }
   return;
 }//processLibXhFormats
+
+
+function initialiseFresnelFormats(parser) {
+	var loader = new YAHOO.util.YUILoader();
+	var r = document.meta.query2(
+		{
+			select: [ "css" ],
+			where:
+				[
+					{ pattern: [ "?s", "http://www.w3.org/1999/xhtml/vocab#stylesheet", "?css" ] }
+				]
+		}
+	);//query for any stylesheets
+
+	if (r && r.results.bindings[0] && r.results.bindings[0]["css"])
+	{
+		loader.addModule({ name: "fresnel-css-stylesheet", type: "css", fullpath: r.results.bindings[0]["css"] });
+		if (window.external && window.external.document)
+		{
+			var d = window.external.document;
+			var h = d.getElementsByTagName("head")[0];
+			var l = d.createElement("link");
+
+			l.setAttribute("rel", "stylesheet");
+			l.setAttribute("href", r.results.bindings[0]["css"]);
+			h.appendChild(l);
+		}
+	}
+	loader.insert();
+
+	r = document.meta.query2(
+		{
+			select: [ "init" ],
+			where:
+				[
+					{ pattern: [ "?s" /* pThis.src */, "http://argot-hub.googlecode.com/constructor", "?init" ] }
+				]
+		}
+	);//query for a constructor
+
+	/*
+	 * ...and for each one execute the script.
+	 */
+
+	document.meta.walk2(
+		r,
+		{
+			action: function(obj)
+			{
+				try
+				{
+					(typeof obj.init.content === "function")
+						? obj.init.content.call( null )
+						: eval( false || obj.init.content );
+				}
+				catch(e)
+				{
+					alert("Constructor failed: " + e.description);
+				}
+			}//action()
+		}
+	);
+
+	if (window.external && window.external.document)
+		parser.parse(window.external.document, getBaseUrl(window.external.document), null);
+	processFresnelSelectors();
+	return;
+};//initialiseFresnelFormats
