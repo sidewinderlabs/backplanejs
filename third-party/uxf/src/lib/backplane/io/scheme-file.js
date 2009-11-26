@@ -1,3 +1,5 @@
+//= require <io/file>
+
 var schemeHandlers = [ ];
 
 schemeHandlers["file"] = [ ];

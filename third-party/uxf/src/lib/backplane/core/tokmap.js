@@ -1,3 +1,5 @@
+//= require <core/array>
+//
 function mappings() {
 	this._list = new ubArray();
 }
