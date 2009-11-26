@@ -148,7 +148,7 @@ RDFStore.prototype.insert = function(graph) {
 						isResource = true;
 						obj = obj.substring(1, obj.length - 1);
 					} else {
-	          isResource = (typeof(obj) === "object")
+	          isResource = (typeof(obj) === "object" && !obj.exec)
 	          	|| (k === "http://xmlns.com/foaf/0.1/accountServiceHomepage") || (k === "http://argot-hub.googlecode.com/tooltip") || (k === "http://argot-hub.googlecode.com/icon");
 	        }
 
@@ -168,7 +168,7 @@ RDFStore.prototype.insert = function(graph) {
             k,
             (isResource)
               ? (
-                (typeof obj == "object" && !obj.exec)
+                (typeof obj == "object")
                   ? this.insert(obj, graphName)
                   : obj
               )

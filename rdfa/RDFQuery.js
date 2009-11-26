@@ -274,7 +274,7 @@ RDFQuery.prototype.query2 = function(q, callback) {
 	        { pattern: [ "?s", "http://argot-hub.googlecode.com/uri", "?uri" ] },
 	        {
 	        	pattern: [ "?s", "http://argot-hub.googlecode.com/matches", "?matches" ],
-	        	filter: function(o) { return o["matches"].exec( graphURI ); }
+	        	filter: function(o) { return o["matches"].content.exec( graphURI ); }
 	        },
 	        { pattern: [ "?s", "http://argot-hub.googlecode.com/params", "?params" ], optional: true },
 	        { pattern: [ "?s", "http://argot-hub.googlecode.com/adddata", "?adddata" ] }
@@ -284,7 +284,7 @@ RDFQuery.prototype.query2 = function(q, callback) {
 		if ( !graphProcessor.results.bindings.length ) {
 			oRet = this.rawQuery(graphURI, q, callback);
 		} else {
-   		var uri = graphProcessor.results.bindings[0].uri.content.replace(/%s/, graphURI.match(graphProcessor.results.bindings[0].matches)[1]);
+   		var uri = graphProcessor.results.bindings[0].uri.content.replace(/%s/, graphURI.match(graphProcessor.results.bindings[0].matches.content)[1]);
 	    var requestId = document.submissionJSON.run(
 	      uri,
 	      {
