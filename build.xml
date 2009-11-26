@@ -16,16 +16,40 @@
    -->
 <project name="backplanejs" default="dist" basedir=".">
 	<description>
-		Ant project for various backplanejs tools.
+		Ant project for various backplanejs tasks.
 	</description>
 
 	<target name="load.properties">
 		<property file="ant.properties" />
 	</target>
 
-	<target name="min" depends="load.properties">
+	<target name="create-css" depends="load.properties">
 		<description>
-			Minify the distribution.
+			Create the CSS file.
+		</description>
+
+		<concat destfile="${deploy.dir}/${product.name}.css" force="no">
+			<filelist dir="${deploy.dir}/assets" files="yowl.css, container-core.css" />
+		</concat>
+	</target>
+
+	<target name="min-css" depends="create-css, load.properties">
+		<description>
+			Minify the CSS file.
+		</description>
+
+		<java
+			classname="com.yahoo.platform.yui.compressor.YUICompressor"
+			fork="true"
+			failonerror="true"
+		>
+			<arg line="-o ${deploy.dir}/${dist.package.name}-min.css ${deploy.dir}/${product.name}.css" />
+		</java>
+	</target>
+
+	<target name="min-js" depends="load.properties">
+		<description>
+			Minify the JS file.
 		</description>
 
 		<java
@@ -35,13 +59,11 @@
 		>
 			<arg line="-o ${deploy.dir}/${dist.package.name}-min.js ${deploy.dir}/${product.name}.js" />
 		</java>
+	</target>
 
-		<java
-			classname="com.yahoo.platform.yui.compressor.YUICompressor"
-			fork="true"
-			failonerror="true"
-		>
-			<arg line="-o ${deploy.dir}/${dist.package.name}-min.css ${deploy.dir}/${product.name}.css" />
-		</java>
+	<target name="min" depends="min-js, min-css">
+		<description>
+			Minify everything, ready for distribution.
+		</description>
 	</target>
 </project>
