@@ -43,7 +43,7 @@ YAHOO.util.Connect.handleTransactionResponse = function(o, callback, isAbort)
 			 // unavailable, and a query attempt throws an exception.
 			httpStatus = 13030;
 		}
-		if(httpStatus >= 200 && httpStatus < 300 || httpStatus === 1223){
+		if ((httpStatus >= 200 && httpStatus < 300) || httpStatus === 1223 || (httpStatus === 0 && callback.scheme === 'file')) {
 
 			responseObject = this.createResponseObject(o, callback.argument);
 			if(callback.success){
@@ -266,9 +266,10 @@ function XLinkElement(element)
 		
 		try
 		{
-			schemeHandler = schemeHandlers[spliturl(sHref).scheme];
+			oCallback.scheme = spliturl(sHref).scheme;
+			schemeHandler = schemeHandlers[oCallback.scheme];
 
-			if (UX.isFF && schemeHandler && schemeHandler["GET"]) {
+			if ((UX.isFF || UX.isWebKit) && schemeHandler && schemeHandler["GET"]) {
 				spawn(function() {
 						  schemeHandler["GET"](sHref, null, null, oCallback);
 					  });

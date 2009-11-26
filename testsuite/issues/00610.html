@@ -1,0 +1,30 @@
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms"
+>
+	<head>
+		<title>
+			Issue 610
+		</title>
+
+		<script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+	</head>
+
+	<body>
+		<h1>
+			<a href="http://code.google.com/p/ubiquity-xforms/issues/detail?id=610">Issue 610</a>
+		</h1>
+
+		<h2>External instances are not loaded in Safari</h2>
+
+		<p>You should see the text 'TEST PASSED' in the result field.</p>
+
+		<xf:model>
+			<xf:instance resource="00610.xml"></xf:instance>
+		</xf:model>
+
+		<xf:output ref="/inst" id="result">
+			<xf:label>Result:</xf:label>
+		</xf:output>
+	</body>
+</html>
