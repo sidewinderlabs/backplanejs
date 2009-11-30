@@ -20,7 +20,7 @@
 //= require <yui/connection>
 //
 var UX = { };
-var g_sBehaviourDirectory = "assets";
+var g_sBehaviourDirectory = "";
 
 //= require <UXUtils>
 //= require <sniffer>

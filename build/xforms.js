@@ -27,8 +27,6 @@
 //= require <yui/colorpicker>
 //= require <yui/calendar>
 
-var g_sBehaviourDirectory = "../../deploy/assets/";
-
 //= require <xforms/ie-instance-fixer>
 //= require <xforms/ie6-css-selectors-fixer>
 //= require <xforms/set-document-loaded>

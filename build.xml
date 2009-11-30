@@ -21,10 +21,12 @@
 
 	<target name="load.properties">
 		<property file="ant.properties" />
+		<property file="build.credentials.properties" />
 	</target>
 
 	<target name="init" depends="load.properties">
 		<path id="ant.tasks.classpath">
+			<fileset dir="${tools.dir}" includes="ant-googlecode-0.0.2.jar" />
 			<fileset dir="${tools.dir}" includes="commons-logging-1.1.1.jar" />
 			<fileset dir="${tools.dir}" includes="ant-apache-bsf-1.7.1.jar" />
 			<fileset dir="${tools.dir}" includes="bsf.jar" />
@@ -38,6 +40,12 @@
 			<attribute name="options" />
 			<element name="fileset" type="fileset" />
 		</scriptdef>
+
+		<taskdef
+			name="gcupload"
+			classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask"
+			classpathref="ant.tasks.classpath"
+		/>
 	</target>
 
 	<target name="jslint" depends="init">
@@ -122,8 +130,8 @@
 			create-js is because we need the assets to have been copied.
 		</description>
 
-		<concat destfile="${deploy.dir}/${product.name}.css" force="no" eol="crlf">
-			<fileset dir="${deploy.dir}/assets">
+		<concat destfile="${output.dir}/${product.name}.css" force="no" eol="crlf">
+			<fileset dir="${output.dir}/assets">
 				<include name="**/*.css" />
 				<exclude name="generated-css.css" />
 			</fileset>
@@ -135,11 +143,11 @@
 			Create the JS file.
 		</description>
 
-		<exec executable="sprocketize" output="${deploy.dir}/${product.name}.js" failonerror="true" logError="true">
+		<exec executable="sprocketize" output="${output.dir}/${product.name}.js" failonerror="true" logError="true">
 			<arg line="-I . -I build -I third-party -I third-party/uxf/src -I third-party/uxf/src/lib -I third-party/uxf/src/lib/backplane" />
 			<arg value="copyright.txt" />
-			<arg value="build/${product.name}.js" />
-			<arg value="-a${deploy.dir}/assets" />
+			<arg value="${build.dir}/${product.name}.js" />
+			<arg value="-a${output.dir}/assets" />
 		</exec>
 	</target>
 
@@ -171,9 +179,79 @@
 		</java>
 	</target>
 
+	<target name="create-deploy" depends="init, create-js, create-css">
+		<description>
+			Create a set of deployment files, for testing or distribution.
+		</description>
+
+		<copy todir="${deploy.dir}">
+			<fileset dir="${output.dir}">
+				<include name="${product.name}.js" />
+				<include name="${product.name}.css" />
+			</fileset>
+			<fileset dir="${output.dir}/assets">
+				<include name="bg-fader.gif" />
+				<include name="decorator.xml" />
+				<include name="generated-css.css" />
+				<include name="instance.htc" />
+				<include name="onload.css" />
+				<include name="onload.xml" />
+				<include name="select-deselected.png" />
+				<include name="select-selected.png" />
+				<include name="select1-deselected.png" />
+				<include name="select1-selected.png" />
+				<include name="thumb-n.png" />
+			</fileset>
+		</copy>
+	</target>
+
 	<target name="min" depends="init, min-js, min-css">
 		<description>
 			Minify everything, ready for distribution.
 		</description>
+	</target>
+
+	<target name="release" depends="init">
+		<fail unless="gc.username" message="Missing property 'gc.username' from file 'build.credentials.properties'." />
+		<fail unless="gc.password" message="Missing property 'gc.password' from file 'build.credentials.properties'." />
+
+		<gcupload
+			username="${gc.username}"
+			password="${gc.password}"
+			projectname="${project.name}"
+			filename="${deploy.dir}/${dist.package.name}-min.js"
+			targetfilename="${dist.package.name}-min.js"
+			summary="Version ${version.number} of ${product.name} JS file (compressed)"
+			labels="Type-Executable, OpSys-All"
+		/>
+
+		<!--
+			The compressed CSS file doesn't work properly with XForms, so as a temporary
+			workaround, we upload the uncompressed file, but name it as if it's compressed.
+		-->
+		<gcupload
+			username="${gc.username}"
+			password="${gc.password}"
+			projectname="${project.name}"
+			filename="${deploy.dir}/${product.name}.css"
+			targetfilename="${dist.package.name}-min.css"
+			summary="Version ${version.number} of ${product.name} CSS file (compressed)"
+			labels="Type-Executable, OpSys-All"
+		/>
+	</target>
+
+	<target name="upload-to-gc" depends="init">
+		<fail unless="gc.username" message="Missing property 'gc.username' from file 'build.credentials.properties'." />
+		<fail unless="gc.password" message="Missing property 'gc.password' from file 'build.credentials.properties'." />
+
+		<gcupload
+			username="${gc.username}"
+			password="${gc.password}"
+			projectname="${project.name}"
+			filename="${deploy.dir}/assets/instance.htc"
+			targetfilename="instance.htc"
+			summary="instance HTC file"
+			labels="Type-Executable, OpSys-All"
+		/>
 	</target>
 </project>

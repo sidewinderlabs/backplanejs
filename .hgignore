@@ -3,10 +3,13 @@ syntax: glob
 *.rej
 *.orig
 
+build.credentials.properties
+
 _unit-tests/backplane/temp
 _unit-tests/backplane/unit-tests.js
 _unit-tests/rdfa/unit-tests.js
 
+build/output
 deploy
 
 xforms/build

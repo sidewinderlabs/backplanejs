@@ -431,14 +431,14 @@ xf|alert xf|label pe-value {
 
 .slider-bg {
     position: relative;
-    background:url(assets/bg-fader.gif) 5px 0 no-repeat;
+    background:url(bg-fader.gif) 5px 0 no-repeat;
     height:28px;
     width:228px;
 }
 
 *[class~="slider-bg"] {
     position: relative;
-    background:url(assets/bg-fader.gif) 5px 0 no-repeat;
+    background:url(bg-fader.gif) 5px 0 no-repeat;
     height:28px;
     width:228px;
 }
@@ -448,7 +448,7 @@ xf|alert xf|label pe-value {
    top: 4px;
    height:21px;
    width: 17px;
-   background-image:url(assets/thumb-n.gif)
+   background-image:url(thumb-n.gif)
 }
 
 *[class~="slider-thumb"] {
@@ -619,7 +619,7 @@ xf|select.appearance-minimal xf|label pe-value, xforms|select.appearance-minimal
 }
 
 .ux-drop-button .first-child {
-    background-image: url(http://yui.yahooapis.com/2.5.2/build/button/assets/skins/sam/menu-button-arrow.png);
+    background-image: url(http://yui.yahooapis.com/2.8.0r4/build/button/assets/skins/sam/menu-button-arrow.png);
     background-repeat: no-repeat;
     background-position: right center;
     background-color:transparent;
@@ -629,7 +629,7 @@ xf|select.appearance-minimal xf|label pe-value, xforms|select.appearance-minimal
 }
 
 *[class~="ux-drop-button"] *[class~="first-child"] {
-    background-image: url(http://yui.yahooapis.com/2.5.2/build/button/assets/skins/sam/menu-button-arrow.png);
+    background-image: url(http://yui.yahooapis.com/2.8.0r4/build/button/assets/skins/sam/menu-button-arrow.png);
     background-repeat: no-repeat;
     background-position: right center;
     background-color:transparent;
@@ -655,19 +655,19 @@ xf|select.appearance-minimal xf|label pe-value, xforms|select.appearance-minimal
 }
 
 xforms\:select .pc-deselected, xf\:select .pc-deselected {
-  background-image: url(assets/select-deselected.png);
+  background-image: url(select-deselected.png);
 }
 
 xforms|select .pc-deselected {
-  background-image: url(assets/select-deselected.png);
+  background-image: url(select-deselected.png);
 }
 
 xforms\:select .pc-selected , xf\:select .pc-selected {
-  background-image: url(assets/select-selected.png);
+  background-image: url(select-selected.png);
 }
 
 xforms|select .pc-selected {
-  background-image: url(assets/select-selected.png);
+  background-image: url(select-selected.png);
 }
 
 xforms\:select xforms\:item, xf\:select xf\:item {
@@ -683,19 +683,19 @@ xforms|select xforms|item {
 }
 
 xforms\:select1 .pc-deselected, xf\:select1 .pc-deselected {
-  background-image: url(assets/select1-deselected.png);
+  background-image: url(select1-deselected.png);
 }
 
 xforms|select1 .pc-deselected {
-  background-image: url(assets/select1-deselected.png);
+  background-image: url(select1-deselected.png);
 }
 
 xforms\:select1 .pc-selected , xf\:select1 .pc-deselected {
-  background-image: url(assets/select1-selected.png);
+  background-image: url(select1-selected.png);
 }
 
 xforms|select1 .pc-selected {
-  background-image: url(assets/select1-selected.png);
+  background-image: url(select1-selected.png);
 }
 
 xforms\:select1 xforms\:item, xf\:select1 xf\:item {
