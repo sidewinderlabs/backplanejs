@@ -27,7 +27,7 @@ UX.addClassName(document.body, "yui-skin-sam");
 document.notify.messageWindow = function(pThis, activate) {
     var width_style = UX.getStyle(pThis.element, "width");
     var height_style = UX.getStyle(pThis.element, "height");
-    
+
     // This is the dialog window that will show the actual message.
     pThis.yahooPanel = new YAHOO.widget.SimpleDialog(
         "dialog-window" + global_window_counter,
@@ -42,7 +42,7 @@ document.notify.messageWindow = function(pThis, activate) {
             height: (height_style && height_style !== "auto") ? height_style : "140px"
         }
     );
-    
+
     // This is the background-shadow that will only appear when the message is modal.
     // This is useful because users will know that they can not do other things on
     // the page until they click on the OK button.
@@ -56,14 +56,14 @@ document.notify.messageWindow = function(pThis, activate) {
             visible: false
         }
     );
-    
+
     // This keeps the message and its background-shadow connected.
     pThis.yahooPanel.yahooPanel2 = pThis.yahooPanel2;
-    
+
     global_window_counter++;
-    
+
     UX.addClassName(pThis.yahooPanel2.element, "background-shadow");
-    
+
     // The OK button and its functionality is added with this code.
     var handleOK = function() {
         this.hide();
@@ -73,7 +73,7 @@ document.notify.messageWindow = function(pThis, activate) {
     };
     var myButtons = [ { text:"OK", handler:handleOK } ];
     pThis.yahooPanel.cfg.queueProperty("buttons", myButtons);
-    
+
     pThis.yahooPanel.setHeader("[XForms]");
     if (UX.isIE) {
         pThis.yahooPanel.setBody(pThis.element.innerText);
@@ -82,13 +82,13 @@ document.notify.messageWindow = function(pThis, activate) {
     }
     pThis.yahooPanel.render(document.body);
     pThis.yahooPanel.show();
-    
+
     // If the message is modal, then show the background-shadow.
     // If the message is modeless, then do not show the background-shadow.
     if (activate) {
         pThis.yahooPanel2.render(document.body);
         pThis.yahooPanel2.show();
     }
-    
+
     return;
-}
+};

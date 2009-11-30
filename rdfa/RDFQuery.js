@@ -42,7 +42,7 @@ RDFQuery.prototype.ask = function(q) {
     head: { },
     "boolean": Boolean(r.results.bindings.length)
   };
-}//ask
+};//ask
 
 RDFQuery.prototype.processObject = function(oAction, obj) {
   var context = obj.user;
@@ -54,7 +54,7 @@ RDFQuery.prototype.processObject = function(oAction, obj) {
     if (oAction.icon)
     {
       icon = context.document.createElement('img');
-  
+
       icon.setAttribute("src", oAction.icon);
       context.appendChild(icon);
     }//if ( there is an icon for this action definition )
@@ -68,22 +68,22 @@ RDFQuery.prototype.processObject = function(oAction, obj) {
     if (obj.icon)
     {
       icon = context.document.createElement('img');
-  
+
       icon.setAttribute("src", obj.icon);
       context.appendChild(icon);
     }//if ( there is an icon for this object definition )
-  
+
     if (oAction.tooltip)
     {
       if (icon)
       {
-        new YAHOO.widget.Tooltip(
+        var x = new YAHOO.widget.Tooltip(
           "anon" + this.somenum++,
           {
             context: icon,
             text: eval(
               "'" +
-              oAction.tooltip.content.replace(/\"/g, "\'").replace(/\n/g, "").replace(/\$[\{\%7B]([^\}\%7D]*)[\}\%7D]/g, "' + obj.$1 + '") +
+              oAction.tooltip.content.replace(/\"/g, "\'").replace(/\r/g, "").replace(/\$[\{\%7B]([^\}\%7D]*)[\}\%7D]/g, "' + obj.$1 + '") +
               "'"
             )
             //text: oAction.tooltip(obj)
@@ -194,7 +194,7 @@ RDFQuery.prototype.rawQuery = function(graphURI, q, callback) {
         for (var j = 0; j < q.select.length; j++)
         {
           var variable = q.select[j];
-  
+
           oRet.head.vars[j] = variable;
           result[variable] = temp.values[variable];
         }
@@ -206,7 +206,7 @@ RDFQuery.prototype.rawQuery = function(graphURI, q, callback) {
           throw "Not sure about whether this correctly gets the name of property or key. (This will have been set with a 'select * where ...')";
 
           var variable = temp.values[j].name;
-  
+
           oRet.head.vars[j] = variable;
           result[variable] = temp.values[variable];
         }
@@ -332,7 +332,7 @@ RDFQuery.prototype.addGraphs = function(graphURI, where, results, graphList) {
 
   var resources = this.store.getGraph( graphURI ).resources;
   var triples = this.store.getGraph( graphURI ).triples;
- 
+
   for (var i = 0; i < where.length; i++)
   {
     var pattern = where[i];
@@ -349,7 +349,7 @@ RDFQuery.prototype.addGraphs = function(graphURI, where, results, graphList) {
 
       var subgraphList = [ ];
       var subresults = [ ];
-    
+
       this.addGraphs(graphURI, pattern.where, subresults, subgraphList);
       if (subgraphList.length)
       {
@@ -380,27 +380,27 @@ RDFQuery.prototype.addGraphs = function(graphURI, where, results, graphList) {
       /*
        * Map a predicate of "a" to rdf:type.
        */
-  
+
       if (pattern.pattern[1] == "a")
         pattern.pattern[1] = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
-  
+
       var graph =
         {
         	graphURI: graphURI,
           pattern: pattern,
           triples: [ ]
         }
-  
+
       for (var j = 0, len = resources.length; j < len; j++)
       {
           var s = resources[j];
-  
+
           if (pattern.pattern[0].charAt(0) == "?" || pattern.pattern[0].charAt(0) == "$" || (pattern.pattern[0] == s.resource))
           {
             for (var k = 0; k < s.triples.length; k++)
             {
                 var t = triples[ s.triples[k] ];
-    
+
                 if (
                   (pattern.pattern[1].charAt(0) == "?" || pattern.pattern[1].charAt(0) == "$" || (pattern.pattern[1] == t.predicate))
                   &&
@@ -410,11 +410,11 @@ RDFQuery.prototype.addGraphs = function(graphURI, where, results, graphList) {
             }//for ( each triple tied to this resource )
           }//if ( the subjects match )
       }//for ( each resource )
-  
+
       /*
        * Save the graph before moving on to the next where clause.
        */
-  
+
       graphList.push( graph );
     }//if ( we have a basic pattern )
   }//for ( each pattern )
@@ -452,7 +452,7 @@ RDFQuery.prototype.mergeGraphs = function(results, graphList) {
         /*
          * If there is a named value, then use it as a property.
          */
-  
+
         temp[k] = (t.bindings[k].name)
           ? { name: t.bindings[k].name, value: t.bindings[k].uri || t.bindings[k].literal }
           : null;
@@ -464,7 +464,7 @@ RDFQuery.prototype.mergeGraphs = function(results, graphList) {
        * Note that first time through we always push onto the stack, since the first result
        * 'always matches'.
        */
-  
+
       if (!i /*results.length*/)
       {
         var result = { matches: true, failed: false, values: [ ] };
@@ -492,7 +492,7 @@ RDFQuery.prototype.mergeGraphs = function(results, graphList) {
            */
 
           var toMerge = results[k];
-          if (toMerge.failed) 
+          if (toMerge.failed)
             continue;
 
 
@@ -516,7 +516,7 @@ RDFQuery.prototype.mergeGraphs = function(results, graphList) {
               break;
             }
           }
-  
+
           if (merge)
           {
             for (m = 0; m < 4; m++)
@@ -582,7 +582,7 @@ function execFuncWithObj(f, context, name) {
 			expanded = f.replace(
 				/\$(?:\{|\%7B)(.*?)(?:\}|\%7D)/g,
 				function (m) { return getPropertyFromVar(context.obj, m); }
-			);			
+			);
 		  eval( expanded );
 		 } else {
 		 	f.call(null, context);

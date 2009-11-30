@@ -65,16 +65,16 @@ Context.prototype.getBoundNode = function(nOrdinal) {
 
 // Friend functions:
 
-/* 
+/*
  * The object returned contains the context "node", the "model" that contains it,
  * the "initialContext" node before evaluating the context attribute (or undefined
  * if there is no context attribute), the "position" of the context node in a nodeset
  * and the "size" of that nodeset if pThis is repeated (and undefined otherwise).
  * Finally, the "resolverElement" is pThis, the element whose inscope evaluation
- * context is being determined. 
+ * context is being determined.
  */
- 
-function _getEvaluationContext(pThis) {    
+
+function _getEvaluationContext(pThis) {
 
     // Return a copy of the cached context if we have it
     if (pThis.m_context) {
@@ -86,9 +86,9 @@ function _getEvaluationContext(pThis) {
             position: pThis.m_context.position,
             size: pThis.m_context.size,
             resolverElement: pThis.m_context.resolverElement
-        }     
+        };
     }
-     
+
     var oRet = null;
     var oElement = pThis.element;
     var oDocument = oElement.ownerDocument;
@@ -97,28 +97,28 @@ function _getEvaluationContext(pThis) {
     // then subject to further checks, the evaluation context
     // may be retrieved from the model itself.
     var sModelId = oElement.getAttribute("model");
-    
+
     if (sModelId) {
         var oModel = oDocument.getElementById(sModelId);
-        
+
         if (oModel && oModel.getInstanceDocument) {
             // Having fetched a model node which corresponds to the given @model IDREF
             // Find the model to which the parent element is bound.
             var oContextModel = getModelFor(oElement.parentNode);
-            
+
             if (oContextModel === oModel) {
                 // In the case that the parent's model and the model fetched from the @model IDREF
                 // are identical, the evaluation context for pThis node is the context gleaned
-                // from its position within the document, to wit, the same context as though it 
+                // from its position within the document, to wit, the same context as though it
                 // had no model attribute at all.
                 oRet = _getEvaluationContextFromParent(pThis);
             } else {
-                // Where the above clause is false, i.e. a disparity exists between the model to which 
+                // Where the above clause is false, i.e. a disparity exists between the model to which
                 // the parent node is bound, and the model to which pThis node is bound, then pThis node is
                 // not evaluated in the context of the parent node, but is evaluated in the default context for
                 // the model whose id matches the IDREF given in pThis element's model attribute.
                 oRet = oModel.getEvaluationContext();
-            }        
+            }
         } else {
             // Dispatch xforms-binding-exception if model is not resolved
             UX.dispatchEvent(oElement, "xforms-binding-exception",
@@ -126,9 +126,9 @@ function _getEvaluationContext(pThis) {
         }
     } else {
         //Otherwise use the parent's evaluation context.
-        oRet = _getEvaluationContextFromParent(pThis);     
+        oRet = _getEvaluationContextFromParent(pThis);
     }
-    
+
     // If pThis has a context attribute, then save the initial context node obtained so far
     // and store the context into the element (in case @context invokes context()),
     // then evaluate the context attribute to determine the new value for node.
@@ -151,7 +151,7 @@ function _getEvaluationContext(pThis) {
         oRet.initialContext = undefined;
     }
 
-    // Store the context in pThis    
+    // Store the context in pThis
     pThis.m_context = {
         model : oRet.model,
         node : oRet.node,
@@ -160,7 +160,7 @@ function _getEvaluationContext(pThis) {
         size : oRet.size,
         resolverElement : pThis.element
     };
-    
+
     return oRet;
 }
 
@@ -170,7 +170,7 @@ function _getEvaluationContext(pThis) {
  * The object returned has the context node, the model
  * containing it, and possibly a position and size.
  */
- 
+
 function _getEvaluationContextFromParent(pThis) {
     var oRet = {
         model :null,
@@ -181,7 +181,7 @@ function _getEvaluationContextFromParent(pThis) {
     var oParent  = oElement.parentNode;
     var oRoot    = oElement.ownerDocument.documentElement;
     var oBoundNode = null;
-    
+
     // An ordinal attribute is attached to repeated elements to
     // indicate the position in the nodeset of the node for which
     // the repeated element was generated.
@@ -191,9 +191,9 @@ function _getEvaluationContextFromParent(pThis) {
     } else {
         oRet.position = nOrdinal;
     }
-    
+
     while (oParent && oParent !== oRoot) {
-        if (oParent.getBoundNode) {            
+        if (oParent.getBoundNode) {
             oBoundNode = oParent.getBoundNode(nOrdinal);
             if (oBoundNode && (oBoundNode.model || oBoundNode.node)) {
              // Now that a real context has been found, leave the loop
@@ -205,19 +205,19 @@ function _getEvaluationContextFromParent(pThis) {
                 break;
             }
         }
-        // Although recursion would be the more beauteous solution here, 
+        // Although recursion would be the more beauteous solution here,
         // invoking it at this point leads inexorably to a stack overflow
-        // therefore, the less elegant solution of stepping round to the 
-        // next iteration of the loop is employed. 
+        // therefore, the less elegant solution of stepping round to the
+        // next iteration of the loop is employed.
         oParent = oParent.parentNode;
     }
 
     // If we don't get a context then we must be the
     // highest element, so we use the evaluation context
-    // of the first model.     
+    // of the first model.
     if (!oParent || oRoot === oParent ) {
         if (!document.defaultModel) {
-            var models = NamespaceManager.getElementsByTagNameNS(oRoot, 
+            var models = NamespaceManager.getElementsByTagNameNS(oRoot,
                             "http://www.w3.org/2002/xforms", "model");
             if (models && models.length > 0) {
                 document.defaultModel = models[0];
@@ -227,10 +227,10 @@ function _getEvaluationContextFromParent(pThis) {
                 oRet.node  = null;
                 return oRet;
             }
-        }        
+        }
         oRet = document.defaultModel.getEvaluationContext();
         oRet.resolverElement = pThis.element;
-    }  
+    }
     return oRet;
 }
 
@@ -246,7 +246,7 @@ function _getBoundNode(pThis, nOrdinal) {
             resolverElement : pThis.element
         };
     var i = 0;
-    
+
     if (!nOrdinal || isNaN(nOrdinal)) {
         nOrdinal = 1;
     }
@@ -255,17 +255,17 @@ function _getBoundNode(pThis, nOrdinal) {
      * If we have a proxy node (and not a proxy expression) then use that.
      */
     if (oProxy && !oProxy.m_xpath) {
-        
+
         if (!pThis.m_model) {
             pThis.m_model = _getEvaluationContext(pThis).model;
         }
-        return { 
-            model : pThis.m_model, 
+        return {
+            model : pThis.m_model,
             node  : oProxy.getNode(),
             resolverElement : pThis.element
         };
     }
-    
+
     if (NamespaceManager.getLowerCaseLocalName(pThis) === "model") {
         return pThis.getEvaluationContext();
     }
@@ -273,20 +273,20 @@ function _getBoundNode(pThis, nOrdinal) {
     // Bind has the highest priority - see:
     // http://www.w3.org/TR/2006/REC-xforms-20060314/slice3.html#structure-attrs-single-node
     // http://www.w3.org/TR/2006/REC-xforms-20060314/slice3.html#structure-attrs-nodeset
-    
+
     if (sBindId) {
         if (!pThis.m_arrNodes) {
             oBind = FormsProcessor.getBindObject(sBindId, oElement);
             pThis.m_model    = oBind.ownerModel;
             pThis.m_arrNodes = oBind.boundNodeSet;
         }
-        oRet.model = pThis.m_model;        
-        
+        oRet.model = pThis.m_model;
+
         i = nOrdinal - 1;
-        if (pThis.m_arrNodes && 
+        if (pThis.m_arrNodes &&
             pThis.m_arrNodes.length > i) {
-            oRet.node = pThis.m_arrNodes[i]
-        }        
+            oRet.node = pThis.m_arrNodes[i];
+        }
         return oRet;
     }
 
@@ -301,15 +301,15 @@ function _getBoundNode(pThis, nOrdinal) {
         // if no model found - this is possible if user reference to a non-existing model
         // not possible after we added the code to create a lazy model by default
         // but we will check for it anyway.
-        if (oRet.model !== null) {   
-            pThis.m_model = oRet.model;        
+        if (oRet.model !== null) {
+            pThis.m_model = oRet.model;
 
-            if (sRef && nOrdinal == 1) {        
-                var oRefNode = 
+            if (sRef && nOrdinal == 1) {
+                var oRefNode =
                     getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet));
 
                 if (!oRefNode && pThis.m_model.constructingUI) {
-                    // Lazy authoring, 
+                    // Lazy authoring,
                     // get the default instance
                     var oInstDoc = _getDefaultInstanceDocument(pThis.m_model);
 
@@ -322,13 +322,13 @@ function _getBoundNode(pThis, nOrdinal) {
                                 // Update the evaluation context of the element
                                 pThis.m_context = null;
                                 oRet = _getEvaluationContext(pThis);
-                            } 
-                            // If we created the node from lazy authoring, we need to verify 
+                            }
+                            // If we created the node from lazy authoring, we need to verify
                             // that it it is actually created properly
-                            oRefNode = 
+                            oRefNode =
                                 getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet));
 
-                            // Form controls are considered to be non-relevant if any of the 
+                            // Form controls are considered to be non-relevant if any of the
                             // following apply:
                             // the Single Node Binding is expressed and resolves to empty nodeset
                             // so oRefNode is null if EvaluateXPath is unresolved.
@@ -340,8 +340,8 @@ function _getBoundNode(pThis, nOrdinal) {
                 oRet.node = oRefNode;
             } else if (sNodeset) {
 
-                if (!pThis.m_arrNodes) {            
-                    pThis.m_arrNodes = 
+                if (!pThis.m_arrNodes) {
+                    pThis.m_arrNodes =
                         pThis.m_model.EvaluateXPath(sNodeset, oRet).value;
                 }
                 oRet.node = pThis.m_arrNodes[nOrdinal - 1];
@@ -357,19 +357,19 @@ function _getBoundNode(pThis, nOrdinal) {
 }
 
 
-function _getDefaultInstanceDocument(oModel) {    
+function _getDefaultInstanceDocument(oModel) {
     var oInstDoc = null;
     var instanceNode = null;
-    
+
     try {
         // try to get the default instance document,
         // if no default document an exception is throw.
         oInstDoc = oModel.getInstanceDocument();
         return oInstDoc;
     } catch (e) { }
-    
+
     var namespaceURI = "http://www.w3.org/2002/xforms";
-    // Create a default instance 
+    // Create a default instance
     if (UX.isXHTML) {
         var instanceRoot = document.createElementNS("", "instanceData");
         instanceNode = document.createElementNS(namespaceURI, "instance");
@@ -379,7 +379,7 @@ function _getDefaultInstanceDocument(oModel) {
         instanceNode = document.createElement(sPrefix + ":" + "instance");
         instanceNode.innerHTML = "<instanceData xmlns='' ></instanceData>";
      }
-    
+
     oModel.appendChild(instanceNode);
     if (UX.isIE || !UX.hasDecorationSupport) {
         // Force immediate decoration of instance element for IE and

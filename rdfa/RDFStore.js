@@ -51,7 +51,7 @@ RDFStore.prototype.clear = function() {
 	}
 	this.graphs.length = 0;
 	return;
-}//clear
+};//clear
 
 
 RDFStore.prototype.getGraph = function( graphURI ) {
@@ -65,7 +65,7 @@ RDFStore.prototype.getGraph = function( graphURI ) {
 		this.graphs[ graphURI ] = new RDFGraph( graphURI );
 	}
 	return this.graphs[ graphURI ];
-}//getGraph
+};//getGraph
 
 
 /*
@@ -85,7 +85,7 @@ RDFStore.prototype.add = function(graphURI, sSubject, sPredicate, sObject, bObje
 
 RDFStore.prototype.tripleAdded = function(triple) {
     return;
-}
+};
 
 RDFStore.prototype.insert = function(graph) {
   var graphName, i, isResource, k, triple, subgraph, subj, obj;
@@ -101,9 +101,9 @@ RDFStore.prototype.insert = function(graph) {
   while (!graph.length) {
     if (graph.graph) {
       graph = graph.graph;
-    }
-    else
+    } else {
       graph = [ graph ];
+    }
   }
 
   for (i = 0; i < graph.length; i++) {
@@ -116,7 +116,7 @@ RDFStore.prototype.insert = function(graph) {
       triple = graph[i].pattern;
 
       this.add(
-      	graphName,
+        graphName,
         triple[0],
         triple[1],
         triple[2],
@@ -140,7 +140,7 @@ RDFStore.prototype.insert = function(graph) {
 
       for (k in subgraph) {
         if (k !== "$") {
-        	obj = subgraph[k];
+          obj = subgraph[k];
 
 					// If a string begins with '<' and ends with '>' then it's a full URI.
 					//
@@ -149,7 +149,7 @@ RDFStore.prototype.insert = function(graph) {
 						obj = obj.substring(1, obj.length - 1);
 					} else {
 	          isResource = (typeof(obj) === "object" && !obj.exec)
-	          	|| (k === "http://xmlns.com/foaf/0.1/accountServiceHomepage") || (k === "http://argot-hub.googlecode.com/tooltip") || (k === "http://argot-hub.googlecode.com/icon");
+	            || (k === "http://xmlns.com/foaf/0.1/accountServiceHomepage") || (k === "http://argot-hub.googlecode.com/tooltip") || (k === "http://argot-hub.googlecode.com/icon");
 	        }
 
           // Create a triple using:
@@ -163,7 +163,7 @@ RDFStore.prototype.insert = function(graph) {
           // just another object, so we need to test for a method.)
 
           this.add(
-          	graphName,
+            graphName,
             subj,
             k,
             (isResource)
@@ -182,17 +182,17 @@ RDFStore.prototype.insert = function(graph) {
   }//for each graph
 
   return subj;
-}//insert
+};//insert
 
 
 RDFStore.prototype.createBindings = function(graphURI, triple, pattern) {
 	return this.getGraph( graphURI ).createBindings(triple, pattern);
-}
+};
 
 
 RDFStore.prototype.serialiseResult = function(graphURI, triple, pattern) {
 	return this.getGraph( graphURI ).serialiseResult(triple, pattern);
-}
+};
 
 
 RDFStore.prototype.loadFormatters = function(graphURI, parser) {

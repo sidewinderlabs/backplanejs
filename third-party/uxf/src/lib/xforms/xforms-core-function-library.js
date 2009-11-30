@@ -34,19 +34,19 @@ String.prototype.trim=function() {
 
 Date.prototype.setTimeInSeconds = function( seconds ) {
   this.setTime( seconds * 1000 );
-}
+};
 
 Date.prototype.setTimeInMinutes = function( minutes ) {
   this.setTimeInSeconds( minutes * 60 );
-}
+};
 
 Date.prototype.setTimeInHours = function( hours ) {
   this.setTimeInMinutes( hours * 60 );
-}
+};
 
 Date.prototype.setTimeInDays = function( days ) {
   this.setTimeInHours( days * 24 );
-}
+};
 
 function ThrowNotImpl(ctx) {
 	throw "Not Implemented";
@@ -54,7 +54,7 @@ function ThrowNotImpl(ctx) {
 
 /**
 	Retrieves the current date and time.
-	
+
 	@param {Object} oDate, a Javascript Date object.
 	@param {boolean} bUTC, if true use UTC time; otherwise, local time.
 	@returns {string} Date and time in xsd:dateTime format.
@@ -84,7 +84,7 @@ function getDateTime(oDate, bUTC) {
 	 */
 	s += year + "-";
 
-	// If the month is less than ten give it a leading zero.	
+	// If the month is less than ten give it a leading zero.
 	if (month < 10)
 		month = "0" + month;
 	s += month + "-";
@@ -93,12 +93,12 @@ function getDateTime(oDate, bUTC) {
 	if (day < 10)
 		day = "0" + day;
 	s += day;
-	
-	// The date is separate from the time with a 'T'.
-	
-	s += "T"
 
-	// Get the hours, minutes, and seconds, again adding leading zeros if necessary.	 
+	// The date is separate from the time with a 'T'.
+
+	s += "T";
+
+	// Get the hours, minutes, and seconds, again adding leading zeros if necessary.
 	if (hours < 10) {
 		hours = "0" + hours;
 	}
@@ -123,7 +123,7 @@ function getDateTime(oDate, bUTC) {
 
 /**
 	Calculates the local time zone offset from UTC time.
-	
+
 	@param {Object} oDate, a Javascript Date object.
 	@returns {string} Time zone offset in (('+' | '-') hh ':' mm) format.
 */
@@ -308,7 +308,7 @@ FunctionCallExpr.prototype.xpathfunctions["count-non-empty"] = function(ctx) {
     var count = 0;
     for (var i = 0; i < n.length; ++i) {
         // A node is considered non-empty if it is convertible into a string
-        // with a greater-than zero length. 
+        // with a greater-than zero length.
         var value = xmlValue(n[i]);
         if (value.length > 0) {
             count++;
@@ -400,7 +400,7 @@ FunctionCallExpr.prototype.xpathfunctions["property"] = function(ctx) {
 	if (!this.args || (this.args.length != 1)) {
     	return new StringValue("");
 	}
-	
+
 	var property = this.args[0].evaluate(ctx).stringValue();
 
 	// Check for common properties.
@@ -411,10 +411,10 @@ FunctionCallExpr.prototype.xpathfunctions["property"] = function(ctx) {
 		ret = "basic";
     } else {
         // If the property is a valid NCName other than the common properties above we throw an exception.
-        // NCName           ::=    NCNameStartChar NCNameChar* /* An XML Name, minus the ":" */ 
-        // NCNameChar       ::=    NameChar - ':' 
-        // NCNameStartChar  ::=    Letter | '_'  
-        // NameChar         ::=    Letter | Digit | '.' | '-' | '_' | ':' | CombiningChar | Extender  
+        // NCName           ::=    NCNameStartChar NCNameChar* /* An XML Name, minus the ":" */
+        // NCNameChar       ::=    NameChar - ':'
+        // NCNameStartChar  ::=    Letter | '_'
+        // NameChar         ::=    Letter | Digit | '.' | '-' | '_' | ':' | CombiningChar | Extender
 
         var match = property.match(/^[_a-z][\w\.\-]*/i);
         if (match && match[0] == property && document.defaultModel) {
@@ -592,7 +592,7 @@ FunctionCallExpr.prototype.xpathfunctions["days-to-date"] = function(ctx) {
   date = d.getUTCDate();
   if (date < 10)
     date = "0" + date;
-	
+
 	// Return the date as an xsd:date string.
 	return new StringValue(d.getUTCFullYear() + "-" + month + "-" + date);
 };
@@ -773,7 +773,7 @@ FunctionCallExpr.prototype.xpathfunctions["seconds"] = function(ctx) {
 	var endingIndex = 0;
 	var length = 0;
 	var durationIsNegative = false;
-	
+
 	// A valid duration begins with 'P' or '-P'.
 	if (!duration.match(/^P|\-P/)) {
 		return new NumberValue(NaN);
@@ -836,7 +836,7 @@ FunctionCallExpr.prototype.xpathfunctions["seconds"] = function(ctx) {
 	if (durationIsNegative) {
 		totalSeconds = totalSeconds * -1;
 	}
-	
+
 	// Return the total number of seconds.
 	return new NumberValue(totalSeconds);
 };
@@ -857,7 +857,7 @@ FunctionCallExpr.prototype.xpathfunctions["months"] = function(ctx) {
 	var endingIndex = 0;
 	var length = 0;
 	var durationIsNegative = false;
-	
+
 	// A valid duration begins with 'P' or '-P'.
 	if (!duration.match(/^P|\-P/)) {
 		return new NumberValue(NaN);
@@ -890,7 +890,7 @@ FunctionCallExpr.prototype.xpathfunctions["months"] = function(ctx) {
 	if (durationIsNegative) {
 		totalMonths = totalMonths * -1;
 	}
-	
+
 	// Return the total number of months.
 	return new NumberValue(totalMonths);
 };
@@ -900,11 +900,11 @@ FunctionCallExpr.prototype.xpathfunctions["months"] = function(ctx) {
 /**
 @addon
 	http://www.w3.org/TR/xforms11/#fn-instance
-	@throws String if the first instance with the given id in document order is not inside the context model. 
+	@throws String if the first instance with the given id in document order is not inside the context model.
 */
 FunctionCallExpr.prototype.xpathfunctions["instance"] = function(ctx) {
 	var ret = null;
-                
+
 	if(ctx.currentModel) {
 		try {
     	    var sInstance = "";
@@ -926,11 +926,11 @@ FunctionCallExpr.prototype.xpathfunctions["instance"] = function(ctx) {
 	}
 
 	return new NodeSetValue(ret);
-};		
+};
 
 /**@addon
 	http://www.w3.org/TR/xforms11/#fn-current
-*/  
+*/
 
 FunctionCallExpr.prototype.xpathfunctions["current"] = function(ctx) {
     return new NodeSetValue([ctx.outermostContextNode]);
@@ -938,12 +938,12 @@ FunctionCallExpr.prototype.xpathfunctions["current"] = function(ctx) {
 
 /**@addon
 	http://www.w3.org/TR/xforms11/#fn-id
-*/  
+*/
 FunctionCallExpr.prototype.xpathfunctions["id"] = function(ctx) {
     var evalCtx;
     var ret = [];
     var ids;
-    var nodeSet; 
+    var nodeSet;
     var nodeValue;
     var oNodes;
     var ctxNodes = [];
@@ -951,15 +951,15 @@ FunctionCallExpr.prototype.xpathfunctions["id"] = function(ctx) {
 
     if (!this.args || (this.args.length === 0) || (this.args.length > 2)) {
         return new NodeSetValue([]);
-    }   
- 
+    }
+
     evalCtx = this.args[0].evaluate(ctx);
- 
+
     //
     // This function returns the in-scope evaluation context node of the
     // nearest ancestor element of the node containing the XPath expression
     // that invokes this function.
-    //    
+    //
     if (evalCtx.type === 'node-set') {
         ids = [];
         nodeSet = evalCtx.nodeSetValue();
@@ -972,32 +972,32 @@ FunctionCallExpr.prototype.xpathfunctions["id"] = function(ctx) {
     } else {
         ids = evalCtx.stringValue().split(/\s+/);
     }
-	    	    
+
     ctxNodes.push(ctx.resolverElement ? ctx.resolverElement.getEvaluationContext().node : ctx.node);
-    
+
     //
     // Look at second parameter, and evaluate.  Use default context above if arg 2 is not specified or is empty
-    //    
-    if (this.args.length === 2) {        
-	    evalCtx = this.args[1].evaluate(ctx);	   
-	
-	    if ((evalCtx.type === 'node-set') && (evalCtx.nodeSetValue().length > 0)) {		    
+    //
+    if (this.args.length === 2) {
+	    evalCtx = this.args[1].evaluate(ctx);
+
+	    if ((evalCtx.type === 'node-set') && (evalCtx.nodeSetValue().length > 0)) {
 	        ctxNodes = evalCtx.nodeSetValue();
-        }		    
+        }
     }
-    
+
     for (j = 0; j < ctxNodes.length; ++j) {
 	    for (k = 0; k < ids.length; ++k) {
 	        oNodes = ctxNodes[j].getElementsById(ids[k]);
 	        if (oNodes) {
-		        for (i = 0; i < oNodes.length; ++i) {		                
+		        for (i = 0; i < oNodes.length; ++i) {
 		            ret.push(oNodes[i]);
 		        }
 	        }
 	    }
     }
-	
-    return new NodeSetValue(ret);    
+
+    return new NodeSetValue(ret);
 };
 
 /**@addon
@@ -1080,7 +1080,7 @@ FunctionCallExpr.prototype.xpathfunctions["event"] = function(ctx) {
             break;
 
           // Array
-          case "object": 
+          case "object":
             ret =  new NodeSetValue(contextInfo);
             break;
 

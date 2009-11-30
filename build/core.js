@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-//= require <third-party/yui/yuiloader-dom-event>
-//= require <third-party/yui/animation-min>
-//= require <third-party/yui/container_core-min>
+//= require <yui/yuiloader-dom-event>
+//= require <yui/animation>
+//= require <yui/container_core>
+//= require <yui/connection>
 //
 var UX = { };
-//= require <../UXUtils>
-//= require <../sniffer>
+var g_sBehaviourDirectory = "assets";
+
+//= require <UXUtils>
+//= require <sniffer>
 
 // Core
 //

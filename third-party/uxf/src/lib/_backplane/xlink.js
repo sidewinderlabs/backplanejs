@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
- //When using Yahoo connect on a local filesystem, the 0 response code causes a failure.  This overrides the noremal YUI connect code, 
+
+ //When using Yahoo connect on a local filesystem, the 0 response code causes a failure.  This overrides the noremal YUI connect code,
 //	to prevent failure on the filesystem.
- 	
-YAHOO.util.Connect.handleTransactionResponse = function(o, callback, isAbort) 
+
+YAHOO.util.Connect.handleTransactionResponse = function(o, callback, isAbort)
 {
 		// If no valid callback is provided, then do not process any callback handling.
 		if(!callback){
@@ -115,7 +115,7 @@ YAHOO.util.Connect.handleTransactionResponse = function(o, callback, isAbort)
 		this.releaseObject(o);
 		responseObject = null;
     };
-    
+
 function XLinkElement(element)
 {
 	var m_bTraversed = false;
@@ -138,7 +138,7 @@ function XLinkElement(element)
 			//	if the element has been inserted into the DOM after the document has loaded,
 			//	then registering for onLoad is insufficient, as the link will never be actuated.
 			//	If on the other hand, it is discovered during loading, it should not be actuated straight away,
-			//	and should await the onload event.  Therefore, a reliable mechanism for determining the 
+			//	and should await the onload event.  Therefore, a reliable mechanism for determining the
 			//	readystate of the ownerdocument must be queried.
 			//In a .htc, it is possible to register for documentReady, this will fire at the appropriate time
 			//	required above, however, this is not reliable across multiple platforms.  An xbl implementation
@@ -147,7 +147,7 @@ function XLinkElement(element)
 		}
 	};
 
-	
+
 	this.handleEvent = function(evt)
 	{
 		//Check that the type of event for which this object has recieved notification
@@ -157,9 +157,9 @@ function XLinkElement(element)
 			this.Actuate();
 		}
 	};
-	
 
-	
+
+
 	/**
 		Executes the xlink behaviour.
 	*/
@@ -168,7 +168,7 @@ function XLinkElement(element)
 		if(m_bTraversed){
 			return;
 		}
-		
+
 		//Extract the href and show attibute values.
 		var sHref = element.getAttribute("xlink:href");
 		var sShow = element.getAttribute("xlink:show");
@@ -178,7 +178,7 @@ function XLinkElement(element)
 		switch(sShow)
 		{
 			//In the case of replace and new, it should be sufficient to use standard ECMAScript
-			//	calls, handing the href value to the appropriate handler supplied by the browser.				
+			//	calls, handing the href value to the appropriate handler supplied by the browser.
 			case "replace":
 				document.location.href = sResolvedHref;
 				break;
@@ -191,7 +191,11 @@ function XLinkElement(element)
 				oCallback =
 				{
 					processResult: function(data, isFailure) {
-						isFailure ? embed_handleFailure(data) : embed_handleResponse(data);
+						if ( isFailure ) {
+							embed_handleFailure(data);
+						} else {
+							embed_handleResponse(data);
+						}
 					},
 					success: embed_handleResponse,
 					failure: embed_handleFailure,
@@ -211,7 +215,7 @@ function XLinkElement(element)
 					success: doNothing,
 					failure: doNothing,
 					scope:this
-					
+
 				};
 				fetchData(sResolvedHref,oCallback);
 				break;
@@ -230,10 +234,10 @@ function XLinkElement(element)
 					};
 					fetchData(sResolvedHref,oCallback);
 				}
-				
+
 		}
 	};
-	
+
 	function doAction(o)
 	{
 		if(o.status === 0)
@@ -254,16 +258,16 @@ function XLinkElement(element)
 	//	 callbacks that are to be ignored
 	function doNothing(o)
 	{
-	
+
 	}
-	
+
 	function fetchData(sHref,oCallback)
 	{
 		//debugger;
 
 		var schemeHandler,
 			m_transaction;
-		
+
 		try
 		{
 			oCallback.scheme = spliturl(sHref).scheme;
@@ -285,18 +289,17 @@ function XLinkElement(element)
 		}
 		catch(e)
 		{
-	//		alert(e + "\n" + sHref)
             if (element.getAttribute("xlink:show") === "embed") {
                 oCallback.failure();
             }
             else {
-			    debugger;
+			    console.log("xlink:show != 'embed'");
 			}
 			//oCallback.failure()
 		}
 
 	}
-	
+
 	/**
 		Responds to a successful return from the http request.
 		@param {Object} an object containing the response
@@ -306,18 +309,18 @@ function XLinkElement(element)
 		var oTargetElement = null;
 		var sId = element.getAttribute("targetref") || element.getAttribute("target");
 		if(sId)
-		{	
+		{
 			oTargetElement = this.element.ownerDocument.getElementById(sId);
 		}
-		
+
 		if(oTargetElement === null)
 		{
 			oTargetElement = element;
 		}
-		
+
 		return	oTargetElement;
-	}	
-	
+	}
+
 	function embed_handleResponse(o)
 	{
 		//Set the innerHTML of the masterElement to contain the response.
@@ -377,31 +380,31 @@ function XLinkElement(element)
 		}
 		m_bTraversed = true;
 	}
-	
-	
+
+
 	/*
 	 * [ISSUE] There are loads of issues with this...what if @xml:base is
 	 * already absolute, on the first iteration? The code here doesn't test
 	 * for that until the end of the while loop, but should do so at the
 	 * beginning. Also, if a path uses ".." they must be factored out.
 	 */
-	
+
 	function getBase(oEl)
 	{
-	
+
 		/*
 		 * If we have an @xml:base then begin with that.
 		 */
-	
+
 		var sBase = oEl.getAttribute("xml:base");
-	
+
 		if (!sBase) {
 			sBase = "";
 		}
-	
+
 		//walk up the tree, concatenating bases where appropriate
 		var n = oEl.parentNode;
-	
+
 		while (n && n.nodeType === 1)
 		{
 			//if n has a cached base then use it.
@@ -411,16 +414,16 @@ function XLinkElement(element)
 				n = null;
 				break;
 			}
-	
+
 			//Otherwise, get the base attribute of the current walkee.
 			var s = n.getAttribute("xml:base");
-			
+
 			//If that base attribute exists, prepend it to sBase
 			if (!!s)
 			{
 				sBase = s.substr(0, s.lastIndexOf("/") + 1) + sBase;
 			}
-			
+
 			//If m_sBase has become absolute, stop here.
 			if (!isRelativePath(sBase))
 			{
@@ -428,17 +431,17 @@ function XLinkElement(element)
 			}
 			n = n.parentNode;
 		}
-	
+
 		/*
 		 * If we got to the top of the document then use the URL
 		 * of the document.
 		 */
-	
+
 		if (!n || n.nodeType === 9) {
 			var sDocumentHref = oEl.ownerDocument.location.href;
 			sBase = sDocumentHref.substr(0, sDocumentHref.lastIndexOf("/") + 1) + sBase;
 		}
-	
+
 		return sBase;
 	}
 
@@ -458,7 +461,7 @@ function XLinkElement(element)
 			///	specifies a different root, this requires different handling
 			///	to pure relative URLs.
 			///	Ignoring this case for now, current user story involves only relative bases
-			bRet = false;	
+			bRet = false;
 		}
 		else
 		{
@@ -466,10 +469,10 @@ function XLinkElement(element)
 			if ((spliturl( sURL ).scheme)){
 				bRet = false; // valid URI and therefore is not relative but Absolute
 			}
-		} 
+		}
 		return bRet;
-	}//isRelativePath	
-	
+	}//isRelativePath
+
 	//Resolves a URL in relation to an ancestor base.
 	function resolveURL(oEl, sURL)
 	{

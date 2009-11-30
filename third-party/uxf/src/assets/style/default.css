@@ -81,7 +81,7 @@ xf\:select1,
 xforms\:select,
 xf\:select {
     display: inline-block;
-    padding: 0.2em; 
+    padding: 0.2em;
 }
 
 xforms|select1,
@@ -89,7 +89,7 @@ xf|select1,
 xforms|select,
 xf|select {
     display: inline-block;
-    padding: 0.2em; 
+    padding: 0.2em;
 }
 
 xforms\:output,
@@ -101,7 +101,7 @@ xf\:secret,
 xforms\:textarea,
 xf\:textarea {
     display: block;
-    padding: 0.2em; 
+    padding: 0.2em;
 }
 
 xforms|output,
@@ -113,7 +113,7 @@ xf|secret,
 xforms|textarea,
 xf|textarea {
     display: block;
-    padding: 0.2em; 
+    padding: 0.2em;
 }
 
 
@@ -187,7 +187,7 @@ xf\:trigger {
     border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
     color: black;
     padding: 3px;
-    -moz-border-radius: 1em; 
+    -moz-border-radius: 1em;
     -webkit-border-radius: 1em;
 }
 
@@ -201,7 +201,7 @@ xf|trigger {
     border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
     color: black;
     padding: 3px;
-    -moz-border-radius: 1em; 
+    -moz-border-radius: 1em;
     -webkit-border-radius: 1em;
 }
 
@@ -228,28 +228,28 @@ xf|trigger:hover {
 xforms\:submit:focus xforms\:label,
 xf\:submit:focus xf\:label,
 xforms\:trigger:focus xforms\:label,
-xf\:trigger:focus xf\:label  {  	
+xf\:trigger:focus xf\:label  {
     border: 1px dotted #808080;
 }
 
 xforms|submit:focus > xforms|label,
 xf|submit:focus > xf|label,
 xforms|trigger:focus > xforms|label,
-xf|trigger:focus > xf|label {  	
+xf|trigger:focus > xf|label {
     border: 1px dotted #808080;
 }
 
 xforms\:submit:active  xforms\:label,
 xf\:submit:active  xf\:label,
 xforms\:trigger:active  xforms\:label,
-xf\:trigger:active  xf\:label {   	
+xf\:trigger:active  xf\:label {
     border: 1px dotted #808080;
 }
 
 xforms|submit:active > xforms|label,
 xf|submit:active > xf|label,
 xforms|trigger:active > xforms|label,
-xf|trigger:active > xf|label {   	
+xf|trigger:active > xf|label {
     border: 1px dotted #808080;
 }
 
@@ -257,7 +257,7 @@ xforms\:submit:active,
 xf\:submit:active,
 xforms\:trigger:active,
 xf\:trigger:active {
-    background-color: #A9A9A9;  	    
+    background-color: #A9A9A9;
     border-color: ThreeDShadow ThreeDHighlight ThreeDHighlight ThreeDShadow;
     border-style: inset;
     cursor: pointer;
@@ -267,7 +267,7 @@ xforms|submit:active,
 xf|submit:active,
 xforms|trigger:active,
 xf|trigger:active {
-    background-color: #A9A9A9;   	
+    background-color: #A9A9A9;
     border-color: ThreeDShadow ThreeDHighlight ThreeDHighlight ThreeDShadow;
     border-style: inset;
     cursor: pointer;
@@ -277,7 +277,7 @@ xforms\:submit  xforms\:label,
 xf\:submit xf\:label,
 xforms\:trigger xforms\:label,
 xf\:trigger xf\:label {
-    padding: 3px;  
+    padding: 3px;
 }
 
 xforms|submit  xforms|label,
@@ -294,7 +294,7 @@ xf\:trigger.appearance-minimal {
     background-color: transparent;
     border: 0;
     padding: 0;
-    -moz-border-radius: 0; 
+    -moz-border-radius: 0;
     -webkit-border-radius: 0;
 }
 
@@ -305,7 +305,7 @@ xf|trigger.appearance-minimal {
     background-color: transparent;
     border: 0;
     padding: 0;
-    -moz-border-radius: 0; 
+    -moz-border-radius: 0;
     -webkit-border-radius: 0;
 }
 
@@ -342,28 +342,28 @@ xf|trigger.appearance-minimal:active {
 xforms\:submit.appearance-minimal:focus xforms\:label,
 xf\:submit.appearance-minimal:focus xf\:label,
 xforms\:trigger.appearance-minimal:focus xforms\:label,
-xf\:trigger.appearance-minimal:focus xf\:label  {  	
+xf\:trigger.appearance-minimal:focus xf\:label  {
     border: 0;
 }
 
 xforms|submit.appearance-minimal:focus > xforms|label,
 xf|submit.appearance-minimal:focus > xf|label,
 xforms|trigger.appearance-minimal:focus > xforms|label,
-xf|trigger.appearance-minimal:focus > xf|label {  	
+xf|trigger.appearance-minimal:focus > xf|label {
     border: 0;
 }
 
 xforms\:submit.appearance-minimal:active  xforms\:label,
 xf\:submit.appearance-minimal:active  xf\:label,
 xforms\:trigger.appearance-minimal:active  xforms\:label,
-xf\:trigger.appearance-minimal:active  xf\:label {   	
+xf\:trigger.appearance-minimal:active  xf\:label {
     border: 0;
 }
 
 xforms|submit.appearance-minimal:active > xforms|label,
 xf|submit.appearance-minimal:active > xf|label,
 xforms|trigger.appearance-minimal:active > xforms|label,
-xf|trigger.appearance-minimal:active > xf|label {   	
+xf|trigger.appearance-minimal:active > xf|label {
     border: 0;
 }
 
@@ -371,7 +371,7 @@ xforms\:submit.appearance-minimal xforms\:label,
 xf\:submit.appearance-minimal xf\:label,
 xforms\:trigger.appearance-minimal xforms\:label,
 xf\:trigger.appearance-minimal xf\:label {
-    padding: 0;  
+    padding: 0;
 }
 
 xforms|submit.appearance-minimal xforms|label,
@@ -414,7 +414,7 @@ xf\:alert xf\:input pe-value {
 xforms|alert xforms|input pe-value,
 xf|alert xf|input pe-value {
     border: 2px inset #f0f0f0;
-    background-color: white; 
+    background-color: white;
 }
 
 xforms\:alert xforms\:label pe-value,
@@ -430,30 +430,30 @@ xf|alert xf|label pe-value {
 }
 
 .slider-bg {
-    position: relative; 
-    background:url(../bg-fader.gif) 5px 0 no-repeat; 
-    height:28px; 
-    width:228px;  
+    position: relative;
+    background:url(assets/bg-fader.gif) 5px 0 no-repeat;
+    height:28px;
+    width:228px;
 }
 
 *[class~="slider-bg"] {
-    position: relative; 
-    background:url(../bg-fader.gif) 5px 0 no-repeat; 
-    height:28px; 
-    width:228px;  
+    position: relative;
+    background:url(assets/bg-fader.gif) 5px 0 no-repeat;
+    height:28px;
+    width:228px;
 }
 
-.slider-thumb { 
-  position: absolute; 
+.slider-thumb {
+  position: absolute;
    top: 4px;
    height:21px;
    width: 17px;
-   background-image:url(../thumb-n.gif)
+   background-image:url(assets/thumb-n.gif)
 }
 
-*[class~="slider-thumb"] { 
-    position: absolute; 
-    top: 4px; 
+*[class~="slider-thumb"] {
+    position: absolute;
+    top: 4px;
 }
 
 
@@ -510,7 +510,7 @@ xf|output pe-value {
  * XML Parsing for *.xhtml file
  * This class makes the drop-down display on xhtml files.
  */
-*[class~="pe-choices"] {      
+*[class~="pe-choices"] {
     background-color: #ffffff;
     border: 1px solid #808080;
 }
@@ -614,8 +614,8 @@ xf|select.appearance-minimal xf|label pe-value, xforms|select.appearance-minimal
     display:inline-block;
     margin:0px;
     padding:0px;
-    position:relative;   
-    min-height: 17px; 
+    position:relative;
+    min-height: 17px;
 }
 
 .ux-drop-button .first-child {
@@ -655,19 +655,19 @@ xf|select.appearance-minimal xf|label pe-value, xforms|select.appearance-minimal
 }
 
 xforms\:select .pc-deselected, xf\:select .pc-deselected {
-  background-image: url(../select-deselected.png);
+  background-image: url(assets/select-deselected.png);
 }
 
 xforms|select .pc-deselected {
-  background-image: url(../select-deselected.png);
+  background-image: url(assets/select-deselected.png);
 }
 
 xforms\:select .pc-selected , xf\:select .pc-selected {
-  background-image: url(../select-selected.png);
+  background-image: url(assets/select-selected.png);
 }
 
 xforms|select .pc-selected {
-  background-image: url(../select-selected.png);
+  background-image: url(assets/select-selected.png);
 }
 
 xforms\:select xforms\:item, xf\:select xf\:item {
@@ -683,19 +683,19 @@ xforms|select xforms|item {
 }
 
 xforms\:select1 .pc-deselected, xf\:select1 .pc-deselected {
-  background-image: url(../select1-deselected.png);
+  background-image: url(assets/select1-deselected.png);
 }
 
 xforms|select1 .pc-deselected {
-  background-image: url(../select1-deselected.png);
+  background-image: url(assets/select1-deselected.png);
 }
 
 xforms\:select1 .pc-selected , xf\:select1 .pc-deselected {
-  background-image: url(../select1-selected.png);
+  background-image: url(assets/select1-selected.png);
 }
 
 xforms|select1 .pc-selected {
-  background-image: url(../select1-selected.png);
+  background-image: url(assets/select1-selected.png);
 }
 
 xforms\:select1 xforms\:item, xf\:select1 xf\:item {

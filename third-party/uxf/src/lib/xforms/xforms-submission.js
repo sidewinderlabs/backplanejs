@@ -177,9 +177,7 @@ submission.prototype.processResult = function(oResult, isFailure,
                         } else if (oObserver.srcInstance) {
                             __replaceInstanceDocument(oContext.model, oObserver.srcInstance, oNewDom);
                         } else {
-                            debugger;
-                            // don't know where to put it - first instance of first
-                            // model?
+                        	console.log("Don't know where to put instance!");
                         }
                     }
                     break;

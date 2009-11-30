@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
+//= provide "../behaviours"
+
 /**
 	@fileoverview
-	Contains functions used in the decoration of elements and objects. Along with the mechanism for 
+	Contains functions used in the decoration of elements and objects. Along with the mechanism for
 		setting up decoration.
-	
+
 */
 
 /*global document, UX, NamespaceManager, g_bDocumentLoaded, g_sBehaviourDirectory, navigator, alert, window, YAHOO, spawn  */
@@ -67,7 +69,7 @@ var DECORATOR = function () {
 	        }
 	    }
 	}
-	
+
 	function addDecorationRulesForNamespace(namespaceURI, rules) {
 	    if (g_DecorationRules[namespaceURI]) {
 	        extendDecorationRules(g_DecorationRules[namespaceURI], rules);
@@ -75,7 +77,7 @@ var DECORATOR = function () {
 	        g_DecorationRules[namespaceURI] = rules;
 	    }
 	}
-	
+
 	function addDecorationRules(decorationRules) {
 	    if (decorationRules.namespaceURI && decorationRules.rules) {
 	        addDecorationRulesForNamespace(decorationRules.namespaceURI, decorationRules.rules);
@@ -166,9 +168,9 @@ var DECORATOR = function () {
 
 	/**
 		Called by implementations that do not natively support a documentReady event.
-			on document load, this function calls any documentready handlers that have 
-			been registered so far, then sets the g_bDocumentLoaded flag to true, so that 
-			any documentready handlers that attempt to register later can execute immediately.	
+			on document load, this function calls any documentready handlers that have
+			been registered so far, then sets the g_bDocumentLoaded flag to true, so that
+			any documentready handlers that attempt to register later can execute immediately.
 		Now that all the scripts are loaded after the rest of the document, this is also required
 		by IE, to call the handlers at the end of processing.
 	*/
@@ -178,15 +180,15 @@ var DECORATOR = function () {
 			callHandlers(o[0], o[1]);
 			o = g_arrHandlersToCallOnLoad.pop();
 		}
-		
+
 		g_bDocumentLoaded = true;
 	}
 
-		
+
 	/**
 		Called by implementations that do not natively support a documentReady event.
-			If the document has already loaded, handlers passed into this function 
-			will execute immediately, otherwise, they will be appended to the list of 
+			If the document has already loaded, handlers passed into this function
+			will execute immediately, otherwise, they will be appended to the list of
 			handlers waiting to be called on load.
 	*/
 	function registerForOnloadOrCallNow(obj, arr) {
@@ -205,8 +207,8 @@ var DECORATOR = function () {
 		@param {Object} dest object that contains the named list
 		@param {String} name of the list property within dest that func should be appended to.
 		@param {Object} func function to add to the list
-		
-	*/		
+
+	*/
 	function addFunction(dest, name, func) {
 		if (!dest[name]) {
 			dest[name] = [];
@@ -214,12 +216,12 @@ var DECORATOR = function () {
 		return dest[name].push(func);
 	}
 
-	
+
 /**
 	creates a CSS style declaration that causes the decoration of its referent with the objects in objs
 	@param {Array} objs array of strings specifying the names of objects to be used in decorating an element.
 	@returns String representation of the appropriate -moz-binding declaration.
-*/		
+*/
 	function generateMozBindingStyle(objs) {
 		if (objs !== undefined) {
 			return "-moz-binding: url(\"" + g_sBehaviourDirectory + "decorator.xml" + (objs.length > 0 ? "?" + objs.join("&") : "") + "#decorator\");";
@@ -229,30 +231,35 @@ var DECORATOR = function () {
 	}
 
 /**
-	Adds rules to the document's stylesheet cascade that cause the decoration of elements in IE. 
+	Adds rules to the document's stylesheet cascade that cause the decoration of elements in IE.
 	Do not call directly, Call setupDecorator(defs)
-	@param {Array} defs decorator definitions 
+	@param {Array} defs decorator definitions
 	@see (somewhere else)
-*/	
+*/
 	function ieSetupDecorator(defs) {
 		var bDocumentAlreadyLoaded, oStyleSheet, sBehaviourRule, sRule, alternateSelectors, i, j;
 		bDocumentAlreadyLoaded = g_bDocumentLoaded;
 		g_bDocumentLoaded = false;
 		oStyleSheet = document.createStyleSheet("", 0);
 
+
 		// IE 8+ doesn't support CSS expressions, so we must defer to an HTC.
+
 		sBehaviourRule = "\nbehavior: " + (UX.isIE6 || UX.isIE7 ?
+
 		                                  "expression(DECORATOR.decorate(this));" :
+
 		                                  "url(" + g_sBehaviourDirectory + "decorate.htc);");
+
 
 
 		for (i = 0;defs.length > i;++i) {
 			sRule = "";
-			if (defs[i].objects !== undefined) { 
+			if (defs[i].objects !== undefined) {
 				sRule += generateMozBindingStyle(defs[i].objects) + sBehaviourRule;
 			}
 			sRule += (defs[i].cssText || "");
-			
+
 			//strip out child selectors, (replacing with the inferior descendent selectors)
 			//	These do not work in IE and even sometimes cause IE to close without warning
 			defs[i].selector = defs[i].selector.replace(/>/g, '');
@@ -269,20 +276,20 @@ var DECORATOR = function () {
 		}
 
 	}
-	
+
 	function isFirefox3() {
 		return (navigator.oscpu && document.getElementsByClassName);
 	}
 /**
 	Adds rules to the document's stylesheet cascade that cause the decoration of elements in Firefox.
 	Do not call directly, Call setupDecorator(defs)
-	@param {Array} defs decorator definitions 
+	@param {Array} defs decorator definitions
 	@see (somewhere else)
-*/	
+*/
 	function ffSetupDecorator(defs, ns) {
-		var cssNode, oHead, oStyle, s, htmlPrefix, htmlNamespaceURI, xformsPrefix, 
+		var cssNode, oHead, oStyle, s, htmlPrefix, htmlNamespaceURI, xformsPrefix,
 		xformsNamespaceURI, anHTMLPrefix, aXFormsPrefix, i, sRule, styleTextNode;
-	  //HACK: in order to get XBLs working in firefox 3, a prebuilt stylesheet has been created, and 
+	  //HACK: in order to get XBLs working in firefox 3, a prebuilt stylesheet has been created, and
 	  //  unexpected namespace prefixes are ignored.
 		if (ns === "http://www.w3.org/2002/xforms" && isFirefox3()) {
 			try {
@@ -295,7 +302,7 @@ var DECORATOR = function () {
 				document.getElementsByTagName("head")[0].appendChild(cssNode);
 			}
 			catch (e) {
-				alert(e);  
+				alert(e);
 			}
 		} else if (ns === "http://www.w3.org/2005/SMIL21/BasicAnimation" && isFirefox3()) {
     //ignore, this is already in generated-css
@@ -309,44 +316,44 @@ var DECORATOR = function () {
         document.getElementsByTagName("head")[0].appendChild(cssNode);
       }
       catch(e) {
-        alert(e);  
+        alert(e);
       }
-   */ 
+   */
 		} else {
 
     	oHead = document.getElementsByTagName("head")[0];
     	oStyle = document.createElement('style');
     	s = "";
-    	
+
     	oStyle.setAttribute("type", "text/css");
-    	
+
     	if (UX.isXHTML) {
 				// look for prefixes from the document and figure out what to use
 				htmlPrefix = "h";
 				htmlNamespaceURI = "http://www.w3.org/1999/xhtml";
 				xformsPrefix = "xf";
 				xformsNamespaceURI = "http://www.w3.org/2002/xforms";
-				 
+
 				anHTMLPrefix = NamespaceManager.getOutputPrefixesFromURI(htmlNamespaceURI);
 				if ((anHTMLPrefix !== undefined) && (anHTMLPrefix !== null)) {
 					htmlPrefix = anHTMLPrefix[0];
 				}
-				
+
 				aXFormsPrefix = NamespaceManager.getOutputPrefixesFromURI(xformsNamespaceURI);
 				 if ((aXFormsPrefix !== undefined) && (aXFormsPrefix !== null)) {
 				  xformsPrefix =  aXFormsPrefix[0];
 				}
-				
+
 				s += "@namespace smil url(http://www.w3.org/2005/SMIL21/BasicAnimation);";
 				s += "@namespace" + " " + xformsPrefix + " " + "url(" + xformsNamespaceURI +");";
 				s += "@namespace" + " " + htmlPrefix  + " " + "url(" + htmlNamespaceURI + ");";
     	}
-    	
+
     	for (i = 0; defs.length > i; ++i) {
     		if (UX.isXHTML) {
     		    defs[i].selector = defs[i].selector.replace(/\\:/g,"|");
     		}
-    	
+
     		sRule = defs[i].selector + "{" + generateMozBindingStyle(defs[i].objects) + (defs[i].cssText || "") + "}";
     		//oStyle.sheet.insertRule(sRule, oStyle.sheet.length);
     		s += sRule;
@@ -355,11 +362,11 @@ var DECORATOR = function () {
 			oStyle.appendChild(styleTextNode);
     	oHead.insertBefore(oStyle, null);
     }
-  		
+
 		return;
-		
+
 	}//ffSetupDecorator
-	
+
 	function ffXHTMLSetupDecorator(defs) {
 		var oHead, htmlPrefix, htmlNamespaceURI, xformsPrefix, xformsNamespaceURI, anHTMLPrefix, aXFormsPrefix, oStyle, s,
 		i, sRule;
@@ -369,7 +376,7 @@ var DECORATOR = function () {
 	  htmlNamespaceURI = "http://www.w3.org/1999/xhtml";
 	  xformsPrefix = "xf";
 	  xformsNamespaceURI = "http://www.w3.org/2002/xforms";
-	
+
 	  if (UX.isXHTML) {
 			anHTMLPrefix = NamespaceManager.getOutputPrefixesFromURI(htmlNamespaceURI);
 			if ((anHTMLPrefix !== undefined) && (anHTMLPrefix !== null)) {
@@ -386,33 +393,33 @@ var DECORATOR = function () {
 		s = '';
 		s += "@namespace smil url(http://www.w3.org/2005/SMIL21/BasicAnimation);";
 		s += "@namespace" + " " + xformsPrefix + " " + "url(" + xformsNamespaceURI + ");";
-		s += "@namespace" + " " + htmlPrefix + " " + "url(" + htmlNamespaceURI + ");";		
+		s += "@namespace" + " " + htmlPrefix + " " + "url(" + htmlNamespaceURI + ");";
 
 		for (i = 0; defs.length > i; ++i) {
 			if(UX.isXHTML) {
 				defs[i].selector = defs[i].selector.replace(/\\:/g, "|");
 			}
 			sRule = defs[i].selector + "{" + generateMozBindingStyle(defs[i].objects) + (defs[i].cssText || "") + "}";
-			s += sRule;			
+			s += sRule;
 			//oStyle.sheet.insertRule(sRule,oStyle.sheet.length);
 		}
 		oStyle.innerHTML = s;
 		oHead.insertBefore(oStyle,null);
 
-		
+
 	}
 
-	
+
 /**
 	Extends the functionality of the destination object with the members of source
 	@param {Object} destination object to be extended
 	@param {Object} source source of new members for destination.
-	
-*/		
+
+*/
 	function extend(destination, source, bExecuteConstructorsImmediately) {
 		var property, ix;
 		for (property in source) {
-			switch (property) {	
+			switch (property) {
 				//In the case of these known named functions, add this member to the cumulative list
 				//	of members with that name, rather than overriding.
 				//	(this member should be a function, but, since we are using Javascript which is far superior
@@ -422,7 +429,7 @@ var DECORATOR = function () {
 				case "onContentReady":
 					if (bExecuteConstructorsImmediately) {
     					destination[property] = source[property];
-					} else { 
+					} else {
     					addFunction(destination, property, source[property]);
 					}
 				break;
@@ -439,7 +446,7 @@ var DECORATOR = function () {
 					destination[property] = source[property];
 			}
 		}
-		
+
 		//If immediate execution of constructors has been requested, do so.
 		if (bExecuteConstructorsImmediately) {
 			if (destination.ctor) {
@@ -454,13 +461,13 @@ var DECORATOR = function () {
 		}
 		return destination;
 	}
-	
+
 
 /**
 	Adds rules to the document's stylesheet cascade that cause the decoration of elements in the appropriate browser.
-	@param {Array} defs decorator definitions 
+	@param {Array} defs decorator definitions
 	@see (somewhere else)
-*/	
+*/
 	innerSetupDecorator = null;
 	function setupDecorator(defs,ns) {
 		var bDocumentAlreadyLoaded, i;
@@ -468,16 +475,16 @@ var DECORATOR = function () {
 		g_bDocumentLoaded = false;
 		NamespaceManager.readOutputNamespacesFromDocument();
 		for (i = 0; i < defs.length; ++i) {
-			defs[i].selector = NamespaceManager.translateCSSSelector(defs[i].selector);	
+			defs[i].selector = NamespaceManager.translateCSSSelector(defs[i].selector);
 		}
-		
+
 		innerSetupDecorator(defs, ns);
 		if (bDocumentAlreadyLoaded) {
 			spawn(callDocumentReadyHandlers);
 		}
 		//g_bDocumentLoaded = bDocumentAlreadyLoaded;
 	}
-	
+
 	if (UX.isIE) {
 		innerSetupDecorator = ieSetupDecorator;
 	} else if (UX.isXHTML) {
@@ -485,7 +492,7 @@ var DECORATOR = function () {
 	}	else {
 		innerSetupDecorator = ffSetupDecorator;
 	}
-	
+
 	/**
 		Retrieves the computed style value of a given non-standard CSS property.
 		non-standard CSS properties begin with "-".
@@ -512,17 +519,17 @@ var DECORATOR = function () {
 		}
 		return propertyValue;
 	}
-	
-	
+
+
 	function getCustomCSSPropertyFF(element,propertyName) {
 		var currentStyle = window.getComputedStyle(element,"");
 		return currentStyle.getPropertyValue(propertyName);
 	}
-	
+
 	isIE  = (navigator.appVersion.indexOf("MSIE") !== -1) ? true : false;
 	getCustomCSSProperty = isIE?getCustomCSSPropertyIE:getCustomCSSPropertyFF;
-	
-	
+
+
 	function getDecorationObjectNames(element) {
 		var sBehaviours = getCustomCSSProperty(element,"-moz-binding"),
 		    arrBehaviours = [];
@@ -543,11 +550,11 @@ var DECORATOR = function () {
 			var behaviourInstance = new Behaviour(elmnt);
 			DECORATOR.extend(elmnt, behaviourInstance, bExecuteConstructorsImmediately);
 		} catch(e) {
-			debugger;
+			console.log("Failed to extend in addObjectBehaviour().");
 		}
 
-	}	
-	
+	}
+
 	function attachSingleBehaviour(sBehaviour) {
 		addObjectBehaviour(this,sBehaviour,false);
 	}
@@ -589,9 +596,9 @@ var DECORATOR = function () {
 
       return arrUpdatedBehaviours;
   }
-  
+
 	function attachDecoration(element,handleContentReady, handleDocumentReady) {
-		//window.status = "decorating: " + element.nodeName; 
+		//window.status = "decorating: " + element.nodeName;
 		var bReturn = false, tIndex, arrBehaviours, i;
 		tIndex = element.getAttribute("tabindex");
 		//quit if already manually decorated
@@ -606,10 +613,10 @@ var DECORATOR = function () {
 		element.constructors = [];
 		element.contentReadyHandlers = [];
 		element.documentReadyHandlers = [];
-		//add capability to 
+		//add capability to
 		element.attachSingleBehaviour = attachSingleBehaviour;
 
-		arrBehaviours = getDecorationObjectNames(element);				
+		arrBehaviours = getDecorationObjectNames(element);
 		arrBehaviours = updateDecorationObjectNames(element,arrBehaviours);
 		if (arrBehaviours.length  > 0) {
 			for (i = 0;i < arrBehaviours.length;++i) {
@@ -618,31 +625,31 @@ var DECORATOR = function () {
 			if (m_suspended) {
 				m_elementsInSuspension.push(element);
 			} else {
-	
+
 				callConstructionFunctions(element, handleContentReady, handleDocumentReady);
-				
+
 				bReturn =  true;
 			}
 		}
 		return bReturn;
 	}
-	
+
 	function callConstructionFunctions(element, handleContentReady, handleDocumentReady) {
 		callHandlers(element,element.ctor);
-	
-				//If the caller has requested that this function shoudl sort out 
+
+				//If the caller has requested that this function shoudl sort out
 				//	contentReady and documentReady, sort them out now.
 				if (handleContentReady) {
 					callHandlers(element,element.onContentReady);
 				}
-				
+
 				if (handleDocumentReady) {
 					registerForOnloadOrCallNow(element,element.onDocumentReady);
 				}
 	}
-	
+
 	//Once the decorator has been set up, in IE, this function wil be called to decorate the elements.
-	function decorate(e) {   
+	function decorate(e) {
 		//Don't decorate a second time.
 		if (e.decorated) {
 			//During development, it may be handy to provide visual feedback
@@ -651,23 +658,23 @@ var DECORATOR = function () {
 		} else {
 			// ignore binding request, if binding-ignore is true;
 			var s = getCustomCSSProperty(e,"-binding-ignore");
-			
+
 			if(s === undefined || s === "false") {
 				//Now that the elemnt is being decorated, switch off the behaviour expression
 				//	to prevent it continually trying to get decorated.
 				e.style.behavior = ("url()");
 				e.decorated = true;
 				//Do the decoration.
-				DECORATOR.attachDecoration(e,true,true);					
+				DECORATOR.attachDecoration(e,true,true);
 				//window.status = "decorating: " + e.tagName;
 			}
 		}
 		return;
 	}
-	
+
 	var isInDocument = function (element) {
 		var parent = element.parentNode;
-		while (parent) {	
+		while (parent) {
 			if (parent === document) {
 				return true;
 			}
@@ -675,7 +682,7 @@ var DECORATOR = function () {
 		}
 		return false;
 	};
-	
+
 	itself.extend = extend;
 	itself.setupDecorator = setupDecorator;
 	itself.attachDecoration = attachDecoration;
@@ -691,7 +698,7 @@ var DECORATOR = function () {
 	itself.suspend = function () {
 		++m_suspended;
 	};
-	
+
 	itself.resume = function () {
 		var element;
 		if (!--m_suspended) {
@@ -719,4 +726,4 @@ YAHOO.util.Event.onDOMReady(
 function SomeObject(elmnt) {
 	//this.banana = "This object has been decorated with SomeObject";
 }
-		
+

@@ -97,8 +97,9 @@ function () {
 	spawn(
 		function()
 		{
-			if (document.meta.store.loadFormatters)
+			if (document.meta.store.loadFormatters) {
 				document.meta.store.loadFormatters("", oParser);
+			}
 
 			/*
 			 * Register any formatters.
@@ -153,11 +154,12 @@ function () {
 						}
 					}
 					loader.insert();
-					if (window.external && window.external.document)
+					if (window.external && window.external.document) {
 						oParser.parse(window.external.document, getBaseUrl(window.external.document), null);
+					}
 					processFresnelSelectors( uriFormatter );
 					return;
-				}//onSuccess;
+				};//onSuccess;
 			}//if there are some formatters to load
 			else {
 				initialiseFresnelFormats(oParser);

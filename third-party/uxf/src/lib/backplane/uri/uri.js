@@ -1,5 +1,5 @@
 function getBaseUrl(doc) {
-  return makeAbsoluteURI("", getCurrentUrl(doc))
+  return makeAbsoluteURI("", getCurrentUrl(doc));
 }
 
 function getCurrentUrl(doc) {
@@ -158,7 +158,7 @@ function remove_dot_segments(sURI) {
         inputBuffer = inputBuffer.substring(pos);
       } else {
         outputBuffer += inputBuffer;
-        inputBuffer = "";        
+        inputBuffer = "";
       }
     }
   }

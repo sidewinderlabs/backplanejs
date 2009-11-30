@@ -14,8 +14,8 @@ loader.onProgress = function(o) {
   window.status = ("Loading Ubiquity modules: " + sBars + " [" + o.name + "]");
 };
 
-loader.onSuccess = function(o) {
-   window.status = "Successfully loaded Ubiquity XForms";
-  spawn(InsertElementForOnloadXBL);
+window.onload = function(o) {
+	window.status = "Successfully loaded Ubiquity XForms";
+	InsertElementForOnloadXBL();
 };
 

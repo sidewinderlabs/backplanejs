@@ -34,9 +34,9 @@
 	  var moduleBase = pathToModule("rdfa-loader");
 
 		loader.addModule({ name: "ubiquity-rdfparser",      type: "js",  fullpath: moduleBase + "rdfa/RDFParser.js" });
-		
+
 		loader.addModule({ name: "ubiquity-rdfgraph",       type: "js",  fullpath: moduleBase + "rdfa/RDFGraph.js" });
-		
+
 		loader.addModule({ name: "ubiquity-rdfstore",       type: "js",  fullpath: moduleBase + "rdfa/RDFStore.js",
 		  requires: [ "ubiquity-rdfgraph" ] });
 
@@ -56,7 +56,7 @@
 		}
 
 		loader.addModule({ name: "ubiquity-metascan",       type: "js",  fullpath: moduleBase + "rdfa/metascan.js",
-		 	requires: [
+			requires: [
 				"treeview", "datatable", "datasource",
 				"yui-datatable-css",
 				"ubiquity-rdfquery", "ubiquity-rdfstore", "ubiquity-rdfparser",
@@ -64,7 +64,7 @@
 				"ubiquity-kb"
 			]
 		});
-		
+
 		loader.require( "ubiquity-metascan" );
 		loader.insert();
 		return;

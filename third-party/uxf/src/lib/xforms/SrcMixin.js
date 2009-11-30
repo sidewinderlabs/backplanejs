@@ -18,27 +18,27 @@ function SrcMixin(element) {
 	this.element = element;
 	this.m_oDOM = null;
 	this.m_sValue = null;
-};
+}
 
 SrcMixin.prototype.load = function(labelURL){
 
 	 if ( labelURL ) {
          //
          // We map our @src to an XLink.
-         //    
+         //
         this.element.setAttribute("xlink:actuate", "onRequest");
         this.element.setAttribute("xlink:show", "embed");
         this.element.setAttribute("xlink:href", labelURL);
-        
+
         //Prevent XLink resolving the base URL.
         //
         //this.element.setAttribute("base", " ");
         this.element.attachSingleBehaviour(XLinkElement);
-        
+
         //
         // When the document has been loaded by our XLink handler
         // we parse it and then fire a 'document load' event.
-        //    
+        //
         this.element.addEventListener(
         "xlink-traversed", {
             context: this,
@@ -48,9 +48,9 @@ SrcMixin.prototype.load = function(labelURL){
             }
         },
         false);
-        
+
         //
-        // If the XLink handler for src or resource fails, then 
+        // If the XLink handler for src or resource fails, then
         // we dispatch xforms-link-exception
         //
         this.element.addEventListener(
@@ -64,15 +64,15 @@ SrcMixin.prototype.load = function(labelURL){
             }
         },
         false);
-        
+
         /*
         * [ISSUE] Need to decide how to actuate, since
         * onLoad is too late.
         */
-        
+
         this.element.Actuate();
     }
-}
+};
 
 SrcMixin.prototype.parseInstance = function(){};
 

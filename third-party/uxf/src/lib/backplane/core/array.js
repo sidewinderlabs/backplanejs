@@ -34,12 +34,12 @@ ubArray.prototype.add = function(key, obj, bLock) {
 		i = this._list.length - 1;
 	}
 	return this._list[i].item;
-}//add()
+};//add()
 
 ubArray.prototype.get = function(key) {
 	var oRet = null,
 	    i;
-	
+
 	if (typeof(key) === "number" && (key >= 0 && key < this._list.length)) {
 		oRet = this._list[key].item;
 	} else {
@@ -51,4 +51,4 @@ ubArray.prototype.get = function(key) {
 		}
 	}//if ( key is an index ) ... else ...
 	return oRet;
-}//get()
+};//get()

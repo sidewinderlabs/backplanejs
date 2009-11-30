@@ -144,7 +144,7 @@ if (!document.Growl)
 
                 panel.setMessage(notification);
                 panel.show();
-    
+
                 if (!notification.isSticky)
                 {
                     setTimeout(
@@ -232,7 +232,7 @@ if (!document.Growl)
                 dictionary = delegate.registrationDictionaryForGrowl();
 
             var fullList = dictionary[0];
-            
+
             for (var i = 0; i < fullList.length; i++)
                 nl.add(fullList[i], { displayName: "default", enabled: false } );
 
@@ -296,21 +296,21 @@ if (!document.Growl)
                 if (this._userSettings)
                 {
                     var userApp = findKey(this._userSettings._applicationsList, applicationName);
-    
+
                     if (userApp)
                         userNotification = findKey(userApp._notificationsList, notificationName);
                 }
-    
+
                 /*
                  * First work out the theme to use. If the user has set one, for the
                  * notification or for the application then it takes priority.
                  */
-    
+
                 var displayName = "default";
-    
+
                 if (userNotification && userNotification.displayName)
                     displayName = userNotification.displayName;
-    
+
                 if (displayName == "default")
                 {
                     if (userApp && userApp._default && userApp._default.displayName)
@@ -324,47 +324,47 @@ if (!document.Growl)
                  * Now that we have a display theme we copy all of its properties into
                  * our notification object.
                  */
-    
+
                 var d = this._displayList[displayName];
-    
+
                 for (var k in d)
                     notification[k] = d[k];
-    
-    
+
+
                 /*
                  * Get some defaults for the application. If there is no image then use the
                  * application image.
                  */
-    
+
                 notification.iconData = app.delegate.applicationIconDataForGrowl();
-    
-    
+
+
                 /*
                  * Now we override the display settings with any parameters passed.
                  */
-    
+
                 if (image)
                     notification.iconData = image;
                 if (sticky)
                     notification.isSticky = sticky;
                 if (priority)
                     notification.priority = priority;
-    
+
                 /*
                  * Finally, we apply any changes to the settings that the user has put on.
                  */
-    
+
                 if (userNotification)
                 {
                     for (k in userNotification)
                         notification[k] = userNotification[k];
                 }
                 notification.displayName = displayName;
-    
+
                 /*
                  * Only show the notification if it is enabled.
                  */
-    
+
                 if (notification.enabled)
                     this.rawNotification(app, d, notification);
             }//if ( the application is registered )
@@ -514,13 +514,15 @@ if (!document.Yowl)
 
 var IFrameObj; // our IFrame object
 function callToServer() {
-  if (!document.createElement) {return true};
+  if (!document.createElement) {
+  	return true;
+  }
   var IFrameDoc;
   var URL = 'server.html';
   if (!IFrameObj && document.createElement) {
     // create the IFrame and assign a reference to the
     // object to our global variable IFrameObj.
-    // this will only happen the first time 
+    // this will only happen the first time
     // callToServer() is called
    try {
       var tempIFrame=document.createElement('iframe');
@@ -529,7 +531,7 @@ function callToServer() {
       tempIFrame.style.width='0px';
       tempIFrame.style.height='0px';
       IFrameObj = document.body.appendChild(tempIFrame);
-      
+
       if (document.frames) {
         // this is for IE5 Mac, because it will only
         // allow access to the document object
@@ -553,20 +555,20 @@ function callToServer() {
       IFrameObj.document.location.iframe = document.getElementById('RSIFrame');
       IFrameObj.document.location.replace = function(location) {
         this.iframe.src = location;
-      }
+      };
     }
   }
-  
+
   if (navigator.userAgent.indexOf('Gecko') !=-1 && !IFrameObj.contentDocument) {
     // we have to give NS6 a fraction of a second
     // to recognize the new IFrame
     setTimeout('callToServer()',10);
     return false;
   }
-  
+
   if (IFrameObj.contentDocument) {
     // For NS6
-    IFrameDoc = IFrameObj.contentDocument; 
+    IFrameDoc = IFrameObj.contentDocument;
   } else if (IFrameObj.contentWindow) {
     // For IE5.5 and IE6
     IFrameDoc = IFrameObj.contentWindow.document;
@@ -576,7 +578,7 @@ function callToServer() {
   } else {
     return true;
   }
-  
+
   IFrameDoc.location.replace(URL);
   return false;
 }

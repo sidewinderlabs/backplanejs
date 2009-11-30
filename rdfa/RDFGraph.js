@@ -1,6 +1,7 @@
 /*
  * Ubiquity provides a standards-based suite of browser enhancements for
  * building a new generation of internet-related applications.
+ *
  * Copyright (C) 2007-8 Mark Birbeck
  *
  * This program is free software; you can redistribute it and/or
@@ -44,10 +45,11 @@ function RDFGraph() {
 
     this.resources.find = function(sURI)
     {
-        for (var i = 0, len = this.length; i < len; i++) 
+        for (var i = 0, len = this.length; i < len; i++)
         {
-            if (this[i].resource == sURI)
+            if (this[i].resource == sURI) {
                 return i;
+            }
         }
         return -1;
     };//find
@@ -59,7 +61,7 @@ function RDFGraph() {
      * of it.
      */
 
-    this.resources.add = function(sURI) 
+    this.resources.add = function(sURI)
     {
         return this.push(
             {
@@ -71,7 +73,7 @@ function RDFGraph() {
 
     this.resources.len = function() {
         return this.length;
-    }
+    };
 }//RDFStore()
 
 
@@ -83,7 +85,7 @@ RDFGraph.prototype.clear = function()
 {
     this.triples.length = 0;
     this.resources.length = 0;
-}
+};
 
 
 /*
@@ -101,8 +103,9 @@ RDFGraph.prototype.add = function(sSubject, sPredicate, sObject, bObjectIsLitera
 
     var iURI = this.resources.find(sSubject);
 
-    if (iURI == -1)
+    if (iURI == -1) {
         iURI = this.resources.add(sSubject) - 1;
+    }
 
     /*
      * Next create a 'triple' using the ID of the element in the document,
@@ -111,10 +114,11 @@ RDFGraph.prototype.add = function(sSubject, sPredicate, sObject, bObjectIsLitera
 
     if (!bObjectIsLiteral)
     {
-      if (sPredicate == "a")
+      if (sPredicate == "a") {
         sPredicate = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
+      }
       else if (sPredicate === "stylesheet") {
-      	sPredicate = "http://www.w3.org/1999/xhtml/vocab#stylesheet";
+        sPredicate = "http://www.w3.org/1999/xhtml/vocab#stylesheet";
       }
     }
 
@@ -151,7 +155,7 @@ RDFGraph.prototype.add = function(sSubject, sPredicate, sObject, bObjectIsLitera
 
 RDFGraph.prototype.tripleAdded = function(triple) {
     return;
-}
+};
 
 RDFGraph.prototype.createBindings = function(triple, pattern)
 {
@@ -176,17 +180,20 @@ RDFGraph.prototype.createBindings = function(triple, pattern)
    * name to the binding information.
    */
 
-  if (pattern.pattern[0].charAt(0) == "?")
+  if (pattern.pattern[0].charAt(0) == "?") {
     oRet.bindings[0].name = pattern.pattern[0].substring(1);
+  }
 
-  if (pattern.pattern[1].charAt(0) == "?")
+  if (pattern.pattern[1].charAt(0) == "?") {
     oRet.bindings[1].name = pattern.pattern[1].substring(1);
+  }
 
-  if (pattern.pattern[2].charAt(0) == "?")
+  if (pattern.pattern[2].charAt(0) == "?") {
     oRet.bindings[2].name = pattern.pattern[2].substring(1);
+  }
 
   return oRet;
-}
+};
 
 
 RDFGraph.prototype.serialiseResult = function(triple, pattern)
@@ -201,23 +208,27 @@ RDFGraph.prototype.serialiseResult = function(triple, pattern)
       ]
   };
 
-  if (pattern.subject.charAt(0) == "?")
+  if (pattern.subject.charAt(0) == "?") {
     oRet.bindings[0].name = pattern.subject.substring(1);
+  }
 
-  if (pattern.predicate.charAt(0) == "?")
+  if (pattern.predicate.charAt(0) == "?") {
     oRet.bindings[1].name = pattern.predicate.substring(1);
+  }
 
   if (!triple.object_literal_p)
   {
     oRet.bindings[2].uri = triple.object;
-    if (pattern.objectUri.charAt(0) == "?")
+    if (pattern.objectUri.charAt(0) == "?") {
       oRet.bindings[2].name = pattern.objectUri.substring(1);
+    }
   }
   else
   {
     oRet.bindings[2].literal = triple.object;
-    if (pattern.objectLiteral.charAt(0) == "?")
+    if (pattern.objectLiteral.charAt(0) == "?") {
       oRet.bindings[2].name = pattern.objectLiteral.substring(1);
+    }
   }
 
   /*
@@ -230,7 +241,7 @@ RDFGraph.prototype.serialiseResult = function(triple, pattern)
     oRet.bindings[3].name = "context";
   }
   return oRet;
-}
+};
 
 
 RDFGraph.prototype.loadFormatters = function(oParser)
@@ -270,10 +281,11 @@ RDFGraph.prototype.createObject = function(s)
     {
         var t = triples[ s.triples[i] ];
 
-        if (t.object_literal_p)
+        if (t.object_literal_p) {
           oRet.add(t.predicate, t.object.content);
-        else
+        } else {
           oRet.add(t.predicate, t.object);
+        }
     }//for (each triple about this resource)
     return oRet;
 };//createObject()

@@ -29,31 +29,31 @@
 	// also calls its children,
 	// those children are each called four times, and so on. Each time, pressing
 	// ever deeper down Pascal's Triangle.
-	//  
+	//
 	// I have left this following commented line as a warning to those who may
 	// see an opportunity for optimisation
 	// arising from the amalgamation of oElement.childNodes, and
 	// if(oBind.tagName == "bind"). Do not be tempted
 	// to replace it with getElementsByTagName, as along that road, lies slow
 	// and erroneous behaviour.
-	//  
+	//
 	// var nsBinds = oElement.getElementsByTagName("bind");
 
-function processBinds(oModel, oElement, oContext) {	
+function processBinds(oModel, oElement, oContext) {
 	var nsBinds = oElement.childNodes,
 	  len = nsBinds.length,
 	  i,
 	  oBind;
 	for (i = 0; i < len; i++) {
 		oBind = nsBinds[i];
-		
-		if (NamespaceManager.compareFullName(oBind, "bind", "http://www.w3.org/2002/xforms")) { 
+
+		if (NamespaceManager.compareFullName(oBind, "bind", "http://www.w3.org/2002/xforms")) {
 				oBind["ownerModel"] = oModel;
-				
-				// If the bind statement has a nodeset attribute 
+
+				// If the bind statement has a nodeset attribute
 				// then get the list of nodes.
 				sExpr = oBind.getAttribute("nodeset") || ".";
-				
+
 				if (sExpr) {
 					processBind(oBind, sExpr, oModel, oContext);
 				}
@@ -66,7 +66,7 @@ function processBind(oBind, sExpr, oModel, oContext) {
     var oNodeset, oNode, oPN,
       i, j,
       sMIPName, sMIPVal,
-      modelItemProps = ["readonly", "required", "relevant", "calculate", 
+      modelItemProps = ["readonly", "required", "relevant", "calculate",
                           "constraint",  "type" /*, "p3ptype" */ ],
       oRes = oModel.EvaluateXPath(sExpr, oContext),
       oBinder = null,
@@ -75,9 +75,9 @@ function processBind(oBind, sExpr, oModel, oContext) {
     if (oRes) {
         // The bind has an inline-context attribute
         // we need to get the nearest ancestor with nodeset attribute
-        if  (oBind.getAttribute("context")) {            
+        if  (oBind.getAttribute("context")) {
             oBinder = oBind.parentNode;
-            
+
             while (oBinder) {
                 if (oBinder.getAttribute("nodeset")) {
                     oParentBind = oBinder;
@@ -86,11 +86,11 @@ function processBind(oBind, sExpr, oModel, oContext) {
                 oBinder = oBinder.parentNode;
             }
         }
-        
+
         switch(oRes.type) {
-        case "node-set": 
+        case "node-set":
             oNodeset = oRes.nodeSetValue();
-            
+
             if (oNodeset) {
                 // loop through all the nodes
                 for(i = 0; i < oNodeset.length; i++) {
@@ -111,7 +111,7 @@ function processBind(oBind, sExpr, oModel, oContext) {
                         oPN = oNode.m_proxy;
 
                         // If we have an ID then save a bound node.
-                        // 
+                        //
                         // [TODO] We only need the nodeset, but we're
                         // keeping 'boundNode' for now, so that it
                         // doesn't break anything.
@@ -126,19 +126,19 @@ function processBind(oBind, sExpr, oModel, oContext) {
                         if (!oPN.m_vertex) {
                             var oSE = new SubExpression(oPN);
                             oPN.m_vertex = oModel.m_oDE.createVertex(oSE);
-                            
+
                             // The proxy node needs to store the vertex
                             // so that when its data changes it can add
                             // the vertex to the PDS.
                             oModel.changeList.addChange(oPN.m_vertex);
                         }
-                        
+
                         // We can now process the attributes on the bind statement.
                         for (j = 0; j < modelItemProps.length; j++) {
                             var oMIPVertex = null;
                             sMIPName = modelItemProps[j];
                             sMIPVal = oBind.getAttribute(sMIPName);
-                            
+
                             if (sMIPVal) {
                                 if (sMIPName === "calculate") {
                                     oMIPVertex = oPN.m_vertex;
@@ -147,32 +147,32 @@ function processBind(oBind, sExpr, oModel, oContext) {
                                 } else if (sMIPName === "type") {
                                     oPN.datatype = sMIPVal;
                                 }
-                                
+
                                 if (oParentBind) {
                                     oPN = oParentBind["boundNode"];
                                 }
                                 oModel.createMIP(oMIPVertex, sMIPName, sMIPVal, oPN, loopContext);
                             }
                         }
-                        
+
                         // Finally, process any nested bind statements
                         // in the context of this node.
                         processBinds(oModel, oBind, loopContext);
                     }
                 } // for ( each of the nodes in the node-list )
-            }            
+            }
         break;
-        
-        case "boolean": 
+
+        case "boolean":
         break;
-        
-        case "number":  
+
+        case "number":
         break;
-        
-        case "string":  
+
+        case "string":
         break;
-        
-        default:         
+
+        default:
             throw "Binding exception.";
         break;
         }
@@ -193,7 +193,7 @@ function processBind(oBind, sExpr, oModel, oContext) {
 // dozen
 // others that are, in turn, invoked by the default processing of
 // xforms-model-construct.
-//	
+//
 // [TODO] Either move the event dispatch to a caller of this function, or rename
 // this
 // function to something like "constructIfReady".
@@ -208,7 +208,7 @@ function testForReady(pThis) {
         if (!FormsProcessor.testModelVersion(pThis)) {
             return;
         }
-        
+
         // Start with the assumption that pThis is now ready.
         pThis["elementState"] = 0;
 
@@ -339,7 +339,7 @@ function _addControlExpression(pThis, oTarget, oContext, sXPath) {
     }
 
     var oPE = new ProxyExpression(oContext, sXPath, pThis);
-    
+
     /*
      * Store a reference to the proxy in the control.
      */
@@ -359,20 +359,20 @@ function _createMIP(pThis, oVertex, sMIPName, sExpr, oPN, oContext) {
     /*
      * Create an expression.
      */
-    var oCPE = (oVertex) 
-               ? new ComputedXPathExpression(oPN, sExpr, oContext, pThis) 
+    var oCPE = (oVertex)
+               ? new ComputedXPathExpression(oPN, sExpr, oContext, pThis)
                : new MIPExpression(oPN, sExpr, oContext, pThis);
 
     if (sMIPName === "readonly") {
        oCPE.getValue = function () {
          return FormsProcessor.inheritTrue("readonly", oContext.node);
-       }
+       };
     } else if (sMIPName === "enabled") {
        // The relevant property is called "enabled" within the implementation
        oCPE.getValue = function () {
          return FormsProcessor.inheritFalse("enabled", oContext.node);
-       }
-      
+       };
+
     }
 
     oPN[sMIPName] = oCPE;
@@ -399,7 +399,7 @@ function _createMIP(pThis, oVertex, sMIPName, sExpr, oPN, oContext) {
 
 
 function _EvaluateXPath(pThis, sXPath, oContext) {
-    var oRet = null
+    var oRet = null;
 
     if (!oContext) {
         // If no context is given, get the default for the model
@@ -407,8 +407,8 @@ function _EvaluateXPath(pThis, sXPath, oContext) {
     } else if (!oContext.node) {
         // If only a context node is given, turn it into a context object
         oContext = { node: oContext };
-    } 
-    
+    }
+
     // If the context object doesn't contain a model or resolver element, add them
     if (!oContext.model) {
         oContext.model = pThis;
@@ -421,11 +421,11 @@ function _EvaluateXPath(pThis, sXPath, oContext) {
         try {
             oRet = xpathDomEval(sXPath, oContext);
         } catch (e) {
-        
+
 	       	if(oContext.resolverElement) {
 						if(!FormsProcessor.halted) {
 							FormsProcessor.halted = true;
-							UX.dispatchEvent(oContext.resolverElement, "xforms-binding-exception", true, false);						
+							UX.dispatchEvent(oContext.resolverElement, "xforms-binding-exception", true, false);
 						}
 
         	}
@@ -441,7 +441,7 @@ function _EvaluateXPath(pThis, sXPath, oContext) {
  */
 function _deferredUpdate(pThis) {
   if (!pThis.deferredUpdateInProgress) {
-  
+
     pThis.deferredUpdateInProgress = true;
     if (pThis.m_bNeedRebuild) {
         pThis.rebuild();
@@ -523,7 +523,7 @@ function _model_contentReady(pThis) {
                     document.logger.log("xforms-version-exception, error-information: [" + evt.context["error-information"] + "]");
                 }
             }, false);
-            
+
     pThis.addEventListener(
             "xforms-insert", {
                 scope:pThis,
@@ -543,10 +543,10 @@ function _modelConstruct(pThis) {
      * - Initialise P3P.
      * - Construct instance data.
      */
-    
-    
+
+
     //  Perform rebuild, recalculate and revalidate, without dispatching events.
-    
+
     pThis._rebuild();
     pThis._recalculate();
     pThis._revalidate();

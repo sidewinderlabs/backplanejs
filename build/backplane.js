@@ -23,3 +23,8 @@
 //
 //= require "rdfa"
 //
+
+// XForms
+//
+//= require "xforms"
+//

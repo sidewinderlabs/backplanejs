@@ -170,14 +170,14 @@ RDFParser.prototype.parseExternal = function(uri, callback) {
 				// We've got what we want from the external DOM...now throw it away.
 				//
         this.parentNode.removeChild(this);
-  
-  
+
+
         /*
          * Now that we've finished parsing, we query for any constructors
          * that have been loaded...
          */
 
-  	    var loader = new YAHOO.util.YUILoader();
+				var loader = new YAHOO.util.YUILoader();
 
         var r = document.meta.query2(
           {
@@ -210,7 +210,7 @@ RDFParser.prototype.parseExternal = function(uri, callback) {
                 ]
             }
           );//query for a constructor
-    
+
           /*
            * ...and for each one execute the script.
            */
@@ -237,25 +237,26 @@ RDFParser.prototype.parseExternal = function(uri, callback) {
           /*
            * If there is a callback function then call it.
            */
-    
-          if ( callback )
+
+          if ( callback ) {
             callback();
-        }
-    	  loader.insert();
+          }
+        };
+				loader.insert();
         return;
       },
       false
     );
-  
+
     /*
      * We leave the setting of the iframe's URL until last, because we have to be
      * sure that our event handler is in place.
      */
-  
+
     el.setAttribute("src", uri);
   }//if ( the URI is not a bnode )
   return;
-}//parseExternal()
+};//parseExternal()
 
 
 RDFParser.prototype.traverse = function(element, oContext)
@@ -274,6 +275,8 @@ RDFParser.prototype.traverse = function(element, oContext)
     var sThisSubject = "";
     var sThisObject = null;
     var oUser = element;
+    var sPred, arrPred;
+		var i;
 
    /*
     * First add any URI mappings.
@@ -299,12 +302,12 @@ RDFParser.prototype.traverse = function(element, oContext)
        * The first step is to set any subject and object information.
        */
 
-      if (element.getAttribute("rel") != null || element.getAttribute("rev") != null)
+      if (element.getAttribute("rel") !== null || element.getAttribute("rev") !== null)
       {
-        if (element.getAttribute("about") != null) {
+        if (element.getAttribute("about") !== null) {
 					sThisSubject = safeCurieOrUri(oContext.base, element.getAttribute("about"), oContext.uriMappings);
 				}
-        else if (element.getAttribute("src") != null)
+        else if (element.getAttribute("src") !== null)
         {
           sThisSubject = makeAbsoluteURI(oContext.base, element.getAttribute("src"));
         }
@@ -313,7 +316,7 @@ RDFParser.prototype.traverse = function(element, oContext)
           sThisSubject = makeAbsoluteURI(oContext.base, "");
           bRet = true;
         }
-        else if (element.getAttribute("typeof") != null)
+        else if (element.getAttribute("typeof") !== null)
         {
           sThisSubject = curieToUri("_:" + element.nodeName.toLowerCase() + this.store.bnode_counter++, oContext.uriMappings);
         }
@@ -322,10 +325,10 @@ RDFParser.prototype.traverse = function(element, oContext)
           sThisSubject = oContext.parentObject;
         }
 
-        if (element.getAttribute("resource") != null) {
+        if (element.getAttribute("resource") !== null) {
 					sThisObject = safeCurieOrUri(oContext.base, element.getAttribute("resource"), oContext.uriMappings);
 				}
-        else if (element.getAttribute("href") != null)
+        else if (element.getAttribute("href") !== null)
         {
           sThisObject = makeAbsoluteURI(oContext.base, element.getAttribute("href"));
         }
@@ -336,21 +339,21 @@ RDFParser.prototype.traverse = function(element, oContext)
       }
       else
       {
-				if (element.getAttribute("about") != null) {
+				if (element.getAttribute("about") !== null) {
 					sThisSubject = safeCurieOrUri(oContext.base, element.getAttribute("about"), oContext.uriMappings);
 					bRet = true;
 				}
-        else if (element.getAttribute("src") != null)
+        else if (element.getAttribute("src") !== null)
         {
           sThisSubject = makeAbsoluteURI(oContext.base, element.getAttribute("src"));
           bRet = true;
         }
-        else if (element.getAttribute("resource") != null)
+        else if (element.getAttribute("resource") !== null)
         {
 					sThisSubject = safeCurieOrUri(oContext.base, element.getAttribute("resource"), oContext.uriMappings);
           bRet = true;
         }
-        else if (element.getAttribute("href") != null)
+        else if (element.getAttribute("href") !== null)
         {
           sThisSubject = makeAbsoluteURI(oContext.base, element.getAttribute("href"));
           bRet = true;
@@ -360,15 +363,16 @@ RDFParser.prototype.traverse = function(element, oContext)
           sThisSubject = makeAbsoluteURI(oContext.base, "");
           bRet = true;
         }
-        else if (element.getAttribute("typeof") != null)
+        else if (element.getAttribute("typeof") !== null)
         {
           sThisSubject = curieToUri("_:" + element.nodeName.toLowerCase() + this.store.bnode_counter++, oContext.uriMappings);
           bRet = true;
         }
         else if (oContext.parentObject)
         {
-          if (!element.getAttribute("property"))
+          if (!element.getAttribute("property")) {
             bSkip = true;
+          }
           sThisSubject = oContext.parentObject;
         }
       }
@@ -381,7 +385,7 @@ RDFParser.prototype.traverse = function(element, oContext)
         var sTypeOf = element.getAttribute("typeof");
         var arrTypeOf = sTypeOf.split(/[\s]/);
 
-        for (var i = 0; i < arrTypeOf.length; i++) {
+        for (i = 0; i < arrTypeOf.length; i++) {
 	        graph.add(
 	          sThisSubject,
 	          curieToUri("_rdf:type", oContext.uriMappings),
@@ -395,12 +399,12 @@ RDFParser.prototype.traverse = function(element, oContext)
 
       if (bCreateBNode)
       {
-        if (element.getAttribute("rel") != null)
+        if (element.getAttribute("rel") !== null)
         {
-          var sPred = element.getAttribute('rel');
-          var arrPred = sPred.split(/[\s]/);
-  
-          for (var i = 0; i < arrPred.length; i++)
+          sPred = element.getAttribute('rel');
+          arrPred = sPred.split(/[\s]/);
+
+          for (i = 0; i < arrPred.length; i++)
           {
             incompleteTriples.push(
               {
@@ -415,13 +419,13 @@ RDFParser.prototype.traverse = function(element, oContext)
         /*
          * Next use @rev.
          */
-  
-        if (element.getAttribute("rev") != null)
-        {
-          var sPred = element.getAttribute('rev');
-          var arrPred = sPred.split(/[\s]/);
 
-          for (var i = 0; i < arrPred.length; i++)
+        if (element.getAttribute("rev") !== null)
+        {
+          sPred = element.getAttribute('rev');
+          arrPred = sPred.split(/[\s]/);
+
+          for (i = 0; i < arrPred.length; i++)
           {
             incompleteTriples.push(
               {
@@ -430,7 +434,7 @@ RDFParser.prototype.traverse = function(element, oContext)
                 user: oUser
               }
             );
-          };
+          }
         }//if (there is a @rev)
         sThisObject = curieToUri("_:" + element.nodeName.toLowerCase() + this.store.bnode_counter++, oContext.uriMappings);
       }//if ( there is no object )
@@ -440,7 +444,7 @@ RDFParser.prototype.traverse = function(element, oContext)
        * Next the object literal with datatype.
        */
 
-      if (element.getAttribute('property') != null)
+      if (element.getAttribute('property') !== null)
       {
 
         /*
@@ -450,7 +454,7 @@ RDFParser.prototype.traverse = function(element, oContext)
          */
 
         var sObjectLiteralDataType =
-          (element.getAttribute("datatype") != null)
+          (element.getAttribute("datatype") !== null)
             ? element.getAttribute("datatype")
             : (
               (element.getAttribute("content") || element.innerHTML.indexOf("<") == -1)
@@ -458,8 +462,9 @@ RDFParser.prototype.traverse = function(element, oContext)
                 : "_rdf:XMLLiteral"
             );
 
-        if (sObjectLiteralDataType != "")
+        if (sObjectLiteralDataType != "") {
           sObjectLiteralDataType = curieToUri(sObjectLiteralDataType, oContext.uriMappings);
+        }
 
         var sObjectLiteral =
           element.getAttribute("content")
@@ -491,8 +496,9 @@ RDFParser.prototype.traverse = function(element, oContext)
          * We stop recursing if we're processing an XML literal.
          */
 
-        if (sObjectLiteralDataType == "http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral")
+        if (sObjectLiteralDataType == "http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral") {
           bRecurse = false;
+        }
       }//if (there is a @property)
 
       /*
@@ -500,13 +506,13 @@ RDFParser.prototype.traverse = function(element, oContext)
        */
 
       if (sThisObject && !bCreateBNode)
-      {  
-        if (element.getAttribute("rel") != null)
+      {
+        if (element.getAttribute("rel") !== null)
         {
-          var sPred = element.getAttribute('rel');
-          var arrPred = sPred.split(/[\s]/);
-  
-          for (var i = 0; i < arrPred.length; i++)
+          sPred = element.getAttribute('rel');
+          arrPred = sPred.split(/[\s]/);
+
+          for (i = 0; i < arrPred.length; i++)
           {
             graph.add(
               sThisSubject,
@@ -518,18 +524,18 @@ RDFParser.prototype.traverse = function(element, oContext)
             bRet = true;
           }//for (each predicate)
         }//if (there is a @rel)
-  
-  
+
+
         /*
          * Next use @rev.
          */
-  
-        if (element.getAttribute("rev") != null)
+
+        if (element.getAttribute("rev") !== null)
         {
-          var sPred = element.getAttribute('rev');
-          var arrPred = sPred.split(/[\s]/);
-  
-          for (var i = 0; i < arrPred.length; i++)
+          sPred = element.getAttribute('rev');
+          arrPred = sPred.split(/[\s]/);
+
+          for (i = 0; i < arrPred.length; i++)
           {
             graph.add(
               sThisObject,
@@ -539,7 +545,7 @@ RDFParser.prototype.traverse = function(element, oContext)
               oUser
             );
             bRet = true;
-          };
+          }
         }//if (there is a @rev)
       }//if ( the is an object )
     }//if ( the node is an element )
@@ -549,7 +555,7 @@ RDFParser.prototype.traverse = function(element, oContext)
       var children = element.childNodes;
       var bWorthCompletingTriples = false;
 
-      for (var i = 0; i < children.length; i++) {
+      for (i = 0; i < children.length; i++) {
           bWorthCompletingTriples = this.traverse(
             children[i],
             bSkip ?
@@ -587,7 +593,7 @@ RDFParser.prototype.traverse = function(element, oContext)
 
       if (oContext.incompleteTriples.length)
       {
-        for (var i = 0; i < oContext.incompleteTriples.length; i++)
+        for (i = 0; i < oContext.incompleteTriples.length; i++)
         {
           graph.add(
             (oContext.incompleteTriples[i].rel) ? oContext.parentSubject : sThisSubject,
@@ -596,7 +602,7 @@ RDFParser.prototype.traverse = function(element, oContext)
             false,
             oContext.incompleteTriples[i].user
           );
-        };
+        }
         //oContext.incompleteTriples.length = 0;
         bRet = true;
       }

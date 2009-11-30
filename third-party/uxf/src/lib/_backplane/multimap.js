@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 function Multimap() {
   return {
     /**
@@ -22,9 +22,9 @@ function Multimap() {
       @param key The key under which to store it.
     */
     addItem : function(theItem,key) {
-    
+
       if(!this.items) {
-        this.items = {}; 
+        this.items = {};
       }
       key = key || theItem.getValue();
       if(this.items[key]) {
@@ -40,7 +40,7 @@ function Multimap() {
       else {
         this.items[key] = theItem;
       }
-      
+
       if(this.onItemAdded) {
         this.onItemAdded(theItem,key);
       }
@@ -75,14 +75,14 @@ function Multimap() {
           //only a single item with this value exists, just get rid of it.
           delete this.items[key];
         }
-        
+
       }
       if(retval && this.onItemRemoved) {
         this.onItemRemoved(item,key);
       }
       return retval;
     },
-    
+
     /**
       Retrieves the item stored alongside the given key
       @param key The key under which to look

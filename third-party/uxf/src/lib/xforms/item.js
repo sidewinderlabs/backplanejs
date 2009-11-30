@@ -35,11 +35,11 @@ Value.prototype.onContentReady = function () {
 Value.prototype.setValue = function (s) {
 	var ownerSelect;
 	if (typeof this.element.parentNode.getOwnerSelect === "function") {
-		ownerSelect = this.element.parentNode.getOwnerSelect()
+		ownerSelect = this.element.parentNode.getOwnerSelect();
 		if (this.m_sValue !== s) {
 			if (ownerSelect) {
 			  // When the value of an xf:value element changes, this must be reflected
-			  //  in the select or select1 to which it is bound. 
+			  //  in the select or select1 to which it is bound.
 				ownerSelect.removeItem(this.element.parentNode,this.m_sValue);
 				this.m_sValue = s;
 				ownerSelect.addItem(this.element.parentNode,s);
@@ -60,7 +60,7 @@ Value.prototype.getValue = function () {
   	  this.m_sValue = "";
   	}
   }
-  
+
 	return this.m_sValue;
 };
 
@@ -75,7 +75,7 @@ function Item(elmnt) {
 	this.m_value = null;
 	this.m_copy = null;
 	this.m_bSelected = false;
-	this.m_bReady = false;		
+	this.m_bReady = false;
 	this.m_ownerSelect = null;
 	this.element = elmnt;
 }
@@ -100,7 +100,7 @@ Item.prototype.getOwnerSelect = function () {
 
 Item.prototype.getLabel = function () {
   var s;
-  
+
   if (this.m_label) {
     if (this.m_label.getValue) {
       s = this.m_label.getValue();
@@ -146,7 +146,7 @@ Item.prototype.findLabelElement = function () {
 			break;
 		}
 	}
-	
+
 };
 
 Item.prototype.onContentReady = function () {
@@ -161,7 +161,7 @@ Item.prototype.onContentReady = function () {
 		ownerSelect.addEventListener("selection-changed", {handleEvent: function (e) {
 			pThis.handleEvent(e);
 		}}, false);
-		
+
 		this.addEventListener(
 			"DOMActivate", {
 				handleEvent: function (evt) {
@@ -219,13 +219,13 @@ Item.prototype.string_tryDataselect = function (s) {
 		return true;
 	}	else {
 		this.onDataDeselect();
-		return false;			
+		return false;
 	}
 };
 
 Item.prototype.array_tryDataselect = function (arr) {
 	//given an array, search for this value,
-	//	if present, 
+	//	if present,
 	var s, i;
 	s = this.getValue();
 	if (s !== "") {
@@ -299,4 +299,4 @@ Item.prototype.onDataDeselect = function () {
 		this.m_bReady = true;
 	}
 };
- 
+

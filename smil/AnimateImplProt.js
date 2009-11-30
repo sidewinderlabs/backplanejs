@@ -19,24 +19,21 @@
 
 function AnimateImplScriptaculous()
 {
-	animateColour: function (elTarget, oAttrs, nDuration)
-	{
-		return "E_NOTIMPL"
-//		var oAnim = new PROTOTYPE.util.ColorAnim(elTarget, oAttrs, nDuration);
-//		return oAnim;
-	}
-	
-	
 }
 
-AnimateImplScriptaculous.animate = function(elTarget, oAttrs, nDuration)
+AnimateImplScriptaculous.prototype.animateColour = function (elTarget, oAttrs, nDuration)
 {
-	for(attr in oAttrs)
+	return "E_NOTIMPL";
+	//		var oAnim = new PROTOTYPE.util.ColorAnim(elTarget, oAttrs, nDuration);
+	//		return oAnim;
+};
+
+AnimateImplScriptaculous.prototype.animate = function(elTarget, oAttrs, nDuration)
+{
+	for (var attr in oAttrs)
 	{
-		switch(attr)
-		{
-			case "height":
-				new Effect.Scale(elTarget,200,{scaleX:false})
+		if (attr === "height") {
+				var x = new Effect.Scale(elTarget,200,{scaleX:false});
 		}
 	}
-}
+};

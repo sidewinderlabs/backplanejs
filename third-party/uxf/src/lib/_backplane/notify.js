@@ -37,7 +37,7 @@ document.notify.deactivate = function( el ) {
 document.notify.ephemeral = function(message, activate) {
   if (activate === undefined || activate) {
     document.notify.activate( message );
-  
+
     setTimeout(
       function() {
         document.notify.deactivate( message );

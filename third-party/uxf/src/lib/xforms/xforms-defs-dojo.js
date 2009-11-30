@@ -15,11 +15,10 @@
  */
 
 dojo.require("dojo.behavior");
-debugger;
 dojo.behavior.add({
-	"xf:trigger":function(el){d(EventTarget,el),
-	"xf:submit":function(el){d(EventTarget,el),
-	"xf:label":function(el){d(EventTarget,el)},
+	"xf:trigger":function(el){d(EventTarget,el);},
+	"xf:submit":function(el){d(EventTarget,el);},
+	"xf:label":function(el){d(EventTarget,el);},
 	"xf:action":function(el){d(Listener,el);d(XFAction,el);}
 	});
-	
+

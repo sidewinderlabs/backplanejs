@@ -32,7 +32,7 @@ function dispatchXformsHint(elmnt, e) {
 
     //oEvt.initUIEvent("xforms-hint", true, true, null, 1);
     //There is no need to run this event in line, and doing so may cause a stack overflow,
-    //  if it invokes other actions. 
+    //  if it invokes other actions.
     //oEvt._actionDepth = -1;
     //FormsProcessor.dispatchEvent(elmnt,oEvt);
     //spawn(function(){elmnt.dispatchEvent(oEvt)});
@@ -50,7 +50,7 @@ function dispatchXformsHintOff(elmnt, e) {
 
     oEvt.initUIEvent("xforms-hint-off", true, true, null, 1);
     // There is no need to run this event in line, and doing so may cause a stack overflow,
-    // if it invokes other actions. 
+    // if it invokes other actions.
     // oEvt._actionDepth = -1;
     FormsProcessor.dispatchEvent(elmnt, oEvt);
     //spawn(function(){elmnt.dispatchEvent(oEvt)});
@@ -85,7 +85,7 @@ function mapdblclick2domactivate(elmnt, e) {
 
     oEvt.initUIEvent("DOMActivate", true, true, null, 2);
     // There is no need to run this event in line, and doing so may cause a stack overflow,
-    // if it invokes other actions. 
+    // if it invokes other actions.
     // oEvt._actionDepth = -1;
     FormsProcessor.dispatchEvent(elmnt, oEvt);
     if (UX.isIE && window.event) {
@@ -246,7 +246,7 @@ if (UX.isIE) {
 		};//_removeEventListener
 
 		var __notifyListeners = function (thisArg, oEvt) {
-		
+
 			/*
 			 * First get the list of listeners for this type
 			 */
@@ -284,7 +284,7 @@ if (UX.isIE) {
 				 * For each phase there will be one or more groups
 				 */
 				arr = arr[iPhase];
-				
+
 				if (arr && arr.length) {
 					//theApp.message("	 Notifying " + arr.length + " groups");
 					//for (var iGroup = 0; i < arr.length; i++)
@@ -303,7 +303,7 @@ if (UX.isIE) {
 						// flush any events that have been added prior to this loop
 						// either in the previous iteration, or before the first iteration.
 						flushEventQueue();
-						
+
 						var oListener = arr[i];
 						var bInvoke = true;
 
@@ -343,6 +343,9 @@ if (UX.isIE) {
 							break;
 
 						case "perform":
+							bPreventDefault = false;
+							break;
+
 						default:
 							bPreventDefault = false;
 							break;
@@ -365,6 +368,9 @@ if (UX.isIE) {
 							break;
 
 						case "continue":
+							bPreventDefault = false;
+							break;
+
 						default:
 							bPreventDefault = false;
 							break;
@@ -381,7 +387,7 @@ if (UX.isIE) {
 						if (oEvt._stopImmediatePropagation) {
 								break;
 						}
-					}//for ( each listener in this group )															
+					}//for ( each listener in this group )
 
 					//flush any events that were added to the queue by the last iteration.
 					flushEventQueue();
@@ -430,7 +436,7 @@ if (UX.isIE) {
 				oNode = arrTargetList[i];
 				oNode.currentTarget = oNode;
 				__notifyListeners(oNode, oEvt);
-				
+
 				if (oEvt._stopPropagation) {
 					break;
 				}
@@ -451,7 +457,7 @@ if (UX.isIE) {
 				__notifyListeners(thisArg, oEvt);
 			}
 
-			if (!oEvt._stopPropagation) {					 
+			if (!oEvt._stopPropagation) {
 				if (oEvt.bubbles) {
 					oEvt.eventPhase = oEvt.BUBBLING_PHASE;
 
@@ -459,7 +465,7 @@ if (UX.isIE) {
 						oNode = arrTargetList[i];
 						oEvt.currentTarget = oNode;
 						__notifyListeners(oNode, oEvt);
-						
+
 						if (oEvt._stopPropagation) {
 							break;
 						}
@@ -479,7 +485,7 @@ if (UX.isIE) {
 				__notifyListeners(thisArg, oEvt);
 			}
 		};
-		
+
 		function _dispatchEvent(oEvt) {
 			if (g_iEventsInProgress > 1) {
 				return __dispatchEvent(this, oEvt);

@@ -66,11 +66,11 @@ Model.prototype.checkFunctionsAttribute = function () {
 			evt.initEvent("xforms-compute-exception", true, false);
 			evt.context = {
 				"error-message": "function '" + requiredFunctions[i] + "' specified in model/@functions is not a function."
-			}
+			};
 			this.dispatchEvent(evt);
 		}
 	}
-}
+};
 
 Model.prototype.onContentReady = function() {
     return _model_contentReady(this);
@@ -88,7 +88,7 @@ Model.prototype.modelConstructDone = function() {
     this.rewire();
     this.constructingUI = false;
     window.status = "refreshing";
-    //  As with the other re... activities (see _modelConstruct), during model construction, 
+    //  As with the other re... activities (see _modelConstruct), during model construction,
     //  the work is supposed to be done, without the event being dispatched.
     this._refresh();
     this.resumeXFormsReady();
@@ -97,13 +97,13 @@ Model.prototype.modelConstructDone = function() {
 
 Model.prototype.stopXFormsReady = function () {
 	++this.initialisationLock;
-}
+};
 
 Model.prototype.resumeXFormsReady = function () {
 	if (!--this.initialisationLock && !this.m_bXFormsReadyFired) {
 		this.fireXFormsReady();
 	}
-}
+};
 
 Model.prototype.modelDestruct = function() {
     UX.dispatchEvent(this.element, "xforms-model-destruct", false, false, false);
@@ -174,27 +174,27 @@ Model.prototype.getEvaluationContext = function() {
     var sType = null;
 
     if (instances && instances.length > 0) {
-        oFirstInstance = instances[0];        
-        
+        oFirstInstance = instances[0];
+
         // We need to check and make sure that the instance
-        // has it's behaviour attached, in a Form-a scenario on IE 
+        // has it's behaviour attached, in a Form-a scenario on IE
         // (might happen in lazy-authoring too)
-        // the instance is created dynamically but DOES NOT has the Instance object 
+        // the instance is created dynamically but DOES NOT has the Instance object
         // properly installed on the DOM element which cause an exception
         // we will need a future fix to resolve the problem which an
         // element is created but behavior not installed for platform does not
         // properly support CSS selector (ex. IE, Webkit).
         sType = typeof(oFirstInstance.getDocument);
-        
-        if (sType === "function") {        
-            oDom = oFirstInstance.getDocument();        
+
+        if (sType === "function") {
+            oDom = oFirstInstance.getDocument();
             if (oDom) {
                 oRet.node = oDom;
                 oRet.node = getFirstNode(this.EvaluateXPath("/*", oRet));
             }
         }
     }
-    
+
     return oRet;
 };
 
@@ -219,7 +219,7 @@ Model.prototype.setValue = function(oContext, sXPath, sExprValue) {
          * do in fP where we evaluate an expression and also say what 'type' we
          * want from DOM 3 XPath.
          */
-        var sValue = getStringValue(this.EvaluateXPath(sExprValue, 
+        var sValue = getStringValue(this.EvaluateXPath(sExprValue,
                                                        {
                                                           node: oNode,
                                                           model: oContext.model,
@@ -437,7 +437,7 @@ Model.prototype._rebuild = function() {
 	     */
 	    this.m_oDE.clear();
 	    this.changeList.clear();
-	
+
 	    /*
 	     * Process the bind statements.
 	     */
@@ -455,12 +455,12 @@ Model.prototype.recalculate = function() {
 		this.m_bNeedRecalculate = false;
 		UX.dispatchEvent(this.element,"xforms-recalculate", true, true);
 	}
-}
+};
 
 Model.prototype._recalculate = function() {
     if (!FormsProcessor.halted) {
 	    this.m_oDE.recalculate(this.changeList);
-	
+
 	    /* these could go into one function */
 	    this.changeList.clear();
 	    this.m_bNeedRecalculate = false;
@@ -473,7 +473,7 @@ Model.prototype.revalidate = function() {
 		this.m_bNeedRevalidate = false;
 		UX.dispatchEvent(this.element, "xforms-revalidate", true, true);
 	}
-}
+};
 
 Model.prototype._revalidate = function() {
     if (!FormsProcessor.halted) {
@@ -560,7 +560,7 @@ Model.prototype.storeInsertedNodes = function (nodes) {
 	for (i = 0; i < nodes.length; ++i) {
 		this.m_NodesInsertedSinceLastRewire.unshift(nodes[i]);
 	}
-}
+};
 
 Model.prototype.indexOfNewNode = function (nodes) {
 	var i, j;

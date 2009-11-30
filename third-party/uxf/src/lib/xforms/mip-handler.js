@@ -22,7 +22,7 @@ function MIPHandler(element) {
 
 MIPHandler.prototype.addcontroltomodel = function () {
 	var oModel;
-	if (!this.m_bAddedToModel) {		
+	if (!this.m_bAddedToModel) {
 		oModel = getModelFor(this);
 
 		if (oModel) {
@@ -31,7 +31,7 @@ MIPHandler.prototype.addcontroltomodel = function () {
 		} else if((this.element.getAttribute("ref") || this.element.getAttribute("nodeset"))) {
 			throw("Could not resolve model for MIPHandler");
 		}
-	} else { // shouldn't be called twice 
+	} else { // shouldn't be called twice
 		throw("Second attempt to add MIPHandler to model as a control.");
 	}
 };
@@ -63,31 +63,31 @@ MIPHandler.prototype.rewire = function () {
 		return self.m_MIPSCurrentlyShowing[sMIPName] === undefined ||
 			(state.isSet && self.m_MIPSCurrentlyShowing[sMIPName] !== state.value);
 	},
-	
+
 	setDirtyState = function (self, mip) {
 		if (isDirtyMIP(self, mip)) {
 			self.dirtyState.setDirty(mip);
 		}
 	},
-	
+
 	setDirtyStates = function (self) {
 		setDirtyState(self, "enabled");
 		setDirtyState(self, "readonly");
 		setDirtyState(self, "required");
 		setDirtyState(self, "valid");
 	},
-	
+
 	updateMIPs = function (self) {
 	 	setDirtyStates(self);
 	 	setState(self, "enabled", "enabled", "disabled");
 		setState(self, "readonly", "read-only", "read-write");
 		setState(self, "required", "required", "optional");
-		setState(self, "valid", "valid", "invalid");	
+		setState(self, "valid", "valid", "invalid");
 	},
-	
+
 	getMIPState = function (self, mip) {
 		var retval = { isSet: false }, proxyNode;
-	
+
 		if (mip === "enabled") {
 			retval.value = self.isEnabled();
 			retval.isSet = true;
@@ -98,7 +98,7 @@ MIPHandler.prototype.rewire = function () {
 				retval.isSet = true;
 			}
 		}
-	
+
 		return retval;
 	},
 
@@ -114,20 +114,20 @@ MIPHandler.prototype.rewire = function () {
 					return false;
 				}
 			}
-	
+
 			parent = parent.parentNode;
 		}
-	
+
 		return true;
 	},
-	
+
 	isEnabled = function (self) {
 		var proxyNode;
-	
+
 		if (!inheritEnabled(self)) {
 			return false;
 		}
-	
+
 		if (self.element.isWired === false) {
 			// Note that this tests explicitly against false because we don't want
 			// the undefined case to enter this condition (the isWired property is
@@ -139,50 +139,50 @@ MIPHandler.prototype.rewire = function () {
 		if (proxyNode) {
 			return proxyNode.enabled.getValue();
 		}
-	
+
 		return self.mustBeBound() ? false : true;
 	};
-	
+
 	MIPHandler.prototype.updateMIPs = function() {
 		updateMIPs(this);
 	};
-	
-	//public exposition of otherwise private functions, to 
+
+	//public exposition of otherwise private functions, to
 	//	facilitate testing.
 	MIPHandler.prototype.isDirtyMIP = function (mip) {
 		return isDirtyMIP(this, mip);
-	}
+	};
 
 	MIPHandler.prototype.setDirtyState = function (mip) {
 		setDirtyState(this, mip);
 	};
-	
+
 	MIPHandler.prototype.setDirtyStates = function () {
 		setDirtyStates(this);
 	};
-	
+
 	MIPHandler.prototype.refresh = function () {
 		document.logger.log("Refreshing: " + this.element.tagName + ":" + this.element.uniqueID, "control");
-		
+
 		updateMIPs(this);
-	
+
 		if (this.dirtyState.isDirty()) {
 			this.broadcastMIPs();
 			this.dirtyState.setClean();
 		}
 	};
-	
+
 	MIPHandler.prototype.getMIPState = function (mip) {
 		return getMIPState(this, mip);
 	};
-	
+
 	MIPHandler.prototype.inheritEnabled = function () {
 		return inheritEnabled(this);
 	};
-	
+
 	MIPHandler.prototype.isEnabled = function () {
 		return isEnabled(this);
-	}
+	};
 }());
 
 MIPHandler.prototype.broadcastMIPs = function () {
@@ -190,7 +190,7 @@ MIPHandler.prototype.broadcastMIPs = function () {
 
 MIPHandler.prototype.onDocumentReady = function () {
 	this.addcontroltomodel();
-}
+};
 
 MIPHandler.prototype.mustBeBound = function () {
 	return true;

@@ -33,11 +33,11 @@ function getProxyNode(oNode)
   if (oNode === null || oNode === undefined) {
     throw "getProxyNode, E_INVALIDARG";
   }
-  
+
 	var pnRet = null;
 	if (oNode) {
 		// The node could be either a DOM node, or a proxy node.
-		//	 If it's a proxy node, then no more action is required. 
+		//	 If it's a proxy node, then no more action is required.
 		if (oNode.m_oNode) {
 			pnRet = oNode;
 		}
@@ -47,7 +47,7 @@ function getProxyNode(oNode)
 				pnRet = oNode.m_proxy;
 			}
 			else {
-  			//Otherwise, create one. 
+  			//Otherwise, create one.
 				pnRet = new ProxyNode(oNode);
 				oNode.m_proxy = pnRet;
 			}
@@ -60,23 +60,23 @@ function getProxyNode(oNode)
 function getElementValueOrContent(oContext, oElement) {
     var sExprValue = oElement.getAttribute("value");
     var sRet = "";
-    
+
     if (sExprValue === undefined || sExprValue === null || sExprValue === "") {
-      sRet = UX.isXHTML ? oElement.textContent : oElement.innerHTML;  
+      sRet = UX.isXHTML ? oElement.textContent : oElement.innerHTML;
     } else {
       sRet = getStringValue(oContext.model.EvaluateXPath(sExprValue, oContext));
     }
-    
+
     return sRet;
 }
 
 /**
-	Gets the first node from an XPathResult that contains a nodeset. 
+	Gets the first node from an XPathResult that contains a nodeset.
 	Use the appropriate methods on XPathResult for accessing other result types.
-				
+
 	@param {XPathResult} oRes An XPathResult object that is expected to contain a nodeset.
 	@returns The first node in the nodeset contained by oRes, if oRes is not a node-set, then this function returns null.
-	
+
 */
 function getFirstNode(oRes) {
 	var oRet = null;
@@ -94,36 +94,36 @@ function getFirstNode(oRes) {
 
 /**
 	Gets the first text child from a node, if the node has no text children, and is capable of having them,
-	  then one is created, inserted, and returned. 
-	
-				
+	  then one is created, inserted, and returned.
+
+
 	@param {Node} oNode The node whose first text child to return.
 	@returns The first child of node that is a text node.
-	
+
 */
 function getFirstTextNode(oNode) {
 	var oRet = null;
 
 	if (oNode) {
-    //if oNode is a text node, or text-like node (e.g. attribute), return it  
+    //if oNode is a text node, or text-like node (e.g. attribute), return it
 		if ((oNode.nodeType == DOM_TEXT_NODE) || (oNode.nodeType == DOM_ATTRIBUTE_NODE)) {
 			oRet = oNode;
 		}
 		else if (oNode.nodeType == DOM_ELEMENT_NODE) {
-  		
-  		// Otherwise, if the node is an element then inspect the first child, to see if that is text. 
+
+  		// Otherwise, if the node is an element then inspect the first child, to see if that is text.
 
 			oRet = oNode.firstChild;
 
-      //If the first child is either absent, or not text, create a new text node, and insert it. 
+      //If the first child is either absent, or not text, create a new text node, and insert it.
 			if (!oRet || ((oRet.nodeType != DOM_TEXT_NODE) && (oRet.nodeType != DOM_CDATA_SECTION_NODE))) {
 				var newNode = oNode.ownerDocument.createTextNode("");
-	
+
 				/*
 				 * If there were no existing nodes then add the new
 				 * text node directly...
 				 */
-	
+
 				if (!oRet) {
 					oNode.appendChild(newNode);
 				}
@@ -134,11 +134,11 @@ function getFirstTextNode(oNode) {
     			 */
 					oNode.insertBefore(newNode, oRet);
 				}
-	
+
 				/*
 				 * It's the new text node that we want to return.
 				 */
-	
+
 				oRet = newNode;
 			}
 		}
@@ -194,7 +194,7 @@ function getStringValue(oRes)
 				break;
 
 			default:
-				debugger;
+				console.log("getStringValue() has unsupported type");
 				break;
 		}
 	}
@@ -263,10 +263,10 @@ ProxyExpression.prototype.getValue = function()
 			case "boolean":
 				sRet = oRet.booleanValue();
 				break;
-			
+
 			default:
 				/* please add any other types that are missing! */
-				debugger;
+				console.log("ProxyExpression.getValue() has unsupported type");
 				break;
 		}
 	}
@@ -289,34 +289,34 @@ function ProxyNode(oNode)
 	// 'false' will override any setting from higher up. Hence
 	// the initialisation to 'undefined'.
 	//
-	this.readonly = { 
-	  value: undefined, 
+	this.readonly = {
+	  value: undefined,
 	  getValue: function () {
 	    return FormsProcessor.inheritTrue("readonly", oNode);
 	  }
 	};
-	
+
 	// set up a default required MIP, which is replaced if there is an actual required MIP expression
-	this.required = { 
+	this.required = {
 		getValue:  function () {
 			return false;
 		}
  	};
-  
+
 	this.enabled = {
 	  value: true,
 	  getValue: function () {
 	    return FormsProcessor.inheritFalse("enabled", oNode);
 	  }
 	};
-	
+
 	this.outOfRange = {
 	  getValue: function () {
 	    return false;
 	  }
 	};
-	
-	this.valid = { 
+
+	this.valid = {
       oPN: this,
 	  getValue: function () {
 	    if (this.oPN && this.oPN.constraint) {
@@ -324,7 +324,7 @@ function ProxyNode(oNode)
                 return false;
             }
         }
-        
+
         if (this.oPN && this.oPN.required) {
 	    	if (this.oPN.required.getValue() && !this.oPN.getValue()) {
 	    		return false;
@@ -340,10 +340,10 @@ function ProxyNode(oNode)
         return true;
       }
 	};
-	
+
 	// Get the type form the node
-	// This is meaningful only for element nodes 
-	this.datatype = (oNode.nodeType === DOM_ELEMENT_NODE) ? oNode.getAttribute("xsi:type") || "" : "";    
+	// This is meaningful only for element nodes
+	this.datatype = (oNode.nodeType === DOM_ELEMENT_NODE) ? oNode.getAttribute("xsi:type") || "" : "";
 }
 
 
@@ -355,7 +355,7 @@ ProxyNode.prototype.getMIP = function(sMIPName)
 	if (!mipRet)
 	{
 		mipRet = null;
-		debugger; /* asking for a MIP that doesn't exist */
+		console.log("MIP " + sMIPName + " does not exist.");
 	}
 
 	return mipRet;
@@ -409,7 +409,7 @@ ProxyNode.prototype.removeChild = function(node, caller) {
 			UX.dispatchEvent(caller, "xforms-binding-exception", true, false);
 	}
 	return false;
-}
+};
 
 ProxyNode.prototype.appendChild = function(node, caller) {
 
@@ -421,8 +421,8 @@ ProxyNode.prototype.appendChild = function(node, caller) {
 			UX.dispatchEvent(caller, "xforms-binding-exception", true, false);
 	}
 	return null;
-	
-}
+
+};
 
 ProxyNode.prototype.setValue = function(sVal, oModel)
 {
@@ -431,11 +431,11 @@ ProxyNode.prototype.setValue = function(sVal, oModel)
 	if (!this.readonly.getValue())
 	{
 		var oNode = this.getNode();
-	
+
 		if (oNode)
 		{
 			oNode = getFirstTextNode(oNode);
-	
+
 			if (oNode)
 			{
 				oNode.nodeValue = (typeof(sVal) == "object")
@@ -448,10 +448,10 @@ ProxyNode.prototype.setValue = function(sVal, oModel)
 		 * then it means our node has been used in
 		 * a calculation somewhere. We therefore need
 		 * to add the vertex to the change list,
-		 * 
+		 *
 		 * The need for a recalculate must be signalled
-		 * regardless, as a value has changed.  
-		 * 
+		 * regardless, as a value has changed.
+		 *
 		 */
 
 		if (oModel)
@@ -467,11 +467,11 @@ ProxyNode.prototype.setValue = function(sVal, oModel)
 
 				oModel.changeList.addChange(oVertex);
 			}
-			
+
       oModel.flagRecalculate();
 			oModel.flagRefresh();
 		}
-		
+
 	}
 	return oRet;
 };
@@ -500,15 +500,15 @@ function SingleNodeExpression(oTarget,sXPath, oContext,oModel)
 	this.identifier = function()
 	{
 		return "snb["+sXPath+"]";
-	}
+	};
 }
 
 SingleNodeExpression.prototype.update = function()
 {
 	var r = this.m_oModel.EvaluateXPath(this.m_sXPathExpr, this.m_oContext);
 
-	if (r != null)
-	{	
+	if (r !== null)
+	{
 		this.node = new ProxyNode(r.value[0]);
 		return r.value[0];
 	}
@@ -541,25 +541,25 @@ function NodesetExpression(oTarget, sXPath, oContext, oModel)
 	this.getNode = function(i)
 	{
 		return ProxyNode(m_nodeset[i]);
-	}
+	};
 
 	this.AddExpressionWhichTakesThisAsContext = function(sXPath)
 	{
 		this.dependentExpressions.push(new ComputedXPathExpression(sXPath,this,this.m_oModel));
-	}
+	};
 
 	this.identifier = function()
 	{
 		return "nsetb["+sXPath+"]";
-	}
+	};
 }
 
 NodesetExpression.prototype.update = function()
 {
 	var r = this.m_oModel.EvaluateXPath(this.m_sXPathExpr, this.m_oContext);
 
-	if (r != null)
-	{	
+	if (r !== null)
+	{
 		this.node = new ProxyNode(r.value);
 		return r.value;
 	}
@@ -588,11 +588,11 @@ function ComputedXPathExpression(oProxy, sXPath, oContext, oModel)
 	this.m_oModel = oModel;
 	this.value = null;
 	this.dependentExpressions = new Array();
-	
+
 	this.identifier = function()
 	{
 		return "comp["+sXPath+"]";
-	}
+	};
 }
 
 ComputedXPathExpression.prototype.update = function()
@@ -709,12 +709,11 @@ function MIPExpression(oProxy, sXPath, oContext, oModel)
 	MIPExpression.superclass.constructor.call(this, oProxy, sXPath, oContext, oModel);
 }
 
-
 YAHOO.extend(MIPExpression, ComputedXPathExpression);
 
 MIPExpression.prototype.getValue =function(){
 	  return this.value;
-}
+};
 
 MIPExpression.prototype.update = function()
 {
@@ -735,7 +734,7 @@ function SubExpression(oProxy)
 	this.identifier = function()
 	{
 		return "sub";
-	}
+	};
 }
 
 /*

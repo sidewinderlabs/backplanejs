@@ -22,7 +22,7 @@
 */
 function AnimateFactory()
 {
-	this.m_Libraries = new Object();
+	this.m_Libraries = { };
 }
 /**
 	Add a library to the factory.
@@ -32,15 +32,15 @@ function AnimateFactory()
 AnimateFactory.prototype.AddLibrary = function(string,pointer)
 {
 	this.m_Libraries[string] = pointer;
-}
+};
 /**
 	Retrieve a library to the factory.
 	@param {String} string An identifier used to retrieve the library.  This will be the same string used in AddLibrary.
 */
 AnimateFactory.prototype.GetLibrary = function(string)
 {
-	return new this.m_Libraries[string];
-}
+	return new this.m_Libraries[string]();
+};
 
 var gAnimateFactory = new AnimateFactory();
 
@@ -49,7 +49,7 @@ var gAnimateFactory = new AnimateFactory();
 function Animate()
 {
 	this._impl = gAnimateFactory.GetLibrary(gLibrary["animate"]);
-}
+};
 
 /**
 Animates a colour attribute.
@@ -67,7 +67,7 @@ Animate.prototype.animateColour =  function (elTarget, oAttrs, nDuration,nRepeat
 	this.animation = this._impl.animateColour;
 	//this._impl.animateColour(elTarget, oAttrs, nDuration, nRepeat, bReset, fnOnComplete);
 	this.runAnimation();
-}
+};
 
 /**
 Animates an attribute.
@@ -84,37 +84,38 @@ Animate.prototype.animate = function (elTarget, oAttrs, nDuration,nRepeat, bRese
 	this.m_oControlInfo = {target:elTarget,attrs:oAttrs,dur:nDuration,iterations:nRepeat,reset:bReset,isFinalRepetition:(nRepeat==1),isFirstRepetition:true};
 	this.animation = this._impl.animate;
 	this.runAnimation();
-}
+};
 
 /**
-@private 
+@private
 Called by the appropriate animate function after setting up the environment
 */
 Animate.prototype.runAnimation = function()
 {
 	var bReset = (this.m_oControlInfo.reset || !this.m_oControlInfo.isFinalRepetition);
-	this._impl.animation = this.animation
+	this._impl.animation = this.animation;
 	this._impl.animation(this.m_oControlInfo.target, this.m_oControlInfo.attrs, this.m_oControlInfo.dur, bReset,{fn:this.repeat,obj:this});
-}
+};
 
 /**
-@private 
+@private
 Called to repeat the animation if required.
 */
 Animate.prototype.repeat = function()
 {
-	if(this.m_oControlInfo.iterations > 0)
+	if(this.m_oControlInfo.iterations > 0) {
 		--this.m_oControlInfo.iterations;
-	
+	}
+
 	if(this.m_oControlInfo.iterations)
 	{
 		this.m_oControlInfo.isFirstRepetition = false;
 		this.m_oControlInfo.isFinalRepetition = (this.m_oControlInfo.iterations==1);
 		this.runAnimation();
 	}
-}
+};
 
 Animate.prototype.setStyle = function(elTarget,sAttr,sVal)
 {
 	return this._impl.setStyle(elTarget,sAttr,sVal);
-}
+};

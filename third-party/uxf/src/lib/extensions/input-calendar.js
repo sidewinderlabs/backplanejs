@@ -27,7 +27,7 @@ function calendarValueChanged(pThis, sNewValue) {
     if(oEvt.initMutationEvent === undefined) {
         oEvt.initMutationEvent = oEvt.initEvent;
     }
-        
+
     oEvt.initMutationEvent("control-value-changed", true, true,
         null, pThis.currValue, sNewValue, null, null);
 
@@ -51,18 +51,18 @@ InputValueCalendar.prototype.currentCalendarValue = function() {
         YAHOO.util.Dom.get(this.m_sInputId).value = xsdDate;
     }
     return xsdDate;
-}
+};
 
 InputValueCalendar.prototype.onDocumentReady = function() {
     if (this.element.ownerDocument.media != "print") {
         var pThis = this,
             appearance = this.element.parentNode.getAttribute("appearance"),
             datatype = this.element.parentNode.getAttribute("datatype"),
-            xf4hdatatype = 
+            xf4hdatatype =
                 XF4HProcessor.getAttribute(this.element.parentNode, "datatype");
 
         if (appearance === 'yui:popup-calendar' ||
-            ((datatype === 'xsd:date' || datatype === 'xf:date' || 
+            ((datatype === 'xsd:date' || datatype === 'xf:date' ||
               datatype === 'xforms:date' || xf4hdatatype === 'date') &&
              (appearance === null || appearance === 'compact'))) { // popup
 
@@ -75,8 +75,8 @@ InputValueCalendar.prototype.onDocumentReady = function() {
             var calendarMenu = new YAHOO.widget.Overlay("calendarmenu" + UX.calendarcount,
                                                         { visible: false });
             var button = new YAHOO.widget.Button({type: "menu",
-                                                  id: "calendarpicker" + UX.calendarcount, 
-                                                  label: "", 
+                                                  id: "calendarpicker" + UX.calendarcount,
+                                                  label: "",
                                                   menu: calendarMenu,
                                                   container: "ux-calendar-bg" + UX.calendarcount});
             var calcount = UX.calendarcount;
@@ -162,7 +162,7 @@ InputValueCalendar.prototype.setValue = function(sValue) {
                 this.m_bFirstSetValue = false;
             }
         }
-    
+
     }
 
     return bRet;

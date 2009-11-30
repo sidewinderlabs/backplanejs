@@ -15,32 +15,32 @@
  */
 
 /*
- * [TODO] Could probably turn this into one object. 
+ * [TODO] Could probably turn this into one object.
  */
 
 callback.prototype.success = function(o) {
-   	this.processResult(
-           { 
-             status : o.status || NaN,             
-             statusText : o.statusText || "",      
-             responseText : o.responseText || "",  
+    this.processResult(
+           {
+             status : o.status || NaN,
+             statusText : o.statusText || "",
+             responseText : o.responseText || "",
              responseHeaders : o.getResponseHeader,
              resourceURI : this.resourceURI
      }
-           , false); 
-}
+           , false);
+};
 
 callback.prototype.failure = function(o) {
     this.processResult(
-        { 
-          status : o.status || NaN,             
-          statusText : o.statusText || "",      
-          responseText : o.responseText || "",  
+        {
+          status : o.status || NaN,
+          statusText : o.statusText || "",
+          responseText : o.responseText || "",
           responseHeaders : o.getResponseHeader,
           resourceURI : this.resourceURI
 }
-        , true); 
-}
+        , true);
+};
 
 submission.prototype.request = function(sMethod, sAction, sBody, nTimeout, oCallback) {
 	if (nTimeout) {
@@ -55,25 +55,25 @@ submission.prototype.request = function(sMethod, sAction, sBody, nTimeout, oCall
 		oCallback,
 		sBody
 	);
-}
+};
 
 submission.prototype.getConnection = function() {
 	return YAHOO.util.Connect;
-}
+};
 
 //
 // Add initialization functions for library specific features
 //
-submission.prototype.init = function() { 
+submission.prototype.init = function() {
     this.getConnection().setDefaultPostHeader(false);
     return true;
-}
-	
-submission.prototype.setHeader = function(header, value) { 
+};
+
+submission.prototype.setHeader = function(header, value) {
     return this.getConnection().initHeader(header, value);
-}
+};
 
 //
-// initialize yui submission object 
+// initialize yui submission object
 //
 document.submission.init();

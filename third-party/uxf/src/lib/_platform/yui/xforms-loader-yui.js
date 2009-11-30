@@ -16,11 +16,11 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
- 
+
 (
   function(){
     var moduleBase = pathToModule("xforms-loader-yui");
-    
+
   	window.status = "configuring YUI module loader";
   	loader.addModule({ name: "xforms-submission-core-yui", type: "js",  fullpath: moduleBase + "xforms-submission-yui.js",
   		requires: [ "connection" ] });

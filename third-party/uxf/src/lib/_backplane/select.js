@@ -19,7 +19,7 @@ function CommonSelect() {
     Updates the map of values to items, to reflect a change in the value of said item
   */
   this.itemValueChanged = function(item, oldvalue, newvalue) {
-     //remove the multimap entry based on the old value, and create one based on the new value. 
+     //remove the multimap entry based on the old value, and create one based on the new value.
     this.removeItem(item,oldvalue);
     this.addItem(item,newvalue);
   };
@@ -29,7 +29,7 @@ function CommonSelect() {
   this.getSingleDisplayValue = function(sValue) {
       this.currentDisplayValue = sValue;
       var retval = null;
-      var theItem = null; 
+      var theItem = null;
       var i;
       if(this.items) {
         //get the item from the map,
@@ -48,7 +48,7 @@ function CommonSelect() {
                  theItem = theItem[0];
              }
         }
-        
+
         if(theItem) {
           retval = theItem.getLabel();
         }

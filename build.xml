@@ -23,17 +23,127 @@
 		<property file="ant.properties" />
 	</target>
 
-	<target name="create-css" depends="load.properties">
+	<target name="init" depends="load.properties">
+		<path id="ant.tasks.classpath">
+			<fileset dir="${tools.dir}" includes="commons-logging-1.1.1.jar" />
+			<fileset dir="${tools.dir}" includes="ant-apache-bsf-1.7.1.jar" />
+			<fileset dir="${tools.dir}" includes="bsf.jar" />
+		</path>
+
+		<scriptdef
+			name="jslint"
+			src="${tools.dir}/fulljslint-for-ant.js" language="javascript"
+			classpathref="ant.tasks.classpath"
+		>
+			<attribute name="options" />
+			<element name="fileset" type="fileset" />
+		</scriptdef>
+	</target>
+
+	<target name="jslint" depends="init">
 		<description>
-			Create the CSS file.
+			Run JSLint on the scripts.
 		</description>
 
-		<concat destfile="${deploy.dir}/${product.name}.css" force="no">
-			<filelist dir="${deploy.dir}/assets" files="yowl.css, container-core.css" />
+		<jslint options="{ browser: true, devel: true, debug: true, evil: true, laxbreak: true, forin: true, sub: true, css: true, cap: true, on: true, fragment: true }">
+		<!-- jslint options="{passfail: false, white: false, laxbreak: true, browser: true, debug: false, devel: true, eqeqeq: false, evi: true, fragment: true, immed: false, nomen: false, on: true, onevar: false, plusplus: false, regexp: false, sub: true}" -->
+			<fileset dir="${src.dir}">
+				<!-- This collection is the same as in 'tidy-js' -->
+				<include name="**/*.js" />
+				<exclude name="_samples/**/*.js" />
+				<exclude name="_unit-tests/**/*.js" />
+				<exclude name="build/**/*.js" />
+				<exclude name="deploy/**/*.js" />
+				<exclude name="drupal/**/*.js" />
+				<exclude name="rdfa/_unit-tests/**/*.js" />
+				<exclude name="smil/**/*.js" />
+				<exclude name="third-party/uxf/build/**/*.js" />
+				<exclude name="third-party/uxf/samples/**/*.js" />
+				<exclude name="third-party/uxf/src/lib/ajaxslt/**/*.js" />
+				<exclude name="third-party/uxf/src/lib/backplane/_unit-tests/**/*.js" />
+				<exclude name="third-party/uxf/src/lib/backplane/notify/assets/**/*.js" />
+				<exclude name="third-party/uxf/src/lib/third-party/**/*.js" />
+				<exclude name="third-party/uxf/testsuite/**/*.js" />
+				<exclude name="third-party/uxf/unit-tests/**/*.js" />
+				<exclude name="third-party/yui/**/*.js" />
+				<exclude name="_samples/**/*.js" />
+				<exclude name="tools/**/*.js" />
+				<exclude name="_unit-tests/**/*.js" />
+			</fileset>
+ 		</jslint>
+	</target>
+
+	<target name="jslint-deploy" depends="init">
+		<description>
+			Run JSLint on the scripts.
+		</description>
+
+		<jslint options="{ browser: true, devel: true, debug: true, evil: true, laxbreak: true, forin: true, sub: true, css: true, cap: true, on: true, fragment: true }">
+		<!-- jslint options="{passfail: false, white: false, laxbreak: true, browser: true, debug: false, devel: true, eqeqeq: false, evi: true, fragment: true, immed: false, nomen: false, on: true, onevar: false, plusplus: false, regexp: false, sub: true}" -->
+			<fileset dir="${deploy.dir}">
+				<include name="backplane.js" />
+			</fileset>
+ 		</jslint>
+	</target>
+
+	<target name="tidy-js" depends="init">
+		<description>
+			Do some basic tidying up of JS files ready for JSLint.
+		</description>
+
+		<fixcrlf srcdir="${src.dir}" eol="crlf" eof="remove">
+			<!-- This collection is the same as in 'jslint' -->
+			<include name="**/*.js" />
+			<exclude name="_samples/**/*.js" />
+			<exclude name="_unit-tests/**/*.js" />
+			<exclude name="build/**/*.js" />
+			<exclude name="deploy/**/*.js" />
+			<exclude name="drupal/**/*.js" />
+			<exclude name="rdfa/_unit-tests/**/*.js" />
+			<exclude name="smil/**/*.js" />
+			<exclude name="third-party/uxf/build/**/*.js" />
+			<exclude name="third-party/uxf/samples/**/*.js" />
+			<exclude name="third-party/uxf/src/lib/ajaxslt/**/*.js" />
+			<exclude name="third-party/uxf/src/lib/backplane/notify/assets/**/*.js" />
+			<exclude name="third-party/uxf/src/lib/backplane/_unit-tests/**/*.js" />
+			<exclude name="third-party/uxf/src/lib/third-party/**/*.js" />
+			<exclude name="third-party/uxf/testsuite/**/*.js" />
+			<exclude name="third-party/uxf/unit-tests/**/*.js" />
+			<exclude name="third-party/yui/**/*.js" />
+			<exclude name="_samples/**/*.js" />
+			<exclude name="tools/**/*.js" />
+			<exclude name="_unit-tests/**/*.js" />
+		</fixcrlf>
+	</target>
+
+	<target name="create-css" depends="init, create-js">
+		<description>
+			Create the CSS file. The only reason there is a dependency on
+			create-js is because we need the assets to have been copied.
+		</description>
+
+		<concat destfile="${deploy.dir}/${product.name}.css" force="no" eol="crlf">
+			<fileset dir="${deploy.dir}/assets">
+				<include name="**/*.css" />
+				<exclude name="generated-css.css" />
+			</fileset>
 		</concat>
 	</target>
 
-	<target name="min-css" depends="create-css, load.properties">
+	<target name="create-js" depends="init">
+		<description>
+			Create the JS file.
+		</description>
+
+		<exec executable="sprocketize" output="${deploy.dir}/${product.name}.js" failonerror="true" logError="true">
+			<arg line="-I . -I build -I third-party -I third-party/uxf/src -I third-party/uxf/src/lib -I third-party/uxf/src/lib/backplane" />
+			<arg value="copyright.txt" />
+			<arg value="build/${product.name}.js" />
+			<arg value="-a${deploy.dir}/assets" />
+		</exec>
+	</target>
+
+	<target name="min-css" depends="init, create-css">
 		<description>
 			Minify the CSS file.
 		</description>
@@ -47,7 +157,7 @@
 		</java>
 	</target>
 
-	<target name="min-js" depends="load.properties">
+	<target name="min-js" depends="init, create-js">
 		<description>
 			Minify the JS file.
 		</description>
@@ -61,7 +171,7 @@
 		</java>
 	</target>
 
-	<target name="min" depends="min-js, min-css">
+	<target name="min" depends="init, min-js, min-css">
 		<description>
 			Minify everything, ready for distribution.
 		</description>

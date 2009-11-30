@@ -6,13 +6,14 @@ function mappings() {
 
 mappings.prototype.add = function(prefix, uri) {
 	return this._list.add(prefix, uri);
-}
+};
 
 mappings.prototype.get = function(prefix) {
 	return this._list.get(prefix);
-}
+};
 
 mappings.prototype.addFromElement = function(element) {
+	var i;
 
 		/*
      * In IE, any namespaces that are placed on the HTML element
@@ -37,7 +38,7 @@ mappings.prototype.addFromElement = function(element) {
         {
             var oNamespace;
 
-            for (var i = 0; i < oNamespaces.length; i++)
+            for (i = 0; i < oNamespaces.length; i++)
             {
                 oNamespace = oNamespaces[i];
 
@@ -54,7 +55,7 @@ mappings.prototype.addFromElement = function(element) {
         {
             var sName;
 
-            for (var i = 0; i < attributes.length; i++)
+            for (i = 0; i < attributes.length; i++)
             {
                 /*
                  * [TODO] Should use a regular expression to crack this
@@ -63,11 +64,13 @@ mappings.prototype.addFromElement = function(element) {
 
                 if (attributes[i].name.substring(0, 5) == "xmlns")
                 {
-                    if (attributes[i].name.length == 5)
+                    if (attributes[i].name.length == 5) {
                         this._list.add("", attributes[i].value);
+                    }
 
-                    if (attributes[i].name.substring(5, 6) != ':')
+                    if (attributes[i].name.substring(5, 6) != ':') {
                         continue;
+                    }
 
                     var prefix = attributes[i].name.substring(6);
                     var uri = attributes[i].value;
@@ -78,4 +81,4 @@ mappings.prototype.addFromElement = function(element) {
         }//if (there are attributes)
     }
     return;
-}//addFromElement
+};//addFromElement

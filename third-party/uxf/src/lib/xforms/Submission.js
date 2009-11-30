@@ -51,7 +51,7 @@ Submission.prototype.onDocumentReady = function() {
 			}
 		}
 	);
-}//submission_documentReady()
+};//submission_documentReady()
 
 
 /* This is a temporary home. */
@@ -63,7 +63,7 @@ if (!document.submissionJSON) {
 
         _timeout: function(id, url) {
             var cbo = this._running[id];
-            
+
             this._running[id] = null;
             if (!cbo.callbackErr)
                 return;
@@ -72,7 +72,7 @@ if (!document.submissionJSON) {
 
         _callbackhandler: function(o) {
             var cbo = this._running[callbackIndex];
-            
+
             if (!cbo)
                 return;
             this._running[callbackIndex] = null;
@@ -83,7 +83,7 @@ if (!document.submissionJSON) {
                 cbo.callbackErr("Bad response", -2, cbo.self);
                     return;
             }
-            
+
             if (!cbo.callbackOk)
                 return;
             cbo.callbackOk(o, cbo.resource, cbo.self);
@@ -95,13 +95,13 @@ if (!document.submissionJSON) {
             var id = this._running.length;
 
             url += "&_callback=document.submissionJSON._callbackhandler_" + id;
-            
+
             var s = document.createElement("script");
-            
+
             s.setAttribute("src", url);
-            
+
             var fn = "" + this._callbackhandler;
-            
+
             fn = fn.replace(/callbackIndex/g, id);
             eval("document.submissionJSON._callbackhandler_" + id + "=" + fn);
             this._running.push(
@@ -118,7 +118,7 @@ if (!document.submissionJSON) {
                         timeoutlength
                     )
                 }
-            );    
+            );
             document.getElementsByTagName("head")[0].appendChild(s);
             return id;
         },//_execute
@@ -126,16 +126,16 @@ if (!document.submissionJSON) {
         /* use these three calls to run and cancel Pipes calls */
         cancelrequest: function(id) {
             var cbo = this._running[i];
-            
+
             window.clearTimeout(cbo.timeout);
             this._running[i]=null;
         },//cancelrequest
-        
+
         cancelallrequests: function() {
             for (var i = 0; i < this._running.length; i++)
                 this.cancelrequest(i);
         },//cancelallrequests
-        
+
         run: function(action, params, resource, callbackOk, callbackErr, timeoutLength) {
             return this._execute(
                 document.submission.buildGetUrl(action, params),

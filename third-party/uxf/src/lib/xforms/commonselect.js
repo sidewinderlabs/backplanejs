@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
  /*global document, UX, CommonSelect, spawn, FormsProcessor, NamespaceManager, event, DropBox*/
- 
+
 function XFormsCommonSelect(element) {
 	this.element = element;
 }
@@ -65,19 +65,19 @@ XFormsCommonSelectValue.prototype.onDocumentReady = function () {
 		oInput = document.createElement(sElementToCreate),
 		pSelect = this.parentNode,
 		pThis = this;
-		
+
 		if (oInput.addEventListener) {
 				oInput.addEventListener("change", function (e) {
 					pThis.trySetManuallyEnteredValue(oInput.value);
 				}, false);
-			
+
 				oInput.addEventListener("click", function () {
 					pSelect.showChoices();
 				}, false);
-			
+
 			if (!this.parentNode.isOpen()) {
-			//ignore the typing of any alphanumeric characters, other than tab, 
-			//  which should cause focus to move. 
+			//ignore the typing of any alphanumeric characters, other than tab,
+			//  which should cause focus to move.
 				oInput.addEventListener("keypress", function (e) {
 					if (e.keyCode !== 9) {
 						e.preventDefault();
@@ -89,14 +89,14 @@ XFormsCommonSelectValue.prototype.onDocumentReady = function () {
 			oInput.attachEvent("onchange", function (e) {
 				pThis.trySetManuallyEnteredValue(oInput.value);
 			});
-			
+
 			oInput.attachEvent("onclick", function () {
 				pSelect.showChoices();
 			});
-		
+
 			if (!this.parentNode.isOpen()) {
-				//ignore the typing of any alphanumeric characters, other than tab, 
-				//  which should cause focus to move. 
+				//ignore the typing of any alphanumeric characters, other than tab,
+				//  which should cause focus to move.
 				oInput.attachEvent("onkeypress", function (e) {
 					if (e.keyCode !== 9) {
 						return false;
@@ -105,13 +105,13 @@ XFormsCommonSelectValue.prototype.onDocumentReady = function () {
 				});
 			}
 		}
-	
+
 		UX.addStyle(oInput, "backgroundColor", "transparent");
 		UX.addStyle(oInput, "padding", "0");
 		UX.addStyle(oInput, "margin", "0");
 		UX.addStyle(oInput, "border", "0");
-		
-		this.element.appendChild(oInput);   
+
+		this.element.appendChild(oInput);
 		this.m_value = oInput;
 	}
 };
@@ -122,10 +122,10 @@ XFormsCommonSelectValue.prototype.giveFocus = function () {
 	} else {
 		this.focus();
 	}
-}
+};
 
 XFormsCommonSelectValue.prototype.trySetManuallyEnteredValue = function (value) {
-  if (this.parentNode.isOpen() || this.parentNode.getDisplayValue(value) !== null) {    
+  if (this.parentNode.isOpen() || this.parentNode.getDisplayValue(value) !== null) {
     //if the value entered is legitimate, let it in.
     this.parentNode.onValueSelected(value);
   }
@@ -152,22 +152,22 @@ XFormsCommonSelectValue.prototype.refreshDisplayValue = function () {
   if (sDisplayValue === null && this.parentNode.isOpen()) {
     sDisplayValue = this.m_sValue;
   }
-  
+
   return this.setDisplayValue(sDisplayValue);
 
 };
 
 XFormsCommonSelectValue.prototype.setDisplayValue = function (sDisplayValue, bForceRedisplay) {
 	var bRet = false;
- 
+
   if (sDisplayValue === null) {
     this.parentNode.onOutOfRange();
     sDisplayValue = "";
   } else {
     this.parentNode.onInRange();
   }
-  
-  if (this.parentNode.useDropBox()) { 
+
+  if (this.parentNode.useDropBox()) {
   	if (bForceRedisplay || this.currValue !== sDisplayValue) {
   	  this.m_value.value = sDisplayValue;
   		this.currValue = sDisplayValue;
@@ -217,13 +217,13 @@ ElementWithChoices.prototype.createChoicesPseudoElement = function () {
 			//leave in situ
 			}
 		}
-		
+
 		if (this.useDropBox()) {
 		  this.choicesBox = new DropBox(this.element, this.element.m_value, oPeChoices);
 		} else {
 		  this.element.appendChild(oPeChoices);
 		}
-		
+
     this.m_choices = oPeChoices;
   }
 };

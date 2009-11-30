@@ -16,7 +16,7 @@
 
 /**
     @fileoverview
-        The subset of the DOM implemented by Google's AJAXSLT is insufficent for the purpose of  implementing xforms through ajaxslt  
+        The subset of the DOM implemented by Google's AJAXSLT is insufficent for the purpose of  implementing xforms through ajaxslt
         This file contains the methods required by ajaxfp in order to work
 */
 
@@ -32,9 +32,9 @@ var HIERARCHY_REQUEST_ERR          = 3;
     a nodeset a.k.a. nodelist), and "resolverElement" (the node containing
     the XPath expression).
     For backwards compatibility with the xpathDomEval in ajaxslt, the code
-    tests if oContext.node exists, and if not it uses oContext as the node.   
+    tests if oContext.node exists, and if not it uses oContext as the node.
     Returns then XPath expression result.
-    
+
     @addon
 */
 function xpathDomEval(expr, oContext) {
@@ -72,7 +72,7 @@ ExprContext.prototype.clone = function(opt_node, opt_position, opt_nodelist) {
   return oRet;
 };
 
-/** 
+/**
     The AJAXSLT XNode does not support cloneNode
     @addon
     @param {bool} bDeep Whether to run a deep (everything) or shallow (just the tag and attributes, no children) clone
@@ -80,11 +80,11 @@ ExprContext.prototype.clone = function(opt_node, opt_position, opt_nodelist) {
 
 XNode.prototype.cloneNode = function(bDeep) {
 	var newNode, i;
-	
-	if (bDeep) {		
+
+	if (bDeep) {
 		if (this.nodeType === DOM_DOCUMENT_NODE || this.nodeType === DOM_ELEMENT_NODE || this.nodeType === DOM_DOCUMENT_FRAGMENT_NODE) {
 			newNode = this.cloneNode(false);
-			
+
 			for (i = 0; i < this.childNodes.length; i++) {
 				newNode.appendChild(this.childNodes[i].cloneNode(true));
 			}
@@ -92,7 +92,7 @@ XNode.prototype.cloneNode = function(bDeep) {
 			bDeep = false;
 		}
     }
-    
+
 	if (!bDeep) {
 		if (this.nodeType === DOM_DOCUMENT_NODE) {
 			newNode = new XDocument();
@@ -103,22 +103,22 @@ XNode.prototype.cloneNode = function(bDeep) {
 			}
 		} else {
 			newNode = XNode.create(this.nodeType, this.nodeName, this.nodeValue, new XDocument());
-		} 
+		}
 	}
-	
+
 	return newNode;
 };
 
 /** A shallow clone of an element includes its tag and its attributes.
 	If you need a "very" shallow clone of just the tag, then you can
-	invoke cloneNode() and then call this function on the resulting node. 
+	invoke cloneNode() and then call this function on the resulting node.
 	@addon
 */
 XNode.prototype.removeAttributeList = function() {
 	while (this.attributes.length > 0) {
 		this.removeAttribute(this.attributes[0].nodeName);
 	}
-}
+};
 
 /**@addon
 */
@@ -133,12 +133,12 @@ FunctionCallExpr.prototype.xpathfunctions["local-name"] = function(ctx)
     } else {
       n = this.args[0].evaluate(ctx).nodeSetValue();
     }
-    
+
     if (n.length === 0) {
     } else {
           name = n[0].nodeName;
     }
-    
+
     ix = name.indexOf(":");
     if(ix > -1)
     {
@@ -149,7 +149,7 @@ FunctionCallExpr.prototype.xpathfunctions["local-name"] = function(ctx)
 
 
 /**@addon
-*/  
+*/
 
 FunctionCallExpr.prototype.xpathfunctions["namespace-uri"] = function(ctx)
 {
@@ -157,12 +157,12 @@ FunctionCallExpr.prototype.xpathfunctions["namespace-uri"] = function(ctx)
 };
 
 /**@addon
-*/  
+*/
 
 FunctionCallExpr.prototype.evaluate = function(ctx) {
 	var f = this.getFunction();
 	var i, nodes, retval;
-	
+
 	if (f) {
 		retval = f.call(this, ctx);
 		if (g_bSaveDependencies && retval.type == 'node-set') {
@@ -173,9 +173,9 @@ FunctionCallExpr.prototype.evaluate = function(ctx) {
 		}
 	} else {
 		xpathLog('XPath NO SUCH FUNCTION ' + this.name.value);
-		retval = new BooleanValue(false);		
+		retval = new BooleanValue(false);
 	}
-	
+
 	return retval;
 };
 
@@ -186,7 +186,7 @@ FunctionCallExpr.prototype.getFunction = function() {
 	var i;
 	var allowBridge = false;
 	var retval;
-	
+
 	segments = this.name.value.split(':');
 	if (segments.length == 1) {
 		localName = segments[0];
@@ -199,12 +199,12 @@ FunctionCallExpr.prototype.getFunction = function() {
 		retval = this.xpathfunctions[localName];
 	} else {
 		prefixes = NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms#inline");
-		
+
 		if (prefixes === undefined || prefixes === null)
 			return null;
-		
+
 		for ( i = 0; i < prefixes.length; i++ ) {
-			if (prefix === prefixes[i] && UX.global[localName] != null) {
+			if (prefix === prefixes[i] && UX.global[localName] !== null) {
 				retval = function(ctx) {
 					var f;
 					var marshalledArgs = [];
@@ -216,7 +216,7 @@ FunctionCallExpr.prototype.getFunction = function() {
 					if (!f) {
 						return null;
 					}
-					
+
 					c = this.args.length;
 					for ( i = 0; i < c; i++ ) {
 						arg = this.args[i];
@@ -243,17 +243,17 @@ FunctionCallExpr.prototype.getFunction = function() {
 						}
 
 					}
-					
+
 					// Note, we do not use the context node as an implicit argument in the event that no arguments
 					// are given to prevent issues with backwards compatibility for later when passing nodesets are
-					// considered.  If no support is ever planned for nodesets, taking the context node as a string 
+					// considered.  If no support is ever planned for nodesets, taking the context node as a string
 					// might be a good default.
-					
+
 					retval = f.apply(null, marshalledArgs);
 
-					if (retval == null)
+					if (retval === null)
 						return new BooleanValue(false);
-					
+
 					switch (UX.type(retval)) {
 					case 'boolean':
 						return new BooleanValue(retval);
@@ -273,12 +273,12 @@ FunctionCallExpr.prototype.getFunction = function() {
 			}
 		}
 	}
-	
+
 	return retval;
 };
-	
+
 /**@addon
-*/  
+*/
 
 LocationExpr.prototype.evaluate = function(ctx) {
   var start, i, retval;
@@ -304,13 +304,13 @@ LocationExpr.prototype.evaluate = function(ctx) {
 
 XNode.prototype.setOwnerDocument = function(owner, bDeep) {
 	var i;
-	
+
 	if (this.nodeType === DOM_DOCUMENT_NODE) {
 		this.ownerDocument = null;
 	} else {
 		this.ownerDocument = owner;
 	}
-	
+
 	if (bDeep) {
 		for (i = 0; i < this.attributes.length; i++) {
 			this.attributes[i].setOwnerDocument(owner);
@@ -356,8 +356,8 @@ XNode.prototype.appendChild = function(node) {
   // ownerDocument
   if (node.ownerDocument !== this.ownerDocument) {
       node.setOwnerDocument(this.nodeType === DOM_DOCUMENT_NODE ? this : this.ownerDocument, true);
-  }	
-      
+  }
+
   // firstChild
   if (this.childNodes.length == 0) {
     this.firstChild = node;
@@ -381,7 +381,7 @@ XNode.prototype.appendChild = function(node) {
   // childNodes
   this.childNodes.push(node);
   return node;
-}
+};
 
 // This version corrects the original by setting the ownerDocument of newNode
 //
@@ -394,8 +394,8 @@ XNode.prototype.replaceChild = function(newNode, oldNode) {
     if (this.childNodes[i] == oldNode) {
       if (newNode.ownerDocument !== oldNode.ownerDocument) {
           newNode.setOwnerDocument(oldNode.ownerDocument, true);
-      }	
-      
+      }
+
       this.childNodes[i] = newNode;
 
       var p = oldNode.parentNode;
@@ -427,9 +427,9 @@ XNode.prototype.replaceChild = function(newNode, oldNode) {
       break;
     }
   }
-}
+};
 
-// This version fixes two behaviors.  
+// This version fixes two behaviors.
 // 1. It does appendChild when !oldNode, per DOM spec
 // 2. It sets the ownerDocument of newNode
 //
@@ -441,16 +441,16 @@ XNode.prototype.insertBefore = function(newNode, oldNode) {
         newNode.parentNode.removeChild(newNode);
       }
       this.appendChild(newNode);
-      
+
   } else if ((oldNode !== newNode) && (oldNode.parentNode === this)) {
       if (newNode.parentNode) {
         newNode.parentNode.removeChild(newNode);
       }
-      
+
       if (newNode.ownerDocument !== oldNode.ownerDocument) {
           newNode.setOwnerDocument(oldNode.ownerDocument, true);
-      }	
-       
+      }
+
       for (i = 0; i < this.childNodes.length; ++i) {
         c = this.childNodes[i];
         if (c === oldNode) {
@@ -476,15 +476,15 @@ XNode.prototype.insertBefore = function(newNode, oldNode) {
   }
 
   return oRet;
-}
+};
 
-/** 
+/**
     The AJAXSLT XNode does not support @xml:id or @xsi:type="xsd:ID",
     so this function does support these attributes.
-    
+
     This function was expanded from the original getElementById() xpath function in AJAXSLT.
     This function returns an array of nodes.
-    @addon    
+    @addon
 */
 XNode.prototype.getElementsById = function(id) {
     var ret = [];
@@ -497,30 +497,30 @@ XNode.prototype.getElementsById = function(id) {
         if (!oID) {
             //
             // Is there an xml:id attribute?
-            // 
+            //
             oID = node.getAttribute('xml:id');
-             
-            // 
+
+            //
             // finally, see if there is an xsi:type='xsd:ID' attribute
-            // 
+            //
             if (!oID && node.getAttribute('xsi:type') === 'xsd:ID') {
                 oID = node.firstChild.nodeValue.trim();
             }
-        } 
-    
+        }
+
         if (oID === id) {
-            ret.push(node); 
+            ret.push(node);
         }
     }, null);
     return ret;
 };
 
 // This version attaches the newly created attribute to its 'parent'.
-// Failure to do this makes the whole attribute's XPath ancestor's axis hollow.   
+// Failure to do this makes the whole attribute's XPath ancestor's axis hollow.
 //
 XNode.prototype.setAttribute = function(name, value) {
   if (this.nodeType !== DOM_ELEMENT_NODE) {
-    return;  
+    return;
   }
   for (var i = 0; i < this.attributes.length; ++i) {
     if (this.attributes[i].nodeName == name) {
@@ -537,7 +537,7 @@ XNode.prototype.setAttribute = function(name, value) {
 //
 XNode.prototype.setAttributeNode = function(newAttr) {
   if ((this.nodeType !== DOM_ELEMENT_NODE) || (newAttr.nodeType !== DOM_ATTRIBUTE_NODE)) {
-    return;  
+    return;
   }
   var i;
   for (i = 0; i < this.attributes.length; ++i) {
@@ -545,7 +545,7 @@ XNode.prototype.setAttributeNode = function(newAttr) {
       break;
     }
   }
-  
+
   if (i < this.attributes.length) {
     this.attributes[i] = newAttr;
   }
@@ -572,7 +572,7 @@ function xmlTextR(node, buf, cdata, includeNamespacePrefixes) {
 		a,
 		prefix,
 		j;
-	
+
   if (node.nodeType == DOM_TEXT_NODE) {
     elementContainsCDATA = false;
     if (cdata && typeof cdata === 'object' && typeof cdata.length === 'number' && typeof cdata.splice === 'function' && !cdata.propertyIsEnumerable('length')) {
@@ -623,7 +623,7 @@ function xmlTextR(node, buf, cdata, includeNamespacePrefixes) {
       }
     }
 
-    if (node.childNodes.length == 0) {
+    if (!node.childNodes.length) {
       buf.push('/>');
     } else {
       buf.push('>');

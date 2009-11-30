@@ -100,11 +100,11 @@ if (!document.createEvent)
 
 
 	   return that;
-	}
+	};
 
-	
 
-	
+
+
 
 	/*
 	* U I E V E N T
@@ -124,10 +124,10 @@ if (!document.createEvent)
 
 				that.view = viewArg;
 				that.detail = detailArg;
-	}
+	};
 
 		return that;
-	}
+	};
 
 	/*
 	* M U T A T I O N E V E N T
@@ -152,13 +152,13 @@ if (!document.createEvent)
   		attrChangeArg) {
 
      		that.initEvent(eventTypeArg, canBubbleArg, cancellableArg);
-    
+
     		that.relatedNode = relatedNodeArg;
     		that.prevValue = prevValueArg;
     		that.newValue = newValueArg;
     		that.attrName = attrNameArg;
     		that.attrChange = attrChangeArg;
-    	}
+    	};
 	    return that;
 	};
 

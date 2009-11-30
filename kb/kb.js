@@ -24,7 +24,7 @@
 function KnowledgeBase() {
 	this.factList = [ ];
 	this.ruleList = [ ];
-};
+}
 
 KnowledgeBase.prototype.createCondition = function(cond, fact) {
 	// Condition
@@ -35,7 +35,7 @@ KnowledgeBase.prototype.createCondition = function(cond, fact) {
 		this.truth = null;
 
 		fact.addCondition(this);
-	};
+	}
 
 	Condition.prototype.check = function() {
 		if (this.fact.value === null) {
@@ -59,13 +59,13 @@ KnowledgeBase.prototype.createConclusion = function( /* this function is called 
 		this.value = value;
 
 		fact.addConclusion(this);
-	};
-	
+	}
+
 	Conclusion.prototype.addRuleRef = function(rule) {
 		this.ruleRef = rule;
 		return;
 	};
-	
+
 	Conclusion.prototype.getRule = function() {
 		return this.ruleRef;
 	};//getRule()
@@ -80,8 +80,8 @@ KnowledgeBase.prototype.createEqualCondition = function(factName, condition) {
 	//
 	function EqualCondition(condition) {
 		this.condition = condition;
-	};
-	
+	}
+
 	EqualCondition.prototype.test = function(value) {
 		// Note that we use "==" rather than "===" so that
 		// conversions can take place.
@@ -98,7 +98,7 @@ KnowledgeBase.prototype.createPresentCondition = function(factName) {
 	// PresentCondition
 	//
 	function PresentCondition() {
-	};
+	}
 
 	PresentCondition.prototype.test = function(value) {
 		return (value !== null);
@@ -140,7 +140,7 @@ KnowledgeBase.prototype.addRule = function( /* this creates a function */ ) {
 		// Make the conclusion refer to this rule.
 		//
 		rule.conclusion.addRuleRef(this);
-	};
+	}
 
 
 	Rule.prototype.backChain = function( defaults ) {
@@ -171,7 +171,7 @@ KnowledgeBase.prototype.addRule = function( /* this creates a function */ ) {
 				return false;
 			}
 		}
-		
+
 		// If we looped through all of the conditions, and they
 		// are all true, then return true.
 		//
@@ -283,7 +283,7 @@ function Fact(kb, name) {
 	this.conclusions = [ ];
 
 	kb.addFact(this);
-};
+}
 
 Fact.prototype.addConclusion = function(conclusion) {
 	this.conclusions.push(conclusion);

@@ -21,7 +21,7 @@ function isFirefox3()
 /**
 	Inserts an element as the last child of body, and sets up the CSS to bind this to onload.xml
 		Calling this as a final step in the script loading process ensures that all existing elements
-		have been bound to an appropriate XBL, and have performed their decorations, prior to 
+		have been bound to an appropriate XBL, and have performed their decorations, prior to
 		calling any initialisation code that would otherwise have been called by onload.
 */
 function FFInsertElementForOnloadXBL() {

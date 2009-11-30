@@ -42,7 +42,7 @@ Submit.prototype.performAction = function(oEvt) {
             // if there is not a declared submssion id, get the first submission
             // element of the default model
             var oModel = getModelFor(oDocument);
-            
+
             if (oModel) {
                 // halt on the first submission in model
                 var nsChildNodes = oModel.element.childNodes;
@@ -54,17 +54,17 @@ Submit.prototype.performAction = function(oEvt) {
                     }
                 }
             }
-            
+
             if (!oSubmission) {
               throw "There is no submission element associated with the default model.";
             }
-        } 
-        
+        }
+
         if (oSubmission) {
             var oSubmitEvt = oDocument.createEvent("Events");
             oSubmitEvt.initEvent("xforms-submit", true, true, null, null);
             spawn( function() {
-                FormsProcessor.dispatchEvent(oSubmission, oSubmitEvt)
+                FormsProcessor.dispatchEvent(oSubmission, oSubmitEvt);
             });
         }
     }
