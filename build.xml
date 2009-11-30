@@ -26,10 +26,11 @@
 
 	<target name="init" depends="load.properties">
 		<path id="ant.tasks.classpath">
-			<fileset dir="${tools.dir}" includes="ant-googlecode-0.0.2.jar" />
-			<fileset dir="${tools.dir}" includes="commons-logging-1.1.1.jar" />
 			<fileset dir="${tools.dir}" includes="ant-apache-bsf-1.7.1.jar" />
+			<fileset dir="${tools.dir}" includes="ant-googlecode-0.0.2.jar" />
 			<fileset dir="${tools.dir}" includes="bsf.jar" />
+			<fileset dir="${tools.dir}" includes="commons-logging-1.1.1.jar" />
+			<fileset dir="${tools.dir}" includes="yuicompressor-2.4.2.jar" />
 		</path>
 
 		<scriptdef
@@ -158,6 +159,7 @@
 
 		<java
 			classname="com.yahoo.platform.yui.compressor.YUICompressor"
+			classpathref="ant.tasks.classpath"
 			fork="true"
 			failonerror="true"
 		>
@@ -172,6 +174,7 @@
 
 		<java
 			classname="com.yahoo.platform.yui.compressor.YUICompressor"
+			classpathref="ant.tasks.classpath"
 			fork="true"
 			failonerror="true"
 		>
@@ -212,6 +215,10 @@
 	</target>
 
 	<target name="release" depends="init">
+		<description>
+			Upload the compressed JS and CSS files.
+		</description>
+
 		<fail unless="gc.username" message="Missing property 'gc.username' from file 'build.credentials.properties'." />
 		<fail unless="gc.password" message="Missing property 'gc.password' from file 'build.credentials.properties'." />
 
@@ -240,7 +247,11 @@
 		/>
 	</target>
 
-	<target name="upload-to-gc" depends="init">
+	<target name="upload-a-file-to-gc" depends="init">
+		<description>
+			This is just a handy way to upload an individual file.
+		</description>
+
 		<fail unless="gc.username" message="Missing property 'gc.username' from file 'build.credentials.properties'." />
 		<fail unless="gc.password" message="Missing property 'gc.password' from file 'build.credentials.properties'." />
 
