@@ -28,26 +28,30 @@
 		<echo>tidy-js:</echo>
 		<echo>  Do some basic tidying up of source files, such as ensuring they use CRLF.</echo>
 		<echo />
-		<echo>create-deploy:</echo>
-		<echo>  Primes the deployment directory, for testing or ready for a release.</echo>
+		<echo>prime-deploy:</echo>
+		<echo>  Prime the deployment directory, either for testing, or for a release.</echo>
+		<echo />
+		<echo>min:</echo>
+		<echo>  Compress the main JS and CSS files.</echo>
 		<echo />
 		<echo>release:</echo>
-		<echo>  Combines and compresses both the JavaScript and CSS files, before</echo>
-		<echo>  uploading them to the download are on Google Code.</echo>
+		<echo>  Create a deployment archive, and then upload it to Google Code.</echo>
 	</target>
 
-	<target name="load.properties">
+	<target name="-load.properties">
 		<property file="ant.properties" />
 		<property file="build.credentials.properties" />
 	</target>
 
-	<target name="init" depends="load.properties">
+	<target name="-init" depends="-load.properties">
 		<path id="ant.tasks.classpath">
-			<fileset dir="${tools.dir}" includes="ant-apache-bsf-1.7.1.jar" />
-			<fileset dir="${tools.dir}" includes="ant-googlecode-0.0.2.jar" />
-			<fileset dir="${tools.dir}" includes="bsf.jar" />
-			<fileset dir="${tools.dir}" includes="commons-logging-1.1.1.jar" />
-			<fileset dir="${tools.dir}" includes="yuicompressor-2.4.2.jar" />
+			<fileset dir="${tools.dir}">
+				<include name="ant-apache-bsf-1.7.1.jar" />
+				<include name="ant-googlecode-0.0.2.jar" />
+				<include name="bsf.jar" />
+				<include name="commons-logging-1.1.1.jar" />
+				<include name="yuicompressor-2.4.2.jar" />
+			</fileset>
 		</path>
 
 		<scriptdef
@@ -66,7 +70,7 @@
 		/>
 	</target>
 
-	<target name="jslint" depends="init">
+	<target name="jslint" depends="-init">
 		<description>
 			Run JSLint on the scripts.
 		</description>
@@ -99,7 +103,7 @@
  		</jslint>
 	</target>
 
-	<target name="jslint-deploy" depends="init">
+	<target name="jslint-deploy" depends="-init">
 		<description>
 			Run JSLint on the scripts.
 		</description>
@@ -112,7 +116,7 @@
  		</jslint>
 	</target>
 
-	<target name="tidy-js" depends="init">
+	<target name="tidy-js" depends="-init">
 		<description>
 			Do some basic tidying up of JS files ready for JSLint.
 		</description>
@@ -142,7 +146,7 @@
 		</fixcrlf>
 	</target>
 
-	<target name="create-css" depends="init, create-js">
+	<target name="-create-css" depends="-init, -create-js">
 		<description>
 			Create the CSS file. The only reason there is a dependency on
 			create-js is because we need the assets to have been copied.
@@ -155,7 +159,7 @@
 		</concat>
 	</target>
 
-	<target name="create-js" depends="init">
+	<target name="-create-js" depends="-init">
 		<description>
 			Create the JS file.
 		</description>
@@ -168,14 +172,19 @@
 		</exec>
 	</target>
 
-	<target name="create-deploy" depends="init, create-js, create-css">
+	<target name="prime-deploy" depends="-init, -create-js, -create-css">
 		<description>
 			Create a set of deployment files, for testing or distribution.
 		</description>
 
-		<copy todir="${deploy.dir}">
+		<copy todir="${deploy.dir}" failonerror="true">
 			<fileset dir="${output.dir}">
 				<include name="${product.name}.js" />
+			</fileset>
+		</copy>
+
+		<copy todir="${deploy.dir}/assets" failonerror="true">
+			<fileset dir="${output.dir}">
 				<include name="${product.name}.css" />
 			</fileset>
 			<fileset dir="${output.dir}/assets">
@@ -187,12 +196,12 @@
 				<include name="select-selected.png" />
 				<include name="select1-deselected.png" />
 				<include name="select1-selected.png" />
-				<include name="thumb-n.png" />
+				<include name="thumb-n.gif" />
 			</fileset>
 		</copy>
 	</target>
 
-	<target name="min-css" depends="init, create-deploy">
+	<target name="-min-css" depends="-init, prime-deploy">
 		<description>
 			Minify the CSS file.
 		</description>
@@ -203,11 +212,25 @@
 			fork="true"
 			failonerror="true"
 		>
-			<arg line="-o ${deploy.dir}/${dist.package.name}-min.css ${deploy.dir}/${product.name}.css" />
+			<arg line="-o ${deploy.dir}/assets/${product.name}-min.css ${deploy.dir}/assets/${product.name}.css" />
 		</java>
+
+		<!--
+			Browsers seem to be unable to use the compressed CSS file, so as
+			a temporary workaround we just copy the uncompressed file back over
+			the compressed one.
+
+			See issue 8.
+		-->
+		<copy
+			file="${deploy.dir}/assets/${product.name}.css"
+			tofile="${deploy.dir}/assets/${product.name}-min.css"
+			failonerror="true"
+			overwrite="true"
+		/>
 	</target>
 
-	<target name="min-js" depends="init, create-deploy">
+	<target name="-min-js" depends="-init, prime-deploy">
 		<description>
 			Minify the JS file.
 		</description>
@@ -218,17 +241,27 @@
 			fork="true"
 			failonerror="true"
 		>
-			<arg line="-o ${deploy.dir}/${dist.package.name}-min.js ${deploy.dir}/${product.name}.js" />
+			<arg line="-o ${deploy.dir}/${product.name}-min.js ${deploy.dir}/${product.name}.js" />
 		</java>
 	</target>
 
-	<target name="min" depends="init, min-js, min-css">
+	<target name="min" depends="-init, -min-js, -min-css">
 		<description>
 			Minify everything, ready for distribution.
 		</description>
 	</target>
 
-	<target name="release" depends="init, min">
+	<target name="-create-deploy-package" depends="-init, min">
+		<zip destfile="${deploy.root.dir}/${deploy.package.name}">
+			<fileset dir="${deploy.dir}">
+				<include name="**/*" />
+				<exclude name="${product.name}.js" />
+				<exclude name="assets/${product.name}.css" />
+			</fileset>
+		</zip>
+	</target>
+
+	<target name="release" depends="-init, -create-deploy-package">
 		<description>
 			Upload the compressed JS and CSS files.
 		</description>
@@ -240,28 +273,14 @@
 			username="${gc.username}"
 			password="${gc.password}"
 			projectname="${project.name}"
-			filename="${deploy.dir}/${dist.package.name}-min.js"
-			targetfilename="${dist.package.name}-min.js"
-			summary="Version ${version.number} of ${product.name} JS file (compressed)"
-			labels="Type-Executable, OpSys-All"
-		/>
-
-		<!--
-			The compressed CSS file doesn't work properly with XForms, so as a temporary
-			workaround, we upload the uncompressed file, but name it as if it's compressed.
-		-->
-		<gcupload
-			username="${gc.username}"
-			password="${gc.password}"
-			projectname="${project.name}"
-			filename="${deploy.dir}/${product.name}.css"
-			targetfilename="${dist.package.name}-min.css"
-			summary="Version ${version.number} of ${product.name} CSS file (compressed)"
-			labels="Type-Executable, OpSys-All"
+			filename="${deploy.root.dir}/${deploy.package.name}"
+			targetfilename="${deploy.package.name}"
+			summary="${project.name} deployment package, version ${version.number}"
+			labels="Type-Archive, OpSys-All, Featured"
 		/>
 	</target>
 
-	<target name="upload-a-file-to-gc" depends="init">
+	<target name="upload-a-file-to-gc" depends="-init">
 		<description>
 			This is just a handy way to upload an individual file. It's not used in the
 			build process.
