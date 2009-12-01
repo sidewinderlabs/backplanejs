@@ -289,38 +289,10 @@ var DECORATOR = function () {
 	function ffSetupDecorator(defs, ns) {
 		var cssNode, oHead, oStyle, s, htmlPrefix, htmlNamespaceURI, xformsPrefix,
 		xformsNamespaceURI, anHTMLPrefix, aXFormsPrefix, i, sRule, styleTextNode;
-	  //HACK: in order to get XBLs working in firefox 3, a prebuilt stylesheet has been created, and
-	  //  unexpected namespace prefixes are ignored.
-		if (ns === "http://www.w3.org/2002/xforms" && isFirefox3()) {
-			try {
-				cssNode = document.createElement('link');
-				cssNode.type = 'text/css';
-				cssNode.rel = 'stylesheet';
-				cssNode.href = g_sBehaviourDirectory + "generated-css.css";
-				cssNode.media = 'screen';
-				cssNode.title = 'dynamicLoadedSheet';
-				document.getElementsByTagName("head")[0].appendChild(cssNode);
-			}
-			catch (e) {
-				alert(e);
-			}
-		} else if (ns === "http://www.w3.org/2005/SMIL21/BasicAnimation" && isFirefox3()) {
-    //ignore, this is already in generated-css
- /*     try{
-        var cssNode = document.createElement('link');
-        cssNode.type = 'text/css';
-        cssNode.rel = 'stylesheet';
-        cssNode.href = g_sBehaviourDirectory +"smil.css";
-        cssNode.media = 'screen';
-        cssNode.title = 'dynamicLoadedSheet';
-        document.getElementsByTagName("head")[0].appendChild(cssNode);
-      }
-      catch(e) {
-        alert(e);
-      }
-   */
-		} else {
-
+	  // HACK: in order to get XBLs working in firefox 3, a prebuilt stylesheet has been created, and
+	  // unexpected namespace prefixes are ignored. This prebuilt stylesheet is at "generated-css.css"
+	  // and is imported at build time, so if we're running on FF there's nothing left to do.
+		if (!isFirefox3()) {
     	oHead = document.getElementsByTagName("head")[0];
     	oStyle = document.createElement('style');
     	s = "";

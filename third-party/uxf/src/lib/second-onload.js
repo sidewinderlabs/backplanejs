@@ -28,17 +28,7 @@ function FFInsertElementForOnloadXBL() {
   var oBody = document.getElementsByTagName("body")[0], cssNode, oHead, oStyle;
   oBody.insertAdjacentHTML("beforeEnd","<p id='second-onload-loading-element' style='width:0px;display:inline-block;'>Loading...</p>");
 
-  if(isFirefox3() || UX.isIE6 || UX.isIE7 || UX.isQuirksMode) {
-    cssNode = document.createElement('link');
-    cssNode.type = 'text/css';
-    cssNode.rel = 'stylesheet';
-    cssNode.href = g_sBehaviourDirectory +"onload.css";
-    cssNode.media = 'screen';
-    cssNode.title = 'dynamicLoadedSheet';
-    document.getElementsByTagName("head")[0].appendChild(cssNode);
-   }
-   else
-   {
+  if(!(isFirefox3() || UX.isIE6 || UX.isIE7 || UX.isQuirksMode)) {
       oHead = document.getElementsByTagName("head")[0];
       oStyle = document.createElement('style');
 
