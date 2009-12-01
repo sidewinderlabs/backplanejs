@@ -1,0 +1,14 @@
+application: backplanejs
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /deploy/backplanejs-0.4.0
+  static_dir: ../../deploy/backplanejs-0.4.0
+
+- url: /samples
+  static_dir: ../../_samples
+
+- url: .*
+  script: main.py
