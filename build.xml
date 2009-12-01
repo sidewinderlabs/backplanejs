@@ -14,10 +14,27 @@
    - See the License for the specific language governing permissions and
    - limitations under the License.
    -->
-<project name="backplanejs" default="dist" basedir=".">
+<project name="backplanejs" default="help" basedir=".">
 	<description>
 		Ant project for various backplanejs tasks.
 	</description>
+
+	<target name="help">
+		<echo>The following targets are supported:</echo>
+		<echo />
+		<echo>jslint:</echo>
+		<echo>  Run JSLint on all JavaScript files.</echo>
+		<echo />
+		<echo>tidy-js:</echo>
+		<echo>  Do some basic tidying up of source files, such as ensuring they use CRLF.</echo>
+		<echo />
+		<echo>create-deploy:</echo>
+		<echo>  Primes the deployment directory, for testing or ready for a release.</echo>
+		<echo />
+		<echo>release:</echo>
+		<echo>  Combines and compresses both the JavaScript and CSS files, before</echo>
+		<echo>  uploading them to the download are on Google Code.</echo>
+	</target>
 
 	<target name="load.properties">
 		<property file="ant.properties" />
@@ -151,36 +168,6 @@
 		</exec>
 	</target>
 
-	<target name="min-css" depends="init, create-css">
-		<description>
-			Minify the CSS file.
-		</description>
-
-		<java
-			classname="com.yahoo.platform.yui.compressor.YUICompressor"
-			classpathref="ant.tasks.classpath"
-			fork="true"
-			failonerror="true"
-		>
-			<arg line="-o ${deploy.dir}/${dist.package.name}-min.css ${deploy.dir}/${product.name}.css" />
-		</java>
-	</target>
-
-	<target name="min-js" depends="init, create-js">
-		<description>
-			Minify the JS file.
-		</description>
-
-		<java
-			classname="com.yahoo.platform.yui.compressor.YUICompressor"
-			classpathref="ant.tasks.classpath"
-			fork="true"
-			failonerror="true"
-		>
-			<arg line="-o ${deploy.dir}/${dist.package.name}-min.js ${deploy.dir}/${product.name}.js" />
-		</java>
-	</target>
-
 	<target name="create-deploy" depends="init, create-js, create-css">
 		<description>
 			Create a set of deployment files, for testing or distribution.
@@ -195,7 +182,6 @@
 				<include name="bg-fader.gif" />
 				<include name="decorator.xml" />
 				<include name="instance.htc" />
-				<include name="onload.css" />
 				<include name="onload.xml" />
 				<include name="select-deselected.png" />
 				<include name="select-selected.png" />
@@ -206,13 +192,43 @@
 		</copy>
 	</target>
 
+	<target name="min-css" depends="init, create-deploy">
+		<description>
+			Minify the CSS file.
+		</description>
+
+		<java
+			classname="com.yahoo.platform.yui.compressor.YUICompressor"
+			classpathref="ant.tasks.classpath"
+			fork="true"
+			failonerror="true"
+		>
+			<arg line="-o ${deploy.dir}/${dist.package.name}-min.css ${deploy.dir}/${product.name}.css" />
+		</java>
+	</target>
+
+	<target name="min-js" depends="init, create-deploy">
+		<description>
+			Minify the JS file.
+		</description>
+
+		<java
+			classname="com.yahoo.platform.yui.compressor.YUICompressor"
+			classpathref="ant.tasks.classpath"
+			fork="true"
+			failonerror="true"
+		>
+			<arg line="-o ${deploy.dir}/${dist.package.name}-min.js ${deploy.dir}/${product.name}.js" />
+		</java>
+	</target>
+
 	<target name="min" depends="init, min-js, min-css">
 		<description>
 			Minify everything, ready for distribution.
 		</description>
 	</target>
 
-	<target name="release" depends="init">
+	<target name="release" depends="init, min">
 		<description>
 			Upload the compressed JS and CSS files.
 		</description>
@@ -247,7 +263,8 @@
 
 	<target name="upload-a-file-to-gc" depends="init">
 		<description>
-			This is just a handy way to upload an individual file.
+			This is just a handy way to upload an individual file. It's not used in the
+			build process.
 		</description>
 
 		<fail unless="gc.username" message="Missing property 'gc.username' from file 'build.credentials.properties'." />
@@ -257,9 +274,9 @@
 			username="${gc.username}"
 			password="${gc.password}"
 			projectname="${project.name}"
-			filename="${deploy.dir}/assets/instance.htc"
-			targetfilename="instance.htc"
-			summary="instance HTC file"
+			filename="//Users/markbirbeck/Documents/svn/backplanejs/_samples/xforms/xforms-hint.html"
+			targetfilename="xforms-hint.html"
+			summary="XForms sample, demonstrating hint"
 			labels="Type-Executable, OpSys-All"
 		/>
 	</target>
