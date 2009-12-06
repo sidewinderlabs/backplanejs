@@ -8,6 +8,10 @@ xf\:submission, xforms\:submission {
   -moz-binding: url("decorator.xml#decorator");
 }
 
+xf\:header, xforms\:header {
+  -moz-binding: url("decorator.xml#decorator");
+}
+
 xf\:submit, xforms\:submit {
   -moz-binding: url("decorator.xml#decorator");
 }

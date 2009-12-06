@@ -17,6 +17,11 @@
 function Header(element) {
 	this.element = element;
 	this.template = null;
+
+	// Hack for issue 612. If there is no @nodeset, decorate child elements immediately.
+	if (!this.element.getAttribute('nodeset')) {
+		UX.addClassName(this.element, 'header-ready');
+	}
 };
 
 Header.prototype.onDocumentReady = function() {
@@ -31,9 +36,9 @@ Header.prototype.onDocumentReady = function() {
 		
 		model = getModelFor(this);
 		model.addControl(this);
+
+		UX.addClassName(this.element, "header-ready");
 	}
-	
-	UX.addClassName(this.element, "header-ready");
 };
 
 Header.prototype.refresh = function() {};

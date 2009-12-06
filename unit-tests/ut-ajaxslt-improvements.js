@@ -6,7 +6,7 @@
 				'<foo>',
 					'<bar>hello</bar>',
 					'<baz>world</baz>',
-					'<koda>basanda<bosoya>umahasha</bosoya>tikki<ottobo></ottobo></koda>'
+					'<koda>basanda<bosoya>umahasha</bosoya>tikki<ottobo/></koda>',
 				'</foo>'
 			].join('');
 
@@ -45,7 +45,7 @@
 				},
 
 				testCDATA : function () {
-					Assert.areEqual("<foo><bar><![CDATA[hello]]></bar><baz>world</baz><koda><![CDATA[basanda]]><bosoya>umahasha</bosoya><![CDATA[tikki]]><ottobo></ottobo><![CDATA[]]></koda></foo>", xmlText(xmlDoc, [ "bar", "koda" ]));
+					Assert.areEqual("<foo><bar><![CDATA[hello]]></bar><baz>world</baz><koda><![CDATA[basanda]]><bosoya>umahasha</bosoya><![CDATA[tikki]]><ottobo/></koda></foo>", xmlText(xmlDoc, [ "bar", "koda" ]));
 				}
 			})
 		);

@@ -1077,13 +1077,13 @@ DECORATOR.setupDecorator(
             selector: UX.selectors.repeat.repeatReady,
             objects:[]
         }, 
-	// Switch off bindings within headers during load-time (FF)
+	// Switch header bindings back on (FF)
 		{
 			selector: UX.selectors.header.headerReady,
 			objects:[]
 		},
             
-	//Switch off bindings within repeat,itemset during load-time (IE )
+	//Switch off bindings within repeat, itemset, header during load-time (IE )
 		{
 			selector:"xf|repeat *, xf|itemset *, xf|header *", 
 			cssText:"-binding-ignore:true;"
@@ -1099,7 +1099,7 @@ DECORATOR.setupDecorator(
 		},
    	//Switch bindings repeat back on within repeat.  (IE )
          {
-            selector:"xf|repeat.repeat-ready *, xf|header.header-ready *",
+            selector:"xf|repeat.repeat-ready *",
             cssText:"-binding-ignore:false;"
         },
     //Switch bindings itemset back on within itemset.  (IE )        
@@ -1107,16 +1107,10 @@ DECORATOR.setupDecorator(
             selector:"xf|itemset.repeat-ready *",
             cssText:"-binding-ignore:false;"
         },
-		
 	//Switch bindings header back on within header. (IE )
 		{
 			selector:"xf|header.header-ready *",
 			cssText:"-binding-ignore:false;"
 		}
-		
-		
-		
-		
 	],
 	"http://www.w3.org/2002/xforms"); //to tell the decorator so that it doesn't need to write these definitions again
-

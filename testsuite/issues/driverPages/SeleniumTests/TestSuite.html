@@ -16,19 +16,12 @@
 <html>
 	<head>
 		<meta content="text/html; charset=UTF-8" http-equiv="content-type">
-
-		<title>
-			Ubiquity XForms Regression Test Suite
-		</title>
-
+		<title>Ubiquity XForms Regression Test Suite</title>
 		<link rel="stylesheet" type="text/css" href="../../../selenium/core/selenium.css" />
-
 		<script language="JavaScript" type="text/javascript" src="../../../selenium/core/scripts/selenium-browserdetect.js">/**/</script>
-
 		<script language="JavaScript" type="text/javascript">
 			// <![CDATA[
 			var DISABLED = true; // used to flag failing tests
-
 			function filterTestsForBrowser() {
 				var suiteTable = document.getElementById("suiteTable");
 				var skippedTests = document.getElementById("skippedTests");
@@ -38,7 +31,6 @@
 				var cellHTML;
 				var newRow;
 				var newCell;
-
 				for (rowNum = suiteTable.rows.length - 1; rowNum >= 0; --rowNum) {
 					row = suiteTable.rows[rowNum];
 					filterString = row.getAttribute("unless");
@@ -54,235 +46,195 @@
 			//]]>
 		</script>
 	</head>
-
 	<body onload="filterTestsForBrowser();">
 		<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium">
 			<tbody>
 				<tr>
 					<td>
-						<strong>
-							Ubiquity XForms Regression Test Suite
-						</strong>
+						<strong>Ubiquity XForms Regression Test Suite</strong>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00206.html">
-							Issue 206
-						</a>
+						<a href="./issue-00206.html">Issue 206</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00212.html">
-							Issue 212
-						</a>
+						<a href="./issue-00212.html">Issue 212</a>
 					</td>
 				</tr>
-				<!-- As long as issue 228 remains open, this test should be commented out. -->
-				<!--tr>
+				<!-- Issue 216 disabled for modal message problem (see issue 228). -->
+				<tr unless="true">
 					<td>
-						<a href="./issue-00216.html">
-							Issue 216
-						</a>
-					</td>
-				</tr-->
-				<tr>
-					<td>
-						<a href="./issue-00229.html">
-							Issue 229
-						</a>
+						<a href="./issue-00216.html">Issue 216</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00230.html">
-							Issue 230
-						</a>
+						<a href="./issue-00229.html">Issue 229</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00232.html">
-							Issue 232
-						</a>
+						<a href="./issue-00230.html">Issue 230</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00241.html">
-							Issue 241
-						</a>
+						<a href="./issue-00232.html">Issue 232</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00242.html">
-							Issue 242
-						</a>
+						<a href="./issue-00241.html">Issue 241</a>
 					</td>
 				</tr>
-				<!-- As long as this test for issue 246 thrashes the CPU (see issue 435), it should be commented out. -->
-				<!--tr>
+				<!-- Issue 242 fails in Safari (see issue 614). -->
+				<tr unless="browserVersion.browser === BrowserVersion.SAFARI">
 					<td>
-						<a href="./issue-00246.html">
-							Issue 246
-						</a>
+						<a href="./issue-00242.html">Issue 242</a>
 					</td>
-				</tr-->
-				<tr>
+				</tr>
+				<!-- Issue 246 disabled for CPU thrashing (see issue 435). -->
+				<tr unless="true">
 					<td>
-						<a href="./issue-00257.html">
-							Issue 257
-						</a>
+						<a href="./issue-00246.html">Issue 246</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00265.html">
-							Issue 265
-						</a>
+						<a href="./issue-00257.html">Issue 257</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00284.html">
-							Issue 284
-						</a>
+						<a href="./issue-00265.html">Issue 265</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00285.html">
-							Issue 285
-						</a>
+						<a href="./issue-00284.html">Issue 284</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00290.html">
-							Issue 290
-						</a>
+						<a href="./issue-00285.html">Issue 285</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00293.html">
-							Issue 293
-						</a>
+						<a href="./issue-00290.html">Issue 290</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00295.html">
-							Issue 295
-						</a>
+						<a href="./issue-00293.html">Issue 293</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00296.html">
-							Issue 296
-						</a>
+						<a href="./issue-00295.html">Issue 295</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00306.html">
-							Issue 306
-						</a>
+						<a href="./issue-00296.html">Issue 296</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00412.html">
-							Issue 412
-						</a>
+						<a href="./issue-00306.html">Issue 306</a>
+					</td>
+				</tr>
+				<!-- Issue 412 fails in Safari (see issue 614). -->
+				<tr unless="browserVersion.browser === BrowserVersion.SAFARI">
+					<td>
+						<a href="./issue-00412.html">Issue 412</a>
+					</td>
+				</tr>
+				<!-- Issue 415 fails in Safari (see issue 614). -->
+				<tr unless="browserVersion.browser === BrowserVersion.SAFARI">
+					<td>
+						<a href="./issue-00415.html">Issue 415</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00415.html">
-							Issue 415
-						</a>
+						<a href="./issue-00418.html">Issue 418</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00418.html">
-							Issue 418
-						</a>
+						<a href="./issue-00432.html">Issue 432</a>
+					</td>
+				</tr>
+				<!-- Issue 439 fails in Safari (see issue 614). -->
+				<tr unless="browserVersion.browser === BrowserVersion.SAFARI">
+					<td>
+						<a href="./issue-00439.html">Issue 439</a>
+					</td>
+				</tr>
+				<!-- Issue 506 fails in Safari (see issue 614). -->
+				<tr unless="browserVersion.browser === BrowserVersion.SAFARI">
+					<td>
+						<a href="./issue-00506.html">Issue 506</a>
+					</td>
+				</tr>
+				<!-- Range as a map fails in Safari (see issue 614). -->
+				<tr unless="browserVersion.browser === BrowserVersion.SAFARI">
+					<td>
+						<a href="./issue-range-map.html">range as a map</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00432.html">
-							Issue 432
-						</a>
+						<a href="./issue-00523.html">Issue 523</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00439.html">
-							Issue 439
-						</a>
+						<a href="./issue-00525.html">Issue 525</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00506.html">
-							Issue 506
-						</a>
+						<a href="./issue-00594.html">Issue 594</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00523.html">
-							Issue 523
-						</a>
+						<a href="./issue-00595.html">Issue 595</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00525.html">
-							Issue 525
-						</a>
+						<a href="./issue-00596.html">Issue 596</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00594.html">
-							Issue 594
-						</a>
+						<a href="./issue-00610.html">Issue 610</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00595.html">
-							Issue 595
-						</a>
+						<a href="./issue-00612h.html">Issue 612 (HTML)</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<a href="./issue-00596.html">
-							Issue 596
-						</a>
+						<a href="./issue-00612x.html">Issue 612 (XHTML)</a>
 					</td>
 				</tr>
+			</tbody>
+		</table>
+		<br />
+		<em>Not supported in this browser</em>
+		<table id="skippedTests" cellpadding="1" cellspacing="1" border="1" class="selenium">
+			<tbody>
 				<tr>
-					<td>
-						<a href="./issue-00610.html">
-							Issue 610
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<a href="./issue-range-map.html">
-							range as a map
-						</a>
-					</td>
+					<td><b>Skipped Tests</b></td>
 				</tr>
 			</tbody>
 		</table>
