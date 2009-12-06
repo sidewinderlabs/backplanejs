@@ -17,23 +17,28 @@
 function Header(element) {
 	this.element = element;
 	this.template = null;
+
+	// Hack for issue 612. If there is no @nodeset, decorate child elements immediately.
+	if (!this.element.getAttribute('nodeset')) {
+		UX.addClassName(this.element, 'header-ready');
+	}
 };
 
 Header.prototype.onDocumentReady = function() {
 	var model = null;
-	
+
 	if (this.element.getAttribute("nodeset")) {
 		this.template = this.element.cloneNode(true);
-		
+
 		while (this.element.hasChildNodes()) {
 			this.element.removeChild(this.element.firstChild);
 		}
-		
+
 		model = getModelFor(this);
 		model.addControl(this);
+
+		UX.addClassName(this.element, "header-ready");
 	}
-	
-	UX.addClassName(this.element, "header-ready");
 };
 
 Header.prototype.refresh = function() {};
@@ -54,23 +59,23 @@ Header.prototype.rewire = function() {
 
 		context = this.element.getEvaluationContext();
 		nodes = context.model.EvaluateXPath(expression, context).value;
-		
+
 		if (nodes) {
 			name = NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms")[0] + ":header";
-			
+
 			for ( i = 0; i < nodes.length; i++ ) {
-				
+
 				element = document.createElementNS("http://www.w3.org/2002/xforms", name);
-				
+
 				element.setAttribute("ref", ".");
 				element.setAttribute("ordinal", i + 1);
 				UX.addClassName(element, "header-ready");
-				
+
 				template = this.template.cloneNode(true);
 				while (template.hasChildNodes()) {
 					element.appendChild(template.firstChild);
 				}
-				
+
 				this.element.appendChild(element);
 			}
 
@@ -78,6 +83,6 @@ Header.prototype.rewire = function() {
 				DECORATOR.applyDecorationRules(this.element);
 			}
 		}
-		
+
 	}
 };

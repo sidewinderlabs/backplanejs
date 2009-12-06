@@ -45,7 +45,7 @@ DECORATOR.addDecorationRules({
             }
         }
         ],
-		
+
         "header" : [
         {
             "name" : "header-element",
@@ -184,7 +184,7 @@ DECORATOR.addDecorationRules({
             }
         }
         ],
-        
+
         "mediatype" : [
         {
             "name" : "mediatype-element",
@@ -267,7 +267,7 @@ DECORATOR.addDecorationRules({
             }
         }
         ],
-        
+
         "value" : [
         {
             "name" : "value-element",
@@ -276,7 +276,7 @@ DECORATOR.addDecorationRules({
             }
         }
         ],
-        
+
         "copy" : [
         {
             "name" : "copy-element",
@@ -319,7 +319,7 @@ DECORATOR.addDecorationRules({
             }
         }
         ],
-        
+
         "message" : [
         {
             "name" : "message-element",
@@ -337,7 +337,7 @@ DECORATOR.addDecorationRules({
             }
         }
         ],
-        
+
         "setvalue" : [
         {
             "name" : "setvalue-element",
@@ -382,7 +382,7 @@ DECORATOR.addDecorationRules({
             }
         }
         ],
-        
+
         "dispatch" : [
         {
             "name" : "dispatch-element",
@@ -691,15 +691,15 @@ UX.selectors = {
         }
     },
      itemset : {
-        repeatReady : "xf|itemset.repeat-ready > xf|item"     
+        repeatReady : "xf|itemset.repeat-ready > xf|item"
     },
     repeat : {
-        repeatReady : "xf|repeat.repeat-ready > xf|group"     
+        repeatReady : "xf|repeat.repeat-ready > xf|group"
     },
 	header : {
 		headerReady : "xf|header.header-ready > *"
 	}
-	
+
 };
 
 // Attribute selectors are added if the user agent supports them
@@ -723,7 +723,7 @@ if (!UX.isIE6) {
 //	come after any controls that might use them, as (at present, anyway) label
 //	is implemented as a control.
 
-NamespaceManager.addSelectionNamespace("xf","http://www.w3.org/2002/xforms");	
+NamespaceManager.addSelectionNamespace("xf","http://www.w3.org/2002/xforms");
 
 DECORATOR.setupDecorator(
 	[
@@ -749,7 +749,7 @@ DECORATOR.setupDecorator(
 			selector:"xf|header",
 			objects:[]
 		},
-		
+
 		{
 			selector: "xf|name",
 			objects:[]
@@ -786,7 +786,7 @@ DECORATOR.setupDecorator(
 			selector:"xf|trigger",
 			objects:[]
 		},
-		
+
 		{
 			selector:"xf|output >  pe-value",
 			objects:[]
@@ -816,7 +816,7 @@ DECORATOR.setupDecorator(
 			selector:"xf|textarea",
 			objects:[]
 		},
-		
+
 		{
 			selector:"xf|secret",
 			objects:[]
@@ -850,7 +850,7 @@ DECORATOR.setupDecorator(
 			selector:"xf|textarea  > pe-value",
 			objects:[]
 		},
-	
+
 		{
 			selector:"xf|select > pe-value",
 			objects:[]
@@ -888,7 +888,7 @@ DECORATOR.setupDecorator(
             selector:"xf|mediatype",
             objects:[]
         },
-        
+
 		{
 			selector:"xf|value > pe-value",
 			objects:[]
@@ -954,8 +954,8 @@ DECORATOR.setupDecorator(
 		{
 			selector:"xf|select",
 			objects:[]
-		},				
-		
+		},
+
 		{
 			selector:"xf|select1",
 			objects:[]
@@ -990,7 +990,7 @@ DECORATOR.setupDecorator(
 			selector:"xf|setindex",
 			objects:[]
 		},
-		
+
 		{
 			selector:"xf|setvalue",
 			objects:[]
@@ -1015,7 +1015,7 @@ DECORATOR.setupDecorator(
 			selector:"xf|send",
 			objects:[]
 		},
-		
+
 		{
 			selector:"xf|dispatch",
 			objects:[]
@@ -1051,17 +1051,17 @@ DECORATOR.setupDecorator(
 			selector:"xf|label >  pe-value",
 			objects:[],
 			important:true
-		},       
+		},
         {
             selector:"xf|mediatype >  pe-value",
             objects:[]
-        }, 
+        },
         {
             selector:"xf|name >  pe-value",
             objects:[]
-        },   
-    
-        
+        },
+
+
     //Switch off bindings within repeat, during load-time (FF )
         {
             selector:"xf|repeat > *,  xf|itemset > *, xf|header > *",
@@ -1070,53 +1070,47 @@ DECORATOR.setupDecorator(
         {
             selector: UX.selectors.itemset.repeatReady,
             objects:[]
-        }, 
-        
+        },
+
     //Switch bindings repeat back on within repeat.  (FF )
         {
             selector: UX.selectors.repeat.repeatReady,
             objects:[]
-        }, 
-	// Switch off bindings within headers during load-time (FF)
+        },
+	// Switch header bindings back on (FF)
 		{
 			selector: UX.selectors.header.headerReady,
 			objects:[]
 		},
-            
-	//Switch off bindings within repeat,itemset during load-time (IE )
+
+	//Switch off bindings within repeat, itemset, header during load-time (IE )
 		{
-			selector:"xf|repeat *, xf|itemset *, xf|header *", 
+			selector:"xf|repeat *, xf|itemset *, xf|header *",
 			cssText:"-binding-ignore:true;"
 		},
 
 		{
-			selector:"xf|repeat.repeat-ready xf|repeat.repeat-ready *", 
+			selector:"xf|repeat.repeat-ready xf|repeat.repeat-ready *",
 			cssText:"-binding-ignore:false;"
 		},
 		{
-			selector:"xf|repeat.repeat-ready xf|repeat *", 
+			selector:"xf|repeat.repeat-ready xf|repeat *",
 			cssText:"-binding-ignore:true;"
 		},
    	//Switch bindings repeat back on within repeat.  (IE )
          {
-            selector:"xf|repeat.repeat-ready *, xf|header.header-ready *",
+            selector:"xf|repeat.repeat-ready *",
             cssText:"-binding-ignore:false;"
         },
-    //Switch bindings itemset back on within itemset.  (IE )        
+    //Switch bindings itemset back on within itemset.  (IE )
         {
             selector:"xf|itemset.repeat-ready *",
             cssText:"-binding-ignore:false;"
         },
-		
 	//Switch bindings header back on within header. (IE )
 		{
 			selector:"xf|header.header-ready *",
 			cssText:"-binding-ignore:false;"
 		}
-		
-		
-		
-		
 	],
 	"http://www.w3.org/2002/xforms"); //to tell the decorator so that it doesn't need to write these definitions again
-
