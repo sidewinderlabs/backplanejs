@@ -4,11 +4,17 @@ runtime: python
 api_version: 1
 
 handlers:
-- url: /deploy/backplanejs-0.4.0
+- url: /backplanejs-0.4.0
   static_dir: ../../deploy/backplanejs-0.4.0
 
 - url: /samples
   static_dir: ../../_samples
+
+- url: /unit-tests
+  static_dir: ../../_unit-tests
+
+- url: /work
+  static_dir: ../../work
 
 - url: .*
   script: main.py

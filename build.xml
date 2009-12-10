@@ -40,7 +40,7 @@
 
 	<target name="-load.properties">
 		<property file="ant.properties" />
-		<property file="build.credentials.properties" />
+		<property file="my.ant.properties" />
 	</target>
 
 	<target name="-init" depends="-load.properties">
@@ -159,6 +159,46 @@
 		</concat>
 	</target>
 
+	<target name="create-unit-tests" depends="-init">
+		<description>
+			Create the unit test files, by concatenating the individual
+			unit tests.
+		</description>
+
+		<copy file="${tools.dir}/tests/unit-test-runner.js" tofile="_unit-tests/unit-test-runner.js" failonerror="true" />
+
+		<!--
+			Backplane
+		-->
+		<concat destfile="_unit-tests/backplane/unit-tests.js" force="no" eol="crlf">
+			<fileset dir="third-party/uxf/src/lib/backplane/_unit-tests">
+				<include name="**/*.js" />
+			</fileset>
+		</concat>
+		<copy file="${tools.dir}/tests/unit.html" tofile="_unit-tests/backplane/main.html" failonerror="true" />
+
+		<!--
+			RDFa
+		-->
+		<concat destfile="_unit-tests/rdfa/unit-tests.js" force="no" eol="crlf">
+			<fileset dir="rdfa/_unit-tests">
+				<include name="**/*.js" />
+			</fileset>
+		</concat>
+		<copy file="${tools.dir}/tests/unit.html" tofile="_unit-tests/rdfa/main.html" failonerror="true" />
+
+		<!--
+			XForms
+		-->
+		<concat destfile="_unit-tests/xforms/unit-tests.js" force="no" eol="crlf">
+			<fileset dir="third-party/uxf/unit-tests">
+				<include name="**/*.js" />
+				<exclude name="unit-test-loader.js" />
+			</fileset>
+		</concat>
+		<copy file="${tools.dir}/tests/unit.html" tofile="_unit-tests/xforms/main.html" failonerror="true" />
+	</target>
+
 	<target name="-create-js" depends="-init">
 		<description>
 			Create the JS file.
@@ -251,7 +291,7 @@
 		</description>
 	</target>
 
-	<target name="-create-deploy-package" depends="-init, min">
+	<target name="create-deploy-package" depends="-init, min">
 		<zip destfile="${deploy.root.dir}/${deploy.package.name}">
 			<fileset dir="${deploy.dir}">
 				<include name="**/*" />
@@ -261,13 +301,13 @@
 		</zip>
 	</target>
 
-	<target name="release" depends="-init, -create-deploy-package">
+	<target name="release" depends="-init, create-deploy-package">
 		<description>
-			Upload the compressed JS and CSS files.
+			Create a release by uploading the package to Google Code.
 		</description>
 
-		<fail unless="gc.username" message="Missing property 'gc.username' from file 'build.credentials.properties'." />
-		<fail unless="gc.password" message="Missing property 'gc.password' from file 'build.credentials.properties'." />
+		<fail unless="gc.username" message="Missing property 'gc.username' from file 'my.ant.properties'." />
+		<fail unless="gc.password" message="Missing property 'gc.password' from file 'my.ant.properties'." />
 
 		<gcupload
 			username="${gc.username}"
@@ -280,23 +320,9 @@
 		/>
 	</target>
 
-	<target name="upload-a-file-to-gc" depends="-init">
-		<description>
-			This is just a handy way to upload an individual file. It's not used in the
-			build process.
-		</description>
-
-		<fail unless="gc.username" message="Missing property 'gc.username' from file 'build.credentials.properties'." />
-		<fail unless="gc.password" message="Missing property 'gc.password' from file 'build.credentials.properties'." />
-
-		<gcupload
-			username="${gc.username}"
-			password="${gc.password}"
-			projectname="${project.name}"
-			filename="//Users/markbirbeck/Documents/svn/backplanejs/_samples/xforms/xforms-hint.html"
-			targetfilename="xforms-hint.html"
-			summary="XForms sample, demonstrating hint"
-			labels="Type-Executable, OpSys-All"
-		/>
+	<target name="serve" depends="-init">
+		<exec executable="dev_appserver.py">
+			<arg line="${tools.dir}/GoogleAppEngine" />
+		</exec>
 	</target>
 </project>
