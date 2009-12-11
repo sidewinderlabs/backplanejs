@@ -155,6 +155,7 @@
 		<concat destfile="${output.dir}/${product.name}.css" force="no" eol="crlf">
 			<fileset dir="${output.dir}/assets">
 				<include name="**/*.css" />
+				<exclude name="**/lens/*.css" />
 			</fileset>
 		</concat>
 	</target>
@@ -237,6 +238,7 @@
 				<include name="select1-deselected.png" />
 				<include name="select1-selected.png" />
 				<include name="thumb-n.gif" />
+				<include name="lens/*" />
 			</fileset>
 		</copy>
 	</target>
