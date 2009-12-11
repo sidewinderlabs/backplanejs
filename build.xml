@@ -324,11 +324,21 @@
 		<copy todir="${deploy.root.dir}" failonerror="true">
 			<fileset dir="${tools.dir}/GoogleAppEngine">
 				<include name="*.*" />
+				<exclude name="index.yaml" />
+				<exclude name="*.pyc" />
 			</fileset>
 		</copy>
 
+		<copy todir="${deploy.root.dir}/samples" failonerror="true">
+			<fileset dir="_samples" />
+		</copy>
+
+		<replace dir="${deploy.root.dir}/samples" token="../../deploy/backplanejs" value="/backplanejs">
+			<include name="**/*.html"/>
+		</replace>
+
 		<exec executable="appcfg.py" failonerror="true" inputstring="${gae.password}">
-			<arg line="--passin --email=${gae.username} update ${deploy.root.dir}/" />
+			<arg line="--passin -e ${gae.username} update ${deploy.root.dir}/" />
 		</exec>
 	</target>
 

@@ -11,7 +11,7 @@ handlers:
   static_dir: backplanejs-0.4.0
 
 - url: /samples
-  static_dir: ../../_samples
+  static_dir: samples
 
 - url: /unit-tests
   static_dir: ../../_unit-tests
