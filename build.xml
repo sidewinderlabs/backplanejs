@@ -320,6 +320,18 @@
 		/>
 	</target>
 
+	<target name="deploy-to-app-engine" depends="-init">
+		<copy todir="${deploy.root.dir}" failonerror="true">
+			<fileset dir="${tools.dir}/GoogleAppEngine">
+				<include name="*.*" />
+			</fileset>
+		</copy>
+
+		<exec executable="appcfg.py" failonerror="true" inputstring="${gae.password}">
+			<arg line="--passin --email=${gae.username} update ${deploy.root.dir}/" />
+		</exec>
+	</target>
+
 	<target name="serve" depends="-init">
 		<exec executable="dev_appserver.py">
 			<arg line="${tools.dir}/GoogleAppEngine" />

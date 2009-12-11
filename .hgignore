@@ -6,7 +6,7 @@ syntax: glob
 my.ant.properties
 
 _unit-tests
-
+tools/GoogleAppEngine/index.yaml
 build/output
 deploy
 work
