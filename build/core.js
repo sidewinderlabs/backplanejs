@@ -18,9 +18,12 @@
 //= require <yui/animation>
 //= require <yui/container_core>
 //= require <yui/connection>
+//= require <yui/treeview>
+//
+//= provide "../third-party/yui/assets"
 //
 var UX = { };
-var g_sBehaviourDirectory = "";
+var g_sBehaviourDirectory = "/backplanejs-0.6.0/assets/";
 
 //= require <UXUtils>
 //= require <sniffer>

@@ -28,3 +28,5 @@
 //= require <rdfa/fresnel>
 //= require <kb/kb>
 //= require <rdfa/metascan>
+//
+//= provide "../rdfa/assets"

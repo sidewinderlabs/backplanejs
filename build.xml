@@ -231,6 +231,7 @@
 			<fileset dir="${output.dir}/assets">
 				<include name="bg-fader.gif" />
 				<include name="decorator.xml" />
+				<include name="decorate.htc" />
 				<include name="instance.htc" />
 				<include name="onload.xml" />
 				<include name="select-deselected.png" />
@@ -322,13 +323,9 @@
 		/>
 	</target>
 
-	<target name="deploy-to-app-engine" depends="-init">
+	<target name="prime-deploy-to-app-engine" depends="-init, min">
 		<copy todir="${deploy.root.dir}" failonerror="true">
-			<fileset dir="${tools.dir}/GoogleAppEngine">
-				<include name="*.*" />
-				<exclude name="index.yaml" />
-				<exclude name="*.pyc" />
-			</fileset>
+			<fileset dir="${tools.dir}/GoogleAppEngine" />
 		</copy>
 
 		<copy todir="${deploy.root.dir}/samples" failonerror="true">
@@ -338,7 +335,9 @@
 		<replace dir="${deploy.root.dir}/samples" token="../../deploy/backplanejs" value="/backplanejs">
 			<include name="**/*.html"/>
 		</replace>
+	</target>
 
+	<target name="deploy-to-app-engine" depends="-init, prime-deploy-to-app-engine">
 		<exec executable="appcfg.py" failonerror="true" inputstring="${gae.password}">
 			<arg line="--passin -e ${gae.username} update ${deploy.root.dir}/" />
 		</exec>
@@ -346,7 +345,7 @@
 
 	<target name="serve" depends="-init">
 		<exec executable="dev_appserver.py">
-			<arg line="${tools.dir}/GoogleAppEngine" />
+			<arg line="${deploy.root.dir}" />
 		</exec>
 	</target>
 </project>
