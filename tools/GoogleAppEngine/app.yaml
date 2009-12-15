@@ -4,6 +4,9 @@ runtime: python
 api_version: 1
 
 handlers:
+- url: /backplanejs-0.6.1
+  static_dir: backplanejs-0.6.1
+
 - url: /backplanejs-0.6.0
   static_dir: backplanejs-0.6.0
 
@@ -22,9 +25,9 @@ handlers:
 - url: /work
   static_dir: ../../work
 
-- url: /rdfa-debugger.html
-  static_files: rdfa-debugger.html
-  upload: rdfa-debugger.html
+- url: /rdfa-viewer.html
+  static_files: rdfa-viewer.html
+  upload: rdfa-viewer.html
 
 - url: /.*
   script: rdfa.py

@@ -30,7 +30,7 @@ class MainPage(webapp.RequestHandler):
 
         url = self.request.get('url')
 
-        result = urlfetch.fetch(url)
+        result = urlfetch.fetch(url=url, allow_truncated=True, deadline=10)
         if result.status_code == 200:
             soup = BeautifulSoup(result.content)
             if soup.base == None:
@@ -39,14 +39,14 @@ class MainPage(webapp.RequestHandler):
                 soup.head.insert(0, base)
 
             script = Tag(soup, 'iframe')
-            script['src'] = 'http://backplanejs.appspot.com/rdfa-debugger.html'
-            script['style'] = 'font-family: Skia,sans-serif; background-color: transparent; width: 100%; height: 300px; padding: 0; margin: 0; overflow: hidden; position: fixed; bottom: 0; left: 0; border: 0; z-index: 999; '
+            script['src'] = 'http://backplanejs.appspot.com/rdfa-viewer.html'
+            script['style'] = 'background-color: transparent; width: 100%; height: 300px; padding: 0; margin: 0; overflow: hidden; position: fixed; bottom: 0; left: 0; border: 0; z-index: 999; '
             script['frameborder'] = '0'
             script['hspace'] = '0'
             script['vspace'] = '0'
             script['scrolling'] = 'no'
             script['allowtransparency'] = 'yes'
-            soup.body.insert(1, script)
+            soup.body.insert(0, script)
 
             self.response.out.write(soup.renderContents())
 

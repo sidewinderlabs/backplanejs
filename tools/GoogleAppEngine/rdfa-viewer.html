@@ -1,0 +1,134 @@
+<!--
+// Copyright (C) 2009 Mark Birbeck
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//  http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+-->
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xf="http://www.w3.org/2002/xforms"
+>
+	<head>
+    <title>Debug</title>
+		<script src="/backplanejs-0.6.1/backplane-min.js" type="text/javascript">/**/</script>
+		<link rel="stylesheet" href="/backplanejs-0.6.1/assets/backplane-min.css" />
+
+		<script src="/backplanejs-0.6.1/assets/lens/debug.js" type="text/javascript">/**/</script>
+		<style type="text/css">
+			html, body {
+				font-family: Skia,sans-serif;
+				background-color: transparent;
+			}
+
+			.treeTextNode {
+				color : white;
+				border: 1px solid white;
+			}
+
+			#panel {
+				padding: 0;
+				margin: 0;
+				background-color: #30353C;
+				opacity: 0.9;
+				filter: alpha(opacity=90);
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				-moz-border-radius-topleft: 5px;
+				-moz-border-radius-topright: 5px;
+				-webkit-border-radius-topleft: 5px;
+				-webkit-border-radius-topright: 5px;
+				border-top: 1px solid white;
+				border-left: 1px solid white;
+				border-right: 1px solid white;
+				margin-left: 2px;
+				margin-right: 2px;
+				margin-top: 0;
+				margin-bottom: 0;
+				padding: 10px;
+			}
+
+			#header {
+			}
+
+			#logo {
+			}
+
+			#body {
+				clear: both;
+			}
+
+			#show {
+				height: 225px;
+				overflow-y: auto;
+			}
+
+			#tree {
+			}
+
+			#links {
+				background-color: grey;
+				padding: 3px;
+			}
+
+			#sw-buttons {
+				float: right;
+				width: 60px;
+			}
+
+			xf\:case {
+				display: block;
+			}
+		</style>
+  </head>
+  <body>
+		<div id="panel">
+			<div id="header">
+				<img id="logo" src="/backplanejs-0.6.1/assets/wbp-logo.png" align="center" />
+				<span id="links">
+					RDFa Viewer | Built with
+					<a href="http://backplanejs.googlecode.com/" target="_new">backplanejs</a>
+					from <a href="http://webBackplane.com" target="_new">Backplane Ltd.</a>
+					| <a href="http://backplane.lighthouseapp.com/projects/43036-rdfa-viewer/home"
+					 target="_new">Report a problem or make a suggestion</a>
+				</span>
+				<xf:switch id="sw-buttons">
+					<xf:case id="button-hide">
+						<xf:trigger>
+							<xf:label>Hide</xf:label>
+							<xf:toggle case="button-show" ev:event="DOMActivate"></xf:toggle>
+							<xf:toggle case="hide" ev:event="DOMActivate"></xf:toggle>
+						</xf:trigger>
+					</xf:case>
+					<xf:case id="button-show">
+						<xf:trigger>
+							<xf:label>Show</xf:label>
+							<xf:toggle case="button-hide" ev:event="DOMActivate"></xf:toggle>
+							<xf:toggle case="show" ev:event="DOMActivate"></xf:toggle>
+						</xf:trigger>
+					</xf:case>
+				</xf:switch>
+			</div>
+
+			<xf:switch id="body">
+				<xf:case id="show">
+					<div id="tree"></div>
+					<div id="table"></div>
+				</xf:case>
+				<xf:case id="hide">
+				</xf:case>
+			</xf:switch>
+		</div>
+  </body>
+</html>
