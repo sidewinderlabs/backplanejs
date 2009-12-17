@@ -4,26 +4,19 @@ runtime: python
 api_version: 1
 
 handlers:
-- url: /backplanejs-0.6.1
-  static_dir: backplanejs-0.6.1
-
-- url: /backplanejs-0.6.0
-  static_dir: backplanejs-0.6.0
-
-- url: /backplanejs-0.5.0
-  static_dir: backplanejs-0.5.0
-
-- url: /backplanejs-0.4.0
-  static_dir: backplanejs-0.4.0
+- url: /backplanejs-(.*)/(.*)
+  static_files: backplanejs-\1/\2
+  upload: backplanejs-(.*)/(.*)
+  expiration: 1825d
 
 - url: /samples
   static_dir: samples
 
 - url: /unit-tests
-  static_dir: ../../_unit-tests
+  static_dir: unit-tests
 
 - url: /work
-  static_dir: ../../work
+  static_dir: ../work
 
 - url: /rdfa-viewer.html
   static_files: rdfa-viewer.html
@@ -31,3 +24,17 @@ handlers:
 
 - url: /.*
   script: rdfa.py
+
+skip_files: |
+  ^work/(.*)$|
+  ^(.*/)?(
+    (app\.yaml)|
+    (app\.yml)|
+    (index\.yaml)|
+    (index\.yml)|
+    (#.*#)|
+    (.*~)|
+    (.*\.py[co])|
+    (.*/RCS/.*)|
+    (\..*)|
+  )$

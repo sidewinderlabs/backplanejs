@@ -81,7 +81,6 @@
 				<!-- This collection is the same as in 'tidy-js' -->
 				<include name="**/*.js" />
 				<exclude name="_samples/**/*.js" />
-				<exclude name="_unit-tests/**/*.js" />
 				<exclude name="build/**/*.js" />
 				<exclude name="deploy/**/*.js" />
 				<exclude name="drupal/**/*.js" />
@@ -98,7 +97,6 @@
 				<exclude name="third-party/yui/**/*.js" />
 				<exclude name="_samples/**/*.js" />
 				<exclude name="tools/**/*.js" />
-				<exclude name="_unit-tests/**/*.js" />
 			</fileset>
  		</jslint>
 	</target>
@@ -125,7 +123,6 @@
 			<!-- This collection is the same as in 'jslint' -->
 			<include name="**/*.js" />
 			<exclude name="_samples/**/*.js" />
-			<exclude name="_unit-tests/**/*.js" />
 			<exclude name="build/**/*.js" />
 			<exclude name="deploy/**/*.js" />
 			<exclude name="drupal/**/*.js" />
@@ -142,7 +139,6 @@
 			<exclude name="third-party/yui/**/*.js" />
 			<exclude name="_samples/**/*.js" />
 			<exclude name="tools/**/*.js" />
-			<exclude name="_unit-tests/**/*.js" />
 		</fixcrlf>
 	</target>
 
@@ -166,38 +162,38 @@
 			unit tests.
 		</description>
 
-		<copy file="${tools.dir}/tests/unit-test-runner.js" tofile="_unit-tests/unit-test-runner.js" failonerror="true" />
+		<copy file="${tools.dir}/tests/unit-test-runner.js" tofile="${deploy.root.dir}/unit-tests/unit-test-runner.js" failonerror="true" />
 
 		<!--
 			Backplane
 		-->
-		<concat destfile="_unit-tests/backplane/unit-tests.js" force="no" eol="crlf">
+		<concat destfile="${deploy.root.dir}/unit-tests/backplane/unit-tests.js" force="no" eol="crlf">
 			<fileset dir="third-party/uxf/src/lib/backplane/_unit-tests">
 				<include name="**/*.js" />
 			</fileset>
 		</concat>
-		<copy file="${tools.dir}/tests/unit.html" tofile="_unit-tests/backplane/main.html" failonerror="true" />
+		<copy file="${tools.dir}/tests/unit.html" tofile="${deploy.root.dir}/unit-tests/backplane/main.html" failonerror="true" />
 
 		<!--
 			RDFa
 		-->
-		<concat destfile="_unit-tests/rdfa/unit-tests.js" force="no" eol="crlf">
+		<concat destfile="${deploy.root.dir}/unit-tests/rdfa/unit-tests.js" force="no" eol="crlf">
 			<fileset dir="rdfa/_unit-tests">
 				<include name="**/*.js" />
 			</fileset>
 		</concat>
-		<copy file="${tools.dir}/tests/unit.html" tofile="_unit-tests/rdfa/main.html" failonerror="true" />
+		<copy file="${tools.dir}/tests/unit.html" tofile="${deploy.root.dir}/unit-tests/rdfa/main.html" failonerror="true" />
 
 		<!--
 			XForms
 		-->
-		<concat destfile="_unit-tests/xforms/unit-tests.js" force="no" eol="crlf">
+		<concat destfile="${deploy.root.dir}/unit-tests/xforms/unit-tests.js" force="no" eol="crlf">
 			<fileset dir="third-party/uxf/unit-tests">
 				<include name="**/*.js" />
 				<exclude name="unit-test-loader.js" />
 			</fileset>
 		</concat>
-		<copy file="${tools.dir}/tests/unit.html" tofile="_unit-tests/xforms/main.html" failonerror="true" />
+		<copy file="${tools.dir}/tests/unit.html" tofile="${deploy.root.dir}/unit-tests/xforms/main.html" failonerror="true" />
 	</target>
 
 	<target name="-create-js" depends="-init">

@@ -23,7 +23,7 @@
 //= provide "../third-party/yui/assets"
 //
 var UX = { };
-var g_sBehaviourDirectory = "/backplanejs-0.6.0/assets/";
+var g_sBehaviourDirectory = "/backplanejs-0.6.2/assets/";
 
 //= require <UXUtils>
 //= require <sniffer>
