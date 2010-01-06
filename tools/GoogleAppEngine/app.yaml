@@ -4,6 +4,11 @@ runtime: python
 api_version: 1
 
 handlers:
+- url: (.*\.htc)
+  static_files: \1
+  upload: (.*\.htc)
+  mime_type: text/xml
+
 - url: /backplanejs-(.*)/(.*)
   static_files: backplanejs-\1/\2
   upload: backplanejs-(.*)/(.*)
@@ -25,16 +30,16 @@ handlers:
 - url: /.*
   script: rdfa.py
 
-skip_files: |
-  ^work/(.*)$|
-  ^(.*/)?(
-    (app\.yaml)|
-    (app\.yml)|
-    (index\.yaml)|
-    (index\.yml)|
-    (#.*#)|
-    (.*~)|
-    (.*\.py[co])|
-    (.*/RCS/.*)|
-    (\..*)|
-  )$
+skip_files:
+- ^work/(.*)
+- ^(.*/)?app\.yaml
+- ^(.*/)?app\.yml
+- ^(.*/)?index\.yaml
+- ^(.*/)?index\.yml
+- ^(.*/)?#.*#
+- ^(.*/)?.*~
+- ^(.*/)?.*\.py[co]
+- ^(.*/)?.*/RCS/.*
+- ^(.*/)?\..*
+- ^(.*/)?\.DS_Store
+- ^(.*/)?.*\.bak$

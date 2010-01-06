@@ -156,7 +156,7 @@
 		</concat>
 	</target>
 
-	<target name="create-unit-tests" depends="-init">
+	<target name="-create-unit-tests" depends="-init">
 		<description>
 			Create the unit test files, by concatenating the individual
 			unit tests.
@@ -192,6 +192,9 @@
 				<include name="**/*.js" />
 				<exclude name="unit-test-loader.js" />
 			</fileset>
+			<fileset dir="third-party/uxf/src/lib/functions">
+				<include name="**/ut-*.js" />
+			</fileset>
 		</concat>
 		<copy file="${tools.dir}/tests/unit.html" tofile="${deploy.root.dir}/unit-tests/xforms/main.html" failonerror="true" />
 	</target>
@@ -209,7 +212,7 @@
 		</exec>
 	</target>
 
-	<target name="prime-deploy" depends="-init, -create-js, -create-css">
+	<target name="prime-deploy" depends="-init, -create-js, -create-css, -create-unit-tests">
 		<description>
 			Create a set of deployment files, for testing or distribution.
 		</description>

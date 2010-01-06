@@ -117,6 +117,7 @@
 
 // Extensions
 //
+//= require <functions/backplane/serialize>
 //= require <functions/xslt20/format-number>
 //= require <functions/xforms/hmac>
 //= require <extensions/base-googleMap>
