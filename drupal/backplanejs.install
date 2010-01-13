@@ -1,0 +1,159 @@
+<?php
+/**
+ * @file
+ * Create db tables for the backplanejs module
+ */
+
+/**
+ * Implementation of hook_install
+ */
+function backplanejs_install() {
+  drupal_install_schema('backplanejs');
+  db_query(
+    "INSERT INTO {backplanejs_script_lib} (`key`, `name`, description) VALUES ('%s', '%s', '%s')",
+    'lib-url',
+    'backplanejs library',
+    'See http://backplanejs.googlecode.com/'
+  );
+
+  // Library versions
+  db_query(
+    "INSERT INTO {backplanejs_script_lib_ver} (lib_id, url) VALUES (%d, '%s')",
+    3,
+    '0.6.2'
+  );
+}
+
+/**
+ * Implementation of hook_uninstall
+ */
+function backplanejs_uninstall() {
+  drupal_uninstall_schema('backplanejs');
+}
+
+
+/**
+ * Implementation of hook_schema. See http://api.drupal.org/api/group/schemaapi/6
+ *
+ * Note: On MySQL, text fields cannot have default values.
+ */
+function backplanejs_schema() {
+
+  $schema['backplanejs_script_lib'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'key' => array(
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE
+      ),
+      'name' => array(
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE
+      ),
+      'description' => array(
+        'type' => 'text',
+        'length' => '1024',
+        'not null' => TRUE
+      )
+    ),
+    'indexes' => array(
+      'id' => array('id'),
+    ),
+    'primary key' => array('id'),
+  );
+
+  $schema['backplanejs_script_lib_ver'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+       'lib_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'url' => array(
+        'type' => 'text',
+        'length' => '1024',
+        'not null' => TRUE
+      ),
+    ),
+    'indexes' => array(
+      'id' => array('id'),
+    ),
+    'primary key' => array('id'),
+  );
+
+  $schema['backplanejs_node_script_lib'] = array(
+    'fields' => array(
+      'nid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'vid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'lib_ver_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+    ),
+  );
+
+  $schema['backplanejs_node_type_script_lib'] = array(
+    'fields' => array(
+      'lib_ver_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'node_type' => array(
+        'type' => 'varchar',
+        'length' => '100',
+        'not null' => TRUE
+      ),
+    ),
+    'primary key' => array('lib_ver_id', 'node_type'),
+  );
+
+  return $schema;
+}
+
+/**
+ * Updates to db schema
+ */
+function backplanejs_update_6101() {
+
+  $schema['backplanejs_node_type_script_lib'] = array(
+    'fields' => array(
+      'lib_ver_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'node_type' => array(
+        'type' => 'varchar',
+        'length' => '100',
+        'not null' => TRUE
+      ),
+    ),
+    'primary key' => array('lib_ver_id', 'node_type'),
+  );
+
+  $ret = array();
+  db_create_table($ret, 'backplanejs_node_type_script_lib', $schema['backplanejs_node_type_script_lib']);
+
+  return $ret;
+}

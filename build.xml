@@ -40,6 +40,7 @@
 
 	<target name="-load.properties">
 		<property file="ant.properties" />
+		<property file="drupal.ant.properties" />
 		<property file="my.ant.properties" />
 	</target>
 
@@ -292,6 +293,35 @@
 		<description>
 			Minify everything, ready for distribution.
 		</description>
+	</target>
+
+	<target name="create-drupal-package" depends="-init">
+		<mkdir dir="${deploy.root.dir}/drupal" />
+
+		<zip destfile="${deploy.root.dir}/drupal/${drupal.package.name}">
+			<fileset dir="${drupal.dir}">
+				<include name="**/*" />
+			</fileset>
+		</zip>
+	</target>
+
+	<target name="release-drupal" depends="-init, create-drupal-package">
+		<description>
+			Create a Drupal release by uploading the package to Google Code.
+		</description>
+
+		<fail unless="gc.username" message="Missing property 'gc.username' from file 'my.ant.properties'." />
+		<fail unless="gc.password" message="Missing property 'gc.password' from file 'my.ant.properties'." />
+
+		<gcupload
+			username="${gc.username}"
+			password="${gc.password}"
+			projectname="${project.name}"
+			filename="${deploy.root.dir}/drupal/${drupal.package.name}"
+			targetfilename="${drupal.package.name}"
+			summary="${project.name} Drupal module, version ${drupal.version.number}"
+			labels="Type-Archive, OpSys-All"
+		/>
 	</target>
 
 	<target name="create-deploy-package" depends="-init, min">

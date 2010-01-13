@@ -31,6 +31,7 @@ handlers:
   script: rdfa.py
 
 skip_files:
+- ^drupal/(.*)
 - ^work/(.*)
 - ^(.*/)?app\.yaml
 - ^(.*/)?app\.yml

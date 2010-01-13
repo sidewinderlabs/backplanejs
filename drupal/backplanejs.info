@@ -1,0 +1,12 @@
+;$Id$
+name = "backplanejs"
+;
+description = "Manage which nodes and node-types will use the backplanejs script library."
+;
+package = "backplanejs"
+;
+version = "6.x-1.1"
+;
+core = 6.x
+;
+php = 5.1
