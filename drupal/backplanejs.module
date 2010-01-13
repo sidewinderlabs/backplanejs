@@ -162,6 +162,7 @@ function backplanejs_form_alter(&$form, $form_state, $form_id) {
       // Set any default control value in the form. Ie. If there are associations between the node and
       // a script library show them otherwise, set the selected value to '' (0).
       foreach ($libs as $l) {
+      	$lib_id = 'lib_' . $l['lid'];
 
       	// All libs have at least the empty value. Don't include libs with only this value
       	if(count($l['versions']) > 1) {
@@ -172,8 +173,8 @@ function backplanejs_form_alter(&$form, $form_state, $form_id) {
 	        	// We're previewing the node. Need to show potentially changed value for each libs version
 
 	        	// Set $value = the backplanejs_script_lib_ver.id value of the library version that was set before pressing 'preview'
-	          if(array_key_exists($l['key'], $form_state['values']['backplanejs'])) {
-	            $value = $form_state['values']['backplanejs'][$l['key']];
+	          if(array_key_exists($lib_id, $form_state['values']['backplanejs'])) {
+	            $value = $form_state['values']['backplanejs'][$lib_id];
 	          }
 	        }
 	        else {
@@ -182,15 +183,15 @@ function backplanejs_form_alter(&$form, $form_state, $form_id) {
 	          // New nodes won't have this property ('backplanejs_node_script_libs') initially
 	          if (property_exists($form['#node'], 'backplanejs_node_script_libs')) {
 	            // if there is this lib already associated with the node
-	            if (array_key_exists($l['key'], $form['#node']->backplanejs_node_script_libs)) {
-	              // find the backplanejs_script_lib_ver.id value of the libs' URL value
-	              $value = array_search($form['#node']->backplanejs_node_script_libs[$l['key']], $l['versions']);
+	            if (array_key_exists($l['lid'], $form['#node']->backplanejs_node_script_libs)) {
+	              // find the backplanejs_script_lib_ver.id value of the libs' version value
+	              $value = array_search($form['#node']->backplanejs_node_script_libs[$l['lid']], $l['versions']);
 	            }
 	          }
 	        }
 
 	        // Add the select1 to the fieldset (and the form)
-	        $form['backplanejs'][$l['key']] = array(
+	        $form['backplanejs'][$lib_id] = array(
 	          '#type' => 'select',
 	          '#title' => $l['name'],
 	          '#required' => FALSE,
@@ -200,10 +201,10 @@ function backplanejs_form_alter(&$form, $form_state, $form_id) {
 
 	        $node_type_libs = _backplanejs_get_node_type_script_libs($form['type']['#value']);
 	        if(count($node_type_libs) > 0) {
-	        	if(array_key_exists($l['key'], $node_type_libs)) {
-	        		$description = "There is already a default version of this library set for this content type: <strong>".$node_type_libs[$l['key']];
+	        	if(array_key_exists($l['lid'], $node_type_libs)) {
+	        		$description = "There is already a default version of this library set for this content type: <strong>".$node_type_libs[$l['lid']];
 	        		$description .= "</strong><br />Choose a different value to override the default for this node.";
-	        		$form['backplanejs'][$l['key']]['#description'] = $description;
+	        		$form['backplanejs'][$lib_id]['#description'] = $description;
 	        	}
 	        }
         }
@@ -229,12 +230,13 @@ function backplanejs_form_alter(&$form, $form_state, $form_id) {
   		// Only show if have something more than the empty option
 	 		if(count($l['versions']) > 1) {
 	      $value = 0;
+	      $lib_id = 'lib_' . $l['lid'];
 
 	      // EITHER value in the $form_state['post']['backplanejs'] if form errored (incomplete or whatever)
 	      // OR is needed to be got from db, if has been set
 	      // OR is not set (default to 0)
 	      if($form_state['post']['backplanejs']) {
-	      	$value = $form_state['post']['backplanejs'][$l['key']];
+	      	$value = $form_state['post']['backplanejs'][$lib_id];
 	      }
 	      else {
 	      	// try and get a value from the db based on the node type and current library
@@ -249,7 +251,7 @@ function backplanejs_form_alter(&$form, $form_state, $form_id) {
 		      }
 	      }
 
-	  	  $form['backplanejs'][$l['key']] = array(
+	  	  $form['backplanejs'][$lib_id] = array(
 	        '#type' => 'select',
 	        '#title' => $l['name'],
 	        '#required' => FALSE,
@@ -540,11 +542,11 @@ function _backplanejs_library_version_add_form($form_state, $lib = array()) {
  */
 function _backplanejs_library_version_add_form_validate($form, &$form_state) {
     $result = db_query(
-      "SELECT url FROM {backplanejs_script_lib_ver} WHERE url = '%s'",
+      "SELECT version FROM {backplanejs_script_lib_ver} WHERE version = '%s'",
       $form_state['values']['new_version']
     );
     if (db_fetch_object($result)) {
-      form_set_error('new_version', t('That library version (URL) already exists.'));
+      form_set_error('new_version', t('That library version already exists.'));
     }
 }
 
@@ -552,13 +554,13 @@ function _backplanejs_library_version_add_form_validate($form, &$form_state) {
  * Process the 'new library version' form
  */
 function _backplanejs_library_version_add_form_submit($form, &$form_state) {
-  $url = $form_state['values']['new_version'];
+  $version = $form_state['values']['new_version'];
   db_query(
-    "INSERT INTO {backplanejs_script_lib_ver} (lib_id, url) VALUES (%d, '%s')",
+    "INSERT INTO {backplanejs_script_lib_ver} (lib_id, version) VALUES (%d, '%s')",
     $form_state['values']['lib_id'],
-    $url
+    $version
   );
-  watchdog(MODULE_NAME, t('Inserted new library version: !url', array('!url' => $url)));
+  watchdog(MODULE_NAME, t('Inserted new library version: !version', array('!version' => $version)));
   drupal_set_message(t('New version of library added.'));
 }
 
@@ -573,16 +575,6 @@ function _backplanejs_library_add_form() {
     '#default_value' => '',
     '#size' => 80,
     '#maxlength' => 1024,
-  );
-
-  $form['library_key'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Key'),
-    '#required' => TRUE,
-    '#default_value' => '',
-    '#size' => 20,
-    '#maxlength' => 100,
-    '#description' => 'Eg. my-new-lib'
   );
 
   $form['library_description'] = array(
@@ -616,15 +608,6 @@ function _backplanejs_library_add_form_validate($form, &$form_state) {
   if (db_fetch_object($result)) {
     form_set_error('library_name', t('That \'Name\' is already taken. Choose another.'));
   }
-
-  // Check that the lib 'key' value is unique
-  $result = db_query(
-    "SELECT `key` FROM {backplanejs_script_lib} WHERE `key` = '%s'",
-    $form_state['values']['library_key']
-  );
-  if (db_fetch_object($result)) {
-    form_set_error('library_key', t('That \'Key\' value is already taken. Choose another.'));
-  }
 }
 
 /**
@@ -632,8 +615,7 @@ function _backplanejs_library_add_form_validate($form, &$form_state) {
  */
 function _backplanejs_library_add_form_submit($form, &$form_state) {
   db_query(
-    "INSERT INTO {backplanejs_script_lib} (`key`, name, description) VALUES ('%s', '%s', '%s')",
-    $form_state['values']['library_key'],
+    "INSERT INTO {backplanejs_script_lib} (name, description) VALUES ('%s', '%s')",
     $form_state['values']['library_name'],
 	$form_state['values']['library_description']
   );
@@ -701,12 +683,12 @@ function _backplanejs_get_node_script_libs($node_id = 0, $vid = 0) {
   $libs = array();
   if ($node_id > 0) {
       $results = db_query(
-        "SELECT sl.key, slv.url FROM {backplanejs_script_lib} sl, {backplanejs_script_lib_ver} slv JOIN {backplanejs_node_script_lib} nsl ON slv.id = nsl.lib_ver_id WHERE sl.id = slv.lib_id AND nsl.nid = %d AND nsl.vid = %d",
+        "SELECT sl.id, slv.version FROM {backplanejs_script_lib} sl, {backplanejs_script_lib_ver} slv JOIN {backplanejs_node_script_lib} nsl ON slv.id = nsl.lib_ver_id WHERE sl.id = slv.lib_id AND nsl.nid = %d AND nsl.vid = %d",
         $node_id,
         $vid
       );
       while ($lib = db_fetch_object($results)) {
-        $libs[$lib->key] = $lib->url;
+        $libs[$lib->id] = $lib->version;
       }
   }
 
@@ -720,12 +702,12 @@ function _backplanejs_get_node_type_script_libs($node_type = '') {
 	$libs = array();
 
 	$results = db_query(
-		"SELECT sl.key, slv.url FROM backplanejs_script_lib sl, backplanejs_script_lib_ver slv JOIN backplanejs_node_type_script_lib ntsl ON slv.id = ntsl.lib_ver_id WHERE sl.id = slv.lib_id AND ntsl.node_type = '%s'",
+		"SELECT sl.id, slv.version FROM backplanejs_script_lib sl, backplanejs_script_lib_ver slv JOIN backplanejs_node_type_script_lib ntsl ON slv.id = ntsl.lib_ver_id WHERE sl.id = slv.lib_id AND ntsl.node_type = '%s'",
 		$node_type
 	);
 
 	while ($lib = db_fetch_object($results)) {
-		$libs[$lib->key] = $lib->url;
+		$libs[$lib->id] = $lib->version;
 	}
 
 	return $libs;
@@ -794,7 +776,7 @@ function _backplanejs_update_lib_node_association($action = '', $node) {
          // URLs in the array. A bit hackish, an extra query, that shouldn't really be required
          $new_vid_libs = array();
          foreach ($old_vid_libs as $k => $v) {
-           $new_vid_libs[$k] = _backplanejs_get_script_lib_id_from_url($v);
+           $new_vid_libs[$k] = _backplanejs_get_script_lib_id_from_version($v);
          }
 
          _backplanejs_insert_node_script_libs($node->nid, $node->vid, $new_vid_libs);
@@ -910,12 +892,12 @@ function _backplanejs_insert_node_script_libs($node_id = 0, $vid = 0, $libs = ar
 }
 
 /**
- * Given a library URL, get it's unique id
+ * Given a library version, get it's unique id
  */
-function _backplanejs_get_script_lib_id_from_url($url = "") {
+function _backplanejs_get_script_lib_id_from_version($version = "") {
   $result = db_query(
-    "SELECT slv.id FROM {backplanejs_script_lib_ver} slv WHERE slv.url = '%s'",
-    $url
+    "SELECT slv.id FROM {backplanejs_script_lib_ver} slv WHERE slv.version = '%s'",
+    $version
   );
   return db_result($result);
 }
@@ -929,18 +911,17 @@ function _backplanejs_get_script_libs($lib_id = 0) {
 
   if ($lib_id > 0) {
     $results = db_query(
-	  "SELECT sl.id, sl.key, sl.name, sl.description FROM {backplanejs_script_lib} sl WHERE sl.id = %d",
+	  "SELECT sl.id, sl.name, sl.description FROM {backplanejs_script_lib} sl WHERE sl.id = %d",
 	  $lib_id
 	);
   }
   else {
-    $results = db_query("SELECT sl.id, sl.key, sl.name, sl.description FROM {backplanejs_script_lib} sl");
+    $results = db_query("SELECT sl.id, sl.name, sl.description FROM {backplanejs_script_lib} sl");
   }
 
   while ($lib = db_fetch_object($results)) {
       $libs[] = array(
       'lid' => check_plain($lib->id),
-      'key' => check_plain($lib->key),
       'name' => check_plain($lib->name),
       'description' => check_plain($lib->description),
       'versions' => _backplanejs_get_script_lib_versions($lib->id)
@@ -956,11 +937,11 @@ function _backplanejs_get_script_libs($lib_id = 0) {
 function _backplanejs_get_script_lib_versions($lib_id = 0) {
   $versions = array(''); // leave in blank, used as a select option
   $results = db_query(
-    "SELECT id, url FROM {backplanejs_script_lib_ver} WHERE lib_id = %d",
+    "SELECT id, version FROM {backplanejs_script_lib_ver} WHERE lib_id = %d",
     $lib_id
   );
   while ($ver = db_fetch_object($results)) {
-    $versions[$ver->id] = $ver->url;
+    $versions[$ver->id] = $ver->version;
   }
   return $versions;
 }
@@ -1044,10 +1025,10 @@ function _backplanejs_insert_library(&$node) {
   $node_type_libs = $node->backplanejs_node_type_script_libs;
 
   if (count($node_libs) > 0) {
-    foreach ($node_libs as $key => $version) {
+    foreach ($node_libs as $id => $version) {
     	_backplanejs_insert_script_and_stylesheet( $version );
-      if(array_key_exists($key, $node_type_libs)) {
-        unset($node_type_libs[$key]);
+      if(array_key_exists($id, $node_type_libs)) {
+        unset($node_type_libs[$id]);
       }
     }
   }

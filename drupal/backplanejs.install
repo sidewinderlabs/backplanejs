@@ -10,17 +10,9 @@
 function backplanejs_install() {
   drupal_install_schema('backplanejs');
   db_query(
-    "INSERT INTO {backplanejs_script_lib} (`key`, `name`, description) VALUES ('%s', '%s', '%s')",
-    'lib-url',
+    "INSERT INTO {backplanejs_script_lib} (`name`, description) VALUES ('%s', '%s')",
     'backplanejs library',
     'See http://backplanejs.googlecode.com/'
-  );
-
-  // Library versions
-  db_query(
-    "INSERT INTO {backplanejs_script_lib_ver} (lib_id, url) VALUES (%d, '%s')",
-    3,
-    '0.6.2'
   );
 }
 
@@ -46,11 +38,6 @@ function backplanejs_schema() {
         'unsigned' => TRUE,
         'not null' => TRUE
       ),
-      'key' => array(
-        'type' => 'varchar',
-        'length' => 256,
-        'not null' => TRUE
-      ),
       'name' => array(
         'type' => 'varchar',
         'length' => 256,
@@ -62,10 +49,7 @@ function backplanejs_schema() {
         'not null' => TRUE
       )
     ),
-    'indexes' => array(
-      'id' => array('id'),
-    ),
-    'primary key' => array('id'),
+    'primary key' => array('id')
   );
 
   $schema['backplanejs_script_lib_ver'] = array(
@@ -80,16 +64,13 @@ function backplanejs_schema() {
         'unsigned' => TRUE,
         'not null' => TRUE
       ),
-      'url' => array(
+      'version' => array(
         'type' => 'text',
         'length' => '1024',
         'not null' => TRUE
       ),
     ),
-    'indexes' => array(
-      'id' => array('id'),
-    ),
-    'primary key' => array('id'),
+    'primary key' => array('id')
   );
 
   $schema['backplanejs_node_script_lib'] = array(
@@ -109,7 +90,7 @@ function backplanejs_schema() {
         'unsigned' => TRUE,
         'not null' => TRUE
       ),
-    ),
+    )
   );
 
   $schema['backplanejs_node_type_script_lib'] = array(
@@ -125,35 +106,8 @@ function backplanejs_schema() {
         'not null' => TRUE
       ),
     ),
-    'primary key' => array('lib_ver_id', 'node_type'),
+    'primary key' => array('lib_ver_id', 'node_type')
   );
 
   return $schema;
-}
-
-/**
- * Updates to db schema
- */
-function backplanejs_update_6101() {
-
-  $schema['backplanejs_node_type_script_lib'] = array(
-    'fields' => array(
-      'lib_ver_id' => array(
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE
-      ),
-      'node_type' => array(
-        'type' => 'varchar',
-        'length' => '100',
-        'not null' => TRUE
-      ),
-    ),
-    'primary key' => array('lib_ver_id', 'node_type'),
-  );
-
-  $ret = array();
-  db_create_table($ret, 'backplanejs_node_type_script_lib', $schema['backplanejs_node_type_script_lib']);
-
-  return $ret;
 }
