@@ -153,7 +153,7 @@ function backplanejs_form_alter(&$form, $form_state, $form_id) {
         '#type' => 'fieldset',
         '#title' => t('backplanejs libraries'),
         '#tree' => TRUE,
-        '#description' => t('Choose which, if any, of the listed backplanejs versions should be loaded when this node is viewed. If you have already associated one or more libraries and wish to disassociate them, just select the blank value from the dropdown and \'Save\' the node.'),
+        '#description' => t('Choose which, if any, of the listed libraries should be loaded when this node is viewed. If you have already associated one or more libraries and wish to disassociate them, just select the blank value from the dropdown and \'Save\' the node.'),
         '#collapsible' => TRUE,
         '#collapsed' => FALSE,
         '#weight' => 100,
@@ -445,14 +445,14 @@ function _backplanejs_library_version_delete_form_validate($form, &$form_state) 
 function _backplanejs_library_version_delete_form_submit($form, &$form_state) {
   // Remove the library version, any node association and any node_type association with library version
   // $k = backplanejs_script_lib_ver.id, $v =, if checkbox selected, same as $k. If unselected value is '0'.
-  foreach ($form_state['values']['delete-versions'] as $k => $v) {
+  foreach ($form_state['values']['delete-versions'] as $id => $v) {
     if ($v > 0) {
       db_query(
         "DELETE slv.*, nsl.*, ntsl.* FROM {backplanejs_script_lib_ver} slv LEFT JOIN {backplanejs_node_script_lib} nsl ON slv.id = nsl.lib_ver_id LEFT JOIN {backplanejs_node_type_script_lib} ntsl ON slv.id = ntsl.lib_ver_id WHERE slv.id = %d",
-        $k
+        $id
       );
 
-      watchdog(MODULE_NAME, t('Deleted library version and association(s). Lib ver id: !slvid', array('!slvid' => $k)));
+      watchdog(MODULE_NAME, t('Deleted library version and association(s). Lib ver id: !slvid', array('!slvid' => $id)));
     }
   }
   drupal_set_message(t('Library version(s) and any node/node type associations deleted.'));
@@ -815,7 +815,7 @@ function _backplanejs_node_type_form_submit($form, &$form_state) {
 			//	Compare the 'op' to the values of the 'submit' and 'delete' siblings to work out what's going on?
 			//	<home>/modules/node/content_types.inc just uses the t()'d button text.
 		  if($action == t('Save content type')) {
-			 foreach($libs as $k => $lvid) {
+			 foreach($libs as $id => $lvid) {
 				if($lvid > 0) {
 			      db_query(
 			        "INSERT INTO {backplanejs_node_type_script_lib} (lib_ver_id, node_type) VALUES (%d, '%s')",
@@ -877,14 +877,14 @@ function _backplanejs_delete_node_script_libs($node_id = 0, $vid = 0, $all_revis
 function _backplanejs_insert_node_script_libs($node_id = 0, $vid = 0, $libs = array()) {
   if ($node_id > 0) {
     // Could this be done more efficiently as one SQL statement?
-    foreach ($libs as $k => $v) {
+    foreach ($libs as $id => $v) {
       // Value of 0 is empty. No lib version selected
       if ($v > 0) {
         db_query(
           "INSERT INTO {backplanejs_node_script_lib} (nid, vid, lib_ver_id) VALUES (%d, %d, %d)",
           $node_id,
           $vid,
-          $v
+          $id
         );
       }
     }

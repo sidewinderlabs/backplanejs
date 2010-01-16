@@ -297,12 +297,12 @@
 
 	<target name="create-drupal-package" depends="-init">
 		<mkdir dir="${deploy.root.dir}/drupal" />
+		<mkdir dir="${drupal.output.dir}" />
 
-		<zip destfile="${deploy.root.dir}/drupal/${drupal.package.name}">
-			<fileset dir="${drupal.dir}">
-				<include name="**/*" />
-			</fileset>
-		</zip>
+		<tar destfile="${drupal.output.dir}/${drupal.package.name}.tar">
+			<tarfileset dir="${drupal.dir}" prefix="${drupal.package.name}/" preserveLeadingSlashes="true" />
+		</tar>
+		<gzip destfile="${deploy.root.dir}/drupal/${drupal.package.name}.tar.gz" src="${drupal.output.dir}/${drupal.package.name}.tar"/>
 	</target>
 
 	<target name="release-drupal" depends="-init, create-drupal-package">
@@ -317,8 +317,8 @@
 			username="${gc.username}"
 			password="${gc.password}"
 			projectname="${project.name}"
-			filename="${deploy.root.dir}/drupal/${drupal.package.name}"
-			targetfilename="${drupal.package.name}"
+			filename="${deploy.root.dir}/drupal/${drupal.package.name}.tar.gz"
+			targetfilename="${drupal.package.name}.tar.gz"
 			summary="${project.name} Drupal module, version ${drupal.version.number}"
 			labels="Type-Archive, OpSys-All"
 		/>
