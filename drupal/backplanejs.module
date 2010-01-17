@@ -877,14 +877,14 @@ function _backplanejs_delete_node_script_libs($node_id = 0, $vid = 0, $all_revis
 function _backplanejs_insert_node_script_libs($node_id = 0, $vid = 0, $libs = array()) {
   if ($node_id > 0) {
     // Could this be done more efficiently as one SQL statement?
-    foreach ($libs as $id => $v) {
+    foreach ($libs as $id => $lvid) {
       // Value of 0 is empty. No lib version selected
-      if ($v > 0) {
+      if ($lvid > 0) {
         db_query(
           "INSERT INTO {backplanejs_node_script_lib} (nid, vid, lib_ver_id) VALUES (%d, %d, %d)",
           $node_id,
           $vid,
-          $id
+          $lvid
         );
       }
     }
