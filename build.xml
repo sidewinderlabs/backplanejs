@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="./ant2html.xsl"?>
 <!--
    - Copyright (c) 2009 Mark Birbeck
    -
