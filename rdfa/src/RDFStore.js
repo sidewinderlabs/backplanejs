@@ -28,8 +28,12 @@
  */
 //= require "RDFGraph"
 //
-/*
- * The triple store holds a list of graphs.
+
+/**
+ * An RDF triple store, holding a list of graphs.
+ *
+ * @class RDFStore
+ * @constructor
  */
 
 function RDFStore() {

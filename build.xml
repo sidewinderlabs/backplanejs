@@ -176,6 +176,16 @@
 		<copy file="${tools.dir}/tests/unit.html" tofile="${deploy.root.dir}/unit-tests/backplane/main.html" failonerror="true" />
 
 		<!--
+			Knowledgebase
+		-->
+		<concat destfile="${deploy.root.dir}/unit-tests/kb/unit-tests.js" force="no" eol="crlf">
+			<fileset dir="kb/_unit-tests">
+				<include name="**/*.js" />
+			</fileset>
+		</concat>
+		<copy file="${tools.dir}/tests/unit.html" tofile="${deploy.root.dir}/unit-tests/kb/main.html" failonerror="true" />
+
+		<!--
 			RDFa
 		-->
 		<concat destfile="${deploy.root.dir}/unit-tests/rdfa/unit-tests.js" force="no" eol="crlf">

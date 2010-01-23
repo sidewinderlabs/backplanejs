@@ -27,7 +27,8 @@
  *
  *  mark.birbeck@gmail.com
  */
-//= require <backplane>
+
+//= require <core>
 //
 /*
  * This triple store is very basic, and simply holds a list of triples. All resources are

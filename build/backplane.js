@@ -21,7 +21,12 @@
 
 // RDFa
 //
-//= require "rdfa"
+//= require <rdfa/src/main>
+//
+
+// Knowledgebase
+//
+//= require <kb/src/main>
 //
 
 // XForms

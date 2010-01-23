@@ -23,8 +23,7 @@
 //
 //		http://www.w3.org/TR/rdf-sparql-json-res/
 //
-//= require <backplane>
-//= require "metascan"
+//= require <core>
 //= require "RDFParser"
 //
 function RDFQuery(store) {
