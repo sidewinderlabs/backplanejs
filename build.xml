@@ -20,59 +20,65 @@
 		Ant project for various backplanejs tasks.
 	</description>
 
+	<!--
+		P R E A M B L E
+		===============
+	-->
+
+	<!--
+		Load properties.
+	-->
+	<property file="ant.properties" />
+	<property file="drupal.ant.properties" />
+	<property file="my.ant.properties" />
+
+	<!--
+		Make any tools available.
+	-->
+	<path id="ant.tasks.classpath">
+		<fileset dir="${tools.dir}">
+			<include name="ant-apache-bsf-1.7.1.jar" />
+			<include name="ant-googlecode-0.0.2.jar" />
+			<include name="bsf.jar" />
+			<include name="commons-logging-1.1.1.jar" />
+			<include name="yuicompressor-2.4.2.jar" />
+		</fileset>
+	</path>
+
+	<scriptdef
+		name="jslint"
+		src="${tools.dir}/fulljslint-for-ant.js" language="javascript"
+		classpathref="ant.tasks.classpath"
+	>
+		<attribute name="options" />
+		<element name="fileset" type="fileset" />
+	</scriptdef>
+
+	<taskdef
+		name="gcupload"
+		classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask"
+		classpathref="ant.tasks.classpath"
+	/>
+
+	<!--
+		T A S K S
+		=========
+	-->
 	<target name="help">
-		<echo>The following targets are supported:</echo>
-		<echo />
-		<echo>jslint:</echo>
-		<echo>  Run JSLint on all JavaScript files.</echo>
-		<echo />
-		<echo>tidy-js:</echo>
-		<echo>  Do some basic tidying up of source files, such as ensuring they use CRLF.</echo>
-		<echo />
-		<echo>prime-deploy:</echo>
-		<echo>  Prime the deployment directory, either for testing, or for a release.</echo>
-		<echo />
-		<echo>min:</echo>
-		<echo>  Compress the main JS and CSS files.</echo>
-		<echo />
-		<echo>release:</echo>
-		<echo>  Create a deployment archive, and then upload it to Google Code.</echo>
+		<echo>See http://code.google.com/p/backplanejs/wiki/UsingTools</echo>
 	</target>
 
-	<target name="-load.properties">
-		<property file="ant.properties" />
-		<property file="drupal.ant.properties" />
-		<property file="my.ant.properties" />
+	<target name="-create-directories">
+		<mkdir dir="${deploy.root.dir}/drupal" />
+		<mkdir dir="${drupal.output.dir}" />
 	</target>
 
-	<target name="-init" depends="-load.properties">
-		<path id="ant.tasks.classpath">
-			<fileset dir="${tools.dir}">
-				<include name="ant-apache-bsf-1.7.1.jar" />
-				<include name="ant-googlecode-0.0.2.jar" />
-				<include name="bsf.jar" />
-				<include name="commons-logging-1.1.1.jar" />
-				<include name="yuicompressor-2.4.2.jar" />
-			</fileset>
-		</path>
-
-		<scriptdef
-			name="jslint"
-			src="${tools.dir}/fulljslint-for-ant.js" language="javascript"
-			classpathref="ant.tasks.classpath"
-		>
-			<attribute name="options" />
-			<element name="fileset" type="fileset" />
-		</scriptdef>
-
-		<taskdef
-			name="gcupload"
-			classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask"
-			classpathref="ant.tasks.classpath"
-		/>
+	<target name="-delete-directories">
+		<delete dir="${deploy.root.dir}/drupal" />
+		<delete dir="${drupal.output.dir}" />
 	</target>
 
-	<target name="jslint" depends="-init">
+	<target name="jslint">
 		<description>
 			Run JSLint on the scripts.
 		</description>
@@ -103,7 +109,7 @@
  		</jslint>
 	</target>
 
-	<target name="jslint-deploy" depends="-init">
+	<target name="jslint-deploy">
 		<description>
 			Run JSLint on the scripts.
 		</description>
@@ -116,7 +122,7 @@
  		</jslint>
 	</target>
 
-	<target name="tidy-js" depends="-init">
+	<target name="tidy-js">
 		<description>
 			Do some basic tidying up of JS files ready for JSLint.
 		</description>
@@ -144,7 +150,7 @@
 		</fixcrlf>
 	</target>
 
-	<target name="-create-css" depends="-init, -create-js">
+	<target name="-create-css" depends="-create-js">
 		<description>
 			Create the CSS file. The only reason there is a dependency on
 			create-js is because we need the assets to have been copied.
@@ -158,7 +164,7 @@
 		</concat>
 	</target>
 
-	<target name="-create-unit-tests" depends="-init">
+	<target name="-create-unit-tests">
 		<description>
 			Create the unit test files, by concatenating the individual
 			unit tests.
@@ -211,7 +217,7 @@
 		<copy file="${tools.dir}/tests/unit.html" tofile="${deploy.root.dir}/unit-tests/xforms/main.html" failonerror="true" />
 	</target>
 
-	<target name="-create-js" depends="-init">
+	<target name="-create-js">
 		<description>
 			Create the JS file.
 		</description>
@@ -224,7 +230,7 @@
 		</exec>
 	</target>
 
-	<target name="prime-deploy" depends="-init, -create-js, -create-css, -create-unit-tests">
+	<target name="-prime-deploy" depends="-create-js, -create-css, -create-unit-tests">
 		<description>
 			Create a set of deployment files, for testing or distribution.
 		</description>
@@ -256,7 +262,7 @@
 		</copy>
 	</target>
 
-	<target name="-min-css" depends="-init, prime-deploy">
+	<target name="-min-css" depends="-prime-deploy">
 		<description>
 			Minify the CSS file.
 		</description>
@@ -285,7 +291,7 @@
 		/>
 	</target>
 
-	<target name="-min-js" depends="-init, prime-deploy">
+	<target name="-min-js" depends="-prime-deploy">
 		<description>
 			Minify the JS file.
 		</description>
@@ -300,23 +306,20 @@
 		</java>
 	</target>
 
-	<target name="min" depends="-init, -min-js, -min-css">
+	<target name="-min" depends="-min-js, -min-css">
 		<description>
 			Minify everything, ready for distribution.
 		</description>
 	</target>
 
-	<target name="create-drupal-package" depends="-init">
-		<mkdir dir="${deploy.root.dir}/drupal" />
-		<mkdir dir="${drupal.output.dir}" />
-
+	<target name="create-drupal-package">
 		<tar destfile="${drupal.output.dir}/${drupal.package.name}.tar">
 			<tarfileset dir="${drupal.dir}" prefix="${drupal.package.name}/" preserveLeadingSlashes="true" />
 		</tar>
 		<gzip destfile="${deploy.root.dir}/drupal/${drupal.package.name}.tar.gz" src="${drupal.output.dir}/${drupal.package.name}.tar"/>
 	</target>
 
-	<target name="release-drupal" depends="-init, create-drupal-package">
+	<target name="release-drupal" depends="create-drupal-package">
 		<description>
 			Create a Drupal release by uploading the package to Google Code.
 		</description>
@@ -335,7 +338,7 @@
 		/>
 	</target>
 
-	<target name="create-deploy-package" depends="-init">
+	<target name="-create-deploy-package">
 		<zip destfile="${deploy.root.dir}/${deploy.package.name}">
 			<fileset dir="${deploy.dir}">
 				<include name="**/*" />
@@ -345,9 +348,9 @@
 		</zip>
 	</target>
 
-	<target name="release" depends="-init">
+	<target name="gcupload">
 		<description>
-			Create a release by uploading the package to Google Code.
+			Upload a package to Google Code.
 		</description>
 
 		<fail unless="gc.username" message="Missing property 'gc.username' from file 'my.ant.properties'." />
@@ -364,7 +367,7 @@
 		/>
 	</target>
 
-	<target name="prime-deploy-to-app-engine" depends="-init, min">
+	<target name="-prime-deploy-to-app-engine">
 		<copy todir="${deploy.root.dir}" failonerror="true">
 			<fileset dir="${tools.dir}/GoogleAppEngine" />
 		</copy>
@@ -378,13 +381,13 @@
 		</replace>
 	</target>
 
-	<target name="deploy-to-app-engine" depends="-init">
+	<target name="-deploy-to-app-engine">
 		<exec executable="appcfg.py" failonerror="true" inputstring="${gae.password}x">
 			<arg line="--passin -e ${gae.username} update ${deploy.root.dir}/" />
 		</exec>
 	</target>
 
-	<target name="serve" depends="-init">
+	<target name="serve">
 		<exec executable="dev_appserver.py">
 			<arg line="${deploy.root.dir}" />
 		</exec>
@@ -393,60 +396,43 @@
 	<!--
 		Phases
 	-->
-	<target
-		name="compile"
-		depends="-init, min"
-		description="Create combined JS and CSS files from sources."
-	/>
+	<target name="compile" depends="initialize" description="Create combined JS and CSS files from sources.">
+		<antcall target="-min" />
+	</target>
 
-	<target
-		name="test-compile"
-		depends="-init, -create-unit-tests"
-		description="Create combined JS and CSS files for unit-tests."
-	/>
+	<target name="test" depends="compile" description="Run tests">
+		<antcall target="test-compile" />
+	</target>
 
-	<target
-		name="test"
-		depends="-init, test-compile, compile"
-		description="Run tests"
-	/>
+	<target name="package" depends="test" description="Create package for deployment.">
+		<antcall target="-create-deploy-package" />
+	</target>
 
-	<target
-		name="package"
-		depends="-init, test, create-deploy-package"
-		description="Create package for deployment."
-	/>
-
-	<target
-		name="deploy"
-		depends="-init, package, release"
-		description="Deploy the package."
-	/>
+	<target name="deploy" depends="package" description="Deploy the package.">
+		<antcall target="-gcupload" />
+	</target>
 
 	<!--
 		Goals
 	-->
-	<target
-		name="initialize"
-		depends="-init"
-		description="Initialize the build state."
-	/>
+	<target name="initialize" description="Initialize the build state.">
+		<antcall target="-create-directories" />
+	</target>
 
-	<target
-		name="site"
-		depends="-init, prime-deploy-to-app-engine"
-		description="Create a web-site for the project."
-	/>
+	<target name="test-compile" description="Create combined JS and CSS files for unit-tests.">
+		<antcall target="-create-unit-tests" />
+	</target>
 
-	<target
-		name="site-deploy"
-		depends="-init, site, deploy-to-app-engine"
-		description="Deploy the project web-site."
-	/>
+	<target name="site" description="Create a web-site for the project.">
+		<antcall target="compile" />
+		<antcall target="-prime-deploy-to-app-engine" />
+	</target>
 
-	<target
-		name="clean"
-		depends="-init"
-		description="Remove the target directory ready for clean build."
-	/>
+	<target name="site-deploy" depends="site" description="Deploy the project web-site.">
+		<antcall target="-deploy-to-app-engine" />
+	</target>
+
+	<target name="clean" description="Remove the target directory ready for a clean build.">
+		<antcall target="-delete-directories" />
+	</target>
 </project>
