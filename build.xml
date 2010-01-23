@@ -335,7 +335,7 @@
 		/>
 	</target>
 
-	<target name="create-deploy-package" depends="-init, min">
+	<target name="create-deploy-package" depends="-init">
 		<zip destfile="${deploy.root.dir}/${deploy.package.name}">
 			<fileset dir="${deploy.dir}">
 				<include name="**/*" />
@@ -345,7 +345,7 @@
 		</zip>
 	</target>
 
-	<target name="release" depends="-init, create-deploy-package">
+	<target name="release" depends="-init">
 		<description>
 			Create a release by uploading the package to Google Code.
 		</description>
@@ -378,8 +378,8 @@
 		</replace>
 	</target>
 
-	<target name="deploy-to-app-engine" depends="-init, prime-deploy-to-app-engine">
-		<exec executable="appcfg.py" failonerror="true" inputstring="${gae.password}">
+	<target name="deploy-to-app-engine" depends="-init">
+		<exec executable="appcfg.py" failonerror="true" inputstring="${gae.password}x">
 			<arg line="--passin -e ${gae.username} update ${deploy.root.dir}/" />
 		</exec>
 	</target>
@@ -389,4 +389,64 @@
 			<arg line="${deploy.root.dir}" />
 		</exec>
 	</target>
+
+	<!--
+		Phases
+	-->
+	<target
+		name="compile"
+		depends="-init, min"
+		description="Create combined JS and CSS files from sources."
+	/>
+
+	<target
+		name="test-compile"
+		depends="-init, -create-unit-tests"
+		description="Create combined JS and CSS files for unit-tests."
+	/>
+
+	<target
+		name="test"
+		depends="-init, test-compile, compile"
+		description="Run tests"
+	/>
+
+	<target
+		name="package"
+		depends="-init, test, create-deploy-package"
+		description="Create package for deployment."
+	/>
+
+	<target
+		name="deploy"
+		depends="-init, package, release"
+		description="Deploy the package."
+	/>
+
+	<!--
+		Goals
+	-->
+	<target
+		name="initialize"
+		depends="-init"
+		description="Initialize the build state."
+	/>
+
+	<target
+		name="site"
+		depends="-init, prime-deploy-to-app-engine"
+		description="Create a web-site for the project."
+	/>
+
+	<target
+		name="site-deploy"
+		depends="-init, site, deploy-to-app-engine"
+		description="Deploy the project web-site."
+	/>
+
+	<target
+		name="clean"
+		depends="-init"
+		description="Remove the target directory ready for clean build."
+	/>
 </project>
