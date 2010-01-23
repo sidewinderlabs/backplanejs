@@ -71,11 +71,19 @@
 	<target name="-create-directories">
 		<mkdir dir="${deploy.root.dir}/drupal" />
 		<mkdir dir="${drupal.output.dir}" />
+		<mkdir dir="${output.dir}" />
+
+		<!-- For documentation -->
+		<mkdir dir="${build.dir}/output/tmpdocs" />
+		<mkdir dir="${doc.dir}" />
 	</target>
 
 	<target name="-delete-directories">
 		<delete dir="${deploy.root.dir}/drupal" />
 		<delete dir="${drupal.output.dir}" />
+
+		<delete dir="${build.dir}/output/tmpdocs" />
+		<delete dir="${doc.dir}" />
 	</target>
 
 	<target name="jslint">
@@ -227,6 +235,27 @@
 			<arg value="copyright.txt" />
 			<arg value="${build.dir}/${product.name}.js" />
 			<arg value="-a${output.dir}/assets" />
+		</exec>
+	</target>
+
+	<target name="-yui-doc">
+		<exec executable="python" failonerror="true">
+			<arg value="${tools.dir}/yuidoc/bin/yuidoc.py" />
+			<arg value="${rdfa.src.dir}" />
+			<arg value="-p" />
+			<arg value="${build.dir}/output/tmpdocs" />
+			<arg value="-o" />
+			<arg value="${doc.dir}" />
+			<arg value="-t" />
+			<arg value="${tools.dir}/yuidoc/template" />
+			<arg value="-m" />
+			<arg value="${project.name}" />
+			<arg value="-Y" />
+			<arg value="${yui.version}" />
+			<arg value="-v" />
+			<arg value="${version.number}" />
+			<arg value="-u" />
+			<arg value="${project.url}" />
 		</exec>
 	</target>
 
@@ -382,7 +411,10 @@
 	</target>
 
 	<target name="-deploy-to-app-engine">
-		<exec executable="appcfg.py" failonerror="true" inputstring="${gae.password}x">
+		<fail unless="gae.username" message="Missing property 'gae.username' from file 'my.ant.properties'." />
+		<fail unless="gae.password" message="Missing property 'gae.password' from file 'my.ant.properties'." />
+
+		<exec executable="appcfg.py" failonerror="true" inputstring="${gae.password}">
 			<arg line="--passin -e ${gae.username} update ${deploy.root.dir}/" />
 		</exec>
 	</target>
@@ -400,15 +432,15 @@
 		<antcall target="-min" />
 	</target>
 
-	<target name="test" depends="compile" description="Run tests">
+	<target name="test" depends="initialize, compile" description="Run tests">
 		<antcall target="test-compile" />
 	</target>
 
-	<target name="package" depends="test" description="Create package for deployment.">
+	<target name="package" depends="initialize, test" description="Create package for deployment.">
 		<antcall target="-create-deploy-package" />
 	</target>
 
-	<target name="deploy" depends="package" description="Deploy the package.">
+	<target name="deploy" depends="initialize, package" description="Deploy the package.">
 		<antcall target="-gcupload" />
 	</target>
 
@@ -419,16 +451,17 @@
 		<antcall target="-create-directories" />
 	</target>
 
-	<target name="test-compile" description="Create combined JS and CSS files for unit-tests.">
+	<target name="test-compile" depends="initialize" description="Create combined JS and CSS files for unit-tests.">
 		<antcall target="-create-unit-tests" />
 	</target>
 
-	<target name="site" description="Create a web-site for the project.">
+	<target name="site" depends="initialize" description="Create a web-site for the project.">
+		<antcall target="-yui-doc" />
 		<antcall target="compile" />
 		<antcall target="-prime-deploy-to-app-engine" />
 	</target>
 
-	<target name="site-deploy" depends="site" description="Deploy the project web-site.">
+	<target name="site-deploy" depends="initialize, site" description="Deploy the project web-site.">
 		<antcall target="-deploy-to-app-engine" />
 	</target>
 
