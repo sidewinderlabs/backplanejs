@@ -20,6 +20,9 @@ handlers:
 - url: /samples
   static_dir: samples
 
+- url: /testsuite
+  static_dir: testsuite
+
 - url: /unit-tests
   static_dir: unit-tests
 

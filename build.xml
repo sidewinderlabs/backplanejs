@@ -396,11 +396,28 @@
 		/>
 	</target>
 
-	<target name="-prime-deploy-to-app-engine">
+	<target name="-copy-testsuite-to-local-app-engine" depends="-copy-config-to-local-app-engine">
+		<copy todir="${deploy.root.dir}/testsuite" failonerror="true">
+			<fileset dir="${third-party.dir}/uxf/testsuite" />
+		</copy>
+
+		<replace dir="${deploy.root.dir}/testsuite"
+			token="/src/ubiquity-loader.js" value="${runtime.js.path}"
+		>
+			<include name="**/*.xhtml"/>
+			<include name="**/*.html"/>
+		</replace>
+
+		<replace dir="${deploy.root.dir}/testsuite/xforms" token="../../xforms/html" value="html" />
+	</target>
+
+	<target name="-copy-config-to-local-app-engine">
 		<copy todir="${deploy.root.dir}" failonerror="true">
 			<fileset dir="${tools.dir}/GoogleAppEngine" />
 		</copy>
+	</target>
 
+	<target name="-prime-deploy-to-app-engine" depends="-copy-config-to-local-app-engine">
 		<copy todir="${deploy.root.dir}/samples" failonerror="true">
 			<fileset dir="_samples" />
 		</copy>
@@ -440,6 +457,9 @@
 		<antcall target="-create-deploy-package" />
 	</target>
 
+	<target name="integration-test" depends="initialize, package" description="Test that the package deploys correctly.">
+	</target>
+
 	<target name="deploy" depends="initialize, package" description="Deploy the package.">
 		<antcall target="-gcupload" />
 	</target>
@@ -453,6 +473,7 @@
 
 	<target name="test-compile" depends="initialize" description="Create combined JS and CSS files for unit-tests.">
 		<antcall target="-create-unit-tests" />
+		<antcall target="-copy-testsuite-to-local-app-engine" />
 	</target>
 
 	<target name="site" depends="initialize" description="Create a web-site for the project.">
