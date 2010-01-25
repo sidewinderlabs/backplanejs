@@ -41,7 +41,9 @@
 			<include name="ant-googlecode-0.0.2.jar" />
 			<include name="bsf.jar" />
 			<include name="commons-logging-1.1.1.jar" />
+			<include name="selenium-java-client-driver.jar" />
 			<include name="yuicompressor-2.4.2.jar" />
+			<include name="yuitest-selenium-driver-0.4.4.jar" />
 		</fileset>
 	</path>
 
@@ -72,6 +74,7 @@
 		<mkdir dir="${deploy.root.dir}/drupal" />
 		<mkdir dir="${drupal.output.dir}" />
 		<mkdir dir="${output.dir}" />
+		<mkdir dir="${reports.dir}" />
 
 		<!-- For documentation -->
 		<mkdir dir="${build.dir}/output/tmpdocs" />
@@ -81,6 +84,7 @@
 	<target name="-delete-directories">
 		<delete dir="${deploy.root.dir}/drupal" />
 		<delete dir="${drupal.output.dir}" />
+		<delete dir="${reports.dir}" />
 
 		<delete dir="${build.dir}/output/tmpdocs" />
 		<delete dir="${doc.dir}" />
@@ -178,7 +182,18 @@
 			unit tests.
 		</description>
 
-		<copy file="${tools.dir}/tests/unit-test-runner.js" tofile="${deploy.root.dir}/unit-tests/unit-test-runner.js" failonerror="true" />
+		<!--
+			YUI Unit Test Runner
+		-->
+		<concat destfile="${deploy.root.dir}/unit-tests/unit-test-runner.js" force="no" eol="crlf">
+			<fileset dir="third-party/yui">
+				<include name="logger.js" />
+				<include name="yuitest.js" />
+			</fileset>
+			<fileset dir="${tools.dir}/tests">
+				<include name="unit-test-runner.js" />
+			</fileset>
+		</concat>
 
 		<!--
 			Backplane
@@ -442,6 +457,17 @@
 		</exec>
 	</target>
 
+	<target name="run-selenium-yui-test">
+		<java
+			classname="com.yahoo.platform.yuitest.selenium.YUITestSeleniumDriver"
+			classpathref="ant.tasks.classpath"
+			fork="true"
+			failonerror="true"
+		>
+			<arg line="--port 4444 --resultsdir ${reports.dir} --tests ${tools.dir}/tests/unit-tests.xml --browsers ${selenium.rc.browsers}" />
+		</java>
+	</target>
+
 	<!--
 		Phases
 	-->
@@ -451,6 +477,7 @@
 
 	<target name="test" depends="initialize, compile" description="Run tests">
 		<antcall target="test-compile" />
+		<antcall target="run-selenium-yui-test" />
 	</target>
 
 	<target name="package" depends="initialize, test" description="Create package for deployment.">
@@ -488,5 +515,23 @@
 
 	<target name="clean" description="Remove the target directory ready for a clean build.">
 		<antcall target="-delete-directories" />
+	</target>
+
+	<!--
+		Helper tasks
+	-->
+	<target name="start-selenium-rc" description="Start Selenium RC.">
+		<java
+			jar="${tools.dir}/selenium-server.jar"
+			fork="true"
+			failonerror="true"
+		>
+			<!--
+				Set parameters in my.ant.properties.
+
+				For details of options see http://seleniumhq.org/docs/05_selenium_rc.html#server-options
+			-->
+			<arg line="${selenium.rc.params}" />
+		</java>
 	</target>
 </project>
