@@ -451,23 +451,6 @@
 		</exec>
 	</target>
 
-	<target name="serve">
-		<exec executable="dev_appserver.py">
-			<arg line="${deploy.root.dir}" />
-		</exec>
-	</target>
-
-	<target name="run-selenium-yui-test">
-		<java
-			classname="com.yahoo.platform.yuitest.selenium.YUITestSeleniumDriver"
-			classpathref="ant.tasks.classpath"
-			fork="true"
-			failonerror="true"
-		>
-			<arg line="--port 4444 --resultsdir ${reports.dir} --tests ${tools.dir}/tests/unit-tests.xml --browsers ${selenium.rc.browsers}" />
-		</java>
-	</target>
-
 	<!--
 		Phases
 	-->
@@ -477,7 +460,7 @@
 
 	<target name="test" depends="initialize, compile" description="Run tests">
 		<antcall target="test-compile" />
-		<antcall target="run-selenium-yui-test" />
+		<antcall target="test-ut" />
 	</target>
 
 	<target name="package" depends="initialize, test" description="Create package for deployment.">
@@ -503,6 +486,25 @@
 		<antcall target="-copy-testsuite-to-local-app-engine" />
 	</target>
 
+	<target name="test-ut" depends="initialize" description="Run unit-tests.">
+		<parallel>
+			<daemons>
+				<antcall target="start-selenium-rc" />
+				<antcall target="start-local-gae" />
+			</daemons>
+
+			<sequential>
+				<waitfor>
+					<and>
+						<socket server="${selenium.rc.host}" port="${selenium.rc.port}" />
+						<socket server="${gae.host}" port="${gae.port}" />
+					</and>
+				</waitfor>
+				<antcall target="run-yui-test-selenium-driver" />
+			</sequential>
+		</parallel>
+	</target>
+
 	<target name="site" depends="initialize" description="Create a web-site for the project.">
 		<antcall target="-yui-doc" />
 		<antcall target="compile" />
@@ -520,18 +522,64 @@
 	<!--
 		Helper tasks
 	-->
-	<target name="start-selenium-rc" description="Start Selenium RC.">
+	<target name="-check-selenium-rc">
+		<condition property="selenium-rc-started">
+			<socket server="${selenium.rc.host}" port="${selenium.rc.port}" />
+		</condition>
+	</target>
+
+	<target name="start-selenium-rc" description="Start Selenium RC." depends="-check-selenium-rc" unless="selenium-rc-started">
 		<java
 			jar="${tools.dir}/selenium-server.jar"
 			fork="true"
 			failonerror="true"
+			outputproperty="__dummy"
 		>
 			<!--
-				Set parameters in my.ant.properties.
+				Set additional parameters in my.ant.properties.
 
 				For details of options see http://seleniumhq.org/docs/05_selenium_rc.html#server-options
 			-->
-			<arg line="${selenium.rc.params}" />
+			<arg line="-port ${selenium.rc.port} ${selenium.rc.params}" />
+		</java>
+	</target>
+
+	<target name="-check-local-gae">
+		<condition property="local-gae-started">
+			<socket server="${gae.host}" port="${gae.port}" />
+		</condition>
+	</target>
+
+	<target name="start-local-gae" depends="-check-local-gae" unless="local-gae-started">
+		<exec executable="dev_appserver.py">
+			<arg line="${deploy.root.dir}" />
+		</exec>
+	</target>
+
+	<target name="run-yui-test-selenium-driver">
+		<fail message="Selenium RC is not available. Either run 'ant start-selenium-rc' in a seperate console, or use 'ant test'.">
+			<condition>
+				<not>
+					<socket server="${selenium.rc.host}" port="${selenium.rc.port}" />
+				</not>
+			</condition>
+		</fail>
+
+		<fail message="Google App Engine is not available. Either run 'ant start-local-gae' in a seperate console, or use 'ant test'.">
+			<condition>
+				<not>
+					<socket server="${gae.host}" port="${gae.port}" />
+				</not>
+			</condition>
+		</fail>
+
+		<java
+			classname="com.yahoo.platform.yuitest.selenium.YUITestSeleniumDriver"
+			classpathref="ant.tasks.classpath"
+			fork="true"
+			failonerror="true"
+		>
+			<arg line="--host ${selenium.rc.host} --port ${selenium.rc.port} --resultsdir ${reports.dir} --tests ${tools.dir}/tests/unit-tests.xml --browsers ${selenium.rc.browsers}" />
 		</java>
 	</target>
 </project>
