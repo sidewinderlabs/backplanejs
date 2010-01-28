@@ -28,9 +28,9 @@
 	<!--
 		Load properties.
 	-->
+	<property file="my.ant.properties" />
 	<property file="ant.properties" />
 	<property file="drupal.ant.properties" />
-	<property file="my.ant.properties" />
 
 	<!--
 		Make any tools available.
@@ -74,11 +74,21 @@
 		<mkdir dir="${deploy.root.dir}/drupal" />
 		<mkdir dir="${drupal.output.dir}" />
 		<mkdir dir="${output.dir}" />
-		<mkdir dir="${reports.dir}" />
 
 		<!-- For documentation -->
 		<mkdir dir="${build.dir}/output/tmpdocs" />
 		<mkdir dir="${doc.dir}" />
+	</target>
+
+	<!--
+		The report directory, used by Selenium.
+	-->
+	<target name="-create-report-directory">
+		<mkdir dir="${reports.dir}" />
+	</target>
+
+	<target name="-delete-report-directory">
+		<delete dir="${reports.dir}" />
 	</target>
 
 	<target name="-delete-directories">
@@ -486,11 +496,13 @@
 		<antcall target="-copy-testsuite-to-local-app-engine" />
 	</target>
 
-	<target name="test-ut" depends="initialize" description="Run unit-tests.">
+	<target name="test-ut" description="Run unit-tests.">
 		<parallel>
 			<daemons>
 				<antcall target="start-selenium-rc" />
-				<antcall target="start-local-gae" />
+				<antcall target="start-local-gae">
+					<param name="gae.application.root" value="${deploy.root.dir}"/>
+				</antcall>
 			</daemons>
 
 			<sequential>
@@ -551,12 +563,13 @@
 	</target>
 
 	<target name="start-local-gae" depends="-check-local-gae" unless="local-gae-started">
+		<echo level="info" message="Starting GAE for application '${gae.application.root}'" />
 		<exec executable="dev_appserver.py">
-			<arg line="${deploy.root.dir}" />
+			<arg line="--port ${gae.port} ${gae.application.root}" />
 		</exec>
 	</target>
 
-	<target name="run-yui-test-selenium-driver">
+	<target name="run-yui-test-selenium-driver" depends="-create-report-directory">
 		<fail message="Selenium RC is not available. Either run 'ant start-selenium-rc' in a seperate console, or use 'ant test'.">
 			<condition>
 				<not>
