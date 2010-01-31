@@ -47,6 +47,10 @@
 		</fileset>
 	</path>
 
+	<condition property="sprocketize.app.name" value="sprocketize.bat" else="sprocketize">
+		<os family="windows" />
+	</condition>
+
 	<scriptdef
 		name="jslint"
 		src="${tools.dir}/fulljslint-for-ant.js" language="javascript"
@@ -255,7 +259,7 @@
 			Create the JS file.
 		</description>
 
-		<exec executable="sprocketize" output="${output.dir}/${product.name}.js" failonerror="true" logError="true">
+		<exec executable="${sprocketize.app.name}" output="${output.dir}/${product.name}.js" failonerror="true" logError="true">
 			<arg line="-I . -I build -I third-party -I third-party/uxf/src -I third-party/uxf/src/lib -I third-party/uxf/src/lib/backplane" />
 			<arg value="copyright.txt" />
 			<arg value="${build.dir}/${product.name}.js" />
