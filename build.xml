@@ -52,6 +52,18 @@
 		<os family="windows" />
 	</condition>
 
+	<!--
+		This is a bit of a hack to work around Windows problems. There may
+		be a better way to do this.
+	-->
+	<condition property="gae.app.name.1" value="python" else="dev_appserver.py">
+		<os family="windows" />
+	</condition>
+
+	<condition property="gae.app.name.2" value="${gae.windows.install.dir}\dev_appserver.py" else="">
+		<os family="windows" />
+	</condition>
+
 	<scriptdef
 		name="jslint"
 		src="${helper-apps.dir}/fulljslint-for-ant.js" language="javascript"
@@ -586,8 +598,11 @@
 
 	<target name="start-local-gae" depends="-check-local-gae, pre-start-local-gae" unless="local-gae-started">
 		<echo level="info" message="Starting GAE for application '${gae.application.root}'" />
-		<exec executable="dev_appserver.py">
-			<arg line="--port ${gae.port} ${gae.application.root}" />
+		<exec executable="${gae.app.name.1}">
+			<arg value="${gae.app.name.2}" />
+			<arg value="--port" />
+			<arg value="${gae.port}" />
+			<arg value="${gae.application.root}" />
 		</exec>
 	</target>
 
