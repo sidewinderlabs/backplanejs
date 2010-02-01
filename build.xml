@@ -260,7 +260,18 @@
 		</description>
 
 		<exec executable="${sprocketize.app.name}" output="${output.dir}/${product.name}.js" failonerror="true" logError="true">
-			<arg line="-I . -I build -I third-party -I third-party/uxf/src -I third-party/uxf/src/lib -I third-party/uxf/src/lib/backplane" />
+			<arg value="-I" />
+			<arg value="." />
+			<arg value="-I" />
+			<arg value="build" />
+			<arg value="-I" />
+			<arg value="third-party" />
+			<arg value="-I" />
+			<arg value="third-party/uxf/src" />
+			<arg value="-I" />
+			<arg value="third-party/uxf/src/lib" />
+			<arg value="-I" />
+			<arg value="third-party/uxf/src/lib/backplane" />
 			<arg value="copyright.txt" />
 			<arg value="${build.dir}/${product.name}.js" />
 			<arg value="-a${output.dir}/assets" />
@@ -331,7 +342,9 @@
 			fork="true"
 			failonerror="true"
 		>
-			<arg line="-o ${deploy.dir}/assets/${product.name}-min.css ${deploy.dir}/assets/${product.name}.css" />
+			<arg value="-o" />
+			<arg value="${deploy.dir}/assets/${product.name}-min.css" />
+			<arg value="${deploy.dir}/assets/${product.name}.css" />
 		</java>
 
 		<!--
@@ -360,7 +373,9 @@
 			fork="true"
 			failonerror="true"
 		>
-			<arg line="-o ${deploy.dir}/${product.name}-min.js ${deploy.dir}/${product.name}.js" />
+			<arg value="-o" />
+			<arg value="${deploy.dir}/${product.name}-min.js" />
+			<arg value="${deploy.dir}/${product.name}.js" />
 		</java>
 	</target>
 
