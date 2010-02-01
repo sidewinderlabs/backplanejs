@@ -24,19 +24,20 @@
 		P R E A M B L E
 		===============
 	-->
+	<dirname property="backplanejs.base.dir" file="${ant.file.backplanejs}" />
 
 	<!--
 		Load properties.
 	-->
-	<property file="my.ant.properties" />
-	<property file="ant.properties" />
-	<property file="drupal.ant.properties" />
+	<property file="${backplanejs.base.dir}/my.ant.properties" />
+	<property file="${backplanejs.base.dir}/ant.properties" />
+	<property file="${backplanejs.base.dir}/drupal.ant.properties" />
 
 	<!--
 		Make any tools available.
 	-->
 	<path id="ant.tasks.classpath">
-		<fileset dir="${tools.dir}">
+		<fileset dir="${helper-apps.dir}">
 			<include name="ant-apache-bsf-1.7.1.jar" />
 			<include name="ant-googlecode-0.0.2.jar" />
 			<include name="bsf.jar" />
@@ -53,7 +54,7 @@
 
 	<scriptdef
 		name="jslint"
-		src="${tools.dir}/fulljslint-for-ant.js" language="javascript"
+		src="${helper-apps.dir}/fulljslint-for-ant.js" language="javascript"
 		classpathref="ant.tasks.classpath"
 	>
 		<attribute name="options" />
@@ -204,7 +205,7 @@
 				<include name="logger.js" />
 				<include name="yuitest.js" />
 			</fileset>
-			<fileset dir="${tools.dir}/tests">
+			<fileset dir="${helper-apps.dir}/tests">
 				<include name="unit-test-runner.js" />
 			</fileset>
 		</concat>
@@ -217,7 +218,7 @@
 				<include name="**/*.js" />
 			</fileset>
 		</concat>
-		<copy file="${tools.dir}/tests/unit.html" tofile="${deploy.root.dir}/unit-tests/backplane/main.html" failonerror="true" />
+		<copy file="${helper-apps.dir}/tests/unit.html" tofile="${deploy.root.dir}/unit-tests/backplane/main.html" failonerror="true" />
 
 		<!--
 			Knowledgebase
@@ -227,7 +228,7 @@
 				<include name="**/*.js" />
 			</fileset>
 		</concat>
-		<copy file="${tools.dir}/tests/unit.html" tofile="${deploy.root.dir}/unit-tests/kb/main.html" failonerror="true" />
+		<copy file="${helper-apps.dir}/tests/unit.html" tofile="${deploy.root.dir}/unit-tests/kb/main.html" failonerror="true" />
 
 		<!--
 			RDFa
@@ -237,7 +238,7 @@
 				<include name="**/*.js" />
 			</fileset>
 		</concat>
-		<copy file="${tools.dir}/tests/unit.html" tofile="${deploy.root.dir}/unit-tests/rdfa/main.html" failonerror="true" />
+		<copy file="${helper-apps.dir}/tests/unit.html" tofile="${deploy.root.dir}/unit-tests/rdfa/main.html" failonerror="true" />
 
 		<!--
 			XForms
@@ -251,7 +252,7 @@
 				<include name="**/ut-*.js" />
 			</fileset>
 		</concat>
-		<copy file="${tools.dir}/tests/unit.html" tofile="${deploy.root.dir}/unit-tests/xforms/main.html" failonerror="true" />
+		<copy file="${helper-apps.dir}/tests/unit.html" tofile="${deploy.root.dir}/unit-tests/xforms/main.html" failonerror="true" />
 	</target>
 
 	<target name="-create-js">
@@ -280,14 +281,14 @@
 
 	<target name="-yui-doc">
 		<exec executable="python" failonerror="true">
-			<arg value="${tools.dir}/yuidoc/bin/yuidoc.py" />
+			<arg value="${helper-apps.dir}/yuidoc/bin/yuidoc.py" />
 			<arg value="${rdfa.src.dir}" />
 			<arg value="-p" />
 			<arg value="${build.dir}/output/tmpdocs" />
 			<arg value="-o" />
 			<arg value="${doc.dir}" />
 			<arg value="-t" />
-			<arg value="${tools.dir}/yuidoc/template" />
+			<arg value="${helper-apps.dir}/yuidoc/template" />
 			<arg value="-m" />
 			<arg value="${project.name}" />
 			<arg value="-Y" />
@@ -457,7 +458,7 @@
 
 	<target name="-copy-config-to-local-app-engine">
 		<copy todir="${deploy.root.dir}" failonerror="true">
-			<fileset dir="${tools.dir}/GoogleAppEngine" />
+			<fileset dir="${helper-apps.dir}/GoogleAppEngine" />
 		</copy>
 	</target>
 
@@ -561,7 +562,7 @@
 
 	<target name="start-selenium-rc" description="Start Selenium RC." depends="-check-selenium-rc" unless="selenium-rc-started">
 		<java
-			jar="${tools.dir}/selenium-server.jar"
+			jar="${helper-apps.dir}/selenium-server.jar"
 			fork="true"
 			failonerror="true"
 			outputproperty="__dummy"
@@ -581,7 +582,9 @@
 		</condition>
 	</target>
 
-	<target name="start-local-gae" depends="-check-local-gae" unless="local-gae-started">
+	<target name="pre-start-local-gae" description="Stub." />
+
+	<target name="start-local-gae" depends="-check-local-gae, pre-start-local-gae" unless="local-gae-started">
 		<echo level="info" message="Starting GAE for application '${gae.application.root}'" />
 		<exec executable="dev_appserver.py">
 			<arg line="--port ${gae.port} ${gae.application.root}" />
@@ -611,7 +614,7 @@
 			fork="true"
 			failonerror="true"
 		>
-			<arg line="--host ${selenium.rc.host} --port ${selenium.rc.port} --resultsdir ${reports.dir} --tests ${tools.dir}/tests/unit-tests.xml --browsers ${selenium.rc.browsers}" />
+			<arg line="--host ${selenium.rc.host} --port ${selenium.rc.port} --resultsdir ${reports.dir} --tests ${helper-apps.dir}/tests/unit-tests.xml --browsers ${selenium.rc.browsers}" />
 		</java>
 	</target>
 </project>
