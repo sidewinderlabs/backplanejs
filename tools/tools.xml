@@ -31,6 +31,7 @@
 	<property file="${backplanejs.tools.base.dir}/drupal.ant.properties" />
 
 	<import file="${backplanejs.tools.base.dir}/GoogleAppEngine/gae.xml" />
+	<import file="${backplanejs.tools.base.dir}/selenium-rc/selenium-rc.xml" />
 
 	<path id="ant.tasks.classpath">
 		<fileset dir="${backplanejs.tools.base.dir}">

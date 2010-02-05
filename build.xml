@@ -517,27 +517,6 @@
 	<!--
 		Helper tasks
 	-->
-	<target name="-check-selenium-rc">
-		<condition property="selenium-rc-started">
-			<socket server="${selenium.rc.host}" port="${selenium.rc.port}" />
-		</condition>
-	</target>
-
-	<target name="start-selenium-rc" description="Start Selenium RC." depends="-check-selenium-rc" unless="selenium-rc-started">
-		<java
-			jar="${helper-apps.dir}/selenium-server.jar"
-			fork="true"
-			failonerror="true"
-			outputproperty="__dummy"
-		>
-			<!--
-				Set additional parameters in my.ant.properties.
-
-				For details of options see http://seleniumhq.org/docs/05_selenium_rc.html#server-options
-			-->
-			<arg line="-port ${selenium.rc.port} ${selenium.rc.params}" />
-		</java>
-	</target>
 
 	<target name="run-yui-test-selenium-driver" depends="-create-report-directory">
 		<fail message="Selenium RC is not available. Either run 'ant start-selenium-rc' in a seperate console, or use 'ant test'.">
