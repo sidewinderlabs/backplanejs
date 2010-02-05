@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="./ant2html.xsl"?>
+<!--
+   - Copyright (c) 2009-2010 Mark Birbeck
+   -
+   - Licensed under the Apache License, Version 2.0 (the "License");
+   - you may not use this file except in compliance with the License.
+   - You may obtain a copy of the License at
+   -
+   -  http://www.apache.org/licenses/LICENSE-2.0
+   -
+   - Unless required by applicable law or agreed to in writing, software
+   - distributed under the License is distributed on an "AS IS" BASIS,
+   - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   - See the License for the specific language governing permissions and
+   - limitations under the License.
+   -->
+<project name="backplanejs-tools" default="help" basedir=".">
+	<description>
+		Ant project for the backplanejs tools.
+	</description>
+
+	<!--
+		P R E A M B L E
+		===============
+	-->
+	<dirname property="backplanejs.tools.base.dir" file="${ant.file.backplanejs-tools}" />
+
+	<property file="${backplanejs.tools.base.dir}/my.ant.properties" />
+	<property file="${backplanejs.tools.base.dir}/ant.properties" />
+	<property file="${backplanejs.tools.base.dir}/drupal.ant.properties" />
+
+	<import file="${backplanejs.tools.base.dir}/GoogleAppEngine/gae.xml" />
+
+	<path id="ant.tasks.classpath">
+		<fileset dir="${backplanejs.tools.base.dir}">
+			<include name="ant-apache-bsf-1.7.1.jar" />
+			<include name="ant-googlecode-0.0.2.jar" />
+			<include name="bsf.jar" />
+			<include name="commons-logging-1.1.1.jar" />
+			<include name="selenium-java-client-driver.jar" />
+			<include name="yuicompressor-2.4.2.jar" />
+			<include name="yuitest-selenium-driver-0.4.4.jar" />
+		</fileset>
+	</path>
+
+	<scriptdef
+		name="jslint"
+		src="${backplanejs.tools.base.dir}/fulljslint-for-ant.js" language="javascript"
+		classpathref="ant.tasks.classpath"
+	>
+		<attribute name="options" />
+		<element name="fileset" type="fileset" />
+	</scriptdef>
+
+	<taskdef
+		name="gcupload"
+		classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask"
+		classpathref="ant.tasks.classpath"
+	/>
+
+	<!--
+		This is a bit of a hack to work around Windows problems. There may
+		be a better way to do this.
+	-->
+	<condition property="sprocketize.app.name" value="sprocketize.bat" else="sprocketize">
+		<os family="windows" />
+	</condition>
+</project>

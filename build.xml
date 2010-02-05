@@ -24,56 +24,11 @@
 		P R E A M B L E
 		===============
 	-->
-	<dirname property="backplanejs.base.dir" file="${ant.file.backplanejs}" />
+	<property file="my.ant.properties" />
+	<property file="ant.properties" />
+	<property file="drupal.ant.properties" />
 
-	<!--
-		Load properties.
-	-->
-	<property file="${backplanejs.base.dir}/my.ant.properties" />
-	<property file="${backplanejs.base.dir}/ant.properties" />
-	<property file="${backplanejs.base.dir}/drupal.ant.properties" />
-
-	<!--
-		Make any tools available.
-	-->
-	<path id="ant.tasks.classpath">
-		<fileset dir="${helper-apps.dir}">
-			<include name="ant-apache-bsf-1.7.1.jar" />
-			<include name="ant-googlecode-0.0.2.jar" />
-			<include name="bsf.jar" />
-			<include name="commons-logging-1.1.1.jar" />
-			<include name="selenium-java-client-driver.jar" />
-			<include name="yuicompressor-2.4.2.jar" />
-			<include name="yuitest-selenium-driver-0.4.4.jar" />
-		</fileset>
-	</path>
-
-	<scriptdef
-		name="jslint"
-		src="${helper-apps.dir}/fulljslint-for-ant.js" language="javascript"
-		classpathref="ant.tasks.classpath"
-	>
-		<attribute name="options" />
-		<element name="fileset" type="fileset" />
-	</scriptdef>
-
-	<taskdef
-		name="gcupload"
-		classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask"
-		classpathref="ant.tasks.classpath"
-	/>
-
-	<!--
-		This is a bit of a hack to work around Windows problems. There may
-		be a better way to do this.
-	-->
-	<condition property="sprocketize.app.name" value="sprocketize.bat" else="sprocketize">
-		<os family="windows" />
-	</condition>
-
-	<condition property="gae.app.name" value="${helper-apps.dir}/GoogleAppEngine/dev_appserver.bat" else="dev_appserver.py">
-		<os family="windows" />
-	</condition>
+	<import file="${backplanejs-tools.dir}/tools.xml" />
 
 	<!--
 		T A S K S
@@ -584,23 +539,6 @@
 		</java>
 	</target>
 
-	<target name="-check-local-gae">
-		<condition property="local-gae-started">
-			<socket server="${gae.host}" port="${gae.port}" />
-		</condition>
-	</target>
-
-	<target name="-pre-start-local-gae" description="Stub." />
-
-	<target name="start-local-gae" depends="-check-local-gae, -pre-start-local-gae" unless="local-gae-started">
-		<echo level="info" message="Starting GAE for application '${gae.application.root}'" />
-		<exec executable="${gae.app.name}">
-			<arg value="--port" />
-			<arg value="${gae.port}" />
-			<arg value="${gae.application.root}" />
-		</exec>
-	</target>
-
 	<target name="run-yui-test-selenium-driver" depends="-create-report-directory">
 		<fail message="Selenium RC is not available. Either run 'ant start-selenium-rc' in a seperate console, or use 'ant test'.">
 			<condition>
@@ -626,5 +564,18 @@
 		>
 			<arg line="--host ${selenium.rc.host} --port ${selenium.rc.port} --resultsdir ${reports.dir} --tests ${helper-apps.dir}/tests/unit-tests.xml --browsers ${selenium.rc.browsers}" />
 		</java>
+	</target>
+
+	<!--
+		C A L L B A C K S
+		=================
+	-->
+	<target name="-pre-start-local-gae">
+		<copy todir="${gae.application.root}" failonerror="true">
+			<fileset dir="${backplanejs-tools.dir}/GoogleAppEngine" includes="app.yaml"/>
+			<filterset>
+				<filter token="backplanejs.lib.dir" value="${backplanejs.lib.dir}"/>
+			</filterset>
+		</copy>
 	</target>
 </project>

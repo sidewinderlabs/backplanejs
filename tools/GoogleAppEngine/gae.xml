@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   - Copyright (c) 2009-2010 Mark Birbeck
+   -
+   - Licensed under the Apache License, Version 2.0 (the "License");
+   - you may not use this file except in compliance with the License.
+   - You may obtain a copy of the License at
+   -
+   -  http://www.apache.org/licenses/LICENSE-2.0
+   -
+   - Unless required by applicable law or agreed to in writing, software
+   - distributed under the License is distributed on an "AS IS" BASIS,
+   - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   - See the License for the specific language governing permissions and
+   - limitations under the License.
+   -->
+<project name="gae" default="start-local-gae" basedir=".">
+	<description>
+		Ant project for Google App Engine.
+	</description>
+
+	<!--
+		P R E A M B L E
+		===============
+	-->
+	<dirname property="gae.base.dir" file="${ant.file.gae}" />
+
+	<property file="${gae.base.dir}/ant.properties" />
+
+	<condition property="gae.app.name" value="${gae.base.dir}/dev_appserver.bat" else="dev_appserver.py">
+		<os family="windows" />
+	</condition>
+
+	<target name="-check-local-gae" description="Check whether GAE is already running on the specified port.">
+		<condition property="local-gae-started">
+			<socket server="${gae.host}" port="${gae.port}" />
+		</condition>
+	</target>
+
+	<target name="-pre-start-local-gae" description="Opportunity for other Ant tasks to do stuff before start-up." />
+
+	<target name="start-local-gae" depends="-check-local-gae, -pre-start-local-gae" unless="local-gae-started">
+		<fail unless="gae.application.root" message="Please set a value for 'gae.application.root'." />
+		<echo level="info" message="Starting GAE for web application '${gae.application.root}'" />
+		<exec executable="${gae.app.name}">
+			<arg value="--port" />
+			<arg value="${gae.port}" />
+			<arg value="${gae.application.root}" />
+		</exec>
+	</target>
+</project>
