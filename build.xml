@@ -38,36 +38,6 @@
 		<echo>See http://code.google.com/p/backplanejs/wiki/UsingTools</echo>
 	</target>
 
-	<target name="-create-directories">
-		<mkdir dir="${deploy.root.dir}/drupal" />
-		<mkdir dir="${drupal.output.dir}" />
-		<mkdir dir="${output.dir}" />
-
-		<!-- For documentation -->
-		<mkdir dir="${build.dir}/output/tmpdocs" />
-		<mkdir dir="${doc.dir}" />
-	</target>
-
-	<!--
-		The report directory, used by Selenium.
-	-->
-	<target name="-create-report-directory">
-		<mkdir dir="${reports.dir}" />
-	</target>
-
-	<target name="-delete-report-directory">
-		<delete dir="${reports.dir}" />
-	</target>
-
-	<target name="-delete-directories">
-		<delete dir="${deploy.root.dir}/drupal" />
-		<delete dir="${drupal.output.dir}" />
-		<delete dir="${reports.dir}" />
-
-		<delete dir="${build.dir}/output/tmpdocs" />
-		<delete dir="${doc.dir}" />
-	</target>
-
 	<target name="jslint">
 		<description>
 			Run JSLint on the scripts.
@@ -140,108 +110,6 @@
 		</fixcrlf>
 	</target>
 
-	<target name="-create-css" depends="-create-js">
-		<description>
-			Create the CSS file. The only reason there is a dependency on
-			create-js is because we need the assets to have been copied.
-		</description>
-
-		<concat destfile="${output.dir}/${product.name}.css" force="no" eol="crlf">
-			<fileset dir="${output.dir}/assets">
-				<include name="**/*.css" />
-				<exclude name="**/lens/*.css" />
-			</fileset>
-		</concat>
-	</target>
-
-	<target name="-create-unit-tests">
-		<description>
-			Create the unit test files, by concatenating the individual
-			unit tests.
-		</description>
-
-		<!--
-			YUI Unit Test Runner
-		-->
-		<concat destfile="${deploy.root.dir}/unit-tests/unit-test-runner.js" force="no" eol="crlf">
-			<fileset dir="third-party/yui">
-				<include name="logger.js" />
-				<include name="yuitest.js" />
-			</fileset>
-			<fileset dir="${helper-apps.dir}/tests">
-				<include name="unit-test-runner.js" />
-			</fileset>
-		</concat>
-
-		<!--
-			Backplane
-		-->
-		<concat destfile="${deploy.root.dir}/unit-tests/backplane/unit-tests.js" force="no" eol="crlf">
-			<fileset dir="third-party/uxf/src/lib/backplane/_unit-tests">
-				<include name="**/*.js" />
-			</fileset>
-		</concat>
-		<copy file="${helper-apps.dir}/tests/unit.html" tofile="${deploy.root.dir}/unit-tests/backplane/main.html" failonerror="true" />
-
-		<!--
-			Knowledgebase
-		-->
-		<concat destfile="${deploy.root.dir}/unit-tests/kb/unit-tests.js" force="no" eol="crlf">
-			<fileset dir="kb/_unit-tests">
-				<include name="**/*.js" />
-			</fileset>
-		</concat>
-		<copy file="${helper-apps.dir}/tests/unit.html" tofile="${deploy.root.dir}/unit-tests/kb/main.html" failonerror="true" />
-
-		<!--
-			RDFa
-		-->
-		<concat destfile="${deploy.root.dir}/unit-tests/rdfa/unit-tests.js" force="no" eol="crlf">
-			<fileset dir="rdfa/_unit-tests">
-				<include name="**/*.js" />
-			</fileset>
-		</concat>
-		<copy file="${helper-apps.dir}/tests/unit.html" tofile="${deploy.root.dir}/unit-tests/rdfa/main.html" failonerror="true" />
-
-		<!--
-			XForms
-		-->
-		<concat destfile="${deploy.root.dir}/unit-tests/xforms/unit-tests.js" force="no" eol="crlf">
-			<fileset dir="third-party/uxf/unit-tests">
-				<include name="**/*.js" />
-				<exclude name="unit-test-loader.js" />
-			</fileset>
-			<fileset dir="third-party/uxf/src/lib/functions">
-				<include name="**/ut-*.js" />
-			</fileset>
-		</concat>
-		<copy file="${helper-apps.dir}/tests/unit.html" tofile="${deploy.root.dir}/unit-tests/xforms/main.html" failonerror="true" />
-	</target>
-
-	<target name="-create-js">
-		<description>
-			Create the JS file.
-		</description>
-
-		<exec executable="${sprocketize.app.name}" output="${output.dir}/${product.name}.js" failonerror="true" logError="true">
-			<arg value="-I" />
-			<arg value="." />
-			<arg value="-I" />
-			<arg value="build" />
-			<arg value="-I" />
-			<arg value="third-party" />
-			<arg value="-I" />
-			<arg value="third-party/uxf/src" />
-			<arg value="-I" />
-			<arg value="third-party/uxf/src/lib" />
-			<arg value="-I" />
-			<arg value="third-party/uxf/src/lib/backplane" />
-			<arg value="copyright.txt" />
-			<arg value="${build.dir}/${product.name}.js" />
-			<arg value="-a${output.dir}/assets" />
-		</exec>
-	</target>
-
 	<target name="-yui-doc">
 		<exec executable="python" failonerror="true">
 			<arg value="${helper-apps.dir}/yuidoc/bin/yuidoc.py" />
@@ -263,7 +131,7 @@
 		</exec>
 	</target>
 
-	<target name="-prime-deploy" depends="-create-js, -create-css, -create-unit-tests">
+	<target name="-prime-deploy" depends="compile, test-compile">
 		<description>
 			Create a set of deployment files, for testing or distribution.
 		</description>
@@ -341,12 +209,6 @@
 			<arg value="${deploy.dir}/${product.name}-min.js" />
 			<arg value="${deploy.dir}/${product.name}.js" />
 		</java>
-	</target>
-
-	<target name="-min" depends="-min-js, -min-css">
-		<description>
-			Minify everything, ready for distribution.
-		</description>
 	</target>
 
 	<target name="create-drupal-package">
@@ -442,107 +304,6 @@
 		<exec executable="appcfg.py" failonerror="true" inputstring="${gae.password}">
 			<arg line="--passin -e ${gae.username} update ${deploy.root.dir}/" />
 		</exec>
-	</target>
-
-	<!--
-		Phases
-	-->
-	<target name="compile" depends="initialize" description="Create combined JS and CSS files from sources.">
-		<antcall target="-min" />
-	</target>
-
-	<target name="test" depends="initialize, compile" description="Run tests">
-		<antcall target="test-compile" />
-		<antcall target="test-ut" />
-	</target>
-
-	<target name="package" depends="initialize, test" description="Create package for deployment.">
-		<antcall target="-create-deploy-package" />
-	</target>
-
-	<target name="integration-test" depends="initialize, package" description="Test that the package deploys correctly.">
-	</target>
-
-	<target name="deploy" depends="initialize, package" description="Deploy the package.">
-		<antcall target="-gcupload" />
-	</target>
-
-	<!--
-		Goals
-	-->
-	<target name="initialize" description="Initialize the build state.">
-		<antcall target="-create-directories" />
-	</target>
-
-	<target name="test-compile" depends="initialize" description="Create combined JS and CSS files for unit-tests.">
-		<antcall target="-create-unit-tests" />
-		<antcall target="-copy-testsuite-to-local-app-engine" />
-	</target>
-
-	<target name="test-ut" description="Run unit-tests.">
-		<parallel>
-			<daemons>
-				<antcall target="start-selenium-rc" />
-				<antcall target="start-local-gae">
-					<param name="gae.application.root" value="${deploy.root.dir}"/>
-				</antcall>
-			</daemons>
-
-			<sequential>
-				<waitfor>
-					<and>
-						<socket server="${selenium.rc.host}" port="${selenium.rc.port}" />
-						<socket server="${gae.host}" port="${gae.port}" />
-					</and>
-				</waitfor>
-				<antcall target="run-yui-test-selenium-driver" />
-			</sequential>
-		</parallel>
-	</target>
-
-	<target name="site" depends="initialize" description="Create a web-site for the project.">
-		<antcall target="-yui-doc" />
-		<antcall target="compile" />
-		<antcall target="-prime-deploy-to-app-engine" />
-	</target>
-
-	<target name="site-deploy" depends="initialize, site" description="Deploy the project web-site.">
-		<antcall target="-deploy-to-app-engine" />
-	</target>
-
-	<target name="clean" description="Remove the target directory ready for a clean build.">
-		<antcall target="-delete-directories" />
-	</target>
-
-	<!--
-		Helper tasks
-	-->
-
-	<target name="run-yui-test-selenium-driver" depends="-create-report-directory">
-		<fail message="Selenium RC is not available. Either run 'ant start-selenium-rc' in a seperate console, or use 'ant test'.">
-			<condition>
-				<not>
-					<socket server="${selenium.rc.host}" port="${selenium.rc.port}" />
-				</not>
-			</condition>
-		</fail>
-
-		<fail message="Google App Engine is not available. Either run 'ant start-local-gae' in a seperate console, or use 'ant test'.">
-			<condition>
-				<not>
-					<socket server="${gae.host}" port="${gae.port}" />
-				</not>
-			</condition>
-		</fail>
-
-		<java
-			classname="com.yahoo.platform.yuitest.selenium.YUITestSeleniumDriver"
-			classpathref="ant.tasks.classpath"
-			fork="true"
-			failonerror="true"
-		>
-			<arg line="--host ${selenium.rc.host} --port ${selenium.rc.port} --resultsdir ${reports.dir} --tests ${helper-apps.dir}/tests/unit-tests.xml --browsers ${selenium.rc.browsers}" />
-		</java>
 	</target>
 
 	<!--

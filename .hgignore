@@ -3,6 +3,8 @@ syntax: glob
 *.rej
 *.orig
 Thumbs.db
+site
+target
 
 my.ant.properties
 

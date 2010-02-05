@@ -19,11 +19,6 @@
 	<description>
 		Ant project for the backplanejs tools.
 	</description>
-
-	<!--
-		P R E A M B L E
-		===============
-	-->
 	<dirname property="backplanejs.tools.base.dir" file="${ant.file.backplanejs-tools}" />
 
 	<property file="${backplanejs.tools.base.dir}/my.ant.properties" />
@@ -32,6 +27,7 @@
 
 	<import file="${backplanejs.tools.base.dir}/GoogleAppEngine/gae.xml" />
 	<import file="${backplanejs.tools.base.dir}/selenium-rc/selenium-rc.xml" />
+	<import file="${backplanejs.tools.base.dir}/yuitest-selenium/yuitest-selenium.xml" />
 
 	<path id="ant.tasks.classpath">
 		<fileset dir="${backplanejs.tools.base.dir}">
@@ -39,9 +35,7 @@
 			<include name="ant-googlecode-0.0.2.jar" />
 			<include name="bsf.jar" />
 			<include name="commons-logging-1.1.1.jar" />
-			<include name="selenium-java-client-driver.jar" />
 			<include name="yuicompressor-2.4.2.jar" />
-			<include name="yuitest-selenium-driver-0.4.4.jar" />
 		</fileset>
 	</path>
 
@@ -67,4 +61,180 @@
 	<condition property="sprocketize.app.name" value="sprocketize.bat" else="sprocketize">
 		<os family="windows" />
 	</condition>
+
+	<!--
+		Phases
+	-->
+	<target name="generate-sources" description="Copy the source files into the correct location." />
+
+	<target name="generate-resources" description="Copy the resource files into the correct location." />
+
+	<target name="compile" depends="initialize" description="Create combined JS and CSS files from sources.">
+		<antcall target="generate-sources" />
+		<antcall target="generate-resources" />
+
+		<!--
+			Created a combined JS file.
+		-->
+		<exec executable="${sprocketize.app.name}" output="${output.dir}/${product.name}.js" failonerror="true" logError="true">
+			<arg value="-I" />
+			<arg value="." />
+			<arg value="-I" />
+			<arg value="build" />
+			<arg value="-I" />
+			<arg value="third-party" />
+			<arg value="-I" />
+			<arg value="third-party/uxf/src" />
+			<arg value="-I" />
+			<arg value="third-party/uxf/src/lib" />
+			<arg value="-I" />
+			<arg value="third-party/uxf/src/lib/backplane" />
+			<arg value="copyright.txt" />
+			<arg value="${build.dir}/${product.name}.js" />
+			<arg value="-a${output.dir}/assets" />
+		</exec>
+
+		<!--
+			Created a combined CSS file.
+		-->
+		<concat destfile="${output.dir}/${product.name}.css" force="no" eol="crlf">
+			<fileset dir="${output.dir}/assets">
+				<include name="**/*.css" />
+				<exclude name="**/lens/*.css" />
+			</fileset>
+		</concat>
+	</target>
+
+	<target name="test" depends="initialize" description="Run tests.">
+		<antcall target="compile" />
+		<antcall target="test-compile" />
+		<antcall target="test-ut" />
+	</target>
+
+	<target name="package" depends="initialize, test" description="Create package for deployment.">
+		<antcall target="-create-deploy-package" />
+	</target>
+
+	<target name="integration-test" depends="initialize, package" description="Test that the package deploys correctly.">
+	</target>
+
+	<target name="deploy" depends="initialize, package" description="Deploy the package.">
+		<antcall target="-gcupload" />
+	</target>
+
+	<!--
+		Goals
+	-->
+	<target name="validate">
+		<fail unless="build.dir" message="Please set a value for 'build.dir'." />
+		<fail unless="target.dir" message="Please set a value for 'target.dir'." />
+	</target>
+
+	<target name="initialize" depends="validate" description="Initialize the build state.">
+		<mkdir dir="${target.dir}" />
+	</target>
+
+	<target name="clean" description="Remove the target directory ready for a clean build.">
+		<delete dir="${target.dir}" />
+	</target>
+
+	<target name="test-compile" depends="initialize">
+		<description>
+			Create the unit test files, by concatenating the individual
+			unit tests.
+		</description>
+
+		<!--
+			YUI Unit Test Runner
+		-->
+		<concat destfile="${output.dir}/unit-tests/unit-test-runner.js" force="no" eol="crlf">
+			<fileset dir="${src.dir}/third-party/yui">
+				<include name="logger.js" />
+				<include name="yuitest.js" />
+			</fileset>
+			<fileset dir="${src.dir}/build/test">
+				<include name="unit-test-runner.js" />
+			</fileset>
+		</concat>
+
+		<!--
+			Backplane
+		-->
+		<concat destfile="${output.dir}/unit-tests/backplane/unit-tests.js" force="no" eol="crlf">
+			<fileset dir="${src.dir}/third-party/uxf/src/lib/backplane/_unit-tests">
+				<include name="**/*.js" />
+			</fileset>
+		</concat>
+		<copy file="${src.dir}/build/test/unit.html" tofile="${output.dir}/unit-tests/backplane/main.html" failonerror="true" />
+
+		<!--
+			Knowledgebase
+		-->
+		<concat destfile="${output.dir}/unit-tests/kb/unit-tests.js" force="no" eol="crlf">
+			<fileset dir="${src.dir}/kb/_unit-tests">
+				<include name="**/*.js" />
+			</fileset>
+		</concat>
+		<copy file="${src.dir}/build/test/unit.html" tofile="${output.dir}/unit-tests/kb/main.html" failonerror="true" />
+
+		<!--
+			RDFa
+		-->
+		<concat destfile="${output.dir}/unit-tests/rdfa/unit-tests.js" force="no" eol="crlf">
+			<fileset dir="${src.dir}/rdfa/_unit-tests">
+				<include name="**/*.js" />
+			</fileset>
+		</concat>
+		<copy file="${src.dir}/build/test/unit.html" tofile="${output.dir}/unit-tests/rdfa/main.html" failonerror="true" />
+
+		<!--
+			XForms
+		-->
+		<concat destfile="${output.dir}/unit-tests/xforms/unit-tests.js" force="no" eol="crlf">
+			<fileset dir="${src.dir}/third-party/uxf/unit-tests">
+				<include name="**/*.js" />
+				<exclude name="unit-test-loader.js" />
+			</fileset>
+			<fileset dir="${src.dir}/third-party/uxf/src/lib/functions">
+				<include name="**/ut-*.js" />
+			</fileset>
+		</concat>
+		<copy file="${src.dir}/build/test/unit.html" tofile="${output.dir}/unit-tests/xforms/main.html" failonerror="true" />
+	</target>
+
+	<target name="test-ut" description="Run unit-tests.">
+		<parallel>
+			<daemons>
+				<antcall target="start-selenium-rc" />
+			</daemons>
+
+			<sequential>
+				<waitfor>
+					<and>
+						<socket server="${selenium-rc.host}" port="${selenium-rc.port}" />
+					</and>
+				</waitfor>
+				<property name="unit-tests.dir" location="${output.dir}/unit-tests" />
+				<copy todir="${output.dir}/unit-tests" failonerror="true">
+					<fileset dir="${src.dir}/build/test" includes="test-list.xml"/>
+					<filterset>
+						<filter token="unit-tests.dir" value="${unit-tests.dir}"/>
+					</filterset>
+				</copy>
+				<antcall target="run-yuitest-selenium">
+					<param name="test.list" value="${output.dir}/unit-tests/test-list.xml"/>
+				</antcall>
+			</sequential>
+		</parallel>
+	</target>
+
+	<target name="site" depends="initialize" description="Create a web-site for the project.">
+		<antcall target="-yui-doc" />
+		<antcall target="compile" />
+		<antcall target="-prime-deploy-to-app-engine" />
+	</target>
+
+	<target name="site-deploy" depends="initialize, site" description="Deploy the project web-site.">
+		<antcall target="-deploy-to-app-engine" />
+	</target>
 </project>
