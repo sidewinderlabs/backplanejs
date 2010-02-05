@@ -48,18 +48,6 @@
 		</fileset>
 	</path>
 
-	<condition property="sprocketize.app.name" value="sprocketize.bat" else="sprocketize">
-		<os family="windows" />
-	</condition>
-
-	<!--
-		This is a bit of a hack to work around Windows problems. There may
-		be a better way to do this.
-	-->
-	<condition property="gae.app.name" value="dev_appserver.bat" else="dev_appserver.py">
-		<os family="windows" />
-	</condition>
-
 	<scriptdef
 		name="jslint"
 		src="${helper-apps.dir}/fulljslint-for-ant.js" language="javascript"
@@ -74,6 +62,18 @@
 		classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask"
 		classpathref="ant.tasks.classpath"
 	/>
+
+	<!--
+		This is a bit of a hack to work around Windows problems. There may
+		be a better way to do this.
+	-->
+	<condition property="sprocketize.app.name" value="sprocketize.bat" else="sprocketize">
+		<os family="windows" />
+	</condition>
+
+	<condition property="gae.app.name" value="${helper-apps.dir}/GoogleAppEngine/dev_appserver.bat" else="dev_appserver.py">
+		<os family="windows" />
+	</condition>
 
 	<!--
 		T A S K S
