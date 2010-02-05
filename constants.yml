@@ -1,4 +1,0 @@
-VERSION: 0.6.0
-SRC: third-party/uxf/src/lib/backplane
-DIST: deploy
-MAIN_FILE: backplane.js

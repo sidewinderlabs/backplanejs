@@ -2,10 +2,10 @@ syntax: glob
 
 *.rej
 *.orig
+Thumbs.db
 
 my.ant.properties
 
-tools/GoogleAppEngine/index.yaml
 build/output
 deploy
 work
