@@ -19,10 +19,6 @@
 		Ant project for Google App Engine.
 	</description>
 
-	<!--
-		P R E A M B L E
-		===============
-	-->
 	<dirname property="gae.base.dir" file="${ant.file.gae}" />
 
 	<property file="${gae.base.dir}/ant.properties" />
