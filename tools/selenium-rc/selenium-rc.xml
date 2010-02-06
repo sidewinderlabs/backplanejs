@@ -31,7 +31,7 @@
 
 	<target name="-pre-start-selenium-rc" description="Opportunity for other Ant tasks to do stuff before start-up." />
 
-	<target name="start-selenium-rc" description="Start Selenium RC." depends="-check-selenium-rc, -pre-start-selenium-rc" unless="selenium.rc-started">
+	<target name="start-selenium-rc" description="Start Selenium RC." depends="-check-selenium-rc, -pre-start-selenium-rc" unless="selenium-rc.started">
 		<java
 			jar="${selenium-rc.base.dir}/selenium-server.jar"
 			fork="true"
