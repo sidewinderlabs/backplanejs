@@ -24,15 +24,8 @@
 	<property file="${yuitest-selenium.base.dir}/ant.properties" />
 
 	<target name="run-yuitest-selenium" depends="-check-selenium-rc">
-		<!-- fail unless="selenium-rc.started" message="Selenium RC is not available. Either run 'ant start-selenium-rc' in a seperate console, or use 'ant test'." / -->
-
-		<!-- fail message="Google App Engine is not available. Either run 'ant start-local-gae' in a seperate console, or use 'ant test'.">
-			<condition>
-				<not>
-					<socket server="${gae.host}" port="${gae.port}" />
-				</not>
-			</condition>
-		</fail -->
+		<fail unless="selenium-rc.started" message="Selenium RC is not running. Either run 'ant start-selenium-rc' in a seperate console, or use 'ant test' to run a combined sequence." />
+		<fail unless="selenium-rc.browsers" message="No browsers to test with have been defined. Please set 'selenium-rc.browsers' in 'my.ant.properties'. (Use 'copy-to-my.ant.properties' as a template.)" />
 
 		<java
 			classname="com.yahoo.platform.yuitest.selenium.YUITestSeleniumDriver"
@@ -43,11 +36,6 @@
 				<pathelement location="${yuitest-selenium.base.dir}/yuitest-selenium-driver-0.4.4.jar"/>
 				<pathelement location="${selenium-rc.base.dir}/selenium-java-client-driver.jar"/>
 			</classpath>
-    <!-- java
-			jar="${yuitest-selenium.base.dir}/yuitest-selenium-driver-0.4.4.jar"
-			fork="true"
-			failonerror="true"
-		-->
 			<arg line="--host ${selenium-rc.host} --port ${selenium-rc.port} --resultsdir ${reports.dir} --tests ${test.list} --browsers ${selenium-rc.browsers}" />
 		</java>
 	</target>
