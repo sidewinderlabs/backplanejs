@@ -18,14 +18,6 @@
 //
 //= require "core"
 //
-//= require <yui/element>
-//= require <yui/menu>
-//= require <yui/button>
-//= require <yui/dragdrop>
-//= require <yui/slider>
-//
-//= require <yui/colorpicker>
-//= require <yui/calendar>
 
 //= require <xforms/ie-instance-fixer>
 //= require <xforms/ie6-css-selectors-fixer>
@@ -88,7 +80,6 @@
 //= require <_backplane/multimap>
 //= require <_backplane/select>
 //= require <xforms/finite-control>
-//= require <_platform/yui/dropbox-yui>
 //= require <xforms/commonselect>
 //= require <xforms/select>
 //= require <xforms/select1>
@@ -109,11 +100,6 @@
 //= require <xforms/TriggerMinimalMixin>
 //= require <xforms/xf4h>
 //
-
-// Shim
-//
-//= require <_platform/yui/xforms-submission-yui>
-//= require <_platform/yui/message>
 
 // Extensions
 //

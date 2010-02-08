@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+//= require <core>
+
 document.notify = document.notify || { };
 
 var global_window_counter = 0;

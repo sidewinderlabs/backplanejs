@@ -90,6 +90,8 @@
 			<arg value="-I" />
 			<arg value="third-party/uxf/src/lib/backplane" />
 			<arg value="copyright.txt" />
+			<arg value="${build.dir}/platform-${platform.name}.js" />
+			<arg value="${build.dir}/platform-ui-${platform.name}.js" />
 			<arg value="${build.dir}/${product.name}.js" />
 			<arg value="-a${output.dir}/assets" />
 		</exec>
@@ -295,7 +297,7 @@ document.
 			<arg value="-m" />
 			<arg value="${project.name}" />
 			<arg value="-Y" />
-			<arg value="${yui.version}" />
+			<arg value="${platform.version}" />
 			<arg value="-v" />
 			<arg value="${version.number}" />
 			<arg value="-u" />

@@ -62,7 +62,7 @@
 				<exclude name="third-party/uxf/src/lib/third-party/**/*.js" />
 				<exclude name="third-party/uxf/testsuite/**/*.js" />
 				<exclude name="third-party/uxf/unit-tests/**/*.js" />
-				<exclude name="third-party/yui/**/*.js" />
+				<exclude name="third-party/${platform.name}/**/*.js" />
 				<exclude name="_samples/**/*.js" />
 				<exclude name="tools/**/*.js" />
 			</fileset>
@@ -104,7 +104,7 @@
 			<exclude name="third-party/uxf/src/lib/third-party/**/*.js" />
 			<exclude name="third-party/uxf/testsuite/**/*.js" />
 			<exclude name="third-party/uxf/unit-tests/**/*.js" />
-			<exclude name="third-party/yui/**/*.js" />
+			<exclude name="third-party/${platform.name}/**/*.js" />
 			<exclude name="_samples/**/*.js" />
 			<exclude name="tools/**/*.js" />
 		</fixcrlf>

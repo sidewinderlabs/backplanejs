@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+//= require <xforms/xforms-submission>
+
 /*
  * [TODO] Could probably turn this into one object.
  */
