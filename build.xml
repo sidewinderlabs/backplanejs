@@ -20,15 +20,7 @@
 		Ant project for various backplanejs tasks.
 	</description>
 
-	<!--
-		P R E A M B L E
-		===============
-	-->
-	<property file="my.ant.properties" />
-	<property file="ant.properties" />
-	<property file="drupal.ant.properties" />
-
-	<import file="${backplanejs-tools.dir}/tools.xml" />
+	<import file="tools/tools.xml" />
 
 	<!--
 		T A S K S
@@ -116,17 +108,17 @@
 		</description>
 
 		<copy todir="${deploy.dir}" failonerror="true">
-			<fileset dir="${output.dir}">
+			<fileset dir="${tmp.dir}">
 				<include name="${product.name}.js" />
 			</fileset>
 		</copy>
 
 		<copy todir="${deploy.dir}/assets" failonerror="true">
 			<fileset dir="${build.dir}/assets" />
-			<fileset dir="${output.dir}">
+			<fileset dir="${tmp.dir}">
 				<include name="${product.name}.css" />
 			</fileset>
-			<fileset dir="${output.dir}/assets">
+			<fileset dir="${tmp.dir}/assets">
 				<include name="bg-fader.gif" />
 				<include name="decorator.xml" />
 				<include name="decorate.htc" />
@@ -265,7 +257,7 @@
 		=================
 	-->
 	<target name="pre-site" description="Executes processes needed prior to the actual project site generation.">
-		<copy todir="${output.dir}/site-in/docs" failonerror="true">
+		<copy todir="${tmp.dir}/site-in/docs" failonerror="true">
 			<fileset dir="${rdfa.src.dir}" />
 		</copy>
 	</target>
@@ -274,18 +266,18 @@
 		name="post-site"
 		description="Executes processes needed to finalize the site generation, and to prepare for site deployment."
 	>
-		<copy todir="${output.dir}/site-out/samples" failonerror="true">
+		<copy todir="${tmp.dir}/site-out/samples" failonerror="true">
 			<fileset dir="_samples" />
 		</copy>
 
-		<replace dir="${output.dir}/site-out/samples" token="../../deploy/backplanejs" value="/backplanejs">
+		<replace dir="${tmp.dir}/site-out/samples" token="../../deploy/backplanejs" value="/backplanejs">
 			<include name="**/*.html"/>
 		</replace>
 	</target>
 
 	<target name="-pre-start-local-gae">
 		<copy todir="${gae.application.root}" failonerror="true">
-			<fileset dir="${backplanejs-tools.dir}/GoogleAppEngine" includes="app.yaml"/>
+			<fileset dir="${backplanejs.tools.base.dir}/GoogleAppEngine" includes="app.yaml"/>
 			<filterset>
 				<filter token="backplanejs.lib.dir" value="${backplanejs.lib.dir}"/>
 			</filterset>

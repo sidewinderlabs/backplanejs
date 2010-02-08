@@ -21,10 +21,46 @@
 	</description>
 	<dirname property="backplanejs.tools.base.dir" file="${ant.file.backplanejs-tools}" />
 
-	<property file="${backplanejs.tools.base.dir}/my.ant.properties" />
-	<property file="${backplanejs.tools.base.dir}/ant.properties" />
-	<property file="${backplanejs.tools.base.dir}/drupal.ant.properties" />
+	<!--
+		Automatically load property files for the host application.
+	-->
+	<property file="my.ant.properties" />
+	<property file="ant.properties" />
+	<property file="drupal.ant.properties" />
 
+	<!--
+		These properties may have been set in the host application property files.
+	-->
+	<property name="product.name" value="my-product" />
+	<property name="project.name" value="my-project" />
+	<property name="version.number" value="SNAPSHOT" />
+	<property name="dist.package.name" value="${project.name}" />
+	<property name="deploy.package.name" value="${project.name}-${version.number}.zip" />
+
+	<property name="platform.name" value="some-platform" />
+	<property name="platform.version" value="SNAPSHOT" />
+
+	<property name="build.dir" location="build" />
+	<property name="src.dir" location="${build.dir}/src" />
+
+	<property name="target.dir" location="target" />
+	<property name="deploy.root.dir" location="${target.dir}/deploy" />
+	<property name="deploy.dir" location="${deploy.root.dir}/${dist.package.name}" />
+	<property name="output.dir" location="${target.dir}/output" />
+	<property name="reports.dir" location="${target.dir}/reports" />
+	<property name="site.dir" location="${target.dir}/site" />
+	<property name="site.docs.dir" location="${site.dir}/docs" />
+	<property name="tmp.dir" location="${target.dir}/tmp" />
+	<property name="unit-tests.dir" location="${target.dir}/unit-tests" />
+
+	<property name="site.docs.project.url" value="http://example.com" />
+	<!--
+		End of properties.
+	-->
+
+	<!--
+		Now load our tools.
+	-->
 	<import file="${backplanejs.tools.base.dir}/GoogleAppEngine/gae.xml" />
 	<import file="${backplanejs.tools.base.dir}/selenium-rc/selenium-rc.xml" />
 	<import file="${backplanejs.tools.base.dir}/yuitest-selenium/yuitest-selenium.xml" />
@@ -59,6 +95,10 @@
 		be a better way to do this.
 	-->
 	<condition property="sprocketize.app.name" value="sprocketize.bat" else="sprocketize">
+		<os family="windows" />
+	</condition>
+
+	<condition property="on.windows">
 		<os family="windows" />
 	</condition>
 
@@ -149,12 +189,12 @@
 		<!--
 			YUI Unit Test Runner
 		-->
-		<concat destfile="${output.dir}/unit-tests/unit-test-runner.js" force="no" eol="crlf">
+		<concat destfile="${unit-tests.dir}/unit-test-runner.js" force="no" eol="crlf">
 			<fileset dir="${src.dir}/third-party/yui">
 				<include name="logger.js" />
 				<include name="yuitest.js" />
 			</fileset>
-			<fileset dir="${src.dir}/build/test">
+			<fileset dir="${build.dir}/test">
 				<include name="unit-test-runner.js" />
 			</fileset>
 		</concat>
@@ -162,37 +202,37 @@
 		<!--
 			Backplane
 		-->
-		<concat destfile="${output.dir}/unit-tests/backplane/unit-tests.js" force="no" eol="crlf">
+		<concat destfile="${unit-tests.dir}/backplane/unit-tests.js" force="no" eol="crlf">
 			<fileset dir="${src.dir}/third-party/uxf/src/lib/backplane/_unit-tests">
 				<include name="**/*.js" />
 			</fileset>
 		</concat>
-		<copy file="${src.dir}/build/test/unit.html" tofile="${output.dir}/unit-tests/backplane/main.html" failonerror="true" />
+		<copy file="${build.dir}/test/unit.html" tofile="${unit-tests.dir}/backplane/main.html" failonerror="true" />
 
 		<!--
 			Knowledgebase
 		-->
-		<concat destfile="${output.dir}/unit-tests/kb/unit-tests.js" force="no" eol="crlf">
+		<concat destfile="${unit-tests.dir}/kb/unit-tests.js" force="no" eol="crlf">
 			<fileset dir="${src.dir}/kb/_unit-tests">
 				<include name="**/*.js" />
 			</fileset>
 		</concat>
-		<copy file="${src.dir}/build/test/unit.html" tofile="${output.dir}/unit-tests/kb/main.html" failonerror="true" />
+		<copy file="${build.dir}/test/unit.html" tofile="${unit-tests.dir}/kb/main.html" failonerror="true" />
 
 		<!--
 			RDFa
 		-->
-		<concat destfile="${output.dir}/unit-tests/rdfa/unit-tests.js" force="no" eol="crlf">
+		<concat destfile="${unit-tests.dir}/rdfa/unit-tests.js" force="no" eol="crlf">
 			<fileset dir="${src.dir}/rdfa/_unit-tests">
 				<include name="**/*.js" />
 			</fileset>
 		</concat>
-		<copy file="${src.dir}/build/test/unit.html" tofile="${output.dir}/unit-tests/rdfa/main.html" failonerror="true" />
+		<copy file="${build.dir}/test/unit.html" tofile="${unit-tests.dir}/rdfa/main.html" failonerror="true" />
 
 		<!--
 			XForms
 		-->
-		<concat destfile="${output.dir}/unit-tests/xforms/unit-tests.js" force="no" eol="crlf">
+		<concat destfile="${unit-tests.dir}/xforms/unit-tests.js" force="no" eol="crlf">
 			<fileset dir="${src.dir}/third-party/uxf/unit-tests">
 				<include name="**/*.js" />
 				<exclude name="unit-test-loader.js" />
@@ -201,7 +241,7 @@
 				<include name="**/ut-*.js" />
 			</fileset>
 		</concat>
-		<copy file="${src.dir}/build/test/unit.html" tofile="${output.dir}/unit-tests/xforms/main.html" failonerror="true" />
+		<copy file="${build.dir}/test/unit.html" tofile="${unit-tests.dir}/xforms/main.html" failonerror="true" />
 	</target>
 
 	<target name="test-ut" description="Run unit-tests.">
@@ -216,15 +256,14 @@
 						<socket server="${selenium-rc.host}" port="${selenium-rc.port}" />
 					</and>
 				</waitfor>
-				<property name="unit-tests.dir" location="${output.dir}/unit-tests" />
-				<copy todir="${output.dir}/unit-tests" failonerror="true">
-					<fileset dir="${src.dir}/build/test" includes="test-list.xml"/>
+				<copy todir="${unit-tests.dir}" failonerror="true">
+					<fileset dir="${build.dir}/test" includes="test-list.xml"/>
 					<filterset>
 						<filter token="unit-tests.dir" value="${unit-tests.dir}"/>
 					</filterset>
 				</copy>
 				<antcall target="run-yuitest-selenium">
-					<param name="test.list" value="${output.dir}/unit-tests/test-list.xml"/>
+					<param name="test.list" value="${unit-tests.dir}/test-list.xml"/>
 				</antcall>
 			</sequential>
 		</parallel>
@@ -254,7 +293,7 @@ document.
 		description="Executes processes needed to finalize the site generation, and to prepare for site deployment."
 	>
 		<copy todir="${site.dir}" failonerror="true">
-			<fileset dir="${output.dir}/site-out" />
+			<fileset dir="${tmp.dir}/site-out" />
 		</copy>
 
 		<copy todir="${site.dir}" failonerror="true" overwrite="true">
@@ -274,10 +313,8 @@ document.
 		<fail unless="gae.username" message="Missing property 'gae.username' from file 'my.ant.properties'." />
 		<fail unless="gae.password" message="Missing property 'gae.password' from file 'my.ant.properties'." />
 
-		<exec executable="python" failonerror="true" inputstring="${gae.password}">
-			<arg value="${gae.appcfg.name}" />
-			<arg line="--passin -e ${gae.username} update ${site.dir}/" />
-		</exec>
+		<antcall target="-site-deploy-windows" />
+		<antcall target="-site-deploy-non-windows" />
 	</target>
 
 	<!--
@@ -287,11 +324,11 @@ document.
 	<target name="-create-docs" description="Create the project's site documentation.">
 		<exec executable="python" failonerror="true">
 			<arg value="${backplanejs.tools.base.dir}/yuidoc/bin/yuidoc.py" />
-			<arg value="${output.dir}/site-in/docs" />
+			<arg value="${tmp.dir}/site-in/docs" />
 			<arg value="-p" />
-			<arg value="${output.dir}/tmpdocs" />
+			<arg value="${tmp.dir}/tmpdocs" />
 			<arg value="-o" />
-			<arg value="${output.dir}/site-out/docs" />
+			<arg value="${tmp.dir}/site-out/docs" />
 			<arg value="-t" />
 			<arg value="${backplanejs.tools.base.dir}/yuidoc/template" />
 			<arg value="-m" />
@@ -305,4 +342,22 @@ document.
 		</exec>
 	</target>
 
+	<!--
+		Annoying to have to do this, but on Windows the @inputstring value doesn't
+		seem to get passed in when running a batch file. (And Windows doesn't
+		understand @executable="appcfg.py" in the same way that Unix-like platforms
+		do.)
+	-->
+	<target name="-site-deploy-windows" if="on.windows">
+		<exec executable="python" failonerror="true" inputstring="${gae.password}">
+			<arg value="${gae.appcfg.name}" />
+			<arg line="--passin -e ${gae.username} update ${site.dir}/" />
+		</exec>
+	</target>
+
+	<target name="-site-deploy-non-windows" unless="on.windows">
+		<exec executable="appcfg.py" failonerror="true" inputstring="${gae.password}">
+			<arg line="--passin -e ${gae.username} update ${site.dir}/" />
+		</exec>
+	</target>
 </project>
