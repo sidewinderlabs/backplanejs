@@ -228,13 +228,78 @@
 		</parallel>
 	</target>
 
-	<target name="site" depends="initialize" description="Create a web-site for the project.">
-		<antcall target="-yui-doc" />
-		<antcall target="compile" />
-		<antcall target="-prime-deploy-to-app-engine" />
+	<!--
+		S I T E
+		=======
+	-->
+	<target name="pre-site" description="Executes processes needed prior to the actual project site generation.">
+		<echo>
+The target 'pre-site' has not been set. You need to define this
+in your own build.xml so that backplanejs knows which files to
+document.
+		</echo>
+		<fail />
 	</target>
 
-	<target name="site-deploy" depends="initialize, site" description="Deploy the project web-site.">
-		<antcall target="-deploy-to-app-engine" />
+	<target
+		name="site"
+		depends="initialize, pre-site, -create-docs, post-site, backplanejs-tools.post-site"
+		description="Generates the project's site documentation."
+	/>
+
+	<target
+		name="post-site"
+		description="Executes processes needed to finalize the site generation, and to prepare for site deployment."
+	>
+		<copy todir="${site.dir}" failonerror="true">
+			<fileset dir="${output.dir}/site-out" />
+		</copy>
+
+		<copy todir="${site.dir}" failonerror="true" overwrite="true">
+			<fileset dir="${backplanejs.tools.base.dir}/GoogleAppEngine" includes="app.yaml" />
+			<filterset>
+				<filter token="project.name" value="${project.name}"/>
+				<filter token="version.number" value="${version.number}"/>
+			</filterset>
+		</copy>
 	</target>
+
+	<target
+		name="site-deploy"
+		depends="site"
+		description="Deploys the generated site documentation to the specified web server."
+	>
+		<fail unless="gae.username" message="Missing property 'gae.username' from file 'my.ant.properties'." />
+		<fail unless="gae.password" message="Missing property 'gae.password' from file 'my.ant.properties'." />
+
+		<exec executable="appcfg.py" failonerror="true" inputstring="${gae.password}">
+			<arg line="--passin -e ${gae.username} update ${site.dir}/" />
+		</exec>
+	</target>
+
+	<!--
+		H E L P E R   T A S K S
+		=======================
+	-->
+	<target name="-create-docs" description="Create the project's site documentation.">
+		<exec executable="python" failonerror="true">
+			<arg value="${backplanejs.tools.base.dir}/yuidoc/bin/yuidoc.py" />
+			<arg value="${output.dir}/site-in/docs" />
+			<arg value="-p" />
+			<arg value="${output.dir}/tmpdocs" />
+			<arg value="-o" />
+			<arg value="${output.dir}/site-out/docs" />
+			<arg value="-t" />
+			<arg value="${backplanejs.tools.base.dir}/yuidoc/template" />
+			<arg value="-m" />
+			<arg value="${project.name}" />
+			<arg value="-Y" />
+			<arg value="${yui.version}" />
+			<arg value="-v" />
+			<arg value="${version.number}" />
+			<arg value="-u" />
+			<arg value="${site.docs.project.url}" />
+		</exec>
+	</target>
+
 </project>

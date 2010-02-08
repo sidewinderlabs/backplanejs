@@ -1,5 +1,5 @@
-application: backplanejs
-version: 1
+application: @project.name@
+version: @version.number@
 runtime: python
 api_version: 1
 

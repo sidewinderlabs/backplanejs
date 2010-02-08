@@ -110,27 +110,6 @@
 		</fixcrlf>
 	</target>
 
-	<target name="-yui-doc">
-		<exec executable="python" failonerror="true">
-			<arg value="${helper-apps.dir}/yuidoc/bin/yuidoc.py" />
-			<arg value="${rdfa.src.dir}" />
-			<arg value="-p" />
-			<arg value="${build.dir}/output/tmpdocs" />
-			<arg value="-o" />
-			<arg value="${doc.dir}" />
-			<arg value="-t" />
-			<arg value="${helper-apps.dir}/yuidoc/template" />
-			<arg value="-m" />
-			<arg value="${project.name}" />
-			<arg value="-Y" />
-			<arg value="${yui.version}" />
-			<arg value="-v" />
-			<arg value="${version.number}" />
-			<arg value="-u" />
-			<arg value="${project.url}" />
-		</exec>
-	</target>
-
 	<target name="-prime-deploy" depends="compile, test-compile">
 		<description>
 			Create a set of deployment files, for testing or distribution.
@@ -266,7 +245,7 @@
 		/>
 	</target>
 
-	<target name="-copy-testsuite-to-local-app-engine" depends="-copy-config-to-local-app-engine">
+	<target name="-copy-testsuite-to-local-app-engine">
 		<copy todir="${deploy.root.dir}/testsuite" failonerror="true">
 			<fileset dir="${third-party.dir}/uxf/testsuite" />
 		</copy>
@@ -281,35 +260,29 @@
 		<replace dir="${deploy.root.dir}/testsuite/xforms" token="../../xforms/html" value="html" />
 	</target>
 
-	<target name="-copy-config-to-local-app-engine">
-		<copy todir="${deploy.root.dir}" failonerror="true">
-			<fileset dir="${helper-apps.dir}/GoogleAppEngine" />
-		</copy>
-	</target>
-
-	<target name="-prime-deploy-to-app-engine" depends="-copy-config-to-local-app-engine">
-		<copy todir="${deploy.root.dir}/samples" failonerror="true">
-			<fileset dir="_samples" />
-		</copy>
-
-		<replace dir="${deploy.root.dir}/samples" token="../../deploy/backplanejs" value="/backplanejs">
-			<include name="**/*.html"/>
-		</replace>
-	</target>
-
-	<target name="-deploy-to-app-engine">
-		<fail unless="gae.username" message="Missing property 'gae.username' from file 'my.ant.properties'." />
-		<fail unless="gae.password" message="Missing property 'gae.password' from file 'my.ant.properties'." />
-
-		<exec executable="appcfg.py" failonerror="true" inputstring="${gae.password}">
-			<arg line="--passin -e ${gae.username} update ${deploy.root.dir}/" />
-		</exec>
-	</target>
-
 	<!--
 		C A L L B A C K S
 		=================
 	-->
+	<target name="pre-site" description="Executes processes needed prior to the actual project site generation.">
+		<copy todir="${output.dir}/site-in/docs" failonerror="true">
+			<fileset dir="${rdfa.src.dir}" />
+		</copy>
+	</target>
+
+	<target
+		name="post-site"
+		description="Executes processes needed to finalize the site generation, and to prepare for site deployment."
+	>
+		<copy todir="${output.dir}/site-out/samples" failonerror="true">
+			<fileset dir="_samples" />
+		</copy>
+
+		<replace dir="${output.dir}/site-out/samples" token="../../deploy/backplanejs" value="/backplanejs">
+			<include name="**/*.html"/>
+		</replace>
+	</target>
+
 	<target name="-pre-start-local-gae">
 		<copy todir="${gae.application.root}" failonerror="true">
 			<fileset dir="${backplanejs-tools.dir}/GoogleAppEngine" includes="app.yaml"/>
