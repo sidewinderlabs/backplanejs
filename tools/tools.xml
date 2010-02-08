@@ -272,7 +272,8 @@ document.
 		<fail unless="gae.username" message="Missing property 'gae.username' from file 'my.ant.properties'." />
 		<fail unless="gae.password" message="Missing property 'gae.password' from file 'my.ant.properties'." />
 
-		<exec executable="appcfg.py" failonerror="true" inputstring="${gae.password}">
+		<exec executable="python" failonerror="true" inputstring="${gae.password}">
+			<arg value="${gae.appcfg.name}" />
 			<arg line="--passin -e ${gae.username} update ${site.dir}/" />
 		</exec>
 	</target>
