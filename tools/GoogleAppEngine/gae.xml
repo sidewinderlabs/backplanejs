@@ -27,10 +27,6 @@
 		<os family="windows" />
 	</condition>
 
-	<condition property="gae.appcfg.name" value="${gae.windows.install.dir}/appcfg.py" else="appcfg.py">
-		<os family="windows" />
-	</condition>
-
 	<target name="-check-local-gae" description="Check whether GAE is already running on the specified port.">
 		<condition property="local-gae-started">
 			<socket server="${gae.host}" port="${gae.port}" />

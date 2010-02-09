@@ -350,7 +350,7 @@ document.
 	-->
 	<target name="-site-deploy-windows" if="on.windows">
 		<exec executable="python" failonerror="true" inputstring="${gae.password}">
-			<arg value="${gae.appcfg.name}" />
+			<arg value="${gae.windows.install.dir}/appcfg.py" />
 			<arg line="--passin -e ${gae.username} update ${site.dir}/" />
 		</exec>
 	</target>
