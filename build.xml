@@ -208,16 +208,6 @@
 		/>
 	</target>
 
-	<target name="-create-deploy-package">
-		<zip destfile="${deploy.root.dir}/${deploy.package.name}">
-			<fileset dir="${deploy.dir}">
-				<include name="**/*" />
-				<exclude name="${product.name}.js" />
-				<exclude name="assets/${product.name}.css" />
-			</fileset>
-		</zip>
-	</target>
-
 	<target name="gcupload">
 		<description>
 			Upload a package to Google Code.
