@@ -967,32 +967,18 @@ function _backplanejs_ob_handler( $buffer ) {
 	global $need_namespaces;
 
 	if ($need_namespaces) {
-		$buffer = _backplanejs_ob_handler_find_opening_html_tag( $buffer );
   	$buffer = _backplanejs_ob_handler_insert_namespaces( $buffer );
   }
   return $buffer;
 }
 
-function _backplanejs_ob_handler_find_opening_html_tag($buffer) {
-  $lines = $cutoff = 0;
-  $line  = strtok($buffer, "\n");
-
-  // Attempt to find the opening <html> tag in the first 15 lines:
-  while ($line !== FALSE && $lines++ < 15) {
-    if (($pos = strpos($line, '<html')) !== FALSE) {
-      // If we managed to find <html>, substitute the DOCTYPE; otherwise, the
-      // page output will be returned unmodified.
-      return substr($buffer, $cutoff += $pos);
-    }
-
-    $cutoff += strlen($line) + 1; // line length and "\n"
-    $line = strtok("\n");
-  }
-
-  return $buffer;
-}
-
 function _backplanejs_ob_handler_insert_namespaces( $buffer ) {
+	// Get everything prior to the opening HTML element:
+	//
+	$preamble_len = strpos($buffer, '<html');
+	$preamble = substr($buffer, 0, $preamble_len);
+	$buffer = substr($buffer, $preamble_len);
+
   // Attempt to find the last character of the opening <html> tag:
   if ($html = strtok($buffer, '>')) {
     $buffer = substr($buffer, strlen($html) + 1);
@@ -1007,9 +993,8 @@ function _backplanejs_ob_handler_insert_namespaces( $buffer ) {
       $xmlns[] = '      xmlns:' . $prefix . '="' . $uri . '"';
     }
     $html  .= "\n" . implode("\n", $xmlns) . '>';
-    return $html . $buffer;
   }
-  return $buffer;
+  return $preamble . $html . $buffer;
 }
 
 /**
