@@ -148,7 +148,7 @@
 	      	name: "filter-test-graph-4",
           "$": "http://argot-hub.googlecode.com/filter-test",
 	          "http://purl.org/dc/terms/creator": "Marie Curie",
-	          "http://purl.org/dc/terms/title": "Agricultural Output for 2008",
+	          "http://purl.org/dc/terms/title": "Agricultural Output for 2008"
 	      }]);
 
 	      Assert.isTrue(
