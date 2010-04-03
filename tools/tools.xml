@@ -106,6 +106,10 @@
 	<!--
 		Phases
 	-->
+	<target name="help">
+		<echo>See http://code.google.com/p/backplanejs/wiki/UsingTools</echo>
+	</target>
+
 	<target name="generate-sources" description="Copy the source files into the correct location." />
 
 	<target name="generate-resources" description="Copy the resource files into the correct location." />

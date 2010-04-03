@@ -26,10 +26,6 @@
 		T A S K S
 		=========
 	-->
-	<target name="help">
-		<echo>See http://code.google.com/p/backplanejs/wiki/UsingTools</echo>
-	</target>
-
 	<target name="jslint">
 		<description>
 			Run JSLint on the scripts.
