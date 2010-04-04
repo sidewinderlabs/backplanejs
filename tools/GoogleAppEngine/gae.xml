@@ -20,6 +20,7 @@
 	</description>
 
 	<dirname property="gae.base.dir" file="${ant.file.gae}" />
+	<property name="gae.application.root" location="${deploy.dir}" />
 
 	<property file="${gae.base.dir}/ant.properties" />
 
@@ -36,7 +37,6 @@
 	<target name="-pre-start-local-gae" description="Opportunity for other Ant tasks to do stuff before start-up." />
 
 	<target name="start-local-gae" depends="-check-local-gae, -pre-start-local-gae" unless="local-gae-started">
-		<fail unless="gae.application.root" message="Please set a value for 'gae.application.root'." />
 		<echo level="info" message="Starting GAE for web application '${gae.application.root}'" />
 		<exec executable="${gae.app.name}">
 			<arg value="--port" />
