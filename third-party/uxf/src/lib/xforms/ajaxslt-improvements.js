@@ -605,7 +605,7 @@ function xmlTextR(node, buf, cdata, includeNamespacePrefixes) {
     buf.push('<' + xmlFullNodeName(node));
     for (i = 0; i < node.attributes.length; ++i) {
       a = node.attributes[i];
-      if (a && a.nodeName && a.nodeValue) {
+      if (a && a.nodeName) {
 
 		  if (a.nodeName.indexOf('xmlns') === 0 && includeNamespacePrefixes) {
 			  prefix = a.nodeName.split(':')[1];
