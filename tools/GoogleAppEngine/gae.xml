@@ -39,8 +39,8 @@
 	<target name="start-local-gae" depends="-check-local-gae, -pre-start-local-gae" unless="local-gae-started">
 		<echo level="info" message="Starting GAE for web application '${gae.application.root}'" />
 		<exec executable="${gae.app.name}">
-			<arg value="--port" />
-			<arg value="${gae.port}" />
+			<arg line="-p ${gae.port}" />
+			<arg line="-a ${gae.host}" />
 			<arg value="${gae.application.root}" />
 		</exec>
 	</target>
