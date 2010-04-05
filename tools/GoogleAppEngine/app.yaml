@@ -4,15 +4,17 @@ runtime: python
 api_version: 1
 
 handlers:
-- url: (.*\.htc)
-  static_files: \1
-  upload: (.*\.htc)
+- url: /backplane/assets/(.*\.htc)
+  static_files: @output.dir@/assets/\1
+  upload: @output.dir@/assets/(.*\.htc)
   mime_type: text/xml
 
 - url: /backplanejs-(.*)/(.*)
   static_files: backplanejs-\1/\2
   upload: backplanejs-(.*)/(.*)
-  expiration: 1825d
+
+- url: /backplane
+  static_dir: @output.dir@
 
 - url: /docs
   static_dir: docs
@@ -25,6 +27,14 @@ handlers:
 
 - url: /unit-tests
   static_dir: unit-tests
+
+- url: /tdd
+  static_dir: @tdd.dir@
+
+- url: /tdd/get.session.data
+  static_files: @tdd.dir@/get.session.data
+  upload: @tdd.dir@/get.session.data
+  mime_type: text/xml
 
 - url: /work
   static_dir: ../work

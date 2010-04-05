@@ -57,6 +57,8 @@
 	<property name="tmp.dir" location="${target.dir}/tmp" />
 	<property name="unit-tests.dir" location="${target.dir}/unit-tests" />
 	<filter token="unit-tests.dir" value="${unit-tests.dir}"/>
+	<property name="tdd.dir" location="${xforms.dir}/integration-tests" />
+	<filter token="tdd.dir" value="${tdd.dir}"/>
 
 	<property name="site.docs.project.url" value="http://example.com" />
 	<!--

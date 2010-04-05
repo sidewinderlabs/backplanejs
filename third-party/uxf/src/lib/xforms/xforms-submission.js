@@ -90,7 +90,7 @@ submission.prototype.processResult = function(oResult, isFailure,
             // an empty string is returned. 
             eventContext["error-type"] = "resource-error";
             if (oResult.responseHeaders) {
-                contentType = oResult.responseHeaders["Content-Type"];
+                contentType = oResult.responseHeaders["Content-Type"] || oResult.responseHeaders["Content-type"];
             }
             if (contentType && this.contentTypeIsXML(contentType)) {
                 try {
@@ -132,7 +132,7 @@ submission.prototype.processResult = function(oResult, isFailure,
                     sInstance = oObserver.getAttribute("instance");
 
                     if (oResult.responseHeaders) {
-                        contentType = oResult.responseHeaders["Content-Type"];
+                        contentType = oResult.responseHeaders["Content-Type"] || oResult.responseHeaders["Content-type"];
                     }
                     if (contentType && this.contentTypeIsXML(contentType)) {
                         try {
