@@ -33,7 +33,9 @@
 	-->
 	<property name="product.name" value="my-product" />
 	<property name="project.name" value="my-project" />
+	<filter token="project.name" value="${project.name}"/>
 	<property name="version.number" value="SNAPSHOT" />
+	<filter token="version.number" value="${version.number}"/>
 
 	<property name="platform.name" value="some-platform" />
 	<property name="platform.version" value="SNAPSHOT" />
@@ -48,11 +50,13 @@
 	<property name="deploy.dir" location="${target.dir}/deploy" />
 	<property name="package.dir" location="${target.dir}/${package.name}" />
 	<property name="output.dir" location="${target.dir}/output" />
+	<filter token="output.dir" value="${output.dir}"/>
 	<property name="reports.dir" location="${target.dir}/reports" />
 	<property name="site.dir" location="${target.dir}/site" />
 	<property name="site.docs.dir" location="${site.dir}/docs" />
 	<property name="tmp.dir" location="${target.dir}/tmp" />
 	<property name="unit-tests.dir" location="${target.dir}/unit-tests" />
+	<filter token="unit-tests.dir" value="${unit-tests.dir}"/>
 
 	<property name="site.docs.project.url" value="http://example.com" />
 	<!--
@@ -144,10 +148,11 @@
 		<!--
 			Created a combined CSS file.
 		-->
-		<concat destfile="${output.dir}/${product.name}.css" force="no" eol="crlf">
+		<concat destfile="${output.dir}/assets/${product.name}.css" force="no" eol="crlf">
 			<fileset dir="${output.dir}/assets">
 				<include name="**/*.css" />
-				<exclude name="**/lens/*.css" />
+				<exclude name="lens/*.css" />
+				<exclude name="${product.name}.css" />
 			</fileset>
 		</concat>
 	</target>
@@ -286,11 +291,8 @@
 						<socket server="${selenium-rc.host}" port="${selenium-rc.port}" />
 					</and>
 				</waitfor>
-				<copy todir="${unit-tests.dir}" failonerror="true">
+				<copy todir="${unit-tests.dir}" failonerror="true" filtering="true">
 					<fileset dir="${build.dir}/test" includes="test-list.xml"/>
-					<filterset>
-						<filter token="unit-tests.dir" value="${unit-tests.dir}"/>
-					</filterset>
 				</copy>
 				<antcall target="run-yuitest-selenium">
 					<param name="test.list" value="${unit-tests.dir}/test-list.xml"/>
@@ -326,12 +328,8 @@ document.
 			<fileset dir="${tmp.dir}/site-out" />
 		</copy>
 
-		<copy todir="${site.dir}" failonerror="true" overwrite="true">
+		<copy todir="${site.dir}" failonerror="true" overwrite="true" filtering="true">
 			<fileset dir="${backplanejs.tools.base.dir}/GoogleAppEngine" includes="app.yaml" />
-			<filterset>
-				<filter token="project.name" value="${project.name}"/>
-				<filter token="version.number" value="${version.number}"/>
-			</filterset>
 		</copy>
 	</target>
 

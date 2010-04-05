@@ -262,12 +262,8 @@
 	</target>
 
 	<target name="-pre-start-local-gae">
-		<copy todir="${gae.application.root}" failonerror="true">
+		<copy todir="${gae.application.root}" failonerror="true" filtering="true">
 			<fileset dir="${backplanejs.tools.base.dir}/GoogleAppEngine" includes="app.yaml"/>
-			<filterset>
-				<filter token="project.name" value="${project.name}"/>
-				<filter token="version.number" value="${version.number}"/>
-			</filterset>
 		</copy>
 	</target>
 </project>
