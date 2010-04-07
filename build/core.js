@@ -15,7 +15,7 @@
  */
 
 var UX = { };
-var g_sBehaviourDirectory = "/backplane/assets/";
+var g_sBehaviourDirectory = "/backplanejs-@version.number@/assets/";
 
 //= require <UXUtils>
 //= require <sniffer>
