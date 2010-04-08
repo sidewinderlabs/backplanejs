@@ -20,7 +20,6 @@
 	</description>
 
 	<dirname property="gae.base.dir" file="${ant.file.gae}" />
-	<property name="gae.application.root" location="${deploy.dir}" />
 
 	<property file="${gae.base.dir}/ant.properties" />
 

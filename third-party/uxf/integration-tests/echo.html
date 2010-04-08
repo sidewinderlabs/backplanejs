@@ -1,0 +1,83 @@
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ev="http://www.w3.org/2001/xml-events"
+	xmlns:xf="http://www.w3.org/2002/xforms"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://www.w3.org/2003/05/soap-envelope"
+	xml:lang="en"
+	lang="en"
+>
+	<head>
+		<title></title>
+		<script src="/backplanejs/backplane.js" type="text/javascript">/**/</script>
+		<link rel="stylesheet" href="/backplanejs/assets/backplane.css"></link>
+	</head>
+	<body>
+		<xf:model id="mdl-default">
+
+			<xf:instance id="inst-tx">
+<soap:Envelope
+ xmlns:soap="http://www.w3.org/2003/05/soap-envelope"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+>
+	<soap:Body>
+  	<GetProducts xmlns="http://1stServices.net/" />
+  </soap:Body>
+</soap:Envelope>
+			</xf:instance>
+
+			<xf:instance id="inst-rx">
+				<data xmlns=""></data>
+			</xf:instance>
+
+			<xf:submission
+				id="echo"
+				method="post"
+				resource="action-echo"
+				ref="instance('inst-tx')"
+				replace="instance"
+				instance="inst-rx"
+			>
+				<xf:action ev:event="xforms-submit">
+					<xf:setvalue ref="/data/status" value="''"></xf:setvalue>
+				</xf:action>
+				<xf:action ev:event="xforms-submit-done">
+					<xf:setvalue ref="/data/status" value="'Data sent'"></xf:setvalue>
+				</xf:action>
+				<xf:action ev:event="xforms-submit-error">
+					<xf:setvalue ref="/data/status" value="'Error sending data'"></xf:setvalue>
+				</xf:action>
+			</xf:submission>
+		</xf:model>
+
+		<xf:input ref="/data/currency-amount/@amount">
+			<xf:label>@amount:</xf:label>
+		</xf:input>
+
+		<xf:input ref="/data/currency-amount/@currency">
+			<xf:label>@currency:</xf:label>
+		</xf:input>
+
+		<xf:trigger>
+			<xf:label>Send</xf:label>
+			<xf:send ev:event="DOMActivate" submission="echo"></xf:send>
+		</xf:trigger>
+
+		<p>
+			Data being sent to echo:
+		</p>
+		<xf:output value="serialize(instance('inst-tx'))">
+			<xf:label>serialize(instance('inst-tx')):</xf:label>
+		</xf:output>
+
+		<p>
+			Data returned:
+		</p>
+		<xf:output value="serialize(instance('inst-rx'))">
+			<xf:label>serialize(instance('inst-rx')):</xf:label>
+		</xf:output>
+	</body>
+</html>

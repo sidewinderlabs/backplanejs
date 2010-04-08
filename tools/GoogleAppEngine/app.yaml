@@ -28,6 +28,9 @@ handlers:
 - url: /unit-tests
   static_dir: unit-tests
 
+- url: /integration-tests
+  static_dir: @integration-tests.dir@
+
 - url: /tdd
   static_dir: @tdd.dir@
 
