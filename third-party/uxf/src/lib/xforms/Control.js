@@ -29,7 +29,7 @@ function Control(elmnt) {
 }
 
 Control.prototype.giveFocus = function () {
-	if (this.m_proxy.enabled.getValue()) {
+	if (this.m_proxy && this.m_proxy.enabled && this.m_proxy.enabled.getValue()) {
 		if (typeof this.m_value.giveFocus === "function") {
 			this.m_value.giveFocus();
 		} else {
