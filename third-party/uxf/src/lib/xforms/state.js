@@ -22,19 +22,21 @@ function setState(pThis, sMIPName, sOn, sOff){
 	//To Reiterate - If we want more performant software, then we must optimise out pointless calls such as this.
 	var state;
 	if (pThis.dirtyState && pThis.dirtyState.isDirty(sMIPName)) {
-		UX.removeClassName(pThis.element, sOn);
-		UX.removeClassName(pThis.element,sOff);
-
 		if (typeof pThis.getMIPState === "function") {
 			state = pThis.getMIPState(sMIPName);
 			if (state && state.isSet) {
 				pThis.m_MIPSCurrentlyShowing[sMIPName] = state.value;
 				if (state.value) {
+					UX.removeClassName(pThis.element,sOff);
 					UX.addClassName(pThis.element, sOn);
 				} else {
+					UX.removeClassName(pThis.element, sOn);
 					UX.addClassName(pThis.element, sOff);
 				}
 			}
+		} else {
+			UX.removeClassName(pThis.element, sOn);
+			UX.removeClassName(pThis.element,sOff);
 		}
 	}
 }

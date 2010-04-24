@@ -154,8 +154,10 @@ if (UX.isXHTML) {
 	an attribute to the element.
 */
 		UX.addClassName = function(oElement, classString) {
-		YAHOO.util.Dom.addClass(oElement, classString);
-	};
+			if (!YAHOO.util.Dom.hasClass(oElement, classString)) {
+				YAHOO.util.Dom.addClass(oElement, classString);
+			}
+		};
 
 /**
 	Utility to remove a class attribute.
@@ -164,8 +166,10 @@ if (UX.isXHTML) {
 	which is what happens in IE and Firefox (HTML), and for Firefox( XML) the class is removed from the class
 	attribute of the element.
 */
-	 UX.removeClassName = function (oElement, classString) {
+		UX.removeClassName = function (oElement, classString) {
+			if (YAHOO.util.Dom.hasClass(oElement, classString)) {
 				YAHOO.util.Dom.removeClass(oElement, classString);
+			}
 	};
 
 /**
