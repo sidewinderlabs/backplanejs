@@ -212,6 +212,24 @@ in your own build.xml.
 	<!--
 		TEST
 	-->
+	<target name="pre-start-unit-test-server" description="Perform actions required before the unit-test server is launched.">
+		<copy file="${build.dir}/test/unit-tests-app.yaml" tofile="${unit-tests.dir}/app.yaml" failonerror="true" filtering="true" />
+	</target>
+
+	<target name="-start-unit-test-server" description="Run the unit-test server.">
+			<antcall target="start-local-gae">
+			<param name="gae.application.root" value="${unit-tests.dir}"/>
+		</antcall>
+	</target>
+
+	<target name="post-start-unit-test-server" description="Perform actions required after the unit-test server has shut down." />
+
+	<target
+	 name="start-unit-test-server"
+	 depends="initialize, pre-start-unit-test-server, -start-unit-test-server, post-start-unit-test-server"
+	 description="Launch a server for unit testing."
+	/>
+
 	<target name="-test" description="Run unit-tests.">
 		<parallel>
 			<daemons>

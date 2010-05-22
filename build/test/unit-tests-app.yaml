@@ -1,0 +1,14 @@
+application: @project.name@-unit-tests
+version: @version.number@
+runtime: python
+api_version: 1
+
+handlers:
+- url: /action-(.*)
+  script: action-\1.py
+
+- url: /backplanejs
+  static_dir: @output.dir@
+
+- url: /
+  static_dir: @unit-tests.dir@
