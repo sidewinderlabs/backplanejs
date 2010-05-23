@@ -74,7 +74,7 @@ var suiteFiniteControl = function () {
         dispatchEvent : function(e){
           testStorage = e.type;
         }
-      }
+      };
       var o = new FiniteControl(t);
       o.onInRange();
       YAHOO.util.Assert.areSame(testStorage,"");
@@ -96,7 +96,7 @@ var suiteFiniteControl = function () {
           return obj.getAttribute("class");
         }
       
-      } 
+      };
       var o = new FiniteControl(testDIV);
       YAHOO.util.Dom.addClass(testDIV,"someTestClass");
       

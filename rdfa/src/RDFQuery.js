@@ -248,7 +248,7 @@ RDFQuery.prototype.rawQuery = function(graphURI, q, callback) {
   }
 
   return oRet;
-}//rawQuery()
+};//rawQuery()
 
 
 RDFQuery.prototype.query2 = function(q, callback) {
@@ -307,7 +307,7 @@ RDFQuery.prototype.query2 = function(q, callback) {
 	}
 
   return oRet;
-}//query2()
+};//query2()
 
 RDFQuery.prototype.getSingleValue = function(where) {
 	var r = document.meta.query2({
@@ -318,7 +318,7 @@ RDFQuery.prototype.getSingleValue = function(where) {
 	return (r && r.results.bindings[0] && r.results.bindings[0]["result"])
 		? r.results.bindings[0]["result"].content
 		: null;
-}//getSingleValue()
+};//getSingleValue()
 
 
 RDFQuery.prototype.addGraphs = function(graphURI, where, results, graphList) {
@@ -388,7 +388,7 @@ RDFQuery.prototype.addGraphs = function(graphURI, where, results, graphList) {
         	graphURI: graphURI,
           pattern: pattern,
           triples: [ ]
-        }
+        };
 
       for (var j = 0, len = resources.length; j < len; j++)
       {
@@ -419,7 +419,7 @@ RDFQuery.prototype.addGraphs = function(graphURI, where, results, graphList) {
   }//for ( each pattern )
 
   return;
-}//addGraphs
+};//addGraphs
 
 
 /*
@@ -556,7 +556,7 @@ RDFQuery.prototype.mergeGraphs = function(results, graphList) {
   graphList.length = 0;
 
   return;
-}//mergeGraphs
+};//mergeGraphs
 
 
 function getPropertyFromVar(obj, m, errors) {

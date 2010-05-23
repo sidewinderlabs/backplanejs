@@ -35,7 +35,7 @@ function SmilAnimate(elmnt) {
  
 SmilAnimate.prototype.endElement = function() {
   return;
-} 
+};
 
 SmilAnimate.prototype.restoreValue = function() {
 	this.m_oAnim.setAttribute(
@@ -44,11 +44,11 @@ SmilAnimate.prototype.restoreValue = function() {
 		this.m_currentValueUnit
 	);
 	return;
-}
+};
 
 SmilAnimate.prototype.beginElement = function() {
   return;
-}
+};
 
 SmilAnimate.prototype.handleEvent = function(evt) {
 	var sAttr = this.element.getAttribute("attributeName");
@@ -172,4 +172,4 @@ SmilAnimate.prototype.handleEvent = function(evt) {
 			}
 		}
 	}
-}
+};

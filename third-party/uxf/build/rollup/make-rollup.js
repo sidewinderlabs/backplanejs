@@ -18,7 +18,7 @@ function Roller(){
     "css": function(url,s) {
       return makeCSSURLsAbsolute(url,s);
     }
-  }
+  };
   //create a loader object to be used by the input file.
   var loader = new YAHOO.util.YUILoader();
   loader.allowRollup = false;
@@ -60,7 +60,7 @@ function Roller(){
               //a YAHOO object has been encountered.  The loader doesn't know that they need
               //  the yahoo base library, because it has already been included by the loader itself
               if(!yahooIncluded){
-                var yahooPath = "http://yui.yahooapis.com/2.5.2/build/yahoo/yahoo-min.js"
+                var yahooPath = "http://yui.yahooapis.com/2.5.2/build/yahoo/yahoo-min.js";
                 if(InfoStream) {
                   InfoStream.WriteLine(yahooPath);
                 }

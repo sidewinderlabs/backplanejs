@@ -34,7 +34,7 @@ var suiteSelect1 = function () {
 
     testAddNewItemWithDefaultKey : function() {
       var m = new Multimap();
-      var obj = {getValue:function(){return "hello"}};
+      var obj = {getValue:function(){return "hello";}};
       m.addItem(obj);
       YAHOO.util.Assert.areSame(m.getItem(obj.getValue()),obj);
     },

@@ -44,7 +44,7 @@ AnimateImplYUI.prototype.animateColour = function(elTarget, oAttrs, nDuration, b
 	this.begin();
 
 	return this.m_oAnim ;
-}
+};
 
 AnimateImplYUI.prototype.animate = function(elTarget, oAttrs, nDuration, bReset, fnOnComplete)
 {
@@ -70,7 +70,7 @@ AnimateImplYUI.prototype.animate = function(elTarget, oAttrs, nDuration, bReset,
 	}
 	this.begin();
 	return this.m_oAnim ;
-}
+};
 
 AnimateImplYUI.prototype.restoreValue = function()
 {
@@ -79,7 +79,7 @@ AnimateImplYUI.prototype.restoreValue = function()
 		this.m_currentValue,
 		this.m_currentValueUnit
 	);
-}
+};
 
 AnimateImplYUI.prototype.begin = function()
 {
@@ -107,9 +107,9 @@ AnimateImplYUI.prototype.begin = function()
 
 		this.m_oAnim.animate();
 	}
-}
+};
 
 AnimateImplYUI.prototype.setStyle = function(elTarget,sAttr,sVal)
 {
 	return YAHOO.util.Dom.setStyle(elTarget, sAttr, sVal);
-}
+};

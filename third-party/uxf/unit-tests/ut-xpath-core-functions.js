@@ -1262,7 +1262,7 @@ suiteXPathCoreFunctions.add(
       } else {
           // Create an actual DOM element and attach a function as a listener.
           oElement = document.createElement('div');
-          oElement.addEventListener("test-event", function(evt) {oListener.handleEvent(evt)}, false);
+          oElement.addEventListener("test-event", function(evt) {oListener.handleEvent(evt);}, false);
       }
 
       // Fire an event with attached context info.

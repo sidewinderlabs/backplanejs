@@ -17,7 +17,7 @@
       send: function() {
         this.responseText = "sent[" + this.responseText + "]"; 
       }
-    }
+    };
   };
   
   var suiteMakeRollup = new YAHOO.tool.TestSuite({
@@ -83,8 +83,8 @@
     },
     
     testMakeJSRollup : function() {
-      var stream0 = {lines:[],WriteLine:function(s){this.lines.push(s)}};
-      var stream1 = {lines:[],WriteLine:function(s){this.lines.push(s)}};
+      var stream0 = {lines:[],WriteLine:function(s){this.lines.push(s);}};
+      var stream1 = {lines:[],WriteLine:function(s){this.lines.push(s);}};
       var sSpec = 
       "(function(){" + 
       "  loader.addModule({name: 'mod-1', type: 'js', fullpath: 'path-to-mod-1', requires:['mod-0'] });" +
@@ -96,8 +96,8 @@
       YAHOO.util.Assert.areSame("minified[sent[opened[path-to-mod-1]]]",stream0.lines[1]);
     },
     testMakeJSWithCSS : function() {
-      var stream0 = {lines:[],WriteLine:function(s){this.lines.push(s)}};
-      var stream1 = {lines:[],WriteLine:function(s){this.lines.push(s)}};
+      var stream0 = {lines:[],WriteLine:function(s){this.lines.push(s);}};
+      var stream1 = {lines:[],WriteLine:function(s){this.lines.push(s);}};
       var sSpec = 
       "(function(){" + 
       "  loader.addModule({name: 'mod-1', type: 'js', fullpath: 'path-to-mod-1', requires:['mod-0','mod-1-style'] });" +
@@ -110,9 +110,9 @@
       YAHOO.util.Assert.areSame("minified[sent[opened[path-to-mod-1]]]",stream0.lines[1]);
     },
     testMakeBothWithCSS : function() {
-      var stream0 = {lines:[],WriteLine:function(s){this.lines.push(s)}};
-      var stream1 = {lines:[],WriteLine:function(s){this.lines.push(s)}};
-      var stream2 = {lines:[],WriteLine:function(s){this.lines.push(s)}};
+      var stream0 = {lines:[],WriteLine:function(s){this.lines.push(s);}};
+      var stream1 = {lines:[],WriteLine:function(s){this.lines.push(s);}};
+      var stream2 = {lines:[],WriteLine:function(s){this.lines.push(s);}};
       var sSpec = 
       "(function(){" + 
       "  loader.addModule({name: 'mod-1', type: 'js', fullpath: 'path-to-mod-1', requires:['mod-0','mod-1-style'] });" +

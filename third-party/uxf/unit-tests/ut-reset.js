@@ -28,7 +28,7 @@ var caseReset = new YAHOO.tool.TestCase({
 	function() {
     var instanceDiv = document.createElement("div");
     var testInstance = new Instance(instanceDiv);
-    testInstance.replaceDocument(xmlParse("<x>hello</x>"))
+    testInstance.replaceDocument(xmlParse("<x>hello</x>"));
     this.testModel.addInstance(testInstance);
     
 
@@ -62,11 +62,11 @@ var caseReset = new YAHOO.tool.TestCase({
     var instanceDivDE = document.createElement("div");
     instanceDivDE.id = "DE";
     var testInstanceDE = new Instance(instanceDivDE);
-    testInstanceDE.replaceDocument(xmlParse("<x>Guten Morgen</x>"))
+    testInstanceDE.replaceDocument(xmlParse("<x>Guten Morgen</x>"));
     var instanceDivCY = document.createElement("div");
     instanceDivCY.id = "CY";
     var testInstanceCY = new Instance(instanceDivCY);
-    testInstanceCY.replaceDocument(xmlParse("<x>Bore da</x>"))
+    testInstanceCY.replaceDocument(xmlParse("<x>Bore da</x>"));
 
     this.testModel.addInstance(testInstanceDE);
     this.testModel.addInstance(testInstanceCY);

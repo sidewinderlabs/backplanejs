@@ -87,17 +87,17 @@ SmilSet.prototype.endElement = function()
 	}
 	else if (bRestore)
 		this.element.restoreValue();
-} 
+};
 
 SmilSet.prototype.restoreValue = function()
 {
 	YAHOO.util.Dom.setStyle(this.element, this.m_sAttribute, this.m_currentValue);
-}
+};
 
 SmilSet.prototype.beginElement = function()
 {
 	this.m_currentValue	= this.element.getAttribute(this.m_sAttribute);
-}
+};
 
 SmilSet.prototype.handleEvent = function(evt)
 {
@@ -185,7 +185,7 @@ SmilSet.prototype.handleEvent = function(evt)
 
 		}
 	}
-}
+};
 
 /*SmilSet.prototype.ctor = function()
 {

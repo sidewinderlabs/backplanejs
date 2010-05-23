@@ -1,8 +1,8 @@
 var Assert = YAHOO.util.Assert; 
 var oTestAddSelectionNamespace = new YAHOO.tool.TestCase({
 	name		:	"Test addSelectionNamespace",
-	setUp		: 	function(){ NamespaceManager.clean()},
-	tearDown	:	function(){ NamespaceManager.clean()},
+	setUp		: 	function(){ NamespaceManager.clean();},
+	tearDown	:	function(){ NamespaceManager.clean();},
 
 	_should: { 
 		error: { 
@@ -39,8 +39,8 @@ var oTestAddSelectionNamespace = new YAHOO.tool.TestCase({
 
 var oTestAddOutputNamespace = new YAHOO.tool.TestCase({
 	name		:	"Test addOutputNamespace",
-	setUp		: 	function(){ NamespaceManager.clean()},
-	tearDown	:	function(){ NamespaceManager.clean()},
+	setUp		: 	function(){ NamespaceManager.clean();},
+	tearDown	:	function(){ NamespaceManager.clean();},
 
 	testAddGoodNamespace:
 	function () {
@@ -50,7 +50,7 @@ var oTestAddOutputNamespace = new YAHOO.tool.TestCase({
 	testGetNamespacePrefix:
 	function () {
 		NamespaceManager.addOutputNamespace("y","urn:someNamespace");
-		var prefixes = NamespaceManager.getOutputPrefixesFromURI("urn:someNamespace")		
+		var prefixes = NamespaceManager.getOutputPrefixesFromURI("urn:someNamespace");
 		Assert.isArray(prefixes);
 		Assert.areEqual(prefixes[0],"y" );
 	},
@@ -62,12 +62,12 @@ var oTestAddOutputNamespace = new YAHOO.tool.TestCase({
 	testReadNamespacesFromDocument:
 	function () {
 		NamespaceManager.readOutputNamespacesFromDocument();
-		var prefixes = NamespaceManager.getOutputPrefixesFromURI("urn:someNamespace")		
+		var prefixes = NamespaceManager.getOutputPrefixesFromURI("urn:someNamespace");	
 		Assert.isArray(prefixes);
 		Assert.areEqual(prefixes[0],"x" );
-		prefixes = NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms")		
+		prefixes = NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms");
 		Assert.isArray(prefixes);
-		prefixes.sort()
+		prefixes.sort();
 		Assert.areEqual(prefixes[0],"umahasha" );
 		Assert.areEqual(prefixes[1],"xf" );
 		Assert.areEqual(prefixes[2],"xforms" );
@@ -77,8 +77,8 @@ var oTestAddOutputNamespace = new YAHOO.tool.TestCase({
 
 var oTestTranslateCSS = new YAHOO.tool.TestCase({
 	name		:	"Test translation of CSS Selectors",
-	setUp		: 	function(){ NamespaceManager.clean()},
-	tearDown	:	function(){ NamespaceManager.clean()},
+	setUp		: 	function(){ NamespaceManager.clean();},
+	tearDown	:	function(){ NamespaceManager.clean();},
 
 	_should: { 
 		error: { 

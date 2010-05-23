@@ -4,7 +4,7 @@ importClass(java.io.File);
 importClass(Packages.org.apache.tools.ant.util.FileUtils);
 importClass(java.io.FileReader);
 
-var options = attributes.get("options")
+var options = attributes.get("options");
 var fileset;
 var ds;
 var srcFiles;

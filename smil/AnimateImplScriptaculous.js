@@ -79,7 +79,7 @@ AnimateImplScriptaculous.prototype.animateColour = function(elTarget, oAttrs, nD
 		new Effect.CycleColour(elTarget,oScriptaculousParams);
 		break;
 	}
-}
+};
 
 AnimateImplScriptaculous.prototype.animate = function(elTarget, oAttrs, nDuration, bReset, fnOnComplete)
 {
@@ -101,7 +101,7 @@ AnimateImplScriptaculous.prototype.animate = function(elTarget, oAttrs, nDuratio
 			}
 		}
 	}
-}
+};
 
 AnimateImplScriptaculous.prototype.Move = function(elTarget,dimension, oParams, nDuration, bReset, fnOnComplete)
 {
@@ -118,7 +118,7 @@ AnimateImplScriptaculous.prototype.Move = function(elTarget,dimension, oParams, 
 		}
 	}
 	new Effect.Move(elTarget,objScriptaculousParams);
-}
+};
 
 AnimateImplScriptaculous.prototype.Scale = function(elTarget,dimension, oParams, nDuration, bReset, fnOnComplete)
 {
@@ -159,7 +159,7 @@ AnimateImplScriptaculous.prototype.Scale = function(elTarget,dimension, oParams,
 	if(oParams.by)
 	{
 		//If 'by' has been specified, this maps sensibly to the behaviour of scriptaculous
-		new Effect.Scale(elTarget,oParams.by,objScriptaculousParams)
+		new Effect.Scale(elTarget,oParams.by,objScriptaculousParams);
 	}
 	else
 	{
@@ -191,14 +191,14 @@ AnimateImplScriptaculous.prototype.Scale = function(elTarget,dimension, oParams,
 
 		new Effect.Scale( elTarget, 100,objScriptaculousParams);
 	}
-}
+};
 
 AnimateImplScriptaculous.prototype.setStyle = function(elTarget,sAttr,sVal)
 {
 	var cssHash = new Object();
 	cssHash[sAttr] = sVal;
 	return Element.setStyle(elTarget,cssHash);
-}
+};
 
 
 /**
@@ -240,7 +240,7 @@ function NormaliseColour(s)
 //calculates b as a percentage of a
 function CalculatePercentageOf(a,b)
 {
-	return (100*(b/a))
+	return (100*(b/a));
 }
 
 
@@ -273,8 +273,8 @@ Object.extend(Object.extend(Effect.CycleColour.prototype, Effect.Base.prototype)
 			this.options.restorecolor = Element.getStyle(this.element, this.options.targetstyle);
 	}
     // init color calculations
-    this._base  = $R(0,2).map(function(i){ return parseInt(this.options.startcolor.slice(i*2+1,i*2+3),16) }.bind(this));
-    this._delta = $R(0,2).map(function(i){ return parseInt(this.options.endcolor.slice(i*2+1,i*2+3),16)-this._base[i] }.bind(this));
+    this._base  = $R(0,2).map(function(i){ return parseInt(this.options.startcolor.slice(i*2+1,i*2+3),16); }.bind(this));
+    this._delta = $R(0,2).map(function(i){ return parseInt(this.options.endcolor.slice(i*2+1,i*2+3),16)-this._base[i]; }.bind(this));
   },
   update: function(position) {
 	var o = new Object();
@@ -284,7 +284,7 @@ Object.extend(Object.extend(Effect.CycleColour.prototype, Effect.Base.prototype)
   },
   finish: function() {
 	var o = new Object();
-	o[this.options.targetstyle] =  this.options.restorecolor
+	o[this.options.targetstyle] =  this.options.restorecolor;
     Element.setStyle(this.element, Object.extend(this.oldStyle,o));
   }
 });

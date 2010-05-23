@@ -24,7 +24,7 @@ function d(a,b)
 	extend(b,o);
 }
 dojo.behavior.add({
-	"smil:animate":function(el){d(SmilAnimate,el)},
-	"smil:set":function(el){d(SmilSet,el);},
+	"smil:animate":function(el){d(SmilAnimate,el);},
+	"smil:set":function(el){d(SmilSet,el);}
 	});
 	

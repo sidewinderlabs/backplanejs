@@ -7,7 +7,7 @@ var suiteModelStandalone = new YAHOO.tool.TestSuite({
 var caseModelStandalone = new YAHOO.tool.TestCase({
 	name		:	"Test model in standalone mode",
   setUp   : function() {
-    var modelDiv = document.createElement("div")
+    var modelDiv = document.createElement("div");
     new EventTarget(modelDiv);
     this.testModel = new Model(modelDiv);
 
