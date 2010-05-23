@@ -26,3 +26,38 @@ if (!document.createElementNS) {
 	};
 }
 
+if (document.implementation) {
+	if (document.implementation.createDocument) {
+		document.DOMImplementation = document.implementation;
+	} else {
+		document.DOMImplementation = {
+			createDocument: function(namespaceURI, qualifiedName, doctype) {
+				var doc = null;
+		
+				/**
+				 * According to http://blogs.msdn.com/xmlteam/archive/2006/10/23/using-the-right-version-of-msxml-in-internet-explorer.aspx
+				 * best practice is to try MSXML 6.0 and then fall back to MSXML 3.0.
+				 */
+
+				if (typeof(ActiveXObject) != "undefined") {
+					try {
+						doc = new ActiveXObject("Msxml2.DOMDocument.6.0");
+					} catch(e) {
+						try {
+							doc = new ActiveXObject("Msxml2.DOMDocument.3.0");
+							doc.setProperty("SelectionLanguage", "XPath");
+						} catch(e) {
+							throw "No MSXML parser is installed."
+						}
+					}
+
+					if (doc) {
+						doc.async = false;
+					}
+				}
+
+				return doc;
+			}
+		};
+	}//if ( there is no createDocument ) method
+}
