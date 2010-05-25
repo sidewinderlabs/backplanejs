@@ -28,6 +28,19 @@
 				this.evaluator = null;
 			},
 
+			testXPathExpression: function () {
+				var expression = this.evaluator.createExpression("a/b", null);
+
+				Assert.isObject(expression);
+
+				var result = expression.evaluate(this.doc, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+
+				Assert.isObject(result);
+				Assert.areEqual(XPathResult.FIRST_ORDERED_NODE_TYPE, result.resultType);
+				Assert.isObject(result.singleNodeValue);
+				Assert.areEqual("red", result.singleNodeValue.text);
+			},
+
 			testEvaluate: function () {
 				var result = this.evaluator.evaluate("a/b", this.doc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
 
@@ -131,6 +144,29 @@
 				 */
 
 				result.iterateNext();
+			},
+
+			testEvaluateReuseResult: function () {
+				var result = this.evaluator.evaluate("a/b", this.doc, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+
+				Assert.isObject(result);
+				Assert.areEqual(XPathResult.FIRST_ORDERED_NODE_TYPE, result.resultType);
+				this.evaluator.evaluate("a/b", this.doc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, result);
+				Assert.areEqual(XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, result.resultType);
+				Assert.areEqual(3, result.snapshotLength);
+			},
+
+			testEvaluateResolverFunction: function () {
+				FunctionCallExpr.prototype.xpathfunctions["foo"] = function (ctx) {
+					return new NumberValue( 2 );
+				};
+
+				var result = this.evaluator.evaluate("a/b[foo()]", this.doc, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+
+				Assert.isObject(result, "Result is not an object.");
+				Assert.areEqual(XPathResult.FIRST_ORDERED_NODE_TYPE, result.resultType);
+				Assert.isObject(result.singleNodeValue, "There is not singleNodeValue.");
+				Assert.areEqual("green", result.singleNodeValue.text);
 			}
 		})//new TestCase
 	);
