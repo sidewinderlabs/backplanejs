@@ -321,8 +321,8 @@ in your own build.xml.
 			username="${gc.username}"
 			password="${gc.password}"
 			projectname="${project.name}"
-			filename="${deploy.root.dir}/${deploy.package.name}"
-			targetfilename="${deploy.package.name}"
+			filename="${deploy.dir}/${package.name}.zip"
+			targetfilename="${package.name}"
 			summary="${project.name} deployment package, version ${version.number}"
 			labels="Type-Archive, OpSys-All, Featured"
 		/>
