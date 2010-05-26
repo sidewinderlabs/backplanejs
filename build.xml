@@ -290,7 +290,6 @@
 		-->
 		<concat destfile="${unit-tests.dir}/unit-test-runner.js" force="no" eol="crlf">
 			<fileset dir="${src.dir}/third-party/yui">
-				<include name="logger.js" />
 				<include name="yuitest.js" />
 			</fileset>
 			<fileset dir="${build.dir}/test">

@@ -425,6 +425,7 @@ Model.prototype.rebuild = function() {
 };
 
 Model.prototype._rebuild = function() {
+	document.logger.log("Start _rebuild: " + this.element.id, "xforms")
     /*
      * Clear the dependency graph and the change list.
      */
@@ -447,6 +448,7 @@ Model.prototype._rebuild = function() {
 		this.m_bNeedRebuild = false;
 
 	}
+    document.logger.log("End _rebuild: " + this.element.id, "xforms")
 };
 
 

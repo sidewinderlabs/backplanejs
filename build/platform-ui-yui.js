@@ -17,6 +17,7 @@
 //= require <yui/button>
 //= require <yui/dragdrop>
 //= require <yui/slider>
+//= require <yui/logger>
 //
 //= require <yui/colorpicker>
 //= require <yui/calendar>
