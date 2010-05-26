@@ -288,7 +288,7 @@
 		<!--
 			YUI Unit Test Runner
 		-->
-		<concat destfile="${unit-tests.dir}/unit-test-runner.js" force="no" eol="crlf">
+		<concat destfile="${unit-tests.dir}/unit-test-runner.js" eol="crlf">
 			<fileset dir="${src.dir}/third-party/yui">
 				<include name="yuitest.js" />
 			</fileset>
@@ -300,9 +300,13 @@
 		<!--
 			Backplane
 		-->
-		<concat destfile="${unit-tests.dir}/backplane/unit-tests.js" force="no" eol="crlf">
+		<concat destfile="${unit-tests.dir}/backplane/unit-tests.js" force="yes" eol="crlf">
 			<fileset dir="${src.dir}/third-party/uxf/src/lib/backplane/_unit-tests">
 				<include name="**/*.js" />
+				<exclude name="**/ut-dom3ls.js" />
+				<exclude name="**/ut-file.js" />
+				<exclude name="**/ut-fileio.js" />
+				<exclude name="**/ut-scheme-handler.js" />
 			</fileset>
 		</concat>
 		<copy file="${build.dir}/test/unit.html" tofile="${unit-tests.dir}/backplane/main.html" failonerror="true" />
@@ -310,7 +314,7 @@
 		<!--
 			Knowledgebase
 		-->
-		<concat destfile="${unit-tests.dir}/kb/unit-tests.js" force="no" eol="crlf">
+		<concat destfile="${unit-tests.dir}/kb/unit-tests.js" eol="crlf">
 			<fileset dir="${src.dir}/kb/_unit-tests">
 				<include name="**/*.js" />
 			</fileset>
@@ -320,7 +324,7 @@
 		<!--
 			RDFa
 		-->
-		<concat destfile="${unit-tests.dir}/rdfa/unit-tests.js" force="no" eol="crlf">
+		<concat destfile="${unit-tests.dir}/rdfa/unit-tests.js" eol="crlf">
 			<fileset dir="${src.dir}/rdfa/_unit-tests">
 				<include name="**/*.js" />
 			</fileset>
@@ -330,7 +334,7 @@
 		<!--
 			XForms
 		-->
-		<concat destfile="${unit-tests.dir}/xforms/unit-tests.js" force="no" eol="crlf">
+		<concat destfile="${unit-tests.dir}/xforms/unit-tests.js" eol="crlf">
 			<fileset dir="${src.dir}/third-party/uxf/unit-tests">
 				<include name="**/*.js" />
 				<exclude name="unit-test-loader.js" />

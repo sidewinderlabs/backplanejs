@@ -63,6 +63,7 @@ function processBinds(oModel, oElement, oContext) {
 
 
 function processBind(oBind, sExpr, oModel, oContext) {
+	document.logger.log("Start processBind: " + sExpr, "mdl");
     var oNodeset, oNode, oPN,
       i, j,
       sMIPName, sMIPVal,
@@ -173,10 +174,12 @@ function processBind(oBind, sExpr, oModel, oContext) {
         break;
 
         default:
+        	document.logger.log("Binding exception: " + sExpr, "error");
             throw "Binding exception.";
         break;
         }
     }
+	document.logger.log("End processBind: " + sExpr, "mdl");
 }
 
 // [ISSUE] This function is erroneously named

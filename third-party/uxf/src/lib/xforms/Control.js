@@ -127,7 +127,6 @@ Control.prototype.AddValuePseudoElement = function () {
         }
         window.status = "";
       }
-      this.m_bAddedToModel = false;
       this.addInputEventFilter();
     }
   } catch (e) {

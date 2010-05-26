@@ -278,7 +278,15 @@ Model.prototype.addControl = function(oTarget) {
     /*
      * Add the control to the list of controls attached to this model.
      */
+
+	for (var i = 0; i < this.m_arControls.length; i++) {
+		if (oTarget === this.m_arControls[ i ]) {
+			break;
+		}
+	}
+	if (i == this.m_arControls.length) {
     this.m_arControls.push(oTarget);
+	}
 
     // var sTemp = oTarget.element.innerHTML;
 
@@ -425,7 +433,7 @@ Model.prototype.rebuild = function() {
 };
 
 Model.prototype._rebuild = function() {
-	document.logger.log("Start _rebuild: " + this.element.id, "xforms")
+	document.logger.log("Start _rebuild: " + this.element.id, "xforms");
     /*
      * Clear the dependency graph and the change list.
      */
@@ -448,7 +456,7 @@ Model.prototype._rebuild = function() {
 		this.m_bNeedRebuild = false;
 
 	}
-    document.logger.log("End _rebuild: " + this.element.id, "xforms")
+    document.logger.log("End _rebuild: " + this.element.id, "xforms");
 };
 
 
@@ -460,6 +468,7 @@ Model.prototype.recalculate = function() {
 };
 
 Model.prototype._recalculate = function() {
+	document.logger.log("Start _recalculate: " + this.element.id, "xforms");
     if (!FormsProcessor.halted) {
 	    this.m_oDE.recalculate(this.changeList);
 
@@ -468,6 +477,7 @@ Model.prototype._recalculate = function() {
 	    this.m_bNeedRecalculate = false;
 	    this.m_bNeedRevalidate = true;
 	}
+    document.logger.log("End _recalculate: " + this.element.id, "xforms");
 };
 
 Model.prototype.revalidate = function() {
@@ -478,6 +488,7 @@ Model.prototype.revalidate = function() {
 };
 
 Model.prototype._revalidate = function() {
+	document.logger.log("Start _revalidate: " + this.element.id, "xforms");
     if (!FormsProcessor.halted) {
 
 	    this.applyChildBindConstraints(this);
@@ -485,6 +496,7 @@ Model.prototype._revalidate = function() {
 	    this.m_bNeedRevalidate = false;
 	    this.m_bNeedRewire = true;
 	}
+    document.logger.log("End _revalidate: " + this.element.id, "xforms");
 };
 
 
@@ -492,7 +504,10 @@ Model.prototype._revalidate = function() {
  * We give all of the controls the opportunity to update themselves.
  */
 Model.prototype.rewire = function() {
+	document.logger.log("Start rewire: " + this.element.id, "xforms");
     var i, fc;
+
+    document.logger.log("About to unwire " + this.m_arControls.length + " controls", "xforms");
     for (i = 0; i < this.m_arControls.length; ++i) {
         fc = this.m_arControls[i];
 
@@ -503,6 +518,7 @@ Model.prototype.rewire = function() {
         }
     }
 
+    document.logger.log("About to rewire " + this.m_arControls.length + " controls", "xforms");
     for (i = 0; i < this.m_arControls.length; ++i) {
         fc = this.m_arControls[i];
 
@@ -517,12 +533,12 @@ Model.prototype.rewire = function() {
     this.m_bNeedRefresh = true;
     this.flagRefresh();
     this.m_NodesInsertedSinceLastRewire = [];
+    document.logger.log("End rewire: " + this.element.id, "xforms");
     return;
 };
 
 
 Model.prototype.refresh = function() {
-
   if (!FormsProcessor.halted && this.m_bNeedRefresh) {
 		this.m_bNeedRefresh = false;
 		UX.dispatchEvent(this.element, "xforms-refresh",true , true);
@@ -531,6 +547,7 @@ Model.prototype.refresh = function() {
 
 
 Model.prototype._refresh = function() {
+	document.logger.log("Start _refresh: " + this.element.id, "xforms");
     for ( var i = 0; i < this.m_arControls.length; ++i) {
         var fc = this.m_arControls[i];
 
@@ -542,6 +559,7 @@ Model.prototype._refresh = function() {
     }
     this.m_bNeedRefresh = false;
     window.status = "";
+    document.logger.log("End _refresh: " + this.element.id, "xforms");
     return;
 };
 
@@ -610,6 +628,7 @@ Model.prototype.instances = function() {
  * resets all instance data to its original state.
  */
 Model.prototype.reset = function() {
+    document.logger.log("Start reset: " + this.element.id, "xforms");
     if (!FormsProcessor.halted) {
 	    var instances = this.instances();
 	    var l = instances.length;
@@ -620,6 +639,7 @@ Model.prototype.reset = function() {
 	    this.flagRebuild();
 	    _deferredUpdate(this);
 	}
+    document.logger.log("End reset: " + this.element.id, "xforms");
 };
 
 
