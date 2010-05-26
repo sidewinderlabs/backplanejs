@@ -285,7 +285,7 @@ Model.prototype.addControl = function(oTarget) {
 		}
 	}
 	if (i == this.m_arControls.length) {
-    this.m_arControls.push(oTarget);
+		this.m_arControls.push(oTarget);
 	}
 
     // var sTemp = oTarget.element.innerHTML;
