@@ -322,7 +322,7 @@ in your own build.xml.
 			password="${gc.password}"
 			projectname="${project.name}"
 			filename="${deploy.dir}/${package.name}.zip"
-			targetfilename="${package.name}"
+			targetfilename="${package.name}.zip"
 			summary="${project.name} deployment package, version ${version.number}"
 			labels="Type-Archive, OpSys-All, Featured"
 		/>
