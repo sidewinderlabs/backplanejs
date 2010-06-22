@@ -724,3 +724,8 @@ xf\:select1 .pe-choices{
 	max-height:300px;
 	overflow:auto;
 }
+
+xf|select1 .pe-choices{
+	max-height:300px;
+	overflow:auto;
+}
