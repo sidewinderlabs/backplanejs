@@ -76,6 +76,7 @@ function XFormsSelect1(elmnt) {
 		},
 
 		handleScroll: function(o) {
+			if(elmnt.lastChild.style.visibility == 'visible') return;
 			var wheelDelta = o.wheelDelta;
 			if (typeof wheelDelta === "undefined") {
 				wheelDelta = o.detail;

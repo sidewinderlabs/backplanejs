@@ -720,3 +720,7 @@ xforms|select1.appearance-minimal xforms|item {
   text-indent: 0px;
 }
 
+xf\:select1 .pe-choices{
+	max-height:300px;
+	overflow:auto;
+}
