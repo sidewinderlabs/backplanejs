@@ -330,7 +330,7 @@ var NamespaceManager  = function(){
   }
   
   function getNamespaceURI(node) {
-    var nsURI = node.namespaceURI,
+    var nsURI,// = node.namespaceURI,
         arrSegments,
         nodePrefix;
     // Look up URI the tedious way if not available or known to be buggy
