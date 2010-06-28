@@ -22,7 +22,6 @@ function Context(elmnt) {
     this.m_proxy = null;
 }
 
-
 Context.prototype.unwire = function() {
 	this.m_context = null;
 	this.m_arrNodes = null;
@@ -32,19 +31,16 @@ Context.prototype.unwire = function() {
 	return;
 };
 
-
 // TODO: rewrite these functions to have more objectiness,
 // Originally written to remove an amount of stuff from the .htc
 // so just calls equivalent friend function with pThis.
 // This is no longer needed or desired, with the advent of the decorator stuff.
-
 /*
  * Return the evaluation context of the element.
  */
 Context.prototype.getEvaluationContext = function() {
     return _getEvaluationContext(this);
 };
-
 
 /*
  * If an element doesn't have an evaluation context, then we get it
@@ -54,7 +50,6 @@ Context.prototype.getEvaluationContextFromParent = function() {
     return _getEvaluationContextFromParent(this);
 };
 
-
 /*
  * Get the node that this element is bound to.
  */
@@ -62,9 +57,7 @@ Context.prototype.getBoundNode = function(nOrdinal) {
     return _getBoundNode(this, nOrdinal);
 };
 
-
 // Friend functions:
-
 /*
  * The object returned contains the context "node", the "model" that contains it,
  * the "initialContext" node before evaluating the context attribute (or undefined
@@ -121,8 +114,7 @@ function _getEvaluationContext(pThis) {
             }
         } else {
             // Dispatch xforms-binding-exception if model is not resolved
-            UX.dispatchEvent(oElement, "xforms-binding-exception",
-                    false, true, true);
+			UX.dispatchEvent(oElement, "xforms-binding-exception", false, true, true);
         }
     } else {
         //Otherwise use the parent's evaluation context.
@@ -217,8 +209,7 @@ function _getEvaluationContextFromParent(pThis) {
     // of the first model.
     if (!oParent || oRoot === oParent ) {
         if (!document.defaultModel) {
-            var models = NamespaceManager.getElementsByTagNameNS(oRoot,
-                            "http://www.w3.org/2002/xforms", "model");
+			var models = NamespaceManager.getElementsByTagNameNS(oRoot, "http://www.w3.org/2002/xforms", "model");
             if (models && models.length > 0) {
                 document.defaultModel = models[0];
             } else {
@@ -233,6 +224,7 @@ function _getEvaluationContextFromParent(pThis) {
     }
     return oRet;
 }
+
 
 
 function _getBoundNode(pThis, nOrdinal) {
@@ -273,7 +265,6 @@ function _getBoundNode(pThis, nOrdinal) {
     // Bind has the highest priority - see:
     // http://www.w3.org/TR/2006/REC-xforms-20060314/slice3.html#structure-attrs-single-node
     // http://www.w3.org/TR/2006/REC-xforms-20060314/slice3.html#structure-attrs-nodeset
-
     if (sBindId) {
         if (!pThis.m_arrNodes) {
             oBind = FormsProcessor.getBindObject(sBindId, oElement);
@@ -283,8 +274,7 @@ function _getBoundNode(pThis, nOrdinal) {
         oRet.model = pThis.m_model;
 
         i = nOrdinal - 1;
-        if (pThis.m_arrNodes &&
-            pThis.m_arrNodes.length > i) {
+		if (pThis.m_arrNodes && pThis.m_arrNodes.length > i) {
             oRet.node = pThis.m_arrNodes[i];
         }
         return oRet;
@@ -305,8 +295,7 @@ function _getBoundNode(pThis, nOrdinal) {
             pThis.m_model = oRet.model;
 
             if (sRef && nOrdinal == 1) {
-                var oRefNode =
-                    getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet));
+				var oRefNode = getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet));
 
                 if (!oRefNode && pThis.m_model.constructingUI) {
                     // Lazy authoring,
@@ -325,8 +314,7 @@ function _getBoundNode(pThis, nOrdinal) {
                             }
                             // If we created the node from lazy authoring, we need to verify
                             // that it it is actually created properly
-                            oRefNode =
-                                getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet));
+							oRefNode = getFirstNode(pThis.m_model.EvaluateXPath(sRef, oRet));
 
                             // Form controls are considered to be non-relevant if any of the
                             // following apply:
@@ -341,8 +329,7 @@ function _getBoundNode(pThis, nOrdinal) {
             } else if (sNodeset) {
 
                 if (!pThis.m_arrNodes) {
-                    pThis.m_arrNodes =
-                        pThis.m_model.EvaluateXPath(sNodeset, oRet).value;
+					pThis.m_arrNodes = pThis.m_model.EvaluateXPath(sNodeset, oRet).value;
                 }
                 oRet.node = pThis.m_arrNodes[nOrdinal - 1];
             } else if (sName) {
@@ -355,6 +342,7 @@ function _getBoundNode(pThis, nOrdinal) {
 
     return oRet;
 }
+
 
 
 function _getDefaultInstanceDocument(oModel) {

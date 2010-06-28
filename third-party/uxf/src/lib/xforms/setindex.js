@@ -14,13 +14,11 @@
  * limitations under the License.
  */
  
- 
 /*global document, doUpdate, DeferToConditionalInvocationProcessor*/
 
 function SetIndex(elmnt) {
 	this.element = elmnt;
 }
-
 
 SetIndex.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 

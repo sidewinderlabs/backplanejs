@@ -23,8 +23,7 @@ function booleanValueChanged(pThis, evt) {
 	if(oEvt.initMutationEvent === undefined) {
 		oEvt.initMutationEvent = oEvt.initEvent;
 	}
-	oEvt.initMutationEvent("control-value-changed", true, true,
-		null, pThis.currValue, pThis.m_value.checked ? 'true' : 'false', null, null);
+	oEvt.initMutationEvent("control-value-changed", true, true, null, pThis.currValue, pThis.m_value.checked ? 'true' : 'false', null, null);
 
 	spawn(function() {
 		FormsProcessor.dispatchEvent(pThis.element, oEvt);
@@ -48,9 +47,15 @@ XFormsBooleanValue.prototype.onDocumentReady = function() {
 
 		var pThis = this;
 		if(typeof oInput.addEventListener === 'function') {
-			oInput.addEventListener(eventName, function(e) { booleanValueChanged(pThis, e); }, false);
+			oInput.addEventListener(eventName, function(e) {
+					booleanValueChanged(pThis, e);
+				},
+				false
+			);
 		} else {
-			oInput.attachEvent("on" + eventName, function(e) { booleanValueChanged(pThis, e); });
+			oInput.attachEvent("on" + eventName, function(e) {
+				booleanValueChanged(pThis, e);
+			});
 		}
 
 		this.element.appendChild(oInput);
@@ -85,6 +90,5 @@ XFormsBooleanValue.prototype.isTypeAllowed = function(sType) {
 	localPart = arrSegments.length === 2 ? arrSegments[1] : "";
 	namespace = NamespaceManager.getNamespaceURIForPrefix(prefix);
 
-	return ((namespace === "http://www.w3.org/2001/XMLSchema" || namespace === "http://www.w3.org/2002/xforms") &&
-			localPart === "boolean" && !this.parentNode.isBoundToComplexContent());
+	return ((namespace === "http://www.w3.org/2001/XMLSchema" || namespace === "http://www.w3.org/2002/xforms") && localPart === "boolean" && !this.parentNode.isBoundToComplexContent());
 };

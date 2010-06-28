@@ -31,7 +31,6 @@ function Model(elmnt) {
     this.m_NodesInsertedSinceLastRewire = [];
 }
 
-
 Model.prototype.onDocumentReady = function() {
     var self = this;
     this.setElementLoaded();
@@ -49,16 +48,18 @@ Model.prototype.onDocumentReady = function() {
             handleEvent : function (evt) {
                 self.modelDestruct();
             }
-        }, false);
+		},
+		false);
     } else {
-        window.attachEvent("onbeforeunload", function () { self.modelDestruct(); });
+		window.attachEvent("onbeforeunload", function() {
+			self.modelDestruct();
+		});
     }
     this.checkFunctionsAttribute();
 };
 
 Model.prototype.checkFunctionsAttribute = function () {
-	var i, evt,
-		functionString = this.element.getAttribute("functions"),
+	var i, evt, functionString = this.element.getAttribute("functions"),
 		requiredFunctions = functionString ? functionString.split(" ") : [];
 	for (i = 0; i < requiredFunctions.length; ++i) {
 		if (typeof window[requiredFunctions[i]] !== "function") {
@@ -76,11 +77,9 @@ Model.prototype.onContentReady = function() {
     return _model_contentReady(this);
 };
 
-
 Model.prototype.modelConstruct = function() {
     return _modelConstruct(this);
 };
-
 
 Model.prototype.modelConstructDone = function() {
     this.constructingUI = true;
@@ -114,11 +113,9 @@ Model.prototype.fireXFormsReady = function() {
   UX.dispatchEvent(this.element, "xforms-ready", false, false, true);
 };
 
-
 Model.prototype.replaceInstanceDocument = function(sID, oDom) {
     return _replaceInstanceDocument(this, sID, oDom);
 };
-
 
 Model.prototype.getInstanceDocument = function(sID) {
     var oRet = null;
@@ -129,8 +126,7 @@ Model.prototype.getInstanceDocument = function(sID) {
         oInstance = document.getElementById(sID);
         // it may be an external instance.
         if (oInstance && oInstance.parentNode !== this.element) {
-            throw "instance '" + sID + "' is not part of model '"
-                    + this.element.getAttribute('id') + "'";
+			throw "instance '" + sID + "' is not part of model '" + this.element.getAttribute('id') + "'";
         } else {
             l = this.externalInstances.length;
             for (i = 0; i < l; ++i) {
@@ -143,8 +139,7 @@ Model.prototype.getInstanceDocument = function(sID) {
         }
 
     } else {
-        oInstance = NamespaceManager.getElementsByTagNameNS(this.element,
-                "http://www.w3.org/2002/xforms", "instance")[0];
+		oInstance = NamespaceManager.getElementsByTagNameNS(this.element, "http://www.w3.org/2002/xforms", "instance")[0];
         // There may be no real instances, only external ones.
         if (!oInstance) {
             oInstance = this.externalInstances[0];
@@ -160,7 +155,6 @@ Model.prototype.getInstanceDocument = function(sID) {
 
     return oRet;
 };
-
 
 Model.prototype.getEvaluationContext = function() {
     var oRet = {
@@ -198,7 +192,6 @@ Model.prototype.getEvaluationContext = function() {
     return oRet;
 };
 
-
 Model.prototype.getBoundNode = function() {
     return this.getEvaluationContext();
 };
@@ -219,14 +212,11 @@ Model.prototype.setValue = function(oContext, sXPath, sExprValue) {
          * do in fP where we evaluate an expression and also say what 'type' we
          * want from DOM 3 XPath.
          */
-        var sValue = getStringValue(this.EvaluateXPath(sExprValue,
-                                                       {
+		var sValue = getStringValue(this.EvaluateXPath(sExprValue, {
                                                           node: oNode,
                                                           model: oContext.model,
                                                           resolverElement: oContext.resolverElement
-                                                       }
-                                                      )
-                     );
+		}));
 
         /*
          * If there is no proxy node then create one. [Q] Should we now store
@@ -252,7 +242,6 @@ Model.prototype.setValue = function(oContext, sXPath, sExprValue) {
     return;
 };
 
-
 /*
  * The getValue method allows us to retrieve any node, via an XPath expression.
  * A convenient shorthand in XForms is that requesting the value of an element
@@ -265,14 +254,12 @@ Model.prototype.getValue = function(sXPath) {
     return oRet;
 };
 
-
 /*
  * Evaluates an XPath expression, returning a
  */
 Model.prototype.EvaluateXPath = function(sXPath, oContext) {
     return _EvaluateXPath(this, sXPath, oContext);
 };
-
 
 Model.prototype.addControl = function(oTarget) {
     /*
@@ -289,12 +276,10 @@ Model.prototype.addControl = function(oTarget) {
 	}
 
     // var sTemp = oTarget.element.innerHTML;
-
     // running these inline causes stack overflow, and "taking too long to
     // respond" error messages to appear.
     // oTarget.rewire();
     // oTarget.refresh()
-
     var oTargetSaved = oTarget;
     if (this.m_bReady) {
         spawn( function() {
@@ -311,14 +296,12 @@ Model.prototype.addControl = function(oTarget) {
     return;
 };
 
-
 /*
  * Creates a connection between a DOM node and a proxy node.
  */
 Model.prototype.addBindingTemp = function(oContext, sXPath) {
     return _addBindingTemp(this, oContext, sXPath);
 };
-
 
 /*
  * Creates a connection between a form control and a proxy node.
@@ -337,10 +320,10 @@ Model.prototype.addControlBinding = function(oTarget) {
                 oPN.setValue(evt.newValue, this.model);
             }
         }
-    }, false);
+	},
+	false);
     return;
 };
-
 
 /*
  * Creates a connection between a form control and a DOM node, via a proxy node.
@@ -348,7 +331,6 @@ Model.prototype.addControlBinding = function(oTarget) {
 Model.prototype.addControlExpression = function(oTarget, oContext, sXPath) {
     return _addControlExpression(this, oTarget, oContext, sXPath);
 };
-
 
 /*
  * Adds a binding between a DOM node and a vertex.
@@ -362,7 +344,6 @@ Model.prototype.AddSingleNodeBinding = function(oTarget, oContext, sXPath) {
     return oSNE;
 };
 
-
 Model.prototype.AddNodesetBinding = function(oTarget, oContext, sXPath) {
     if (!oContext) {
         oContext = this.getEvaluationContext();
@@ -372,14 +353,12 @@ Model.prototype.AddNodesetBinding = function(oTarget, oContext, sXPath) {
     return oNE;
 };
 
-
 /**
  * Informs the model that a rebuild will be required at next update.
  */
 Model.prototype.flagRebuild = function() {
     this.m_bNeedRebuild = true;
 };
-
 
 /**
  * Informs the model that a recalculate will be required at next update.
@@ -388,14 +367,12 @@ Model.prototype.flagRecalculate = function() {
     this.m_bNeedRecalculate = true;
 };
 
-
 /**
  * Informs the model that a revalidate will be required at next update.
  */
 Model.prototype.flagRevalidate = function() {
     this.m_bNeedRevalidate = true;
 };
-
 
 /**
  * Informs the model that a refresh will be required at next update.
@@ -404,26 +381,21 @@ Model.prototype.flagRefresh = function() {
     this.m_bNeedRefresh = true;
 };
 
-
 Model.prototype.rebuildPending = function() {
     return this.m_bNeedRebuild;
 };
-
 
 Model.prototype.recalculatePending = function() {
     return this.m_bNeedRecalculate;
 };
 
-
 Model.prototype.revalidatePending = function() {
     return this.m_bNeedRevalidate;
 };
 
-
 Model.prototype.refreshPending = function() {
     return this.m_bNeedRefresh;
 };
-
 
 Model.prototype.rebuild = function() {
 	if (this.m_bNeedRebuild) {
@@ -458,7 +430,6 @@ Model.prototype._rebuild = function() {
 	}
     document.logger.log("End _rebuild: " + this.element.id, "xforms");
 };
-
 
 Model.prototype.recalculate = function() {
 	if (this.m_bNeedRecalculate) {
@@ -498,7 +469,6 @@ Model.prototype._revalidate = function() {
 	}
     document.logger.log("End _revalidate: " + this.element.id, "xforms");
 };
-
 
 /*
  * We give all of the controls the opportunity to update themselves.
@@ -540,14 +510,12 @@ Model.prototype.rewire = function() {
     return;
 };
 
-
 Model.prototype.refresh = function() {
   if (!FormsProcessor.halted && this.m_bNeedRefresh) {
 		this.m_bNeedRefresh = false;
 		UX.dispatchEvent(this.element, "xforms-refresh",true , true);
   }
 };
-
 
 Model.prototype._refresh = function() {
 	document.logger.log("Start _refresh: " + this.element.id, "xforms");
@@ -568,17 +536,14 @@ Model.prototype._refresh = function() {
     return;
 };
 
-
 Model.prototype.deferredUpdate = function() {
     return _deferredUpdate(this);
 };
-
 
 Model.prototype.addInstance = function(theInstance) {
     this.externalInstances.push(theInstance);
     return this;
 };
-
 
 Model.prototype.storeInsertedNodes = function (nodes) {
 	var i;
@@ -612,7 +577,6 @@ Model.prototype.removeInstance = function(theInstance) {
     return this;
 };
 
-
 /**
  * @returns the list of instances governed by this model.
  */
@@ -627,7 +591,6 @@ Model.prototype.instances = function() {
     }
     return retVal.concat(this.externalInstances);
 };
-
 
 /**
  * resets all instance data to its original state.
@@ -647,7 +610,6 @@ Model.prototype.reset = function() {
     document.logger.log("End reset: " + this.element.id, "xforms");
 };
 
-
 /*
  * P R I V A T E =============
  */
@@ -655,11 +617,9 @@ Model.prototype.createMIP = function(oVertex, sMIPName, sExpr, oPN, oContext) {
     return _createMIP(this, oVertex, sMIPName, sExpr, oPN, oContext);
 };
 
-
 Model.prototype._testForReady = function() {
     testForReady(this);
 };
-
 
 Model.prototype.setElementLoaded = function() {
     this.elementLoaded = true;

@@ -57,7 +57,6 @@ var ActionExecutor = function () {
 		oRealListener = oListener.realListener?oListener.realListener:oListener;
 		//oRealListener will be the actual handler for the event that may contain the parameters for conditional invocation
 		//oListener will be the object on which to call handleEvent, it will pass the call on to the real listener.
-		
 		if (typeof oRealListener.getEvaluationContext !== "undefined") {
 
 			if (oRealListener.getAttribute("iterate")) {
@@ -106,8 +105,7 @@ var ActionExecutor = function () {
 					oListener.handleEvent(oEvt);
 				}
 			}
-		}
-		else {
+		} else {
 			oListener.handleEvent(oEvt);
 		}
 		return;

@@ -57,9 +57,7 @@ function HintMixin( element ) {
 	// whatever object has acquired the hint aspect.
 	//
 	if(typeof context.addEventListener === "function") {
-	    context.addEventListener(
-		    "xforms-hint",
-		    {
+		context.addEventListener("xforms-hint", {
 			    handleEvent: function( evt ) {
 				    var forwardEvt = document.createEvent("Events");
     				
@@ -69,11 +67,8 @@ function HintMixin( element ) {
 				    return;
 			    }
 		    },
-		    false
-	    );
-	    context.addEventListener(
-		    "xforms-hint-off",
-		    {
+		false);
+		context.addEventListener("xforms-hint-off", {
 			    handleEvent: function( evt ) {
 				    var forwardEvt = document.createEvent("Events");
     				
@@ -83,7 +78,6 @@ function HintMixin( element ) {
 				    return;
 			    }
 		    },
-		    false
-	    );
+		false);
     }
 };

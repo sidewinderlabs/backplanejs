@@ -41,6 +41,8 @@ function setState(pThis, sMIPName, sOn, sOff){
 	}
 }
 
+
+
 function setInitialState(pThis) {
 	if (pThis.m_bInitialStateSet) {
 		return;

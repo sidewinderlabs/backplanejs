@@ -20,7 +20,8 @@
 	Used in conjunction with Conditional Invocation
 */
 function ConditionalInvocationListener(obj, funcName) {
-	return { realListener: obj,
+	return {
+		realListener: obj,
 	  handleEvent: function (evt) {
 	    return obj[funcName](evt);
 	  }
@@ -40,20 +41,20 @@ function DeferToConditionalInvocationProcessor(evt) {
 }
 
 
-function Recalculate(elmnt)
-{
+
+function Recalculate(elmnt) {
 	this.element = elmnt;
 }
 
-
 Recalculate.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
-Recalculate.prototype.performAction = function (evt)
-{
+Recalculate.prototype.performAction = function(evt) {
 	var sModelID = this.element.getAttribute("model"),
 	oModel = this.element.ownerDocument.getElementById(sModelID);
 	oModel.recalculate();
 };
+
+
 
 function Dispatch(elmnt) {
   this.element = elmnt;
@@ -75,16 +76,10 @@ Dispatch.prototype.performAction = function (evt) {
         oEvt = this.element.ownerDocument.createEvent("Events");
 
         oEvt.initEvent(
-            sName,
-            UX.JsBooleanFromXsdBoolean(
-                UX.getPropertyValue(this, "bubbles"),
-                "false"
-            ),
-            false
-        );
+				sName, UX.JsBooleanFromXsdBoolean(
+				UX.getPropertyValue(this, "bubbles"), "false"), false);
 
         // Copy through the current event depth.
-
         oEvt._actionDepth = evt._actionDepth;
 
         delay_time = UX.getPropertyValue(this, "delay");
@@ -93,13 +88,13 @@ Dispatch.prototype.performAction = function (evt) {
         }
         setTimeout(function () { 
           FormsProcessor.dispatchEvent(oTarget, oEvt); 
-        }, delay_time);
+				},
+				delay_time);
 
         // I'm assuming that there is no point in copying the
         // 'new' depth, since it should be the same as the
         // old one...but that might not be true, hence the
         // debugger statement (now changed to throw).
-
         if (evt._actionDepth !== oEvt._actionDepth) {
           throw "Unexpected Discord between action depths.";
         }
@@ -108,25 +103,23 @@ Dispatch.prototype.performAction = function (evt) {
   }
 };
 
-function Send(elmnt)
-{
+
+
+function Send(elmnt) {
 	this.element = elmnt;
 }
 
 Send.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
-Send.prototype.performAction = function (evt)
-{	
+Send.prototype.performAction = function(evt) {
   var sID, oSubmission, oEvt;
 	sID = this.element.getAttribute("submission");
-	if (sID)
-	{
+	if (sID) {
 		evt.target.ownerDocument.logger.log("Sending to '" + sID + "'", "submission");
 
 		oSubmission = document.getElementById(sID);
 
-		if (oSubmission)
-		{
+		if (oSubmission) {
 			oEvt = this.ownerDocument.createEvent("Events");
 
 			oEvt.initEvent("xforms-submit", false, false, null, null);
@@ -150,15 +143,15 @@ Send.prototype.performAction = function (evt)
 			if (evt._actionDepth !== oEvt._actionDepth) {
 				throw "Unexpected Discord between action depths.";
 			}
-		}
-		else {
+		} else {
 			throw "There is no submission element with an ID of '" + sID + "'";
 		}
-	}
-	else {
+	} else {
 		throw "A submission ID is required.";
 	}
 };
+
+
 
 function Load(elmnt) {
 	this.element = elmnt;
@@ -206,6 +199,8 @@ Load.prototype.performAction = function (evt) {
 		this.element.Actuate();
 	}
 };
+
+
 
 function Message(elmnt) {
   this.element = elmnt;

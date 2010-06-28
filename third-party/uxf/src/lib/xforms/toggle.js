@@ -25,9 +25,7 @@ Toggle.prototype.performAction = function (evt) {
 	oContext = this.getEvaluationContext();
 	ns = NamespaceManager.getElementsByTagNameNS(this.element, "http://www.w3.org/2002/xforms", "case");
 	
-	sCaseID = (ns && ns.length > 0)
-		? getElementValueOrContent(oContext, ns[0])
-		: this.element.getAttribute("case");
+	sCaseID = (ns && ns.length > 0) ? getElementValueOrContent(oContext, ns[0]) : this.element.getAttribute("case");
 
 	if (sCaseID) {
 	
@@ -38,4 +36,3 @@ Toggle.prototype.performAction = function (evt) {
 		}
 	}
 };
-

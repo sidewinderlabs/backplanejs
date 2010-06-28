@@ -15,7 +15,6 @@
  */
 
 // Set up various flags for use by the Ubiquity library(ies)
-
 UX.userAgent = navigator.userAgent;
 
 UX.isFF2 = UX.userAgent.toUpperCase().indexOf("FIREFOX/2.") != -1;

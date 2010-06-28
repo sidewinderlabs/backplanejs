@@ -30,68 +30,57 @@ Submission.prototype.onDocumentReady = function() {
 		*/
 
 	FormsProcessor.addDefaultEventListener(
-	  this,
-		"xforms-submit",
-		{
+	this, "xforms-submit", {
 			handleEvent: function(evt) {
 			    evt.target.ownerDocument.submission.submit(evt.target);
 				return;
 			}
-		}
-	);
+	});
 
 	FormsProcessor.addDefaultEventListener(
-	  this,
-		"xforms-submit-serialize",
-		{
+	this, "xforms-submit-serialize", {
 			handleEvent: function(evt) {
 			    if (evt.context) {
                     evt.target.submissionBody = evt.context["submission-body"];
                 }
 			}
-		}
-	);
+	});
 };//submission_documentReady()
-
 
 /* This is a temporary home. */
 
 if (!document.submissionJSON) {
     document.submissionJSON = {
-        _timeoutlength: 30000,  /* 30 seconds by default */
+		_timeoutlength: 30000,
+		/* 30 seconds by default */
         _running: [],
 
         _timeout: function(id, url) {
             var cbo = this._running[id];
 
             this._running[id] = null;
-            if (!cbo.callbackErr)
-                return;
+			if (!cbo.callbackErr) return;
             cbo.callbackErr("Timeout", -1, cbo.self);
-        },//_timeout
-
+		},
+		//_timeout
         _callbackhandler: function(o) {
             var cbo = this._running[callbackIndex];
 
-            if (!cbo)
-                return;
+			if (!cbo) return;
             this._running[callbackIndex] = null;
             window.clearTimeout(cbo.timeout);
             if (!o || !o.count) {
-                if (!cbo.callbackErr)
-                    return;
+				if (!cbo.callbackErr) return;
                 cbo.callbackErr("Bad response", -2, cbo.self);
                     return;
             }
 
-            if (!cbo.callbackOk)
-                return;
+			if (!cbo.callbackOk) return;
             cbo.callbackOk(o, cbo.resource, cbo.self);
-        },//_callbackhandler
-
+		},
+		//_callbackhandler
         _execute: function(url, resource, callbackOk, callbackErr, timeoutlength) {
-            if (!timeoutlength)
-                timeoutlength = this._timeoutlength;
+			if (!timeoutlength) timeoutlength = this._timeoutlength;
             var id = this._running.length;
 
             url += "&_callback=document.submissionJSON._callbackhandler_" + id;
@@ -104,46 +93,37 @@ if (!document.submissionJSON) {
 
             fn = fn.replace(/callbackIndex/g, id);
             eval("document.submissionJSON._callbackhandler_" + id + "=" + fn);
-            this._running.push(
-                {
+			this._running.push({
                     self: this,
                     resource: resource,
                     callbackOk: callbackOk,
                     callbackErr: callbackErr,
                     timeout: window.setTimeout(
-                        function()
-                        {
+				function() {
                             this._timeout(id, url);
                         },
-                        timeoutlength
-                    )
-                }
-            );
+				timeoutlength)
+			});
             document.getElementsByTagName("head")[0].appendChild(s);
             return id;
-        },//_execute
-
+		},
+		//_execute
         /* use these three calls to run and cancel Pipes calls */
         cancelrequest: function(id) {
             var cbo = this._running[i];
 
             window.clearTimeout(cbo.timeout);
             this._running[i]=null;
-        },//cancelrequest
-
+		},
+		//cancelrequest
         cancelallrequests: function() {
             for (var i = 0; i < this._running.length; i++)
                 this.cancelrequest(i);
-        },//cancelallrequests
-
+		},
+		//cancelallrequests
         run: function(action, params, resource, callbackOk, callbackErr, timeoutLength) {
             return this._execute(
-                document.submission.buildGetUrl(action, params),
-                resource,
-                callbackOk,
-                callbackErr,
-                timeoutLength
-            );
+			document.submission.buildGetUrl(action, params), resource, callbackOk, callbackErr, timeoutLength);
         }//run
     };//pipesrpc
 }//if ( document.submissionJSON is not defined )

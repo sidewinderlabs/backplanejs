@@ -19,200 +19,155 @@ DECORATOR.addDecorationRules({
     "namespaceURI" : "http://www.w3.org/2002/xforms",
     "rules" : {
         // model decorations
-        "model" : [
-        {
+		"model": [{
             "name" : "model-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, Model]);
             }
-        }
-        ],
+		}],
 
-        "instance" : [
-        {
+		"instance": [{
             "name" : "instance-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, Instance, LoadExternalMixin]);
             }
-        }
-        ],
+		}],
 
-        "submission" : [
-        {
+		"submission": [{
             "name" : "submission-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, Context, Submission]);
             }
-        }
-        ],
+		}],
 
-        "header" : [
-        {
+		"header": [{
             "name" : "header-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([Context, Header]);
             }
-        }
-        ],
+		}],
 
-		"name" : [
-		{
+		"name": [{
 			"name" : "name-element",
 			apply : function(arrBehavious) {
 				return arrBehavious.concat([EventTarget, MIPHandler, Context, Control, Value]);
 			}
-		}
-		],
+		}],
         // end model decorations
-
         // begin container form control decorations
-        "group" : [
-        {
+		"group": [{
             "name" : "group-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Container, OptionalIfUnspecifiedBinding, Group]);
             }
-        }
-        ],
+		}],
 
-        "switch" : [
-        {
+		"switch": [{
             "name" : "switch-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, OptionalBinding, Switch]);
             }
-        }
-        ],
+		}],
 
-        "case" : [
-        {
+		"case": [{
             "name" : "case-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, Context, Container, XFormsCase]);
             }
-        }
-        ],
+		}],
 
-        "repeat" : [
-        {
+		"repeat": [{
             "name" : "repeat-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, Context, Repeat]);
             }
-        }
-        ],
+		}],
         // end container form control decorations
-
         // begin core form control decorations
-        "submit" : [
-        {
+		"submit": [{
             "name" : "submit-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, NavigableControl, OptionalBinding, Submit]);
             }
-        }
-        ],
+		}],
 
-        "trigger" : [
-        {
+		"trigger": [{
             "name" : "trigger-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, NavigableControl, OptionalBinding]);
             }
-        }
-        ],
+		}],
 
-        "input": [
-        {
+		"input": [{
             "name" : "input-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, NavigableControl]);
             }
-        }
-        ],
+		}],
 
-        "output" : [
-        {
+		"output": [{
             "name" : "output-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, NavigableControl, OptionalIfUnspecifiedBinding]);
             }
-        }
-        ],
+		}],
 
-        "range" : [
-        {
+		"range": [{
             "name" : "range-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, NavigableControl, FiniteControl]);
             }
-        }
-        ],
+		}],
 
-        "textarea" : [
-        {
+		"textarea": [{
             "name" : "textarea-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, NavigableControl]);
             }
-        }
-        ],
+		}],
 
-        "secret" : [
-        {
+		"secret": [{
             "name" : "secret-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, NavigableControl]);
             }
-        }
-        ],
+		}],
 
-        "select" : [
-        {
+		"select": [{
             "name" : "select-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, NavigableControl, XFormsCommonSelect,  ElementWithChoices, XFormsSelect, FiniteControl]);
             }
-        }
-        ],
+		}],
 
-        "select1" : [
-        {
+		"select1": [{
             "name" : "select1-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, MIPHandler, MIPEventTarget, Context, Control, NavigableControl, XFormsCommonSelect, ElementWithChoices, XFormsSelect1, FiniteControl]);
             }
-        }
-        ],
+		}],
 
-        "mediatype" : [
-        {
+		"mediatype": [{
             "name" : "mediatype-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control]);
             }
-        }
-        ],
+		}],
         // end core form control decorations
-
         // begin common support decorations
-        "label" : [
-        {
+		"label": [{
             "name" : "label-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, MIPHandler, Context, SrcMixin, Control, OptionalBinding, LoadExternalMixin]);
             }
-        }
-        ],
+		}],
 
-        "alert" : [
-        {
+		"alert": [{
             "name" : "alert-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, MIPHandler, Context, SrcMixin, Control, OptionalBinding, LoadExternalMixin]);
             }
-        }
-        ],
+		}],
 
         "hint" : [
 			// NOTE: Having two rules for hint like this is not ideal because, if we add further
@@ -245,211 +200,165 @@ DECORATOR.addDecorationRules({
                 "apply" : function(arrBehaviours) {
                     return arrBehaviours.concat([Listener, EventTarget, MIPHandler, Context, Control, OptionalBinding, HintGMap]);
                 }
-            }
-        ],
+		}],
         // end common support decorations
-
         // begin common markup for selection controls decorations
-        "item" : [
-        {
+		"item": [{
             "name" : "item-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, Context, Item]);
             }
-        }
-        ],
+		}],
 
-        "itemset" : [
-        {
+		"itemset": [{
             "name" : "item-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, Context, Itemset]);
             }
-        }
-        ],
+		}],
 
-        "value" : [
-        {
+		"value": [{
             "name" : "value-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, MIPHandler, Context, Control, OptionalBinding, Value]);
             }
-        }
-        ],
+		}],
 
-        "copy" : [
-        {
+		"copy": [{
             "name" : "copy-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, Context, Control, OptionalBinding, Copy]);
             }
-        }
-        ],
+		}],
         // end common markup for selection controls decorations
-
         // begin action decorations
-        "action" : [
-        {
+		"action": [{
             "name" : "action-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([Listener, Context, XFAction]);
             }
-        }
-        ],
+		}],
 
 				// Help is a type of message.
 				//
-				"help" : [
-					{
+		"help": [{
 						"name": "help-element",
 						"apply" : function(arrBehaviours) {
 							return arrBehaviours.concat([
-								/* It's a Message ... */ Listener, EventTarget, MIPHandler, Context, SrcMixin ,Control, OptionalBinding, Message,
-								/* ... and a Help.    */ HelpMixin , LoadExternalMixin
-							]);
+				/* It's a Message ... */
+				Listener, EventTarget, MIPHandler, Context, SrcMixin, Control, OptionalBinding, Message,
+				/* ... and a Help.    */
+				HelpMixin, LoadExternalMixin]);
 						}
-	        }
-        ],
+		}],
 
-        "load" : [
-        {
+		"load": [{
             "name" : "setvalue-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([Listener, EventTarget, Context, OptionalBinding, Load]);
             }
-        }
-        ],
+		}],
 
-        "message" : [
-        {
+		"message": [{
             "name" : "message-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([Listener, EventTarget, MIPHandler, Context, SrcMixin, Control, OptionalBinding, Message, LoadExternalMixin]);
             }
-        }
-        ],
+		}],
 
-        "setindex" : [
-        {
+		"setindex": [{
             "name" : "setindex-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([Listener, Context, SetIndex]);
             }
-        }
-        ],
+		}],
 
-        "setvalue" : [
-        {
+		"setvalue": [{
             "name" : "setvalue-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([Listener, Context, SetValue]);
             }
-        }
-        ],
+		}],
 
-        "setfocus" : [
-        {
+		"setfocus": [{
             "name" : "setfocus-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([Listener, Context, SetFocus]);
             }
-        }
-        ],
+		}],
 
-        "insert" : [
-        {
+		"insert": [{
             "name" : "insert-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([Listener, Context, OptionalBinding, Insert]);
             }
-        }
-        ],
+		}],
 
-        "delete" : [
-        {
+		"delete": [{
             "name" : "delete-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([Listener, Context, Delete]);
             }
-        }
-        ],
+		}],
 
-        "send" : [
-        {
+		"send": [{
             "name" : "send-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([Listener, Send]);
             }
-        }
-        ],
+		}],
 
-        "dispatch" : [
-        {
+		"dispatch": [{
             "name" : "dispatch-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([Listener, Dispatch]);
             }
-        }
-        ],
+		}],
 
-        "toggle" : [
-        {
+		"toggle": [{
             "name" : "toggle-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([Listener, Context, Toggle]);
             }
-        }
-        ],
+		}],
 
-        "rebuild" : [
-        {
+		"rebuild": [{
             "name" : "rebuild-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([Listener, Rebuild]);
             }
-        }
-        ],
+		}],
 
-        "recalculate" : [
-        {
+		"recalculate": [{
             "name" : "recalculate-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([Listener, Recalculate]);
             }
-        }
-        ],
+		}],
 
-        "revalidate" : [
-        {
+		"revalidate": [{
             "name" : "revalidate-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([Listener, Revalidate]);
             }
-        }
-        ],
+		}],
 
-        "refresh" : [
-        {
+		"refresh": [{
             "name" : "refresh-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([Listener, Refresh]);
             }
-        }
-        ],
+		}],
 
-        "reset" : [
-        {
+		"reset": [{
             "name" : "reset-element",
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([Listener, Reset]);
             }
-        }
-        ],
+		}],
         // end action decorations
-
         // begin pseudo element value decorations
-        "pe-value" : [
-        {
+		"pe-value": [{
             "name" : "value-pevalue",
             "match" : function(element) {
                 return NamespaceManager.compareFullName(element.parentNode,"value","http://www.w3.org/2002/xforms");
@@ -461,14 +370,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "output-pevalue",
             "match" : function(element) {
-                return NamespaceManager.compareFullName(element.parentNode,"output","http://www.w3.org/2002/xforms") ||
-                	   NamespaceManager.compareFullName(element.parentNode,"label","http://www.w3.org/2002/xforms") ||
-                       NamespaceManager.compareFullName(element.parentNode,"alert","http://www.w3.org/2002/xforms") ||
-                       NamespaceManager.compareFullName(element.parentNode,"help","http://www.w3.org/2002/xforms") ||
-                       NamespaceManager.compareFullName(element.parentNode,"hint","http://www.w3.org/2002/xforms") ||
-                       NamespaceManager.compareFullName(element.parentNode,"message","http://www.w3.org/2002/xforms") ||
-                       NamespaceManager.compareFullName(element.parentNode,"mediatype","http://www.w3.org/2002/xforms") ||
-                       NamespaceManager.compareFullName(element.parentNode,"name","http://www.w3.org/2002/xforms");
+				return NamespaceManager.compareFullName(element.parentNode, "output", "http://www.w3.org/2002/xforms") || NamespaceManager.compareFullName(element.parentNode, "label", "http://www.w3.org/2002/xforms") || NamespaceManager.compareFullName(element.parentNode, "alert", "http://www.w3.org/2002/xforms") || NamespaceManager.compareFullName(element.parentNode, "help", "http://www.w3.org/2002/xforms") || NamespaceManager.compareFullName(element.parentNode, "hint", "http://www.w3.org/2002/xforms") || NamespaceManager.compareFullName(element.parentNode, "message", "http://www.w3.org/2002/xforms") || NamespaceManager.compareFullName(element.parentNode, "mediatype", "http://www.w3.org/2002/xforms") || NamespaceManager.compareFullName(element.parentNode, "name", "http://www.w3.org/2002/xforms");
             },
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, XFormsOutputValue]);
@@ -477,9 +379,7 @@ DECORATOR.addDecorationRules({
         {
             "name" : "input-pevalue",
             "match" : function(element) {
-                return NamespaceManager.compareFullName(element.parentNode,"input","http://www.w3.org/2002/xforms") ||
-                       NamespaceManager.compareFullName(element.parentNode,"secret","http://www.w3.org/2002/xforms") ||
-                       NamespaceManager.compareFullName(element.parentNode,"textarea","http://www.w3.org/2002/xforms");
+				return NamespaceManager.compareFullName(element.parentNode, "input", "http://www.w3.org/2002/xforms") || NamespaceManager.compareFullName(element.parentNode, "secret", "http://www.w3.org/2002/xforms") || NamespaceManager.compareFullName(element.parentNode, "textarea", "http://www.w3.org/2002/xforms");
             },
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat([EventTarget, PeValue, XFormsInputValue]);
@@ -546,8 +446,7 @@ DECORATOR.addDecorationRules({
                     datatype = parent.getAttribute("datatype"),
                     appearance = parent.getAttribute("appearance"),
                     match = false;
-                if (NamespaceManager.compareFullName(parent,"input","http://www.w3.org/2002/xforms") &&
-                    datatype === "xhd:color") {
+				if (NamespaceManager.compareFullName(parent, "input", "http://www.w3.org/2002/xforms") && datatype === "xhd:color") {
                         match = true;
                 }
                 return match;
@@ -585,8 +484,7 @@ DECORATOR.addDecorationRules({
                 var parent = element.parentNode,
                     rangeClass = parent.className,
                     match = false;
-                if (NamespaceManager.compareFullName(parent,"range","http://www.w3.org/2002/xforms") &&
-                    rangeClass && rangeClass.indexOf("geolocation") !== -1) {
+				if (NamespaceManager.compareFullName(parent, "range", "http://www.w3.org/2002/xforms") && rangeClass && rangeClass.indexOf("geolocation") !== -1) {
                         match = true;
                 }
                 return match;
@@ -603,8 +501,7 @@ DECORATOR.addDecorationRules({
                 var parent = element.parentNode,
                     outputClass = parent.className,
                     match = false;
-                if (NamespaceManager.compareFullName(parent,"output","http://www.w3.org/2002/xforms") &&
-                    outputClass && outputClass.indexOf("geolocation") !== -1) {
+				if (NamespaceManager.compareFullName(parent, "output", "http://www.w3.org/2002/xforms") && outputClass && outputClass.indexOf("geolocation") !== -1) {
                         match = true;
                 }
                 return match;
@@ -629,13 +526,10 @@ DECORATOR.addDecorationRules({
             "apply" : function(arrBehaviours) {
                 return arrBehaviours.concat(TriggerMinimalMixin);
             }
-        }
-        ],
+		}],
         // end pseudo element value decorations
-
         // wildcard decorations (applied irrespective of element name)
-        "*" : [
-        ]
+		"*": []
         // end wildcard decorations
 	}
 });
@@ -673,7 +567,6 @@ UX.insertArrayElement = function (array, insertItem, indexItem) {
 //  selectors that require attribute selection must conditionally leave
 //  those out when the user agent is IE6 and use the mechanism specified in
 //  ie6-css-selectors-fixer.js instead.
-
 // UX.selectors below (initial value) must not contain any attribute selectors
 UX.selectors = {
     input : {
@@ -715,18 +608,15 @@ if (!UX.isIE6) {
 	UX.selectors.header.headerReady += ", xf|header[class~='header-ready'] > *";
 }
 // else, we delegate selection to ie6-css-selectors-fixer.js
-
 //[ISSUE 8] IE does not natively support child selectors, but will ignore ">"
 //	if found in css, making a selector such as "x > y", behave as a descendent
 //	selector "x y".  This means that the order of occurrence of some of these
 //	definitions is critical.  Specifically, the "common child" elements *must*
 //	come after any controls that might use them, as (at present, anyway) label
 //	is implemented as a control.
-
 NamespaceManager.addSelectionNamespace("xf","http://www.w3.org/2002/xforms");
 
-DECORATOR.setupDecorator(
-	[
+DECORATOR.setupDecorator([
 
     /* Model */
 
@@ -739,7 +629,6 @@ DECORATOR.setupDecorator(
 			selector:"xf|model",
 			objects:[]
 		},
-
 
 		{
 			selector:"xf|submission",
@@ -1061,7 +950,6 @@ DECORATOR.setupDecorator(
             objects:[]
         },
 
-
     //Switch off bindings within repeat, during load-time (FF )
         {
             selector:"xf|repeat > *,  xf|itemset > *, xf|header > *",
@@ -1111,6 +999,4 @@ DECORATOR.setupDecorator(
 		{
 			selector:"xf|header.header-ready *",
 			cssText:"-binding-ignore:false;"
-		}
-	],
-	"http://www.w3.org/2002/xforms"); //to tell the decorator so that it doesn't need to write these definitions again
+}], "http://www.w3.org/2002/xforms"); //to tell the decorator so that it doesn't need to write these definitions again

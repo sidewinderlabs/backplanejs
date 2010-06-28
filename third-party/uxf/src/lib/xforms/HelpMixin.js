@@ -56,9 +56,7 @@ function HelpMixin( el ) {
 	// Register for the help event. The action is simply to 'activate'
 	// whatever object has acquired the help aspect.
 	//
-	context.addEventListener(
-		"xforms-help",
-		{
+	context.addEventListener("xforms-help", {
 			handleEvent: function( evt ) {
 				var forwardEvt = el.ownerDocument.createEvent("Events");
 				
@@ -67,6 +65,5 @@ function HelpMixin( el ) {
 				return;
 			}
 		},
-		false
-	);
+	false);
 };

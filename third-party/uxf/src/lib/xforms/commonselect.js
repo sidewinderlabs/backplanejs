@@ -20,7 +20,6 @@ function XFormsCommonSelect(element) {
 	this.element = element;
 }
 
-
 XFormsCommonSelect.prototype.giveFocus = function () {
 	if (this.useDropBox()  && this.m_proxy.enabled.getValue()) {
 		if (this.m_value && this.m_value !== document.activeElement && !this.m_value.contains(document.activeElement))	{
@@ -52,12 +51,12 @@ XFormsCommonSelect.prototype.containsCopyElements = function () {
 };
 
 
+
 function XFormsCommonSelectValue(elmnt) {
 	this.element = elmnt;
   this.currValue = "";
   this.m_bFirstSetValue = true;
 }
-
 
 XFormsCommonSelectValue.prototype.onDocumentReady = function () {
 	if (this.element.ownerDocument.media !== "print") {
@@ -69,11 +68,13 @@ XFormsCommonSelectValue.prototype.onDocumentReady = function () {
 		if (oInput.addEventListener) {
 				oInput.addEventListener("change", function (e) {
 					pThis.trySetManuallyEnteredValue(oInput.value);
-				}, false);
+			},
+			false);
 
 				oInput.addEventListener("click", function () {
 					pSelect.showChoices();
-				}, false);
+			},
+			false);
 
 			if (!this.parentNode.isOpen()) {
 			//ignore the typing of any alphanumeric characters, other than tab,
@@ -82,10 +83,10 @@ XFormsCommonSelectValue.prototype.onDocumentReady = function () {
 					if (e.keyCode !== 9) {
 						e.preventDefault();
 					}
-				}, true);
+				},
+				true);
 			}
-		}
-		else {
+		} else {
 			oInput.attachEvent("onchange", function (e) {
 				pThis.trySetManuallyEnteredValue(oInput.value);
 			});
@@ -128,13 +129,11 @@ XFormsCommonSelectValue.prototype.trySetManuallyEnteredValue = function (value) 
   if (this.parentNode.isOpen() || this.parentNode.getDisplayValue(value) !== null) {
     //if the value entered is legitimate, let it in.
     this.parentNode.onValueSelected(value);
-  }
-  else {
+	} else {
     //otherwise, replace it with the current value.
     this.setDisplayValue(this.currValue, true);
   }
 };
-
 
 XFormsCommonSelectValue.prototype.setValue = function (sValue) {
   if (this.m_sValue !== sValue || this.parentNode.containsCopyElements()) {
@@ -182,9 +181,9 @@ XFormsCommonSelectValue.prototype.setDisplayValue = function (sDisplayValue, bFo
 	return bRet;
 };
 
-
 XFormsSelectValue = XFormsCommonSelectValue;
 XFormsSelect1Value = XFormsCommonSelectValue;
+
 
 
 function ElementWithChoices(){

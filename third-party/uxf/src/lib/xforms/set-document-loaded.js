@@ -1,5 +1,7 @@
 var g_bDocumentLoaded = false;
 
+
+
 function RegisterDocumentLoaded() {
   if (UX.isIE6) {
     UX.applySelectorsIE6(document);
@@ -8,9 +10,7 @@ function RegisterDocumentLoaded() {
 
 if (UX.isIE) {
   window.attachEvent("onload",RegisterDocumentLoaded);
-}
-else 
-{
+} else {
 // If the scripts are loaded during the load of the document, then this line
 //	should be uncommented, so that initialisation can occur on load
 // If, however, the scripts are to be loaded only after the document has otherwise 

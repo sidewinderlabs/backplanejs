@@ -33,7 +33,6 @@ XFormsSelect.prototype.useDropBox = function () {
   return this.element.getAttribute("appearance") === "minimal";
 };
 
-
 XFormsSelect.prototype.onValueSelected = function (item) {
 	var value = (typeof item === "string") ? item : item.getValue();
 	var oEvt;
@@ -122,15 +121,13 @@ XFormsSelect.prototype.onSelectionChanged = function (s) {
 	return;
 };
 
-
 XFormsSelect.prototype.onContentReady = function () {
 	// First set the default values for the attributes.
 	//
 	var
 		el = this.element,
 		selection = el.getAttribute("selection"),
-		appearance = el.getAttribute("appearance")
-		;
+		appearance = el.getAttribute("appearance");
 
 	if (!selection) {
 		selection = "closed";
@@ -149,7 +146,8 @@ XFormsSelect.prototype.onContentReady = function () {
 };
 
 XFormsSelect.prototype.getDisplayValue = function (sValue) {
-	var i, l,  arrDisplayValues = [], arrValues;
+	var i, l, arrDisplayValues = [],
+		arrValues;
 	arrValues = sValue? sValue.trim().split(" "): [];
 	l = arrValues.length;
 	for (i = 0 ; i < l ;++i) {

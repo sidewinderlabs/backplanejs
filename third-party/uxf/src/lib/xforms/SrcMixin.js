@@ -39,8 +39,7 @@ SrcMixin.prototype.load = function(labelURL){
         // When the document has been loaded by our XLink handler
         // we parse it and then fire a 'document load' event.
         //
-        this.element.addEventListener(
-        "xlink-traversed", {
+		this.element.addEventListener("xlink-traversed", {
             context: this,
             handleEvent: function (evtParam) {
                ///Since it is done traversing we can set the label element
@@ -53,8 +52,7 @@ SrcMixin.prototype.load = function(labelURL){
         // If the XLink handler for src or resource fails, then
         // we dispatch xforms-link-exception
         //
-        this.element.addEventListener(
-        "xlink-traversal-failure", {
+		this.element.addEventListener("xlink-traversal-failure", {
             context: this,
             handleEvent: function (evtParam) {
                 var dispatcher = this.context;
@@ -79,4 +77,3 @@ SrcMixin.prototype.parseInstance = function(){};
 SrcMixin.prototype.finishLoad = function(){
 	return false;
 };
-

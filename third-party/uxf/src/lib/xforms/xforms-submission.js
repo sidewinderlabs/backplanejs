@@ -25,8 +25,7 @@ function callback(oMediator, oObserver, oContext) {
 }
 
 callback.prototype.processResult = function(data, isFailure) {
-    this.m_mediator.processResult(data, isFailure, this.m_observer,
-            this.m_context);
+	this.m_mediator.processResult(data, isFailure, this.m_observer, this.m_context);
 };
 
 callback.prototype.success = function(o) {
@@ -51,8 +50,7 @@ document.submission = new submission();
  * The comms library being used must override this.
  */
 
-submission.prototype.request = function(sMethod, sAction,
-                                        sBody, nTimeout, oCallback) {
+submission.prototype.request = function(sMethod, sAction, sBody, nTimeout, oCallback) {
     throw "submission::request() has not been implemented";
 };
 
@@ -68,10 +66,10 @@ submission.prototype.init = function() {
     throw "submission::init() has not been implemented";
 };
 
-submission.prototype.processResult = function(oResult, isFailure,
-                                              oObserver, oContext) {
+submission.prototype.processResult = function(oResult, isFailure, oObserver, oContext) {
 
-    var sData, sReplace, sInstance, oInstance, eventContext, oNewDom, contentType = "", sTarget, oTargetContext, oTarget, newXhtml;
+	var sData, sReplace, sInstance, oInstance, eventContext, oNewDom, contentType = "",
+		sTarget, oTargetContext, oTarget, newXhtml;
 
     if (oObserver) {
         // Set context info properties common to both success and failure results.
@@ -108,11 +106,9 @@ submission.prototype.processResult = function(oResult, isFailure,
             // If the server returned a response body, process it according to the value of the
             // 'replace' attribute. If there is no response body, we still need to dispatch
             // xforms-submit-done with whatever context info we do have.
-
             if (sData) {
                 // We now need to store the returned data. First find out what the
                 // @replace value was set to.
-
                 sReplace = oObserver.getAttribute("replace") || "all";
 
                 switch (sReplace) {
@@ -127,8 +123,7 @@ submission.prototype.processResult = function(oResult, isFailure,
                     break;
 
                 case "instance":
-                    oObserver.ownerDocument.logger.log(
-                            "@replace = 'instance'", "submission");
+					oObserver.ownerDocument.logger.log("@replace = 'instance'", "submission");
                     sInstance = oObserver.getAttribute("instance");
 
                     if (oResult.responseHeaders) {
@@ -183,8 +178,7 @@ submission.prototype.processResult = function(oResult, isFailure,
                     break;
 
                 case "text":
-                    oObserver.ownerDocument.logger.log(
-                            "@replace = 'text'", "submission");
+					oObserver.ownerDocument.logger.log("@replace = 'text'", "submission");
 
                     // When @replace="text", the response data is encoded as text and replaces the
                     // content of the replacement target node. The default replacement target node is
@@ -195,7 +189,6 @@ submission.prototype.processResult = function(oResult, isFailure,
                     // for @target is the in-scope evaluation context for the submission element, except
                     // the context node is modified to be the document element of the instance identified by
                     // the instance attribute if it is specified.
-
                     sInstance = oObserver.getAttribute("instance");
                     sTarget = oObserver.getAttribute("targetref") || oObserver.getAttribute("target");
 
@@ -219,13 +212,11 @@ submission.prototype.processResult = function(oResult, isFailure,
                     break;
 
                 case "none":
-                    oObserver.ownerDocument.logger.log(
-                            "@replace = 'none'", "submission");
+					oObserver.ownerDocument.logger.log("@replace = 'none'", "submission");
                     break;
 
                 default:
-                    oObserver.ownerDocument.logger.log(
-                            "Invalid replace value.", "submission");
+					oObserver.ownerDocument.logger.log("Invalid replace value.", "submission");
                     break;
                 }
             }
@@ -258,7 +249,8 @@ submission.prototype.processResponseHeaders = function(oHeaders) {
 };
 
 submission.prototype.processTargetAttribute = function(sTarget, sInstance, oContext, oObserver, eventContext) {
-    var oTarget = null, oTargetContext;
+	var oTarget = null,
+		oTargetContext;
 
     if (sTarget) {
         oTargetContext = sInstance ? oContext.model.getInstanceDocument(sInstance).documentElement : oContext;
@@ -340,7 +332,9 @@ submission.prototype.submit = function(oSubmission) {
     // xforms-submit step 2 test for empty submission data
     //
 	if (!oContext.node) {
-		this.dispatchSubmitError(oSubmission, { "error-type" : "no-data" });
+		this.dispatchSubmitError(oSubmission, {
+			"error-type": "no-data"
+		});
 		return;
 	}
 
@@ -352,14 +346,18 @@ submission.prototype.submit = function(oSubmission) {
 		submitDataList = this.constructSubmitDataList(oContext, relevancePruning);
 	}
 	if (relevancePruning && submitDataList.length === 0) {
-		this.dispatchSubmitError(oSubmission, { "error-type" : "no-data" });
+		this.dispatchSubmitError(oSubmission, {
+			"error-type": "no-data"
+		});
 		return;
 	}
 
 	// Test validity of the submit data in proxy node list
 	//
 	if (validation && !this.validateSubmitDataList(submitDataList)) {
-		this.dispatchSubmitError(oSubmission, { "error-type" : "validation-error" });
+		this.dispatchSubmitError(oSubmission, {
+			"error-type": "validation-error"
+		});
 		return;
 	}
 
@@ -374,7 +372,9 @@ submission.prototype.submit = function(oSubmission) {
     // xforms-submit step 6 test for no resource specified
     //
     if (!sResource) {
-		this.dispatchSubmitError(oSubmission, { "error-type" : "resource-error" });
+		this.dispatchSubmitError(oSubmission, {
+			"error-type": "resource-error"
+		});
 		return;
 	}
 
@@ -397,7 +397,6 @@ submission.prototype.submit = function(oSubmission) {
     ns = NamespaceManager.getElementsByTagNameNS(oSubmission, "http://www.w3.org/2002/xforms", "method");
 
     sMethod = (ns && ns.length > 0) ? getElementValueOrContent(oContext, ns[0]) : oSubmission.getAttribute("method") || "get";
-
 
     // ===== M E T H O D =========
     // The XForms method is mapped to the right method for the protocol.
@@ -475,10 +474,11 @@ submission.prototype.submit = function(oSubmission) {
     // property string is non-empty, then the serialization data for the
     // submission is set to be the content of the submission-body string.
     try {
-        this.dispatchSubmitSerialize(oSubmission, { "submission-body": [ oSubmissionBody ] });
+		this.dispatchSubmitSerialize(oSubmission, {
+			"submission-body": [oSubmissionBody]
+		});
     } catch (e) {
-        oSubmission.ownerDocument.logger.log(
-                "Error: " + e.description, "error");
+		oSubmission.ownerDocument.logger.log("Error: " + e.description, "error");
     }
 
 	// If the submission contains headers, or is a SOAP submission there are headers.
@@ -488,14 +488,8 @@ submission.prototype.submit = function(oSubmission) {
 
 	if (
 		sReplace === 'all' && (
-			this.navigateForReplaceAll &&
-			(sMethod === "GET" || sMethod === "POST") &&
-			!bHasHeaders && (
-				sContentType === sSerialization &&
-				(sSerialization === "application/x-www-form-urlencoded" || sSerialization === "multipart/form-data")
-			)
-		)
-	) {
+	this.navigateForReplaceAll && (sMethod === "GET" || sMethod === "POST") && !bHasHeaders && (
+	sContentType === sSerialization && (sSerialization === "application/x-www-form-urlencoded" || sSerialization === "multipart/form-data")))) {
 		oForm = this.buildFormFromObject(oBody);
 		oForm.encoding = sSerialization;
 		oForm.action = sResource;
@@ -505,7 +499,10 @@ submission.prototype.submit = function(oSubmission) {
 		try {
 			oForm.submit();
 		} catch (e) {
-			this.dispatchSubmitError(oSubmission, { "error-type" : "resource-error", "resource-uri" : sResource });
+			this.dispatchSubmitError(oSubmission, {
+				"error-type": "resource-error",
+				"resource-uri": sResource
+			});
 		} finally {
 			oForm.parentNode.removeChild(oForm);
 		}
@@ -513,7 +510,6 @@ submission.prototype.submit = function(oSubmission) {
 		// Callback for asynchronous submission
 		// [ISSUE] synchronous submissions need to do the request here without a
 		// callback
-
 		var oCallback = new callback(this, oSubmission, oContext);
 		this.setHeaders(oContext.model, oSubmission);
 
@@ -560,7 +556,10 @@ submission.prototype.submit = function(oSubmission) {
 				return this.request(sMethod, sResource, oBody, nTimeout, oCallback);
 			}
 		} catch (e) {
-			this.dispatchSubmitError(oSubmission, { "error-type" : "resource-error", "resource-uri" : sResource });
+			this.dispatchSubmitError(oSubmission, {
+				"error-type": "resource-error",
+				"resource-uri": sResource
+			});
 		}
 	}
 };
@@ -612,18 +611,7 @@ submission.prototype.serializeSubmitDataList = function(submitDataList, serializ
 			this.setHeader("Content-Type", serializationFormat + "; charset=" + encoding);
 			if (!omitXmlDeclaration) {
 				xmlDoc.insertBefore(
-					xmlDoc.createProcessingInstruction(
-						"xml",
-						"version=\"1.0\"" +
-						" encoding=\"" + encoding + "\"" +
-						(
-							(standalone !== undefined)
-								? (" standalone=\"" + ((standalone) ? "yes" : "no") + "\"")
-								: ""
-						)
-					),
-					xmlDoc.firstChild
-				);
+				xmlDoc.createProcessingInstruction("xml", "version=\"1.0\"" + " encoding=\"" + encoding + "\"" + ((standalone !== undefined) ? (" standalone=\"" + ((standalone) ? "yes" : "no") + "\"") : "")), xmlDoc.firstChild);
 			}
 			return xmlText(xmlDoc, cdataSectionElements, includeNamespacePrefixes);
 		}
@@ -634,7 +622,6 @@ submission.prototype.serializeSubmitDataList = function(submitDataList, serializ
 			return this.serializeURLEncoded(xmlDoc);
 		}
 	}//if ( there is something to serialize )
-
 	return "";
 };
 
@@ -827,14 +814,11 @@ submission.prototype.buildEncodedParameters = function(params, separator, queryS
 			}
 		}
 	}//if ( there are parameters to add to the action )
-
 	return ((queryString) ? queryString : "") + pairs.join(separator || "&");
 };//buildEncodedParameters()
-
 submission.prototype.buildGetUrl = function(action, params, separator) {
 	return action + this.buildEncodedParameters(params, separator, "?");
 };//buildGetUrl()
-
 submission.prototype.setSOAPHeaders = function(oContextNode, sMethod, sMediatype, sEncoding) {
 
 	var result = false;
@@ -852,8 +836,7 @@ submission.prototype.setSOAPHeaders = function(oContextNode, sMethod, sMediatype
 
 			this.setHeader("content-type", "text/xml; charset=" + charset);
 			result = true;
-		}
-		else if (namespaceURI === "http://www.w3.org/2003/05/soap-envelope") {
+		} else if (namespaceURI === "http://www.w3.org/2003/05/soap-envelope") {
 			this.setHeader("content-type", sMediatype);
 			result = true;
 		}
@@ -925,8 +908,5 @@ submission.prototype.contentTypeIsXML = function (contentType) {
 	var mediatype = RegExp.$1;
 
 	return (
-		mediatype === 'text/xml'
-		|| mediatype === 'application/xml'
-		|| mediatype.indexOf('+xml') === mediatype.length - 4
-	);
+	mediatype === 'text/xml' || mediatype === 'application/xml' || mediatype.indexOf('+xml') === mediatype.length - 4);
 };

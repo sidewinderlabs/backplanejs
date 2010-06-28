@@ -22,5 +22,4 @@ Inserts htc instruction to prevent IE mangling instancedata markup.
           }
         }
       }
-  }()
-);
+} ());

@@ -32,8 +32,7 @@ XFormsOutputValue.prototype.setValue = function(sValue) {
         // if this is an xf:output > xf:mediatype then override the output element @mediatype 
         // with mediatype element content
        //
-       if ((this.element.parentNode.parentNode) && 
-           (NamespaceManager.getLowerCaseLocalName(this.element.parentNode.parentNode) === "output")) {
+		if ((this.element.parentNode.parentNode) && (NamespaceManager.getLowerCaseLocalName(this.element.parentNode.parentNode) === "output")) {
            this.element.parentNode.parentNode.setAttribute("mediatype", sValue);
        }
     } else if (sTagNameLC === "output") {
@@ -65,8 +64,7 @@ XFormsOutputValue.prototype.getValue = function() {
     // </xf:label>
     //
     if (sTagNameLC === "label" && !(/[^\t\n\r ]/.test(sRet)) ) {
-        composedLabels = NamespaceManager.getElementsByTagNameNS(this.element.parentNode, 
-                                "http://www.w3.org/2002/xforms", "output");
+		composedLabels = NamespaceManager.getElementsByTagNameNS(this.element.parentNode, "http://www.w3.org/2002/xforms", "output");
         if (composedLabels && composedLabels.length > 0) {
             return composedLabels[0].m_value.getValue();        
         } 
@@ -203,15 +201,12 @@ XFormsOutputValue.prototype.setValueForOutputRendering = function(sValue) {
             //
             if (mediatypeAttr.indexOf("image") === 0) {
                 oRendertype = this.setImage(sValue);
-            } else if ((mediatypeAttr === "application/xhtml+xml") ||
-                       (mediatypeAttr === "text/html")) {
+			} else if ((mediatypeAttr === "application/xhtml+xml") || (mediatypeAttr === "text/html")) {
                 oRendertype = this.setContent(sValue);
             } else {
             	throw "Unrecognised media-type";
             }
-        } else if ((appearance === "full") && 
-            (this.element.parentNode.m_type) && 
-            (this.element.parentNode.m_type.indexOf(":date") > 0)) {
+		} else if ((appearance === "full") && (this.element.parentNode.m_type) && (this.element.parentNode.m_type.indexOf(":date") > 0)) {
             // is it a date type?
             oRendertype = this.setCalendar(sValue);   
         }             

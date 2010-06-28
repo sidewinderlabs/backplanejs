@@ -37,8 +37,7 @@ if (UX.isXHTML) {
 				}
 				return oElement;
 		};
-}
-(
+} (
 	function(){
 /**
 	Inserts an element into the DOM at a given location.	This is an addon applied to Elements
@@ -49,10 +48,8 @@ if (UX.isXHTML) {
 	@param {Node} parsedNode a node to insert into this element
 	@addon
 */
-	function insertAdjacentElement(where,parsedNode)
-	{
-		switch (where)
-		{
+	function insertAdjacentElement(where, parsedNode) {
+		switch (where) {
 			case 'beforeBegin':
 				this.parentNode.insertBefore(parsedNode,this);
 				break;
@@ -63,12 +60,9 @@ if (UX.isXHTML) {
 				this.appendChild(parsedNode);
 				break;
 			case 'afterEnd':
-				if (this.nextSibling)
-				{
+			if (this.nextSibling) {
 					this.parentNode.insertBefore(parsedNode,this.nextSibling);
-				}
-				else
-				{
+			} else {
 					this.parentNode.appendChild(parsedNode);
 				}
 				break;
@@ -82,14 +76,12 @@ if (UX.isXHTML) {
 	@param {String} htmlStr markup to insert into this element
 	@addon
 */
-	function insertAdjacentHTML(where,htmlStr)
-	{
+	function insertAdjacentHTML(where, htmlStr) {
 		var r = this.ownerDocument.createRange();
 		r.setStartBefore(this);
 		var parsedHTML = r.createContextualFragment(htmlStr);
 		this.insertAdjacentElement(where,parsedHTML);
 	}
-
 
 /**
 	Inserts some text into the DOM at a given location, ignoring markup.
@@ -100,8 +92,7 @@ if (UX.isXHTML) {
 	@param {String} txtStr text to insert into this element
 	@addon
 */
-	function insertAdjacentText(where,txtStr)
-	{
+	function insertAdjacentText(where, txtStr) {
 		var parsedText = document.createTextNode(txtStr);
 		this.insertAdjacentElement(where,parsedText);
 	}
@@ -119,8 +110,7 @@ if (UX.isXHTML) {
 				if(parent === this) {
 					retval = true;
 					break;
-				}
-				else {
+			} else {
 					parent = parent.parentNode;
 				}
 			}
@@ -137,15 +127,13 @@ if (UX.isXHTML) {
 
 
 	//Add the functions to the Element prototype, if absent
-	if(typeof Element!="undefined" && !Element.prototype.insertAdjacentElement)
-	{
+	if (typeof Element!="undefined" && !Element.prototype.insertAdjacentElement) {
 		Element.prototype.insertAdjacentElement = Element.prototype.insertAdjacentElement || insertAdjacentElement;
 		Element.prototype.insertAdjacentText = Element.prototype.insertAdjacentText || insertAdjacentText;
 		Element.prototype.insertAdjacentHTML = Element.prototype.insertAdjacentHTML || insertAdjacentHTML;
 		Element.prototype.contains = Element.prototype.contains || contains;
 	}
- }
-)();
+})();
 
 (function() {
 
@@ -276,7 +264,6 @@ if (UX.isXHTML) {
 	};
 })();
 
-
 /**
 	Utility to add a className property for Firefox (XML), this alone doesn't affect how classNames are interpreted.
 	*/
@@ -329,7 +316,6 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
 						// There is not a .style property for the XML Parser on Firefox
 						// Instead, the computed style can be returned
 						// get the computed style and see if it is already set to the value
-
 						// *** Exception, although ANY STYLE ATTRIBUTE will be ignored by the
 						// browser in XHTML mode, there may be reasons to use the style attribute.
 						//
@@ -364,7 +350,9 @@ if (typeof Element!="undefined" && !Element.prototype.className) {
 			 oEvent.initEvent(sEventName, bBubble, bCancel);
 
 			 if (bSpawn) {
-					spawn( function() { FormsProcessor.dispatchEvent(oTarget, oEvent); } );
+		spawn(function() {
+			FormsProcessor.dispatchEvent(oTarget, oEvent);
+		});
 			 } else {
 					FormsProcessor.dispatchEvent(oTarget, oEvent);
 			 }
@@ -515,8 +503,7 @@ UX.type = function(o) {
 		UX.getFirstNodeByName = function(searchWithin, name,namespace) {
 			return getEndNodeByName(searchWithin, name, namespace,forwards);
 		};
-	}()
-);
+} ());
 
 UX.isNodeReadonly = function(oNode) {
 	return (oNode && oNode.m_proxy && oNode.m_proxy.readonly && oNode.m_proxy.readonly.getValue());
@@ -530,14 +517,8 @@ UX.isEquivalentNode = function(lhs, rhs) {
 };
 
 UX.isArray = function (v) {
-		return (v && typeof v === "object" &&
-			typeof v.length === "number" &&
-			typeof v.splice === "function" &&
-			!v.propertyIsEnumerable("length"));
+	return (v && typeof v === "object" && typeof v.length === "number" && typeof v.splice === "function" && !v.propertyIsEnumerable("length"));
 };
-
-
-
 
 /**
  *	Utility method to construct an object that inherits (prototypically) from a given object.
@@ -552,11 +533,8 @@ UX.beget = function(o) {
  *	Utility method to retrieve the @id of a given element.
  */
 UX.id = function(oElement) {
-	return (UX.isXHTML
-		? (oElement && typeof oElement.getAttribute === 'function' ? oElement.getAttribute("id") : undefined)
-		: (oElement ? oElement.id : undefined));
+	return (UX.isXHTML ? (oElement && typeof oElement.getAttribute === 'function' ? oElement.getAttribute("id") : undefined) : (oElement ? oElement.id : undefined));
 };
-
 
 // Method to set a variable to true, false or undefined, based on an xsd:boolean input.
 //
@@ -570,13 +548,7 @@ UX.JsBooleanFromXsdBoolean = function(fromValue, defaultValue) {
 		"0": false
 	}[fromValue];
 
-	return (toValue !== undefined)
-		? toValue
-		: (
-			(defaultValue !== undefined)
-				? UX.JsBooleanFromXsdBoolean(defaultValue)
-				: undefined
-		);
+	return (toValue !== undefined) ? toValue : ((defaultValue !== undefined) ? UX.JsBooleanFromXsdBoolean(defaultValue) : undefined);
 };
 
 UX.cancelHTMLEvent = function (evt) {

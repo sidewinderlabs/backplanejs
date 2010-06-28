@@ -38,12 +38,10 @@
 	// and erroneous behaviour.
 	//
 	// var nsBinds = oElement.getElementsByTagName("bind");
-
 function processBinds(oModel, oElement, oContext) {
 	var nsBinds = oElement.childNodes,
 	  len = nsBinds.length,
-	  i,
-	  oBind;
+		i, oBind;
 	for (i = 0; i < len; i++) {
 		oBind = nsBinds[i];
 
@@ -62,13 +60,12 @@ function processBinds(oModel, oElement, oContext) {
 }
 
 
+
 function processBind(oBind, sExpr, oModel, oContext) {
 	document.logger.log("Start processBind: " + sExpr, "mdl");
-    var oNodeset, oNode, oPN,
-      i, j,
-      sMIPName, sMIPVal,
-      modelItemProps = ["readonly", "required", "relevant", "calculate",
-                          "constraint",  "type" /*, "p3ptype" */ ],
+	var oNodeset, oNode, oPN, i, j, sMIPName, sMIPVal, modelItemProps = ["readonly", "required", "relevant", "calculate", "constraint", "type"
+	/*, "p3ptype" */
+	],
       oRes = oModel.EvaluateXPath(sExpr, oContext),
       oBinder = null,
       oParentBind = null,
@@ -200,10 +197,8 @@ function processBind(oBind, sExpr, oModel, oContext) {
 // [TODO] Either move the event dispatch to a caller of this function, or rename
 // this
 // function to something like "constructIfReady".
-
 function testForReady(pThis) {
     // Test the children of pThis for readiness, iff pThis element is itself ready
-
     if (pThis["elementLoaded"] === true) {
 
         // If the version check fails, then the processor will be halted, so we're
@@ -253,7 +248,6 @@ function testForReady(pThis) {
                 }
             }
         } // for (each child node)
-
         /*
          * When the model is ready we can begin the 'model construct' process.
          * [TODO] This should also be on an 'element ready' kind of event.
@@ -267,7 +261,6 @@ function testForReady(pThis) {
     }// if (pThis element is loaded)
     return;
 } // testForReady()
-
 
 function __replaceInstanceDocument(pThis, oInstance, oDom) {
     var bRet = false;
@@ -285,6 +278,7 @@ function __replaceInstanceDocument(pThis, oInstance, oDom) {
 }
 
 
+
 function _replaceInstanceDocument(pThis, sID, oDom) {
     var bRet = false;
     var oInstance = null;
@@ -296,6 +290,7 @@ function _replaceInstanceDocument(pThis, sID, oDom) {
 
     return bRet;
 }
+
 
 
 function _addBindingTemp(pThis, oContext, sXPath) {
@@ -329,11 +324,11 @@ function _addBindingTemp(pThis, oContext, sXPath) {
 }
 
 
+
 function _addControlExpression(pThis, oTarget, oContext, sXPath) {
     var oRet = null;
 
-    pThis.element.ownerDocument.logger.log("Adding expression for '"
-            + oTarget.tagName + "' to '" + sXPath + "'", "mdl");
+	pThis.element.ownerDocument.logger.log("Adding expression for '" + oTarget.tagName + "' to '" + sXPath + "'", "mdl");
 
     if (!oContext) {
         oContext = pThis;
@@ -349,7 +344,6 @@ function _addControlExpression(pThis, oTarget, oContext, sXPath) {
     return oRet;
 }
 
-
 /*
  * [ISSUE] Not sure I like the test for oVertex, but equally having two
  * functions--one for @calculate and one for all other MIPs seems a little
@@ -360,9 +354,7 @@ function _createMIP(pThis, oVertex, sMIPName, sExpr, oPN, oContext) {
     /*
      * Create an expression.
      */
-    var oCPE = (oVertex)
-               ? new ComputedXPathExpression(oPN, sExpr, oContext, pThis)
-               : new MIPExpression(oPN, sExpr, oContext, pThis);
+	var oCPE = (oVertex) ? new ComputedXPathExpression(oPN, sExpr, oContext, pThis) : new MIPExpression(oPN, sExpr, oContext, pThis);
 
     if (sMIPName === "readonly") {
        oCPE.getValue = function () {
@@ -398,7 +390,6 @@ function _createMIP(pThis, oVertex, sMIPName, sExpr, oPN, oContext) {
     return;
 } // createMIP()
 
-
 function _EvaluateXPath(pThis, sXPath, oContext) {
     var oRet = null;
 
@@ -407,7 +398,9 @@ function _EvaluateXPath(pThis, sXPath, oContext) {
         oContext = pThis.getEvaluationContext();
     } else if (!oContext.node) {
         // If only a context node is given, turn it into a context object
-        oContext = { node: oContext };
+		oContext = {
+			node: oContext
+		};
     }
 
     // If the context object doesn't contain a model or resolver element, add them
@@ -434,7 +427,6 @@ function _EvaluateXPath(pThis, sXPath, oContext) {
     }
     return oRet;
 }
-
 
 /*
  * The deferred update process allows the model to bring
@@ -475,6 +467,7 @@ function _deferredUpdate(pThis) {
 }
 
 
+
 function _model_contentReady(pThis) {
     pThis.changeList = new ChangeList();
     pThis.m_oDE = new dependencyEngine(pThis);
@@ -487,60 +480,62 @@ function _model_contentReady(pThis) {
         handleEvent : function(evt) {
             testForReady(pThis);
         }
-    }, false);
+	},
+	false);
 
     /*
      * Register the default model construct handler.
      */
-    FormsProcessor.addDefaultEventListener(pThis.element,
-            "xforms-model-construct", {
+	FormsProcessor.addDefaultEventListener(pThis.element, "xforms-model-construct", {
                 handleEvent : function(evt) {
                     pThis.modelConstruct();
                 }
-            }, false);
+	},
+	false);
 
     /*
      * Register the default model construct done handler.
      */
-    FormsProcessor.addDefaultEventListener(pThis,
-            "xforms-model-construct-done", {
+	FormsProcessor.addDefaultEventListener(pThis, "xforms-model-construct-done", {
                 handleEvent : function(evt) {
                     pThis.modelConstructDone();
                 }
-            }, false);
+	},
+	false);
 
     /*
      * Register the default xforms-link-exception handler.
      */
-    FormsProcessor.addDefaultEventListener(pThis,
-            "xforms-link-exception", {
+	FormsProcessor.addDefaultEventListener(pThis, "xforms-link-exception", {
                 handleEvent : function(evt) {
                     FormsProcessor.halted = true;
                     document.logger.log("xforms-link-exception, resource-uri: [" + evt.context["resource-uri"] + "]");
                 }
-            }, false);
+	},
+	false);
 
     /*
      * Register the default xforms-version-exception handler.
      */
-    FormsProcessor.addDefaultEventListener(pThis,
-            "xforms-version-exception", {
+	FormsProcessor.addDefaultEventListener(pThis, "xforms-version-exception", {
                 handleEvent : function(evt) {
                     FormsProcessor.halted = true;
                     document.logger.log("xforms-version-exception, error-information: [" + evt.context["error-information"] + "]");
                 }
-            }, false);
+	},
+	false);
 
-    pThis.addEventListener(
-            "xforms-insert", {
+	pThis.addEventListener("xforms-insert", {
                 scope:pThis,
                 handleEvent : function(evt) {
                   pThis.storeInsertedNodes(evt.context["inserted-nodes"]);
                 }
-            }, false);
+	},
+	false);
 
     return;
 }
+
 
 
 function _modelConstruct(pThis) {
@@ -551,9 +546,7 @@ function _modelConstruct(pThis) {
      * - Construct instance data.
      */
 
-
     //  Perform rebuild, recalculate and revalidate, without dispatching events.
-
     pThis._rebuild();
     pThis._recalculate();
     pThis._revalidate();

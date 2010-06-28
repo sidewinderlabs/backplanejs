@@ -31,7 +31,6 @@ Value.prototype.onContentReady = function () {
 	}
 };
 
-
 Value.prototype.setValue = function (s) {
 	var ownerSelect;
 	if (typeof this.element.parentNode.getOwnerSelect === "function") {
@@ -55,8 +54,7 @@ Value.prototype.getValue = function () {
   if (this.m_sValue === undefined) {
     if (this.element.firstChild && DOM_TEXT_NODE === this.element.firstChild.nodeType) {
   	  this.m_sValue = this.element.firstChild.nodeValue;
-  	}
-  	else {
+		} else {
   	  this.m_sValue = "";
   	}
   }
@@ -64,12 +62,16 @@ Value.prototype.getValue = function () {
 	return this.m_sValue;
 };
 
+
+
 function Itemset(elmnt) {
 	this.element = elmnt;
 	this.element.bindingContainerName = "item";
 }
 
 Itemset.prototype = new Repeat();
+
+
 
 function Item(elmnt) {
 	this.m_value = null;
@@ -79,7 +81,6 @@ function Item(elmnt) {
 	this.m_ownerSelect = null;
 	this.element = elmnt;
 }
-
 
 Item.prototype.getOwnerSelect = function () {
 	var el, s;
@@ -104,18 +105,14 @@ Item.prototype.getLabel = function () {
   if (this.m_label) {
     if (this.m_label.getValue) {
       s = this.m_label.getValue();
-    }
-    else {
+		} else {
       s = this.m_label.innerHTML;
     }
-  }
-  else {
+	} else {
     s = this.m_value.getValue();
   }
   return s;
 };
-
-
 
 Item.prototype.findValueElement = function () {
 	var coll, i;
@@ -158,19 +155,20 @@ Item.prototype.onContentReady = function () {
 	ownerSelect = this.getOwnerSelect();
 	if (ownerSelect) {
 		pThis = this;
-		ownerSelect.addEventListener("selection-changed", {handleEvent: function (e) {
+		ownerSelect.addEventListener("selection-changed", {
+			handleEvent: function(e) {
 			pThis.handleEvent(e);
-		}}, false);
+			}
+		},
+		false);
 
-		this.addEventListener(
-			"DOMActivate", {
+		this.addEventListener("DOMActivate", {
 				handleEvent: function (evt) {
 					evt.currentTarget.toggleSelectionStatus();
 					evt.stopPropagation();
 				}
 			},
-			false
-		);
+		false);
 	}
 	if (!this.m_bReady) {
 		//appear as though deselected.
@@ -188,8 +186,7 @@ Item.prototype.handleEvent = function (oEvt) {
 	if (oEvt.type === "selection-changed" && oEvt.target === this.getOwnerSelect()) {
 		if (oEvt.target.m_undisplayedValues) {
 			oEvt.target.m_undisplayedValues = this.array_tryDataselect(oEvt.target.m_undisplayedValues);
-		}
-		else {
+		} else {
 			this.string_tryDataselect(oEvt.newValue);
 		}
 	}
@@ -299,4 +296,3 @@ Item.prototype.onDataDeselect = function () {
 		this.m_bReady = true;
 	}
 };
-

@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-function OptionalBinding() {
-}
+function OptionalBinding() {}
 
 OptionalBinding.prototype.mustBeBound = function () {
 	return false;
 };
 
-function OptionalIfUnspecifiedBinding() {
-}
+function OptionalIfUnspecifiedBinding() {}
 
 OptionalIfUnspecifiedBinding.prototype.mustBeBound = function () {
 	return Boolean(this.getAttribute("ref"));

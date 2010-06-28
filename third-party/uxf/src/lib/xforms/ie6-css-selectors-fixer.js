@@ -14,9 +14,7 @@
 
 // IE6 does not support CSS attribute selectors, so we duplicate the
 // functionality in JS. This is used iff user agent is IE6.
-
 // Needs to be kept in sync with content in xforms-defs.js
-
 // As the name indicates, this is a IE6-specific function
 UX.applySelectorsIE6 = function(doc) {
 

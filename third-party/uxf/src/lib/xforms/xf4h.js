@@ -40,8 +40,7 @@ XF4HProcessor = {
     */    
     getAttribute : function(oElement, sAttributeName) { 
         // First try to get the name with XF4H namespaceURI
-        var sAttrValue = 
-            NamespaceManager.getAttributeNS(oElement, this.nsURI, sAttributeName);
+		var sAttrValue = NamespaceManager.getAttributeNS(oElement, this.nsURI, sAttributeName);
         
         if (!sAttrValue) {
             // if no namespaceURI.. in HTML just use prefix x4h: + attributeName         
@@ -65,13 +64,11 @@ XF4HProcessor = {
         var sValue, oValueNode, oParent;
         var oRefNode = null;
         
-        var oEvalResult = oModel.EvaluateXPath(sName, 
-             {
+		var oEvalResult = oModel.EvaluateXPath(sName, {
                  node: oContextNode,
                  model: oModel,
                  resolverElement: oElement
-             }
-        );
+		});
         if (oEvalResult) {
             oRefNode = getFirstNode(oEvalResult);
         }
@@ -125,23 +122,19 @@ XF4HProcessor = {
         sReadonly   = this.getAttribute(oElement, "readonly");
         sRequired   = this.getAttribute(oElement, "required");
         
-        if (!sDatatype && !sCalculate && !sConstraint && 
-            !sRelevant && !sReadonly && !sRequired) {
+		if (!sDatatype && !sCalculate && !sConstraint && !sRelevant && !sReadonly && !sRequired) {
             return;
         }
         
-        oBind = UX.createElementNS(oElement,
-                "http://www.w3.org/2002/xforms", "bind");        
+		oBind = UX.createElementNS(oElement, "http://www.w3.org/2002/xforms", "bind");
 
-        sNodeset = this._getNodeset(oRefNode, 
-                oRefNode.ownerDocument.documentElement);
+		sNodeset = this._getNodeset(oRefNode, oRefNode.ownerDocument.documentElement);
 
         if (!oBind || !sNodeset) {
             return;
         }        
         oBind.setAttribute("nodeset", sNodeset);
-        oContextBind = UX.createElementNS(oElement,
-                "http://www.w3.org/2002/xforms", "bind");
+		oContextBind = UX.createElementNS(oElement, "http://www.w3.org/2002/xforms", "bind");
         oContextBind.setAttribute("context", "..");
         oBind.appendChild(oContextBind);
         
@@ -168,13 +161,11 @@ XF4HProcessor = {
         }
 
         if (sReadonly) {
-            oContextBind.setAttribute("readonly", 
-                    ((sReadonly != "false") ? "true" : "false"));
+			oContextBind.setAttribute("readonly", ((sReadonly != "false") ? "true" : "false"));
         }
 
         if (sRequired) {
-            oContextBind.setAttribute("required", 
-                    ((sRequired !== "false") ? "true()" : "false()"));
+			oContextBind.setAttribute("required", ((sRequired !== "false") ? "true()" : "false()"));
         }
         oModel.appendChild(oBind);
         

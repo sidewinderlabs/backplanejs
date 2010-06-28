@@ -14,92 +14,98 @@
 
 function isValidEmail(sEmail) {
     return (
-        sEmail.match(/^([A-Za-z0-9!#-'\*\+\-\/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-\/=\?\^_`\{-~]+)*@[A-Za-z0-9!#-'\*\+\-\/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-\/=\?\^_`\{-~]+)*)?$/) ? true : false
-    );
+	sEmail.match(/^([A-Za-z0-9!#-'\*\+\-\/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-\/=\?\^_`\{-~]+)*@[A-Za-z0-9!#-'\*\+\-\/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-\/=\?\^_`\{-~]+)*)?$/) ? true : false);
 }
+
+
 
 function isValidCardNumber(sNum) {
     return (
-        sNum.match(/^\d*[0-9]?$/) &&
-        sNum.length >= 12 &&
-        sNum.length <= 19 ? true : false
-    );
+	sNum.match(/^\d*[0-9]?$/) && sNum.length >= 12 && sNum.length <= 19 ? true : false);
 }
+
+
 
 function isValidDateTime(sDateTime) {
     return (
-        sDateTime.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}$/) ||
-        sDateTime.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}Z$/) ||
-        sDateTime.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}[+-][0-9]{2}\:[0-9]{2}$/) ? true : false
-    );
+	sDateTime.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}$/) || sDateTime.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}Z$/) || sDateTime.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}\:[0-9]{2}\:[0-9]{2}[+-][0-9]{2}\:[0-9]{2}$/) ? true : false);
 }
+
+
 
 function isValidTime(sTime) {
     return (
-        sTime.match(/^[0-9]{2}\:[0-9]{2}\:[0-9]{2}$/) ||
-        sTime.match(/^[0-9]{2}\:[0-9]{2}\:[0-9]{2}[+-][0-9]{2}\:[0-9]{2}$/) ? true : false
-    );
+	sTime.match(/^[0-9]{2}\:[0-9]{2}\:[0-9]{2}$/) || sTime.match(/^[0-9]{2}\:[0-9]{2}\:[0-9]{2}[+-][0-9]{2}\:[0-9]{2}$/) ? true : false);
 }
+
+
 
 function isValidDate(sDate) {
     return (
-        sDate.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/) ||
-        sDate.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}[+-][0-9]{2}\:[0-9]{2}$/) ? true : false
-    );
+	sDate.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/) || sDate.match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}[+-][0-9]{2}\:[0-9]{2}$/) ? true : false);
 }
+
+
 
 function isValidGYearMonth(sGYearMonth) {
     return (
-        sGYearMonth.match(/^[0-9]{4}\-[0-9]{2}$/) ? true : false
-    );
+	sGYearMonth.match(/^[0-9]{4}\-[0-9]{2}$/) ? true : false);
 }
+
+
 
 function isValidGYear(sGYear) {
     return (
-        sGYear.match(/^[0-9]{4}$/) ? true : false
-    );
+	sGYear.match(/^[0-9]{4}$/) ? true : false);
 }
+
+
 
 function isValidGMonthDay(sGMonthDay) {
     return (
-        sGMonthDay.match(/^\-\-[0-9]{2}\-[0-9]{2}$/) ? true : false
-    );
+	sGMonthDay.match(/^\-\-[0-9]{2}\-[0-9]{2}$/) ? true : false);
 }
+
+
 
 function isValidGDay(sGDay) {
     return (
-        sGDay.match(/^\-\-\-[0-9]{2}$/) ? true : false
-    );
+	sGDay.match(/^\-\-\-[0-9]{2}$/) ? true : false);
 }
+
+
 
 function isValidGMonth(sGMonth) {
     return (
-        sGMonth.match(/^\-\-[0-9]{2}$/) ? true : false
-    );
+	sGMonth.match(/^\-\-[0-9]{2}$/) ? true : false);
 }
+
+
 
 function isValidBase64Binary(sBase64) {
     return (
-        sBase64.match(/^[a-zA-Z0-9\+\/\=]+$/) ? true : false
-    );
+	sBase64.match(/^[a-zA-Z0-9\+\/\=]+$/) ? true : false);
 }
+
+
 
 function isValidHexBinary(sHexBinary) {
     return (
-        sHexBinary.match(/^[0-9a-fA-F]+$/) ? true : false
-    );
+	sHexBinary.match(/^[0-9a-fA-F]+$/) ? true : false);
 }
+
+
 
 function isValidNCName(sNCName) {
     // NCName           ::=    NCNameStartChar NCNameChar* /* An XML Name, minus the ":" */ 
     // NCNameChar       ::=    NameChar - ':' 
     // NCNameStartChar  ::=    Letter | '_'  
     // NameChar         ::=    Letter | Digit | '.' | '-' | '_' | ':' | CombiningChar | Extender  
-
-    return (
-        sNCName.match(/^[_a-zA-Z][\w\.\-]*$/i) ? true : false
-    );
+	return (
+	sNCName.match(/^[_a-zA-Z][\w\.\-]*$/i) ? true : false);
 }
+
+
 
 function isValidAnyURI(sURI) {
    var i, c, match, encodedURI = "";
@@ -110,10 +116,7 @@ function isValidAnyURI(sURI) {
    // '{' (123), '|' (124), and '}' (125).
    for (i = 0; i < sURI.length; i++) {
        c = sURI.charCodeAt(i);
-       if (((c >= 0 && c <= 31) || c === 127) || (c === 32) || 
-           (c === 34) || (c === 60) || (c === 62) || (c === 91) ||
-           (c === 92) || (c === 93) || (c === 94) || (c === 96) ||
-           (c === 123) || (c === 124) || (c === 125) || (c > 127)) {
+		if (((c >= 0 && c <= 31) || c === 127) || (c === 32) || (c === 34) || (c === 60) || (c === 62) || (c === 91) || (c === 92) || (c === 93) || (c === 94) || (c === 96) || (c === 123) || (c === 124) || (c === 125) || (c > 127)) {
            encodedURI += (encodeURIComponent(String.fromCharCode(c)));
        } else {
            encodedURI += (String.fromCharCode(c));
@@ -123,6 +126,8 @@ function isValidAnyURI(sURI) {
    match = encodedURI.match(/^(([^:\/?#]+):)?(\/\/([^\/\?#]*))?([^\?#]*)(\?([^#]*))?(#([^\:#\[\]\@\!\$\&\\'\(\)\*\+\,\;\=]*))?$/);
    return match ? _isValidAnyURI(match[0]) : false;
 }
+
+
 
 function _isValidAnyURI(sURI) {
     var ixPercent, s;
@@ -140,6 +145,8 @@ function _isValidAnyURI(sURI) {
     return true;
 }
 
+
+
 function isValidQName(sQName) {
     // QName ::=  (Prefix ':')? LocalPart 
     // Prefix ::=  NCName 
@@ -153,55 +160,66 @@ function isValidQName(sQName) {
     return prefix ? isValidNCName(prefix) && isValidNCName(localPart) : isValidNCName(localPart);
 }
 
+
+
 function isInfinityOrNaN(sValue) {
     return (
-        sValue === 'INF' || sValue === '-INF' || sValue === 'NaN'
-    );
+	sValue === 'INF' || sValue === '-INF' || sValue === 'NaN');
 }
+
+
 
 function isValidBoolean(sBoolean) {
     return (
-        sBoolean === "true" || sBoolean === "false" || sBoolean === "1" || sBoolean === "0"
-    );
+	sBoolean === "true" || sBoolean === "false" || sBoolean === "1" || sBoolean === "0");
 }
+
+
 
 function isValidInteger(sInteger) {
     return (
-        sInteger.match(/^[-+]?[0-9]+$/) ? true : false
-    );
+	sInteger.match(/^[-+]?[0-9]+$/) ? true : false);
 }
+
+
 
 function isValidPositiveInteger(sInteger) {
     return (
-        sInteger.match(/^[+]?[1-9]+[0-9]*$/) ? true : false
-    );
+	sInteger.match(/^[+]?[1-9]+[0-9]*$/) ? true : false);
 }
+
+
 
 function isValidFloat(sFloat) {
     if (isInfinityOrNaN(sFloat)) {
         return true;
     } else {
         return (
-            sFloat.match(/^[-+]?0*[1-9]?[0-9]*([\.]{1}[0-9]+)?([eE]{1}[-+]?[0-9]+)?$/) ? true : false
-        );
+		sFloat.match(/^[-+]?0*[1-9]?[0-9]*([\.]{1}[0-9]+)?([eE]{1}[-+]?[0-9]+)?$/) ? true : false);
     }
 }
+
+
 
 function isValidDouble(sDouble) {
     return isValidFloat(sDouble);
 }
 
+
+
 function isValidDecimal(sDecimal) {
     return (
-        sDecimal.match(/^[-+]?0*[1-9]?[0-9]*([\.]{1}[0-9]+)?$/) ? true : false
-    );
+	sDecimal.match(/^[-+]?0*[1-9]?[0-9]*([\.]{1}[0-9]+)?$/) ? true : false);
 }
+
+
 
 function isValidNormalizedString(sString) {
     return (
-        sString.match(/^[^\n\r\t\s]+$/) ? true : false
-    );
+	sString.match(/^[^\n\r\t\s]+$/) ? true : false);
 }
+
+
 
 function isValidListItems(sList) {
     var arrSegments, i;
@@ -216,31 +234,34 @@ function isValidListItems(sList) {
     return true;
 }
 
+
+
 function isValidToken(sToken) {
     var ixSpace;
 
-    if (sToken.charAt(0) === " " ||
-        sToken.charAt(sToken.length - 1) === " " ||
-        sToken.match(/^[\s]{2,}$/)) {
+	if (sToken.charAt(0) === " " || sToken.charAt(sToken.length - 1) === " " || sToken.match(/^[\s]{2,}$/)) {
         return false;
     }
     return isValidNormalizedString(sToken);
 }
 
+
+
 function isValidLanguage(sLanguage) {
     return (
-        sLanguage.match(/^[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*$/) ? true : false
-    );
+	sLanguage.match(/^[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*$/) ? true : false);
 }
+
+
 
 function isValidName(sName) {
     // Name ::= (Letter | '_' | ':') ( NameChar)* 
     // NameChar ::= Letter | Digit | '.' | '-' | '_' | ':' | CombiningChar | Extender 
-
-    return (
-        sName.match(/^[a-zA-Z\_\:][a-zA-Z0-9.\-\_\:]*$/i) ? true : false
-    );
+	return (
+	sName.match(/^[a-zA-Z\_\:][a-zA-Z0-9.\-\_\:]*$/i) ? true : false);
 }
+
+
 
 function isValidIDREFS(sIDREFS) {
     var arrSegments, i;
@@ -255,14 +276,16 @@ function isValidIDREFS(sIDREFS) {
     return true;
 }
 
+
+
 function isValidNMTOKEN(sNMTOKEN) {
     // Nmtoken ::= (NameChar)+ 
     // NameChar ::= Letter | Digit | '.' | '-' | '_' | ':' | CombiningChar | Extender 
-
-    return (
-        sNMTOKEN.match(/^[a-zA-Z0-9\.\-\_\:]+$/) ? true : false
-    );
+	return (
+	sNMTOKEN.match(/^[a-zA-Z0-9\.\-\_\:]+$/) ? true : false);
 }
+
+
 
 function isValidNMTOKENS(sNMTOKENS) {
     var arrSegments, i;
@@ -277,18 +300,21 @@ function isValidNMTOKENS(sNMTOKENS) {
     return true;
 }
 
+
+
 function isValidNonPositiveInteger(sInteger) {
     return (
-        sInteger.match(/^[-]{1}[0-9]+$/) ||
-        sInteger.match(/^[+]?0$/) ? true : false
-    );
+	sInteger.match(/^[-]{1}[0-9]+$/) || sInteger.match(/^[+]?0$/) ? true : false);
 }
+
+
 
 function isValidNegativeInteger(sInteger) {
     return (
-        sInteger.match(/^[-]{1}[0-9]+$/) ? true : false
-    );
+	sInteger.match(/^[-]{1}[0-9]+$/) ? true : false);
 }
+
+
 
 function isValidLong(sLong) {
     var match, value;
@@ -304,6 +330,8 @@ function isValidLong(sLong) {
     return false;
 }
 
+
+
 function isValidInt(sInt) {
     var match, value;
 
@@ -317,6 +345,8 @@ function isValidInt(sInt) {
 
     return false;
 }
+
+
 
 function isValidShort(sShort) {
     var match, value;
@@ -332,6 +362,8 @@ function isValidShort(sShort) {
     return false;
 }
 
+
+
 function isValidByte(sByte) {
     var match, value;
 
@@ -346,12 +378,14 @@ function isValidByte(sByte) {
     return false;
 }
 
+
+
 function isValidNonNegativeInteger(sInteger) {
     return (
-        sInteger.match(/^[+]?[0-9]+$/) ||
-        sInteger.match(/^[+-]?0$/) ? true : false
-    );
+	sInteger.match(/^[+]?[0-9]+$/) || sInteger.match(/^[+-]?0$/) ? true : false);
 }
+
+
 
 function isValidUnsignedLong(sULong) {
     var match, value;
@@ -367,6 +401,8 @@ function isValidUnsignedLong(sULong) {
     return false;
 }
 
+
+
 function isValidUnsignedInt(sUInt) {
     var match, value;
 
@@ -380,6 +416,8 @@ function isValidUnsignedInt(sUInt) {
 
     return false;
 }
+
+
 
 function isValidUnsignedShort(sUShort) {
     var match, value;
@@ -395,6 +433,8 @@ function isValidUnsignedShort(sUShort) {
     return false;
 }
 
+
+
 function isValidUnsignedByte(sUByte) {
     var match, value;
 
@@ -408,6 +448,8 @@ function isValidUnsignedByte(sUByte) {
 
     return false;
 }
+
+
 
 function evalXPathFunc(func, args, ctx) {
 	var funcName = new StringValue(func);

@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-function isFirefox3()
-{
+function isFirefox3() {
   return (navigator.oscpu && document.getElementsByClassName);
 }
 /**
@@ -25,7 +24,8 @@ function isFirefox3()
 		calling any initialisation code that would otherwise have been called by onload.
 */
 function FFInsertElementForOnloadXBL() {
-  var oBody = document.getElementsByTagName("body")[0], cssNode, oHead, oStyle;
+	var oBody = document.getElementsByTagName("body")[0],
+		cssNode, oHead, oStyle;
   oBody.insertAdjacentHTML("beforeEnd","<p id='second-onload-loading-element' style='width:0px;display:inline-block;'>Loading...</p>");
 
   if(!(isFirefox3() || UX.isIE6 || UX.isIE7 || UX.isQuirksMode)) {
@@ -43,5 +43,4 @@ function FFInsertElementForOnloadXBL() {
 
 }
 
-InsertElementForOnloadXBL = (UX.isFF  || UX.isIE) ?
-  FFInsertElementForOnloadXBL :  function(){};
+InsertElementForOnloadXBL = (UX.isFF || UX.isIE) ? FFInsertElementForOnloadXBL : function() {};

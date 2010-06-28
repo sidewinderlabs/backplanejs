@@ -14,24 +14,21 @@
  * limitations under the License.
  */
 
-function XFormsInputValue(elmnt)
-{
+function XFormsInputValue(elmnt) {
 	
   	this.element = elmnt;
   	this.currValue = "";
   	this.m_bFirstSetValue = true;
 }
 
-function valueChangedIE(pThis,evt)
-{
+function valueChangedIE(pThis,evt) {
 	/*
 	 * [ISSUE] Not really suitable to use mutation events.
 	 */
 
 	var oEvt = pThis.element.ownerDocument.createEvent("MutationEvents");
 	
-	oEvt.initMutationEvent("control-value-changed", true, true,
-		null, pThis.currValue, evt.srcElement.value, null, null);
+	oEvt.initMutationEvent("control-value-changed", true, true, null, pThis.currValue, evt.srcElement.value, null, null);
 
 	FormsProcessor.dispatchEvent(pThis.element,oEvt);
 
@@ -44,15 +41,15 @@ function valueChangedIE(pThis,evt)
 
 }
 
-function valueChangedFF(pThis,evt)
-{
+
+
+function valueChangedFF(pThis, evt) {
 	/*
 	 * [ISSUE] Not really suitable to use mutation events.
 	 */
 	var oEvt = pThis.element.ownerDocument.createEvent("MutationEvents");
 	
-	oEvt.initMutationEvent("control-value-changed", true, true,
-		null, pThis.currValue, evt.target.value, null, null);
+	oEvt.initMutationEvent("control-value-changed", true, true, null, pThis.currValue, evt.target.value, null, null);
 
 	FormsProcessor.dispatchEvent(pThis.element,oEvt);
 	/*
@@ -64,21 +61,16 @@ function valueChangedFF(pThis,evt)
 
 }
 
-XFormsInputValue.prototype.getOwnerNodeName  = function()
-{
+XFormsInputValue.prototype.getOwnerNodeName = function() {
 	return NamespaceManager.getLowerCaseLocalName(this.element.parentNode);
 };
 
-XFormsInputValue.prototype.onDocumentReady = function()
-{
-	if (this.element.ownerDocument.media != "print")
-	{
+XFormsInputValue.prototype.onDocumentReady = function() {
+	if (this.element.ownerDocument.media != "print") {
 		var sTagNameLC = this.getOwnerNodeName();
 		var sElementToCreate = (sTagNameLC == "textarea")?"textarea":"input"; 
 		var oInput = document.createElement(sElementToCreate);
-		var eventName = (this.element.parentNode.getAttribute("incremental") === "true")
-			? "keyup"
-			: "change";
+		var eventName = (this.element.parentNode.getAttribute("incremental") === "true") ? "keyup" : "change";
 
 		UX.addStyle(oInput, "backgroundColor", "transparent");
 		UX.addStyle(oInput, "padding", "0");
@@ -89,18 +81,19 @@ XFormsInputValue.prototype.onDocumentReady = function()
 
 		var pThis = this;
 		if(typeof oInput.addEventListener === 'function') {
-			oInput.addEventListener(eventName, function(e) { valueChangedFF(pThis, e); }, false);
+			oInput.addEventListener(eventName, function(e) {
+				valueChangedFF(pThis, e);
+			},
+			false);
 		} else {
-			oInput.attachEvent("on" + eventName, function(e) {valueChangedIE(pThis, e); });
+			oInput.attachEvent("on" + eventName, function(e) {
+				valueChangedIE(pThis, e);
+			});
 		}
 
-			
-		if(sTagNameLC== "secret")
-		{
+		if (sTagNameLC == "secret") {
 			oInput.type="password";
-		}
-		else if(sTagNameLC !== "textarea")
-		{
+		} else if (sTagNameLC !== "textarea") {
 			oInput.setAttribute("type","text");
 		}
 			
@@ -113,21 +106,16 @@ XFormsInputValue.prototype.onDocumentReady = function()
 
 		this.m_value = oInput;
 		//this.m_value.value = "null value";		
-
 	}
 };
 
-XFormsInputValue.prototype.setValue = function(sValue)
-{
+XFormsInputValue.prototype.setValue = function(sValue) {
 	var bRet = false;
-	if (this.m_value.value != sValue)
-	{
+	if (this.m_value.value != sValue) {
 		this.m_value.value = sValue;
 		this.currValue = sValue;
 		bRet = true;
-	}
-	else if(this.m_bFirstSetValue)
-	{
+	} else if (this.m_bFirstSetValue) {
 		bRet = true;
 		this.m_bFirstSetValue = false;
 	}
@@ -144,7 +132,5 @@ XFormsInputValue.prototype.isTypeAllowed = function(sType) {
     localPart = arrSegments.length === 2 ? arrSegments[1] : "";
     namespace = NamespaceManager.getNamespaceURIForPrefix(prefix);
 
-    return ((namespace === "http://www.w3.org/2001/XMLSchema" || namespace === "http://www.w3.org/2002/xforms") &&
-            localPart !== "base64Binary" && localPart !== "hexBinary" &&
-            !this.parentNode.isBoundToComplexContent());
+	return ((namespace === "http://www.w3.org/2001/XMLSchema" || namespace === "http://www.w3.org/2002/xforms") && localPart !== "base64Binary" && localPart !== "hexBinary" && !this.parentNode.isBoundToComplexContent());
 };

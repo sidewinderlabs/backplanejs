@@ -1,4 +1,3 @@
-  
  /*
  * Copyright (C) 2008 Backplane Ltd.
  *
@@ -25,8 +24,7 @@
   @class
     Specifies a control that may be requested to  display values that it is incapable of displaying. 
 */
-  var FiniteControl = function(elmnt)
-  {
+var FiniteControl = function(elmnt) {
     var m_bInRange = true;
     var element = elmnt;
     return {
@@ -73,4 +71,3 @@
       }
     };
   };
-      

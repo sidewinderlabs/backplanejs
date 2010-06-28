@@ -38,8 +38,7 @@ Instance.prototype.load = function ( domURL ) {
         // When the document has been loaded by our XLink handler
         // we parse it and then fire a 'document load' event.
         //
-        this.element.addEventListener(
-        "xlink-traversed", {
+		this.element.addEventListener("xlink-traversed", {
             context: this,
             handleEvent: function (evtParam) {
                 //this.context.parseInstance();
@@ -55,8 +54,7 @@ Instance.prototype.load = function ( domURL ) {
         // If the XLink handler for src or resource fails, then
         // we dispatch xforms-link-exception
         //
-        this.element.addEventListener(
-        "xlink-traversal-failure", {
+		this.element.addEventListener("xlink-traversal-failure", {
             context: this,
             handleEvent: function (evtParam) {
                 var dispatcher = this.context;
@@ -92,8 +90,7 @@ Instance.prototype.parseInstance = function () {
 			sXML += o.serializeToString(n);
 			n = n.nextSibling;
 		}
-	}
-	else {
+	} else {
 		sXML = this.element.innerHTML;
 	}
 
@@ -114,8 +111,7 @@ Instance.prototype.finishLoad = function (domURL) {
     var ret = false;
     if (this.m_oDOM && this.m_oDOM.documentElement) {
         ret = true;
-        if (typeof this.model.flagRebuild === "function")
-            this.model.flagRebuild();
+		if (typeof this.model.flagRebuild === "function") this.model.flagRebuild();
         this.m_oDOM.XFormsInstance = this;
         this.m_oOriginalDOM = this.m_oDOM.cloneNode(true);
         NamespaceManager.readOutputNamespacesFromInstance(this.m_oDOM);
@@ -124,12 +120,9 @@ Instance.prototype.finishLoad = function (domURL) {
         // and the elementState has been set to 0, then throw xforms-link-exception
         //
         ret = true;
-        this.dispatchException(
-            "xforms-link-exception",
-            {
+		this.dispatchException("xforms-link-exception", {
                 "resource-uri": domURL || ("#" + this.getAttribute("id"))
-            }
-        );
+		});
     }
 
     return ret;
@@ -166,7 +159,8 @@ Instance.prototype.deleteNodes = function (oContext, nodesetExpr, atExpr) {
 };
 
 Instance.prototype.deleteFromNodeset = function (oContext, nodeset, atExpr) {
-    var at, atContext, i, node, nsDeleted = [ ], evt;
+	var at, atContext, i, node, nsDeleted = [],
+		evt;
 
    /**
      Helper function: deleteNode - deletes a given node as per XForms 1.1 section 10.4 step 4.
@@ -176,8 +170,7 @@ Instance.prototype.deleteFromNodeset = function (oContext, nodeset, atExpr) {
 	var deleteNode = function(node, deleteLocation) {
     	var parentNode = node.parentNode;
 
-    	if (!parentNode ||
-    			((parentNode.nodeType === DOM_DOCUMENT_NODE) && (node.nodeType === DOM_ELEMENT_NODE))) {
+		if (!parentNode || ((parentNode.nodeType === DOM_DOCUMENT_NODE) && (node.nodeType === DOM_ELEMENT_NODE))) {
     		return false;
     	}
 
@@ -187,8 +180,7 @@ Instance.prototype.deleteFromNodeset = function (oContext, nodeset, atExpr) {
 
     	if (node.nodeType === DOM_ATTRIBUTE_NODE) {
     		parentNode.removeAttribute(node.nodeName);
-    	}
-    	else {
+		} else {
     		parentNode.removeChild(node);
     	}
 
@@ -243,7 +235,6 @@ Instance.prototype.deleteFromNodeset = function (oContext, nodeset, atExpr) {
 			}// for each node
 		}// if there is an at value ... else ...
 	} // if no nodes were found
-
 	// If we have deleted any nodes then dispatch an event.
 	//
 	if (nsDeleted.length) {
@@ -260,19 +251,16 @@ Instance.prototype.deleteFromNodeset = function (oContext, nodeset, atExpr) {
 		return false;
 	}
 };// deleteNodes()
-
 Instance.prototype.insertNodes = function (oContext, nodesetExpr, atExpr, position, originExpr) {
 	return this.insertNodeset(oContext, ((nodesetExpr) ? this.evalXPath(nodesetExpr, oContext).nodeSetValue() : null), atExpr, position, originExpr);
 };
 
 Instance.prototype.insertNodeset = function ( oContext, ns, atExpr, position, originExpr) {
 
-    var nsOrigin = (originExpr) ? (typeof originExpr === 'string'
-                                   ? this.evalXPath(originExpr, oContext).nodeSetValue()
-                                   : originExpr)
-                                : ((ns) ? new Array(ns[ns.length-1]) : null);
-	var at, after, i, insertLocationNode, insertTarget, insertBeforeNode, cloneNode,
-		nsLocationNode = [ ], nsInserted = [ ], evt, atRoot, insertNode;
+	var nsOrigin = (originExpr) ? (typeof originExpr === 'string' ? this.evalXPath(originExpr, oContext).nodeSetValue() : originExpr) : ((ns) ? new Array(ns[ns.length - 1]) : null);
+	var at, after, i, insertLocationNode, insertTarget, insertBeforeNode, cloneNode, nsLocationNode = [],
+		nsInserted = [],
+		evt, atRoot, insertNode;
 
 	// If there's no context node, then insertion is not possible, so
 	// we'll just no-op in that case.
@@ -307,7 +295,6 @@ Instance.prototype.insertNodeset = function ( oContext, ns, atExpr, position, or
 			insertTarget = insertLocationNode.parentNode;
 
 		} // end if (non-empty nodeset)
-
 		// If there is no nodeset but there was a context attribute which indicated a node into
 		// which an insertion should occur, and if there are one or more origin nodes, then we
 		// can proceed with insertion
@@ -320,25 +307,21 @@ Instance.prototype.insertNodeset = function ( oContext, ns, atExpr, position, or
 
 		// otherwise insertTarget intentionally left undefined, thus
 		// insertion cannot be substantiated which results in the NO-OP
-
 		if (insertTarget) {
 			// Insert target found.
-
 			// Clone nodes to be inserted first and add them to nsInserted array.
 			// Conceivably, origin nodes could be removed, if inserting at the root (see below).
 			// At the same time determine if the insertion is 'at root' and,
 			// if so, is it legal (no more the one element can be inserted).
 			// Note, that if it is NOT legal the second and the following
 			// element nodes are not inserted (ignored).
-
 			atRoot = false;
 			for (i = 0; i < nsOrigin.length; i++) {
 				insertNode = true;
 				if ((insertTarget.nodeType === DOM_DOCUMENT_NODE) && (nsOrigin[i].nodeType === DOM_ELEMENT_NODE)) {
 					if (atRoot) {
 						insertNode = false;
-					}
-					else {
+					} else {
 						atRoot = true;
 					}
 				}
@@ -347,7 +330,6 @@ Instance.prototype.insertNodeset = function ( oContext, ns, atExpr, position, or
 				// 1. in an element node
 				// 2. if target location is provided by the context attribute, i.e.
 				// NodeSet Binding nodeset is not specified or empty
-
 				if (nsOrigin[i].nodeType === DOM_ATTRIBUTE_NODE){
 					if ((insertTarget.nodeType !== DOM_ELEMENT_NODE) || (ns && ns.length > 0)) {
 						insertNode = false;
@@ -363,7 +345,6 @@ Instance.prototype.insertNodeset = function ( oContext, ns, atExpr, position, or
 			// Treat the special case of insertion at the root of the instance here.
 			// Namely, before the element could be inserted into document node
 			// remove the existing document element.
-
 			if (atRoot) {
 				insertLocationNode = insertTarget.firstChild;
 				while (insertLocationNode && (insertLocationNode.nodeType !== DOM_ELEMENT_NODE)) {
@@ -382,18 +363,15 @@ Instance.prototype.insertNodeset = function ( oContext, ns, atExpr, position, or
 			// Non-attribute nodes are inserted before a particular child node, or
 			// or appended if insertBeforeNode is falsy;
 			// an attribute nodes, on the other hand, are simply set.
-
 			for (i = 0; i < nsInserted.length; i++) {
 				if (nsInserted[i].nodeType !== DOM_ATTRIBUTE_NODE) {
 					insertTarget.insertBefore(nsInserted[i], insertBeforeNode);
-				}
-				else {
+				} else {
 					insertTarget.setAttributeNode(nsInserted[i]);
 				}
 			}
 		}
     } // end if (oContext)
-
     // If we have inserted any nodes then dispatch an event and return true; otherwise just return false
     //
     if (nsInserted.length) {
@@ -414,11 +392,12 @@ Instance.prototype.insertNodeset = function ( oContext, ns, atExpr, position, or
 
     return false;
 };// insertNodes()
-
 // Evaluate an XPath expression against this instance.
 // If no context is given, the default is the document element of the instance
 // NOTE: This is a default evaluator, but instances that are part of a model
 //       use the model's evaluator instead.
 Instance.prototype.evalXPath = function (expr, oContext) {
-	return xpathDomEval(expr, oContext || { node : this.m_oDOM.documentElement});
+	return xpathDomEval(expr, oContext || {
+		node: this.m_oDOM.documentElement
+	});
 };

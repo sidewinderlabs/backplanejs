@@ -19,8 +19,6 @@
    setState
    */
 
-
-
 function Control(elmnt) {
   this.element = elmnt;
   this.m_MIPSCurrentlyShowing = {};
@@ -95,7 +93,6 @@ Control.prototype.AddValuePseudoElement = function () {
         // If createElement is used in firefox, the xbl does not bind.
         // If innerHTML is used in IE, it does not interpret <pe-value
         // /> as an element, and inserts "".
-
         if (UX.isFF) {
           // ReferenceNode for insertAdjacentHTML must exist, but the
           // insertion point varies,
@@ -108,9 +105,7 @@ Control.prototype.AddValuePseudoElement = function () {
             insertionPoint = "afterBegin";
           }
           referenceNode.insertAdjacentHTML(insertionPoint, "<pe-value></pe-value>");
-          this.m_value = (labelChild) ? 
-            labelChild.nextSibling:
-            this.element.firstChild;
+					this.m_value = (labelChild) ? labelChild.nextSibling : this.element.firstChild;
         } else {
           this.m_value = document.createElement("pe-value");
           // insertBefore will be used to insert the new node, so the
@@ -120,9 +115,7 @@ Control.prototype.AddValuePseudoElement = function () {
           // added as the first child
           // If there are no children, this will be null,
           // insertBefore(newNode, null) is identical to appendChild
-          referenceNode = (labelChild) ? 
-            labelChild.nextSibling:
-            this.element.firstChild;
+					referenceNode = (labelChild) ? labelChild.nextSibling : this.element.firstChild;
           this.element.insertBefore(this.m_value, referenceNode);
         }
         window.status = "";
@@ -134,7 +127,6 @@ Control.prototype.AddValuePseudoElement = function () {
     // alert(e.description);
   }
 };
-
 
 Control.prototype.addInputEventFilter = function () {
   var pThis, filterKeyPress, filterMouseAction;
@@ -236,7 +228,6 @@ Control.prototype.rewire = function () {
 Control.prototype.AddTVCListener = function () {
   // Any implementation of pe-value must provide an event that tells us the
   // data has changed.
-
   if (!this.addedTVCListener) {
     if (!this.m_value) {
       this.AddValuePseudoElement();
@@ -254,7 +245,8 @@ Control.prototype.AddTVCListener = function () {
           oEvt.initMutationEvent("target-value-changed", true, true, null, evt.prevValue, evt.newValue, null, null);
           FormsProcessor.dispatchEvent(this.control, oEvt);
         }
-      }, false);
+			},
+			false);
       this.addedTVCListener = true;
     }
   }
@@ -287,8 +279,7 @@ Control.prototype.setValue = function (sValue) {
         // value represented by the control has changed.
         oEvt = document.createEvent("MutationEvents");
 
-        oEvt.initMutationEvent("data-value-changed", false, false,
-                null, "", sValue, "", null);
+				oEvt.initMutationEvent("data-value-changed", false, false, null, "", sValue, "", null);
         // FormsProcessor.dispatchEvent(this.element,oEvt);
         oEvt._actionDepth = -1;
         pThis = this;
@@ -301,8 +292,7 @@ Control.prototype.setValue = function (sValue) {
     if (this.dirtyState.isDirty("value")) {
       // value changes, even if there is no pseudoelement.
       oEvt2 = document.createEvent("MutationEvents");
-      oEvt2.initMutationEvent("xforms-value-changed", true, false, null,
-              oldVal, sValue, "", null);
+			oEvt2.initMutationEvent("xforms-value-changed", true, false, null, oldVal, sValue, "", null);
       FormsProcessor.dispatchEvent(this.element, oEvt2);
     }
   } catch (e) {
@@ -367,23 +357,20 @@ Control.prototype.onDocumentReady = function () {
 
   // Add default handler for xforms-binding-exception
   var oControl = this;
-  FormsProcessor.addDefaultEventListener(oControl,
-    "xforms-binding-exception", {
+	FormsProcessor.addDefaultEventListener(oControl, "xforms-binding-exception", {
       handleEvent : function (evt) {
         // Fatal error: xforms-binding-exception
         // throw error 
         throw "Fatal Error: XForms Binding Exception on " + oControl.element.nodeName + "!";
       }
     }, 
-    false
-  );
+	false);
 };
 
 Control.prototype.onContentReady = function () {
 	this.AddValuePseudoElement();
 	FormsProcessor.listenForXFormsFocus(this, this);
 };
-
 
 Control.prototype.isBoundToComplexContent = function () {
     // An element node that has element children is complex content and some
@@ -404,4 +391,3 @@ Control.prototype.isBoundToComplexContent = function () {
     }
     return false;
 };
-

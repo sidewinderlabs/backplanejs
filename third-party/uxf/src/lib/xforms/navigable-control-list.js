@@ -80,7 +80,8 @@ NavigableControlList.prototype.hasListItem = function (index) {
 };
 
 NavigableControlList.prototype.getNextControlAtSameIndex = function (control) {
-	var foundControl = false, nextControl;
+	var foundControl = false,
+		nextControl;
 	for (var i = 0; i < this.orderedList[control.navIndex].length; ++i) {
 		if (foundControl) {
 			nextControl = this.orderedList[control.navIndex][i];
@@ -96,7 +97,8 @@ NavigableControlList.prototype.getNextControlAtSameIndex = function (control) {
 };
 
 NavigableControlList.prototype.getPreviousControlAtSameIndex = function (control) {
-	var foundControl = false, previousControl;
+	var foundControl = false,
+		previousControl;
 	for (var i = this.orderedList[control.navIndex].length; i >= 0; --i) {
 		if (foundControl) {
 			previousControl = this.orderedList[control.navIndex][i];

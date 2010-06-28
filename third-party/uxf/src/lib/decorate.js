@@ -15,7 +15,6 @@
  */
 
 //= provide "../behaviours"
-
 /**
 	@fileoverview
 	Contains functions used in the decoration of elements and objects. Along with the mechanism for
@@ -52,11 +51,10 @@ var DECORATOR = function () {
 	//globals used in non-IE browsers.
 	g_arrHandlersToCallOnLoad = [],
 	innerSetupDecorator = null,
-	getCustomCSSProperty,
-	isIE,
-	itself = {},
+		getCustomCSSProperty, isIE, itself = {},
 	m_elementsInSuspension = [],
 	m_suspended = 0;
+
 
 
 	function extendDecorationRules(rules, additions) {
@@ -70,6 +68,8 @@ var DECORATOR = function () {
 	    }
 	}
 
+
+
 	function addDecorationRulesForNamespace(namespaceURI, rules) {
 	    if (g_DecorationRules[namespaceURI]) {
 	        extendDecorationRules(g_DecorationRules[namespaceURI], rules);
@@ -78,6 +78,8 @@ var DECORATOR = function () {
 	    }
 	}
 
+
+
 	function addDecorationRules(decorationRules) {
 	    if (decorationRules.namespaceURI && decorationRules.rules) {
 	        addDecorationRulesForNamespace(decorationRules.namespaceURI, decorationRules.rules);
@@ -85,7 +87,6 @@ var DECORATOR = function () {
 	        addDecorationRulesForNamespace("*", decorationRules.rules);
 	    }
 	}
-
 
   /**
    * Apply current decoration rules to the document. Logically, we:
@@ -101,13 +102,7 @@ var DECORATOR = function () {
    */
 	function applyDecorationRules(doc) {
 		var currentDocument = doc || document,
-		    nsURI,
-		    nsRules,
-		    localName,
-		    nsPrefixes,
-		    nsPrefix,
-		    elements,
-		    count;
+			nsURI, nsRules, localName, nsPrefixes, nsPrefix, elements, count;
 		if (UX.hasDecorationSupport) {
 		    // quit if there is a better decoration mechanism
 		    return;
@@ -134,8 +129,7 @@ var DECORATOR = function () {
 		        for (count = 0; count < elements.length; count++) {
 		            DECORATOR.attachDecoration(elements[count], true, true);
 		            // depth-first decoration for container form controls
-		            if (nsURI === "http://www.w3.org/2002/xforms" &&
-									 (localName === "repeat" || localName === "case" || localName === "header")) {
+		            if (nsURI === "http://www.w3.org/2002/xforms" && (localName === "repeat" || localName === "case" || localName === "header")) {
 										DECORATOR.applyDecorationRules(elements[count]);
 		            }
 		        }
@@ -184,7 +178,6 @@ var DECORATOR = function () {
 		g_bDocumentLoaded = true;
 	}
 
-
 	/**
 		Called by implementations that do not natively support a documentReady event.
 			If the document has already loaded, handlers passed into this function
@@ -216,7 +209,6 @@ var DECORATOR = function () {
 		return dest[name].push(func);
 	}
 
-
 /**
 	creates a CSS style declaration that causes the decoration of its referent with the objects in objs
 	@param {Array} objs array of strings specifying the names of objects to be used in decorating an element.
@@ -242,16 +234,12 @@ var DECORATOR = function () {
 		g_bDocumentLoaded = false;
 		oStyleSheet = document.createStyleSheet("", 0);
 
-
 		// IE 8+ doesn't support CSS expressions, so we must defer to an HTC.
-
 		sBehaviourRule = "\nbehavior: " + (UX.isIE6 || UX.isIE7 ?
 
 		                                  "expression(DECORATOR.decorate(this));" :
 
 		                                  "url(" + g_sBehaviourDirectory + "decorate.htc);");
-
-
 
 		for (i = 0;defs.length > i;++i) {
 			sRule = "";
@@ -277,6 +265,8 @@ var DECORATOR = function () {
 
 	}
 
+
+
 	function isFirefox3() {
 		return (navigator.oscpu && document.getElementsByClassName);
 	}
@@ -287,8 +277,7 @@ var DECORATOR = function () {
 	@see (somewhere else)
 */
 	function ffSetupDecorator(defs, ns) {
-		var cssNode, oHead, oStyle, s, htmlPrefix, htmlNamespaceURI, xformsPrefix,
-		xformsNamespaceURI, anHTMLPrefix, aXFormsPrefix, i, sRule, styleTextNode;
+		var cssNode, oHead, oStyle, s, htmlPrefix, htmlNamespaceURI, xformsPrefix, xformsNamespaceURI, anHTMLPrefix, aXFormsPrefix, i, sRule, styleTextNode;
 	  // HACK: in order to get XBLs working in firefox 3, a prebuilt stylesheet has been created, and
 	  // unexpected namespace prefixes are ignored. This prebuilt stylesheet is at "generated-css.css"
 	  // and is imported at build time, so if we're running on FF there's nothing left to do.
@@ -338,10 +327,8 @@ var DECORATOR = function () {
 		return;
 
 	}//ffSetupDecorator
-
 	function ffXHTMLSetupDecorator(defs) {
-		var oHead, htmlPrefix, htmlNamespaceURI, xformsPrefix, xformsNamespaceURI, anHTMLPrefix, aXFormsPrefix, oStyle, s,
-		i, sRule;
+		var oHead, htmlPrefix, htmlNamespaceURI, xformsPrefix, xformsNamespaceURI, anHTMLPrefix, aXFormsPrefix, oStyle, s, i, sRule;
 		oHead = document.getElementsByTagName("head")[0];
 
 	  htmlPrefix = "h";
@@ -378,9 +365,7 @@ var DECORATOR = function () {
 		oStyle.innerHTML = s;
 		oHead.insertBefore(oStyle,null);
 
-
 	}
-
 
 /**
 	Extends the functionality of the destination object with the members of source
@@ -434,13 +419,14 @@ var DECORATOR = function () {
 		return destination;
 	}
 
-
 /**
 	Adds rules to the document's stylesheet cascade that cause the decoration of elements in the appropriate browser.
 	@param {Array} defs decorator definitions
 	@see (somewhere else)
 */
 	innerSetupDecorator = null;
+
+
 	function setupDecorator(defs,ns) {
 		var bDocumentAlreadyLoaded, i;
 		bDocumentAlreadyLoaded = g_bDocumentLoaded;
@@ -493,6 +479,7 @@ var DECORATOR = function () {
 	}
 
 
+
 	function getCustomCSSPropertyFF(element,propertyName) {
 		var currentStyle = window.getComputedStyle(element,"");
 		return currentStyle.getPropertyValue(propertyName);
@@ -500,6 +487,7 @@ var DECORATOR = function () {
 
 	isIE  = (navigator.appVersion.indexOf("MSIE") !== -1) ? true : false;
 	getCustomCSSProperty = isIE?getCustomCSSPropertyIE:getCustomCSSPropertyFF;
+
 
 
 	function getDecorationObjectNames(element) {
@@ -527,6 +515,8 @@ var DECORATOR = function () {
 
 	}
 
+
+
 	function attachSingleBehaviour(sBehaviour) {
 		addObjectBehaviour(this,sBehaviour,false);
 	}
@@ -534,13 +524,11 @@ var DECORATOR = function () {
 
 
   function updateDecorationObjectNames(element,arrBehaviours) {
-      var arrUpdatedBehaviours = arrBehaviours, // default is no change
+		var arrUpdatedBehaviours = arrBehaviours,
+			// default is no change
           elementNSURI = NamespaceManager.getNamespaceURI(element),
           elementLocalName = NamespaceManager.getLowerCaseLocalName(element),
-          elementRules,
-          wildcardRules,
-          rules,
-          rulecount;
+			elementRules, wildcardRules, rules, rulecount;
 
       // Rules are a concatenation of the element name rules and
       // wildcard rules (if any) for the given element namespace ...
@@ -569,9 +557,12 @@ var DECORATOR = function () {
       return arrUpdatedBehaviours;
   }
 
+
+
 	function attachDecoration(element,handleContentReady, handleDocumentReady) {
 		//window.status = "decorating: " + element.nodeName;
-		var bReturn = false, tIndex, arrBehaviours, i;
+		var bReturn = false,
+			tIndex, arrBehaviours, i;
 		tIndex = element.getAttribute("tabindex");
 		//quit if already manually decorated
 		if (!UX.hasDecorationSupport && element.decorated) {
@@ -605,6 +596,8 @@ var DECORATOR = function () {
 		}
 		return bReturn;
 	}
+
+
 
 	function callConstructionFunctions(element, handleContentReady, handleDocumentReady) {
 		callHandlers(element,element.ctor);
@@ -691,11 +684,9 @@ YAHOO.util.Event.onDOMReady(
   function() {
     DECORATOR.applyDecorationRules();
     window.status = "ready";
-  }
-);
+});
 
 //for debugging
 function SomeObject(elmnt) {
 	//this.banana = "This object has been decorated with SomeObject";
 }
-

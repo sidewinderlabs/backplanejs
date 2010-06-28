@@ -17,13 +17,11 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 /**@fileoverview
 	implements the xforms-core function library as defined in http://www.w3.org/TR/xforms11/#expr-lib
 	for Ubiquity XForms using the Google AJAXSLT XPath processor
 	@requires FunctionCallExpr  defined in ajaxslt/xpath.js
 */
-
 
 /**@addon
 	trim is required by some of these XPath functions to produce a correct response.
@@ -47,6 +45,8 @@ Date.prototype.setTimeInHours = function( hours ) {
 Date.prototype.setTimeInDays = function( days ) {
   this.setTimeInHours( days * 24 );
 };
+
+
 
 function ThrowNotImpl(ctx) {
 	throw "Not Implemented";
@@ -85,17 +85,14 @@ function getDateTime(oDate, bUTC) {
 	s += year + "-";
 
 	// If the month is less than ten give it a leading zero.
-	if (month < 10)
-		month = "0" + month;
+	if (month < 10) month = "0" + month;
 	s += month + "-";
 
 	// Similarly, if the date is less than ten give it a leading zero.
-	if (day < 10)
-		day = "0" + day;
+	if (day < 10) day = "0" + day;
 	s += day;
 
 	// The date is separate from the time with a 'T'.
-
 	s += "T";
 
 	// Get the hours, minutes, and seconds, again adding leading zeros if necessary.
@@ -154,7 +151,6 @@ function getTZOffset(oDate) {
 }
 
 //	http://www.w3.org/TR/xforms11/#expr-lib-bool
-
 /**@addon
 	http://www.w3.org/TR/xforms11/#fn-boolean-from-string
 */
@@ -203,7 +199,6 @@ FunctionCallExpr.prototype.xpathfunctions["is-card-number"] = function(ctx) {
 };
 
 //	http://www.w3.org/TR/xforms11/#expr-lib-num
-
 /**@addon
 	http://www.w3.org/TR/xforms11/#fn-avg
 */
@@ -341,10 +336,7 @@ FunctionCallExpr.prototype.xpathfunctions["power"] = function(ctx) {
 
   return new NumberValue(
     Math.pow(
-      this.args[0].evaluate(ctx).numberValue(),
-      this.args[1].evaluate(ctx).numberValue()
-    )
-  );
+	this.args[0].evaluate(ctx).numberValue(), this.args[1].evaluate(ctx).numberValue()));
 };
 
 /**@addon
@@ -379,7 +371,6 @@ FunctionCallExpr.prototype.xpathfunctions["compare"] = function(ctx) {
 };
 
 //	http://www.w3.org/TR/xforms11/#expr-lib-string
-
 /**@addon
 	http://www.w3.org/TR/xforms11/#fn-if
 */
@@ -415,7 +406,6 @@ FunctionCallExpr.prototype.xpathfunctions["property"] = function(ctx) {
         // NCNameChar       ::=    NameChar - ':'
         // NCNameStartChar  ::=    Letter | '_'
         // NameChar         ::=    Letter | Digit | '.' | '-' | '_' | ':' | CombiningChar | Extender
-
         var match = property.match(/^[_a-z][\w\.\-]*/i);
         if (match && match[0] == property && document.defaultModel) {
             // Matched the whole property string so it is a valid NCName.
@@ -434,7 +424,8 @@ FunctionCallExpr.prototype.xpathfunctions["digest"] = function(ctx) {
         return new StringValue("");
     }
 
-    var digest = "", shaCrypt;
+	var digest = "",
+		shaCrypt;
     var data = this.args[0].evaluate(ctx).stringValue();
     var algorithm = this.args[1].evaluate(ctx).stringValue();
     var encoding = (this.args.length === 3) ? this.args[2].evaluate(ctx).stringValue() : "base64";
@@ -467,7 +458,6 @@ FunctionCallExpr.prototype.xpathfunctions["digest"] = function(ctx) {
 };
 
 //	http://www.w3.org/TR/xforms11/#expr-lib-date
-
 /**@addon
 	http://www.w3.org/TR/xforms11/#fn-local-date
 */
@@ -527,13 +517,11 @@ FunctionCallExpr.prototype.xpathfunctions["days-from-date"] = function(ctx) {
   // and if that fails try parsing an xsd:date.
   //
 	var res = FunctionCallExpr.prototype.xpathfunctions.expr.xsdDateTime.exec(
-	  this.args[0].evaluate(ctx).stringValue()
-	);
+	this.args[0].evaluate(ctx).stringValue());
 
   if (!res) {
   	res = FunctionCallExpr.prototype.xpathfunctions.expr.xsdDate.exec(
-  	  this.args[0].evaluate(ctx).stringValue()
-  	);
+		this.args[0].evaluate(ctx).stringValue());
   	if (!res) {
     	return new NumberValue(NaN);
     }
@@ -575,8 +563,7 @@ FunctionCallExpr.prototype.xpathfunctions["days-to-date"] = function(ctx) {
 	//
 	var number = this.args[0].evaluate(ctx).numberValue();
 
-  if( isNaN(number) )
-		return new StringValue("");
+	if (isNaN(number)) return new StringValue("");
 
   // Set up the date.
   //
@@ -586,12 +573,10 @@ FunctionCallExpr.prototype.xpathfunctions["days-to-date"] = function(ctx) {
   // Make sure the date is displayed correctly.
   //
   month = d.getUTCMonth() + 1;
-	if (month < 10)
-		month = "0" + month;
+	if (month < 10) month = "0" + month;
 
   date = d.getUTCDate();
-  if (date < 10)
-    date = "0" + date;
+	if (date < 10) date = "0" + date;
 
 	// Return the date as an xsd:date string.
 	return new StringValue(d.getUTCFullYear() + "-" + month + "-" + date);
@@ -613,8 +598,7 @@ FunctionCallExpr.prototype.xpathfunctions["seconds-from-dateTime"] = function(ct
   // Create an array based on parsing the input as an xsd:dateTime.
   //
 	var res = FunctionCallExpr.prototype.xpathfunctions.expr.xsdDateTime.exec(
-	  this.args[0].evaluate(ctx).stringValue()
-	);
+	this.args[0].evaluate(ctx).stringValue());
 
   if (!res) {
     return new NumberValue(NaN);
@@ -624,7 +608,6 @@ FunctionCallExpr.prototype.xpathfunctions["seconds-from-dateTime"] = function(ct
   //
   dDate = new Date(Date.UTC(res[1], res[2] - 1, res[3], res[4], res[5], res[6]));
   //tzOffset = dDate.getTimezoneOffset();
-
   // If no timezone information was provided, then there is no further adjustment
   // necessary.
   //
@@ -634,8 +617,10 @@ FunctionCallExpr.prototype.xpathfunctions["seconds-from-dateTime"] = function(ct
     // Any other offset gives us a number of hours and minutes by which the time
     // need to be adjusted.
     //
-    tzOffset = ((Number(res[11]) * 60) + Number(res[12])) * /* number of minutes */
-      ((res[10] === "-") ? -1 : 1); /* take into account the sign of the timezone */
+		tzOffset = ((Number(res[11]) * 60) + Number(res[12])) *
+		/* number of minutes */
+		((res[10] === "-") ? -1 : 1);
+		/* take into account the sign of the timezone */
   }
 
   // Now that we have a timezone offset (in minutes), we can adjust the date.
@@ -648,7 +633,6 @@ FunctionCallExpr.prototype.xpathfunctions["seconds-from-dateTime"] = function(ct
   //
   dBase = new Date(Date.UTC(1970, 0, 1));
   //dBase.setMinutes( dBase.getMinutes() + dBase.getTimezoneOffset() );
-
   seconds = Math.round( (dDate.getTime() - dBase.getTime()) / (1000) );
   // If there were fractional seconds, add them to the result.
   if (res[7]) {
@@ -673,8 +657,7 @@ FunctionCallExpr.prototype.xpathfunctions["seconds-to-dateTime"] = function(ctx)
 	//
 	number = this.args[0].evaluate(ctx).numberValue();
 
-  if( isNaN(number) )
-		return new StringValue("");
+	if (isNaN(number)) return new StringValue("");
 
 	d = new Date( );
   d.setTimeInSeconds( number );
@@ -702,8 +685,7 @@ FunctionCallExpr.prototype.xpathfunctions["adjust-dateTime-to-timezone"] = funct
   // Create an array based on parsing the input.
   //
 	var res = FunctionCallExpr.prototype.xpathfunctions.expr.xsdDateTime.exec(
-	  this.args[0].evaluate(ctx).stringValue()
-	);
+	this.args[0].evaluate(ctx).stringValue());
 
   if (!res) {
     return new StringValue("");
@@ -736,8 +718,10 @@ FunctionCallExpr.prototype.xpathfunctions["adjust-dateTime-to-timezone"] = funct
       // Any other offset gives us a number of hours and minutes by which the time
       // need to be adjusted.
       //
-      tzOffset += ((Number(res[11]) * 60) + Number(res[12])) * /* number of minutes */
-        ((res[10] === "-") ? 1 : -1); /* take into account the sign of the timezone */
+			tzOffset += ((Number(res[11]) * 60) + Number(res[12])) *
+			/* number of minutes */
+			((res[10] === "-") ? 1 : -1);
+			/* take into account the sign of the timezone */
     }
   }
 
@@ -786,11 +770,9 @@ FunctionCallExpr.prototype.xpathfunctions["seconds"] = function(ctx) {
 	// If the duration has some days in it, ...
 	if (duration.match(/D/)) {
 		// If the duration has some years in it, ignore the years.
-		if (duration.indexOf("Y") > 0 && duration.indexOf("Y") < duration.indexOf("D"))
-			index = duration.indexOf("Y");
+		if (duration.indexOf("Y") > 0 && duration.indexOf("Y") < duration.indexOf("D")) index = duration.indexOf("Y");
 		// If the duration has some months in it, ignore the months.
-		if (duration.indexOf("M") > 0 && duration.indexOf("M") < duration.indexOf("D"))
-			index = duration.indexOf("M");
+		if (duration.indexOf("M") > 0 && duration.indexOf("M") < duration.indexOf("D")) index = duration.indexOf("M");
 		// Calculate the number of days.
 		endingIndex = duration.indexOf("D");
 		length = endingIndex - index - 1;
@@ -882,8 +864,7 @@ FunctionCallExpr.prototype.xpathfunctions["months"] = function(ctx) {
 		endingIndex = duration.indexOf("M");
 		length = endingIndex - index - 1;
 		var months = duration.substr(index + 1, length);
-		if(duration.indexOf("T") < 0 || duration.indexOf("T") > endingIndex)
-			totalMonths = totalMonths + parseFloat(months);
+		if (duration.indexOf("T") < 0 || duration.indexOf("T") > endingIndex) totalMonths = totalMonths + parseFloat(months);
 		index = endingIndex;
 	}
 	// If the durationIsNegative flag is on, make the totalMonths negative.
@@ -896,7 +877,6 @@ FunctionCallExpr.prototype.xpathfunctions["months"] = function(ctx) {
 };
 
 //	http://www.w3.org/TR/xforms11/#expr-lib-nodeset
-
 /**
 @addon
 	http://www.w3.org/TR/xforms11/#fn-instance
@@ -1007,14 +987,12 @@ FunctionCallExpr.prototype.xpathfunctions["context"] = function(ctx) {
     // This function returns the in-scope evaluation context node of the
     // nearest ancestor element of the node containing the XPath expression
     // that invokes this function.
-    var ctxNode = ctx.resolverElement ?
-        ctx.resolverElement.getEvaluationContext().node : ctx.node;
+	var ctxNode = ctx.resolverElement ? ctx.resolverElement.getEvaluationContext().node : ctx.node;
 
     return new NodeSetValue([ctxNode]);
 };
 
 //	http://www.w3.org/TR/xforms11/#expr-lib-object
-
 /**@addon
 	http://www.w3.org/TR/xforms11/#fn-choose
 */

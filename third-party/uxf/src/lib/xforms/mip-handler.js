@@ -37,7 +37,8 @@ MIPHandler.prototype.addcontroltomodel = function () {
 };
 
 MIPHandler.prototype.rewire = function () {
-	var result = false, ctxBoundNode = this.getBoundNode(1);
+	var result = false,
+		ctxBoundNode = this.getBoundNode(1);
 
 	this.m_model = ctxBoundNode.model;
 
@@ -159,8 +160,7 @@ MIPHandler.prototype.xrewire = function () {
 (function () {
 	var isDirtyMIP = function (self, sMIPName) {
 		var state = self.getMIPState(sMIPName);
-		return self.m_MIPSCurrentlyShowing[sMIPName] === undefined ||
-			(state.isSet && self.m_MIPSCurrentlyShowing[sMIPName] !== state.value);
+		return self.m_MIPSCurrentlyShowing[sMIPName] === undefined || (state.isSet && self.m_MIPSCurrentlyShowing[sMIPName] !== state.value);
 	},
 
 	setDirtyState = function (self, mip) {
@@ -185,7 +185,10 @@ MIPHandler.prototype.xrewire = function () {
 	},
 
 	getMIPState = function (self, mip) {
-		var retval = { isSet: false }, proxyNode;
+		var retval = {
+			isSet: false
+		},
+			proxyNode;
 
 			proxyNode = FormsProcessor.getProxyNode(self.element);
 			if (proxyNode) {
@@ -282,8 +285,7 @@ MIPHandler.prototype.xrewire = function () {
 	};
 }());
 
-MIPHandler.prototype.broadcastMIPs = function () {
-};
+MIPHandler.prototype.broadcastMIPs = function() {};
 
 MIPHandler.prototype.onDocumentReady = function () {
 	this.addcontroltomodel();
@@ -292,4 +294,3 @@ MIPHandler.prototype.onDocumentReady = function () {
 MIPHandler.prototype.mustBeBound = function () {
 	return true;
 };
-

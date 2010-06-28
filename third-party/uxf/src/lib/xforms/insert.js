@@ -14,25 +14,19 @@
  * limitations under the License.
  */
 
-function Insert(elmnt)
-{
+function Insert(elmnt) {
 	this.element = elmnt;
 }
 
 Insert.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
-Insert.prototype.performAction = function (evt)
-{
+Insert.prototype.performAction = function(evt) {
 	var oContext = this.getEvaluationContext(),
 		bindid = this.element.getAttribute("bind"),
 		atExpr = this.element.getAttribute("at"),
 		positionExpr = this.element.getAttribute("position"),
 		originExpr = this.element.getAttribute("origin"),
-		oInstance,
-		oModel,
-		nodesetExpr,
-		nodeset,
-		bindObject;
+		oInstance, oModel, nodesetExpr, nodeset, bindObject;
 
 	if (bindid) {
 		bindObject = FormsProcessor.getBindObject(bindid, this.element);
@@ -52,8 +46,7 @@ Insert.prototype.performAction = function (evt)
 	oModel = oInstance.model;
 
 	if (oInstance.insertNodeset(oContext, nodeset, atExpr, positionExpr, originExpr)) {
-		if (oModel && typeof (oModel.flagRebuild === 'function'))
-			oModel.flagRebuild();
+		if (oModel && typeof(oModel.flagRebuild === 'function')) oModel.flagRebuild();
 	}
 	
 	this.m_context = null;

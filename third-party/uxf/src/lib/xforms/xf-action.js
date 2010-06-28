@@ -25,7 +25,6 @@ XFAction.prototype.performAction = function (evt) {
   var oColl, i;
 	 // An action handler simply supports a handleEvent method,
 	 // so loop through executing them all.
-	 
 	oColl = this.element.childNodes;
 
 	for (i = 0; i < oColl.length; i++) {

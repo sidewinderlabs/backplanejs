@@ -52,16 +52,13 @@ Repeat.prototype.onDocumentReady = function () {
 		this.storeTemplate();
 	}
   this.addcontroltomodel();
-  this.element.addEventListener(
-    "DOMActivate",
-    {
+	this.element.addEventListener("DOMActivate", {
       control: this,
       handleEvent: function (evt) {
         this.control.Activate(evt.target);
       }
     },
-    true
-  );
+	true);
 };
 
 Repeat.prototype.Activate  = function (o) {
@@ -77,7 +74,6 @@ Repeat.prototype.Activate  = function (o) {
 };
 
 Repeat.prototype.storeTemplate = function () {
-
 
 	// Issue 529 - Since the child nodes of the template are removed after initializing the template
 	// initializing a second time will receive an empty template.
@@ -119,25 +115,15 @@ Repeat.prototype.getRequestedIterationCount = function () {
   return desiredIterationCount;
 };
 
-
 Repeat.prototype.putIterations = function (desiredIterationCount) {
 
 	var
-		formerOffset,
-		i,
-		currentOrdinal,
-		sDefaultPrefix,
-		iterations = this.element.childNodes,
-		oIterationElement,
-		templateClone,
-		thisModel,
-		ordinal,
-		newOrdinal;
+	formerOffset, i, currentOrdinal, sDefaultPrefix, iterations = this.element.childNodes,
+		oIterationElement, templateClone, thisModel, ordinal, newOrdinal;
 
 	// If we have iterations that are bound to nodes that have been
 	// deleted then the iterations themselves must be deleted.
 	//
-
 	// Note that we can't treat this loop as being of a fixed size (such
 	// as by starting with 'length' and then decrementing, or obtaining
 	// a 'stop' value at the beginning) because as items are removed from
@@ -167,7 +153,6 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 	//hold the current offset, to determine whether it is necessary to change
 	//  the ordinals of the various iterations.
 	formerOffset = this.m_offset;
-
 
 	//Fix the viewport so that the desired index will be visible.
 	if (this.m_nIndex < this.m_offset) {
@@ -207,9 +192,9 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 
 	while (desiredIterationCount > this.m_CurrentIterationCount) {
 		//In the absence of an iteration corresponding to this index, insert one.
-		oIterationElement = (UX.isXHTML) ?
-			document.createElementNS("http://www.w3.org/2002/xforms", sDefaultPrefix + this.element.bindingContainerName) :
-			document.createElement(sDefaultPrefix + this.element.bindingContainerName);
+		oIterationElement = (UX.isXHTML)
+			? document.createElementNS("http://www.w3.org/2002/xforms", sDefaultPrefix + this.element.bindingContainerName)
+			: document.createElement(sDefaultPrefix + this.element.bindingContainerName);
 		oIterationElement.setAttribute("ref", ".");
 		oIterationElement.setAttribute("ordinal", this.m_offset + this.m_CurrentIterationCount + 1);
 		oIterationElement.isBindingContainer = true;
@@ -227,7 +212,6 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 		window.status = "";
 		//set the status bar, to fix the progress bar.
 		//See: http://support.microsoft.com/default.aspx?scid=kb;en-us;Q320731
-
 		this.m_CurrentIterationCount++;
 	}
 	thisModel = this.m_model;
@@ -238,7 +222,6 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 	}
 
 };
-
 
 /**
   function: normaliseIndex
@@ -251,12 +234,8 @@ Repeat.prototype.normaliseIndex = function (val) {
 
 Repeat.prototype.rewire = function () {
   var arrNodes = null,
-      sExpr,
-      sBind = this.element.getAttribute("bind"),
-      oBind,
-      oContext,
-      r,
-      newIndex;
+		sExpr, sBind = this.element.getAttribute("bind"),
+		oBind, oContext, r, newIndex;
 
   if (sBind) {
     oBind = FormsProcessor.getBindObject(sBind, this.element);
@@ -297,7 +276,6 @@ Repeat.prototype.rewire = function () {
   return false;
 };
 
-
 Repeat.prototype.getIndex = function () {
   return this.m_nIndex;
 };
@@ -314,7 +292,6 @@ Repeat.prototype.setIndex = function (newIndex) {
     this.m_model.flagRebuild();
   }
 };
-
 
 Repeat.prototype.getCurrentIteration = function () {
 	return this.element.childNodes.item(this.getIndex() - this.m_offset - 1);

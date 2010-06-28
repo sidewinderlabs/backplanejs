@@ -14,22 +14,18 @@
  * limitations under the License.
  */
 
-function Delete(elmnt)
-{
+function Delete(elmnt) {
 	this.element = elmnt;
 }
 
 Delete.prototype.handleEvent = DeferToConditionalInvocationProcessor;
 
-Delete.prototype.performAction = function (evt)
-{
+Delete.prototype.performAction = function(evt) {
 	var oContext  = this.getEvaluationContext(),
 		bindid = this.element.getAttribute("bind"),
 		atExpr = this.element.getAttribute("at"),
 		oInstance = oContext.model.instances()[0],
-		nodeset, 
-		nodesetExpr, 
-		bindObject;
+		nodeset, nodesetExpr, bindObject;
 
 	if (bindid) {
 		bindObject = FormsProcessor.getBindObject(bindid, this.element);

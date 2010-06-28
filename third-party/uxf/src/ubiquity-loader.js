@@ -16,7 +16,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 /**
   object: UX
 */
@@ -25,7 +24,9 @@ var UX = {
     object: vars 
     Container for variables gleaned from parameters passed in via the URL fragment.
   */
-  config: {useRollup: false},
+	config: {
+		useRollup: false
+	},
   /**
     function: useRollup
     returns true if the rollup is to be used, false otherwise.
@@ -47,7 +48,11 @@ var UX = {
   
 };
 
-document.logger = { log: function(sText, sContext) { } };
+document.logger = {
+	log: function(sText, sContext) {}
+};
+
+
 
 function pathToModule(module) {
   if (!module) {
@@ -75,13 +80,11 @@ function pathToModule(module) {
       }// if @src is present
     }// if we have a script element
   }// for each child node
-
   if (s === null) {
     throw "No Module called '" + module + "' was found.";
   }
   return s;
 }
-
 
 var baseDefaultPath = pathToModule("ubiquity-loader");
 var g_sBehaviourDirectory = baseDefaultPath + "/behaviours/";
@@ -113,8 +116,7 @@ Performs those loading steps that precede loading with either YUI or the rollup,
         }
       }
     },
-    addScript,
-    addStyle;
+		addScript, addStyle;
    /**
      function: addScript
      Adds a script to the document, and optionally executes a function when the script has finished loading
@@ -162,8 +164,7 @@ Performs those loading steps that precede loading with either YUI or the rollup,
     addScript(baseDefaultPath + "lib/xforms/ie6-css-selectors-fixer.js");
     addScript(baseDefaultPath + "lib/xforms/set-document-loaded.js");
     //Add the script to determine whether or not to use the rollup.  Once this is ready, the application scripts can be added.
-    addScript(baseDefaultPath + "lib/backplane/uri/fragmentParsing.js", 
-      function () {
+	addScript(baseDefaultPath + "lib/backplane/uri/fragmentParsing.js", function() {
         //Inspect the URL to see whether the application should be  loaded from the rollup, 
         //  or with the loader.
         if (typeof saveParametersFromURL === "function") {
@@ -175,20 +176,15 @@ Performs those loading steps that precede loading with either YUI or the rollup,
           addStyle(baseDefaultPath + "assets/style/ubiquity-xforms.css");
           addScript(baseDefaultPath + "package/ubiquity-xforms.js", self.onFinish);
         } else {
-          addScript("http://yui.yahooapis.com/2.8.0/build/yuiloader/yuiloader-min.js", 
-            function () {
+			addScript("http://yui.yahooapis.com/2.8.0/build/yuiloader/yuiloader-min.js", function() {
               addScript(baseDefaultPath + "lib/xforms/loader-begin.js", function () {
                 addScript(baseDefaultPath + "lib/xforms/xforms-loader.js", function () {
                   addScript(baseDefaultPath + "lib/xforms/loader-end.js", self.onFinish);
                 });
               });
-            }
-          );
+			});
         }
       });
     self.addScript = addScript;
     return self; 
-  }()
-);
-
-
+} ());

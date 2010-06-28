@@ -46,8 +46,7 @@ var NamespaceManager  = function(){
 			if(m_selectionNamespaces[prefix] !== uri) {
 				throw "selection namespace prefix '"+prefix +"' being added to URI '"+uri+"' is already bound to URI '"+ m_selectionNamespaces[prefix] + "'";
 			}
-		}
-		else {
+		} else {
 			m_selectionNamespaces[prefix] = uri;
 			retVal = true;
 		}
@@ -118,16 +117,14 @@ var NamespaceManager  = function(){
 		var selectionURI = m_selectionNamespaces[prefix];
 		if(selectionURI === undefined) {
 			throw "Unknown Prefix: '" + prefix + "' in CSS selector '" + selector+ "'";
-		}
-		else {
+		} else {
 			var sMatchThisPrefix =  prefix + "\\|";
 			var matchGivenPrefix =  new RegExp(sMatchThisPrefix,"g");
 			var outputprefixes = m_outputNamespaces[selectionURI];
 
 			if(!outputprefixes || outputprefixes.length === 0) {
 			  throw ("No output prefixes found for selection namespace prefix '" + prefix + "'");
-			}
-			else {
+			} else {
   			var alternativesForThisURI = [];
   			for(var i = 0;i < outputprefixes.length;++i) {
   				var css1NamespacePrefix = outputprefixes[i] + "\\:";
@@ -171,7 +168,6 @@ var NamespaceManager  = function(){
 		return searchNode.getElementsByTagNameNS(namespaceURI,elementName);		
 	}
 	
-	
 	/**
 		Searches searchNode for descendents
 		that have a tagName that matches elementName, and
@@ -192,12 +188,10 @@ var NamespaceManager  = function(){
 				//lookup the prefix.
 				if("" !== allTagNameMatches[i].tagUrn === namespaceURI) {
 					retVal.push(allTagNameMatches[i]);
-				}
-				else if(m_outputNamespaceURIs[allTagNameMatches[i].scopeName] === namespaceURI) {
+				} else if (m_outputNamespaceURIs[allTagNameMatches[i].scopeName] === namespaceURI) {
 					retVal.push(allTagNameMatches[i]);
 				}
-			}
-			else if(namespaceURI === "") {
+			} else if (namespaceURI === "") {
 				retVal.push(allTagNameMatches[i]);
 			}
 		}
@@ -222,8 +216,7 @@ var NamespaceManager  = function(){
 		 		for(i = 0 ; i < elementsWithNoPrefix.length ; ++i)  {
 					retVal.push(elementsWithNoPrefix[i]);
 				}
-		 }
-		else {
+		} else {
 			innerGetElementsByTagNameNS_Unaware_YUI(searchNode,namespaceURI, elementName,retVal);
 		}
 		return retVal;
@@ -248,8 +241,7 @@ var NamespaceManager  = function(){
 	
 	//slower, but does respect document order.
 	function innerGetElementsByTagNameNS_Unaware_YUI(searchNode, namespaceURI, elementName,elements) {
-		var  fnCheckNamespace = function (el)
-		{
+		var fnCheckNamespace = function(el) {
 			var retVal = false;
 			//tagname and nodename tend to be capitalised, annoyingly
 			var sQName = el.tagName.toLowerCase();
@@ -295,8 +287,7 @@ var NamespaceManager  = function(){
       if((!nodePrefix || nodePrefix === "HTML")&& !nsURI) {
         //prefix is empty, null, or undefined, and so is nsURI
         retval = true;
-      }
-      else if(m_outputNamespaceURIs[nodePrefix] === nsURI) {
+			} else if (m_outputNamespaceURIs[nodePrefix] === nsURI) {
         //otherwise, look up prefix, and match to uri.
         retval = true;
       }
@@ -329,10 +320,10 @@ var NamespaceManager  = function(){
       return retval;
   }
   
+
+
   function getNamespaceURI(node) {
-    var nsURI,
-        arrSegments,
-        nodePrefix;
+		var nsURI, arrSegments, nodePrefix;
     // Look up URI the tedious way if not available or known to be buggy
     if (!nsURI || (UX.isWebKit && !UX.isXHTML)) {
         arrSegments = node.nodeName.toLowerCase().split(":");
@@ -343,6 +334,8 @@ var NamespaceManager  = function(){
     }
     return nsURI;
   }
+
+
 
   function getNamespaceURIForPrefix(nodePrefix) {
       return (nodePrefix) ? m_outputNamespaceURIs[nodePrefix] : "";
@@ -360,8 +353,7 @@ var NamespaceManager  = function(){
 	itself.clean = clean;
 	if(document.namespaces) {
 		itself.readOutputNamespacesFromDocument = readOutputNamespacesFromNamespaceAwareDocument;
-	}
-	else {
+	} else {
 		itself.readOutputNamespacesFromDocument = readOutputNamespacesFromDocumentElementAtrributeList;
 	}
 	itself.readOutputNamespacesFromInstance = readOutputNamespacesFromDocumentElementAtrributeList;

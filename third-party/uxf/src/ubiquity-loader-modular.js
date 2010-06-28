@@ -16,8 +16,9 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+var UX = {};
 
-var UX = { };
+
 
 function pathToModule(module) {
   if (!module) {
@@ -45,29 +46,19 @@ function pathToModule(module) {
       }// if @src is present
     }// if we have a script element
   }// for each child node
-
   if (s === null) {
     throw("No Module called '" + module + "' was found.");
   }
   return s;
 }
 
-
 var baseDefaultPath = pathToModule("ubiquity-loader-modular");
 
 (
   function() {
-    var arrScripts = [
-      "http://yui.yahooapis.com/2.8.0/build/yuiloader/yuiloader-min.js",
-      baseDefaultPath + "lib/sniffer.js",
-      baseDefaultPath + "lib/xforms/ie-instance-fixer.js",
-      baseDefaultPath + "lib/xforms/ie6-css-selectors-fixer.js",
-      baseDefaultPath + "lib/xforms/set-document-loaded.js",
-      baseDefaultPath + "lib/xforms/loader-begin.js",
-      baseDefaultPath + "lib/xforms/xforms-loader.js",
+	var arrScripts = ["http://yui.yahooapis.com/2.8.0/build/yuiloader/yuiloader-min.js", baseDefaultPath + "lib/sniffer.js", baseDefaultPath + "lib/xforms/ie-instance-fixer.js", baseDefaultPath + "lib/xforms/ie6-css-selectors-fixer.js", baseDefaultPath + "lib/xforms/set-document-loaded.js", baseDefaultPath + "lib/xforms/loader-begin.js", baseDefaultPath + "lib/xforms/xforms-loader.js",
 //      baseDefaultPath + "lib/_platform/yui/xforms-loader-yui.js",
-      baseDefaultPath + "lib/xforms/loader-end.js"
-    ];
+	baseDefaultPath + "lib/xforms/loader-end.js"];
     var arrScriptElements = [ ];
     var i, l = arrScripts.length;
 
@@ -80,5 +71,4 @@ var baseDefaultPath = pathToModule("ubiquity-loader-modular");
        scriptElement.setAttribute("src", arrScripts[i]);    
     }
             
-  }()
-);
+} ());

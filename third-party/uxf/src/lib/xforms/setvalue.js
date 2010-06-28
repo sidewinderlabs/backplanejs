@@ -31,11 +31,9 @@ SetValue.prototype.performAction = function (evt) {
 
 	//Evaluate the value attribute in context of the instance data node
 	//	in order to resolve the value to set in the instance data node.
-	
 	sValue = getElementValueOrContent(oContext, this.element);
 	
 	//Update the node.
 	//	 Passing a model value indicates that recalculate etc. is desired. 
-
 	oPE.setValue(sValue, oContext.model);
 };

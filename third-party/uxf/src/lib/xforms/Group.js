@@ -14,23 +14,17 @@
  * limitations under the License.
  */
 
-function Group(elmnt)
-{
+function Group(elmnt) {
 	this.element = elmnt;
 	this.m_MIPSCurrentlyShowing = {};
 }
 
 Group.prototype.isGroup = true;
 
-	Group.prototype.setValue = function(sValue)
-	{
+Group.prototype.setValue = function(sValue) {
 		return;
 	};
 
-	Group.prototype.setType = function(sType)
-	{
+Group.prototype.setType = function(sType) {
 		return;
 	};
-
-
-	

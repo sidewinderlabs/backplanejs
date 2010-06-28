@@ -22,7 +22,6 @@
 
 var g_bSaveDependencies = false;
 
-
 var HIERARCHY_REQUEST_ERR          = 3;
 
 /**
@@ -61,10 +60,7 @@ FunctionCallExpr.prototype.xpathfunctions["last"] = function(ctx) {
 
 ExprContext.prototype.clone = function(opt_node, opt_position, opt_nodelist) {
   var oRet = new ExprContext(
-      opt_node || this.node,
-      typeof opt_position != 'undefined' ? opt_position : this.position,
-      opt_nodelist || this.nodelist, this, this.caseInsensitive,
-      this.ignoreAttributesWithoutValue);
+	opt_node || this.node, typeof opt_position != 'undefined' ? opt_position : this.position, opt_nodelist || this.nodelist, this, this.caseInsensitive, this.ignoreAttributesWithoutValue);
   oRet.size = this.size;
   oRet.currentModel = this.currentModel;
   oRet.outermostContextNode = this.outermostContextNode;
@@ -123,8 +119,7 @@ XNode.prototype.removeAttributeList = function() {
 /**@addon
 */
 
-FunctionCallExpr.prototype.xpathfunctions["local-name"] = function(ctx)
-{
+FunctionCallExpr.prototype.xpathfunctions["local-name"] = function(ctx) {
     assert(this.args.length === 1 || this.args.length === 0);
     var n, ix;
     var name = "";
@@ -134,25 +129,21 @@ FunctionCallExpr.prototype.xpathfunctions["local-name"] = function(ctx)
       n = this.args[0].evaluate(ctx).nodeSetValue();
     }
 
-    if (n.length === 0) {
-    } else {
+	if (n.length === 0) {} else {
           name = n[0].nodeName;
     }
 
     ix = name.indexOf(":");
-    if(ix > -1)
-    {
+	if (ix > -1) {
         name = name.substr(ix+1);
     }
     return new StringValue(name);
 };
 
-
 /**@addon
 */
 
-FunctionCallExpr.prototype.xpathfunctions["namespace-uri"] = function(ctx)
-{
+FunctionCallExpr.prototype.xpathfunctions["namespace-uri"] = function(ctx) {
     alert('not IMPLEMENTED yet: XPath function namespace-uri()');
 };
 
@@ -200,8 +191,7 @@ FunctionCallExpr.prototype.getFunction = function() {
 	} else {
 		prefixes = NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms#inline");
 
-		if (prefixes === undefined || prefixes === null)
-			return null;
+		if (prefixes === undefined || prefixes === null) return null;
 
 		for ( i = 0; i < prefixes.length; i++ ) {
 			if (prefix === prefixes[i] && UX.global[localName] !== null) {
@@ -248,11 +238,9 @@ FunctionCallExpr.prototype.getFunction = function() {
 					// are given to prevent issues with backwards compatibility for later when passing nodesets are
 					// considered.  If no support is ever planned for nodesets, taking the context node as a string
 					// might be a good default.
-
 					retval = f.apply(null, marshalledArgs);
 
-					if (retval === null)
-						return new BooleanValue(false);
+					if (retval === null) return new BooleanValue(false);
 
 					switch (UX.type(retval)) {
 					case 'boolean':
@@ -292,10 +280,8 @@ LocationExpr.prototype.evaluate = function(ctx) {
 
   xPathStep(nodes, this.steps, 0, start, ctx);
   retval = new NodeSetValue(nodes);
-  if(g_bSaveDependencies)
-  {
-	for(i = 0; i < nodes.length; ++i)
-	{
+	if (g_bSaveDependencies) {
+		for (i = 0; i < nodes.length; ++i) {
 		g_arrSavedDependencies.push(nodes[i]);
 	}
   }
@@ -469,7 +455,8 @@ XNode.prototype.replaceChild = function(newNode, oldNode) {
 // 2. It sets the ownerDocument of newNode
 //
 XNode.prototype.insertBefore = function(newNode, oldNode) {
-  var i, c, newChildren = [], oRet = newNode;
+	var i, c, newChildren = [],
+		oRet = newNode;
 
   if (!oldNode) {
       if (newNode.parentNode) {
@@ -546,7 +533,8 @@ XNode.prototype.getElementsById = function(id) {
         if (oID === id) {
             ret.push(node);
         }
-    }, null);
+	},
+	null);
     return ret;
 };
 
@@ -583,8 +571,7 @@ XNode.prototype.setAttributeNode = function(newAttr) {
 
   if (i < this.attributes.length) {
     this.attributes[i] = newAttr;
-  }
-  else {
+	} else {
     this.attributes.push(newAttr);
   }
   newAttr.parentNode = this;
@@ -594,19 +581,18 @@ XDocument.prototype.createProcessingInstruction = function(target, data) {
   return XNode.create(DOM_PROCESSING_INSTRUCTION_NODE, '#processing-instruction', target + " " + data.replace(/^\s\s*/, '').replace(/\s\s*$/, ''), this);
 };
 
+
+
 function xmlText(node, opt_cdata, opt_includenamespaceprefixes) {
 	var buf = [];
 	xmlTextR(node, buf, opt_cdata, opt_includenamespaceprefixes);
 	return buf.join('');
 }
 
+
+
 function xmlTextR(node, buf, cdata, includeNamespacePrefixes) {
-	var i,
-		parentNodeName,
-		elementContainsCDATA,
-		a,
-		prefix,
-		j;
+	var i, parentNodeName, elementContainsCDATA, a, prefix, j;
 
   if (node.nodeType == DOM_TEXT_NODE) {
     elementContainsCDATA = false;
@@ -646,14 +632,12 @@ function xmlTextR(node, buf, cdata, includeNamespacePrefixes) {
 			  prefix = a.nodeName.split(':')[1];
 			  for (j=0; j<includeNamespacePrefixes.length; j++) {
 				  if (prefix === includeNamespacePrefixes[j] || (prefix === '' && includeNamespacePrefixes[j] === '#default')) {
-					  buf.push(' ' + xmlFullNodeName(a) + '="' +
-							   xmlEscapeAttr(a.nodeValue) + '"');
+							buf.push(' ' + xmlFullNodeName(a) + '="' + xmlEscapeAttr(a.nodeValue) + '"');
 					  break;
 				  }
 			  }
 		  } else {
-			  buf.push(' ' + xmlFullNodeName(a) + '="' +
-					   xmlEscapeAttr(a.nodeValue) + '"');
+					buf.push(' ' + xmlFullNodeName(a) + '="' + xmlEscapeAttr(a.nodeValue) + '"');
 		  }
       }
     }
@@ -668,8 +652,7 @@ function xmlTextR(node, buf, cdata, includeNamespacePrefixes) {
       buf.push('</' + xmlFullNodeName(node) + '>');
     }
 
-  } else if (node.nodeType == DOM_DOCUMENT_NODE ||
-             node.nodeType == DOM_DOCUMENT_FRAGMENT_NODE) {
+	} else if (node.nodeType == DOM_DOCUMENT_NODE || node.nodeType == DOM_DOCUMENT_FRAGMENT_NODE) {
     for (i = 0; i < node.childNodes.length; ++i) {
 		arguments.callee(node.childNodes[i], buf, cdata, includeNamespacePrefixes);
     }

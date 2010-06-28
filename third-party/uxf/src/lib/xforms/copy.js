@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-
 function Copy(element) {
 	this.element = element;
 	this.m_oValue = undefined;
@@ -41,7 +40,6 @@ Copy.prototype.onDocumentReady = function () {
 	});
 
 };
-
 
 Copy.prototype.setValue = function (o) {
 	var ownerSelect = this.element.parentNode.getOwnerSelect();

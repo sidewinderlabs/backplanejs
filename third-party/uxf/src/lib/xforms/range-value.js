@@ -18,6 +18,8 @@
 
 var rangecount = 0;
 
+
+
 function RangeValue(elmnt) {
 	this.element = elmnt;
 	this.currValue = "";
@@ -30,6 +32,7 @@ function RangeValue(elmnt) {
 	this.end = Number(rangeElement.getAttribute("end")) || (this.start + 10);
 	this.step = Number(rangeElement.getAttribute("step")) || 1;
 }
+
 
 
 function rangeValueChanged(pThis, sNewValue) {
@@ -55,22 +58,17 @@ RangeValue.prototype.onDocumentReady = function () {
 		rangecount++;
 		
 		var pThis = this;
-		this.m_value.subscribe(
-			(this.element.parentNode.getAttribute("incremental") === "true")
-			? "change"
-			: "slideEnd",
-			function () {
+		this.m_value.subscribe((this.element.parentNode.getAttribute("incremental") === "true") ? "change" : "slideEnd", function() {
 				rangeValueChanged(
-					pThis,
-					pThis.quantizeValue(pThis.dataValueFromSliderPosition(pThis.m_value.getValue()))
-				);
-			}
-		);
+			pThis, pThis.quantizeValue(pThis.dataValueFromSliderPosition(pThis.m_value.getValue())));
+		});
 	}
 };
 
 RangeValue.prototype.setValue = function (sValue) {
-	var bRet = false, nValue = Number(sValue), valueAsSliderPosition = this.sliderPositionFromDataValue(nValue);
+	var bRet = false,
+		nValue = Number(sValue),
+		valueAsSliderPosition = this.sliderPositionFromDataValue(nValue);
 	if (this.m_value.getValue() !== valueAsSliderPosition) {
 		this.m_value.setValue(valueAsSliderPosition, true, true, true);
 		this.currValue = sValue;
@@ -158,12 +156,5 @@ RangeValue.prototype.isTypeAllowed = function (sType) {
   localPart = arrSegments.length === 2 ? arrSegments[1] : "";
   namespace = NamespaceManager.getNamespaceURIForPrefix(prefix);
 
-  return ((namespace === "http://www.w3.org/2001/XMLSchema" || namespace === "http://www.w3.org/2002/xforms") &&
-          (localPart === "dayTimeDuration" || localPart === "yearMonthDuration" ||
-           localPart === "date" || localPart === "time" ||
-           localPart === "dateTime" || localPart === "gYearMonth" ||
-           localPart === "gYear" || localPart === "gMonthDay" ||
-           localPart === "gDay" || localPart === "gMonth" ||
-           localPart === "float" || localPart === "double" ||
-           localPart === "decimal"));
+	return ((namespace === "http://www.w3.org/2001/XMLSchema" || namespace === "http://www.w3.org/2002/xforms") && (localPart === "dayTimeDuration" || localPart === "yearMonthDuration" || localPart === "date" || localPart === "time" || localPart === "dateTime" || localPart === "gYearMonth" || localPart === "gYear" || localPart === "gMonthDay" || localPart === "gDay" || localPart === "gMonth" || localPart === "float" || localPart === "double" || localPart === "decimal"));
 };

@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-function Vertex(oVT)
-{
+function Vertex(oVT) {
 	this.vertexTarget = oVT;
 	this.depList = [];
 	this.depListIdx = {};
@@ -35,8 +34,7 @@ function Vertex(oVT)
 
 })();
 
-Vertex.prototype.setDependencyList = function(ar)
-{
+Vertex.prototype.setDependencyList = function(ar) {
 	this.depList = ar;
 	this.depListIdx = {};
 	for (var i = 0; i < ar.length; i++) {
@@ -45,35 +43,29 @@ Vertex.prototype.setDependencyList = function(ar)
 	}
 };
 
-Vertex.prototype.addDependent = function(oVertex)
-{
+Vertex.prototype.addDependent = function(oVertex) {
 	this.depList.push(oVertex);
 	this.depListIdx[oVertex.vertexId] = oVertex;
 };
 
-function Pair(first, second)
-{
+function Pair(first, second) {
 	this.first = first;
 	this.second = second;
 }
 
-function ChangeList()
-{
+function ChangeList() {
 	this.m_Lc = [];
 }
 
-ChangeList.prototype.addChange = function(oVertex)
-{
+ChangeList.prototype.addChange = function(oVertex) {
 	this.m_Lc.push(oVertex);
 };
 
-ChangeList.prototype.clear = function()
-{
+ChangeList.prototype.clear = function() {
 	this.m_Lc.length = 0;
 };
 
-function dependencyEngine(model)
-{
+function dependencyEngine(model) {
 	// M represents the master dependency directed graph.
 	this.m_M = [];
 	this.m_contextNodes = {};
@@ -81,8 +73,7 @@ function dependencyEngine(model)
 	this.model = model;
 }
 
-dependencyEngine.prototype.clear = function()
-{
+dependencyEngine.prototype.clear = function() {
 	var M = this.m_M;
 
 	/*
@@ -93,8 +84,7 @@ dependencyEngine.prototype.clear = function()
 	 * the reference to the vertex.
 	 */
 
-	for (var i = 0; i < M.length; i++)
-	{
+	for (var i = 0; i < M.length; i++) {
 		var v = M[i];
 		var oVT = v.vertexTarget;
 
@@ -110,8 +100,7 @@ dependencyEngine.prototype.clear = function()
 	M.length = 0;
 };
 
-dependencyEngine.prototype.createVertex = function(oVT)
-{
+dependencyEngine.prototype.createVertex = function(oVT) {
 	var v = new Vertex(oVT);
 
 	this.m_M.push(v);
@@ -127,8 +116,7 @@ dependencyEngine.prototype.createVertex = function(oVT)
 	return v;
 };
 
-dependencyEngine.prototype.addToNodeVertexIndex = function(nodeIdxObj, nodeId, vertexToAdd)
-{
+dependencyEngine.prototype.addToNodeVertexIndex = function(nodeIdxObj, nodeId, vertexToAdd) {
 	if (!nodeId) return;
 	if (!vertexToAdd || !vertexToAdd.vertexId) return;
 
@@ -140,15 +128,13 @@ dependencyEngine.prototype.addToNodeVertexIndex = function(nodeIdxObj, nodeId, v
 	nodeIdxObj[nodeId][vertexId] = vertexToAdd;
 };
 
-dependencyEngine.prototype.recalculate = function(oChangeList)
-{
+dependencyEngine.prototype.recalculate = function(oChangeList) {
 	this.ProcessPertinentDependencySubgraph(
 		this.CreatePertinentDependencySubgraph(oChangeList.m_Lc)
 	);
 };
 
-dependencyEngine.prototype.CreatePertinentDependencySubgraph = function(Lc)
-{
+dependencyEngine.prototype.CreatePertinentDependencySubgraph = function(Lc) {
 	var M = this.m_M;
 	var S =  [];
 	var stack =  [];
@@ -181,8 +167,7 @@ dependencyEngine.prototype.CreatePertinentDependencySubgraph = function(Lc)
 						}
 					}
 				}
-				else
-					wS = S[w.index];
+				else wS = S[w.index];
 
 				if(v !==null && wS) {
 					var vS = S[v.index];
@@ -190,7 +175,6 @@ dependencyEngine.prototype.CreatePertinentDependencySubgraph = function(Lc)
 						vS.depList = new Array;
 						vS.depListIdx = {};
 					}
-
 					vS.depList.push(wS);
 					vS.depListIdx[wS.vertexId] = wS;
 					++wS.inDegree;
@@ -210,8 +194,7 @@ dependencyEngine.prototype.CreatePertinentDependencySubgraph = function(Lc)
 	return S;
 };
 //TODO: rewrite to be flatter, this can go massively recursive.
-dependencyEngine.prototype.ProcessPertinentDependencySubgraph = function(S)
-{
+dependencyEngine.prototype.ProcessPertinentDependencySubgraph = function(S) {
 /*
 	while(S.length > 0)
 	{
@@ -263,8 +246,7 @@ dependencyEngine.prototype.ProcessPertinentDependencySubgraph = function(S)
 	}
 };
 
-dependencyEngine.prototype.doUpdate = function(vS)
-{
+dependencyEngine.prototype.doUpdate = function(vS) {
 	if(typeof(vS) == "object" && vS != null && typeof(vS.vertexTarget) == "object" && vS.vertexTarget != null)
 	{
 		vS.vertexTarget.update();
@@ -274,24 +256,19 @@ dependencyEngine.prototype.doUpdate = function(vS)
 };
 
 var bEnableDumpState = false;
-if(bEnableDumpState)
-{
-	Vertex.prototype.dumpState = function(sIndent)
-	{
+if (bEnableDumpState) {
+	Vertex.prototype.dumpState = function(sIndent) {
 		var s ="[vertex] target=" + this.vertexTarget.identifier();
 		var sChildIndent = sIndent + "\t";
-		for(var i = 0;i < this.depList.length;++i)
-		{
+		for (var i = 0;i < this.depList.length;++i) {
 			s += ("\n" + sIndent + this.depList[i].dumpState(sChildIndent));
 		}
 		return s;
 	}
 
-	dependencyEngine.prototype.dumpState = function()
-	{
+	dependencyEngine.prototype.dumpState = function() {
 		var s = "Dependency Engine";
-		for(var i = 0;i < this.m_M.length;++i)
-		{
+		for (var i = 0;i < this.m_M.length;++i) {
 			s += ("\n" + this.m_M[i].dumpState("\t"));
 		}
 		return s;

@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-function LoadExternalMixin(){
-};
+function LoadExternalMixin() {};
 
 LoadExternalMixin.prototype.onContentReady = function () {
     if (!this.m_oDOM) {       
@@ -49,8 +48,5 @@ LoadExternalMixin.prototype.dispatchException = function (exceptionName, excepti
     evt.initEvent(exceptionName, true, false);
     evt.context = exceptionContext;
     this.element["elementState"] = -1;
-    FormsProcessor.dispatchEvent(
-        (typeof this.element.parentNode.modelConstruct === "function") ? this.element.parentNode : this.element, 
-        evt
-    );
+	FormsProcessor.dispatchEvent((typeof this.element.parentNode.modelConstruct === "function") ? this.element.parentNode : this.element, evt);
 };

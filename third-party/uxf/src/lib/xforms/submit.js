@@ -47,8 +47,7 @@ Submit.prototype.performAction = function(oEvt) {
                 // halt on the first submission in model
                 var nsChildNodes = oModel.element.childNodes;
                 for ( var i = 0; i < nsChildNodes.length; i++) {
-                    if (NamespaceManager.compareFullName(nsChildNodes[i],
-                            "submission", "http://www.w3.org/2002/xforms")) {
+					if (NamespaceManager.compareFullName(nsChildNodes[i], "submission", "http://www.w3.org/2002/xforms")) {
                         oSubmission = nsChildNodes[i];
                         break;
                     }
