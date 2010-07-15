@@ -35,6 +35,6 @@ UX.isOpera = UX.userAgent.toUpperCase().indexOf("OPERA/") != -1;
 
 UX.isXHTML = (document.xmlVersion || (document.contentType && document.contentType === "application/xhtml+xml")) ? true : false;
 
-UX.hasDecorationSupport = UX.isIE || UX.isFF;
+UX.hasDecorationSupport = UX.isIE;
 
 UX.isQuirksMode = document.compatMode === "BackCompat";
