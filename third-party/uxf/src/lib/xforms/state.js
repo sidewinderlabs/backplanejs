@@ -46,5 +46,9 @@ function setInitialState(pThis) {
 	pThis.m_MIPSCurrentlyShowing.required = false;
 	pThis.m_MIPSCurrentlyShowing.valid = true;
 	pThis.m_MIPSCurrentlyShowing.enabled = true;
-	UX.addClassName(pThis.element, " read-write enabled valid optional");
+	if (!(pThis.className || UX.isXHTML)) {
+		pThis.className = "read-write enabled valid optional";
+	} else {
+		UX.addClassNames(pThis.element, ["read-write", "enabled", "valid", "optional"]);
+	}
 }

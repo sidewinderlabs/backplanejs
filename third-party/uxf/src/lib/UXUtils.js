@@ -146,42 +146,137 @@ if (UX.isXHTML) {
 	}
  }
 )();
-/**
-	Utility to append to the class attribute.
-	With the XML Parser in Firefox, the className property is not supported, instead the class attribute is used.
-	This utility centralizes the Yahoo addClass to one location to accumulate the classes,
-	which is what happens in IE and Firefox (HTML), and for Firefox( XML) the class is added as
-	an attribute to the element.
-*/
-		UX.addClassName = function(oElement, classString) {
-			if (!YAHOO.util.Dom.hasClass(oElement, classString)) {
-				YAHOO.util.Dom.addClass(oElement, classString);
+
+(function() {
+
+  var rspace = /\s+/;
+  var rtrim = /^(\s|\u00A0)+|(\s|\u00A0)+$/g;
+
+  var addClassNameNative = function(element, classString) {
+    try {
+	    element.classList.add(classString);
+	  } catch (e) {
+	    // Most often NS_ERROR_DOM_INVALID_CHARACTER_ERR is thrown when
+	    // there is a space in the class string. First we try trimming the string,
+	    // and then we try to split it, in the event that the user tried to pass
+	    // a string-separated list of classnames
+	    if (e.code != e.NS_ERROR_DOM_INVALID_CHARACTER_ERR) throw e;
+	    var className = classString.replace(rtrim, '');
+	    try {
+	      element.classList.add(className);
+	    } catch (e) {
+	      if (e.code != e.NS_ERROR_DOM_INVALID_CHARACTER_ERR) throw e;
+        var splits = className.split( rspace );
+        if (splits.length > 1) {
+          UX.addClassNames(element, splits);
+        }
+	    }
 			}
 		};
 
-/**
-	Utility to remove a class attribute.
-	With the XML Parser in Firefox, the className property is not supported, instead the class attribute is used.
-	This utility centralizes the Yahoo removeClass to one location to removes a class,
-	which is what happens in IE and Firefox (HTML), and for Firefox( XML) the class is removed from the class
-	attribute of the element.
-*/
-		UX.removeClassName = function (oElement, classString) {
-			if (YAHOO.util.Dom.hasClass(oElement, classString)) {
-				YAHOO.util.Dom.removeClass(oElement, classString);
+  var addClassAttribute = function(element, classString) {
+    var setClass = element.getAttribute('class');
+    if (!setClass) {
+      element.setAttribute('class', classString);
+      element.className = classString;
+    } else {
+      var className = " " + setClass + " ";
+      var classNames = (classString || "").split( rspace );
+			for ( var c = 0, cl = classNames.length; c < cl; c++ ) {
+				if ( className.indexOf( " " + classNames[c] + " " ) < 0 ) {
+					setClass += " " + classNames[c];
+				}
 			}
+			var newClassName = (setClass || "").replace( rtrim, "" );
+			element.setAttribute('class', newClassName);
+			element.className = newClassName;
+    }
+  };
+
+  UX.addClassName = function(element, classString) {
+  	if (!element) return;
+    if ( element.nodeType !== 1 ) return;
+    if (!classString || typeof classString !== 'string') return;
+
+    if (!UX.isXHTML && !element.className) {
+      element.className = classString;
+      return;
+    }
+
+		  // Use the native classList object if available    
+    if (element.classList && typeof(element.classList) == 'object') {
+      addClassNameNative(element, classString);
+       return;
+    } else if (UX.isXHTML && element.namespaceURI != "http://www.w3.org/1999/xhtml") {
+      addClassAttribute(element, classString);
+		} else {
+		  // Fallback to a string-based addClassName (taken from jQuery's addClass() function)
+			var className = " " + element.className + " ", setClass = element.className;
+			if (className.indexOf(' ' + classString + ' ') != -1) return;
+		  var classNames = (classString || "").split( rspace );
+			for ( var c = 0, cl = classNames.length; c < cl; c++ ) {
+				if ( className.indexOf( " " + classNames[c] + " " ) < 0 ) {
+					setClass += " " + classNames[c];
+				}
+			}
+			element.className = (setClass || "").replace( rtrim, "" );
+		}
+  };
+  UX.addClassNames = function(oElement, classNames) {
+    if (!oElement || oElement.nodeType !== 1) return;
+    if (classNames && typeof(classNames) == 'object' && classNames.length > 0) {
+      if (!oElement.className) {
+        oElement.className = classNames.join(' ');
+        return;
+      } else {
+        if (typeof(oElement.classList) == 'object') {
+          for (var i = 0, l = classNames.length; i < l; i++) {
+            UX.addClassName(oElement, classNames[i]);
+          }
+    		  return;
+    		}
+      }
+    }
+  }
+/**
+ * Utility to remove a class attribute.
+ */
+		UX.removeClassName = function (oElement, classString) {
+  		if (!oElement) return;
+  		if ( oElement.nodeType !== 1 ) return;
+  		if (!oElement.className) return;
+  		if (typeof(oElement.classList) == 'object') {
+  		  oElement.classList.remove(classString);
+  		  return;
+			}
+  		// Fallback to the string-based class removal if the native classList object isn't available
+  	  oElement.className = oElement.className.replace(
+  	    new RegExp("(^|\\s+)" + classString + "(\\s+|$)"), ' ');
+  	};
+
+  	UX.hasClassName = function(element, className) {
+  	  if (!element || element.nodeType !== 1 || !element.className) return false;
+  	  if (typeof element.classList === 'object') {
+  	    // The Element.prototype.classList methods can throw exceptions for a number of reasons,
+  	    // so if it fails we fallback to the non-native (string-based) classname implementation
+        try {
+          return element.classList.contains(className);
+        } catch (e) { }
+  	  }
+  		var elementClassName = ' ' + element.className + ' ';
+  		return (elementClassName.indexOf(' ' + className + ' ') != -1);
+  	    return (elementClassName.length > 0 && (elementClassName == className ||
+  	      new RegExp("(^|\\s)" + className + "(\\s|$)").test(elementClassName)));
 	};
 
 /**
-	Utility to replace a className attribute.
-	With the XML Parser in Firefox, the className property is not supported, instead the class attribute is used.
-	This utility centralizes the Yahoo replaceClass to one location to removes a class,
-	which is what happens in IE and Firefox (HTML), and for Firefox( XML) the class is removed from the class
-	attribute of the element.
-*/
+ * Utility to replace a className attribute.
+ */
 	 UX.replaceClassName = function (oElement, oldClassString, newClassString) {
-				YAHOO.util.Dom.replaceClass(oElement, oldClassString, newClassString);
+  	   UX.removeClassName(oldClassString);
+  	   UX.addClassName(newClassString);
 	};
+})();
 
 
 /**
