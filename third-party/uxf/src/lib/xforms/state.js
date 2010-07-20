@@ -18,7 +18,7 @@ function setState(pThis, sMIPName, sOn, sOff){
 	//ONLY PERFORM THIS TIME-CONSUMING OPERATION IF IT IS NEEDED!!!!!
 	//	We have already established, in formsPlayer, that the switching in-and-out of classNames
 	//	 is one of the more time-consuming actions in IE.  So doing it (6 * 4) times  ( == calls in this function * calls to this function)
-	//	 on every single control on every single refresh is hardly sensible when we are trying to  produce a more performant version of the AJAX form.  
+	//	 on every single control on every single refresh is hardly sensible when we are trying to  produce a more performant version of the AJAX form.
 	//To Reiterate - If we want more performant software, then we must optimise out pointless calls such as this.
 	var state;
 	if (pThis.dirtyState && pThis.dirtyState.isDirty(sMIPName)) {
@@ -42,6 +42,9 @@ function setState(pThis, sMIPName, sOn, sOff){
 }
 
 function setInitialState(pThis) {
+	if (pThis.m_bInitialStateSet) {
+		return;
+	}
 	pThis.m_MIPSCurrentlyShowing.readonly = false;
 	pThis.m_MIPSCurrentlyShowing.required = false;
 	pThis.m_MIPSCurrentlyShowing.valid = true;
@@ -51,4 +54,5 @@ function setInitialState(pThis) {
 	} else {
 		UX.addClassNames(pThis.element, ["read-write", "enabled", "valid", "optional"]);
 	}
+	pThis.m_bInitialStateSet = true;
 }
