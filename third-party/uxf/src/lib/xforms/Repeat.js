@@ -179,7 +179,7 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 	for (i = 0; i < this.m_CurrentIterationCount; ++i) {
 		node = iterations[i];
 		if (node.isBindingContainer) {
-			ordinal = node.getAttribute("ordinal");
+			ordinal = parseInt(node.getAttribute("ordinal"), 10);
 			newOrdinal = 1 + i + this.m_offset;
 			if (ordinal !== newOrdinal) {
 				node.setAttribute("ordinal", newOrdinal);
