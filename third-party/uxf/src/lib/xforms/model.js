@@ -473,7 +473,7 @@ function _deferredUpdate(pThis) {
 
 function _model_contentReady(pThis) {
     pThis.changeList = new ChangeList();
-    pThis.m_oDE = new dependencyEngine();
+    pThis.m_oDE = new dependencyEngine(pThis);
 
     /*
      * Register for any child elements completing their

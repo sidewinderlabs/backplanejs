@@ -54,10 +54,11 @@ ChangeList.prototype.clear = function()
 	this.m_Lc.length = 0;
 };
 
-function dependencyEngine()
+function dependencyEngine(model)
 {
 	// M represents the master dependency directed graph.
 	this.m_M = [];
+	this.model = model;
 }
 
 dependencyEngine.prototype.clear = function()
@@ -206,8 +207,14 @@ dependencyEngine.prototype.ProcessPertinentDependencySubgraph = function(S)
 		}
 	}
 
-	if(S.length > 0)
-		throw "xforms-compute-exception: Recursive calculation structure detected.";
+	if(S.length > 0) {
+		var evt = document.createEvent("Events");
+		evt.initEvent("xforms-compute-exception", true, false);
+		evt.context = {
+			"error-message": "Recursive calculation structure detected."
+		};
+		this.model.dispatchEvent(evt);
+	}
 };
 
 dependencyEngine.prototype.doUpdate = function(vS)
