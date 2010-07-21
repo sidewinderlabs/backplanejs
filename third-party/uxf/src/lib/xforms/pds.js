@@ -18,19 +18,37 @@ function Vertex(oVT)
 {
 	this.vertexTarget = oVT;
 	this.depList = [];
+	this.depListIdx = {};
 	this.inDegree = 0;
 	this.visited = false;
 	this.index = 0;
+	this.initId();
 }
+
+(function() {
+
+	var vertexCount = 0;
+
+	Vertex.prototype.initId = function() {
+		this.vertexId = vertexCount++;
+	}
+
+})();
 
 Vertex.prototype.setDependencyList = function(ar)
 {
 	this.depList = ar;
+	this.depListIdx = {};
+	for (var i = 0; i < ar.length; i++) {
+		var oVertex = ar[i];
+		this.depListIdx[oVertex.vertexId] = oVertex;
+	}
 };
 
 Vertex.prototype.addDependent = function(oVertex)
 {
 	this.depList.push(oVertex);
+	this.depListIdx[oVertex.vertexId] = oVertex;
 };
 
 function Pair(first, second)
@@ -144,9 +162,13 @@ dependencyEngine.prototype.CreatePertinentDependencySubgraph = function(Lc)
 
 				if(v !==null && wS) {
 					var vS = S[v.index];
-					if(typeof(vS.depList) != "object" || vS.depList == null)
+					if(typeof(vS.depList) != "object" || vS.depList == null) {
 						vS.depList = new Array;
+						vS.depListIdx = {};
+					}
+
 					vS.depList.push(wS);
+					vS.depListIdx[wS.vertexId] = wS;
 					++wS.inDegree;
 				}
 				
