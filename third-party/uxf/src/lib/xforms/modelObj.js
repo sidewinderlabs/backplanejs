@@ -511,6 +511,7 @@ Model.prototype.rewire = function() {
     for (i = 0; i < this.m_arControls.length; ++i) {
         fc = this.m_arControls[i];
 
+		if (fc && fc.m_bAlreadyRewired && !this.rebuildInProgress) continue;
         if (fc && typeof fc.element == "object") {
             fc.unwire();
         } else {
@@ -522,8 +523,10 @@ Model.prototype.rewire = function() {
     for (i = 0; i < this.m_arControls.length; ++i) {
         fc = this.m_arControls[i];
 
+		if (fc && fc.m_bAlreadyRewired && !this.rebuildInProgress) continue;
         if (fc && typeof fc.element == "object") {
             fc.rewire();
+			fc.m_bAlreadyRewired = true;
         } else {
             this.m_arControls.splice(i);
         }
@@ -551,8 +554,10 @@ Model.prototype._refresh = function() {
     for ( var i = 0; i < this.m_arControls.length; ++i) {
         var fc = this.m_arControls[i];
 
+		if (fc && fc.m_bAlreadyRefreshed && !this.rebuildInProgress) continue;
         if (fc && typeof fc.element == "object") {
             fc.refresh();
+			fc.m_bAlreadyRefreshed = true;
         } else {
             this.m_arControls.splice(i);
         }

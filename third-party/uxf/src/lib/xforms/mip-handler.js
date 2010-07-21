@@ -52,10 +52,110 @@ MIPHandler.prototype.rewire = function () {
 		// set by Container but not by Control, for instance).
 		this.isWired = true;
 	}
-
+	this.xrewire();
 	return result;
 };
 
+MIPHandler.prototype.xrewire = function () {
+
+	var bRet, ctxBoundNode, oPN, sValueExpr, ctx;
+
+	document.logger.log("Rewiring: " + this.element.tagName + ":" + this.element.uniqueID, "control");
+	bRet = false;
+
+	// Get the node this control is bound to (if any), but force the bindings to
+	// be reevaluated by clearing any proxy node.
+	//
+	// [TODO] This might need to be some kind of 'unwire', since we also need to
+	// null any cached nodelist.
+
+	if (this.m_proxy) {
+		this.m_proxy = null;
+	}
+
+	ctxBoundNode = this.getBoundNode();
+	oPN = null;
+
+	// [ISSUE] In theory even if the model attribute had changed by now, this
+	// would still work. This means that the addControl*() methods could perhaps
+	// be some kind of global thing.
+	if (ctxBoundNode.model) {
+		this.m_model = ctxBoundNode.model;
+	}
+
+	// If we have a @value then the 'bound node' will actually be a context
+	// node.
+	//
+	// [TODO] Call getEvaluationContext, instead of using the 'bound node'
+	// function, which should really return 'null' if there is no bound node.
+	sValueExpr = this.element.getAttribute("value");
+
+	if (sValueExpr) {
+		ctx = ctxBoundNode;
+		if (!ctxBoundNode.model && !ctxBoundNode.node) {
+			ctx = this.getEvaluationContext();
+			if (ctx.model) {
+				this.m_model = ctx.model;
+			}
+		}
+
+		bRet = true;
+		// Run a check that we haven't already added the control to the model
+		if (this.m_proxy && this.m_proxy.m_ctrlProxyTarg && this.m_proxy.m_ctrlProxyTarg.targetControl == this) {
+			return bRet;
+		}
+		oPN = ctx.model.addControlExpression(this, ctx, sValueExpr);
+	} else if (ctxBoundNode.node) {
+		ctx = ctxBoundNode;
+		// If we have a node then we should bind our control to it.
+		oPN = getProxyNode(ctxBoundNode.node);
+
+		// Allow the model to register for any changes.
+		ctxBoundNode.model.addControlBinding(this);
+		bRet = true;
+	}
+
+	// Make sure our control knows where its associated proxy is.
+	if (oPN) {
+		this.m_proxy = oPN;
+		var oModel = ctx.model;
+		var oContext = ctx;
+
+		// Run a check again to make sure we don't create a duplicate vertexTarget
+		if (this.m_proxy.m_ctrlProxyTarg && this.m_proxy.m_ctrlProxyTarg.targetControl == this) {
+			return bRet;
+		}
+
+		// Create a vertex and associated vertexTarget for the control
+		var oPNVTarg = new ControlProxyNodeVertex(this, oContext, oModel, this.m_proxy);
+		var oPNV = oModel.m_oDE.createVertex(oPNVTarg);
+
+		this.m_proxy.m_ctrlProxyTarg = oPNVTarg;
+		this.m_proxy.m_ctrlVertex = oPNV;
+
+		if (!this.m_proxy.m_vertex) {
+			this.m_proxy.m_vertex = oPNV;
+		} else if (this.m_proxy.m_vertex.vertexTarget) {
+			// If a vertex target already exists, the control is its dependent
+			this.m_proxy.m_vertex.addDependent(oPNV);
+		} else {
+			return;
+		}
+
+		// Register computed xpath expressions (for instance in xf:output @value)
+		// with the dependency engine
+		if (this.m_proxy && this.m_proxy.m_vertex && this.m_proxy.m_xpath) {
+			var sExpr = this.m_proxy.m_xpath;
+			var oCPE = new ComputedXPathExpression(oPN, sExpr, oContext, oModel);
+			var oCalcVertex = oModel.m_oDE.createVertex(oCPE);
+			oCPE.addDependentExpressions(this.m_proxy.m_ctrlVertex, oModel.m_oDE, oModel.changeList);
+		}
+		// Add all other dependencies for the control
+		oPNVTarg.addDependentProxyNodes();
+	}
+
+	return bRet;
+};
 
 (function () {
 	var isDirtyMIP = function (self, sMIPName) {

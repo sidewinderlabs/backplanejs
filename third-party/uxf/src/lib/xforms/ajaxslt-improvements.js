@@ -350,6 +350,37 @@ XDocument.prototype.removeChild = function(node) {
 	}
 	XNode.prototype.removeChild.call(this, node);
 };
+
+(function() {
+
+	var xnodeCount = 0;
+
+	/**
+	 * This version adds a unique id (xnodeId) to each XNode created.
+	 *
+	 * This id is used elsewhere as an index when doing node comparisons
+	 *
+	 * @param {Number} type Sets XNode.nodeType (constant)
+	 *     Based on <http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#ID-1950641247>
+	 * @param {String} name Sets XNode.nodeName
+	 * @param {String} value Sets XNode.nodeValue
+	 * @param {XDocument} owner Sets XNode.ownerDocument
+	 * @returns A new XNode
+	 */ 
+	 XNode.create = function(type, name, value, owner) {
+		var node;
+		if (XNode.unused_.length > 0) {
+			node = XNode.unused_.pop();
+			XNode.init.call(node, type, name, value, owner);
+		} else {
+			node = new XNode(type, name, value, owner);
+		}
+		node.xnodeId = xnodeCount++;
+		return node;
+	};
+
+})();
+
 // This version corrects the original by setting the ownerDocument of node
 XNode.prototype.appendChild = function(node) {
 

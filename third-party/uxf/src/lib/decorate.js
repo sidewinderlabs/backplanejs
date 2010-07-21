@@ -135,7 +135,7 @@ var DECORATOR = function () {
 		            DECORATOR.attachDecoration(elements[count], true, true);
 		            // depth-first decoration for container form controls
 		            if (nsURI === "http://www.w3.org/2002/xforms" &&
-									 (localName === "repeat" || localName === "case" || localName === "group" || localName === "header")) {
+									 (localName === "repeat" || localName === "case" || localName === "header")) {
 										DECORATOR.applyDecorationRules(elements[count]);
 		            }
 		        }

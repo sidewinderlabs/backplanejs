@@ -246,6 +246,10 @@ Control.prototype.AddTVCListener = function () {
       this.m_value.addEventListener("control-value-changed", {
         control : this,
         handleEvent : function (evt) {
+			if (this.control.m_proxy && this.control.m_proxy.m_vertex) {
+				this.control.m_model.changeList.addChange(this.control.m_proxy.m_vertex);
+				this.control.m_model.m_bNeedRecalculate = true;
+			}
           var oEvt = document.createEvent("MutationEvents");
           oEvt.initMutationEvent("target-value-changed", true, true, null, evt.prevValue, evt.newValue, null, null);
           FormsProcessor.dispatchEvent(this.control, oEvt);
@@ -326,78 +330,6 @@ Control.prototype.setType = function (sType) {
     }
   }
   return;
-};
-
-/*
- * [ISSUE] This has evolved a little, and needs a good tidy up. The basic
- * behaviour is to find a proxy node and then connect the control to it. Whether
- * the proxy comes from a @ref or a @bind makes no difference.
- */
-Control.prototype.xrewire = function () {
-  var bRet, ctxBoundNode, oPN, sValueExpr, ctx;
-
-  document.logger.log("Rewiring: " + this.element.tagName + ":" + this.element.uniqueID, "control");
-
-  bRet = false;
-
-  // Get the node this control is bound to (if any), but force the bindings to
-  // be reevaluated by clearing any proxy node.
-  // 
-  // [TODO] This might need to be some kind of 'unwire', since we also need to
-  // null any cached nodelist.
-
-  if (this.m_proxy) {
-    this.m_proxy = null;
-  }
-
-  ctxBoundNode = this.getBoundNode(1);
-  oPN = null;
-
-  // [ISSUE] In theory even if the model attribute had changed by now, this
-  // would still work. This means that the addControl*() methods could perhaps
-  // be some kind of global thing.
-  if (ctxBoundNode.model) {
-    this.m_model = ctxBoundNode.model;
-  }
-
-  // If we have a @value then the 'bound node' will actually be a context
-  // node.
-  //
-  // [TODO] Call getEvaluationContext, instead of using the 'bound node'
-  // function, which should really return 'null' if there is no bound node.
-  sValueExpr = this.element.getAttribute("value");
-
-  if (sValueExpr) {
-    ctx = ctxBoundNode;
-    if (!ctxBoundNode.model && !ctxBoundNode.node) {
-      ctx = this.getEvaluationContext();
-      if (ctx.model) {
-        this.m_model = ctx.model;
-      }
-    }
-    oPN = ctx.model.addControlExpression(this, ctx, sValueExpr);
-    bRet = true;
-  } else if (ctxBoundNode.node) {
-    // If we have a node then we should bind our control to it.
-    oPN = getProxyNode(ctxBoundNode.node);
-
-    // Allow the model to register for any changes.
-    ctxBoundNode.model.addControlBinding(this);
-    bRet = true;
-  }
-
-  // Make sure our control knows where its associated proxy is.
-
-  if (oPN) {
-    this.m_proxy = oPN;
-  } 
-
-  // [TEMP] This cannot be permanently removed until we can tell the
-  // difference between:
-  // 
-  // (a) controls that *should* be bound but aren't, because there is no node;
-  // (b) controls that have no binding attributes, such as labels.
-  return bRet;
 };
 
 Control.prototype.refresh = function () {

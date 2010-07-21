@@ -490,6 +490,68 @@ ProxyNode.prototype.validate = function() {
     return Validator.validateValue(dataTypeNS, dataType, this.getValue());
 };
 
+function ControlProxyNodeVertex(oTarget, oContext, oModel, oPN)
+{
+  this.m_oContext = oContext;
+  this.m_oModel = oModel;
+  this.node = oPN.m_oNode;
+  this.m_oProxy = oPN;
+  this.targetControl = oTarget;
+  this.dependencies = [];
+}
+
+/**
+ * @returns 'ctrl[...]' where ... is the localName and id (if it exists)
+ */
+ControlProxyNodeVertex.prototype.identifier = function() {
+	var ctrl = this.targetControl;
+	var identifier = ctrl.localName;
+	var ctrlId = ctrl.getAttribute('id');
+	if (ctrlId) {
+		identifier += '#' + ctrlId;
+	}
+	return "ctrl[" + identifier + "]";
+};
+
+ControlProxyNodeVertex.prototype.update = function()
+{
+  if (typeof(this.targetControl.refresh) === 'function') {
+    this.targetControl.refresh();
+  }
+};
+
+ControlProxyNodeVertex.prototype.addDependentProxyNodes = function()
+{
+  if (!this.node) return;
+
+  var xnodeId = this.node.xnodeId;
+  var oDE = this.m_oModel.m_oDE;
+  var vertex, ctrlVertex, vertexId, i;
+
+  ctrlVertex = this.m_oProxy.m_ctrlVertex;
+  if (this.m_oProxy.m_vertex) {
+    vertexId = this.m_oProxy.m_vertex.vertexId;
+  }
+
+  if (oDE.m_contextNodes[xnodeId]) {
+    for (i in oDE.m_contextNodes[xnodeId]) {
+      vertex = oDE.m_contextNodes[xnodeId][i];
+      if (vertex != ctrlVertex && !vertex.depListIdx[vertexId]) {
+        vertex.addDependent(ctrlVertex);
+      }
+    }
+  }
+
+  if (oDE.m_proxyNodes[xnodeId]) {
+    for (i in oDE.m_proxyNodes[xnodeId]) {
+      vertex = oDE.m_proxyNodes[xnodeId][i];
+      if (vertex != ctrlVertex && !vertex.depListIdx[vertexId]) {
+        vertex.addDependent(ctrlVertex);
+      }
+    }
+  }
+};
+
 function SingleNodeExpression(oTarget,sXPath, oContext,oModel)
 {
 	this.m_sXPathExpr = sXPath;

@@ -46,9 +46,7 @@ Instance.prototype.load = function ( domURL ) {
                 var evt = this.context.element.ownerDocument.createEvent("Events");
                 evt.initEvent("instance-load", true, false);
                 var oTarget = this.context.element;
-                spawn(function () {
                     FormsProcessor.dispatchEvent(oTarget, evt);
-                });
             }
         },
         false);

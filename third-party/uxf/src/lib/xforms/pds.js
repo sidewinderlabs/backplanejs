@@ -76,6 +76,8 @@ function dependencyEngine(model)
 {
 	// M represents the master dependency directed graph.
 	this.m_M = [];
+	this.m_contextNodes = {};
+	this.m_proxyNodes = {};
 	this.model = model;
 }
 
@@ -113,7 +115,29 @@ dependencyEngine.prototype.createVertex = function(oVT)
 	var v = new Vertex(oVT);
 
 	this.m_M.push(v);
+	var node;
+	if (oVT.m_oContext && oVT.m_oContext.node && oVT.m_oContext.node.xnodeId) {
+		var nodeId = oVT.m_oContext.node.xnodeId;
+		this.addToNodeVertexIndex(this.m_contextNodes, nodeId, v);
+	}
+	if (oVT.m_oProxy && oVT.m_oProxy.m_oNode && oVT.m_oProxy.m_oNode.xnodeId) {
+		var nodeId = oVT.m_oProxy.m_oNode.xnodeId;
+		this.addToNodeVertexIndex(this.m_proxyNodes, nodeId, v);
+	}
 	return v;
+};
+
+dependencyEngine.prototype.addToNodeVertexIndex = function(nodeIdxObj, nodeId, vertexToAdd)
+{
+	if (!nodeId) return;
+	if (!vertexToAdd || !vertexToAdd.vertexId) return;
+
+	var vertexId = vertexToAdd.vertexId;
+
+	if (typeof(nodeIdxObj[nodeId]) !== 'object') {
+		nodeIdxObj[nodeId] = {};
+	}
+	nodeIdxObj[nodeId][vertexId] = vertexToAdd;
 };
 
 dependencyEngine.prototype.recalculate = function(oChangeList)

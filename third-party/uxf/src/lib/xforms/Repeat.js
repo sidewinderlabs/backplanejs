@@ -24,6 +24,7 @@ function Repeat(elmnt) {
     sStartIndex = elmnt.getAttribute("startindex");
     
     this.m_nIndex = (sStartIndex === null || isNaN(sStartIndex))?1:this.m_nIndex = Number(sStartIndex);
+	this.storeTemplate();
   }
   
   this.m_CurrentIterationCount = 0;
@@ -45,7 +46,6 @@ Repeat.prototype.giveFocus = function () {
 };
 
 Repeat.prototype.onDocumentReady = function () {
-  this.storeTemplate();
   this.addcontroltomodel();
   this.element.addEventListener(
     "DOMActivate",
@@ -226,13 +226,10 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 		this.m_CurrentIterationCount++;
 	}
 	thisModel = this.m_model;
-  //Spawn the resumption of the decorator,
-  //	spawning allows the content to add itself, prior to being initialised by the resumption
 	if(suspension) {
-		spawn(function () {
+		// Resume the decorator
 			DECORATOR.resume();
 			thisModel.resumeXFormsReady();
-		});
 	}
   
 };

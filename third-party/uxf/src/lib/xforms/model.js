@@ -262,9 +262,7 @@ function testForReady(pThis) {
             var evt = document.createEvent("Events");
             evt.initEvent("xforms-model-construct", true, false);
             evt._actionDepth = -1;
-            spawn(function () {
                 FormsProcessor.dispatchEvent(pThis.element, evt);
-            });
         }
     }// if (pThis element is loaded)
     return;
@@ -448,6 +446,7 @@ function _deferredUpdate(pThis) {
     pThis.deferredUpdateInProgress = true;
     if (pThis.m_bNeedRebuild) {
         pThis.rebuild();
+		pThis.rebuildInProgress = true;
     }
 
     if (pThis.m_bNeedRecalculate) {
@@ -466,6 +465,7 @@ function _deferredUpdate(pThis) {
         pThis.refresh();
     }
     pThis.deferredUpdateInProgress = false;
+	pThis.rebuildInProgress = false;
   }
     return;
 }
