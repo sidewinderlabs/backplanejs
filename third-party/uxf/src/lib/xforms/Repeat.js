@@ -22,15 +22,17 @@ function Repeat(elmnt) {
     this.element.bindingContainerName = "group";
 
     sStartIndex = elmnt.getAttribute("startindex");
-    
+
     this.m_nIndex = (sStartIndex === null || isNaN(sStartIndex))?1:this.m_nIndex = Number(sStartIndex);
+	if (!UX.hasDecorationSupport) {
 	this.storeTemplate();
   }
-  
+  }
+
   this.m_CurrentIterationCount = 0;
   this.m_offset = 0;
   this.m_iterationNodesetLength = 0;
-}    
+}
 
 Repeat.prototype.onContentReady = function () {
 	FormsProcessor.listenForXFormsFocus(this, this);
@@ -46,6 +48,9 @@ Repeat.prototype.giveFocus = function () {
 };
 
 Repeat.prototype.onDocumentReady = function () {
+	if (UX.hasDecorationSupport) {
+		this.storeTemplate();
+	}
   this.addcontroltomodel();
   this.element.addEventListener(
     "DOMActivate",
@@ -72,15 +77,15 @@ Repeat.prototype.Activate  = function (o) {
 };
 
 Repeat.prototype.storeTemplate = function () {
-	
-	
+
+
 	// Issue 529 - Since the child nodes of the template are removed after initializing the template
 	// initializing a second time will receive an empty template.
 	if (!this.sTemplate) {
 		this.sTemplate = this.element.cloneNode(true);
 	}
 	while (this.element.childNodes.length) {
-		this.element.removeChild(this.element.firstChild); 
+		this.element.removeChild(this.element.firstChild);
 	}
 	UX.addClassName(this.element, "repeat-ready");
 };
@@ -92,8 +97,8 @@ Repeat.prototype.addcontroltomodel = function ()	{
     var oModel = getModelFor(this);
     if (oModel) {
       oModel.addControl(this);
-    } 
-  }    
+    }
+  }
 };
 
 Repeat.prototype.refresh = function () {
@@ -104,7 +109,7 @@ Repeat.prototype.getRequestedIterationCount = function () {
   //Alter the number of iterations, if appropriate
   var sNumber = this.getAttribute("number"),
   desiredIterationCount = 0;
-  
+
   if (sNumber === null || isNaN(sNumber)) {
       //without a number attribute, vary the repeat with the size of the nodeset.
     desiredIterationCount = this.m_iterationNodesetLength;
@@ -162,8 +167,8 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 	//hold the current offset, to determine whether it is necessary to change
 	//  the ordinals of the various iterations.
 	formerOffset = this.m_offset;
-	
-	
+
+
 	//Fix the viewport so that the desired index will be visible.
 	if (this.m_nIndex < this.m_offset) {
 		//If offset is later than index, move the viewport such that index is the last visible iteration
@@ -173,7 +178,7 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 		//Set the offset and index to match.
 		this.m_offset = this.m_nIndex - 1;
 	}
-	
+
 	// Bring the @ordinal values into line and unwire remaining iterations
 	//
 	for (i = 0; i < this.m_CurrentIterationCount; ++i) {
@@ -184,15 +189,15 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 			if (ordinal !== newOrdinal) {
 				node.setAttribute("ordinal", newOrdinal);
 			}
-		} 
+		}
 		node.m_proxy = null;
 	}
-	
+
 	sDefaultPrefix = NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms")[0] + ":";
-	
+
 	//Suspend the decorator,
-	//	content added is received in order of opening tag, 
-	//	and both ContentReady and DocumentReady are executed out of order. 
+	//	content added is received in order of opening tag,
+	//	and both ContentReady and DocumentReady are executed out of order.
 	var suspension = false;
 	if (desiredIterationCount > this.m_CurrentIterationCount) {
 		suspension = true;
@@ -202,18 +207,18 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 
 	while (desiredIterationCount > this.m_CurrentIterationCount) {
 		//In the absence of an iteration corresponding to this index, insert one.
-		oIterationElement = (UX.isXHTML) ? 
+		oIterationElement = (UX.isXHTML) ?
 			document.createElementNS("http://www.w3.org/2002/xforms", sDefaultPrefix + this.element.bindingContainerName) :
 			document.createElement(sDefaultPrefix + this.element.bindingContainerName);
 		oIterationElement.setAttribute("ref", ".");
 		oIterationElement.setAttribute("ordinal", this.m_offset + this.m_CurrentIterationCount + 1);
 		oIterationElement.isBindingContainer = true;
 		UX.addClassName(oIterationElement, "repeat-iteration");
-		
+
 		oIterationElement.outerScope = this;
-		
+
 		templateClone = this.element.sTemplate.cloneNode(true);
-		
+
 		//Move each child of templateClone to oIterationElement, maintaining order.
 		while (templateClone.hasChildNodes()) {
 			oIterationElement.appendChild(templateClone.firstChild);
@@ -221,17 +226,24 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 		this.element.appendChild(oIterationElement);
 		window.status = "";
 		//set the status bar, to fix the progress bar.
-		//See: http://support.microsoft.com/default.aspx?scid=kb;en-us;Q320731 
-		
+		//See: http://support.microsoft.com/default.aspx?scid=kb;en-us;Q320731
+
 		this.m_CurrentIterationCount++;
 	}
 	thisModel = this.m_model;
 	if(suspension) {
 		// Resume the decorator
+		if (UX.hasDecorationSupport) {
+			spawn(function() {
+				DECORATOR.resume();
+				thisModel.resumeXFormsReady();
+			});
+		} else {
 			DECORATOR.resume();
 			thisModel.resumeXFormsReady();
+		}
 	}
-  
+
 };
 
 
@@ -252,7 +264,7 @@ Repeat.prototype.rewire = function () {
       oContext,
       r,
       newIndex;
-  
+
   if (sBind) {
     oBind = FormsProcessor.getBindObject(sBind, this.element);
     if (oBind) {
@@ -261,20 +273,20 @@ Repeat.prototype.rewire = function () {
     }
   } else {
     sExpr = this.element.getAttribute("nodeset");
-    
+
     if (sExpr) {
       document.logger.log("Rewiring: " + this.element.tagName + ":" + this.element.uniqueID + ":" + sExpr, "info");
-      
+
       oContext = this.element.getEvaluationContext();
       this.m_model = oContext.model;
       r = this.m_model.EvaluateXPath(sExpr, oContext);
-      
+
       arrNodes = r.value;
     } else {
       document.logger.log("Element: " + this.element.tagName + ":" + this.element.uniqueID + " lacks binding attributes.", "warn");
     }
   }
-  
+
   if (arrNodes) {
     this.m_iterationNodesetLength = arrNodes.length;
     newIndex = this.m_model.indexOfNewNode(arrNodes);

@@ -46,7 +46,13 @@ Instance.prototype.load = function ( domURL ) {
                 var evt = this.context.element.ownerDocument.createEvent("Events");
                 evt.initEvent("instance-load", true, false);
                 var oTarget = this.context.element;
+                if (UX.hasDecorationSupport) {
+                  spawn(function() {
                     FormsProcessor.dispatchEvent(oTarget, evt);
+                  });
+                } else {
+                  FormsProcessor.dispatchEvent(oTarget, evt);
+                }
             }
         },
         false);
