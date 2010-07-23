@@ -14,7 +14,7 @@
    - See the License for the specific language governing permissions and
    - limitations under the License.
    -->
-<project name="selenium-rc" default="start-local-gae" basedir=".">
+<project name="selenium-rc" default="start-selenium-rc" basedir=".">
 	<description>
 		Ant project for Selenium RC.
 	</description>
