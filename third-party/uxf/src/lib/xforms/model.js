@@ -1,4 +1,4 @@
-l/*
+/*
  * Copyright (c) 2008-2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
