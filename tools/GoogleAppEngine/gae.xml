@@ -21,7 +21,14 @@
 
 	<dirname property="gae.base.dir" file="${ant.file.gae}" />
 
-	<property file="${gae.base.dir}/ant.properties" />
+	<property name="gae.port" value="8080" />
+	<filter token="gae.port" value="${gae.port}"/>
+	<property name="gae.host" value="localhost" />
+	<filter token="gae.host" value="${gae.host}"/>
+	<!--
+		If this default is not correct for your installation, change it in 'my.ant.properties'.
+	-->
+	<property name="gae.windows.install.dir" value="C:/Progra~1/Google/google_appengine" />
 
 	<condition property="gae.app.name" value="${gae.base.dir}/dev_appserver.bat" else="dev_appserver.py">
 		<os family="windows" />
