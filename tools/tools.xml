@@ -217,7 +217,7 @@ in your own build.xml.
 	</target>
 
 	<target name="-start-unit-test-server" description="Run the unit-test server.">
-			<antcall target="start-local-gae">
+		<antcall target="start-local-gae">
 			<param name="gae.application.root" value="${unit-tests.dir}"/>
 		</antcall>
 	</target>
@@ -230,16 +230,22 @@ in your own build.xml.
 	 description="Launch a server for unit testing."
 	/>
 
-	<target name="-test" description="Run unit-tests.">
+	<target name="tdd-test" description="Run unit-tests.">
 		<parallel>
 			<daemons>
 				<antcall target="start-selenium-rc" />
+				<antcall target="start-unit-test-server" />
 			</daemons>
 
 			<sequential>
 				<waitfor>
 					<and>
 						<socket server="${selenium-rc.host}" port="${selenium-rc.port}" />
+					</and>
+				</waitfor>
+				<waitfor>
+					<and>
+						<socket server="${gae.host}" port="${gae.port}" />
 					</and>
 				</waitfor>
 				<copy todir="${unit-tests.dir}" failonerror="true" filtering="true">
@@ -252,7 +258,7 @@ in your own build.xml.
 		</parallel>
 	</target>
 
-	<target name="test" depends="initialize, compile, test-compile, -test" description="Run tests." />
+	<target name="test" depends="initialize, compile, test-compile, tdd-test" description="Run tests." />
 
 	<!--
 		PACKAGE

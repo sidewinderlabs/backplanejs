@@ -36,7 +36,7 @@
 				<pathelement location="${yuitest-selenium.base.dir}/yuitest-selenium-driver-0.5.5.jar"/>
 				<pathelement location="${selenium-rc.base.dir}/selenium-java-client-driver.jar"/>
 			</classpath>
-			<arg line="--host ${selenium-rc.host} --port ${selenium-rc.port} --resultsdir ${reports.dir} --tests ${test.list} --browsers ${selenium-rc.browsers}" />
+			<arg line="--host ${selenium-rc.host} --port ${selenium-rc.port} --resultsdir ${reports.dir} --erroronfail --tests ${test.list} --browsers ${selenium-rc.browsers}" />
 		</java>
 	</target>
 </project>
