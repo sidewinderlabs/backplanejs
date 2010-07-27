@@ -33,7 +33,7 @@ function valueChangedIE(pThis,evt)
 	oEvt.initMutationEvent("control-value-changed", true, true,
 		null, pThis.currValue, evt.srcElement.value, null, null);
 
-	spawn(function(){FormsProcessor.dispatchEvent(pThis.element,oEvt);});
+	FormsProcessor.dispatchEvent(pThis.element,oEvt);
 
 	/*
 	 * Cancel bubbling but don't cancel the event itself

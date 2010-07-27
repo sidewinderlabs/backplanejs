@@ -18,7 +18,7 @@ function XFormsBooleanValue(elmnt) {
 	this.m_bFirstSetValue = true;
 }
 
-function booleanValueChanged(pThis) {
+function booleanValueChanged(pThis, evt) {
 	var oEvt = pThis.element.ownerDocument.createEvent("MutationEvents");
 	if(oEvt.initMutationEvent === undefined) {
 		oEvt.initMutationEvent = oEvt.initEvent;
@@ -30,6 +30,7 @@ function booleanValueChanged(pThis) {
 		FormsProcessor.dispatchEvent(pThis.element, oEvt);
 	});
 
+	evt.cancelBubble = true;
 }
 
 XFormsBooleanValue.prototype.onDocumentReady = function() {
@@ -47,9 +48,9 @@ XFormsBooleanValue.prototype.onDocumentReady = function() {
 
 		var pThis = this;
 		if(typeof oInput.addEventListener === 'function') {
-			oInput.addEventListener(eventName, function(e) { booleanValueChanged(pThis); }, false);
+			oInput.addEventListener(eventName, function(e) { booleanValueChanged(pThis, e); }, false);
 		} else {
-			oInput.attachEvent("on" + eventName, function(e) { booleanValueChanged(pThis); });
+			oInput.attachEvent("on" + eventName, function(e) { booleanValueChanged(pThis, e); });
 		}
 
 		this.element.appendChild(oInput);

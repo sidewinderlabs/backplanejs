@@ -24,7 +24,9 @@ MIPEventTarget.prototype.broadcastMIPs = function () {
 		UX.dispatchEvent(this.element, proxyNode.valid.getValue() ? "xforms-valid" : "xforms-invalid", true, false);
 		UX.dispatchEvent(this.element, proxyNode.required.getValue() ? "xforms-required" : "xforms-optional", true, false);
 		UX.dispatchEvent(this.element, proxyNode.readonly.getValue() ? "xforms-readonly" : "xforms-readwrite", true, false);
+		UX.dispatchEvent(this.element, proxyNode.enabled.getValue() ? "xforms-enabled" : "xforms-disabled", true, false);
+	} else {
+		UX.dispatchEvent(this.element, this.isEnabled() ? "xforms-enabled" : "xforms-disabled", true, false);
 	}
 
-	UX.dispatchEvent(this.element, this.isEnabled() ? "xforms-enabled" : "xforms-disabled", true, false);
 };

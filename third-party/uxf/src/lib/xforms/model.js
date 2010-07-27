@@ -441,6 +441,10 @@ function _EvaluateXPath(pThis, sXPath, oContext) {
  * itself up-to-date.
  */
 function _deferredUpdate(pThis) {
+  if (!pThis.m_bReady) {
+    return;
+  }
+
   if (!pThis.deferredUpdateInProgress) {
 
     pThis.deferredUpdateInProgress = true;

@@ -138,17 +138,16 @@ MIPHandler.prototype.xrewire = function () {
 		} else if (this.m_proxy.m_vertex.vertexTarget) {
 			// If a vertex target already exists, the control is its dependent
 			this.m_proxy.m_vertex.addDependent(oPNV);
-		} else {
-			return;
 		}
 
 		// Register computed xpath expressions (for instance in xf:output @value)
 		// with the dependency engine
-		if (this.m_proxy && this.m_proxy.m_vertex && this.m_proxy.m_xpath) {
+		if (this.m_proxy && this.m_proxy.m_xpath) {
 			var sExpr = this.m_proxy.m_xpath;
 			var oCPE = new ComputedXPathExpression(oPN, sExpr, oContext, oModel);
 			var oCalcVertex = oModel.m_oDE.createVertex(oCPE);
-			oCPE.addDependentExpressions(this.m_proxy.m_ctrlVertex, oModel.m_oDE, oModel.changeList);
+			oCalcVertex.addDependent(oPNV);
+			oCPE.addDependentExpressions(oCalcVertex, oModel.m_oDE, oModel.changeList);
 		}
 		// Add all other dependencies for the control
 		oPNVTarg.addDependentProxyNodes();
@@ -188,15 +187,13 @@ MIPHandler.prototype.xrewire = function () {
 	getMIPState = function (self, mip) {
 		var retval = { isSet: false }, proxyNode;
 
-		if (mip === "enabled") {
-			retval.value = self.isEnabled();
-			retval.isSet = true;
-		} else {
 			proxyNode = FormsProcessor.getProxyNode(self.element);
 			if (proxyNode) {
 				retval.value = proxyNode.getMIPState(mip);
 				retval.isSet = true;
-			}
+		} else  if (mip === "enabled") {
+			retval.value = self.isEnabled();
+			retval.isSet = true;
 		}
 
 		return retval;
