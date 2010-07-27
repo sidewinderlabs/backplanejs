@@ -262,13 +262,7 @@ function testForReady(pThis) {
             var evt = document.createEvent("Events");
             evt.initEvent("xforms-model-construct", true, false);
             evt._actionDepth = -1;
-            if (UX.hasDecorationSupport) {
-              spawn(function() {
                 FormsProcessor.dispatchEvent(pThis.element, evt);
-              });
-            } else {
-              FormsProcessor.dispatchEvent(pThis.element, evt);
-            }
         }
     }// if (pThis element is loaded)
     return;

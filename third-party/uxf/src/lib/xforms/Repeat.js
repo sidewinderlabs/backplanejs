@@ -233,15 +233,8 @@ Repeat.prototype.putIterations = function (desiredIterationCount) {
 	thisModel = this.m_model;
 	if(suspension) {
 		// Resume the decorator
-		if (UX.hasDecorationSupport) {
-			spawn(function() {
 				DECORATOR.resume();
 				thisModel.resumeXFormsReady();
-			});
-		} else {
-			DECORATOR.resume();
-			thisModel.resumeXFormsReady();
-		}
 	}
 
 };
