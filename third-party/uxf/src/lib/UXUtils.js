@@ -265,8 +265,6 @@ if (UX.isXHTML) {
   	  }
   		var elementClassName = ' ' + element.className + ' ';
   		return (elementClassName.indexOf(' ' + className + ' ') != -1);
-  	    return (elementClassName.length > 0 && (elementClassName == className ||
-  	      new RegExp("(^|\\s)" + className + "(\\s|$)").test(elementClassName)));
 	};
 
 /**
