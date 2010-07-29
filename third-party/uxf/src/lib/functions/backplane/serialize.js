@@ -29,5 +29,15 @@ FunctionCallExpr.prototype.xpathfunctions["serialize"] = function (ctx) {
 		n = ctx.node;
 	}
 
+	// We need to be sure that all descendents are noted as dependencies
+	if (g_bSaveDependencies) {
+		descendants = [];
+		xpathCollectDescendants(descendants, n);
+		for (var i = 0; i < descendants.length; ++i) {
+			if (descendants[i].nodeName != '#text')
+			g_arrSavedDependencies.push(descendants[i]);
+		}
+	}
+
 	return new StringValue( xmlText( n ) );
 };
