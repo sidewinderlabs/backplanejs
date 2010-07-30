@@ -23,6 +23,12 @@
 
 	<property file="${selenium-rc.base.dir}/ant.properties" />
 
+	<taskdef resource="selenium-ant.properties">
+		<classpath>
+			<pathelement location="${selenium-rc.base.dir}/selenium-server.jar"/>
+		</classpath>
+	</taskdef>
+
 	<target name="-check-selenium-rc">
 		<condition property="selenium-rc.started">
 			<socket server="${selenium-rc.host}" port="${selenium-rc.port}" />
@@ -44,5 +50,14 @@
 			-->
 			<arg line="-port ${selenium-rc.port} ${selenium-rc.params}" />
 		</java>
+	</target>
+
+	<target name="stop-selenium-rc" description="Stop Selenium RC.">
+		<get
+			taskname="selenium-shutdown"
+			dest="result.txt"
+			ignoreerrors="true"
+			src="http://${selenium-rc.host}:${selenium-rc.port}/selenium-server/driver/?cmd=shutDownSeleniumServer"
+		/>
 	</target>
 </project>

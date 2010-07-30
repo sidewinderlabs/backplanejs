@@ -1,4 +1,4 @@
-application: @project.name@-unit-tests
+application: @project.name@-tests
 version: @version.number@
 runtime: python
 api_version: 1
@@ -11,4 +11,4 @@ handlers:
   static_dir: @output.dir@
 
 - url: /
-  static_dir: @unit-tests.dir@
+  static_dir: @tests.dir@
