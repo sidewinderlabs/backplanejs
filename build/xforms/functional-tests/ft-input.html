@@ -1,0 +1,31 @@
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ev="http://www.w3.org/2001/xml-events" 
+	xmlns:xf="http://www.w3.org/2002/xforms"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	>
+	<head>
+		<title>Simple input form</title>
+
+		<script src="/backplanejs/backplane.js" type="text/javascript">/**/</script>
+		<link rel="stylesheet" href="/backplanejs/assets/backplane.css"></link>
+	</head>
+	<body>    	
+		<xf:model>
+			<xf:instance>
+				<data xmlns="">
+					<val>Hello</val>
+				</data>
+			</xf:instance>
+		</xf:model>
+
+		<xf:input id="input" ref="val">
+			<xf:label>Input:</xf:label>
+		</xf:input>
+
+		<xf:output id="output" ref="val">
+			<xf:label>Output: </xf:label>
+		</xf:output>
+	</body>
+</html>

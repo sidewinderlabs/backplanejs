@@ -1,0 +1,55 @@
+
+<html>
+	<head>
+		<meta content="text/html; charset=ISO-8859-1"
+				http-equiv="content-type">
+			<title>My Selenium Test</title>
+			<script language="JavaScript" type="text/javascript" src="../core/scripts/selenium-browserdetect.js"></script>
+			<script language="JavaScript" type="text/javascript">
+				var DISABLED = true; // used to flag failing tests
+
+				function filterTestsForBrowser() {
+					var suiteTable = document.getElementById("suiteTable");
+					var skippedTests = document.getElementById("skippedTests");
+
+					for(rowNum = suiteTable.rows.length - 1; rowNum >= 0; rowNum--)
+					{
+						var row = suiteTable.rows[rowNum];
+						var filterString = row.getAttribute("unless");
+						if (filterString && eval(filterString))
+						{
+						  var cellHTML = row.cells[0].innerHTML;
+						  suiteTable.deleteRow(rowNum);
+
+						  var newRow = skippedTests.insertRow(1);
+						  var newCell = newRow.insertCell(0)
+						  newCell.innerHTML = cellHTML;
+						}
+					}
+				}
+
+				function isFileURL() {
+					var p = window.location.protocol;
+					var result = ("file:" == p);
+					return result;
+				}
+
+
+			</script>
+		</head>
+
+		<body>
+
+			<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium">
+				<tbody>
+					<tr><td><b>Tests</b></td></tr>
+					<tr>
+						<td>
+							<a href="driver-rt-issue-85.html">Regression test for issue 85</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</body>
+	</html>
