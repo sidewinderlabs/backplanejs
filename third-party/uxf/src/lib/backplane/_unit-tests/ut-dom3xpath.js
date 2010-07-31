@@ -18,14 +18,17 @@
 
 			setUp: function () {
 				this.doc = (new DOMParser()).parseFromString("<a><b>red</b><b>green</b><b>blue</b></a>", "text/xml");
-				Assert.areEqual("redgreenblue", this.doc.text);
 				this.evaluator = new XPathEvaluator();
-				Assert.isObject(this.evaluator);
 			},
 
 			tearDown: function () {
 				this.doc = null;
 				this.evaluator = null;
+			},
+
+			"test: Verify 'Test evaluate()' set-up": function () {
+				Assert.areEqual("redgreenblue", this.doc.text);
+				Assert.isObject(this.evaluator);
 			},
 
 			testXPathExpression: function () {

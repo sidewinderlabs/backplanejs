@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <yuitest version="2">
     <tests base="http://@gae.host@:@gae.port@/unit-tests/" timeout="10000">
-        <!-- url>backplane/main.html</url -->
+        <url>backplane/main.html</url>
         <url>kb/main.html</url>
         <url>rdfa/main.html</url>
         <url>xforms/main.html</url>
