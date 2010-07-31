@@ -279,7 +279,7 @@
 		</concat>
 	</target>
 
-	<target name="-test-compile">
+	<target name="unit-test-compile">
 		<description>
 			Create the unit test files, by concatenating the individual
 			unit tests.
