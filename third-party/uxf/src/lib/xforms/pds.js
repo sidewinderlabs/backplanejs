@@ -30,7 +30,7 @@ function Vertex(oVT)
 	var vertexCount = 0;
 
 	Vertex.prototype.initId = function() {
-		this.vertexId = vertexCount++;
+		this.vertexId = ++vertexCount;
 	}
 
 })();

@@ -373,9 +373,13 @@ XDocument.prototype.removeChild = function(node) {
 			node = XNode.unused_.pop();
 			XNode.init.call(node, type, name, value, owner);
 		} else {
+			// Make sure XDocuments get xnodeIds as well
+			if (typeof owner == 'object' && !owner.xnodeId) {
+				owner.xnodeId = ++xnodeCount;
+			}
 			node = new XNode(type, name, value, owner);
 		}
-		node.xnodeId = xnodeCount++;
+		node.xnodeId = ++xnodeCount;
 		return node;
 	};
 
