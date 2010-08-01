@@ -137,7 +137,7 @@ Selenium.prototype.assertXFormsControlStatus = function(locator, mipName) {
     }
 };
 
-Selenium.prototype.getXformsControlValue = function(locator) {
+Selenium.prototype.getXFormsControlValue = function(locator) {
 	var element = this.page().findElement(locator);
 
 	return element.getValue();
