@@ -1,0 +1,54 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			<title>Regression test for issue 86</title>
+		</head>
+		<body>
+			<table cellpadding="1" cellspacing="1" border="1">
+				<tbody>
+					<tr>
+						<td>open</td>
+						<td>ft-function-serialize.html</td>
+						<td></td>
+						<td>Open the form we want to use for our tests.</td>
+					</tr>
+
+					<tr>
+						<td>assertTitle</td>
+						<td>Simple serialize() form</td>
+						<td></td>
+						<td>Ensure that we have the correct form.</td>
+					</tr>
+
+					<tr>
+						<td>waitForModelReady</td>
+						<td></td>
+						<td></td>
+						<td>Wait for the XForms processor to initialise.</td>
+					</tr>
+
+					<tr>
+						<td>assertXformsControlValue</td>
+						<td>output</td>
+						<td>&lt;val&gt;Hello&lt;/val&gt;</td>
+						<td>Check that the output control has been initialised correctly.</td>
+					</tr>
+
+					<tr>
+						<td>typeKeys</td>
+						<td>//*[@id="input"]/pe-value/input</td>
+						<td>, World!</td>
+						<td>Type into the input control.</td>
+					</tr>
+
+					<tr>
+						<td>assertXformsControlValue</td>
+						<td>output</td>
+						<td>&lt;val&gt;Hello, World&lt;/val&gt;</td>
+						<td>Check that the output control matches what we typed. (Note that there is a bug in
+							Selenium, which means that we don't get the last character typed.)</td>
+					</tr>
+				</tbody>
+			</table>
+		</body>
+	</html>
