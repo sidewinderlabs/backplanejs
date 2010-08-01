@@ -13,7 +13,7 @@
 		}// tearDown()
 	});
 
-	// Add test for delete nodes.
+	// Add test for data type conversion.
 	//
 	suite.add(
 		new YAHOO.tool.TestCase({
