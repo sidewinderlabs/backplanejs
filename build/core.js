@@ -35,6 +35,7 @@ var g_sBehaviourDirectory = "/backplanejs/assets/";
 //= require <dom/domparser>
 //= require <dom/eventTargetProxy>
 //= require <dom/listener>
+//= require <dom/xmlserializer>
 
 // I/O
 //
