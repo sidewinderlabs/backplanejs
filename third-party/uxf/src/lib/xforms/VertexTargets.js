@@ -665,7 +665,9 @@ ComputedXPathExpression.prototype.update = function()
 	if (oRes)
 	{
 		oRet = oRes.stringValue();
+		if (this.m_oProxy.setValue) {
 		this.m_oProxy.setValue(oRet, null);
+	}
 	}
 
 	this.value = oRet;
