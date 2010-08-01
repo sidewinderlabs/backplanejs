@@ -19,16 +19,19 @@
 			setUp: function () {
 				this.doc = (new DOMParser()).parseFromString("<a><b>red</b><b>green</b><b>blue</b></a>", "text/xml");
 				this.evaluator = new XPathEvaluator();
+				this.serializer = new XMLSerializer();
 			},
 
 			tearDown: function () {
 				this.doc = null;
 				this.evaluator = null;
+				this.serializer = null;
 			},
 
 			"test: Verify 'Test evaluate()' set-up": function () {
-				Assert.areEqual("redgreenblue", this.doc.text);
 				Assert.isObject(this.evaluator);
+				Assert.isObject(this.serializer);
+				Assert.areEqual("<a><b>red</b><b>green</b><b>blue</b></a>", this.serializer.serializeToString(this.doc));
 			},
 
 			testXPathExpression: function () {
@@ -41,7 +44,7 @@
 				Assert.isObject(result);
 				Assert.areEqual(XPathResult.FIRST_ORDERED_NODE_TYPE, result.resultType);
 				Assert.isObject(result.singleNodeValue);
-				Assert.areEqual("red", result.singleNodeValue.text);
+				Assert.areEqual("<b>red</b>", this.serializer.serializeToString(result.singleNodeValue));
 			},
 
 			testEvaluate: function () {
@@ -57,7 +60,7 @@
 				Assert.isObject(result);
 				Assert.areEqual(XPathResult.FIRST_ORDERED_NODE_TYPE, result.resultType);
 				Assert.isObject(result.singleNodeValue);
-				Assert.areEqual("red", result.singleNodeValue.text);
+				Assert.areEqual("<b>red</b>", this.serializer.serializeToString(result.singleNodeValue));
 			},
 
 			testEvaluateOrderedSnapshot: function () {
@@ -66,9 +69,9 @@
 				Assert.isObject(result);
 				Assert.areEqual(XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, result.resultType);
 				Assert.areEqual(3, result.snapshotLength);
-				Assert.areEqual("red", result.snapshotItem(0).text);
-				Assert.areEqual("green", result.snapshotItem(1).text);
-				Assert.areEqual("blue", result.snapshotItem(2).text);
+				Assert.areEqual("<b>red</b>",  this.serializer.serializeToString(result.snapshotItem(0)));
+				Assert.areEqual("<b>green</b>", this.serializer.serializeToString(result.snapshotItem(1)));
+				Assert.areEqual("<b>blue</b>", this.serializer.serializeToString(result.snapshotItem(2)));
 			},
 
 			testEvaluateOrderedSnapshotSnapshotItemRange: function () {
@@ -86,9 +89,9 @@
 				Assert.isObject(result);
 				Assert.areEqual(XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, result.resultType);
 				Assert.areEqual(3, result.snapshotLength);
-				Assert.areEqual("red", result.snapshotItem(0).text);
-				Assert.areEqual("green", result.snapshotItem(1).text);
-				Assert.areEqual("blue", result.snapshotItem(2).text);
+				Assert.areEqual("<b>red</b>",  this.serializer.serializeToString(result.snapshotItem(0)));
+				Assert.areEqual("<b>green</b>", this.serializer.serializeToString(result.snapshotItem(1)));
+				Assert.areEqual("<b>blue</b>", this.serializer.serializeToString(result.snapshotItem(2)));
 			},
 
 			testEvaluateUnorderedSnapshotSnapshotItemRange: function () {
@@ -129,9 +132,9 @@
 
 				Assert.isObject(result);
 				Assert.areEqual(XPathResult.ORDERED_NODE_ITERATOR_TYPE, result.resultType);
-				Assert.areEqual("red", result.iterateNext().text);
-				Assert.areEqual("green", result.iterateNext().text);
-				Assert.areEqual("blue", result.iterateNext().text);
+				Assert.areEqual("<b>red</b>",  this.serializer.serializeToString(result.iterateNext()));
+				Assert.areEqual("<b>green</b>", this.serializer.serializeToString(result.iterateNext()));
+				Assert.areEqual("<b>blue</b>", this.serializer.serializeToString(result.iterateNext()));
 				Assert.isNull(result.iterateNext());
 			},
 
