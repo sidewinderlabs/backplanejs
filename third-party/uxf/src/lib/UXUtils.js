@@ -271,8 +271,8 @@ if (UX.isXHTML) {
  * Utility to replace a className attribute.
  */
 	 UX.replaceClassName = function (oElement, oldClassString, newClassString) {
-  	   UX.removeClassName(oldClassString);
-  	   UX.addClassName(newClassString);
+  	   UX.removeClassName(oElement, oldClassString);
+  	   UX.addClassName(oElement, newClassString);
 	};
 })();
 
