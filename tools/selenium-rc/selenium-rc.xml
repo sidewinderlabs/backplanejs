@@ -23,11 +23,26 @@
 
 	<property file="${selenium-rc.base.dir}/ant.properties" />
 
-	<taskdef resource="selenium-ant.properties">
-		<classpath>
-			<pathelement location="${selenium-rc.base.dir}/selenium-server.jar"/>
-		</classpath>
-	</taskdef>
+	<macrodef name="selenese">
+		<attribute name="suite" />
+		<attribute name="browser" />
+		<attribute name="outputDir" />
+		<attribute name="startURL" />
+		<attribute name="multiWindow" />
+		<attribute name="port" />
+		<attribute name="timeout" default="30" />
+		<sequential>
+			<java
+				jar="${selenium-rc.base.dir}/selenium-server.jar"
+				fork="true"
+				failonerror="true"
+			>
+				<arg line="-htmlSuite &quot;@{browser}&quot; &quot;@{startURL}&quot; &quot;@{suite}&quot; &quot;@{outputDir}/results-@{browser}.html&quot;"/>
+				<arg line="-port @{port}" />
+				<arg line="-timeout @{timeout}"/>
+			</java>
+		</sequential>
+	</macrodef>
 
 	<target name="-check-selenium-rc">
 		<condition property="selenium-rc.started">
