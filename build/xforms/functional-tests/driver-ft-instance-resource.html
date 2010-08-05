@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			<title>Functional test for model loading for instance with @resource</title>
+		</head>
+		<body>
+			<table cellpadding="1" cellspacing="1" border="1">
+				<tbody>
+					<tr>
+						<td>open</td>
+						<td>ft-instance-resource.html</td>
+						<td></td>
+						<td>Open the form we want to use for our tests.</td>
+					</tr>
+
+					<tr>
+						<td>assertTitle</td>
+						<td>Simple instance loading form</td>
+						<td></td>
+						<td>Ensure that we have the correct form.</td>
+					</tr>
+
+					<tr>
+						<td>waitForModelReady</td>
+						<td></td>
+						<td></td>
+						<td>Wait for the XForms processor to initialise.</td>
+					</tr>
+
+					<tr>
+						<td>assertXFormsControlValue</td>
+						<td>output-src</td>
+						<td>Hello from 'src'</td>
+						<td>Check that the output control has been initialised correctly.</td>
+					</tr>
+
+					<tr>
+						<td>assertXFormsControlValue</td>
+						<td>output-resource</td>
+						<td>Hello from 'resource'</td>
+						<td>Check that the output control has been initialised correctly.</td>
+					</tr>
+				</tbody>
+			</table>
+		</body>
+	</html>
