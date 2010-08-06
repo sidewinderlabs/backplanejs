@@ -1,0 +1,116 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			<title>Functional test for model loading</title>
+		</head>
+		<body>
+			<table cellpadding="1" cellspacing="1" border="1">
+				<tbody>
+					<tr>
+						<td>open</td>
+						<td>ft-xforms-submit-error.html</td>
+						<td></td>
+						<td>Open the form we want to use for our tests.</td>
+					</tr>
+
+					<tr>
+						<td>assertTitle</td>
+						<td>xforms-submit-error</td>
+						<td></td>
+						<td>Ensure that we have the correct form.</td>
+					</tr>
+
+					<tr>
+						<td>waitForModelReady</td>
+						<td></td>
+						<td></td>
+						<td>Wait for the XForms processor to initialise.</td>
+					</tr>
+
+					<tr>
+						<td>assertXFormsControlValue</td>
+						<td>output1</td>
+						<td>23</td>
+						<td>Check that the specified control has its value set.</td>
+					</tr>
+
+					<tr>
+						<td>assertXFormsControlValue</td>
+						<td>output2</td>
+						<td>15</td>
+						<td>Check that the specified control has its value set.</td>
+					</tr>
+
+					<tr>
+						<td>assertXFormsControlValue</td>
+						<td>msg</td>
+						<td>Not started</td>
+						<td>Check that the specified control has its value set.</td>
+					</tr>
+
+					<tr>
+						<td>assertXFormsControlStatus</td>
+						<td>output1</td>
+						<td>valid</td>
+						<td>Check that the specified control is valid.</td>
+					</tr>
+
+					<tr>
+						<td>assertXFormsControlStatus</td>
+						<td>output2</td>
+						<td>invalid</td>
+						<td>Check that the specified control is invalid.</td>
+					</tr>
+
+					<tr>
+						<td>click</td>
+						<td>btn</td>
+						<td></td>
+						<td>Click on the submission button.</td>
+					</tr>
+
+					<tr>
+						<td>assertXFormsControlValue</td>
+						<td>msg</td>
+						<td>Invalid</td>
+						<td>Check that the specified control has its value set.</td>
+					</tr>
+
+					<tr>
+						<td>typeKeys</td>
+						<td>//*[@id="input2"]/pe-value/input</td>
+						<td>3X</td>
+						<td>Type into the input control (allowing for Selenium bug).</td>
+					</tr>
+
+					<tr>
+						<td>waitForXFormsControlValue</td>
+						<td>output2</td>
+						<td>153</td>
+						<td>Wait for our key-press to be actioned.</td>
+					</tr>
+
+					<tr>
+						<td>click</td>
+						<td>btn</td>
+						<td></td>
+						<td>Click on the submission button.</td>
+					</tr>
+
+					<tr>
+						<td>verifyXFormsControlStatus</td>
+						<td>output2</td>
+						<td>valid</td>
+						<td>Check that the specified control is valid.</td>
+					</tr>
+
+					<tr>
+						<td>assertXFormsControlValue</td>
+						<td>msg</td>
+						<td>Valid</td>
+						<td>Check that the specified control has its value set.</td>
+					</tr>
+				</tbody>
+			</table>
+		</body>
+	</html>
