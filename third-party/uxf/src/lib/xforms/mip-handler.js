@@ -222,7 +222,7 @@ MIPHandler.prototype.xrewire = function () {
 	},
 
 	isEnabled = function (self) {
-		var proxyNode;
+		var proxyNode, contextNode;
 
 		if (!inheritEnabled(self)) {
 			return false;
@@ -239,7 +239,10 @@ MIPHandler.prototype.xrewire = function () {
 		if (proxyNode) {
 			return proxyNode.enabled.getValue();
 		}
-
+		contextNode = FormsProcessor.getContextNode(self.element);
+		if (contextNode && contextNode.m_proxy && contextNode.m_proxy.enabled) {
+			return contextNode.m_proxy.enabled.getValue();
+		}
 		return self.mustBeBound() ? false : true;
 	};
 

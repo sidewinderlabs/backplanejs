@@ -523,6 +523,12 @@ XFormsProcessor.prototype.getProxyNode = function (element) {
 	return null;
 };
 
+XFormsProcessor.prototype.getContextNode = function (element) {
+	return (element && element.m_context && element.m_context.node)
+	       ? element.m_context.node
+	       : null;
+};
+
 XFormsProcessor.prototype.visitDescendents = function (nodes, visit) {
 	var i;
 	for (i = 0; i < nodes.length; ++i) {
