@@ -76,6 +76,7 @@
 	<!--
 		Now load our tools.
 	-->
+	<import file="${backplanejs.tools.base.dir}/ant-contrib/ant-contrib.xml" />
 	<import file="${backplanejs.tools.base.dir}/GoogleAppEngine/gae.xml" />
 	<import file="${backplanejs.tools.base.dir}/selenium-rc/selenium-rc.xml" />
 	<import file="${backplanejs.tools.base.dir}/yuitest-selenium/yuitest-selenium.xml" />

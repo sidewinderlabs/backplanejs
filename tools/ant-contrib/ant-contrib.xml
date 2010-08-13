@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   - Copyright (c) 2009-2010 Mark Birbeck
+   -
+   - Licensed under the Apache License, Version 2.0 (the "License");
+   - you may not use this file except in compliance with the License.
+   - You may obtain a copy of the License at
+   -
+   -  http://www.apache.org/licenses/LICENSE-2.0
+   -
+   - Unless required by applicable law or agreed to in writing, software
+   - distributed under the License is distributed on an "AS IS" BASIS,
+   - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   - See the License for the specific language governing permissions and
+   - limitations under the License.
+   -->
+<project name="ant-contrib" basedir=".">
+	<description>
+		Ant Contrib.
+	</description>
+
+	<dirname property="ant-contrib.base.dir" file="${ant.file.ant-contrib}" />
+
+	<property file="${ant-contrib.base.dir}/ant.properties" />
+
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+	  <classpath>
+	    <pathelement location="${ant-contrib.base.dir}/ant-contrib-1.0b3.jar"/>
+	  </classpath>
+	</taskdef>
+</project>
