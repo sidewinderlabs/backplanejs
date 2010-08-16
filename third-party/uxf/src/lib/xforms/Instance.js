@@ -275,7 +275,14 @@ Instance.prototype.insertNodeset = function ( oContext, ns, atExpr, position, or
 			// If it is in range, it is used.  Otherwise, if it
 			// is too big or isNaN, then it is set to the nodeset size
 			//
-			at = (atExpr) ? Math.round(this.evalXPath(atExpr, oContext).numberValue()) : ns.length;
+			if (atExpr) {
+				var atContext = UX.beget(oContext);
+				atContext.size = ns.length;
+				atContext.position = 1;
+				at = Math.round(this.evalXPath(atExpr, atContext).numberValue());
+			} else {
+				at = ns.length;
+			}
 			at = at < 1 ? 1 : (at <= ns.length ? at : ns.length);
 
 			insertLocationNode = ns[at-1];
