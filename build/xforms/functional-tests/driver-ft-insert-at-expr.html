@@ -1,0 +1,84 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			<title>Functional test for insert with @at xpath expression last()</title>
+		</head>
+		<body>
+			<table cellpadding="1" cellspacing="1" border="1">
+				<tbody>
+					<tr>
+						<td>open</td>
+						<td>ft-insert-at-expr.html</td>
+						<td></td>
+						<td>Opens the form</td>
+					</tr>
+					<tr>
+						<td>assertTitle</td>
+						<td>Test insert with @at xpath expression</td>
+						<td></td>
+						<td>Makes sure this is the right form</td>
+					</tr>
+					<tr>
+						<td>waitForModelReady</td>
+						<td></td>
+						<td></td>
+						<td>Wait for the XForms processor to initialise.</td>
+					</tr>
+					<tr>
+						<td>assertElementPresent</td>
+						<td>insert-number</td>
+						<td></td>
+						<td>Checks that insert is in the form</td>
+					</tr>
+					<tr>
+						<td>assertElementPresent</td>
+						<td>output-pos-1</td>
+						<td></td>
+						<td>Checks that output is in the form</td>
+					</tr>
+					<tr>
+						<td>assertElementPresent</td>
+						<td>output-pos-2</td>
+						<td></td>
+						<td>Checks that output is in the form</td>
+					</tr>
+					<tr>
+						<td>assertElementPresent</td>
+						<td>output-pos-3</td>
+						<td></td>
+						<td>Checks that output is in the form</td>
+					</tr>
+					<tr>
+						<td>assertElementPresent</td>
+						<td>output-pos-4</td>
+						<td></td>
+						<td>Checks that output is in the form</td>
+					</tr>
+					<tr>
+						<td>verifyXFormsControlValue</td>
+						<td>output-pos-1</td>
+						<td>1</td>
+						<td>Checks that output has the right value</td>
+					</tr>
+					<tr>
+						<td>verifyXFormsControlValue</td>
+						<td>output-pos-2</td>
+						<td>2</td>
+						<td>Checks that output has the right value</td>
+					</tr>
+					<tr>
+						<td>verifyXFormsControlValue</td>
+						<td>output-pos-3</td>
+						<td>3</td>
+						<td>Checks that output has the right value</td>
+					</tr>
+					<tr>
+						<td>verifyXFormsControlValue</td>
+						<td>output-pos-4</td>
+						<td>4</td>
+						<td>Checks that output has the right value</td>
+					</tr>
+				</tbody>
+			</table>
+		</body>
+	</html>

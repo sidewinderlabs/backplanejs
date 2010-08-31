@@ -1,0 +1,43 @@
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ev="http://www.w3.org/2001/xml-events" 
+	xmlns:xf="http://www.w3.org/2002/xforms"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	>
+	<head>
+		<title>Test insert with @at xpath expression</title>
+
+		<script src="/backplanejs/backplane.js" type="text/javascript">/**/</script>
+		<link rel="stylesheet" href="/backplanejs/assets/backplane.css"></link>
+	</head>
+	<body>
+		<xf:model>
+			<xf:instance xmlns="">
+				<number_lists>
+					<number_list>
+						<number>1</number>
+						<number>2</number>
+						<number>4</number>
+					</number_list>
+					<to_insert>
+						<number>3</number>
+					</to_insert>
+				</number_lists>
+				</xf:instance>
+				<xf:insert ev:event="xforms-ready" nodeset="number_list/number" at="last()" position="before" origin="to_insert/number" id="insert-number"></xf:insert>
+			</xf:model>
+			<xf:output value="number_list/number[position()=1]" id="output-pos-1">
+					<xf:label>Number in position 1:</xf:label>
+			</xf:output>
+			<xf:output value="number_list/number[position()=2]" id="output-pos-2">
+					<xf:label>Number in position 2:</xf:label>
+			</xf:output>
+			<xf:output value="number_list/number[position()=3]" id="output-pos-3">
+					<xf:label>Number in position 3:</xf:label>
+			</xf:output>
+			<xf:output value="number_list/number[position()=4]" id="output-pos-4">
+					<xf:label>Number in position 4:</xf:label>
+			</xf:output>
+		</body>
+</html>
