@@ -37,7 +37,7 @@
 				fork="true"
 				failonerror="true"
 			>
-				<arg line="-htmlSuite &quot;@{browser}&quot; &quot;@{startURL}&quot; &quot;@{suite}&quot; &quot;@{outputDir}/results-@{browser}.html&quot;"/>
+				<arg line="-htmlSuite &quot;@{browser}&quot; &quot;@{startURL}&quot; &quot;@{suite}&quot; &quot;@{outputDir}/results.html&quot;"/>
 				<arg line="-port @{port}" />
 				<arg line="-timeout @{timeout}"/>
 			</java>

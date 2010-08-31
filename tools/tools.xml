@@ -284,7 +284,7 @@ in your own build.xml.
 				</waitfor>
 				<selenese
 					suite="${functional.test.suite}"
-					browser="${selenese.browsers}"
+					browser="${selenium-rc.browsers}"
 					outputDir="${reports.dir}"
 					startURL="http://${gae.host}:${gae.port}/functional-tests/"
 					multiWindow="true"
