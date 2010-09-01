@@ -30,7 +30,7 @@
 		<attribute name="startURL" />
 		<attribute name="multiWindow" />
 		<attribute name="port" />
-		<attribute name="timeout" default="30" />
+		<attribute name="timeout" default="300" />
 		<sequential>
 			<java
 				jar="${selenium-rc.base.dir}/selenium-server.jar"
