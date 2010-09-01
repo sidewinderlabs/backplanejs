@@ -17,29 +17,28 @@
 // Set up various flags for use by the Ubiquity library(ies)
 
 (function(){
+	var ua = navigator.userAgent.toLowerCase();
 
-var ua = navigator.userAgent.toLowerCase();
-UX.userAgent = ua;
+	UX.userAgent = ua;
 
-UX.isFF2 = /firefox\/2/.test(ua);
-UX.isFF3 = /firefox\/3/.test(ua);
-UX.isFF = /firefox/.test(ua);
+	UX.isFF2 = /firefox\/2/.test(ua);
+	UX.isFF3 = /firefox\/3/.test(ua);
+	UX.isFF = /firefox/.test(ua);
 
-UX.isIE6 = /msie 6/.test(ua);
-UX.isIE7 = /msie 7/.test(ua);
-UX.isIE8 = /msie 8/.test(ua);
-UX.isIE = /msie/.test(ua);
+	UX.isIE6 = /msie 6/.test(ua);
+	UX.isIE7 = /msie 7/.test(ua);
+	UX.isIE8 = /msie 8/.test(ua);
+	UX.isIE = /msie/.test(ua);
 
-UX.isChrome = /chrome/.test(ua)
-UX.isSafari = /safari/.test(ua) && !UX.isChrome;
-UX.isWebKit = /safari/.test(ua);
+	UX.isChrome = /chrome/.test(ua)
+	UX.isWebKit = /safari/.test(ua);
+	UX.isSafari = UX.isWebKit && !UX.isChrome;
 
-UX.isOpera = /opera/.test(ua);
+	UX.isOpera = /opera/.test(ua);
 
-UX.isXHTML = !!(document.xmlVersion || (document.contentType && document.contentType === "application/xhtml+xml"));
+	UX.isXHTML = !!(document.xmlVersion || (document.contentType && document.contentType === "application/xhtml+xml"));
 
-UX.hasDecorationSupport = UX.isIE || UX.isFF;
+	UX.hasDecorationSupport = UX.isIE;
 
-UX.isQuirksMode = document.compatMode === "BackCompat";
-
+	UX.isQuirksMode = document.compatMode === "BackCompat";
 })();
