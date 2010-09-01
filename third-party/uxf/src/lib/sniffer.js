@@ -15,25 +15,31 @@
  */
 
 // Set up various flags for use by the Ubiquity library(ies)
-UX.userAgent = navigator.userAgent;
 
-UX.isFF2 = UX.userAgent.toUpperCase().indexOf("FIREFOX/2.") != -1;
-UX.isFF3 = UX.userAgent.toUpperCase().indexOf("FIREFOX/3.") != -1;
-UX.isFF = UX.isFF2 || UX.isFF3;
+(function(){
 
-UX.isIE6 = UX.userAgent.toUpperCase().indexOf("MSIE 6.") != -1;
-UX.isIE7 = UX.userAgent.toUpperCase().indexOf("MSIE 7.") != -1;
-UX.isIE8 = UX.userAgent.toUpperCase().indexOf("MSIE 8.") != -1;
-UX.isIE = UX.isIE6 || UX.isIE7 || UX.isIE8;
+var ua = navigator.userAgent.toLowerCase();
+UX.userAgent = ua;
 
-UX.isChrome = UX.userAgent.toUpperCase().indexOf("CHROME/") != -1;
-UX.isSafari = UX.userAgent.toUpperCase().indexOf("SAFARI/") != -1 && UX.userAgent.toUpperCase().indexOf("CHROME/") == -1;
-UX.isWebKit = UX.isChrome || UX.isSafari;
+UX.isFF2 = /firefox\/2/.test(ua);
+UX.isFF3 = /firefox\/3/.test(ua);
+UX.isFF = /firefox/.test(ua);
 
-UX.isOpera = UX.userAgent.toUpperCase().indexOf("OPERA/") != -1;
+UX.isIE6 = /msie 6/.test(ua);
+UX.isIE7 = /msie 7/.test(ua);
+UX.isIE8 = /msie 8/.test(ua);
+UX.isIE = /msie/.test(ua);
 
-UX.isXHTML = (document.xmlVersion || (document.contentType && document.contentType === "application/xhtml+xml")) ? true : false;
+UX.isChrome = /chrome/.test(ua)
+UX.isSafari = /safari/.test(ua) && !UX.isChrome;
+UX.isWebKit = /safari/.test(ua);
 
-UX.hasDecorationSupport = UX.isIE;
+UX.isOpera = /opera/.test(ua);
+
+UX.isXHTML = !!(document.xmlVersion || (document.contentType && document.contentType === "application/xhtml+xml"));
+
+UX.hasDecorationSupport = UX.isIE || UX.isFF;
 
 UX.isQuirksMode = document.compatMode === "BackCompat";
+
+})();
