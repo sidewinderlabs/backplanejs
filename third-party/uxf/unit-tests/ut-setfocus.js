@@ -17,7 +17,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 var suiteSetFocus = new YAHOO.tool.TestSuite({
 	name : "Test setfocus module"
 });
@@ -38,7 +37,11 @@ suiteSetFocus.add(
 			this.input.id = "inputTest";
 			this.input.m_value = this.createElement("input", null, this.input);
 			this.input.m_proxy = {};
-			this.input.m_proxy.enabled = { getValue: function () { return true; } };
+		this.input.m_proxy.enabled = {
+			getValue: function() {
+				return true;
+			}
+		};
 		},
 
 		tearDown: function() {

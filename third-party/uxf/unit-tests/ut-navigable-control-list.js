@@ -11,12 +11,15 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 (function(){
 	var suiteNavigableControlList;
 
-	var returnTrue = function () { return true; };
-	var returnFalse = function () { return false; };
+	var returnTrue = function() {
+		return true;
+	};
+	var returnFalse = function() {
+		return false;
+	};
 
 	YAHOO.tool.TestRunner.add(new YAHOO.tool.TestCase({
 		name: "Testing the NavigableControlList object",
@@ -41,11 +44,31 @@
 		},
 
 		testGetFirstControl: function () {
-			var control0 = { isNavigableControl: true, navIndex: 0, isEnabled: returnTrue },
-			    control1a = { isNavigableControl: true, navIndex: 1, isEnabled: returnFalse },
-			    control1b = { isNavigableControl: true, navIndex: 1, isEnabled: returnTrue },
-			    control2a = { isNavigableControl: true, navIndex: 2, isEnabled: returnTrue },
-			    control2b = { isNavigableControl: true, navIndex: 2, isEnabled: returnTrue };
+			var control0 = {
+				isNavigableControl: true,
+				navIndex: 0,
+				isEnabled: returnTrue
+			},
+				control1a = {
+				isNavigableControl: true,
+				navIndex: 1,
+				isEnabled: returnFalse
+			},
+				control1b = {
+				isNavigableControl: true,
+				navIndex: 1,
+				isEnabled: returnTrue
+			},
+				control2a = {
+				isNavigableControl: true,
+				navIndex: 2,
+				isEnabled: returnTrue
+			},
+				control2b = {
+				isNavigableControl: true,
+				navIndex: 2,
+				isEnabled: returnTrue
+			};
 
 			YAHOO.util.Assert.isNull(this.ncl.getFirstControl());
 
@@ -66,13 +89,41 @@
 		},
 
 		testGetLastControl: function () {
-			var control0 = { isNavigableControl: true, navIndex: 0, isEnabled: returnTrue },
-			    control1 = { isNavigableControl: true, navIndex: 1, isEnabled: returnTrue },
-			    control2 = { isNavigableControl: true, navIndex: 2, isEnabled: returnTrue },
-			    control3a = { isNavigableControl: true, navIndex: 3, isEnabled: returnTrue },
-			    control3b = { isNavigableControl: true, navIndex: 3, isEnabled: returnTrue },
-			    control3c = { isNavigableControl: true, navIndex: 3, isEnabled: returnFalse },
-			    control4 = { isNavigableControl: true, navIndex: 4, isEnabled: returnTrue };
+			var control0 = {
+				isNavigableControl: true,
+				navIndex: 0,
+				isEnabled: returnTrue
+			},
+				control1 = {
+				isNavigableControl: true,
+				navIndex: 1,
+				isEnabled: returnTrue
+			},
+				control2 = {
+				isNavigableControl: true,
+				navIndex: 2,
+				isEnabled: returnTrue
+			},
+				control3a = {
+				isNavigableControl: true,
+				navIndex: 3,
+				isEnabled: returnTrue
+			},
+				control3b = {
+				isNavigableControl: true,
+				navIndex: 3,
+				isEnabled: returnTrue
+			},
+				control3c = {
+				isNavigableControl: true,
+				navIndex: 3,
+				isEnabled: returnFalse
+			},
+				control4 = {
+				isNavigableControl: true,
+				navIndex: 4,
+				isEnabled: returnTrue
+			};
 
 			YAHOO.util.Assert.isNull(this.ncl.getLastControl());
 
@@ -99,13 +150,41 @@
 		},
 
 		testGetNextControl: function () {
-			var control0 = { isNavigableControl: true, navIndex: 0, isEnabled: returnTrue },
-			    control1 = { isNavigableControl: true, navIndex: 1, isEnabled: returnTrue },
-			    control2 = { isNavigableControl: true, navIndex: 2, isEnabled: returnTrue },
-			    control3a = { isNavigableControl: true, navIndex: 3, isEnabled: returnTrue },
-			    control3b = { isNavigableControl: true, navIndex: 3, isEnabled: returnTrue },
-			    control3c = { isNavigableControl: true, navIndex: 3, isEnabled: returnFalse },
-			    control4 = { isNavigableControl: true, navIndex: 4, isEnabled: returnTrue };
+			var control0 = {
+				isNavigableControl: true,
+				navIndex: 0,
+				isEnabled: returnTrue
+			},
+				control1 = {
+				isNavigableControl: true,
+				navIndex: 1,
+				isEnabled: returnTrue
+			},
+				control2 = {
+				isNavigableControl: true,
+				navIndex: 2,
+				isEnabled: returnTrue
+			},
+				control3a = {
+				isNavigableControl: true,
+				navIndex: 3,
+				isEnabled: returnTrue
+			},
+				control3b = {
+				isNavigableControl: true,
+				navIndex: 3,
+				isEnabled: returnTrue
+			},
+				control3c = {
+				isNavigableControl: true,
+				navIndex: 3,
+				isEnabled: returnFalse
+			},
+				control4 = {
+				isNavigableControl: true,
+				navIndex: 4,
+				isEnabled: returnTrue
+			};
 
 			YAHOO.util.Assert.isNull(this.ncl.getNextControl());
 
@@ -126,13 +205,41 @@
 		},
 
 		testGetPreviousControl: function () {
-			var control0 = { isNavigableControl: true, navIndex: 0, isEnabled: returnTrue },
-			    control1 = { isNavigableControl: true, navIndex: 1, isEnabled: returnTrue },
-			    control2 = { isNavigableControl: true, navIndex: 2, isEnabled: returnTrue },
-			    control3a = { isNavigableControl: true, navIndex: 3, isEnabled: returnTrue },
-			    control3b = { isNavigableControl: true, navIndex: 3, isEnabled: returnTrue },
-			    control3c = { isNavigableControl: true, navIndex: 3, isEnabled: returnFalse },
-			    control4 = { isNavigableControl: true, navIndex: 4, isEnabled: returnTrue };
+			var control0 = {
+				isNavigableControl: true,
+				navIndex: 0,
+				isEnabled: returnTrue
+			},
+				control1 = {
+				isNavigableControl: true,
+				navIndex: 1,
+				isEnabled: returnTrue
+			},
+				control2 = {
+				isNavigableControl: true,
+				navIndex: 2,
+				isEnabled: returnTrue
+			},
+				control3a = {
+				isNavigableControl: true,
+				navIndex: 3,
+				isEnabled: returnTrue
+			},
+				control3b = {
+				isNavigableControl: true,
+				navIndex: 3,
+				isEnabled: returnTrue
+			},
+				control3c = {
+				isNavigableControl: true,
+				navIndex: 3,
+				isEnabled: returnFalse
+			},
+				control4 = {
+				isNavigableControl: true,
+				navIndex: 4,
+				isEnabled: returnTrue
+			};
 
 			YAHOO.util.Assert.isNull(this.ncl.getPreviousControl());
 
@@ -153,8 +260,16 @@
 		},
 
 		testGetControlByAccessKey: function () {
-			var control1 = { isNavigableControl: true, accessKey: '1', navIndex: 0 },
-			    control2 = { isNavigableControl: true, accessKey: 'B', navIndex: 0 };
+			var control1 = {
+				isNavigableControl: true,
+				accessKey: '1',
+				navIndex: 0
+			},
+				control2 = {
+				isNavigableControl: true,
+				accessKey: 'B',
+				navIndex: 0
+			};
 
 			YAHOO.util.Assert.isNull(this.ncl.getControlByAccessKey(control1.accessKey.charCodeAt(0)));
 			YAHOO.util.Assert.isNull(this.ncl.getControlByAccessKey(control2.accessKey.charCodeAt(0)));

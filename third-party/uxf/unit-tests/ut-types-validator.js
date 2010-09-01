@@ -24,23 +24,24 @@ var Assert = YAHOO.util.Assert;
 var XML_SCHEMA_NS = "http://www.w3.org/2001/XMLSchema";
 var XFORMS_NS = "http://www.w3.org/2002/xforms";
 
+
+
 function validateXFormsData(datatype, value) {
 	return Validator.validateValue(XFORMS_NS, datatype, value);
 };
+
+
 
 function validateSchemaData(datatype, value) {
 	return Validator.validateValue(XML_SCHEMA_NS, datatype, value);
 };
 
-
 var oXMLSchemaTypeTest = new YAHOO.tool.TestCase({
     name        : "Test XML Schema types validation",
-    setUp       :   function() {
-    },  
-    tearDown : function() {
-    }, // tearDown()
-    test:  
-    function() {
+	setUp: function() {},
+	tearDown: function() {},
+	// tearDown()
+	test: function() {
          // dateTime
          Assert.isTrue(validateSchemaData("dateTime", "1999-05-31T13:20:00-05:00"), "dateTime '1999-05-31T13:20:00-05:00' failed to return true");
          Assert.isFalse(validateSchemaData("dateTime", "1999-MM-DDT13:20:00-05:00"), "dateTime '1999-MM-DDT13:20:00-05:00' failed to return false");
@@ -163,12 +164,10 @@ var oXMLSchemaTypeTest = new YAHOO.tool.TestCase({
 
 var oXFormsBultinPrimitiveTypeTest = new YAHOO.tool.TestCase({
     name        : "Test XForms built-in primitive types validation",
-    setUp       :   function() {
-    },  
-    tearDown : function() {
-    }, // tearDown()
-    test:  
-    function() {
+	setUp: function() {},
+	tearDown: function() {},
+	// tearDown()
+	test: function() {
          // dateTime
          Assert.isTrue(validateXFormsData("dateTime", "1999-05-31T13:20:00-05:00"), "dateTime '1999-05-31T13:20:00-05:00' failed to return true");
          Assert.isFalse(validateXFormsData("dateTime", "1999-MM-DDT13:20:00-05:00"), "dateTime '1999-MM-DDT13:20:00-05:00' failed to return false");
@@ -222,12 +221,10 @@ var oXFormsBultinPrimitiveTypeTest = new YAHOO.tool.TestCase({
 
 var oXFormsBultinDerivedTypeTest = new YAHOO.tool.TestCase({
     name        : "Test XForms built-in derived types validation",
-    setUp       :   function() {
-    },  
-    tearDown : function() {
-    }, // tearDown()
-    test:  
-    function() {
+	setUp: function() {},
+	tearDown: function() {},
+	// tearDown()
+	test: function() {
          // normalizedString
          Assert.isTrue(validateXFormsData("normalizedString", "AString"), "normalizedString 'AString' failed to return true");
          Assert.isFalse(validateXFormsData("normalizedString", "A String"), "normalizedString 'A String' failed to return false");
@@ -312,10 +309,7 @@ var oXFormsDayTimeDurationTypeTest = new YAHOO.tool.TestCase({
 	this.testDIV = document.createElement( "div" );
 	this.testInstance = new Instance( this.testDIV );
 	this.testInstance.replaceDocument(
-		xmlParse(
-			"<ID xmlns=''></ID>"
-		)
-	);
+		xmlParse("<ID xmlns=''></ID>"));
     },
     
     tearDown : function() {
@@ -324,10 +318,9 @@ var oXFormsDayTimeDurationTypeTest = new YAHOO.tool.TestCase({
 		delete this.testInstance;
 		this.testInstance = null;	
 		return;
-    }, // tearDown()
-    
-    testDayTimeDurationType:  
-    function() {
+	},
+	// tearDown()
+	testDayTimeDurationType: function() {
     	Assert.isTrue(validateXFormsData("dayTimeDuration", "P5DT3H4M2S"), "dayTimeDuration P5DT3H4M2S failed to return true");
     	Assert.isFalse(validateXFormsData("dayTimeDuration", "Y2M30DSS"), "dayTimeDuration Y2M30DSS failed to return true");
     	Assert.isTrue(validateXFormsData("dayTimeDuration", "P1Y2M"), "dayTimeDuration P1Y2M failed to return true");
@@ -341,10 +334,7 @@ var oXFormsYearMonthDurationTypeTest = new YAHOO.tool.TestCase({
 	this.testDIV = document.createElement( "div" );
 	this.testInstance = new Instance( this.testDIV );
 	this.testInstance.replaceDocument(
-		xmlParse(
-			"<ID xmlns=''></ID>"
-		)
-	);
+		xmlParse("<ID xmlns=''></ID>"));
 
     },
     
@@ -354,10 +344,9 @@ var oXFormsYearMonthDurationTypeTest = new YAHOO.tool.TestCase({
 		delete this.testInstance;
 		this.testInstance = null;		
 		return;
-    }, // tearDown()
-    
-    testYearMonthDurationType:  
-    function() {
+	},
+	// tearDown()
+	testYearMonthDurationType: function() {
     	Assert.isTrue(validateXFormsData("yearMonthDuration", "P1Y2M"), "yearMonthDuration P1Y2M failed to return true");
     	Assert.isFalse(validateXFormsData("yearMonthDuration", "P34MX689Y"), "yearMonthDuration P34MX689Y failed to return false");
     	Assert.isTrue(validateXFormsData("yearMonthDuration", "PT1H1M6S"), "yearMonthDuration PT1H1M6S failed to return true");
@@ -367,13 +356,12 @@ var oXFormsYearMonthDurationTypeTest = new YAHOO.tool.TestCase({
 
 var oXFormsEmailTypeTest = new YAHOO.tool.TestCase({
     name        : "Test xf:email validation",
-    setUp       :   function() {
-    },  
+	setUp: function() {},
     tearDown : function() {
 		return;
-    }, // tearDown()    
-    testEmailType:  
-    function() {
+	},
+	// tearDown()    
+	testEmailType: function() {
     	Assert.isTrue(validateXFormsData("email", "editors@example.com"), "email editors@example.com failed to return true");
     	Assert.isFalse(validateXFormsData("email", "editors{at}example{dot}info"), "email editors{at}example{dot}info failed to return false");
     	Assert.isTrue(validateXFormsData("email", "~my_mail+{nospam}$?@sub-domain.example.info"), "email ~my_mail+{nospam}$?@sub-domain.example.info failed to return true");
@@ -383,13 +371,12 @@ var oXFormsEmailTypeTest = new YAHOO.tool.TestCase({
 
 var oXFormsCardNumberTypeTest = new YAHOO.tool.TestCase({
     name        : "Test xf:card-number validation",
-    setUp       :   function() {
-    },  
+	setUp: function() {},
     tearDown : function() {
 		return;
-    }, // tearDown() 
-    testCardNumberType:
-    function() {
+	},
+	// tearDown() 
+	testCardNumberType: function() {
     	Assert.isTrue(validateXFormsData("card-number", "012345678910"), "card-number 012345678910 failed to return true");
     	Assert.isTrue(validateXFormsData("card-number", "1234567891011121314"), "card-number 1234567891011121314 failed to return true");
     	Assert.isFalse(validateXFormsData("card-number", "0II23581321"), "card-number 0II23581321 failed to return false");
@@ -397,7 +384,6 @@ var oXFormsCardNumberTypeTest = new YAHOO.tool.TestCase({
     	Assert.isTrue(validateXFormsData("card-number", "4111111111111111"), "card-number 4111111111111111 failed to return true");
     }    
 });
-
 
 var suiteTypeValidator = new YAHOO.tool.TestSuite("Test Type Validator");
 suiteTypeValidator.add(oXMLSchemaTypeTest);

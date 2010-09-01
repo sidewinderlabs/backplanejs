@@ -17,7 +17,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 var suiteContainer = new YAHOO.tool.TestSuite({
 	name : "Test container module"
 });
@@ -40,7 +39,11 @@ suiteContainer.add(
 		},
 
 		testGiveFocusXFormsControl: function() {
-			this.container.m_proxy.enabled = { getValue: function () { return true; } };
+		this.container.m_proxy.enabled = {
+			getValue: function() {
+				return true;
+			}
+		};
 
 			this.decorateAsControl(this.containee);
 
@@ -53,11 +56,19 @@ suiteContainer.add(
 		},
 
 		testGiveFocusXFormsSubContainer: function() {
-			this.container.m_proxy.enabled = { getValue: function () { return true; } };
+		this.container.m_proxy.enabled = {
+			getValue: function() {
+				return true;
+			}
+		};
 
 			DECORATOR.extend(this.containee, new Container(this.containee), false);
 			this.containee.m_proxy = {};
-			this.containee.m_proxy.enabled = { getValue: function () { return true; } };
+		this.containee.m_proxy.enabled = {
+			getValue: function() {
+				return true;
+			}
+		};
 
 			this.containee.descendant = this.createElement("div", this.containee);
 			this.decorateAsControl(this.containee.descendant);
@@ -72,7 +83,11 @@ suiteContainer.add(
 		},
 
 		testGiveFocusNonXFormsSubContainer: function() {
-			this.container.m_proxy.enabled = { getValue: function () { return true; } };
+		this.container.m_proxy.enabled = {
+			getValue: function() {
+				return true;
+			}
+		};
 
 			this.containee.descendant = this.createElement("div", this.containee);
 			this.decorateAsControl(this.containee.descendant);
@@ -107,7 +122,11 @@ suiteContainer.add(
 		decorateAsControl: function(element) {
 			DECORATOR.extend(element, new Control(element), false);
 			element.m_proxy = {};
-			element.m_proxy.enabled = { getValue: function () { return true; } };
+		element.m_proxy.enabled = {
+			getValue: function() {
+				return true;
+			}
+		};
 			element.m_value = this.createElement("input", element);
 		}
 	}));

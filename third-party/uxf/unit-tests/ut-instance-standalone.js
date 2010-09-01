@@ -1,5 +1,3 @@
-
-
 var suiteInstanceStandalone = new YAHOO.tool.TestSuite({
 	name : "Test instance in standalone mode"
 });
@@ -16,8 +14,7 @@ var caseInstanceStandalone = new YAHOO.tool.TestCase({
 		
 		} 
 	}, 
-	testStoreDOM:
-	function() {
+	testStoreDOM: function() {
     var Assert = YAHOO.util.Assert;
     var someDOM = xmlParse("<x>hello</x>");
     this.testInstance.replaceDocument(someDOM);
@@ -25,8 +22,7 @@ var caseInstanceStandalone = new YAHOO.tool.TestCase({
     
 	},
 
-	testReplaceDOM:
-	function() {
+	testReplaceDOM: function() {
     var Assert = YAHOO.util.Assert;
     var someDOM = xmlParse("<x>hello</x>");
     this.testInstance.replaceDocument(someDOM);
@@ -34,8 +30,7 @@ var caseInstanceStandalone = new YAHOO.tool.TestCase({
     this.testInstance.replaceDocument(someOtherDOM);
     Assert.areEqual(xmlText(this.testInstance.getDocument()),xmlText(someOtherDOM));
 	},
-	testResetDOM:
-	function() {
+	testResetDOM: function() {
     var Assert = YAHOO.util.Assert;
     var someDOM = xmlParse("<x>hello</x>");
     this.testInstance.replaceDocument(someDOM);
@@ -45,8 +40,6 @@ var caseInstanceStandalone = new YAHOO.tool.TestCase({
     Assert.areEqual(xmlText(this.testInstance.getDocument()),xmlText(someDOM));
 	}
 
-
-	
 });
 
 suiteInstanceStandalone.add(caseInstanceStandalone);

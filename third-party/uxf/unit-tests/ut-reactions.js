@@ -2,17 +2,12 @@ var Assert = YAHOO.util.Assert;
 
 var oSuiteRRRR = new YAHOO.tool.TestSuite({
 	name : "Mockobj Test Re... functions",
-	setUp		: 	function()
-	{
-	  
+	setUp: function() {
 	
 	},
-	tearDown	:	function()
-	{
-	}
+	tearDown: function() {}
 
 });
-
 
 var oTestRRRR = new YAHOO.tool.TestCase({
 	name		:	"Test oTestGetPathToModule",
@@ -25,10 +20,7 @@ var oTestRRRR = new YAHOO.tool.TestCase({
 		} 
 	}, 
    
-
-	testAllFunctions:
-	function() {
-	
+	testAllFunctions: function() {
 
 	  build0.performAction();
 	  Assert.areEqual(this.statusDiv.innerHTML, "m0 - rebuild");
@@ -41,9 +33,7 @@ var oTestRRRR = new YAHOO.tool.TestCase({
 	  
 	},
 
-
-	testRebuildWithDifferentModels:
-	function() {
+	testRebuildWithDifferentModels: function() {
 
 	  build0.performAction();
 	  Assert.areEqual(this.statusDiv.innerHTML, "m0 - rebuild");
@@ -54,14 +44,12 @@ var oTestRRRR = new YAHOO.tool.TestCase({
 	  
 	},
 
-	testRebuildWithWrongModelAttribute:
-	function() {
+	testRebuildWithWrongModelAttribute: function() {
     build.performAction();
 	  
 	},
 	
-	testRebuildWithNoModelAttribute:
-	function() {
+	testRebuildWithNoModelAttribute: function() {
     buildFail.performAction();
 	  Assert.areEqual(this.statusDiv.innerHTML, "m0 - rebuild");
 	}

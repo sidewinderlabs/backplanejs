@@ -18,14 +18,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 var suiteXFormsSubmission = new YAHOO.tool.TestSuite({
 	name : "Test xforms-submission module"
 });
 
 suiteXFormsSubmission.add(
-	new YAHOO.tool.TestCase(
-		{
+new YAHOO.tool.TestCase({
 			name: "Test xf:submission @method",
 			
 			setUp: function() {
@@ -69,8 +67,7 @@ suiteXFormsSubmission.add(
 		}));
 
 suiteXFormsSubmission.add(
-	new YAHOO.tool.TestCase(
-		{
+new YAHOO.tool.TestCase({
 			name: "Test Submission application/x-www-url-encoded",
 			
 			setUp: function() {

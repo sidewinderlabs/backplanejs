@@ -17,12 +17,10 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 // Get some XML data to test with
 //
 var ctx = new ExprContext(
-  xmlParse(
-    "<test  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'> \
+xmlParse("<test  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'> \
       <numbers> \
          <number>1</number> \
          <number>2</number> \
@@ -76,11 +74,11 @@ var ctx = new ExprContext(
          <id>a1</id> \
          <id>a2</id> \
       </idlist> \
-    </test>"
-  )
-);
+    </test>"));
 
 var reXsdDate = /^([0-9]{4})\-([0-9]{2})\-([0-9]{2})\T([0-9]{2})\:([0-9]{2})\:([0-9]{2})(((([+-])([0-9]{2})\:([0-9]{2}))|(\Z))?)$/;
+
+
 
 function evalXPath(expr) {
   var expr1 = xpathParse(expr);
@@ -698,7 +696,8 @@ suiteXPathCoreFunctions.add(
     testSecondsFromDateTimeNumericTimezone : function () {
       var Assert = YAHOO.util.Assert;
 
-      Assert.areEqual(-28800, evalXPath('seconds-from-dateTime("1970-01-01T00:00:00-08:00")').numberValue()); /* from spec */
+		Assert.areEqual(-28800, evalXPath('seconds-from-dateTime("1970-01-01T00:00:00-08:00")').numberValue());
+		/* from spec */
     },
 
     testSecondsFromDateTimeFail : function () {
@@ -834,7 +833,6 @@ suiteXPathCoreFunctions.add(
 
       jsDate.setMinutes( jsDate.getMinutes() - jsDate.getTimezoneOffset() ); // Normalise our date
       jsDate.setHours( jsDate.getHours() + 7 ); // Put it into Pacific time, with daylight savings
-
       xpDate.match( /^([0-9]{4})\-([0-9]{2})\-([0-9]{2})\T([0-9]{2})\:([0-9]{2})\:([0-9]{2})([+-])([0-9]{2})\:([0-9]{2})$/ );
 
       Assert.areEqual(jsDate.getFullYear(), RegExp.$1, "adjust-dateTime-to-timezone() returned an incorrect year.");
@@ -1027,9 +1025,7 @@ suiteXPathCoreFunctions.add(
       // to the local timezone should be equal to the result of local-dateTime().
       //
       Assert.areEqual(
-        evalXPath('local-dateTime()').stringValue(),
-        evalXPath('adjust-dateTime-to-timezone(now())').stringValue()
-      );
+		evalXPath('local-dateTime()').stringValue(), evalXPath('adjust-dateTime-to-timezone(now())').stringValue());
     },
 
     testSecondsToAndFromDateTime : function () {
@@ -1256,13 +1252,18 @@ suiteXPathCoreFunctions.add(
           // an object with a handleEvent method as a listener.
           oElement = {};
           oElement.document = document;
-          oElement.document.logger = { log: function(sText, sContext) { } };
+			oElement.document.logger = {
+				log: function(sText, sContext) {}
+			};
           DECORATOR.extend(oElement, new EventTarget(oElement), false);
           oElement.addEventListener("test-event", oListener, false);
       } else {
           // Create an actual DOM element and attach a function as a listener.
           oElement = document.createElement('div');
-          oElement.addEventListener("test-event", function(evt) {oListener.handleEvent(evt);}, false);
+			oElement.addEventListener("test-event", function(evt) {
+				oListener.handleEvent(evt);
+			},
+			false);
       }
 
       // Fire an event with attached context info.
@@ -1288,8 +1289,7 @@ suiteXPathCoreFunctions.add(
 
 // Test javascript functions
 suiteXPathCoreFunctions.add(
-	new YAHOO.tool.TestCase(
-		{
+new YAHOO.tool.TestCase({
 			name: "Test XPath/JS Bridge",
 			
 			setUp: function() {
@@ -1302,7 +1302,9 @@ suiteXPathCoreFunctions.add(
 			
 			testMarshallingOfSupportedTypes: function() {
 				var Assert = YAHOO.util.Assert;
-				UX.global.type = function(value) { return typeof(value); };
+		UX.global.type = function(value) {
+			return typeof(value);
+		};
 				try {
 					Assert.areEqual('string', evalXPath("javascript:type('hello')").stringValue());
 					Assert.areEqual('number', evalXPath("javascript:type(1)").stringValue());
@@ -1314,7 +1316,9 @@ suiteXPathCoreFunctions.add(
 			
 			testUnmarshallingOfSupportedTypes: function() {
 				var Assert = YAHOO.util.Assert;
-				UX.global.bounce = function(x) { return x; };
+		UX.global.bounce = function(x) {
+			return x;
+		};
 				try {
 					Assert.areEqual('hello', evalXPath("javascript:bounce('hello')").stringValue());
 					Assert.areEqual(1, evalXPath("javascript:bounce(1)").numberValue());
@@ -1328,7 +1332,9 @@ suiteXPathCoreFunctions.add(
 			
 			testMultipleParameters: function() {
 				var Assert = YAHOO.util.Assert;
-				UX.global.add = function(a, b) { return a + b; };
+		UX.global.add = function(a, b) {
+			return a + b;
+		};
 				try {
 					Assert.areEqual(3, evalXPath("javascript:add(1, 2)").numberValue());
 					Assert.areEqual('12', evalXPath("javascript:add('1', '2')").stringValue());
@@ -1339,7 +1345,9 @@ suiteXPathCoreFunctions.add(
 			
 			testMarshallingOfUnsupportedTypes: function() {
 				var Assert = YAHOO.util.Assert;
-				UX.global.object = function() { return {}; };
+		UX.global.object = function() {
+			return {};
+		};
 				try {
 					Assert.isFalse(evalXPath("javascript:object(/test/numbers/number)").booleanValue());
 				} finally {
@@ -1350,9 +1358,15 @@ suiteXPathCoreFunctions.add(
 			testUnmarshallingOfUnsupportedTypes: function() {
 				var Assert = YAHOO.util.Assert;
 				UX.global.returnUndefined = function() {};
-				UX.global.returnNull = function() { return null; };
-				UX.global.returnObject = function() { return {}; };
-				UX.global.returnArray = function() { return []; };
+		UX.global.returnNull = function() {
+			return null;
+		};
+		UX.global.returnObject = function() {
+			return {};
+		};
+		UX.global.returnArray = function() {
+			return [];
+		};
 				try {
 					Assert.isFalse(evalXPath("javascript:returnUndefined()").booleanValue());
 					Assert.isFalse(evalXPath("javascript:returnNull()").booleanValue());
@@ -1368,7 +1382,9 @@ suiteXPathCoreFunctions.add(
 
 			testInteroperabilityWithXPathEngine: function() {
 				var Assert = YAHOO.util.Assert;
-				UX.global.number = function(x) { return Number(x); };
+		UX.global.number = function(x) {
+			return Number(x);
+		};
 				try {
 					Assert.areEqual(2, evalXPath("javascript:number(1) + 1").numberValue());
 					Assert.areEqual(2, evalXPath("javascript:number('1') + 1").numberValue());
@@ -1383,9 +1399,7 @@ suiteXPathCoreFunctions.add(
 				Assert.areEqual(false, evalXPath("undefinedNamespace:undefinedFunction()").booleanValue());
 			}
 			
-			
 		}) //new TestCase
-
 );
 suiteXPathCoreFunctions.add(
   new YAHOO.tool.TestCase({

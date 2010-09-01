@@ -1,5 +1,3 @@
-
-
 var suiteModelStandalone = new YAHOO.tool.TestSuite({
 	name : "Test model in standalone mode"
 });
@@ -81,7 +79,6 @@ var caseModelStandalone = new YAHOO.tool.TestCase({
       this.testModel.addInstance(thisInstance);
     }
     
-
     var modelInstances = this.testModel.instances();
     Assert.areSame(modelInstances.length,6); 
 
@@ -90,10 +87,6 @@ var caseModelStandalone = new YAHOO.tool.TestCase({
     Assert.areSame(modelInstances.length,4); 
 	
 	}
-	
-
-
-
 	
 });
 

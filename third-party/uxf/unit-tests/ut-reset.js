@@ -2,9 +2,7 @@ var Assert = YAHOO.util.Assert;
 
 var suiteReset = new YAHOO.tool.TestSuite({
 	name : "Test reset",
-	setUp		: 	function()
-	{
-	}
+	setUp: function() {}
 });
 
 var caseReset = new YAHOO.tool.TestCase({
@@ -24,14 +22,12 @@ var caseReset = new YAHOO.tool.TestCase({
 		} 
 	},
 	
-	testResetOneInstance:
-	function() {
+	testResetOneInstance: function() {
     var instanceDiv = document.createElement("div");
     var testInstance = new Instance(instanceDiv);
     testInstance.replaceDocument(xmlParse("<x>hello</x>"));
     this.testModel.addInstance(testInstance);
     
-
     //Ensure that the new values are as expected, this does not test reset, but ensures that a 
     //  positive test result for reset is a genuine positive
     var val = this.testModel.getValue(".");
@@ -55,8 +51,7 @@ var caseReset = new YAHOO.tool.TestCase({
     
 	},
 	
-	testResetMultipleInstances:
-	function() {
+	testResetMultipleInstances: function() {
 	
     //Set up two instances.
     var instanceDivDE = document.createElement("div");
@@ -78,7 +73,6 @@ var caseReset = new YAHOO.tool.TestCase({
 
     //Ensure that the new values are as expected, this does not test reset, but ensures that a 
     //  positive test result for reset is a genuine positive
-
     val = this.testModel.getValue(".");
     this.Assert.areSame(val.stringValue(),"Tchuess");
     val = this.testModel.getValue("instance('CY')");
@@ -94,9 +88,6 @@ var caseReset = new YAHOO.tool.TestCase({
     this.Assert.areSame(val.stringValue(),"Bore da");
 	}
 
-
-
-	
 });
 
 suiteReset.add(caseReset);

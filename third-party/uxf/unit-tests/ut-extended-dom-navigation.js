@@ -5,6 +5,9 @@
       setUp: function(){
         testDataContainer = document.createElement("div");
         document.body.appendChild(testDataContainer);
+				NamespaceManager.addOutputNamespace('a0', 'http://www.example.org/ns0');
+				NamespaceManager.addOutputNamespace('a1', 'http://www.example.org/ns1');
+
       },
       
       tearDown: function(){
@@ -12,60 +15,51 @@
       },
       
       testSimpleGetFirstNamedNode : function() {
-        testDataContainer.insertAdjacentHTML("beforeEnd",
-          + "<x>"
-          + "  <a0:somenode id='test-extended-DOM-a'></a0:somenode>"
-          + "  <a0:somenode></a0:somenode>"
-          + "  <a0:somenode></a0:somenode>"
-          + "</x>"
-        );
+			testDataContainer.insertAdjacentHTML("beforeEnd", "<x>" + 
+				"  <a0:somenode id='test-extended-DOM-a'></a0:somenode>" + 
+				"  <a0:somenode></a0:somenode>" + 
+				"  <a0:somenode></a0:somenode>" + 
+			"</x>");
         var result = UX.getFirstNodeByName(testDataContainer,"somenode","http://www.example.org/ns0");
         YAHOO.util.Assert.areSame(result,document.getElementById("test-extended-DOM-a"));
       },
       
       testGetFirstNamedNodeWithDifferentFirstNode : function() {
-        testDataContainer.insertAdjacentHTML("beforeEnd",
-          + "<x>"
-          + "  <a1:somenode></a0:somenode>"
-          + "  <a0:somenode id='test-extended-DOM-a'></a0:somenode>"
-          + "  <a0:somenode></a0:somenode>"
-          + "  <a0:somenode></a0:somenode>"
-          + "</x>"
-        );
+			testDataContainer.insertAdjacentHTML("beforeEnd", "<x>" + 
+				"  <a1:somenode></a1:somenode>" + 
+				"  <a0:somenode id='test-extended-DOM-a'></a0:somenode>" + 
+				"  <a0:somenode></a0:somenode>" + 
+				"  <a0:somenode></a0:somenode>" + 
+			"</x>");
         var result = UX.getFirstNodeByName(testDataContainer,"somenode","http://www.example.org/ns0");
         YAHOO.util.Assert.areSame(result,document.getElementById("test-extended-DOM-a"));
       },
       
       testGetFirstNamedNodeFromWithinDifferentFirstNode : function() {
-        testDataContainer.insertAdjacentHTML("beforeEnd",
-          + "<x>"
-          + "  <a1:somenode>"
-          + "    <a0:somenode id='test-extended-DOM-a'></a0:somenode>"
-          + "  </a1:somenode>"
-          + "  <a0:somenode></a0:somenode>"
-          + "  <a0:somenode></a0:somenode>"
-          + "</x>"
-        );
+			testDataContainer.insertAdjacentHTML("beforeEnd", "<x>" + 
+				"  <a1:somenode>" + 
+				"    <a0:somenode id='test-extended-DOM-a'></a0:somenode>" + 
+				"  </a1:somenode>" + 
+				"  <a0:somenode></a0:somenode>" + 
+				"  <a0:somenode></a0:somenode>" + 
+			"</x>");
         var result = UX.getFirstNodeByName(testDataContainer,"somenode","http://www.example.org/ns0");
         YAHOO.util.Assert.areSame(result,document.getElementById("test-extended-DOM-a"));
       }
-    })
-  );
+	}));
 
   var suiteSimpleNextPrevious = new YAHOO.tool.TestSuite({
     name: "Next and Previous where results match nextSibling/previousSibling",
     setUp: function() {
       testDataContainer = document.createElement("div");
       document.body.appendChild(testDataContainer);
-      testDataContainer.insertAdjacentHTML("beforeEnd",
-        "<x>"+
+			testDataContainer.insertAdjacentHTML("beforeEnd", "<x>"+
         "  <a0:somenode id='test-extended-DOM-first'></a0:somenode>"+
         "  <a0:somenode id='test-extended-DOM-a'></a0:somenode>"+
         "  <a0:somenode id='test-extended-DOM-b'></a0:somenode>"+
         "  <a0:somenode id='test-extended-DOM-c'></a0:somenode>"+
         "  <a0:somenode id='test-extended-DOM-last'></a0:somenode>"+
-        "</x>"
-      );
+			"</x>");
     
     },
     
@@ -74,14 +68,12 @@
     }      
   });
 
-  
   var suiteNextPreviousWithInterlopers = new YAHOO.tool.TestSuite({
     name: "Next and Previous where results differ from nextSibling/previousSibling",
     setUp: function() {
       testDataContainer = document.createElement("div");
       document.body.appendChild(testDataContainer);
-      testDataContainer.insertAdjacentHTML("beforeEnd",
-        "<x>"+
+			testDataContainer.insertAdjacentHTML("beforeEnd", "<x>" + 
         "  <a1:somenode id='test-extended-DOM-BEFORE'></a1:somenode>"+
         "  <a0:somenode id='test-extended-DOM-first'></a0:somenode>"+
         "  <a0:somenode id='test-extended-DOM-a'></a0:somenode>"+
@@ -92,8 +84,7 @@
         "  <a1:somenode id='test-extended-DOM-c-AFTER'></a1:somenode>"+
         "  <a0:somenode id='test-extended-DOM-last'></a0:somenode>"+
         "  <a1:somenode id='test-extended-DOM-AFTER'></a1:somenode>"+
-        "</x>"
-      );
+			"</x>");
     
     },
     
@@ -107,8 +98,7 @@
     setUp: function() {
       testDataContainer = document.createElement("div");
       document.body.appendChild(testDataContainer);
-      testDataContainer.insertAdjacentHTML("beforeEnd",
-        "<x>"+
+			testDataContainer.insertAdjacentHTML("beforeEnd", "<x>" + 
         "  <a0:somenode id='test-extended-DOM-first'></a0:somenode>"+
         "  <a1:somenode>"+
         "    <a0:somenode id='test-extended-DOM-a'></a0:somenode>"+
@@ -139,8 +129,7 @@
         "    </a1:somenode>"+
         "  </a1:somenode>"+
         "  <a0:somenode id='test-extended-DOM-last'></a0:somenode>"+
-        "</x>"
-      );
+			"</x>");
     
     },
     
@@ -149,7 +138,6 @@
     }
   });
   
-    
   var caseNextPrevious = new YAHOO.tool.TestCase({
     testGetNextNodeAtEnd : function() {
       var refNode = document.getElementById("test-extended-DOM-last");
@@ -218,8 +206,6 @@
         YAHOO.util.Assert.areSame(result,document.getElementById("test-extended-DOM-g"));
       },
       
-      
-      
       testRunThroughNodes: function () {
         //a-h-a run through.  
         var result, refNode = document.getElementById("test-extended-DOM-first");
@@ -258,12 +244,9 @@
         YAHOO.util.Assert.areSame(result,document.getElementById("test-extended-DOM-first"));
 
       }
-    })
-  );
+	}));
 
   YAHOO.tool.TestRunner.add(suiteSimpleNextPrevious);
   YAHOO.tool.TestRunner.add(suiteNextPreviousWithInterlopers);
   YAHOO.tool.TestRunner.add(suiteNextPreviousWithHeirarchy);
 }());
-
-

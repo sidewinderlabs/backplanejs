@@ -17,7 +17,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 var suiteControl = new YAHOO.tool.TestSuite({
 	name : "Test Control module"
 });
@@ -38,7 +37,11 @@ suiteControl.add(
 		},
 
 		testGiveFocus: function() {
-			this.control.m_proxy.enabled = { getValue: function () { return true; } };
+		this.control.m_proxy.enabled = {
+			getValue: function() {
+				return true;
+			}
+		};
 			this.control.m_value.blur();
 			YAHOO.util.Assert.isFalse(this.control.m_value === document.activeElement || this.control.m_value.contains(document.activeElement));
 			this.control.giveFocus();
@@ -46,7 +49,11 @@ suiteControl.add(
 		},
 
 		testGiveFocusDisabled: function() {
-			this.control.m_proxy.enabled = { getValue: function () { return false; } };
+		this.control.m_proxy.enabled = {
+			getValue: function() {
+				return false;
+			}
+		};
 			this.control.m_value.blur();
 			YAHOO.util.Assert.isFalse(this.control.m_value === document.activeElement || this.control.m_value.contains(document.activeElement));
 			this.control.giveFocus();

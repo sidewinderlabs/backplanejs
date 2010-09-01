@@ -1,8 +1,12 @@
 var Assert = YAHOO.util.Assert; 
 var oTestAddSelectionNamespace = new YAHOO.tool.TestCase({
 	name		:	"Test addSelectionNamespace",
-	setUp		: 	function(){ NamespaceManager.clean();},
-	tearDown	:	function(){ NamespaceManager.clean();},
+	setUp: function() {
+		NamespaceManager.clean();
+	},
+	tearDown: function() {
+		NamespaceManager.clean();
+	},
 
 	_should: { 
 		error: { 
@@ -10,27 +14,22 @@ var oTestAddSelectionNamespace = new YAHOO.tool.TestCase({
 		} 
 	}, 
 
-	testConstruction:
-	function() {
+	testConstruction: function() {
 		Assert.isObject(NamespaceManager);
 	},
 
-	testAddGoodNamespace: 
-	function () {
+	testAddGoodNamespace: function() {
 		Assert.isTrue(NamespaceManager.addSelectionNamespace("xf", "http://www.w3.org/2002/xforms"));
 	},
-	testAddMultiplePrefixes:
-	function () {
+	testAddMultiplePrefixes: function() {
 		NamespaceManager.addSelectionNamespace("xf", "http://www.w3.org/2002/xforms");
 		Assert.isTrue(NamespaceManager.addSelectionNamespace("banana", "http://www.w3.org/2002/xforms"));
 	},
-	testAddMultipleURIs:
-	function () {
+	testAddMultipleURIs: function() {
 		NamespaceManager.addSelectionNamespace("xf", "http://www.w3.org/2002/xforms");
 		NamespaceManager.addSelectionNamespace("xf", "http://www.example.com/eXtremeForgetfulness");
 	},
-	testAddPrefixTwice:
-	function () {
+	testAddPrefixTwice: function() {
 		NamespaceManager.addSelectionNamespace("xf", "http://www.w3.org/2002/xforms");
 		Assert.isFalse(NamespaceManager.addSelectionNamespace("xf", "http://www.w3.org/2002/xforms"));
 	}
@@ -39,28 +38,28 @@ var oTestAddSelectionNamespace = new YAHOO.tool.TestCase({
 
 var oTestAddOutputNamespace = new YAHOO.tool.TestCase({
 	name		:	"Test addOutputNamespace",
-	setUp		: 	function(){ NamespaceManager.clean();},
-	tearDown	:	function(){ NamespaceManager.clean();},
+	setUp: function() {
+		NamespaceManager.clean();
+	},
+	tearDown: function() {
+		NamespaceManager.clean();
+	},
 
-	testAddGoodNamespace:
-	function () {
+	testAddGoodNamespace: function() {
 		Assert.isTrue(NamespaceManager.addOutputNamespace("y","urn:someNamespace"));
 	},
 
-	testGetNamespacePrefix:
-	function () {
+	testGetNamespacePrefix: function() {
 		NamespaceManager.addOutputNamespace("y","urn:someNamespace");
 		var prefixes = NamespaceManager.getOutputPrefixesFromURI("urn:someNamespace");
 		Assert.isArray(prefixes);
 		Assert.areEqual(prefixes[0],"y" );
 	},
-	testAddMultipleNamespacePrefixes:
-	function () {
+	testAddMultipleNamespacePrefixes: function() {
 		NamespaceManager.addOutputNamespace("x","urn:someNamespace");
 		NamespaceManager.addOutputNamespace("y","urn:someNamespace");
 	},
-	testReadNamespacesFromDocument:
-	function () {
+	testReadNamespacesFromDocument: function() {
 		NamespaceManager.readOutputNamespacesFromDocument();
 		var prefixes = NamespaceManager.getOutputPrefixesFromURI("urn:someNamespace");	
 		Assert.isArray(prefixes);
@@ -77,8 +76,12 @@ var oTestAddOutputNamespace = new YAHOO.tool.TestCase({
 
 var oTestTranslateCSS = new YAHOO.tool.TestCase({
 	name		:	"Test translation of CSS Selectors",
-	setUp		: 	function(){ NamespaceManager.clean();},
-	tearDown	:	function(){ NamespaceManager.clean();},
+	setUp: function() {
+		NamespaceManager.clean();
+	},
+	tearDown: function() {
+		NamespaceManager.clean();
+	},
 
 	_should: { 
 		error: { 
@@ -86,63 +89,52 @@ var oTestTranslateCSS = new YAHOO.tool.TestCase({
 		} 
 	}, 
 
-	testNoNamespaceSelector:
-	function() {
+	testNoNamespaceSelector: function() {
 		Assert.areEqual(NamespaceManager.translateCSSSelector("someSelectorElement.someSelectorClass"),"someSelectorElement.someSelectorClass", "The selector translator should leave alone, that with which it has no business.");	
 	},
 
-	testUnknownNamespaceSelector:
-	function() {
+	testUnknownNamespaceSelector: function() {
 		NamespaceManager.addSelectionNamespace("xyz", "urn:someNamespace");
 		NamespaceManager.translateCSSSelector("x|quirkafleeg");
 	},
-	testHomographousNamespaceSelector:
-	function() {
+	testHomographousNamespaceSelector: function() {
 		NamespaceManager.addSelectionNamespace("x", "urn:someNamespace");
 		NamespaceManager.addOutputNamespace("x","urn:someNamespace");
 		Assert.areEqual(NamespaceManager.translateCSSSelector("x|quirkafleeg"), "x\\:quirkafleeg");
 	},
-	testHeterographousNamespaceSelector:
-	function() {
+	testHeterographousNamespaceSelector: function() {
 		NamespaceManager.addSelectionNamespace("y", "urn:someNamespace");
 		NamespaceManager.addOutputNamespace("x","urn:someNamespace");
 		Assert.areEqual(NamespaceManager.translateCSSSelector("y|quirkafleeg"), "x\\:quirkafleeg");
 	},
-	testSelectorWithMultipleNamespaceInstances:
-	function() {
+	testSelectorWithMultipleNamespaceInstances: function() {
 		NamespaceManager.addSelectionNamespace("y", "urn:someNamespace");
 		NamespaceManager.addOutputNamespace("x","urn:someNamespace");
 		Assert.areEqual(NamespaceManager.translateCSSSelector("y|quirkafleeg y|performance"), "x\\:quirkafleeg x\\:performance");
 	},
-	testSelectorWithMultipleDifferentNamespaceInstances:
-	function() {
+	testSelectorWithMultipleDifferentNamespaceInstances: function() {
 		NamespaceManager.addSelectionNamespace("x", "urn:someNamespace");
 		NamespaceManager.addOutputNamespace("x","urn:someNamespace");
 		NamespaceManager.addSelectionNamespace("y", "urn:someOtherNamespace");
 		NamespaceManager.addOutputNamespace("y","urn:someOtherNamespace");
 		Assert.areEqual(NamespaceManager.translateCSSSelector("x|quirkafleeg y|performance"), "x\\:quirkafleeg y\\:performance");
 	},
-	testSelectorWithMultipleDifferentOutputNamespacePrefixes:
-	function() {
+	testSelectorWithMultipleDifferentOutputNamespacePrefixes: function() {
 		NamespaceManager.addSelectionNamespace("x", "urn:someNamespace");
 		NamespaceManager.addOutputNamespace("x","urn:someNamespace");
 		NamespaceManager.addOutputNamespace("y","urn:someNamespace");
 		Assert.areEqual(NamespaceManager.translateCSSSelector("x|quirkafleeg"), "x\\:quirkafleeg, y\\:quirkafleeg");
 	}, 
-	testSelectorWithMultipleDifferentNamespaceInstancesAndMultiplePrefixesEach:
-	function() {
+	testSelectorWithMultipleDifferentNamespaceInstancesAndMultiplePrefixesEach: function() {
 		NamespaceManager.addSelectionNamespace("x", "urn:someNamespace");
 		NamespaceManager.addOutputNamespace("x","urn:someNamespace");
 		NamespaceManager.addOutputNamespace("x0","urn:someNamespace");
 		NamespaceManager.addSelectionNamespace("y", "urn:someOtherNamespace");
 		NamespaceManager.addOutputNamespace("y","urn:someOtherNamespace");
 		NamespaceManager.addOutputNamespace("y0","urn:someOtherNamespace");
-		Assert.areEqual(NamespaceManager.translateCSSSelector("x|quirkafleeg y|performance"),
-			"x\\:quirkafleeg y\\:performance, x0\\:quirkafleeg y\\:performance, x\\:quirkafleeg y0\\:performance, x0\\:quirkafleeg y0\\:performance"
-		);
+		Assert.areEqual(NamespaceManager.translateCSSSelector("x|quirkafleeg y|performance"), "x\\:quirkafleeg y\\:performance, x0\\:quirkafleeg y\\:performance, x\\:quirkafleeg y0\\:performance, x0\\:quirkafleeg y0\\:performance");
 	},
-	testSelectorWithMultipleDifferentNamespaceInstancesAndMultiplePrefixesEachUsingDocumentNamespaces:
-	function() {
+	testSelectorWithMultipleDifferentNamespaceInstancesAndMultiplePrefixesEachUsingDocumentNamespaces: function() {
 		NamespaceManager.readOutputNamespacesFromDocument();
 		NamespaceManager.addSelectionNamespace("x", "http://www.example.org/ns0");
 		NamespaceManager.addSelectionNamespace("y", "http://www.example.org/ns1");
@@ -160,8 +152,7 @@ var oTestTranslateCSS = new YAHOO.tool.TestCase({
 
 var oSuiteGetElementsByTagName = new YAHOO.tool.TestSuite({
 	name : "Test getElementsByTagNameNs",
-	setUp		: 	function()
-	{
+	setUp: function() {
 		this.testElement = document.createElement("div");
 		
 		if (UX.isXHTML) {
@@ -203,8 +194,7 @@ var oSuiteGetElementsByTagName = new YAHOO.tool.TestSuite({
 		NamespaceManager.clean();
 		NamespaceManager.readOutputNamespacesFromDocument();
 	},
-	tearDown	:	function()
-	{
+	tearDown: function() {
 		NamespaceManager.clean();
 		this.testElement.parentNode.removeChild(this.testElement);
 		delete this.testElement;
@@ -215,38 +205,32 @@ var oSuiteGetElementsByTagName = new YAHOO.tool.TestSuite({
 var oTestGetElementsByTagName = new YAHOO.tool.TestCase({
 	name		:	"Test getElementsByTagNameNS",
 	
-	testGetNoElementsWithAnyNamespace:
-	function() {
+	testGetNoElementsWithAnyNamespace: function() {
 		var elements = NamespaceManager.getElementsByTagNameNS(document.body, "", "ThereIsNoElementLikeThis");
 		Assert.areEqual(elements.length, 0);
 	},
 	
-	testGetElementsWithWrongNamespace:
-	function() {
+	testGetElementsWithWrongNamespace: function() {
 		var elements = NamespaceManager.getElementsByTagNameNS(document.body, "http://www.example.org/ThereIsNoNamespaceLikeThis", "canal");
 		Assert.areEqual(elements.length, 0);
 	},
-	testGetElementsWithNoNamespace:
-	function() {
+	testGetElementsWithNoNamespace: function() {
 		var elements = NamespaceManager.getElementsByTagNameNS(document.body, "", "canal");
 		Assert.areEqual(elements.length, 1);
 		Assert.areEqual(elements[0].getAttribute("id"), "noNamespaceCanal");
 	},
-	testGetElementsWithOnePrefix:
-	function() {
+	testGetElementsWithOnePrefix: function() {
 
 		var elements = NamespaceManager.getElementsByTagNameNS(document.body, "http://www.example.org/ns1", "canal");
 		Assert.areEqual(elements.length, 1);
 		Assert.areEqual(elements[0].getAttribute("id"), "bCanal");
 
 	},
-	testGetElementsWithDifferentPrefixes:
-	function() {
+	testGetElementsWithDifferentPrefixes: function() {
 		var elements = NamespaceManager.getElementsByTagNameNS(document.body, "http://www.example.org/ns0", "canal");
 		Assert.areEqual(elements.length, 2);
 	},
-	testGetOrderOfElementsWithDifferentPrefixes:
-	function() {
+	testGetOrderOfElementsWithDifferentPrefixes: function() {
 		var elements = NamespaceManager.getElementsByTagNameNS(document.body, "http://www.example.org/ns0", "canal");
 		Assert.areEqual(elements.length, 2);
 		Assert.areEqual(elements[0].getAttribute("id"), "aCanal");
@@ -323,7 +307,6 @@ var oTestCompareFullName = new YAHOO.tool.TestCase({
     NamespaceManager.getLowerCaseLocalName("Hello Sailor");
   }
 });
-
 
 oSuiteGetElementsByTagName.add(oTestGetElementsByTagName);
 oSuiteGetElementsByTagName.add(oTestGetLocalName);

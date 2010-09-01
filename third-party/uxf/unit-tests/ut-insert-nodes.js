@@ -9,8 +9,7 @@
 			this.testDIV = document.createElement( "div" );
 			this.testInstance = new Instance( this.testDIV );
             this.testInstance.replaceDocument(
-                xmlParse(
-                    "<po xmlns=''> \
+			xmlParse("<po xmlns=''> \
                          <order> \
                              <item> \
                                 <product>P1</product> \
@@ -30,15 +29,12 @@
                          <subtotal>19.90</subtotal> \
                          <tax>1.00</tax> \
                          <total>20.99</total> \
-                    </po>"
-                )
-            );
+                    </po>"));
             
 			this.originDIV = document.createElement( "div" );
 			this.originInstance = new Instance( this.originDIV );
             this.originInstance.replaceDocument(
-                xmlParse(
-                    "<po xmlns=''> \
+			xmlParse("<po xmlns=''> \
                          <prototype> \
                              <item> \
                                 <product></product> \
@@ -47,12 +43,10 @@
                                 <itemtotal>0</itemtotal> \
                              </item> \
                          </prototype> \
-                    </po>"
-                )
-            );
+                    </po>"));
 			return;
-		},// setUp()
-
+		},
+		// setUp()
 		tearDown : function() {
 			delete this.testDIV;
 			this.testDIV = null;
@@ -67,7 +61,6 @@
 			this.originInstance = null;
 			return;
 		}// tearDown()
-		
 	});
 
 	// Add test for insert nodes.
@@ -79,49 +72,34 @@
 			setUp : function() {
 				// Check that the initial data is correct.
 				//
-				Assert.areEqual(2, suite.testInstance.evalXPath('count(*/item)').numberValue(),
-					"Instance not initialised correctly");
-				Assert.areEqual(1, suite.originInstance.evalXPath('count(*/item)').numberValue(),
-					"Origin instance not initialised correctly");
+			Assert.areEqual(2, suite.testInstance.evalXPath('count(*/item)').numberValue(), "Instance not initialised correctly");
+			Assert.areEqual(1, suite.originInstance.evalXPath('count(*/item)').numberValue(), "Origin instance not initialised correctly");
 				return;
-			}, // setUp()
-
+		},
+		// setUp()
 			tearDown : function() {
 				suite.testInstance.reset();
 				return;
-			}, // tearDown()
-
+		},
+		// tearDown()
             // Test for insertion after a sibling in a non-empty list
             // This tests the main "add" button use case.
             //
             testInsertElementPrototypeIntoList: function() {
             
                 Assert.isTrue(suite.testInstance.insertNodes(
-                    suite.testInstance.evalXPath('order').nodeSetValue()[0],  
-                    "item", "1", "after", 
+			suite.testInstance.evalXPath('order').nodeSetValue()[0], "item", "1", "after",
                     // "/po/prototype/item"), 
-                    suite.originInstance.evalXPath('/po/prototype/item').nodeSetValue()),  
-                    "Insert did not insert any nodes");
+			suite.originInstance.evalXPath('/po/prototype/item').nodeSetValue()), "Insert did not insert any nodes");
 
                 Assert.areEqual(2, suite.testInstance.evalXPath('count(order/item)').numberValue());
                 Assert.isTrue(suite.testInstance.evalXPath('order/item[1]/product = "P1"').booleanValue());
                 Assert.isTrue(suite.testInstance.evalXPath('order/item[2]/product = ""').booleanValue());
                 
-                Assert.areEqual(1, 
-                    suite.testInstance.evalXPath(
-                        'count(/po/order)',
-                        suite.testInstance.evalXPath('order/item[2]/product').nodeSetValue()[0] 
-                    ).numberValue(), 
-                    "XPath failed because owner document is not correctly set in subtree of inserted node");
+			Assert.areEqual(1, suite.testInstance.evalXPath('count(/po/order)', suite.testInstance.evalXPath('order/item[2]/product').nodeSetValue()[0]).numberValue(), "XPath failed because owner document is not correctly set in subtree of inserted node");
                     
                 Assert.isTrue(
-                    suite.testInstance.evalXPath('order/item[1]').nodeSetValue()[0].ownerDocument
-                    &&
-                    suite.testInstance.evalXPath('order/item[1]').nodeSetValue()[0].ownerDocument
-                    ===
-                    suite.testInstance.evalXPath('order/item[2]').nodeSetValue()[0].ownerDocument,
-                    "Owner document of inserted node is not correctly set"                    
-                );
+			suite.testInstance.evalXPath('order/item[1]').nodeSetValue()[0].ownerDocument && suite.testInstance.evalXPath('order/item[1]').nodeSetValue()[0].ownerDocument === suite.testInstance.evalXPath('order/item[2]').nodeSetValue()[0].ownerDocument, "Owner document of inserted node is not correctly set");
                 
                 return;
             },
@@ -143,20 +121,17 @@
                 // Ensure we have the correct starting property of an empty list, 
                 // i.e. ensure the P1 product item is in fact gone now  
                 //
-                Assert.areEqual(0, suite.testInstance.evalXPath('count(order/item)').numberValue(), 
-                                "The delete failed to set up the precondition for the insert test");
+			Assert.areEqual(0, suite.testInstance.evalXPath('count(order/item)').numberValue(), "The delete failed to set up the precondition for the insert test");
 
                 // Insert into the empty list
                 //
-                Assert.isTrue(suite.testInstance.insertNodes(
-                    { 
+			Assert.isTrue(suite.testInstance.insertNodes({
                        node: suite.testInstance.evalXPath('order').nodeSetValue()[0],
                        initialContext : suite.testInstance.evalXPath('.').nodeSetValue()[0]
                     },  
                     null, null, null, 
                     // "/po/prototype/item"), 
-                    suite.originInstance.evalXPath('/po/prototype/item').nodeSetValue()),  
-                    "Insert did not insert any nodes");
+			suite.originInstance.evalXPath('/po/prototype/item').nodeSetValue()), "Insert did not insert any nodes");
 
                 // Ensure we got from zero elements above to one element
                 //
@@ -170,12 +145,7 @@
                 // get to the document element, so this assertion ensures that the 
                 // newly appended node belongs to the right document.
                 // 
-                Assert.areEqual(1, 
-                    suite.testInstance.evalXPath(
-                        'count(/po/order)',
-                        suite.testInstance.evalXPath('order/item[1]/product').nodeSetValue()[0] 
-                    ).numberValue(), 
-                    "XPath failed because owner document is not correctly set in subtree of inserted node");
+			Assert.areEqual(1, suite.testInstance.evalXPath('count(/po/order)', suite.testInstance.evalXPath('order/item[1]/product').nodeSetValue()[0]).numberValue(), "XPath failed because owner document is not correctly set in subtree of inserted node");
 
                 // Ensure that newly appended node belongs to the same document as its parent
                 // The above assertion already makes sure, but this was added first and it's
@@ -183,25 +153,13 @@
                 // using ownerDocument as a short circuit on absolute URIs 
                 // 
                 Assert.isTrue(
-                    suite.testInstance.evalXPath('order/item[1]').nodeSetValue()[0].ownerDocument
-                    &&
-                    suite.testInstance.evalXPath('order/item[1]').nodeSetValue()[0].ownerDocument
-                    ===
-                    suite.testInstance.evalXPath('order').nodeSetValue()[0].ownerDocument,
-                    "Owner document of inserted node is not correctly set"                    
-                );
+			suite.testInstance.evalXPath('order/item[1]').nodeSetValue()[0].ownerDocument && suite.testInstance.evalXPath('order/item[1]').nodeSetValue()[0].ownerDocument === suite.testInstance.evalXPath('order').nodeSetValue()[0].ownerDocument, "Owner document of inserted node is not correctly set");
                 
                 // Nodes in the subtree of the newly inserted node should also have the 
                 // correct ownerDocument
                 //
                 Assert.isTrue(
-                    suite.testInstance.evalXPath('order/item[1]/product').nodeSetValue()[0].ownerDocument
-                    &&
-                    suite.testInstance.evalXPath('order/item[1]/product').nodeSetValue()[0].ownerDocument
-                    ===
-                    suite.testInstance.evalXPath('order').nodeSetValue()[0].ownerDocument,
-                    "Owner document of descendants of inserted node is not correctly set"                    
-                );
+			suite.testInstance.evalXPath('order/item[1]/product').nodeSetValue()[0].ownerDocument && suite.testInstance.evalXPath('order/item[1]/product').nodeSetValue()[0].ownerDocument === suite.testInstance.evalXPath('order').nodeSetValue()[0].ownerDocument, "Owner document of descendants of inserted node is not correctly set");
                 return;
             },
             
@@ -219,19 +177,15 @@
                 // Ensure we have the correct starting property of an empty list, 
                 // i.e. ensure the P1 product item is in fact gone now  
                 //
-                Assert.areEqual(0, suite.testInstance.evalXPath('count(order/item)').numberValue(), 
-                                "The delete failed to set up the precondition for the insert test");
+			Assert.areEqual(0, suite.testInstance.evalXPath('count(order/item)').numberValue(), "The delete failed to set up the precondition for the insert test");
 
                 // Insert into a list which happens to be empty
                 //
-                Assert.isTrue(suite.testInstance.insertNodes(
-                    { 
+			Assert.isTrue(suite.testInstance.insertNodes({
                        node: suite.testInstance.evalXPath('order').nodeSetValue()[0],
                        initialContext : suite.testInstance.evalXPath('.').nodeSetValue()[0]
                     },  
-                    "item", "1", "after", 
-                    "/po/prototype/item"), 
-                    "Insert did not insert any nodes");
+			"item", "1", "after", "/po/prototype/item"), "Insert did not insert any nodes");
 
                 // Ensure we got from zero elements above to one element
                 //
@@ -249,22 +203,18 @@
             testInsertAtLast: function() {
                 // Insert an extra copy of item P1 so that last() will be 2 when we test it
                 Assert.isTrue(suite.testInstance.insertNodes(
-                    suite.testInstance.evalXPath('order').nodeSetValue()[0],  
-                    "item", "1", "after"), 
-                    "Insert did not insert any nodes");
+			suite.testInstance.evalXPath('order').nodeSetValue()[0], "item", "1", "after"), "Insert did not insert any nodes");
 
                 // Ensure we got from one element above to two elements
                 //
                 Assert.areEqual(2, suite.testInstance.evalXPath('count(order/item)').numberValue(), "Expected 2 item elements");
                 
                 // Now insert a prototypical product after the last element
-                Assert.isTrue(suite.testInstance.insertNodes(
-                    { 
+			Assert.isTrue(suite.testInstance.insertNodes({
                        node: suite.testInstance.evalXPath('order').nodeSetValue()[0],
                        size: 2
                     },  
-                    "item", "last()", "after", "/po/prototype/item"), 
-                    "Insert did not insert any nodes");
+			"item", "last()", "after", "/po/prototype/item"), "Insert did not insert any nodes");
                     
                 // Ensure that we got a copy of the prototypical product after the last element.
                 //
@@ -278,9 +228,7 @@
             //
             testInsertRootElement: function() {
                 Assert.isTrue(suite.testInstance.insertNodes(
-                        suite.testInstance.evalXPath('.').nodeSetValue()[0],  
-                        ".", "1", "after", "/po/prototype"), 
-                        "Insert instance subtree at the instance root failed");
+			suite.testInstance.evalXPath('.').nodeSetValue()[0], ".", "1", "after", "/po/prototype"), "Insert instance subtree at the instance root failed");
 
                 Assert.areEqual(1, suite.testInstance.evalXPath('count(item)').numberValue());
                    
@@ -293,15 +241,12 @@
             testInsertAtRootWithBeforePositionParameter: function() {
             	var root = suite.testInstance.evalXPath('.').nodeSetValue()[0];
             	Assert.isTrue(suite.testInstance.insertNodeset(
-                        root,  
-                        [root], "1", "before", "/po/prototype"), 
-                        "Insert instance subtree at the instance root failed");
+			root, [root], "1", "before", "/po/prototype"), "Insert instance subtree at the instance root failed");
                 
                 Assert.areEqual("prototype", suite.testInstance.evalXPath('.').nodeSetValue()[0].nodeName);
             }
 
 		})//new TestCase
 	); //suite.add( ... )
-
 	YAHOO.tool.TestRunner.add(suite);
 }());

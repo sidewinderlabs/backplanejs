@@ -2,19 +2,8 @@ var Assert = YAHOO.util.Assert;
 
 var oSuitePathToModule = new YAHOO.tool.TestSuite({
 	name : "Test getPathToModule",
-	setUp		: 	function()
-	{
-          var arrScripts = [
-            "../somescript0.js",
-            "../../../../somescript1.js",
-            "/scripts/somescript2.js",
-            "http://www.example.com/somescript3.js",
-            "/somescripts.js/somescripts.js",
-            "xy/absomescript4.js",
-            "http://www.example.com/somescript4.js",
-            "c:\\somedir\\somescript5.js",
-            "somescript6.js"
-          ];
+	setUp: function() {
+		var arrScripts = ["../somescript0.js", "../../../../somescript1.js", "/scripts/somescript2.js", "http://www.example.com/somescript3.js", "/somescripts.js/somescripts.js", "xy/absomescript4.js", "http://www.example.com/somescript4.js", "c:\\somedir\\somescript5.js", "somescript6.js"];
           var childNodes = document.childNodes; 
           var l = childNodes.length;
           var i;
@@ -43,7 +32,6 @@ var oSuitePathToModule = new YAHOO.tool.TestSuite({
 	}
 });
 
-
 var oTestGetPathToModule = new YAHOO.tool.TestCase({
 	name		:	"Test oTestGetPathToModule",
 	
@@ -54,56 +42,46 @@ var oTestGetPathToModule = new YAHOO.tool.TestCase({
 	    testGetPathToModuleWithNullArg : true
 		} 
 	}, 
-	testGetPathToModuleRelative:
-	function() {
+	testGetPathToModuleRelative: function() {
 		Assert.areEqual(pathToModule("somescript0"), "../");
 		Assert.areEqual(pathToModule("somescript1"), "../../../../");
 		Assert.areEqual(pathToModule("somescript2"), "/scripts/");
 	},
 
-	testGetPathToModuleAbsolute:
-	function() {
+	testGetPathToModuleAbsolute: function() {
 		Assert.areEqual(pathToModule("somescript3"), "http://www.example.com/");
 	},
 	
-	testGetPathToModuleWithDuplicateNameInPath:
-	function() {
+	testGetPathToModuleWithDuplicateNameInPath: function() {
 		Assert.areEqual(pathToModule("somescripts"), "/somescripts.js/");
 	},
 	
-	testGetPathToModuleWithPrecedingSimilarlyNamedScript:
-	function() {
+	testGetPathToModuleWithPrecedingSimilarlyNamedScript: function() {
 		Assert.areEqual(pathToModule("absomescript4"), "xy/");
 		Assert.areNotEqual(pathToModule("somescript4"), "xy/");
 		Assert.areEqual(pathToModule("somescript4"), "http://www.example.com/");
 	},
 	
-	testGetPathToModuleOnFileSystem:
-	function() {
+	testGetPathToModuleOnFileSystem: function() {
 		Assert.areEqual(pathToModule("somescript5"), "c:\\somedir\\");
 	},
 	
-	testGetPathToModuleInSameDirectory:
-	function() {
+	testGetPathToModuleInSameDirectory: function() {
 		Assert.areSame(pathToModule("somescript6"), "");
 	},
 
-	testGetPathToModuleThatDoesNotExist:
-	function() {
+	testGetPathToModuleThatDoesNotExist: function() {
 	  pathToModule("Quirkafleeg");
 	},
 
-	testGetPathToModuleWithNoArg:
-	function() {
+	testGetPathToModuleWithNoArg: function() {
 	  pathToModule();
 	},
 	
-	testGetPathToModuleWithNullArg:
-	function() {
+	testGetPathToModuleWithNullArg: function() {
 	  pathToModule(null);
 	}
 
-	
 });
 
 oSuitePathToModule.add(oTestGetPathToModule);

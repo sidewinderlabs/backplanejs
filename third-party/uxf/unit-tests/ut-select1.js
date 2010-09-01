@@ -1,32 +1,31 @@
-
 var suiteSelect1 = function () {
 
   var retval = new YAHOO.tool.TestSuite({
     name : "Test Select1",
-    setUp : function() {
-    },
+		setUp: function() {},
     
-    tearDown : function(){
-    }
+		tearDown: function() {}
   });
 
   var caseMultimap = new YAHOO.tool.TestCase({
     name		:	"Test Multimap",
-    setUp   : function() {
-    },
-    tearDown : function(){
-    },
+		setUp: function() {},
+		tearDown: function() {},
     
     testAddNewItem : function() {
       var m = new Multimap();
-      var obj = {someProp:"hello"};
+			var obj = {
+				someProp: "hello"
+			};
       m.addItem(obj,"someKey");
       YAHOO.util.Assert.areSame(m.getItem("someKey"),obj);
     },
     
     testRemoveItem : function() {
       var m = new Multimap();
-      var obj = {someProp:"hello"};
+			var obj = {
+				someProp: "hello"
+			};
       m.addItem(obj,"someKey");
       YAHOO.util.Assert.areSame(m.removeItem(obj,"someKey"),true);
       YAHOO.util.Assert.isUndefined(m.getItem("someKey"));
@@ -34,15 +33,23 @@ var suiteSelect1 = function () {
 
     testAddNewItemWithDefaultKey : function() {
       var m = new Multimap();
-      var obj = {getValue:function(){return "hello";}};
+			var obj = {
+				getValue: function() {
+					return "hello";
+				}
+			};
       m.addItem(obj);
       YAHOO.util.Assert.areSame(m.getItem(obj.getValue()),obj);
     },
     
     testAddItemWithSameKeyAsExistingItem : function() {
       var m = new Multimap();
-      var obj0 = {someProp:"hello"};
-      var obj1 = {someProp:"goodbye"};
+			var obj0 = {
+				someProp: "hello"
+			};
+			var obj1 = {
+				someProp: "goodbye"
+			};
       m.addItem(obj0,"someKey");
       m.addItem(obj1,"someKey");
       YAHOO.util.Assert.areNotSame(obj0,obj1);
@@ -54,8 +61,12 @@ var suiteSelect1 = function () {
 
     testRemoveItemWithSameKeyAsExistingItem : function() {
       var m = new Multimap();
-      var obj0 = {someProp:"hello"};
-      var obj1 = {someProp:"goodbye"};
+			var obj0 = {
+				someProp: "hello"
+			};
+			var obj1 = {
+				someProp: "goodbye"
+			};
       m.addItem(obj0,"someKey");
       m.addItem(obj1,"someKey");
       m.removeItem(obj0,"someKey");
@@ -64,16 +75,24 @@ var suiteSelect1 = function () {
     },
     testRemoveExistingItemWithIncorrectKey : function() {
       var m = new Multimap();
-      var obj0 = {someProp:"hello"};
-      var obj1 = {someProp:"goodbye"};
+			var obj0 = {
+				someProp: "hello"
+			};
+			var obj1 = {
+				someProp: "goodbye"
+			};
       m.addItem(obj0,"someKey");
       m.addItem(obj1,"someOtherKey");
       YAHOO.util.Assert.areSame(m.removeItem(obj1,"someKey"),false);
     },
     testRemoveExistingMultiItemWithIncorrectKey : function() {
       var m = new Multimap();
-      var obj0 = {someProp:"hello"};
-      var obj1 = {someProp:"goodbye"};
+			var obj0 = {
+				someProp: "hello"
+			};
+			var obj1 = {
+				someProp: "goodbye"
+			};
       m.addItem(obj0,"someKey");
       m.addItem(obj1,"someKey");
       YAHOO.util.Assert.areSame(m.removeItem(obj1,"someOtherKey"),false);
@@ -82,15 +101,17 @@ var suiteSelect1 = function () {
   
   var caseCommonSelect = new YAHOO.tool.TestCase({
     name		:	"Test CommonSelect",
-    setUp   : function() {
-    },
-    tearDown : function(){
-    },
+		setUp: function() {},
+		tearDown: function() {},
     
     testItemValueChanged : function() {
       var select = new CommonSelect();
-      var obj0 = {someProp:"hello"};
-      var obj1 = {someProp:"goodbye"};
+			var obj0 = {
+				someProp: "hello"
+			};
+			var obj1 = {
+				someProp: "goodbye"
+			};
       select.addItem(obj0,"someKey");
       select.addItem(obj1,"someOtherKey");
       //shift an item to a new key
@@ -109,13 +130,26 @@ var suiteSelect1 = function () {
       YAHOO.util.Assert.areSame(select.getItem("yetAnotherKey"),obj1);
       YAHOO.util.Assert.areSame(select.getItem("Quay"),obj0);
       
-    
     },
     
     testDisplayValue : function() {
       var select = new CommonSelect();
-      var obj0 = {getLabel:function(){return "hello";}, getValue:function(){return "entering";}};
-      var obj1 = {getLabel:function(){return "goodbye";}, getValue:function(){return "leaving";}};
+			var obj0 = {
+				getLabel: function() {
+					return "hello";
+				},
+				getValue: function() {
+					return "entering";
+				}
+			};
+			var obj1 = {
+				getLabel: function() {
+					return "goodbye";
+				},
+				getValue: function() {
+					return "leaving";
+				}
+			};
       select.addItem(obj0);
       select.addItem(obj1);
       YAHOO.util.Assert.areSame(select.getSingleDisplayValue("entering"),"hello");
@@ -144,7 +178,11 @@ var suiteSelect1 = function () {
 
       if (!this.select1.m_proxy) {
         this.select1.m_proxy = {};
-        this.select1.m_proxy.enabled = { getValue: function () { return true; } };
+				this.select1.m_proxy.enabled = {
+					getValue: function() {
+						return true;
+					}
+				};
       }
     },
 
@@ -182,6 +220,3 @@ var suiteSelect1 = function () {
   retval.add(caseSelect1);
   return retval;
 }();
-
-
-

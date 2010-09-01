@@ -7,8 +7,8 @@
 		setUp : function() {
 			this.testSubmission = new submission();
 			return;
-		},// setUp()
-
+		},
+		// setUp()
 		tearDown : function() {
 			delete this.testSubmission;
 			this.testSubmission = null;

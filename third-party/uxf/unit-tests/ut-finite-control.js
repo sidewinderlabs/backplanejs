@@ -1,21 +1,16 @@
-
 var suiteFiniteControl = function () {
 
   var retval = new YAHOO.tool.TestSuite({
     name : "test FiniteControl",
-    setUp : function() {
-    },
+		setUp: function() {},
     
-    tearDown : function(){
-    }
+		tearDown: function() {}
   });
 
   var caseFiniteControl = new YAHOO.tool.TestCase({
     name		:	"test FiniteControl",
-    setUp   : function() {
-    },
-    tearDown : function(){
-    },
+		setUp: function() {},
+		tearDown: function() {},
     
     testIsInitiallyInRange : function() {
       var o = new FiniteControl();
@@ -67,7 +62,6 @@ var suiteFiniteControl = function () {
       YAHOO.util.Assert.areSame(testStorage,"xforms-in-range");
     },
     
-    
     testNoEventOnNoChange : function() {
       var testStorage = "";
       var t = {
@@ -91,8 +85,7 @@ var suiteFiniteControl = function () {
       var getClass = function(obj) {
         if(obj.className) {
           return obj.className;
-        }
-        else {
+				} else {
           return obj.getAttribute("class");
         }
       
@@ -110,4 +103,3 @@ var suiteFiniteControl = function () {
   retval.add(caseFiniteControl);
   return retval;
 }();
-

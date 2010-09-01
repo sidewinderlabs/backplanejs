@@ -6,8 +6,8 @@
 
 		setUp : function() {
 			return;
-		},// setUp()
-
+		},
+		// setUp()
 		tearDown : function() {
 			return;
 		}// tearDown()
@@ -23,12 +23,12 @@
 				// Check that the initial data is correct.
 				//
 				return;
-			}, // setUp()
-
+		},
+		// setUp()
 			tearDown : function() {
 				return;
-			}, // tearDown()
-
+		},
+		// tearDown()
 			testXsdBooleanTrue: function() {
 				Assert.isTrue(UX.JsBooleanFromXsdBoolean("true"));
 				Assert.isTrue(UX.JsBooleanFromXsdBoolean("1"));
@@ -97,6 +97,5 @@
 			}
  		})//new TestCase
 	); //suite.add( ... )
-
 	YAHOO.tool.TestRunner.add(suite);
 }());

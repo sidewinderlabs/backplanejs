@@ -11,7 +11,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 (function(){
 	var suiteMIPEventTarget;
 
@@ -40,10 +39,18 @@
 		testBrooacastMIPs: function () {
 			this.testDiv.m_proxy = {
 				m_oNode: {},
-				readonly: { getValue: returnFalse },
-				required: { getValue: returnFalse },
-				valid: { getValue: returnTrue },
-				enabled: { getValue: returnTrue },
+				readonly: {
+					getValue: returnFalse
+				},
+				required: {
+					getValue: returnFalse
+				},
+				valid: {
+					getValue: returnTrue
+				},
+				enabled: {
+					getValue: returnTrue
+				},
 				getMIPState: function (s) {
 					switch(s) {
 						case "readonly" :
@@ -71,10 +78,18 @@
 		testRefresh: function () {
 			this.testDiv.m_proxy = {
 				m_oNode: {},
-				readonly: { getValue: returnFalse },
-				required: { getValue: returnFalse },
-				valid: { getValue: returnTrue },
-				enabled: { getValue: returnTrue },
+				readonly: {
+					getValue: returnFalse
+				},
+				required: {
+					getValue: returnFalse
+				},
+				valid: {
+					getValue: returnTrue
+				},
+				enabled: {
+					getValue: returnTrue
+				},
 				getMIPState: function (s) {
 					switch(s) {
 						case "readonly" :

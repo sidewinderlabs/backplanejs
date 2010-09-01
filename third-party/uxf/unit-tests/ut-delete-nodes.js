@@ -9,8 +9,7 @@
 			this.testInstance = new Instance( this.testDIV );
 
 			this.testInstance.replaceDocument(
-				xmlParse(
-					"<shoppingcart xmlns=''> \
+			xmlParse("<shoppingcart xmlns=''> \
 						<item> \
 							<product cat='sku'>SKU-0815</product> \
 							<quantity>1</quantity> \
@@ -23,12 +22,10 @@
 							<unitcost>7.49</unitcost> \
 							<price>22.47</price> \
 						</item> \
-					</shoppingcart>"
-				)
-			);
+					</shoppingcart>"));
 			return;
-		},// setUp()
-
+		},
+		// setUp()
 		tearDown : function() {
 			delete this.testDIV;
 			this.testDIV = null;
@@ -48,16 +45,15 @@
 			setUp : function() {
 				// Check that the initial data is correct.
 				//
-				Assert.areEqual(2, suite.testInstance.evalXPath('count(item)').numberValue(),
-					"Shopping-cart not initialised correctly");
+			Assert.areEqual(2, suite.testInstance.evalXPath('count(item)').numberValue(), "Shopping-cart not initialised correctly");
 				return;
-			}, // setUp()
-
+		},
+		// setUp()
 			tearDown : function() {
 				suite.testInstance.reset();
 				return;
-			}, // tearDown()
-
+		},
+		// tearDown()
 			// Delete the second item in the list by creating a list of only one item, and
 			// then deleting the first one in that list.
 			//
@@ -127,8 +123,7 @@
                 Assert.isTrue(suite.testInstance.deleteNodes(null, "item", "'NaN'"));
 
                 Assert.areEqual(1, suite.testInstance.evalXPath('count(item)').numberValue());
-                Assert.areEqual(1, suite.testInstance.evalXPath('count(item[product = "SKU-0815"])').numberValue(),
-                                "Wrong item deleted");
+			Assert.areEqual(1, suite.testInstance.evalXPath('count(item[product = "SKU-0815"])').numberValue(), "Wrong item deleted");
                 return;
             },
             
@@ -200,6 +195,5 @@
 			}
  		})//new TestCase
 	); //suite.add( ... )
-
 	YAHOO.tool.TestRunner.add(suite);
 }());

@@ -17,14 +17,12 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 var suiteXFormsSubmissionHeader = new YAHOO.tool.TestSuite({
 	name : "Test xforms-submission module, headers"
 });
 
 suiteXFormsSubmissionHeader.add(
-	new YAHOO.tool.TestCase(
-		{
+new YAHOO.tool.TestCase({
 			name: "Test xf:header",
 			
 			setUp: function() {
@@ -51,7 +49,6 @@ suiteXFormsSubmissionHeader.add(
 				DECORATOR.extend(this.value, new Context(this.value), false);
 				DECORATOR.extend(this.value, new Value(this.value), false);
 
-				
 			},
 			
 			tearDown: function() {
@@ -98,8 +95,6 @@ suiteXFormsSubmissionHeader.add(
 				}
 				Assert.areEqual(0, count);
 				
-			
-				
 				/*
 				 * Missing xf:header
 				 */
@@ -122,7 +117,6 @@ suiteXFormsSubmissionHeader.add(
 
 				var connection;
 				
-				
 				this.name.appendChild(document.createTextNode("header-name"));
 				
 				/*
@@ -137,7 +131,6 @@ suiteXFormsSubmissionHeader.add(
 				Assert.isNotNull(connection.headers["header-name"]);
 				Assert.areEqual("", connection.headers["header-name"]);
 				
-
 				/*
 				 * Missing xf:value
 				 */
@@ -158,7 +151,6 @@ suiteXFormsSubmissionHeader.add(
 				var value;
 				var connection;
 				
-
 				this.name.appendChild(document.createTextNode("header-name"));
 				this.value.appendChild(document.createTextNode("header-value-1"));
 
@@ -170,8 +162,6 @@ suiteXFormsSubmissionHeader.add(
 				DECORATOR.extend(value, new Context(value), false);
 				DECORATOR.extend(value, new Value(value), false);
 				
-
-
 				connection = document.submission.getConnection();
 				document.submission.setHeaders(null, this.submission);
 				
@@ -180,5 +170,4 @@ suiteXFormsSubmissionHeader.add(
 									  
 			}
 			
-
 		}));

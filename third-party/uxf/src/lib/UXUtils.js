@@ -19,6 +19,8 @@
 	For browsers such as Firefox, that do not support IE's rather handy bonus functions
 		insertAdjacentHTML, and insertAdjacentElement.
  */
+//= require "sniffer"
+
 
 /**
 	XML Parsing in Firefox does not support getElementById by default (except on XHTML and XUL elements_
@@ -441,7 +443,7 @@ UX.type = function(o) {
 			}
 
 			while(candidateNode && !NamespaceManager.compareFullName(candidateNode,name,namespace)) {
-				if(candidateNode.hasChildNodes) {
+				if(candidateNode.hasChildNodes()) {
 					newCandidateNode = getEndNodeByName(candidateNode, name, namespace, direction);
 					if(newCandidateNode) {
 						candidateNode = newCandidateNode;

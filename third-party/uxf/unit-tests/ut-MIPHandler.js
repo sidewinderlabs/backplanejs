@@ -1,4 +1,3 @@
-
 // Copyright (c) 2008-2009 Backplane Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +11,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 (function(){
 	var suiteMIPHandler;
 
@@ -43,13 +41,23 @@
 		},
 
 		testIsDirtyMIP : function () {
-			this.testDiv.m_proxy = { m_oNode: {}, getMIPState: function () { return true; } };
+			this.testDiv.m_proxy = {
+				m_oNode: {},
+				getMIPState: function() {
+					return true;
+				}
+			};
 			this.testDiv.m_MIPSCurrentlyShowing.readonly = false;
 			YAHOO.util.Assert.areSame(true, this.testDiv.isDirtyMIP("readonly"));
 		},
 
 		testIsNotDirtyMIP : function () {
-			this.testDiv.m_proxy = { m_oNode: {}, getMIPState: function () { return true; } };
+			this.testDiv.m_proxy = {
+				m_oNode: {},
+				getMIPState: function() {
+					return true;
+				}
+			};
 			this.testDiv.m_MIPSCurrentlyShowing.readonly = true;
 			YAHOO.util.Assert.areSame(false, this.testDiv.isDirtyMIP("readonly"));
 		},
@@ -57,10 +65,18 @@
 		testSetDirtyStatesNoChange : function () {
 			this.testDiv.m_proxy = {
 				m_oNode: {},
-				readonly: { getValue: returnFalse },
-				required: { getValue: returnFalse },
-				valid: { getValue: returnTrue },
-				enabled: { getValue: returnTrue },
+				readonly: {
+					getValue: returnFalse
+				},
+				required: {
+					getValue: returnFalse
+				},
+				valid: {
+					getValue: returnTrue
+				},
+				enabled: {
+					getValue: returnTrue
+				},
 				getMIPState: function (s) {
 					switch(s) {
 						case "readonly" :
@@ -87,10 +103,18 @@
 		testSetDirtyStatesAllChange : function () {
 			this.testDiv.m_proxy = {
 				m_oNode: {},
-				readonly: {getValue: returnFalse },
-				required: {getValue: returnFalse },
-				valid: {getValue: returnTrue },
-				enabled: {getValue: returnTrue },
+				readonly: {
+					getValue: returnFalse
+				},
+				required: {
+					getValue: returnFalse
+				},
+				valid: {
+					getValue: returnTrue
+				},
+				enabled: {
+					getValue: returnTrue
+				},
 				getMIPState: function (s) {
 					switch(s) {
 						case "readonly" :
@@ -110,10 +134,18 @@
 
 			this.testDiv.m_proxy = {
 				m_oNode: {},
-				readonly: { getValue: returnTrue },
-				required: { getValue: returnTrue },
-				valid: { getValue: returnFalse },
-				enabled: { getValue: returnFalse },
+				readonly: {
+					getValue: returnTrue
+				},
+				required: {
+					getValue: returnTrue
+				},
+				valid: {
+					getValue: returnFalse
+				},
+				enabled: {
+					getValue: returnFalse
+				},
 				getMIPState: function (s) {
 					switch(s) {
 						case "readonly" :
@@ -137,10 +169,18 @@
 		testSetDirtyStatesSomeChange : function () {
 			this.testDiv.m_proxy = {
 				m_oNode: {},
-				readonly: { getValue: returnFalse },
-				required: { getValue: returnFalse },
-				valid: { getValue: returnTrue },
-				enabled: { getValue: returnTrue },
+				readonly: {
+					getValue: returnFalse
+				},
+				required: {
+					getValue: returnFalse
+				},
+				valid: {
+					getValue: returnTrue
+				},
+				enabled: {
+					getValue: returnTrue
+				},
 				getMIPState: function (s) {
 					switch(s) {
 						case "readonly":
@@ -160,10 +200,18 @@
 
 			this.testDiv.m_proxy = {
 				m_oNode: {},
-				readonly: { getValue: returnTrue },
-				required: { getValue: returnFalse },
-				valid: { getValue: returnFalse },
-				enabled: { getValue: returnTrue },
+				readonly: {
+					getValue: returnTrue
+				},
+				required: {
+					getValue: returnFalse
+				},
+				valid: {
+					getValue: returnFalse
+				},
+				enabled: {
+					getValue: returnTrue
+				},
 				getMIPState: function (s) {
 					switch(s) {
 						case "readonly":
@@ -188,10 +236,18 @@
 		testBroadcastMIPs: function () {
 			this.testDiv.m_proxy = {
 				m_oNode: {},
-				readonly: { getValue: returnFalse },
-				required: { getValue: returnFalse },
-				valid: { getValue: returnTrue },
-				enabled: { getValue: returnTrue },
+				readonly: {
+					getValue: returnFalse
+				},
+				required: {
+					getValue: returnFalse
+				},
+				valid: {
+					getValue: returnTrue
+				},
+				enabled: {
+					getValue: returnTrue
+				},
 				getMIPState: function (s) {
 					switch(s) {
 						case "readonly" :
@@ -219,10 +275,18 @@
 		testRefresh: function () {
 			this.testDiv.m_proxy = {
 				m_oNode: {},
-				readonly: { getValue: returnFalse },
-				required: { getValue: returnFalse },
-				valid: { getValue: returnTrue },
-				enabled: { getValue: returnTrue },
+				readonly: {
+					getValue: returnFalse
+				},
+				required: {
+					getValue: returnFalse
+				},
+				valid: {
+					getValue: returnTrue
+				},
+				enabled: {
+					getValue: returnTrue
+				},
 				getMIPState: function (s) {
 					switch(s) {
 						case "readonly" :
@@ -248,9 +312,17 @@
 		},
 
 		testRewire: function () {
-			var node = { getAttribute: function() { return null; } }, oProxy = getProxyNode(node);
+			var node = {
+				getAttribute: function() {
+					return null;
+				}
+			},
+				oProxy = getProxyNode(node);
 			this.testDiv.getBoundNode = function(){
-				return { model: {}, node: node };
+				return {
+					model: {},
+					node: node
+				};
 			};
 			this.testDiv.rewire();
 			YAHOO.util.Assert.areSame(oProxy, this.testDiv.m_proxy);
