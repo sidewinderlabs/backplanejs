@@ -217,7 +217,7 @@ var NamespaceManager  = function(){
 					retVal.push(elementsWithNoPrefix[i]);
 				}
 		} else {
-			innerGetElementsByTagNameNS_Unaware_YUI(searchNode,namespaceURI, elementName,retVal);
+			innerGetElementsByTagNameNS_Unaware(searchNode, namespaceURI, elementName, retVal);
 		}
 		return retVal;
 	}
@@ -227,7 +227,7 @@ var NamespaceManager  = function(){
 	 	//make up namespacePrefix + elementName combinations to search with.
 		var i;
 		var j;
-	 	var prefixes = this.getOutputPrefixesFromURI(namespaceURI);
+		var prefixes = m_outputNamespaces[namespaceURI];
 	 	if(prefixes) {
 		 	for( i = 0; i < prefixes.length; ++i) {
 		 		var elementsWithThisPrefix = searchNode.getElementsByTagName(prefixes[i] + ":" + elementName);
@@ -304,36 +304,18 @@ var NamespaceManager  = function(){
  */
 
   function getAttributeNS(node, nsURI, attributeName) {
-      var retval = null;
-      var prefixes = null;
-      var prefix = null;
-      
-      if (UX.isXHTML) {
-          retval = node.getAttributeNS(nsURI, attributeName);
-      } else {
-          prefixes = this.getOutputPrefixesFromURI(nsURI);
-          if (prefixes) {
-              prefix = prefixes[0];
-              retval = node.getAttribute(prefix + ":" + attributeName);
-          }          
-      }
-      return retval;
+				if (UX.isXHTML) return node.getAttributeNS(nsURI, attributeName);
+				var prefixes = this.getOutputPrefixesFromURI(nsURI);
+				if (!prefixes) return null;
+				return node.getAttribute(prefixes[0] + ":" + attributeName);
   }
-  
 
 
-  function getNamespaceURI(node) {
-		var nsURI, arrSegments, nodePrefix;
-    // Look up URI the tedious way if not available or known to be buggy
-    if (!nsURI || (UX.isWebKit && !UX.isXHTML)) {
-        arrSegments = node.nodeName.toLowerCase().split(":");
-        nodePrefix = arrSegments.length === 1? node.scopeName :arrSegments[0];
-        if (nodePrefix) {
-            nsURI = m_outputNamespaceURIs[nodePrefix];
-        }
-    }
-    return nsURI;
-  }
+	function getNamespaceURI(node) {
+		if (UX.isXHTML) return node.namespaceURI;
+		var segments = node.nodeName.toLowerCase().split(":");
+		return m_outputNamespaceURIs[segments.length === 1 ? node.scopeName : segments[0]];
+	}
 
 
 
@@ -341,29 +323,29 @@ var NamespaceManager  = function(){
       return (nodePrefix) ? m_outputNamespaceURIs[nodePrefix] : "";
   }
 
-	var itself = function () {};
-	itself.translateCSSSelector = translateCSSSelector;
-	itself.getOutputPrefixesFromURI = getOutputPrefixesFromURI;
-    itself.getAttributeNS = getAttributeNS;
-	itself.addSelectionNamespace = addSelectionNamespace;
-	itself.addOutputNamespace = addOutputNamespace;
-    itself.getLowerCaseLocalName = getLowerCaseLocalName;
-    itself.compareFullName = compareFullName;
-    itself.getNamespaceURI = getNamespaceURI;
-	itself.clean = clean;
+	var self = function () {};
+	self.translateCSSSelector = translateCSSSelector;
+	self.getOutputPrefixesFromURI = getOutputPrefixesFromURI;
+	self.getAttributeNS = getAttributeNS;
+	self.addSelectionNamespace = addSelectionNamespace;
+	self.addOutputNamespace = addOutputNamespace;
+	self.getLowerCaseLocalName = getLowerCaseLocalName;
+	self.compareFullName = compareFullName;
+	self.getNamespaceURI = getNamespaceURI;
+	self.clean = clean;
 	if(document.namespaces) {
-		itself.readOutputNamespacesFromDocument = readOutputNamespacesFromNamespaceAwareDocument;
+		self.readOutputNamespacesFromDocument = readOutputNamespacesFromNamespaceAwareDocument;
 	} else {
-		itself.readOutputNamespacesFromDocument = readOutputNamespacesFromDocumentElementAtrributeList;
+		self.readOutputNamespacesFromDocument = readOutputNamespacesFromDocumentElementAtrributeList;
 	}
-	itself.readOutputNamespacesFromInstance = readOutputNamespacesFromDocumentElementAtrributeList;
+	self.readOutputNamespacesFromInstance = readOutputNamespacesFromDocumentElementAtrributeList;
 	if (UX.isXHTML){
-	    itself.getElementsByTagNameNS = getElementsByTagNameNS;
+		self.getElementsByTagNameNS = getElementsByTagNameNS;
 	} else if(document.namespaces) {
-		itself.getElementsByTagNameNS = getElementsByTagNameNS_Aware;
+		self.getElementsByTagNameNS = getElementsByTagNameNS_Aware;
 	} else {
-		itself.getElementsByTagNameNS = getElementsByTagNameNS_Unaware;
+		self.getElementsByTagNameNS = getElementsByTagNameNS_Unaware;
 	}
-    itself.getNamespaceURIForPrefix = getNamespaceURIForPrefix;
-	return itself;
+  self.getNamespaceURIForPrefix = getNamespaceURIForPrefix;
+	return self;
 }();
