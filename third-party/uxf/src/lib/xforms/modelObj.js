@@ -266,34 +266,20 @@ Model.prototype.addControl = function(oTarget) {
      * Add the control to the list of controls attached to this model.
      */
 
-	for (var i = 0; i < this.m_arControls.length; i++) {
-		if (oTarget === this.m_arControls[ i ]) {
-			break;
-		}
-	}
-	if (i == this.m_arControls.length) {
-		this.m_arControls.push(oTarget);
+	var controls = this.m_arControls;
+	var i = controls.length;
+	while (i-- && oTarget !== controls[i])
+		;
+	if (i) {
+		controls.push(oTarget);
 	}
 
-    // var sTemp = oTarget.element.innerHTML;
-    // running these inline causes stack overflow, and "taking too long to
-    // respond" error messages to appear.
-    // oTarget.rewire();
-    // oTarget.refresh()
-    var oTargetSaved = oTarget;
-    if (this.m_bReady) {
-        spawn( function() {
-            try {
-                if (oTargetSaved && typeof oTargetSaved.element == "object") {
-                    oTargetSaved.rewire();
-                    oTargetSaved.refresh();
-                }
-            } catch (e) {
-                // debugger;
-            }
-        });
-    }
-    return;
+	if (!this.m_bReady) return;
+
+	if (oTarget && typeof oTarget.element == "object") {
+		oTarget.rewire();
+		oTarget.refresh();
+	}
 };
 
 /*
