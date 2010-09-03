@@ -104,33 +104,33 @@ var g_sBehaviourDirectory  = "";
 		requires: ["ub-uri", "ub-security"]
 	});
 	  
-	loader.addModule({
+	/*loader.addModule({
 		name: "ub-io-file",
 						 type: "js",
 						 fullpath: moduleBase + "../backplane/io/file.js",
 		requires: ["ub-uri", "ub-security"]
-	});
+	});*/
 	  
 	loader.addModule({
 		name: "ub-dom3ls",
 						 type: "js",
 						 fullpath: moduleBase + "../backplane/dom/dom3ls.js",
-		requires: ["ub-io-file"]
+		requires: ["ub-file"]
 	});
 	  
 	loader.addModule({
 		name: "ub-io-scheme-file",
 						 type: "js",
 						 fullpath: moduleBase + "../backplane/io/scheme-file.js",
-		requires: ["ub-file", "ub-io-file"]
+		requires: ["ub-file"]
 	});
 
-	loader.addModule({
+	/*loader.addModule({
 		name: "ubiquity-backplane",
 						 type: "js",
 						 fullpath: moduleBase + "../backplane/backplane-loader.js",
 		requires: ["ub-threads", "ub-array", "ub-tokmap", "ub-dom2", "ub-dom2events", "ub-uri", "ub-io-submission-json", "ub-file", "ub-io-file", "ub-dom3ls", "ub-io-scheme-file"]
-	});
+	});*/
 
 	  /*
 	   * End of ubiquity-backplane
@@ -147,7 +147,7 @@ var g_sBehaviourDirectory  = "";
 		name: "libxh-xlink",
 		type: "js",
 		fullpath: moduleBase + "../_backplane/xlink.js",
-		requires: ["connection", "ubiquity-backplane"]
+		requires: ["connection"]
 	});
 	  
 	loader.addModule({
@@ -209,7 +209,7 @@ var g_sBehaviourDirectory  = "";
 		name: "xforms-submission-core",
 		type: "js",
 		fullpath: moduleBase + "xforms-submission.js",
-		requires: ["ubiquity-backplane"]
+		requires: []
 	});
 
 	loader.addModule({

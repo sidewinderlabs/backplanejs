@@ -97,10 +97,10 @@ var DECORATOR = {
 
 		//If immediate execution of constructors has been requested, do so.
 		if (executeNow) {
-			var props = ['ctor', 'onContentReady', 'onDocumentReady'];
+			var props = ["ctor", "onContentReady", "onDocumentReady"];
 			for(var i = 0; i < 3; i++){
+				if(props[i] == "onDocumentReady" && !g_bDocumentLoaded) continue;
 				if(dst[props[i]]) dst[props[i]]();
-
 
 			}
 		}
