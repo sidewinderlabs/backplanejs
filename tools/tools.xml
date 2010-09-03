@@ -242,7 +242,7 @@ in your own build.xml.
 	 description="Launch a server for testing."
 	/>
 
-	<target name="unit-test" description="Run unit-tests.">
+	<target name="unit-test" depends="test-compile, compile" description="Run unit-tests.">
 		<parallel>
 			<daemons>
 				<antcall target="start-selenium-rc" />
@@ -270,7 +270,7 @@ in your own build.xml.
 		</parallel>
 	</target>
 
-	<target name="functional-test" depends="functional-test-compile" description="Run regression tests.">
+	<target name="functional-test" depends="test-compile, compile" description="Run regression tests.">
 		<parallel>
 			<daemons>
 				<antcall target="start-test-server" />
@@ -294,7 +294,7 @@ in your own build.xml.
 		</parallel>
 	</target>
 
-	<target name="regression-test" depends="functional-test-compile" description="Run regression tests.">
+	<target name="regression-test" depends="test-compile, compile" description="Run regression tests.">
 		<parallel>
 			<daemons>
 				<antcall target="start-test-server" />
@@ -308,7 +308,7 @@ in your own build.xml.
 				</waitfor>
 				<selenese
 					suite="${regression.test.suite}"
-					browser="${selenese.browsers}"
+					browser="${selenium-rc.browsers}"
 					outputDir="${reports.dir}"
 					startURL="http://${gae.host}:${gae.port}/functional-tests/"
 					multiWindow="true"
@@ -318,7 +318,7 @@ in your own build.xml.
 		</parallel>
 	</target>
 
-	<target name="test" depends="initialize, compile, test-compile, unit-test, functional-test, regression-test" description="Run tests." />
+	<target name="test" depends="initialize, unit-test, functional-test, regression-test" description="Run tests." />
 
 	<!--
 		PACKAGE
