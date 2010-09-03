@@ -133,7 +133,7 @@ function doUpdate() {
         _deferredUpdate(m);
       }
     } catch (e) {
-       console.log("Error in deferred update.");
+       console.log("Error in deferred update: '" + e + "'.");
     }
   }
   g_DeferredUpdateDepth = storedUpdateDepth;
