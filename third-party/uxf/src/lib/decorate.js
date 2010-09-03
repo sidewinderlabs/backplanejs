@@ -152,11 +152,7 @@ var DECORATOR = {
 		g_bDocumentLoaded = false;
 		var sheet = document.createStyleSheet("", 0);
 
-		// IE 8+ doesn't support CSS expressions, so we must defer to an HTC.
-		var behaviourRule = "\nbehavior: " + (UX.isIE6 || UX.isIE7 ? 
-			"expression(DECORATOR.decorate(this));" :
-			 "url(" + g_sBehaviourDirectory + "decorate.htc);"
-		);
+		var behaviourRule = "\nbehavior: " + "url(" + g_sBehaviourDirectory + "decorate.htc);";
 
 		for (var i = 0; i < defs.length; ++i) {
 			var rule = "";

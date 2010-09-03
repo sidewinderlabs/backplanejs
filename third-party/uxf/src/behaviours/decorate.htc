@@ -4,7 +4,11 @@
 		spawn(function () {
 			// NOTE: Unless this call is spawned, only the
 			//       first XForms element will be decorated.
-			DECORATOR.decorate(self.element);
+			try{
+				DECORATOR.decorate(self.element);
+			} catch(e) {
+				
+			}
 		});
 	</SCRIPT>
 </PUBLIC:COMPONENT>
