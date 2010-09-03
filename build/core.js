@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-var UX = { };
+var UX = {};
 var g_sBehaviourDirectory = "/backplanejs/assets/";
 
-//= require <UXUtils>
 //= require <sniffer>
+//= require <UXUtils>
 
 // Core
 //
