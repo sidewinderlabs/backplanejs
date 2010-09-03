@@ -20,97 +20,41 @@
  see: http://ubiquity-xforms.googlecode.com/svn/branches/0.3/_testsuite/units/NamespaceManager.html
  */
 
-var NamespaceManager = function () {
-	var m_selectionNamespaces = {};
-	var m_outputNamespaces = {};
-	var m_outputNamespaceURIs = {};
+var NamespaceManager = {
+	
+	selectionNamespaces: {},
+	
+	outputNamespaces: {},
+	
+	outputNamespaceURIs: {},
+	
 	/**
 	 returns the lists of namespaces to an uninitialised state.
 	 */
-
-	function clean() {
-		m_selectionNamespaces = {};
-		m_outputNamespaces = {};
-	}
-
+	clean: function() {
+		this.selectionNamespaces = {};
+		this.outputNamespaces = {};
+	},
+	
 	/**
-	 Binds a namespace prefix to a URI for selection purposes.
-	 @param {String} prefix The prefix used to select the given URI
-	 @param {String} uri  The URI to which the prefix is to be bound
-	 @returns true, if the prefix is successfully bound to the URI, or false, if it is already bound to the same URI. 
-	 @throws String if the prefix is already bound to a different URI
+	 Translates a given namespace-aware CSS selector, into an "escaped colon" style selector.
+	 @param {String} a namespace-aware CSS selector - e.g. x|banana
+	 @returns String the selector parameter, translated into an "escaped colon" style selector
 	 */
-
-	function addSelectionNamespace(prefix, uri) {
-		var retVal;
-		if (m_selectionNamespaces[prefix]) {
-			retVal = false;
-			if (m_selectionNamespaces[prefix] !== uri) {
-				throw "selection namespace prefix '" + prefix + "' being added to URI '" + uri + "' is already bound to URI '" + m_selectionNamespaces[prefix] + "'";
+	translateCSSSelector: function(selector) {
+		//match ( token + |  ) anotherToken.
+		var matchNamespacePrefix = (/(\w+)\|\w+/);
+		var result = matchNamespacePrefix.exec(selector);
+		while (result) {
+			var l = result.length;
+			if (l > 1) {
+				selector = this._translateCSSSelectorForPrefix(selector, result[1]);
 			}
-		} else {
-			m_selectionNamespaces[prefix] = uri;
-			retVal = true;
+			result = matchNamespacePrefix.exec(selector);
 		}
-		return retVal;
-	}
-
-	/**
-	 Binds a namespace URI to a prefix  for output purposes.
-	 @param {String} prefix The prefix to be output for the given URI
-	 @param {String} uri  The URI for prefix
-	 */
-
-	function addOutputNamespace(prefix, uri) {
-		if (m_outputNamespaces[uri] === undefined) {
-			m_outputNamespaces[uri] = [];
-		}
-		m_outputNamespaces[uri].push(prefix);
-		m_outputNamespaceURIs[prefix] = uri;
-		return true;
-	}
-
-	/**
-	 populates the list of output namespaces if the document has a namespaces property
-	 */
-
-	function readOutputNamespacesFromNamespaceAwareDocument(oDocument) {
-		oDocument = oDocument || document;
-		var nsList = oDocument.namespaces;
-		for (var i = 0; i < nsList.length; ++i) {
-			this.addOutputNamespace(nsList[i].name, nsList[i].urn);
-		}
-	}
-
-	/**
-	 populates the list of output namespaces by treating  xml namespace declarations on the documentElement
-	 as attributes
-	 */
-
-	function readOutputNamespacesFromDocumentElementAtrributeList(oDocument) {
-		oDocument = oDocument || document;
-		var attrMap = oDocument.documentElement.attributes;
-		var l = attrMap.length;
-		for (var i = 0; i < l; ++i) {
-			var thisAttr = attrMap[i];
-			//see if this is an xml namespace declaration.
-			if (thisAttr.nodeName.indexOf('xmlns:') === 0) {
-				var prefix = thisAttr.nodeName.slice(6).toLowerCase();
-				this.addOutputNamespace(prefix, thisAttr.nodeValue);
-			}
-		}
-	}
-
-	/**
-	 Retrieves the list of output prefixes that represent the given namespace.
-	 @param {String} uri  The URI to look up.
-	 @returns {Array} An array of prefixes that represent the given URI in the current output context.
-	 */
-
-	function getOutputPrefixesFromURI(uri) {
-		return m_outputNamespaces[uri];
-	}
-
+		return selector;
+	},
+	
 	/**
 	 Removes all instances of namespace-aware CSS selectors for the given prefix from a selector,
 	 replacing them with appropriate CSS1 selectors, based on the current output context.
@@ -118,199 +62,37 @@ var NamespaceManager = function () {
 	 @param {String} The prefix to eradicate
 	 @returns {String} selector, with prefix eradicated.
 	 */
-
-	function translateCSSSelectorForPrefix(selector, prefix) {
+	_translateCSSSelectorForPrefix: function(selector, prefix) {
 		//lookup the URI based on the prefix 
-		var selectionURI = m_selectionNamespaces[prefix];
+		var selectionURI = this.selectionNamespaces[prefix];
 		if (selectionURI === undefined) {
 			throw "Unknown Prefix: '" + prefix + "' in CSS selector '" + selector + "'";
 		} else {
 			var sMatchThisPrefix = prefix + "\\|";
 			var matchGivenPrefix = new RegExp(sMatchThisPrefix, "g");
-			var outputprefixes = m_outputNamespaces[selectionURI];
+			var outputprefixes = this.outputNamespaces[selectionURI];
 
-			if (!outputprefixes || outputprefixes.length === 0) {
+			if (!outputprefixes || !outputprefixes.length) {
 				throw ("No output prefixes found for selection namespace prefix '" + prefix + "'");
 			} else {
 				var alternativesForThisURI = [];
-				for (var i = 0; i < outputprefixes.length; ++i) {
-					var css1NamespacePrefix = outputprefixes[i] + "\\:";
-					alternativesForThisURI.push(selector.replace(matchGivenPrefix, css1NamespacePrefix));
+				for (var i = 0, l = outputprefixes.length; i < l; i++) {
+					alternativesForThisURI.push(selector.replace(matchGivenPrefix, outputprefixes[i] + "\\:"));
 				}
 			}
 		}
 		return alternativesForThisURI.join(", ");
-	}
-
+	},
+	
 	/**
-	 Translates a given namespace-aware CSS selector, into an "escaped colon" style selector.
-	 @param {String} a namespace-aware CSS selector - e.g. x|banana
-	 @returns String the selector parameter, translated into an "escaped colon" style selector
+	 Retrieves the list of output prefixes that represent the given namespace.
+	 @param {String} uri  The URI to look up.
+	 @returns {Array} An array of prefixes that represent the given URI in the current output context.
 	 */
-
-	function translateCSSSelector(selector) {
-		//match ( token + |  ) anotherToken.
-		var newSelector = selector;
-		var matchNamespacePrefix = /(\w+)\|\w+/;
-		var result = matchNamespacePrefix.exec(newSelector);
-
-		while (result) {
-			var l = result.length;
-			if (l > 1) {
-				newSelector = translateCSSSelectorForPrefix(newSelector, result[1]);
-			}
-			result = matchNamespacePrefix.exec(newSelector);
-		}
-		return newSelector;
-	}
-	/**
-	 Searches searchNode for descendents
-	 that have a tagName that matches elementName, and
-	 that are in the namespace namespaceURI
-	 @param searchNode {Node} topmost node (document or element) to look in to find the desired nodes.
-	 @param namespaceURI {String} namespace URI to match
-	 @param elementName {String}  element name to match
-	 @returns an array of nodes that match the given criteria
-	 */
-
-	function getElementsByTagNameNS(searchNode, namespaceURI, elementName) {
-		return searchNode.getElementsByTagNameNS(namespaceURI, elementName);
-	}
-
-	/**
-	 Searches searchNode for descendents
-	 that have a tagName that matches elementName, and
-	 that are in the namespace namespaceURI
-	 @param searchNode {Node} topmost node (document or element) to look in to find the desired nodes.
-	 @param namespaceURI {String} namespace URI to match
-	 @param elementName {String}  element name to match
-	 @returns an array of nodes that match the given criteria
-	 */
-
-	function getElementsByTagNameNS_Aware(searchNode, namespaceURI, elementName) {
-		var retVal = [];
-		//A namespace aware document understands that the bit to the left of the colon is not part of the name.
-		var allTagNameMatches = searchNode.getElementsByTagName(elementName);
-		var i;
-
-		for (i = 0; i < allTagNameMatches.length; ++i) {
-			if (allTagNameMatches[i].scopeName !== "HTML") {
-				//lookup the prefix.
-				if ("" !== allTagNameMatches[i].tagUrn === namespaceURI) {
-					retVal.push(allTagNameMatches[i]);
-				} else if (m_outputNamespaceURIs[allTagNameMatches[i].scopeName] === namespaceURI) {
-					retVal.push(allTagNameMatches[i]);
-				}
-			} else if (namespaceURI === "") {
-				retVal.push(allTagNameMatches[i]);
-			}
-		}
-		return retVal;
-	}
-	/**
-	 Searches searchNode for descendents
-	 that have a tagName that matches elementName, and
-	 that are in the namespace namespaceURI
-	 @param searchNode {Node} topmost node (document or element) to look in to find the desired nodes.
-	 @param namespaceURI {String} namespace URI to match
-	 @param elementName {String}  element name to match
-	 @returns an array of nodes that match the given criteria
-	 */
-
-	function getElementsByTagNameNS_Unaware(searchNode, namespaceURI, elementName) {
-		var retVal = [];
-		var i = 0;
-		var j = 0;
-		if (namespaceURI === "") {
-			//normalise the collection object returned by most processors, to an array.
-			var elementsWithNoPrefix = searchNode.getElementsByTagName(elementName);
-			for (i = 0; i < elementsWithNoPrefix.length; ++i) {
-				retVal.push(elementsWithNoPrefix[i]);
-			}
-		} else {
-			innerGetElementsByTagNameNS_Unaware(searchNode, namespaceURI, elementName, retVal);
-		}
-		return retVal;
-	}
-
-	//simple and fast, but does not respect document order.
-
-
-	function innerGetElementsByTagNameNS_Unaware(searchNode, namespaceURI, elementName, elements) {
-		//make up namespacePrefix + elementName combinations to search with.
-		var i;
-		var j;
-		var prefixes = m_outputNamespaces[namespaceURI];
-		if (prefixes) {
-			for (i = 0; i < prefixes.length; ++i) {
-				var elementsWithThisPrefix = searchNode.getElementsByTagName(prefixes[i] + ":" + elementName);
-				for (j = 0; j < elementsWithThisPrefix.length; ++j) {
-					elements.push(elementsWithThisPrefix[j]);
-				}
-			}
-		}
-		return;
-	}
-
-	//slower, but does respect document order.
-
-
-	function innerGetElementsByTagNameNS_Unaware_YUI(searchNode, namespaceURI, elementName, elements) {
-		var fnCheckNamespace = function (el) {
-			var retVal = false;
-			//tagname and nodename tend to be capitalised, annoyingly
-			var sQName = el.tagName.toLowerCase();
-			var ixColon = sQName.indexOf(':');
-			var sTagName = sQName.slice(ixColon + 1);
-			if (sTagName === elementName) {
-				var sPrefix = sQName.slice(0, ixColon);
-				if (m_outputNamespaceURIs[sPrefix] === namespaceURI) {
-					retVal = true;
-					elements.push(el);
-				}
-			}
-			return retVal;
-
-		};
-		YAHOO.util.Dom.getElementsBy(fnCheckNamespace, null, searchNode);
-		return;
-	}
-	/**
-	 Some parsers believe that ":" is just a character in a simple node name, rather than a separator between the local name, 
-	 and a prefix corresponding to a node's namespace.  Using this function to get the local name will return the proper local name. 
-	 */
-
-	function getLowerCaseLocalName(node) {
-		var sNodeName = node.nodeName;
-		return sNodeName.slice(sNodeName.indexOf(":") + 1, sNodeName.length).toLowerCase();
-	}
-
-	/**
-	 Compares a node's name against a localname and namespaceURI
-	 @param node {Node} The node whose name is in question
-	 @param localName {String} A non-namespace-qualified local name, to match against the name of node
-	 @param nsURI {String} The namespace URI in which node must reside, in order to match.
-	 @returns true iff the local name and namespace uri of node, match those parameters given, false otehrwise.
-	 */
-
-	function compareFullName(node, localName, nsURI) {
-		var retval = false;
-		var sNodeFullName = node.nodeName.toLowerCase();
-		var arrSegments = sNodeFullName.split(":");
-		var nodeLocalName = arrSegments.length === 1 ? arrSegments[0] : arrSegments[1];
-		if (nodeLocalName === localName) {
-			var nodePrefix = arrSegments.length === 1 ? node.scopeName : arrSegments[0];
-			if ((!nodePrefix || nodePrefix === "HTML") && !nsURI) {
-				//prefix is empty, null, or undefined, and so is nsURI
-				retval = true;
-			} else if (m_outputNamespaceURIs[nodePrefix] === nsURI) {
-				//otherwise, look up prefix, and match to uri.
-				retval = true;
-			}
-		}
-		return retval;
-	}
-
+	getOutputPrefixesFromURI: function(uri) {
+		return this.outputNamespaces[uri];
+	},
+	
 	/**
 	 Retrieve an attribute reside in an specific namespace.
 	 @param node {Node} The node to retrieve attribute from
@@ -319,49 +101,161 @@ var NamespaceManager = function () {
 	 @returns 
 	 */
 
-	function getAttributeNS(node, nsURI, attributeName) {
+	getAttributeNS: function(node, nsURI, attributeName) {
 		if (UX.isXHTML) return node.getAttributeNS(nsURI, attributeName);
 		var prefixes = this.getOutputPrefixesFromURI(nsURI);
-		if (!prefixes) return null;
+		if(!prefixes) return null;
 		return node.getAttribute(prefixes[0] + ":" + attributeName);
-	}
+	},
+	
+	/**
+	 Binds a namespace prefix to a URI for selection purposes.
+	 @param {String} prefix The prefix used to select the given URI
+	 @param {String} uri  The URI to which the prefix is to be bound
+	 @returns true, if the prefix is successfully bound to the URI, or false, if it is already bound to the same URI. 
+	 @throws String if the prefix is already bound to a different URI
+	 */
+	addSelectionNamespace: function(prefix, uri) {
+		var retVal;
+		if (this.selectionNamespaces[prefix]) {
+			if (this.selectionNamespaces[prefix] != uri) {
+				throw "selection namespace prefix '" + prefix + "' being added to URI '" + uri + "' is already bound to URI '" + this.selectionNamespaces[prefix] + "'";
+			}
+			return false;
+		}
+		this.selectionNamespaces[prefix] = uri;
+		return true;
+	},
+	
+	/**
+	 Binds a namespace URI to a prefix  for output purposes.
+	 @param {String} prefix The prefix to be output for the given URI
+	 @param {String} uri  The URI for prefix
+	 */
+	addOutputNamespace: function(prefix, uri) {
+		if (!this.outputNamespaces[uri]) {
+			this.outputNamespaces[uri] = [];
+		}
+		this.outputNamespaces[uri].push(prefix);
+		this.outputNamespaceURIs[prefix] = uri;
+		return true;
+	},
+	
+	/**
+	 Some parsers believe that ":" is just a character in a simple node name, rather than a separator between the local name, 
+	 and a prefix corresponding to a node's namespace.  Using this function to get the local name will return the proper local name. 
+	 */
+	getLowerCaseLocalName: function(node) {
+		var name = node.nodeName;
+		return name.slice(name.indexOf(":") + 1, name.length).toLowerCase();
+	},
+	
+	/**
+	 Compares a node's name against a localname and namespaceURI
+	 @param node {Node} The node whose name is in question
+	 @param localName {String} A non-namespace-qualified local name, to match against the name of node
+	 @param nsURI {String} The namespace URI in which node must reside, in order to match.
+	 @returns true iff the local name and namespace uri of node, match those parameters given, false otehrwise.
+	 */
 
-
-	function getNamespaceURI(node) {
-		if (UX.isXHTML) return node.namespaceURI;
+	compareFullName: function(node, localName, nsURI) {
+		var fullName = node.nodeName.toLowerCase();
+		var segments = fullName.split(":");
+		var nodeLocalName = segments.length == 1 ? segments[0] : segments[1];
+		if(nodeLocalName != localName) return false;
+		var nodePrefix = segments.length == 1 ? node.scopeName : segments[0];
+		if ( ((!nodePrefix || nodePrefix == "HTML") && !nsURI) || (this.outputNamespaceURIs[nodePrefix] == nsURI) ) {
+			return true;
+		}
+	},
+	
+	getNamespaceURI: function(node) {
+		if(UX.isXHTML) return node.namespaceURI;
 		var segments = node.nodeName.toLowerCase().split(":");
-		return m_outputNamespaceURIs[segments.length === 1 ? node.scopeName : segments[0]];
+		return this.outputNamespaceURIs[segments.length === 1 ? node.scopeName : segments[0]];
+	},
+	
+	/**
+	 populates the list of output namespaces if the document has a namespaces property
+	 */
+	readOutputNamespacesFromDocument: function(doc) {
+		if(document.namespaces) {
+			doc = doc || document;
+			var nsList = doc.namespaces;
+			for (var i = 0, l = nsList.length; i < l; i++) {
+				this.addOutputNamespace(nsList[i].name, nsList[i].urn);
+			}
+		} else {
+			this.readOutputNamespacesFromInstance(doc);
+		}
+	},
+	
+	readOutputNamespacesFromInstance: function(doc) {
+		doc = doc || document;
+		var attrMap = doc.documentElement.attributes;
+		for (var i = 0, l = attrMap.length; i < l; i++) {
+			var thisAttr = attrMap[i];
+			//see if this is an xml namespace declaration.
+			if (thisAttr.nodeName.indexOf('xmlns:') === 0) {
+				var prefix = thisAttr.nodeName.slice(6).toLowerCase();
+				this.addOutputNamespace(prefix, thisAttr.nodeValue);
+			}
+		}
+	},
+	/**
+	 Searches searchNode for descendents
+	 that have a tagName that matches elementName, and
+	 that are in the namespace namespaceURI
+	 @param searchNode {Node} topmost node (document or element) to look in to find the desired nodes.
+	 @param namespaceURI {String} namespace URI to match
+	 @param elementName {String}  element name to match
+	 @returns an array of nodes that match the given criteria
+	 */
+	getElementsByTagNameNS: UX.isXHTML ? function(searchNode, namespaceURI, elementName) {
+		return searchNode.getElementsByTagNameNS(namespaceURI, elementName);
+	} : (document.namespaces ? 	function(searchNode, namespaceURI, elementName) {
+		var retVal = [];
+		//A namespace aware document understands that the bit to the left of the colon is not part of the name.
+		var tags = searchNode.getElementsByTagName(elementName);
+		for (var i = 0, l = tags.length; i < l; ++i) {
+			if (tags[i].scopeName !== "HTML") {
+				//lookup the prefix.
+				if ("" != tags[i].tagUrn == namespaceURI) {
+					retVal.push(tags[i]);
+				} else if (this.outputNamespaceURIs[tags[i].scopeName] == namespaceURI) {
+					retVal.push(tags[i]);
+				}
+			} else if (namespaceURI == "") {
+				retVal.push(tags[i]);
+			}
+		}
+		return retVal;
+	} : function(searchNode, namespaceURI, elementName) {
+		var retVal = [];
+		var i, j, l, m;
+		if (namespaceURI === "") {
+			//normalise the collection object returned by most processors, to an array.
+			var elementsWithNoPrefix = searchNode.getElementsByTagName(elementName);
+			for (i = 0, l = elementsWithNoPrefix.length; i < l; i++) {
+				retVal.push(elementsWithNoPrefix[i]);
+			}
+		} else {
+			//make up namespacePrefix + elementName combinations to search with.
+			var prefixes = this.outputNamespaces[namespaceURI];
+			if (prefixes) {
+				for (i = 0, l = prefixes.length; i < l; i++) {
+					var elementsWithThisPrefix = searchNode.getElementsByTagName(prefixes[i] + ":" + elementName);
+					for (j = 0, m = elementsWithThisPrefix.length; j < m; j++) {
+						retVal.push(elementsWithThisPrefix[j]);
+					}
+				}
+			}
+		}
+		return retVal;
+	}),
+	
+	getNamespaceURIForPrefix: function(prefix) {
+		return (prefix) ? this.outputNamespaceURIs[prefix] : "";
 	}
-
-
-
-	function getNamespaceURIForPrefix(nodePrefix) {
-		return (nodePrefix) ? m_outputNamespaceURIs[nodePrefix] : "";
-	}
-
-	var self = function () {};
-	self.translateCSSSelector = translateCSSSelector;
-	self.getOutputPrefixesFromURI = getOutputPrefixesFromURI;
-	self.getAttributeNS = getAttributeNS;
-	self.addSelectionNamespace = addSelectionNamespace;
-	self.addOutputNamespace = addOutputNamespace;
-	self.getLowerCaseLocalName = getLowerCaseLocalName;
-	self.compareFullName = compareFullName;
-	self.getNamespaceURI = getNamespaceURI;
-	self.clean = clean;
-	if (document.namespaces) {
-		self.readOutputNamespacesFromDocument = readOutputNamespacesFromNamespaceAwareDocument;
-	} else {
-		self.readOutputNamespacesFromDocument = readOutputNamespacesFromDocumentElementAtrributeList;
-	}
-	self.readOutputNamespacesFromInstance = readOutputNamespacesFromDocumentElementAtrributeList;
-	if (UX.isXHTML) {
-		self.getElementsByTagNameNS = getElementsByTagNameNS;
-	} else if (document.namespaces) {
-		self.getElementsByTagNameNS = getElementsByTagNameNS_Aware;
-	} else {
-		self.getElementsByTagNameNS = getElementsByTagNameNS_Unaware;
-	}
-	self.getNamespaceURIForPrefix = getNamespaceURIForPrefix;
-	return self;
-}();
+	
+};

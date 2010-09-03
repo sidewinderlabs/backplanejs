@@ -35,9 +35,8 @@ if (UX.isXHTML) { /* override the getElementById on the document object */
 		}
 		return oElement;
 	};
-}(
-
-function () {
+}
+(function () {
 	/**
 	 Inserts an element into the DOM at a given location.	This is an addon applied to Elements
 	 in the target environment.	Nodes must be of compatible types in the target DOM, i.e.
@@ -284,22 +283,20 @@ UX.addStyle = function (oElement, styleName, value) {
 	var stylesheet, selector;
 	if (oElement.style) {
 		oElement.style[styleName] = value;
-	} else {
+	} else if(UX.isXHTML) {
 		// At this point, you are not IE or Firefox with HTML parsing
 		// There is not a .style property for the XML Parser on Firefox
 		// Instead, the style will have to be added using the CSS DOM model
-		if (UX.isXHTML) {
-			// get the computed style and see if it is already set to the value
-			if (document.defaultView.getComputedStyle(oElement, null)[styleName] !== value) {
-				stylesheet = oElement.ownerDocument.styleSheets[0];
-				// make sure prefix has namespace declared in stylesheet, use identifier based selector where available
-				try {
-					stylesheet.insertRule("@namespace " + oElement.prefix + " url(http://www.w3.org/2002/xforms);", 0);
-					selector = UX.id(oElement) ? ('[id="' + UX.id(oElement) + '"]') : "";
-					stylesheet.insertRule(oElement.prefix + "|" + oElement.localName + selector + " {" + styleName + ":" + value + ";}", (stylesheet.cssRules.length === 0) ? 1 : stylesheet.cssRules.length);
-				} catch (e) {
-					document.logger.log("INFO: Couldn't set style " + styleName + " to " + value);
-				}
+		// get the computed style and see if it is already set to the value
+		if (document.defaultView.getComputedStyle(oElement, null)[styleName] !== value) {
+			stylesheet = oElement.ownerDocument.styleSheets[0];
+			// make sure prefix has namespace declared in stylesheet, use identifier based selector where available
+			try {
+				stylesheet.insertRule("@namespace " + oElement.prefix + " url(http://www.w3.org/2002/xforms);", 0);
+				selector = UX.id(oElement) ? ('[id="' + UX.id(oElement) + '"]') : "";
+				stylesheet.insertRule(oElement.prefix + "|" + oElement.localName + selector + " {" + styleName + ":" + value + ";}", (stylesheet.cssRules.length === 0) ? 1 : stylesheet.cssRules.length);
+			} catch (e) {
+				document.logger.log("INFO: Couldn't set style " + styleName + " to " + value);
 			}
 		}
 	}
@@ -343,7 +340,6 @@ UX.getStyle = function (oElement, styleName) {
  */
 UX.getPropertyValue = function (pThis, type) {
 	var aChildNode = NamespaceManager.getElementsByTagNameNS(pThis.element, "http://www.w3.org/2002/xforms", type)[0];
-
 	return (aChildNode) ? getElementValueOrContent(_getEvaluationContext(pThis), aChildNode) : pThis.element.getAttribute(type);
 };
 /**
@@ -390,14 +386,11 @@ UX.createElementNS = function (oNode, sNamespaceURI, sQualifiedName) {
 };
 
 UX.focusFirstEligibleChild = function (childNodes) {
-	var i;
-
-	for (i = 0; i < childNodes.length; ++i) {
+	for (var i = 0; i < childNodes.length; ++i) {
 		if (this.focusTree(childNodes.item(i))) {
 			return true;
 		}
 	}
-
 	return false;
 };
 
@@ -405,7 +398,6 @@ UX.focusTree = function (node) {
 	if (typeof node.giveFocus === "function") {
 		return node.giveFocus();
 	}
-
 	return this.focusFirstEligibleChild(node.childNodes);
 };
 
@@ -423,9 +415,7 @@ UX.type = function (o) {
 /*
 	Extended DOM Navigation.
 */
-(
-
-function () {
+(function () {
 
 	var forwards = function (o) {
 		return o.nextSibling;
