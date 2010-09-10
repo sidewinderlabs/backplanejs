@@ -308,6 +308,9 @@
 				<exclude name="**/ut-fileio.js" />
 				<exclude name="**/ut-scheme-handler.js" />
 			</fileset>
+			<fileset dir="${src.dir}/third-party/uxf/src/lib/backplane/dom">
+				<include name="**/ut-*.js" />
+			</fileset>
 		</concat>
 		<copy file="${build.dir}/test/unit.html" tofile="${unit-tests.dir}/backplane/main.html" failonerror="true" />
 
