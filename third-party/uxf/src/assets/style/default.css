@@ -607,6 +607,19 @@ xf|select.appearance-minimal xf|label pe-value, xforms|select.appearance-minimal
     margin:0px;
     padding:0px;
     position:relative;
+	background:#F9F9F9;
+	cursor:pointer;
+	width:20px;
+}
+
+.ux-drop-button button{
+	background-image: url(http://yui.yahooapis.com/2.8.0r4/build/button/assets/skins/sam/menu-button-arrow.png);
+    background-repeat: no-repeat;
+    background-position: 4px center;
+    background-color:transparent;
+	height:100%;
+	width:100%;
+	padding:0;
 }
 
 *[class~="ux-drop-button"] {
@@ -619,24 +632,21 @@ xf|select.appearance-minimal xf|label pe-value, xforms|select.appearance-minimal
 }
 
 .ux-drop-button .first-child {
-    background-image: url(http://yui.yahooapis.com/2.8.0r4/build/button/assets/skins/sam/menu-button-arrow.png);
-    background-repeat: no-repeat;
-    background-position: right center;
-    background-color:transparent;
+    height:100%;
+	width:100%;
+    margin:0px;
+    padding:0px;
+	display:inline-block;
+}
+
+
+*[class~="ux-drop-button"] *[class~="first-child"] {
     height:100%;
     margin:0px;
     padding:0px;
 }
 
-*[class~="ux-drop-button"] *[class~="first-child"] {
-    background-image: url(http://yui.yahooapis.com/2.8.0r4/build/button/assets/skins/sam/menu-button-arrow.png);
-    background-repeat: no-repeat;
-    background-position: right center;
-    background-color:transparent;
-    height:100%;
-    margin:0px;
-    padding:0px;
-}
+
 
 .focus {
   border: 1px lightgray dashed;

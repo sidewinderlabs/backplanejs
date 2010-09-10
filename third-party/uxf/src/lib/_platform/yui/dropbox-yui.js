@@ -53,18 +53,13 @@ function DropBox(containerElement, referenceElement, dropElement) {
   referenceYUIElement.setStyle("display", "inline-block");
   
   btnHeight = this.PRIVATE.referenceElement.offsetHeight;
-  
-  if (!(UX.isIE && UX.isQuirksMode)) {
-    //not borders, just a quirk.
-    btnHeight -= 3;
-  }
-  
+
   button.setStyle("height", btnHeight + "px");  
   
   if (UX.isIE || UX.isSafari || !UX.isQuirksMode) {
      //In these browsers, top will align top of button to top of sibling.
      //  but middle will align midpoint of button with baseline of text
-    button.setStyle("vertical-align", "top");
+    button.setStyle("vertical-align", "bottom");
   } else {
     button.setStyle("vertical-align", "middle");
     //align with true top of referenceElement
