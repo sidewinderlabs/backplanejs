@@ -9,7 +9,7 @@
 	  new YAHOO.tool.TestCase({
 			name: "Test createDocument()",
 			testCreateDocument: function () {
-				var doc = document.DOMImplementation.createDocument();
+				var doc = document.DOMImplementation.createDocument('', 'test', null);
 
 				Assert.isNotNull(this.doc);
 			}
