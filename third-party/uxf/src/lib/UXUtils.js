@@ -150,12 +150,12 @@ if (UX.isXHTML) { /* override the getElementById on the document object */
 			// there is a space in the class string. First we try trimming the string,
 			// and then we try to split it, in the event that the user tried to pass
 			// a string-separated list of classnames
-			if (e.code != e.NS_ERROR_DOM_INVALID_CHARACTER_ERR) throw e;
+			if (e.code != e.INVALID_CHARACTER_ERR) throw e;
 			var className = classString.replace(rtrim, '');
 			try {
 				element.classList.add(className);
 			} catch (e) {
-				if (e.code != e.NS_ERROR_DOM_INVALID_CHARACTER_ERR) throw e;
+				if (e.code != e.INVALID_CHARACTER_ERR) throw e;
 				var splits = className.split(rspace);
 				if (splits.length > 1) {
 					UX.addClassNames(element, splits);
