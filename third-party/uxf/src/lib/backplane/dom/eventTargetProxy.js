@@ -97,7 +97,7 @@ function mapdblclick2domactivate(elmnt, e) {
 }
 
 function StyleHoverishly(elmnt) {
-    UX.addClassName(elmnt, " pc-hover");
+    UX.addClassName(elmnt, "pc-hover");
 }
 
 function StyleUnhoverishly(elmnt) {
@@ -105,7 +105,7 @@ function StyleUnhoverishly(elmnt) {
 }
 
 function StyleFocussedly(elmnt) {
-    UX.addClassName(elmnt, " pc-focus");
+    UX.addClassName(elmnt, "pc-focus");
 }
 
 function StyleUnfocussedly(elmnt) {
