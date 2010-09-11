@@ -1,0 +1,62 @@
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ev="http://www.w3.org/2001/xml-events" 
+	xmlns:xf="http://www.w3.org/2002/xforms"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	>
+	<head>
+		<title>Simple select1 form</title>
+
+		<script src="/backplanejs/backplane.js" type="text/javascript">/**/</script>
+		<link rel="stylesheet" href="/backplanejs/assets/backplane.css"></link>
+	</head>
+	<body>
+		<xf:model id="loan_model">
+			<xf:instance id="loan">
+				<data>
+					<currency>USD</currency>
+				</data>
+		</xf:instance>
+	  <xf:instance id="currencies">
+	    <currencies>
+	      <currency>
+	        <name>Pounds Sterling</name>
+	        <abbr>GBP</abbr>
+	      </currency>
+	      <currency>
+	        <name>Australian Dollars</name>
+	        <abbr>AUD</abbr>
+	      </currency>
+	      <currency>
+	        <name>Swiss Francs</name>
+	        <abbr>CHF</abbr>
+	      </currency>
+	    </currencies>
+	  </xf:instance>
+			</xf:model>
+
+	<xf:select1 ref="currency" appearance="minimal" id="select1">
+			<xf:label>Choose currency</xf:label>
+			<xf:item>
+				<xf:label>US Dollars</xf:label>
+				<xf:value>USD</xf:value>
+			</xf:item>
+			<xf:item>
+				<xf:label>Canadian Dollars</xf:label>
+				<xf:value>CDN</xf:value>
+			</xf:item>
+		  <xf:item>
+		    <xf:label>Euros</xf:label>
+		    <xf:value>EUR</xf:value>
+		  </xf:item>
+	    <xf:itemset nodeset="instance('currencies')/currency">
+	      <xf:label ref="name"></xf:label>
+	      <xf:value ref="abbr"></xf:value>
+	    </xf:itemset>	  
+	  </xf:select1>
+	  <xf:output ref="currency" id="output">
+	  	<xf:label>Output: </xf:label>
+	  </xf:output>
+	</body>
+</html>

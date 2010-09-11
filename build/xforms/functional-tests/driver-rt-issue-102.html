@@ -1,0 +1,81 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			<title>Regression test for backplanejs issue 102</title>
+		</head>
+		<body>
+			<table cellpadding="1" cellspacing="1" border="1">
+				<tbody>
+					<tr>
+						<td>open</td>
+						<td>ft-select1.html</td>
+						<td></td>
+						<td>Open the form we want to use for our tests.</td>
+					</tr>
+
+					<tr>
+						<td>assertTitle</td>
+						<td>Simple select1 form</td>
+						<td></td>
+						<td>Ensure that we have the correct form.</td>
+					</tr>
+
+					<tr>
+						<td>waitForModelReady</td>
+						<td></td>
+						<td></td>
+						<td>Wait for the XForms processor to initialise.</td>
+					</tr>
+
+					<tr>
+						<td>assertXFormsControlValue</td>
+						<td>output</td>
+						<td>USD</td>
+						<td>Ensure that the output control is ready, and not set to another currency.</td>
+					</tr>
+
+					<tr>
+						<td>click</td>
+						<td>//*[@id='select1']//*[@ordinal=1]/*[pe-value]</td>
+						<td></td>
+						<td>Click on "Pounds Sterling".</td>
+					</tr>
+
+					<tr>
+						<td>verifyXFormsControlValue</td>
+						<td>output</td>
+						<td>GBP</td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<td>click</td>
+						<td>//*[@id='select1']//*[@ordinal=2]/*[pe-value]</td>
+						<td></td>
+						<td>Click on "Australian Dollars".</td>
+					</tr>
+
+					<tr>
+						<td>verifyXFormsControlValue</td>
+						<td>output</td>
+						<td>AUD</td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<td>click</td>
+						<td>//*[@id='select1']//*[@ordinal=3]/*[pe-value]</td>
+						<td></td>
+						<td>Click on "Swiss Francs".</td>
+					</tr>
+
+					<tr>
+						<td>verifyXFormsControlValue</td>
+						<td>output</td>
+						<td>CHF</td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</body>
+	</html>
