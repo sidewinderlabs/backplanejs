@@ -17,15 +17,19 @@
 		new YAHOO.tool.TestCase({
 			name : "Test addClassNameNative()",
 
+			// We can't call addClassNameNative() directly, but it is called
+			// by UX.addClassName if (a) the browser supports the classList
+			// API...
+			//
 			_should: {
 				ignore: {
 					"test: addClassNameNative()": !(document.createElement("div").classList && typeof(document.createElement("div").classList) == "object")
 				}
 			},
 
+			// ...and (b) the browser is running in XHTML mode.
+			//
 			setUp : function() {
-				// addClassNameNative() is only called in XHTML mode.
-				//
 				this.isXHTML = UX.isXHTML;
 				UX.isXHTML = true;
 				this.element = document.createElement("div");
