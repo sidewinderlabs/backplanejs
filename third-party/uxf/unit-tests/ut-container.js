@@ -17,116 +17,108 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-var suiteContainer = new YAHOO.tool.TestSuite({
-	name : "Test container module"
-});
 
-suiteContainer.add(
-	new YAHOO.tool.TestCase({
-		name: "Test container",
+YAHOO.tool.TestRunner.add(new YAHOO.tool.TestCase({
+	
+	name: "Test container",
 
-		setUp: function() {
-			this.container = this.createElement("div", document.body);
-			DECORATOR.extend(this.container, new Container(this.container), false);
-			this.container.m_proxy = {};
+	setUp: function() {
+		this.container = this.createElement("div", document.body);
+		this.containerObject = new Container(this.container);
+		this.containerObject.m_proxy = {};
 
-			this.containee = this.createElement("div", this.container);
-		},
+		this.containee = this.createElement("div", this.container);
+	},
 
-		tearDown: function() {
-			this.destroyElement(this.containee, "containee", this.container);
-			this.destroyElement(this.container, "container", document.body);
-		},
+	tearDown: function() {
+		this.destroyElement(this.containee, "containee", this.container);
+		this.destroyElement(this.container, "container", document.body);
+		delete this.containerObject;
+	},
 
-		testGiveFocusXFormsControl: function() {
-		this.container.m_proxy.enabled = {
+	testGiveFocusXFormsControl: function() {
+		this.containerObject.m_proxy.enabled = {
 			getValue: function() {
 				return true;
 			}
 		};
 
-			this.decorateAsControl(this.containee);
+		this.containeeObject = this.decorateAsControl(this.containee);
 
-			this.container.blur();
-			YAHOO.util.Assert.isFalse(this.containee === document.activeElement || this.containee.contains(document.activeElement));
-			this.container.giveFocus();
-			YAHOO.util.Assert.isTrue(this.containee === document.activeElement || this.containee.contains(document.activeElement));
+		this.container.blur();
+		YAHOO.util.Assert.isFalse(this.containee === document.activeElement || this.containee.contains(document.activeElement));
+		this.containerObject.giveFocus();
+		YAHOO.util.Assert.isTrue(this.containee === document.activeElement || this.containee.contains(document.activeElement));
 
-			this.destroyElement(this.containee.m_value, "containee.m_value", this.containee);
-		},
+		this.destroyElement(this.containeeObject.m_value, "containee.m_value", this.containee);
+	},
 
-		testGiveFocusXFormsSubContainer: function() {
-		this.container.m_proxy.enabled = {
+	testGiveFocusXFormsSubContainer: function() {
+		this.containerObject.m_proxy.enabled = {
 			getValue: function() {
 				return true;
 			}
 		};
 
-			DECORATOR.extend(this.containee, new Container(this.containee), false);
-			this.containee.m_proxy = {};
-		this.containee.m_proxy.enabled = {
+		this.containeeObject.descendant = this.createElement("div", this.containee);
+		this.containeeDescendantObject = this.decorateAsControl(this.containeeObject.descendant);
+
+		this.container.blur();
+		YAHOO.util.Assert.isFalse(this.containeeObject.descendant === document.activeElement || this.containeeObject.descendant.contains(document.activeElement));
+		this.containerObject.giveFocus();
+		YAHOO.util.Assert.isTrue(this.containeeObject.descendant === document.activeElement || this.containeeObject.descendant.contains(document.activeElement));
+
+		this.destroyElement(this.containeeDescendantObject.m_value, "containee.descendant.m_value", this.containeeObjectDescendant);
+		this.destroyElement(this.containeeObject.descendant, "containee.descendant", this.containee);
+	},
+
+	testGiveFocusNonXFormsSubContainer: function() {
+		this.containerObject.m_proxy.enabled = {
 			getValue: function() {
 				return true;
 			}
 		};
 
-			this.containee.descendant = this.createElement("div", this.containee);
-			this.decorateAsControl(this.containee.descendant);
+		this.containeeObject.descendant = this.createElement("div", this.containee);
+		this.containeeDescendantObject = this.decorateAsControl(this.containeeObject.descendant);
 
-			this.container.blur();
-			YAHOO.util.Assert.isFalse(this.containee.descendant === document.activeElement || this.containee.descendant.contains(document.activeElement));
-			this.container.giveFocus();
-			YAHOO.util.Assert.isTrue(this.containee.descendant === document.activeElement || this.containee.descendant.contains(document.activeElement));
+		this.container.blur();
+		YAHOO.util.Assert.isFalse(this.containeeObject.descendant === document.activeElement || this.containeeObject.descendant.contains(document.activeElement));
+		this.containerObject.giveFocus();
+		YAHOO.util.Assert.isTrue(this.containeeObject.descendant === document.activeElement || this.containeeObject.descendant.contains(document.activeElement));
 
-			this.destroyElement(this.containee.descendant.m_value, "containee.descendant.m_value", this.containee.descendant);
-			this.destroyElement(this.containee.descendant, "containee.descendant", this.containee);
-		},
+		this.destroyElement(this.containeeDescendantObject.m_value, "containee.descendant.m_value", this.containeeObject.descendant);
+		this.destroyElement(this.containeeObject.descendant, "containee.descendant", this.containee);
+	},
 
-		testGiveFocusNonXFormsSubContainer: function() {
-		this.container.m_proxy.enabled = {
-			getValue: function() {
-				return true;
-			}
-		};
+	createElement: function(name, parent) {
+		var element = document.createElement(name);
 
-			this.containee.descendant = this.createElement("div", this.containee);
-			this.decorateAsControl(this.containee.descendant);
-
-			this.container.blur();
-			YAHOO.util.Assert.isFalse(this.containee.descendant === document.activeElement || this.containee.descendant.contains(document.activeElement));
-			this.container.giveFocus();
-			YAHOO.util.Assert.isTrue(this.containee.descendant === document.activeElement || this.containee.descendant.contains(document.activeElement));
-
-			this.destroyElement(this.containee.descendant.m_value, "containee.descendant.m_value", this.containee.descendant);
-			this.destroyElement(this.containee.descendant, "containee.descendant", this.containee);
-		},
-
-		createElement: function(name, parent) {
-			var element = document.createElement(name);
-
-			if (parent) {
-				parent.appendChild(element);
-			}
-
-			return element;
-		},
-
-		destroyElement: function(element, propertyName, parent) {
-			if (parent) {
-				parent.removeChild(element);
-			}
-
-			delete this[propertyName];
-		},
-
-		decorateAsControl: function(element) {
-			DECORATOR.extend(element, new Control(element), false);
-			element.m_proxy = {};
-		element.m_proxy.enabled = {
-			getValue: function() {
-				return true;
-			}
-		};
-			element.m_value = this.createElement("input", element);
+		if (parent) {
+			parent.appendChild(element);
 		}
-	}));
+
+		return element;
+	},
+
+	destroyElement: function(element, propertyName, parent) {
+		if (parent) {
+			parent.removeChild(element);
+		}
+
+		delete this[propertyName];
+	},
+
+	decorateAsControl: function(element) {
+		var object = new Control(element);
+		DECORATOR.addBehaviour(element, object);
+		object.m_proxy = {};
+		object.m_proxy.enabled = {
+			getValue: function() {
+				return true;
+			}
+		};
+		object.m_value = this.createElement("input", element);
+		return object;
+	}
+}));

@@ -13,58 +13,61 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-function Submit(elmnt) {
-    this.element = elmnt;
-    this.element.addEventListener("DOMActivate", this, false);
-}
+var Submit = new UX.Class({
+	
+	Mixins: [NavigableControl, OptionalBinding],
+	
+	toString: function() {
+		return 'xf:submit';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+		this.element.addEventListener("DOMActivate", this, false);
+	},
 
-Submit.prototype.handleEvent = DeferToConditionalInvocationProcessor;
+	handleEvent: DeferToConditionalInvocationProcessor,
 
-Submit.prototype.performAction = function(oEvt) {
-    var control = this;
-    var oSubmission = null;
-    var oDocument = control.element.ownerDocument;
-    if (oEvt.type === "DOMActivate") {
-        if (UX.isWebKit && !oEvt.mappedFromClick) {
-            // HACK: WebKit issues its own DOMActivate that we need to ignore.
-            //       This condition ensures that we just NOP for that event.
-            return;
-        }
+	performAction: function(event) {
+		var control = this;
+		var submission = null;
+		var doc = control.element.ownerDocument;
+		//WebKit issues its own DOMActivate that we need to ignore.
+		if (event.type != "DOMActivate" || (UX.isWebKit && !event.mappedFromClick)) return;
+		var id = control.element.getAttribute("submission");
+		if (id) {
+			submission = doc.getElementById(id);
+			if (!submission || !NamespaceManager.compareFullName(submission, "submission", "http://www.w3.org/2002/xforms")) {
+				UX.dispatchEvent(this.element, "xforms-binding-exception", true, false, false);
+			}
+		} else {
+			// if there is not a declared submssion id, get the first submission
+			// element of the default model
+			var model = getModelFor(doc);
 
-        var sID = control.element.getAttribute("submission");
+			if (model) {
+				// halt on the first submission in model
+				var children = model.element.childNodes;
+				for (var i = 0, l = children.length; i < l; i++) {
+					if (NamespaceManager.compareFullName(children[i], "submission", "http://www.w3.org/2002/xforms")) {
+						submission = children[i];
+						break;
+					}
+				}
+			}
 
-        if (sID) {
-            oSubmission = oDocument.getElementById(sID);
-            if (!oSubmission || !NamespaceManager.compareFullName(oSubmission,"submission","http://www.w3.org/2002/xforms")) {
-              UX.dispatchEvent(this.element, "xforms-binding-exception",  true, false, false);
-            }
-        } else {
-            // if there is not a declared submssion id, get the first submission
-            // element of the default model
-            var oModel = getModelFor(oDocument);
+			if (!submission) {
+				throw "There is no submission element associated with the default model.";
+			}
+		}
 
-            if (oModel) {
-                // halt on the first submission in model
-                var nsChildNodes = oModel.element.childNodes;
-                for ( var i = 0; i < nsChildNodes.length; i++) {
-					if (NamespaceManager.compareFullName(nsChildNodes[i], "submission", "http://www.w3.org/2002/xforms")) {
-                        oSubmission = nsChildNodes[i];
-                        break;
-                    }
-                }
-            }
-
-            if (!oSubmission) {
-              throw "There is no submission element associated with the default model.";
-            }
-        }
-
-        if (oSubmission) {
-            var oSubmitEvt = oDocument.createEvent("Events");
-            oSubmitEvt.initEvent("xforms-submit", true, true, null, null);
-            spawn( function() {
-                FormsProcessor.dispatchEvent(oSubmission, oSubmitEvt);
-            });
-        }
-    }
-};
+		if (submission) {
+			var submitEvent = doc.createEvent("Events");
+			submitEvent.initEvent("xforms-submit", true, true, null, null);
+			spawn(function() {
+				FormsProcessor.dispatchEvent(submission, submitEvent);
+			});
+		}
+	}
+	
+});

@@ -111,40 +111,42 @@
 	
 	suiteGetElementById = new YAHOO.tool.TestSuite({
 		setUp: function(){
-			testDiv = createElement("div",null, document.body);
+			testDiv = createElement("div", null, document.body);
 			testDiv.innerHTML = 
-				"<span id='s0' uid='the first s0'>" + 
-					"<p id='p0' uid='the only p0'>" + 
-						"<b id='b0' uid='the only b0'>" + 
-							"<i id='i0' uid='the first i0'>hello</i>" + 
-						"</b>"+
-					"</p>"+
-					"<p id='p1' uid='the only p1'>" + 
-						"<b id='b1' uid='the only b1'>" + 
-							"<i id='i0' uid='the second i0'>hello</i>" + 
-						"</b>"+
-					"</p>"+
-				"</span>" +
-				"<span id='s1'>" + 
-					"<p id='p2' uid='the only p2'>" + 
-						"<b id='b2' uid='the only b2'>" + 
-							"<i id='i1' uid='the first i1'>hello</i>" + 
-						"</b>"+
-						"<b id='b3' uid='the only b3'>" + 
-							"<i id='i1' uid='the second i1'>hello</i>" + 
-							"<u id='u0' uid='the only u0'>hello</u>" + 
-						"</b>"+
-						"<b id='b4' uid='the only b4'>" + 
-							"<i id='i1' uid='the third i1'>hello</i>" + 
-							"<u id='u1' uid='the only u1'>hello</u>" + 
-						"</b>"+
-					"</p>"+
-				"</span>";
+				"<span id='s0' uid='the first s0'>\
+					<p id='p0' uid='the only p0'>\
+						<b id='b0' uid='the only b0'>\
+							<i id='i0' uid='the first i0'>hello</i>\
+						</b\
+					</p>\
+					<p id='p1' uid='the only p1'>\
+						<b id='b1' uid='the only b1'>\
+							<i id='i0' uid='the second i0'>hello</i>\
+						</b>\
+					</p>\
+				</span>\
+				<span id='s1'>\
+					<p id='p2' uid='the only p2'>\
+						<b id='b2' uid='the only b2'>\
+							<i id='i1' uid='the first i1'>hello</i>\
+						</b>\
+						<b id='b3' uid='the only b3'>\
+							<i id='i1' uid='the second i1'>hello</i>\
+							<u id='u0' uid='the only u0'>hello</u>\
+						</b>\
+						<b id='b4' uid='the only b4'>\
+							<i id='i1' uid='the third i1'>hello</i>\
+							<u id='u1' uid='the only u1'>hello</u>\
+						</b>\
+					</p>\
+				</span>";
 			
-
-			document.getElementById("b2").outerScope = document.getElementById("p2");
-			document.getElementById("b3").outerScope = document.getElementById("p2");
-			document.getElementById("b4").outerScope = document.getElementById("p2");
+			var uid = ++DECORATOR.uid;
+			document.getElementById("p2").ux_uid = uid;
+			DECORATOR.elements[DECORATOR.uid] = document.getElementById("p2");
+			document.getElementById("b2").setAttribute("outerscope", uid);
+			document.getElementById("b3").setAttribute("outerscope", uid);
+			document.getElementById("b4").setAttribute("outerscope", uid);
 
 			//These functions mimic the complex scope situation caused by structures like repeat.
 			document.getElementById("p2").exposes = function(scopedElement) {
@@ -197,7 +199,7 @@
 				YAHOO.util.Assert.areSame("the only u0",FormsProcessor.getElementById("u0",document.getElementById('s1')).getAttribute("uid"));
 			},
 			testGetNonUniqueNonFirstElementByIdWithScope : function () {
-				YAHOO.util.Assert.areSame("the second i1",FormsProcessor.getElementById("i1",document.getElementById('s1')).getAttribute("uid"));
+				YAHOO.util.Assert.areSame("the second i1", FormsProcessor.getElementById("i1",document.getElementById('s1')).getAttribute("uid"));
 			},
 			testGetExposedScopedElementFromWithin : function () {
 				YAHOO.util.Assert.areSame("the second i1",FormsProcessor.getElementById("i1",document.getElementById('u0')).getAttribute("uid"));
@@ -212,5 +214,3 @@
 	YAHOO.tool.TestRunner.add(suiteGetElementById);
 
 }());
-
-

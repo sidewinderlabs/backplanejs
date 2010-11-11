@@ -142,4 +142,5 @@ if (typeof(XPathEvaluator) == "undefined") {
 
 		return expr.evaluate(node, type, result);
 	};
+		
 }

@@ -14,66 +14,76 @@
  * limitations under the License.
  */
 
-function SrcMixin(element) {
-	this.element = element;
-	this.m_oDOM = null;
-	this.m_sValue = null;
-}
+var SrcMixin = new UX.Class({
+	
+	toString: function() {
+		return 'xf:srcmixin';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+		this.m_oDOM = null;
+		this.m_sValue = null;
+	},
 
-SrcMixin.prototype.load = function(labelURL){
+	load: function(labelURL) {
 
-	 if ( labelURL ) {
-         //
-         // We map our @src to an XLink.
-         //
-        this.element.setAttribute("xlink:actuate", "onRequest");
-        this.element.setAttribute("xlink:show", "embed");
-        this.element.setAttribute("xlink:href", labelURL);
+		if (labelURL) {
+			//
+			// We map our @src to an XLink.
+			//
+			this.element.setAttribute("xlink:actuate", "onRequest");
+			this.element.setAttribute("xlink:show", "embed");
+			this.element.setAttribute("xlink:href", labelURL);
 
-        //Prevent XLink resolving the base URL.
-        //
-        //this.element.setAttribute("base", " ");
-        this.element.attachSingleBehaviour(XLinkElement);
+			//Prevent XLink resolving the base URL.
+			//
+			//this.element.setAttribute("base", " ");
+			UX.extend(this, new XLinkElement(this.element));
 
-        //
-        // When the document has been loaded by our XLink handler
-        // we parse it and then fire a 'document load' event.
-        //
-		this.element.addEventListener("xlink-traversed", {
-            context: this,
-            handleEvent: function (evtParam) {
-               ///Since it is done traversing we can set the label element
-        		this.context.textContent = this.context.innerHTML;
-            }
-        },
-        false);
+			//
+			// When the document has been loaded by our XLink handler
+			// we parse it and then fire a 'document load' event.
+			//
+			this.element.addEventListener("xlink-traversed", {
+				context: this,
+				handleEvent: function(evtParam) {
+					///Since it is done traversing we can set the label element
+					this.context.textContent = this.context.innerHTML;
+				}
+			},
+			false);
 
-        //
-        // If the XLink handler for src or resource fails, then
-        // we dispatch xforms-link-exception
-        //
-		this.element.addEventListener("xlink-traversal-failure", {
-            context: this,
-            handleEvent: function (evtParam) {
-                var dispatcher = this.context;
-                spawn(function () {
-                    dispatcher.dispatchException("xforms-link-exception", evtParam.context);
-                });
-            }
-        },
-        false);
+			//
+			// If the XLink handler for src or resource fails, then
+			// we dispatch xforms-link-exception
+			//
+			this.element.addEventListener("xlink-traversal-failure", {
+				context: this,
+				handleEvent: function(evtParam) {
+					var dispatcher = this.context;
+					spawn(function() {
+						dispatcher.dispatchException("xforms-link-exception", evtParam.context);
+					});
+				}
+			},
+			false);
 
-        /*
-        * [ISSUE] Need to decide how to actuate, since
-        * onLoad is too late.
-        */
+			/*
+	        * [ISSUE] Need to decide how to actuate, since
+	        * onLoad is too late.
+	        */
 
-        this.element.Actuate();
-    }
-};
+			this.Actuate();
+		}
+	},
 
-SrcMixin.prototype.parseInstance = function(){};
+	parseInstance: function() {
+		
+	},
 
-SrcMixin.prototype.finishLoad = function(){
-	return false;
-};
+	finishLoad: function() {
+		return false;
+	}
+	
+});

@@ -18,178 +18,113 @@
 /*global FormsProcessor, document, UX, setTimeout*/
 var EventTarget = null;
 
-function dispatchXformsHint(elmnt, e) {
-    var oEvt, savedHintOffCounter;
-    oEvt = elmnt.ownerDocument.createEvent("UIEvents");
-    savedHintOffCounter = FormsProcessor.hintOffCounter;
 
-    setTimeout(function () {
-        if (savedHintOffCounter === FormsProcessor.hintOffCounter) {
-          oEvt.initUIEvent("xforms-hint", true, true, null, 1);
-          FormsProcessor.dispatchEvent(elmnt, oEvt);
-        }
-    }, 200);
 
-    //oEvt.initUIEvent("xforms-hint", true, true, null, 1);
-    //There is no need to run this event in line, and doing so may cause a stack overflow,
-    //  if it invokes other actions.
-    //oEvt._actionDepth = -1;
-    //FormsProcessor.dispatchEvent(elmnt,oEvt);
-    //spawn(function(){elmnt.dispatchEvent(oEvt)});
-    if (UX.isIE && window.event) {
-        window.event.cancelBubble = true;
-        window.event.returnValue = false;
-    } else if (e) {
-        e.stopPropagation();
-    }
+function dispatchXformsHint(element, event) {
+	var oEvt, savedHintOffCounter;
+	oEvt = element.ownerDocument.createEvent("UIEvents");
+	savedHintOffCounter = FormsProcessor.hintOffCounter;
+	setTimeout(function() {
+		if (savedHintOffCounter === FormsProcessor.hintOffCounter) {
+			oEvt.initUIEvent("xforms-hint", true, true, null, 1);
+			FormsProcessor.dispatchEvent(element, oEvt);
+		}
+	}, 200);
+
+	//oEvt.initUIEvent("xforms-hint", true, true, null, 1);
+	//There is no need to run this event in line, and doing so may cause a stack overflow,
+	//  if it invokes other actions.
+	//oEvt._actionDepth = -1;
+	//FormsProcessor.dispatchEvent(element,oEvt);
+	//spawn(function(){element.dispatchEvent(oEvt)});
+	event.stop();
 }
 
-function dispatchXformsHintOff(elmnt, e) {
-    var oEvt = document.createEvent("UIEvents");
-    FormsProcessor.hintOffCounter++;
 
-    oEvt.initUIEvent("xforms-hint-off", true, true, null, 1);
-    // There is no need to run this event in line, and doing so may cause a stack overflow,
-    // if it invokes other actions.
-    // oEvt._actionDepth = -1;
-    FormsProcessor.dispatchEvent(elmnt, oEvt);
-    //spawn(function(){elmnt.dispatchEvent(oEvt)});
-    if (UX.isIE && window.event) {
-        window.event.cancelBubble = true;
-        window.event.returnValue = false;
-    } else if (e) {
-        e.stopPropagation();
-    }
+
+function dispatchXformsHintOff(element, event) {
+	var oEvt = document.createEvent("UIEvents");
+	FormsProcessor.hintOffCounter++;
+
+	oEvt.initUIEvent("xforms-hint-off", true, true, null, 1);
+	// There is no need to run this event in line, and doing so may cause a stack overflow,
+	// if it invokes other actions.
+	// oEvt._actionDepth = -1;
+	FormsProcessor.dispatchEvent(element, oEvt);
+	//spawn(function(){element.dispatchEvent(oEvt)});
+	event.stop();
 }
 
-function mapclick2domactivate(elmnt, e) {
-    var oEvt = document.createEvent("UIEvents");
-    oEvt.initUIEvent("DOMActivate", true, true, null, 1);
+function mapdblclick2domactivate(element, event) {
+	var oEvt = element.ownerDocument.createEvent("UIEvents");
 
-    // HACK: WebKit issues its own DOMActivate that we need to ignore.
-    //       This property enables us to just NOP for that event.
-    oEvt.mappedFromClick = true;
-
-    FormsProcessor.dispatchEvent(elmnt, oEvt);
-
-    if (UX.isIE && window.event) {
-        window.event.cancelBubble = true;
-        window.event.returnValue = false;
-    } else if (e) {
-        e.stopPropagation();
-    }
+	oEvt.initUIEvent("DOMActivate", true, true, null, 2);
+	// There is no need to run this event in line, and doing so may cause a stack overflow,
+	// if it invokes other actions.
+	// oEvt._actionDepth = -1;
+	FormsProcessor.dispatchEvent(element, oEvt);
+	event.stop();
 }
 
-function mapdblclick2domactivate(elmnt, e) {
-    var oEvt = elmnt.ownerDocument.createEvent("UIEvents");
 
-    oEvt.initUIEvent("DOMActivate", true, true, null, 2);
-    // There is no need to run this event in line, and doing so may cause a stack overflow,
-    // if it invokes other actions.
-    // oEvt._actionDepth = -1;
-    FormsProcessor.dispatchEvent(elmnt, oEvt);
-    if (UX.isIE && window.event) {
-        window.event.cancelBubble = true;
-        window.event.returnValue = false;
-    } else if (e) {
-        e.stopPropagation();
-    }
+
+function StyleHoverishly(element) {
+	UX.addClassName(element, "pc-hover");
 }
 
-function StyleHoverishly(elmnt) {
-    UX.addClassName(elmnt, "pc-hover");
+function StyleUnhoverishly(element) {
+	UX.removeClassName(element, "pc-hover");
 }
 
-function StyleUnhoverishly(elmnt) {
-    UX.removeClassName(elmnt, "pc-hover");
+function StyleFocussedly(element) {
+	UX.addClassName(element, "pc-focus");
 }
 
-function StyleFocussedly(elmnt) {
-    UX.addClassName(elmnt, "pc-focus");
+function StyleUnfocussedly(element) {
+	UX.removeClassName(element, "pc-focus");
 }
 
-function StyleUnfocussedly(elmnt) {
-    UX.removeClassName(elmnt, "pc-focus");
-}
+
 
 function findEventListenerIdx(oArray, oListener) {
-    var len = oArray.length;
-    var i;
+	var len = oArray.length;
+	var i;
 
-    for (i = 0; i < len; i++) {
-        if (oArray[i] === oListener) {
-            break;
-        }
-    }
+	for (i = 0; i < len; i++) {
+		if (oArray[i] === oListener) {
+			break;
+		}
+	}
 
-    return ((len === i) ? -1 : i);
+	return ((len === i) ? -1 : i);
 }
 
 //There is no need for this in firefox.
 if (UX.isIE) {
 
-    function EventTargetProxy(elmnt) {
-        this.element = elmnt;
-        this.arrListener = this.element.arrListener || {};
+	function EventTargetProxy(element) {
+		this.element = element;
+		this.arrListener = this.element.arrListener || {};
+	}
 
-        this.element.onclick = function(evt) {
-            dispatchXformsHintOff(elmnt, evt);
-            mapclick2domactivate(elmnt);
-        };
+	EventTarget = EventTargetProxy;
 
-        this.element.ondblclick = function(evt) {
-            mapdblclick2domactivate(elmnt);
-        };
-
-        this.element.onmouseover = function(evt) {
-            StyleHoverishly(elmnt);
-            dispatchXformsHint(elmnt, evt);
-        };
-
-        this.element.onmouseout = function(evt) {
-            StyleUnhoverishly(elmnt);
-            dispatchXformsHintOff(elmnt, evt);
-        };
-
-        this.element.onkeyup = function(evt) {
-            dispatchXformsHintOff(elmnt, evt);
-        };
-
-        this.element.onfocusin = function(evt) {
-            StyleFocussedly(elmnt);
-            UX.dispatchEvent(elmnt, "DOMFocusIn", true, false, true);
-        };
-        this.element.onfocusout = function(evt) {
-            StyleUnfocussedly(elmnt);
-            UX.dispatchEvent(elmnt, "DOMFocusOut", true, false, true);
-        };
-
-        this.element.onkeydown = function () {
-            if (typeof this.onKeyDown === "function") {
-                this.onKeyDown(event);
-            }
-        };
-    }
-
-
-    EventTarget = EventTargetProxy;
-
-    /*
+	/*
      * P R I V A T E
      * =============
      */
-   var g_iEventsInProgress = 0;
-   var g_pendingEvents = [];
+	var g_iEventsInProgress = 0;
+	var g_pendingEvents = [];
 
-   var flushEventQueue = function() {
-        var oPendingEvent = g_pendingEvents.pop();
-        while (oPendingEvent) {
-            oPendingEvent.target._dispatchEvent(oPendingEvent.evt);
-            oPendingEvent = g_pendingEvents.pop();
-        }
-    };
+	var flushEventQueue = function() {
+		var oPendingEvent = g_pendingEvents.pop();
+		while (oPendingEvent) {
+			oPendingEvent.target._dispatchEvent(oPendingEvent.evt);
+			oPendingEvent = g_pendingEvents.pop();
+		}
+	};
 
-	(function(){
+	(function() {
 		var PHASE_CAPTURE = 0;
 		var PHASE_BUBBLE = 1;
 		var PHASE_DEFAULT = 2;
@@ -197,7 +132,7 @@ if (UX.isIE) {
 		var _addEventListener = function(sType, oListener, bPhase) {
 			var iPhase = PHASE_BUBBLE;
 
-			if (typeof (sType) !== "string" || typeof (bPhase) !== "boolean" || !oListener) {
+			if (typeof(sType) !== "string" || typeof(bPhase) !== "boolean" || !oListener) {
 				this.element.document.logger.log("addEventListener: invalid arguments");
 				return;
 			}
@@ -215,13 +150,12 @@ if (UX.isIE) {
 				this.arrListener[sType][iPhase].push(oListener);
 			}
 		}; //_addEventListener
-
-		 var _removeEventListener = function(sType, oListener, bPhase) {
+		var _removeEventListener = function(sType, oListener, bPhase) {
 			var oList = null;
 			var idx = 0;
 			var iPhase = PHASE_BUBBLE;
 
-			if (typeof (sType) !== "string" || typeof (bPhase) !== "boolean" || !oListener || !this.arrListener[sType]) {
+			if (typeof(sType) !== "string" || typeof(bPhase) !== "boolean" || !oListener || !this.arrListener[sType]) {
 				this.element.document.logger.log("removeEventListener: invalid arguments");
 				return;
 			}
@@ -243,9 +177,8 @@ if (UX.isIE) {
 					oList.splice(idx, 1);
 				}
 			} // if ( some listeners exist for this type and phase )
-		};//_removeEventListener
-
-		var __notifyListeners = function (thisArg, oEvt) {
+		}; //_removeEventListener
+		var __notifyListeners = function(thisArg, oEvt) {
 
 			/*
 			 * First get the list of listeners for this type
@@ -277,9 +210,8 @@ if (UX.isIE) {
 					break;
 
 				default:
-						throw "[CEventTarget._notifyListeners] Invalid phase: " + oEvt.eventPhase;
-				}// switch ( on the event phase )
-
+					throw "[CEventTarget._notifyListeners] Invalid phase: " + oEvt.eventPhase;
+				} // switch ( on the event phase )
 				/*
 				 * For each phase there will be one or more groups
 				 */
@@ -292,14 +224,13 @@ if (UX.isIE) {
 					//	arr = arr[iGroup];
 					//	if (arr && arr.length)
 					//	{
-
 					/*
 					 * If we have a list of listeners then invoke their
 					 * handlers
 					 */
 					thisArg.element.document.logger.log(oEvt.type + ": Notifying " + arr.length + " handlers", "evnt");
 
-					for ( var i = 0; i < arr.length; i++) {
+					for (var i = 0; i < arr.length; i++) {
 						// flush any events that have been added prior to this loop
 						// either in the previous iteration, or before the first iteration.
 						flushEventQueue();
@@ -317,7 +248,7 @@ if (UX.isIE) {
 							}
 						}
 
-						if (typeof (oListener.handleEvent) == "undefined") {
+						if (typeof(oListener.handleEvent) == "undefined") {
 							//prevents ghost listeners being invoked.
 							bInvoke = false;
 							//remove ghost listener from the list.
@@ -385,10 +316,9 @@ if (UX.isIE) {
 						 * but "stop immediate" does
 						 */
 						if (oEvt._stopImmediatePropagation) {
-								break;
+							break;
 						}
-					}//for ( each listener in this group )
-
+					} //for ( each listener in this group )
 					//flush any events that were added to the queue by the last iteration.
 					flushEventQueue();
 
@@ -398,11 +328,10 @@ if (UX.isIE) {
 					 */
 
 					//}//for ( each group in this phase )
-				}// if ( there are groups for this phase )
-			}// if ( there are listeners for this event )
-		};//_notifyListeners()
-
-		var getTargetList = function (oEvt) {
+				} // if ( there are groups for this phase )
+			} // if ( there are listeners for this event )
+		}; //_notifyListeners()
+		var getTargetList = function(oEvt) {
 			var bRet = [];
 			var oNode = oEvt.target.parentElement;
 
@@ -416,7 +345,7 @@ if (UX.isIE) {
 			return bRet;
 		};
 
-		var capture = function (oEvt, arrTargetList) {
+		var capture = function(oEvt, arrTargetList) {
 			/*
 			 * CAPTURE PHASE
 			 * In the capture phase we target ancestors in order
@@ -440,10 +369,10 @@ if (UX.isIE) {
 				if (oEvt._stopPropagation) {
 					break;
 				}
-			}// for ( each ancestor )
+			} // for ( each ancestor )
 		};
 
-		var bubble = function (thisArg, oEvt, arrTargetList) {
+		var bubble = function(thisArg, oEvt, arrTargetList) {
 			/*
 			 * BUBBLE PHASE
 			 * In the bubble phase we target ancestors in reverse order,
@@ -469,9 +398,9 @@ if (UX.isIE) {
 						if (oEvt._stopPropagation) {
 							break;
 						}
-					}// for ( each ancestor )
-				}// if ( the event is a bubbling event )
-			}// if ( propogation has not been stopped )
+					} // for ( each ancestor )
+				} // if ( the event is a bubbling event )
+			} // if ( propogation has not been stopped )
 		};
 
 		var notifydefault = function(thisArg, oEvt) {
@@ -486,6 +415,8 @@ if (UX.isIE) {
 			}
 		};
 
+
+
 		function _dispatchEvent(oEvt) {
 			if (g_iEventsInProgress > 1) {
 				return __dispatchEvent(this, oEvt);
@@ -493,6 +424,8 @@ if (UX.isIE) {
 				return __dispatchEvent(this, oEvt);
 			}
 		}
+
+
 
 		function __dispatchEvent(thisArg, oEvt) {
 			++g_iEventsInProgress;
@@ -544,10 +477,10 @@ if (UX.isIE) {
 				document.logger.log("End of dispatchEvent: " + sType, "evnt");
 				notifydefault(thisArg, oEvt);
 
-			} catch (e) {
-					//debugger;
+			} catch(e) {
+				//debugger;
 			} finally {
-					--g_iEventsInProgress;
+				--g_iEventsInProgress;
 			}
 			/*
 			 * Let the caller know if the default handlers were
@@ -555,8 +488,7 @@ if (UX.isIE) {
 			 */
 
 			return !oEvt._cancelled;
-		}//dispatchEvent
-
+		} //dispatchEvent
 		/*
 		 * There are essentially 4 phases:
 		 * 1. capturing
@@ -571,52 +503,295 @@ if (UX.isIE) {
 		EventTargetProxy.prototype.addEventListener = _addEventListener;
 		EventTargetProxy.prototype.removeEventListener = _removeEventListener;
 		EventTargetProxy.prototype.dispatchEvent = _dispatchEvent;
-	}());
+	} ());
 } else {
 
-    EventTarget = function(elmnt) {
-        this.element = elmnt;
-        this.element.addEventListener("click", function(evt) {
-            mapclick2domactivate(elmnt, evt);
-        }, false);
-        this.element.addEventListener("mouseover", function(evt) {
-            StyleHoverishly(elmnt);
-        }, false);
-        this.element.addEventListener("mouseout", function(evt) {
-            StyleUnhoverishly(elmnt);
-        }, false);
+	EventTarget = function(element) {
+		this.element = element;
+		this.element.addEventListener("click", function(evt) {
+			mapclick2domactivate(element, evt);
+		},
+		false);
+		this.element.addEventListener("mouseover", function(evt) {
+			StyleHoverishly(element);
+		},
+		false);
+		this.element.addEventListener("mouseout", function(evt) {
+			StyleUnhoverishly(element);
+		},
+		false);
 
-        // Hint is turned on with a mouseover, and off with a mouseout or a click.
-        //
-        this.element.addEventListener("mouseover", function(evt) {
-            dispatchXformsHint(elmnt, evt);
-        }, false);
-        this.element.addEventListener("mouseout", function(evt) {
-            dispatchXformsHintOff(elmnt, evt);
-        }, false);
-        this.element.addEventListener("click", function(evt) {
-            dispatchXformsHintOff(elmnt, evt);
-        }, false);
-        this.element.addEventListener("keyup", function(evt) {
-            dispatchXformsHintOff(elmnt, evt);
-        }, false);
+		// Hint is turned on with a mouseover, and off with a mouseout or a click.
+		//
+		this.element.addEventListener("mouseover", function(evt) {
+			dispatchXformsHint(element, evt);
+		},
+		false);
+		this.element.addEventListener("mouseout", function(evt) {
+			dispatchXformsHintOff(element, evt);
+		},
+		false);
+		this.element.addEventListener("click", function(evt) {
+			dispatchXformsHintOff(element, evt);
+		},
+		false);
+		this.element.addEventListener("keyup", function(evt) {
+			dispatchXformsHintOff(element, evt);
+		},
+		false);
 
-        this.element.addEventListener("focus", function(evt) {
-            StyleFocussedly(elmnt);
-            if (UX.isFF) {
-                UX.dispatchEvent(elmnt, "DOMFocusIn", true, false, true);
-            }
-        }, true);
-        this.element.addEventListener("blur", function(evt) {
-            StyleUnfocussedly(elmnt);
-            if (UX.isFF) {
-                UX.dispatchEvent(elmnt, "DOMFocusOut", true, false, true);
-            }
-        }, true);
-        this.element.addEventListener("keydown", function(evt) {
-            if (typeof this.onKeyDown === "function") {
+		this.element.addEventListener("focus", function(evt) {
+			StyleFocussedly(element);
+			if (UX.isFF) {
+				UX.dispatchEvent(element, "DOMFocusIn", true, false, true);
+			}
+		},
+		true);
+		this.element.addEventListener("blur", function(evt) {
+			StyleUnfocussedly(element);
+			if (UX.isFF) {
+				UX.dispatchEvent(element, "DOMFocusOut", true, false, true);
+			}
+		},
+		true);
+		this.element.addEventListener("keydown", function(evt) {
+			if (typeof this.onKeyDown === "function") {
 				this.onKeyDown(evt);
-		    }
-        }, false);
-   };
+			}
+		},
+		false);
+	};
 }
+
+(function() {
+
+	var methods = {};
+	var uid = 0;
+
+	UX.Element = function(element) {
+		if (element.ux_extended)  return methods[element.ux_extended];
+		element.ux_extended = ++uid;
+		var extended = new UX.Element.Methods(element);
+		methods[uid] = extended;
+		return extended;
+	};
+
+	UX.Element.Methods = new UX.Class({
+
+		initialize: function(element) {
+			this.element = element;
+		},
+
+		addListener: function(type, fn, capture) {
+			type = type.replace(/^on/, '');
+			if (UX.isIE) {
+				this.element.attachEvent('on' + type, fn);
+			} else {
+				this.element.addEventListener(type, fn, !!capture);
+			}
+			return this;
+		},
+
+		addEvent: function(type, fn) {
+			var capture = false;
+			if (type == 'focus' || type == 'blur') {
+				if (UX.isIE) {
+					type = type == 'focus' ? 'focusin' : 'focusout';
+				} else {
+					capture = true;
+				}
+			}
+			var element = this.element;
+			var eventFn = function(event) {
+				fn.apply(element, [new UX.Element.Event(event)]);
+			};
+			return this.addListener(type, eventFn, capture);
+		},
+
+		addEvents: function(events) {
+			for(var type in events) {
+				this.addEvent(type, events[type]);
+			}
+			return this;
+		},
+
+		addClass: function(cls) {
+			UX.addClassName(this.element, cls);
+			return this;
+		},
+
+		removeClass: function(cls) {
+			UX.removeClassName(this.element, cls);
+			return this;
+		},
+
+		hasChild: function(child) {
+			var parent = child.parentNode;
+			while (parent) {
+				if (parent === this.element) return true;
+				parent = parent.parentNode;
+			}
+			return false;
+		}
+	
+});
+
+//based on mootools Brower.Event.js
+UX.Element.Event = function(event) {
+	if (!event) event = window.event || {};
+	this.event = event;
+	
+	var target = event.target || event.srcElement;
+	while (target && target.nodeType == 3) target = target.parentNode;
+	this.target = target;
+	
+	if (event.shiftKey) this.shift = true;
+	if (event.metaKey) this.meta = true;
+	if (event.ctrlKey) this.control = true;
+	if (event.altKey) this.alt = true;
+	
+	this.wheel = (event.wheelDelta) ? event.wheelDelta / 120 : -(event.detail || 0) / 3;
+	
+	var code = event.which || event.keyCode;
+	this.code = code;
+	if (code) {
+		var key = UX.Element.Event.Key[code];
+		if (key) {
+			this.key = key;
+		} else if (event.type == 'keydown' && code - 111 > 0 && code - 111 < 13) {
+			this.key = 'f' + code - 111;
+		} else {
+			this.key = String.fromCharCode(code).toLowerCase();
+		}
+	}
+	
+	this.rightClick = (event.which == 3) || (event.button == 2);
+	
+	var type = event.type;
+	if (/over|out/.test(type)){
+		related = event.relatedTarget || event[(type == 'mouseover' ? 'from' : 'to') + 'Element'];
+		var testRelated = function(){
+			while (related && related.nodeType == 3) related = related.parentNode;
+			return true;
+		};
+		var hasRelated = testRelated();
+		related = (hasRelated) ? related : null;
+		this.relatedTarget = related;
+	}
+	
+	this.stopPropagation = function(){
+		if (event.stopPropagation) event.stopPropagation();
+		else event.cancelBubble = true;
+		return this;
+	};
+
+	this.preventDefault = function(){
+		if (event.preventDefault) event.preventDefault();
+		else event.returnValue = false;
+		return this;
+	};
+
+	this.stop = function(){
+		this.stoped = true;
+		return this.stopPropagation().preventDefault();
+	};
+};
+
+UX.Element.Event.Key = {
+	13: 'enter', 
+	38: 'up', 
+	40: 'down', 
+	37: 'left', 
+	39: 'right', 
+	27: 'esc', 
+	32: 'space', 
+	8: 'backspace', 
+	9: 'tab', 
+	46: 'delete'
+};
+
+})();
+
+//events common for all xforms elements
+
+YAHOO.util.Event.onDOMReady(function() {
+
+	UX.Element(document).addEvent('click', function(event) {
+		var element = event.target;
+		while (element) {
+			if (event.stoped) break;
+			var behaviour = DECORATOR.getBehaviour(element);
+			if (!behaviour) {
+				element = element.parentNode;
+				continue;
+			}
+			var oEvt = document.createEvent("UIEvents");
+			oEvt.initUIEvent("DOMActivate", true, true, null, 1);
+			// HACK: WebKit issues its own DOMActivate that we need to ignore. 
+			//This property enables us to just NOP for that event.
+			oEvt.mappedFromClick = true;
+			FormsProcessor.dispatchEvent(element, oEvt);
+			if (UX.isIE) {
+				event.stop();
+			} else {
+				event.stopPropagation();
+			}
+			dispatchXformsHintOff(element, event);
+			element = element.parentNode;
+		}
+	})
+	.addEvent('mouseover', function(event) {
+		var target = event.target;
+		if (!DECORATOR.getObject(target)) return;
+		UX.Element(target).addClass("pc-hover");
+		dispatchXformsHint(target, event);
+	})
+	.addEvent('mouseout', function(event) {
+		var target = event.target;
+		if (!DECORATOR.getObject(target)) return;
+		UX.Element(target).removeClass("pc-hover");
+		dispatchXformsHintOff(target, event);
+	})
+	.addEvent('keyup', function(event) {
+		var target = event.target;
+		if (!DECORATOR.getObject(target)) return;
+		dispatchXformsHintOff(target, event);
+	})
+	.addEvent('keydown', function(event) {
+		var element = event.target;
+		while (element) {
+			var behaviour = DECORATOR.getBehaviour(element);
+			if (behaviour) {
+				UX.Element(element).addClass('pc-focus');
+				UX.dispatchEvent(element, "DOMFocusIn", true, false, true);
+				if (behaviour.onKeyDown) {
+					behaviour.onKeyDown(event);
+				}
+				if (event.stoped) break;
+				FormsProcessor.onKeyDown(event);
+			}
+			element = element.parentNode;
+		}
+	})
+	.addEvent('focus', function(event) {
+		var element = event.target;
+		while (element) {
+			if (DECORATOR.getObject(element)) {
+				UX.Element(element).addClass('pc-focus');
+				UX.dispatchEvent(element, "DOMFocusIn", true, false, true);
+			}
+			element = element.parentNode;
+		}
+	})
+	.addEvent('blur', function(event) {
+		var element = event.target;
+		while (element) {
+			if (DECORATOR.getObject(element)) {
+				UX.Element(element).addClass('pc-focus');
+				UX.dispatchEvent(element, "DOMFocusOut", true, false, true);
+			}
+			element = element.parentNode;
+		}
+	});
+
+});

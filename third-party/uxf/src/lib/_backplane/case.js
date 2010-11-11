@@ -14,23 +14,25 @@
  * limitations under the License.
  */
 
-function Case(elmnt) {
-    this.element = elmnt;
-}
+var Case = new UX.Class({
 
-Case.prototype.deselect = function() {
-    this.element.sDisplay = UX.getStyle(this.element, "display");
-    UX.addStyle(this.element, "display", "none");
-    return;
-};
+	initialize: function(element) {
+		this.element = element;
+	},
 
-Case.prototype.select = function() {
-    if(typeof this.element.sDisplay === "undefined") {
-        //This must be the default case, and it has not been deselected.
-        this.element.sDisplay = UX.getStyle(this.element, "display");
-    }
-    else {
-        UX.addStyle(this.element, "display", this.element.sDisplay);
-    }
-    return;
-};
+	deselect: function() {
+		this.element.sDisplay = UX.getStyle(this.element, "display");
+		UX.addStyle(this.element, "display", "none");
+		return;
+	},
+
+	select: function() {
+		if (typeof this.element.sDisplay === "undefined") {
+			//This must be the default case, and it has not been deselected.
+			this.element.sDisplay = UX.getStyle(this.element, "display");
+		} else {
+			UX.addStyle(this.element, "display", this.element.sDisplay);
+		}
+		return;
+	}
+});

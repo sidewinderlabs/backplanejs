@@ -14,21 +14,28 @@
  * limitations under the License.
  */
 
-function Container(element) {
-	this.element = element;
-	this.isWired = false;
-}
+var Container = new UX.Class({
+	
+	toString: function() {
+		return 'xf:container';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+		this.isWired = false;
+	},
 
-Container.prototype.onContentReady = function () {
-	FormsProcessor.listenForXFormsFocus(this, this);
-};
+	onContentReady: function() {
+		FormsProcessor.listenForXFormsFocus(this, this);
+	},
 
-Container.prototype.giveFocus = function () {
-	// Give focus to the first eligible child if the container is unbound,
-	// bound to a ProxyExpression or bound to a relevant node.
-	if (!this.m_proxy || !this.m_proxy.enabled || this.m_proxy.enabled.getValue()) {
-		return UX.focusFirstEligibleChild(this.childNodes);
+	giveFocus: function() {
+		// Give focus to the first eligible child if the container is unbound,
+		// bound to a ProxyExpression or bound to a relevant node.
+		if (!this.m_proxy || !this.m_proxy.enabled || this.m_proxy.enabled.getValue()) {
+			return UX.focusFirstEligibleChild(this.element.childNodes);
+		}
+		return false;
 	}
 
-	return false;
-};
+});

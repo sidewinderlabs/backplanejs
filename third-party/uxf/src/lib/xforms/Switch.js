@@ -20,91 +20,103 @@
 */
 
 /**
-  class: Switch
-    corresponds to the xforms switch element
-*/
-function Switch(elmnt) {
-	this.element = elmnt;
-	this.oCurrentCase = null;
-}
-
-Switch.prototype.isSwitch = true;
-
-Switch.prototype.onContentReady = function () {
-	FormsProcessor.listenForXFormsFocus(this, this);
-};
-
-Switch.prototype.giveFocus = function () {
-	return this.oCurrentCase.giveFocus();
-};
-
-/**
-  function: toggleDefault
-  Selects the default case according to the definition here: http://www.w3.org/TR/xforms11/#ui-case
-
-  Called by the xforms processor on document ready.
-*/
-Switch.prototype.toggleDefault = function () {
-	//Prepare to loop through the child nodes of the switch - 
-	//	this list may include text nodes, and, if poorly authored, non-case elements.
-	var caseColl, caseInHand, candidateDefaultCase, bCaseSelectedBySelectedAttribute, i;
-	caseColl = this.element.childNodes;
-	caseInHand = null;
-	candidateDefaultCase = null;
-	bCaseSelectedBySelectedAttribute = false;
+ class: Switch
+ corresponds to the xforms switch element
+ */
+var Switch = new UX.Class({
 	
-	for (i = 0 ;i < caseColl.length;++i) {
-		if (caseColl[i].select && caseColl[i].deselect) {
-			caseInHand = caseColl[i];
-      if (!bCaseSelectedBySelectedAttribute && caseColl[i].getAttribute("selected") === "true") {
-				//This case is the first to have @selected="true", which trumps simple document-order
-				if (candidateDefaultCase !== null) {
-					candidateDefaultCase.deselect();
+	Mixins: [MIPHandler, MIPEventTarget, Context, OptionalBinding],
+	
+	toString: function() {
+		return 'xf:switch';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+		this.oCurrentCase = null;
+	},
+
+	isSwitch: true,
+
+	onContentReady: function() {
+		FormsProcessor.listenForXFormsFocus(this, this);
+	},
+
+	giveFocus: function() {
+		return this.oCurrentCase.giveFocus();
+	},
+
+	/**
+	 function: toggleDefault
+	 Selects the default case according to the definition here: http://www.w3.org/TR/xforms11/#ui-case
+ 
+	 Called by the xforms processor on document ready.
+	 */
+	toggleDefault: function() {
+		//Prepare to loop through the child nodes of the switch - 
+		//	this list may include text nodes, and, if poorly authored, non-case elements.
+		var caseColl = this.element.childNodes;
+		var caseInHand = null;
+		var candidateDefaultCase = null;
+		var bCaseSelectedBySelectedAttribute = false;
+
+		for (var i = 0, l = caseColl.length; i < l; i++) {
+			var element = caseColl[i];
+			var Case = DECORATOR.getBehaviour(caseColl[i]);
+			if (Case && Case.select && Case.deselect) {
+				if (!bCaseSelectedBySelectedAttribute && element.getAttribute("selected") === "true") {
+					//This case is the first to have @selected="true", which trumps simple document-order
+					if (candidateDefaultCase !== null) {
+						candidateDefaultCase.deselect();
+					}
+					candidateDefaultCase = Case;
+					bCaseSelectedBySelectedAttribute = true;
+				} else if (candidateDefaultCase === null) {
+					//This is the first case element in the nodelist, store it as a candidate default.
+					candidateDefaultCase = Case;
+				} else {
+					//This is neither the first  case, nor the first case encountered with @selected=true.  
+					//therefore, deselect it.
+					Case.deselect();
 				}
-				candidateDefaultCase = caseInHand;
-				bCaseSelectedBySelectedAttribute = true;
-			} else if (candidateDefaultCase === null) {
-				//This is the first case element in the nodelist, store it as a candidate default.
-				candidateDefaultCase = caseInHand;
-			} else {
-				//This is neither the first  case, nor the first case encountered with @selected=true.  
-				//therefore, deselect it.
-				caseInHand.deselect();
 			}
 		}
-	}
-	if (candidateDefaultCase !== null) {
-		candidateDefaultCase.select();
-		this.oCurrentCase = candidateDefaultCase;
-	}
-};
-
-/**
-  function: toggle
-  Toggles the child case with the given id.
-  
-  sCaseID - string corresponding to a child case
-*/
-Switch.prototype.toggle = function (sCaseID) {
-	var i, oCase;
-	for (i = 0; i < this.element.childNodes.length; ++i) {
-		if (UX.id(this.element.childNodes[i]) === sCaseID) {
-			oCase = this.element.childNodes[i];
-			break;
+		if (candidateDefaultCase !== null) {
+			candidateDefaultCase.select();
+			this.oCurrentCase = candidateDefaultCase;
 		}
-	}
+	},
 
-	if (oCase) {
-		if (this.oCurrentCase) {
-			this.oCurrentCase.deselect();
+	/**
+	 function: toggle
+	 Toggles the child case with the given id.
+ 
+	 sCaseID - string corresponding to a child case
+	 */
+	toggle: function(sCaseID) {
+		var i, oCase;
+		for (i = 0; i < this.element.childNodes.length; ++i) {
+			if (UX.id(this.element.childNodes[i]) === sCaseID) {
+				oCase = DECORATOR.getBehaviour(this.element.childNodes[i]);
+				break;
+			}
 		}
-		this.oCurrentCase = oCase;
-		oCase.select();
+
+		if (oCase) {
+			if (this.oCurrentCase) {
+				this.oCurrentCase.deselect();
+			}
+			this.oCurrentCase = oCase;
+			oCase.select();
+		}
+	},
+
+	getSelectedCase: function() {
+		return this.oCurrentCase;
+	},
+
+	onDocumentReady: function(){
+		this.toggleDefault();
 	}
-};
-
-Switch.prototype.getSelectedCase = function () {
-	return this.oCurrentCase;
-};
-
-Switch.prototype.onDocumentReady = Switch.prototype.toggleDefault;
+	
+});

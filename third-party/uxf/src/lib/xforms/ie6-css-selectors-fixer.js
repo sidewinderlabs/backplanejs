@@ -18,25 +18,25 @@
 // As the name indicates, this is a IE6-specific function
 UX.applySelectorsIE6 = function(doc) {
 
-    // Attribute selectors for <xf:input>
-    var inputElements = doc.getElementsByTagName("input");
-    for (var i = 0; i < inputElements.length; i++){
+	// Attribute selectors for <xf:input>
+	var inputElements = doc.getElementsByTagName("input");
+	for (var i = 0; i < inputElements.length; i++) {
 
-        var datatype = inputElements[i].getAttribute("datatype"),
-            appearance = inputElements[i].getAttribute("appearance");
+		var datatype = inputElements[i].getAttribute("datatype"),
+			appearance = inputElements[i].getAttribute("appearance");
 
-        // Calendar / datepicker
-        if(datatype === "xf:date" || datatype === "xforms:date" || datatype === "xsd:date") {
-            if(appearance === "minimal") {
-                continue;
-            }
-            inputElements[i].className +=  " yui-widget-calendar";
-        }
+		// Calendar / datepicker
+		if (datatype === "xf:date" || datatype === "xforms:date" || datatype === "xsd:date") {
+			if (appearance === "minimal") {
+				continue;
+			}
+			inputElements[i].className += " yui-widget-calendar";
+		}
 
-        // Colorpicker
-        if(datatype === "xhd:color") {
-            inputElements[i].className +=  " yui-widget-color";
-        }
-    }
+		// Colorpicker
+		if (datatype === "xhd:color") {
+			inputElements[i].className += " yui-widget-color";
+		}
+	}
 
 };

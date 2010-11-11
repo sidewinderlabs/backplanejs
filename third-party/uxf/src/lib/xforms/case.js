@@ -14,37 +14,48 @@
  * limitations under the License.
  */
 
-function XFormsCase(elmnt) {
-	this._case = new Case(elmnt);
-}
+var XFormsCase = new UX.Class({
+	
+	Extend: [Context, Container],
+	
+	toString: function() {
+		return 'xf:case';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+		this._case = new Case(element);
+	},
 
-XFormsCase.prototype.isCase = true;
+	isCase: true,
 
-XFormsCase.prototype.getSwitch = function() {
-	return this._case.element.parentNode;
-};
+	getSwitch: function() {
+		return this._case.element.parentNode;
+	},
 
-XFormsCase.prototype.deselect = function() {
-	var element = this._case.element;
-	this._case.deselect();
-	spawn(function () {
-		UX.dispatchEvent(element, "xforms-deselect", true, false, true);
-		FormsProcessor.refreshDescendentsForRelevance(element.childNodes);
-	});
-};
+	deselect: function() {
+		var element = this._case.element;
+		this._case.deselect();
+		spawn(function() {
+			UX.dispatchEvent(element, "xforms-deselect", true, false, true);
+			FormsProcessor.refreshDescendentsForRelevance(element.childNodes);
+		});
+	},
 
-XFormsCase.prototype.select = function() {
-	var element = this._case.element;
-	this._case.select();
-	spawn(function () {
-		UX.dispatchEvent(element, "xforms-select", true, false, true);
-		FormsProcessor.refreshDescendentsForRelevance(element.childNodes);
-	});
-};
+	select: function() {
+		var element = this._case.element;
+		this._case.select();
+		spawn(function() {
+			UX.dispatchEvent(element, "xforms-select", true, false, true);
+			FormsProcessor.refreshDescendentsForRelevance(element.childNodes);
+		});
+	},
 
-XFormsCase.prototype.toggle = function() {
-	var oSwitch = this.getSwitch();
-	if (oSwitch && UX.id(this)) {
-		oSwitch.toggle(UX.id(this));
+	toggle: function() {
+		var oSwitch = DECORATOR.getBehaviour(this.getSwitch());
+		if (oSwitch && UX.id(this.element)) {
+			oSwitch.toggle(UX.id(this.element));
+		}
 	}
-};
+	
+});

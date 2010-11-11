@@ -14,26 +14,35 @@
  * limitations under the License.
  */
 
-/*global DeferToConditionalInvocationProcessor, getElementValueOrContent, getProxyNode*/
+/*global DeferToConditionalInvocationProcessor, UX.getElementValueOrContent, UX.getProxyNode*/
 
-function SetValue(elmnt) {
-	this.element = elmnt;
-}
-
-SetValue.prototype.handleEvent = DeferToConditionalInvocationProcessor;
-
-SetValue.prototype.performAction = function (evt) {
-  var oContext, oNode, oPE, sValue;
-  //Retrieve the instance data node.	
-	oContext = this.getBoundNode(1);
-	oNode = oContext.node;
-	oPE = getProxyNode(oNode);
-
-	//Evaluate the value attribute in context of the instance data node
-	//	in order to resolve the value to set in the instance data node.
-	sValue = getElementValueOrContent(oContext, this.element);
+var SetValue = new UX.Class({
 	
-	//Update the node.
-	//	 Passing a model value indicates that recalculate etc. is desired. 
-	oPE.setValue(sValue, oContext.model);
-};
+	Mixins: [Listener, Context],
+	
+	toString: function() {
+		return 'xf:setvalue';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+	},
+
+	handleEvent: DeferToConditionalInvocationProcessor,
+
+	performAction: function(evt) {
+		//Retrieve the instance data node.	
+		var context = this.getBoundNode(1);
+		var node = context.node;
+		var oPE = UX.getProxyNode(node);
+
+		//Evaluate the value attribute in context of the instance data node
+		//	in order to resolve the value to set in the instance data node.
+		var value = UX.getElementValueOrContent(context, this.element);
+		//Update the node.
+		//	 Passing a model value indicates that recalculate etc. is desired. 
+		oPE.setValue(value, context.model);
+		this.m_model._recalculate();
+	}
+	
+});

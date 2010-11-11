@@ -14,40 +14,50 @@
  * limitations under the License.
  */
 
-function Insert(elmnt) {
-	this.element = elmnt;
-}
+var Insert = new UX.Class({
+	
+	Mixins: [Listener, Context, OptionalBinding],
+	
+	toString: function() {
+		return 'xf:insert';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+	},
 
-Insert.prototype.handleEvent = DeferToConditionalInvocationProcessor;
+	handleEvent: DeferToConditionalInvocationProcessor,
 
-Insert.prototype.performAction = function(evt) {
-	var oContext = this.getEvaluationContext(),
-		bindid = this.element.getAttribute("bind"),
-		atExpr = this.element.getAttribute("at"),
-		positionExpr = this.element.getAttribute("position"),
-		originExpr = this.element.getAttribute("origin"),
-		oInstance, oModel, nodesetExpr, nodeset, bindObject;
+	performAction: function(evt) {
+		var context = this.getEvaluationContext();
+		var bindid = this.element.getAttribute("bind");
+		var atExpr = this.element.getAttribute("at");
+		var positionExpr = this.element.getAttribute("position");
+		var originExpr = this.element.getAttribute("origin");
+		
+		var nodeset;
+		if (bindid) {
+			var bindObject = FormsProcessor.getBindObject(bindid, this.element);
+			nodeset = bindObject.boundNodeSet;
+		} else {
+			var nodesetExpr = this.element.getAttribute("nodeset");
+			instance = context.model.instances()[0];
+			nodeset = (nodesetExpr) ? instance.evalXPath(nodesetExpr, context).nodeSetValue() : null;
+		}
 
-	if (bindid) {
-		bindObject = FormsProcessor.getBindObject(bindid, this.element);
-		nodeset = bindObject.boundNodeSet;
-	} else {
-		nodesetExpr = this.element.getAttribute("nodeset");
-		oInstance = oContext.model.instances()[0];
-		nodeset = (nodesetExpr) ? oInstance.evalXPath(nodesetExpr, oContext).nodeSetValue() : null;
+		/* We need to determine what instance to use - calling through the right instance is 
+			important, in particular, in order to dispatch an xforms-insert event to
+			the correct target. We also need model that contains the instance so 
+			so we can mark it for deferred rebuild. 
+		*/
+
+		var instance = (nodeset && nodeset.length > 0) ? DECORATOR.getBehaviour(nodeset[0].ownerDocument.documentElement.getAttribute('ux_uid_element')) : context.model.instances()[0];
+		model = DECORATOR.getBehaviour(instance.model);
+		if (instance.insertNodeset(context, nodeset, atExpr, positionExpr, originExpr)) {
+			if (model && typeof(model.flagRebuild === 'function')) model.flagRebuild();
+		}
+
+		this.m_context = null;
 	}
 	
-	/* We need to determine what instance to use - calling through the right instance is 
-		important, in particular, in order to dispatch an xforms-insert event to
-		the correct correct target. We also need model that contains the instance so 
-		so we can mark it for deferred rebuild. */
-	
-	oInstance = (nodeset && nodeset.length > 0) ? nodeset[0].ownerDocument.XFormsInstance : oContext.model.instances()[0];
-	oModel = oInstance.model;
-
-	if (oInstance.insertNodeset(oContext, nodeset, atExpr, positionExpr, originExpr)) {
-		if (oModel && typeof(oModel.flagRebuild === 'function')) oModel.flagRebuild();
-	}
-	
-	this.m_context = null;
-};
+});

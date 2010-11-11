@@ -14,47 +14,52 @@
  * limitations under the License.
  */
 
-function Copy(element) {
-	this.element = element;
-	this.m_oValue = undefined;
-	UX.addStyle(this.element, "display", "none");
-}
+var Copy = new UX.Class({
+	
+	Mixins: [Context, Control, OptionalBinding],
+	
+	toString: function() {
+		return 'xf:copy';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+		this.m_oValue = undefined;
+		UX.addStyle(this.element, "display", "none");
+	},
 
-Copy.prototype.onContentReady = function () {
-	var ownerSelect = this.element.parentNode.getOwnerSelect();
-	if (ownerSelect) {
-		ownerSelect.addItem(this.element.parentNode,this.getValue());
-	}
-};
-
-Copy.prototype.onDocumentReady = function () {
-	var self = this;
-	spawn( function () {
-		var ownerSelect;
-		if (typeof self.element.parentNode.getOwnerSelect === "function") {
-			ownerSelect = self.element.parentNode.getOwnerSelect();
-			if (getModelFor(self) !== getModelFor(ownerSelect)) {
-				UX.dispatchEvent(self.element, "xforms-binding-exception", true, false);
-			}
-		}
-	});
-
-};
-
-Copy.prototype.setValue = function (o) {
-	var ownerSelect = this.element.parentNode.getOwnerSelect();
-	if (this.m_oValue !== this.m_proxy.m_oNode) {
-
+	onContentReady: function() {
+		var ownerSelect = this.element.parentNode.getOwnerSelect();
 		if (ownerSelect) {
-			// When the value of an xf:copy element changes, this must be reflected
-			//  in the select or select1 to which it is bound. 
-			ownerSelect.itemValueChanged(this.element.parentNode,this.getValue(),this.m_proxy.m_oNode);
-			this.m_oValue = this.m_proxy.m_oNode;
-			ownerSelect.refreshDisplayValue();
+			ownerSelect.addItem(this.element.parentNode, this.getValue());
 		}
-	}
-};
+	},
 
-Copy.prototype.getValue = function () {
-	return this.m_oValue? this.m_oValue: null;
-};
+	onDocumentReady: function() {
+		var self = this;
+		spawn(function() {
+			var ownerSelect;
+			if (typeof self.element.parentNode.getOwnerSelect === "function") {
+				ownerSelect = self.element.parentNode.getOwnerSelect();
+				if (getModelFor(self) !== getModelFor(ownerSelect)) {
+					UX.dispatchEvent(self.element, "xforms-binding-exception", true, false);
+				}
+			}
+		});
+	},
+
+	setValue: function(o) {
+		var ownerSelect = this.element.parentNode.getOwnerSelect();
+		if(!ownerSelect || this.m_oValue == this.m_proxy.m_oNode) return;
+		// When the value of an xf:copy element changes, this must be reflected
+		//  in the select or select1 to which it is bound. 
+		ownerSelect.itemValueChanged(this.element.parentNode, this.getValue(), this.m_proxy.m_oNode);
+		this.m_oValue = this.m_proxy.m_oNode;
+		ownerSelect.refreshDisplayValue();
+	},
+
+	getValue: function() {
+		return this.m_oValue || null;
+	}
+	
+});

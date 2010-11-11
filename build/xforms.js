@@ -52,20 +52,21 @@
 //= require <xforms/modelObj>
 //= require <xforms/navigable-control-list>
 //= require <xforms/xforms>
+//= require <xforms/Control>
+//= require <xforms/SrcMixin>
 //= require <xforms/conditional-invocation>
 //= require <xforms/validator>
+//= require <xforms/context>
 //= require <xforms/xforms-submission>
 //= require <xforms/Submission>
-//= require <xforms/actions>
-//= require <xforms/xf-action>
-//= require <xforms/context>
-//= require <xforms/dirtystate>
 //= require <xforms/mip-handler>
 //= require <xforms/mip-eventtarget>
-//= require <xforms/state>
-//= require <xforms/Control>
-//= require <xforms/navigable-control>
 //= require <xforms/optional-binding>
+//= require <xforms/actions>
+//= require <xforms/xf-action>
+//= require <xforms/dirtystate>
+//= require <xforms/state>
+//= require <xforms/navigable-control>
 //= require <xforms/pe-value>
 //= require <xforms/input-value-boolean>
 //= require <xforms/input-value>
@@ -77,6 +78,8 @@
 //= require <_backplane/case>
 //= require <xforms/case>
 //= require <xforms/Switch>
+//= require <xforms/label>
+//= require <xforms/output>
 //= require <_backplane/multimap>
 //= require <_backplane/select>
 //= require <xforms/finite-control>
@@ -96,8 +99,10 @@
 //= require <xforms/HintMixin>
 //= require <xforms/HelpMixin>
 //= require <xforms/Header>
-//= require <xforms/SrcMixin>
 //= require <xforms/TriggerMinimalMixin>
+//= require <xforms/trigger>
+//= require <xforms/alert>
+//= require <xforms/mediatype>
 //= require <xforms/xf4h>
 //
 

@@ -19,73 +19,69 @@
  * The key to the whole thing is @ev:event, so there's
  * no point in proceeding if we don't have that.
  */
-function Listener(elmnt) {
-  this.element = elmnt;
-}
+var Listener = new UX.Class({
+	
+	toString: function() {
+		return 'xf:listener';
+	},
 
-// attachListeners();
+	initialize: function(element) {
+		this.element = element;
+	},
 
-Listener.prototype.attachListeners = function () {
-  var oElement, sEvent, sObserverRef, sPhase, bUseCapture, oObserver, thisAsListener, oTarget;
-  
-  oElement = this.element;
-  sEvent = NamespaceManager.getAttributeNS(oElement, 
-          "http://www.w3.org/2001/xml-events", "event");
-  sObserverRef = NamespaceManager.getAttributeNS(oElement, 
-          "http://www.w3.org/2001/xml-events", "observer");
-  sPhase = NamespaceManager.getAttributeNS(oElement, 
-          "http://www.w3.org/2001/xml-events", "phase");
-  bUseCapture = (sPhase === "capture") ? true : false;
-  oObserver = null;
-  
-  if (!sEvent) {
-    return;
-  }
-  
-  // [TODO] What if the element doesn't exist yet?
-  if (sObserverRef) {
-    oObserver = oElement.ownerDocument.getElementById(sObserverRef);
-  } else {
-    oObserver = oElement.parentNode;        
-  }
-  
-  try {
-    if (oObserver && sEvent) {
-      thisAsListener = this;
+	onDocumentReady: function() {
+		var element = this.element;
+		
+		var sEvent = NamespaceManager.getAttributeNS(element, "http://www.w3.org/2001/xml-events", "event");
+		if (!sEvent) return;
+		
+		var sObserverRef = NamespaceManager.getAttributeNS(element, "http://www.w3.org/2001/xml-events", "observer");
+		var sPhase = NamespaceManager.getAttributeNS(element, "http://www.w3.org/2001/xml-events", "phase");
+		var bUseCapture = sPhase === "capture";
+		var oObserver = null;
 
-      if (UX.isIE) {
-        if (!oObserver.addEventListener) {
-          // Extend element from EventTarget if it does not
-          // has addEventListener method.
-          oTarget = new EventTarget(oObserver);
-          DECORATOR.extend(oObserver, oTarget, false);
-        }
-      } else {
-        // Firefox EventTarget::addEventListener will not take an 
-        // element as a listener even if it exposes a handleEvent 
-        // method. 
-        // In order to work around this, a proxy function is required.
-        thisAsListener = function (evt) {
-          if (UX.isWebKit && evt.type === 'DOMActivate' && !evt.mappedFromClick) {
-            // HACK: WebKit issues its own DOMActivate that we need to ignore.
-            //       This condition ensures that we just NOP for that event.
-            return;
-          }
-          oElement.handleEvent(evt);
-        };
-      }
-          
-      oObserver.addEventListener(sEvent, thisAsListener, bUseCapture);
-    }
-  } catch (e) {
-    console.log("Error adding listener.");
-  }
-}; // attach()
+		// [TODO] What if the element doesn't exist yet?
+		if (sObserverRef) {
+			oObserver = element.ownerDocument.getElementById(sObserverRef);
+		} else {
+			oObserver = element.parentNode;
+		}
 
-Listener.prototype.detach = function () {
-    /*
-     * [TODO] Detach the registered listener.
-     */
-};
+		try {
+			if (oObserver && sEvent) {
+				var self = this;
+				var thisAsListener = this;
 
-Listener.prototype.onDocumentReady = Listener.prototype.attachListeners;
+				if (UX.isIE) {
+					if (!oObserver.addEventListener) {
+						UX.extend(oObserver, new EventTarget(oObserver));
+					}
+				} else {
+					// Firefox EventTarget::addEventListener will not take an 
+					// element as a listener even if it exposes a handleEvent 
+					// method. 
+					// In order to work around this, a proxy function is required.
+					thisAsListener = function(evt) {
+						if (UX.isWebKit && evt.type === 'DOMActivate' && !evt.mappedFromClick) {
+							// HACK: WebKit issues its own DOMActivate that we need to ignore.
+							//       This condition ensures that we just NOP for that event.
+							return;
+						}
+						self.handleEvent(evt);
+					};
+				}
+
+				oObserver.addEventListener(sEvent, thisAsListener, bUseCapture);
+			}
+		} catch(e) {
+			console.log("Error adding listener.");
+		}
+	},
+	
+	detach: function() {
+		/* [TODO] Detach the registered listener.*/
+	}
+
+});
+
+Listener.prototype.attachListeners = Listener.prototype.onDocumentReady;

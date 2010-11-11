@@ -17,33 +17,33 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 var suiteXFormsLibraryLoaded = new YAHOO.tool.TestSuite("Test XForms Library Loaded");
 
-suiteXFormsLibraryLoaded.add(
-  new YAHOO.tool.TestCase({
-    name: "Test DOM 2 Events createEvent()",
+suiteXFormsLibraryLoaded.add(new YAHOO.tool.TestCase({
+	
+	name: "Test DOM 2 Events createEvent()",
 
-    // Test that the document.createEvent method is available.
-    //
-    testCreateEventMethodExist : function () {
-      var Assert = YAHOO.util.Assert;
+	testCreateEventMethodExist: function() {
+		var Assert = YAHOO.util.Assert;
 
-      Assert.isFunction(document.createEvent, "document.createEvent is not available");
-    }
-  })//new TestCase
-);
+		Assert.isFunction(document.createEvent, "document.createEvent is not available");
+	}
+	
+}));
 
-suiteXFormsLibraryLoaded.add(
-  new YAHOO.tool.TestCase({
-    name: "Test that AJAXSLT has loaded",
+suiteXFormsLibraryLoaded.add(new YAHOO.tool.TestCase({
+	
+	name: "Test that AJAXSLT has loaded",
 
-    // Test that the AJAXSLT library has loaded correctly.
-    //
-    testAjaxsltLoaded : function () {
-      var Assert = YAHOO.util.Assert;
+	// Test that the AJAXSLT library has loaded correctly.
+	testAjaxsltLoaded: function() {
+		var Assert = YAHOO.util.Assert;
 
-      Assert.isObject(FunctionCallExpr, "No AJAXSLT 'FunctionCallExpr' object is defined.");
-      Assert.isObject(FunctionCallExpr.prototype.xpathfunctions, "No 'xpathfunctions' extension object is defined.");
-    }
-  })//new TestCase
-);
+		Assert.isObject(FunctionCallExpr, "No AJAXSLT 'FunctionCallExpr' object is defined.");
+		Assert.isObject(FunctionCallExpr.prototype.xpathfunctions, "No 'xpathfunctions' extension object is defined.");
+	}
+	
+}));
+
+YAHOO.tool.TestRunner.add(suiteXFormsLibraryLoaded);

@@ -14,101 +14,88 @@
  * limitations under the License.
  */
 
-var ActionExecutor = function () {
-	/**
-		Evaluates an XPath expression and returns the result as a boolean
-		@param sCondition {String} The XPath expression to evaluate. 
-		@param oContext {Context}  The context in which to evaluate sCondition
-		@returns true if the expression resulted in a boolean within oContext, false otherwise.  
-			Note that this means that if context is null, the return value will be false.  
-	*/
-	function evaluateCondition(sCondition, oContext)	{
-		var oRes, bIf;
-		bIf = false;
-		if (oContext) {
-			oRes = oContext.model.EvaluateXPath(sCondition, oContext);
+var ActionExecutor = {
 	
-			if (oRes) {
-				bIf = oRes.booleanValue();
-			}
-		}
-		return bIf;
-	}
-
-	/**
-	Where a listener has an "if" property, that may be used prevent it from executing,
-	given the current state of the application, evaluate it.
-	 If there is no "if" property, this will evaluate to true.
-	@returns false if the the if condition evaluated to false, true otherwise
-	*/
-	function evaluateIfCondition(oListener, oContext) {
-		var bIf = true;
-		if (oListener.getAttribute("if")) {
-			bIf = evaluateCondition(oListener.getAttribute("if"), oContext);
-		}
-		return bIf;
-	}
-	
-	var itself = { };
-	
-	itself.invokeListener = function (oListener, oEvt) {
-		var oRealListener, oContext, oRes, i, sIf, sWhile;
+	invokeListener: function(listener, oEvt) {
+		var realListener, context, oRes, i, sIf, sWhile;
 		//This is likely to have been called with a proxy listener, as defined in ConditionalInvocationListener
-		oRealListener = oListener.realListener?oListener.realListener:oListener;
-		//oRealListener will be the actual handler for the event that may contain the parameters for conditional invocation
-		//oListener will be the object on which to call handleEvent, it will pass the call on to the real listener.
-		if (typeof oRealListener.getEvaluationContext !== "undefined") {
+		realListener = listener.realListener || listener;
+		//realListener will be the actual handler for the event that may contain the parameters for conditional invocation
+		//listener will be the object on which to call handleEvent, it will pass the call on to the real listener.
+		if (!realListener.getEvaluationContext) {
+			listener.handleEvent(oEvt);
+			return;
+		}
 
-			if (oRealListener.getAttribute("iterate")) {
-				oContext = oRealListener.getEvaluationContext();
-				oRes = oContext.model.EvaluateXPath(oRealListener.getAttribute("iterate"), oContext);
-				if (oRes && oRes.value) {
-					for (i = 0; i < oRes.value.length; ++i) {
-						oRealListener.unwire();
-						oRealListener.m_context = {
-						    model: oContext.model,
-						    node: oRes.value[i],
-						    resolverElement: oRealListener.element,
-						    position: i,
-						    size: oRes.value.length
-						};
-						
-						if (evaluateIfCondition(oRealListener, oRealListener.m_context)) {
-							if (oRealListener.getAttribute("while")) {
-								while (evaluateCondition(oRealListener.getAttribute("while"), oRealListener.m_context) && evaluateIfCondition(oRealListener, oContext)) {
-									oListener.handleEvent(oEvt);
-								}
-							} else {
-								oListener.handleEvent(oEvt);
-							}
-						}
-					}
-				}
-					
-			} else {
-				sIf = oRealListener.getAttribute("if");
-				sWhile = oRealListener.getAttribute("while");
-				if(sIf || sWhile) {
-					oContext = oRealListener.getEvaluationContext();
+		if (realListener.element.getAttribute("iterate")) {
+			context = realListener.getEvaluationContext();
+			oRes = context.model.EvaluateXPath(realListener.getAttribute("iterate"), context);
+			if (!oRes || !oRes.value) return;
+			for (i = 0; i < oRes.value.length; ++i) {
+				realListener.unwire();
+				realListener.m_context = {
+					model: context.model,
+					node: oRes.value[i],
+					resolverElement: realListener.element,
+					position: i,
+					size: oRes.value.length
+				};
 
-					if (evaluateIfCondition(oRealListener, oContext)) {	
-						if (oRealListener.getAttribute("while")) {
-							while (evaluateCondition(oRealListener.getAttribute("while"), oContext) && evaluateIfCondition(oRealListener, oContext)) {
-								oListener.handleEvent(oEvt);
-								oContext = oRealListener.getEvaluationContext();
-							}
-						}	else {
-							oListener.handleEvent(oEvt);
+				if (evaluateIfCondition(realListener, realListener.m_context)) {
+					if (realListener.element.getAttribute("while")) {
+						while (evaluateCondition(realListener.element.getAttribute("while"), realListener.m_context) && evaluateIfCondition(realListener, context)) {
+							listener.handleEvent(oEvt);
 						}
+					} else {
+						listener.handleEvent(oEvt);
 					}
-				}	else {
-					oListener.handleEvent(oEvt);
 				}
 			}
 		} else {
-			oListener.handleEvent(oEvt);
+			sIf = realListener.element.getAttribute("if");
+			sWhile = realListener.element.getAttribute("while");
+			if(!sIf && !sWhile) {
+				listener.handleEvent(oEvt);
+				return;
+			}
+			context = realListener.getEvaluationContext();
+			if (evaluateIfCondition(realListener, context)) {
+				if (realListener.element.getAttribute("while")) {
+					while (evaluateCondition(realListener.element.getAttribute("while"), context) && evaluateIfCondition(realListener, context)) {
+						listener.handleEvent(oEvt);
+						context = realListener.getEvaluationContext();
+					}
+				} else {
+					listener.handleEvent(oEvt);
+				}
+			}
 		}
 		return;
-	};
-	return itself;
-}();
+	}
+	
+};
+
+/**
+ Evaluates an XPath expression and returns the result as a boolean
+ @param sCondition {String} The XPath expression to evaluate. 
+ @param context {Context}  The context in which to evaluate sCondition
+ @returns true if the expression resulted in a boolean within context, false otherwise.  
+ Note that this means that if context is null, the return value will be false.  
+ */
+function evaluateCondition(condition, context) {
+	if(!context) return false;
+	var result = context.model.EvaluateXPath(condition, context);
+	if(!result) return false;
+	return result.booleanValue();
+}
+
+/**
+ Where a listener has an "if" property, that may be used prevent it from executing,
+ given the current state of the application, evaluate it.
+ If there is no "if" property, this will evaluate to true.
+ @returns false if the the if condition evaluated to false, true otherwise
+ */
+function evaluateIfCondition(listener, context) {
+	if (!listener.element.getAttribute("if")) return true;
+	return evaluateCondition(listener.element.getAttribute("if"), context);
+}

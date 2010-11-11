@@ -14,17 +14,27 @@
  * limitations under the License.
  */
 
-function Group(elmnt) {
-	this.element = elmnt;
-	this.m_MIPSCurrentlyShowing = {};
-}
+var Group = new UX.Class({
+	
+	Mixins: [MIPHandler, MIPEventTarget, Context, Container, OptionalIfUnspecifiedBinding],
+	
+	toString: function() {
+		return 'xf:group';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+		this.m_MIPSCurrentlyShowing = {};
+	},
 
-Group.prototype.isGroup = true;
+	isGroup: true,
 
-Group.prototype.setValue = function(sValue) {
+	setValue: function(sValue) {
 		return;
-	};
+	},
 
-Group.prototype.setType = function(sType) {
+	setType: function(sType) {
 		return;
-	};
+	}
+	
+});

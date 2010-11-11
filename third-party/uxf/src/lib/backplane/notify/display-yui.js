@@ -54,14 +54,14 @@ if (!document.displayYui)
                     1,
                     YAHOO.util.Easing.easeOut
                 );
-                var pThis = this;
+                var self = this;
                 anim.onComplete.subscribe(
                     function ()
                     {
-                        if (pThis._panel)
+                        if (self._panel)
                         {
-                            pThis._panel.destroy();
-                            pThis._panel = null;
+                            self._panel.destroy();
+                            self._panel = null;
                         }
                     }
                 );

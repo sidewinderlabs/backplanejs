@@ -16,286 +16,306 @@
 
 /*global Repeat, DOM_TEXT_NODE, spawn, UX, NamespaceManager, FormsProcessor*/
 
-function Value(elmnt) {
-	this.element = elmnt;
-	UX.addStyle(this.element, "display", "none");
-}
+var Value = new UX.Class({
+	
+	Mixins: [MIPHandler, Context, Control, OptionalBinding],
+	
+	toString: function() {
+		return 'xf:value';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+		UX.addStyle(this.element, "display", "none");
+	},
 
-Value.prototype.onContentReady = function () {
-	var ownerSelect;
-	if (typeof this.element.parentNode.getOwnerSelect === "function") {
-		ownerSelect = this.element.parentNode.getOwnerSelect();
-		if (ownerSelect) {
-			ownerSelect.addItem(this.element.parentNode,this.getValue());
-		}
-	}
-};
-
-Value.prototype.setValue = function (s) {
-	var ownerSelect;
-	if (typeof this.element.parentNode.getOwnerSelect === "function") {
-		ownerSelect = this.element.parentNode.getOwnerSelect();
-		if (this.m_sValue !== s) {
+	onContentReady: function() {
+		var ownerSelect;
+		if (DECORATOR.getBehaviour(this.element.parentNode).getOwnerSelect) {
+			ownerSelect = DECORATOR.getBehaviour(this.element.parentNode).getOwnerSelect();
 			if (ownerSelect) {
-			  // When the value of an xf:value element changes, this must be reflected
-			  //  in the select or select1 to which it is bound.
-				ownerSelect.removeItem(this.element.parentNode,this.m_sValue);
-				this.m_sValue = s;
-				ownerSelect.addItem(this.element.parentNode,s);
-				ownerSelect.refreshDisplayValue();
+				DECORATOR.getBehaviour(ownerSelect).addItem(DECORATOR.getBehaviour(this.element.parentNode), this.getValue());
 			}
 		}
-	} else{
-		this.m_sValue = s;
-	}
-};
+	},
 
-Value.prototype.getValue = function () {
-  if (this.m_sValue === undefined) {
-    if (this.element.firstChild && DOM_TEXT_NODE === this.element.firstChild.nodeType) {
-  	  this.m_sValue = this.element.firstChild.nodeValue;
-		} else {
-  	  this.m_sValue = "";
-  	}
-  }
-
-	return this.m_sValue;
-};
-
-
-
-function Itemset(elmnt) {
-	this.element = elmnt;
-	this.element.bindingContainerName = "item";
-	if (!UX.hasDecorationSupport) {
-		this.storeTemplate();
-	}
-}
-
-Itemset.prototype = new Repeat();
-
-
-
-function Item(elmnt) {
-	this.m_value = null;
-	this.m_copy = null;
-	this.m_bSelected = false;
-	this.m_bReady = false;
-	this.m_ownerSelect = null;
-	this.element = elmnt;
-}
-
-Item.prototype.getOwnerSelect = function () {
-	var el, s;
-	if (!this.m_ownerSelect) {
-		el  = this.element.parentNode;
-    //seek through ancestors until the select is found.
-		while (el) {
-      s = NamespaceManager.getLowerCaseLocalName(el);
-	    if (s.indexOf("select") === 0) {
-				this.m_ownerSelect = el;
-				break;
+	setValue: function(s) {
+		var ownerSelect;
+		if (DECORATOR.getBehaviour(this.element.parentNode).getOwnerSelect) {
+			ownerSelect = DECORATOR.getBehaviour(this.element.parentNode).getOwnerSelect();
+			if (this.m_sValue !== s) {
+				if (ownerSelect) {
+					// When the value of an xf:value element changes, this must be reflected
+					//  in the select or select1 to which it is bound.
+					var select = DECORATOR.getBehaviour(ownerSelect);
+					select.removeItem(DECORATOR.getBehaviour(this.element.parentNode), this.m_sValue);
+					this.m_sValue = s;
+					select.addItem(DECORATOR.getBehaviour(this.element.parentNode), s);
+					select.refreshDisplayValue();
+				}
 			}
-			el = el.parentNode;
-    }
-	}
-	return this.m_ownerSelect;
-};
-
-Item.prototype.getLabel = function () {
-  var s;
-
-  if (this.m_label) {
-    if (this.m_label.getValue) {
-      s = this.m_label.getValue();
 		} else {
-      s = this.m_label.innerHTML;
-    }
-	} else {
-    s = this.m_value.getValue();
-  }
-  return s;
-};
-
-Item.prototype.findValueElement = function () {
-	var coll, i;
-	coll = NamespaceManager.getElementsByTagNameNS(this.element, "http://www.w3.org/2002/xforms", "value");
-	for (i = 0; i < coll.length; ++i) {
-		if (coll[i].parentNode === this.element) {
-			this.m_value = coll[i];
-			break;
+			this.m_sValue = s;
 		}
+	},
+
+	getValue: function() {
+		if (this.m_sValue === undefined) {
+			if (this.element.firstChild && DOM_TEXT_NODE === this.element.firstChild.nodeType) {
+				this.m_sValue = this.element.firstChild.nodeValue;
+			} else {
+				this.m_sValue = "";
+			}
+		}
+
+		return this.m_sValue;
 	}
-	if (!this.m_value) {
-		coll = NamespaceManager.getElementsByTagNameNS(this.element, "http://www.w3.org/2002/xforms", "copy");
-		for (i = 0; i < coll.length; ++i) {
+	
+});
+
+
+
+var Itemset = new UX.Class({
+	
+	Mixins: [Context, Repeat],
+	
+	toString: function() {
+		return 'xf:itemset';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+		this.bindingContainerName = "item";
+	}
+	
+});
+
+//Itemset.prototype = new Repeat();
+
+
+
+var Item = new UX.Class({
+	
+	Mixins: [Context],
+	
+	toString: function() {
+		return 'xf:item';
+	},
+	
+	initialize: function(element) {
+		this.m_value = null;
+		this.m_copy = null;
+		this.m_bSelected = false;
+		this.m_bReady = false;
+		this.m_ownerSelect = null;
+		this.element = element;
+	},
+
+	getOwnerSelect: function() {
+		if (!this.m_ownerSelect) {
+			var el = this.element.parentNode;
+			//seek through ancestors until the select is found.
+			while (el) {
+				var s = NamespaceManager.getLowerCaseLocalName(el);
+				if (s.indexOf("select") === 0) {
+					this.m_ownerSelect = el;
+					break;
+				}
+				el = el.parentNode;
+			}
+		}
+		return this.m_ownerSelect;
+	},
+
+	getLabel: function() {
+		var s;
+		if (this.m_label) {
+			if (DECORATOR.getBehaviour(this.m_label).getValue) {
+				s = DECORATOR.getBehaviour(this.m_label).getValue();
+			} else {
+				s = this.m_label.innerHTML;
+			}
+		} else {
+			s = DECORATOR.getBehaviour(this.m_value).getValue();
+		}
+		return s;
+	},
+
+	findValueElement: function() {
+		var coll = NamespaceManager.getElementsByTagNameNS(this.element, "http://www.w3.org/2002/xforms", "value");
+		for (var i = 0, l = coll.length; i < l; i++) {
 			if (coll[i].parentNode === this.element) {
-				this.m_copy = coll[i];
+				this.m_value = coll[i];
 				break;
 			}
 		}
-	}
-};
-
-Item.prototype.findLabelElement = function () {
-	var coll, i;
-	coll = NamespaceManager.getElementsByTagNameNS(this.element, "http://www.w3.org/2002/xforms", "label");
-	for (i = 0; i < coll.length; ++i) {
-		if (coll[i].parentNode === this.element) {
-			this.m_label = coll[i];
-			break;
-		}
-	}
-
-};
-
-Item.prototype.onContentReady = function () {
-  var ownerSelect, pThis;
-  this.findValueElement();
-	this.findLabelElement();
-	this.addVisualRepresentation();
-
-	ownerSelect = this.getOwnerSelect();
-	if (ownerSelect) {
-		pThis = this;
-		ownerSelect.addEventListener("selection-changed", {
-			handleEvent: function(e) {
-			pThis.handleEvent(e);
+		if (!this.m_value) {
+			coll = NamespaceManager.getElementsByTagNameNS(this.element, "http://www.w3.org/2002/xforms", "copy");
+			for (i = 0, l = coll.length; i < l; i++) {
+				if (coll[i].parentNode === this.element) {
+					this.m_copy = coll[i];
+					break;
+				}
 			}
-		},
-		false);
+		}
+	},
 
-		this.addEventListener("DOMActivate", {
-				handleEvent: function (evt) {
-					evt.currentTarget.toggleSelectionStatus();
+	findLabelElement: function() {
+		var coll = NamespaceManager.getElementsByTagNameNS(this.element, "http://www.w3.org/2002/xforms", "label");
+		for (var i = 0, l = coll.length; i < l; i++) {
+			if (coll[i].parentNode === this.element) {
+				this.m_label = coll[i];
+				break;
+			}
+		}
+	},
+
+	onContentReady: function() {
+		this.findValueElement();
+		this.findLabelElement();
+		this.addVisualRepresentation();
+
+		var ownerSelect = this.getOwnerSelect();
+		if (ownerSelect) {
+			var self = this;
+			ownerSelect.addEventListener("selection-changed", {
+				handleEvent: function(e) {
+					self.handleEvent(e);
+				}
+			},
+			false);
+
+			this.element.addEventListener("DOMActivate", {
+				handleEvent: function(evt) {
+					DECORATOR.getBehaviour(evt.currentTarget).toggleSelectionStatus();
 					evt.stopPropagation();
 				}
 			},
-		false);
-	}
-	if (!this.m_bReady) {
-		//appear as though deselected.
-		this.m_bSelected = false;
-		UX.addClassName(this.element, "pc-deselected");
-	}
-};
-
-Item.prototype.addVisualRepresentation = function () {
-
-};
-
-Item.prototype.handleEvent = function (oEvt) {
-
-	if (oEvt.type === "selection-changed" && oEvt.target === this.getOwnerSelect()) {
-		if (oEvt.target.m_undisplayedValues) {
-			oEvt.target.m_undisplayedValues = this.array_tryDataselect(oEvt.target.m_undisplayedValues);
-		} else {
-			this.string_tryDataselect(oEvt.newValue);
+			false);
 		}
-	}
-};
+		if (!this.m_bReady) {
+			//appear as though deselected.
+			this.m_bSelected = false;
+			UX.Element(this.element).addClass("pc-deselected");
+		}
+	},
 
-Item.prototype.getValue = function () {
-	var value;
-	if (this.m_value && this.m_value.getValue) {
-	  return this.m_value.getValue();
-	} else if (this.m_copy && this.m_copy.getValue) {
-		if (this.valueInInstance) {
-			value = this.m_copy.getValue();
-			if (UX.isEquivalentNode(this.valueInInstance,value)) {
-				return this.valueInInstance;
+	addVisualRepresentation: function() {
+
+	},
+
+	handleEvent: function(oEvt) {
+
+		if (oEvt.type === "selection-changed" && oEvt.target === this.getOwnerSelect()) {
+			if (oEvt.target.m_undisplayedValues) {
+				oEvt.target.m_undisplayedValues = this.array_tryDataselect(oEvt.target.m_undisplayedValues);
+			} else {
+				this.string_tryDataselect(oEvt.newValue);
+			}
+		}
+	},
+
+	getValue: function() {
+		var value;
+		if (this.m_value && DECORATOR.getBehaviour(this.m_value).getValue) {
+			return DECORATOR.getBehaviour(this.m_value).getValue();
+		} else if (this.m_copy && DECORATOR.getBehaviour(this.m_copy).getValue) {
+			if (this.valueInInstance) {
+				value = DECORATOR.getBehaviour(this.m_copy).getValue();
+				if (UX.isEquivalentNode(this.valueInInstance, value)) {
+					return this.valueInInstance;
+				}
+			} else {
+				return DECORATOR.getBehaviour(this.m_copy).getValue();
 			}
 		} else {
-			return this.m_copy.getValue();
+			return "";
 		}
-	}	else {
-	  return "";
-	}
-};
+	},
 
-Item.prototype.string_tryDataselect = function (s) {
-	if (s !== "" && s === this.getValue()) {
-		this.onDataSelect();
-		return true;
-	}	else {
+	string_tryDataselect: function(s) {
+		if (s !== "" && s === this.getValue()) {
+			this.onDataSelect();
+			return true;
+		} else {
+			this.onDataDeselect();
+			return false;
+		}
+	},
+
+	array_tryDataselect: function(arr) {
+		//given an array, search for this value,
+		//	if present,
+		var s, i;
+		s = this.getValue();
+		if (s !== "") {
+			for (i = 0; i < arr.length; ++i) {
+				if (s && (s === arr[i] || (typeof s === "object" && UX.isEquivalentNode(s, arr[i])))) {
+					this.valueInInstance = arr[i];
+					this.onDataSelect();
+					arr.splice(i, 1);
+					return arr;
+				}
+			}
+		}
 		this.onDataDeselect();
-		return false;
-	}
-};
+		return arr;
+	},
 
-Item.prototype.array_tryDataselect = function (arr) {
-	//given an array, search for this value,
-	//	if present,
-	var s, i;
-	s = this.getValue();
-	if (s !== "") {
-		for (i = 0;i < arr.length;++i) {
-			if (s && (s === arr[i] || (typeof s === "object" && UX.isEquivalentNode(s,arr[i])))) {
-				this.valueInInstance = arr[i];
-				this.onDataSelect();
-				arr.splice(i, 1);
-				return arr;
-			}
+	toggleSelectionStatus: function() {
+		//switch the selected status first, not last,
+		//	else the status may switch fall out-of-phase due to data
+		//	oriented status changes;
+		var bSelected = !this.m_bSelected;
+		if (bSelected) {
+			this.onUserSelect();
+		} else {
+			this.onUserDeselect();
+		}
+	},
+
+	onUserSelect: function() {
+		var oEvt = this.element.ownerDocument.createEvent("Events");
+		oEvt.initEvent("fp-select", true, true);
+		var element = this.element;
+		spawn(function() {
+			FormsProcessor.dispatchEvent(element, oEvt);
+		});
+	},
+
+	onUserDeselect: function() {
+		var oEvt = this.element.ownerDocument.createEvent("Events");
+		oEvt.initEvent("fp-deselect", true, true);
+		var element = this.element;
+		spawn(function() {
+			FormsProcessor.dispatchEvent(element, oEvt);
+		});
+	},
+
+	onDataSelect: function() {
+		var oEvt;
+		if (!this.m_bSelected || !this.m_bReady) {
+			this.m_bSelected = true;
+			UX.removeClassName(this.element, "pc-deselected");
+			UX.addClassName(this.element, "pc-selected");
+			oEvt = this.element.ownerDocument.createEvent("Events");
+			oEvt.initEvent("xforms-select", true, true);
+			FormsProcessor.dispatchEvent(this.element, oEvt);
+			this.m_bReady = true;
+		}
+	},
+
+	onDataDeselect: function() {
+		var oEvt;
+		if (this.m_bSelected) {
+			this.m_bSelected = false;
+			UX.removeClassName(this.element, "pc-selected");
+			UX.addClassName(this.element, "pc-deselected");
+			oEvt = this.element.ownerDocument.createEvent("Events");
+			oEvt.initEvent("xforms-deselect", true, true);
+			FormsProcessor.dispatchEvent(this.element, oEvt);
+			this.m_bReady = true;
 		}
 	}
-	this.onDataDeselect();
-	return arr;
-};
-
-Item.prototype.toggleSelectionStatus = function () {
-	//switch the selected status first, not last,
-	//	else the status may switch fall out-of-phase due to data
-	//	oriented status changes;
-	var bSelected = !this.m_bSelected;
-	if (bSelected) {
-		this.onUserSelect();
-	}	else {
-		this.onUserDeselect();
-	}
-};
-
-Item.prototype.onUserSelect = function () {
-  var oEvt, elmnt;
-	oEvt = this.element.ownerDocument.createEvent("Events");
-	oEvt.initEvent("fp-select", true, true);
-	elmnt = this.element;
-	spawn(function () {
-	  FormsProcessor.dispatchEvent(elmnt, oEvt);
-	});
-};
-
-Item.prototype.onUserDeselect = function () {
-  var oEvt, elmnt;
-	oEvt = this.element.ownerDocument.createEvent("Events");
-	oEvt.initEvent("fp-deselect", true, true);
-	elmnt = this.element;
-	spawn(function () {
-	  FormsProcessor.dispatchEvent(elmnt, oEvt);
-	});
-};
-
-Item.prototype.onDataSelect = function () {
-  var oEvt;
-	if (!this.m_bSelected || !this.m_bReady) {
-		this.m_bSelected = true;
-		UX.removeClassName(this.element, "pc-deselected");
-		UX.addClassName(this.element, "pc-selected");
-		oEvt = this.element.ownerDocument.createEvent("Events");
-		oEvt.initEvent("xforms-select", true, true);
-		FormsProcessor.dispatchEvent(this.element, oEvt);
-		this.m_bReady = true;
-	}
-};
-
-Item.prototype.onDataDeselect = function () {
-  var oEvt;
-	if (this.m_bSelected) {
-		this.m_bSelected = false;
-		UX.removeClassName(this.element, "pc-selected");
-		UX.addClassName(this.element, "pc-deselected");
-		oEvt = this.element.ownerDocument.createEvent("Events");
-		oEvt.initEvent("xforms-deselect", true, true);
-		FormsProcessor.dispatchEvent(this.element, oEvt);
-		this.m_bReady = true;
-	}
-};
+	
+});

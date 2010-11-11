@@ -279,7 +279,7 @@ function xmlValueIE6Hack(node) {
     var nodeValue = node.nodeValue;
     if (nodeName.length != 4) return nodeValue;
     if (!/^href$/i.test(nodeName)) return nodeValue;
-    if (!/^javascript:/.test(nodeValue)) return nodeValue;
+    if (!(/^javascript:/).test(nodeValue)) return nodeValue;
     return unescape(nodeValue);
 }
 

@@ -14,14 +14,26 @@
  * limitations under the License.
  */
 
-function OptionalBinding() {}
+var OptionalBinding = new UX.Class({
+	
+	toString: function() {
+		return 'xf:optional-binding';
+	},
 
-OptionalBinding.prototype.mustBeBound = function () {
-	return false;
-};
+	mustBeBound: function() {
+		return false;
+	}
+	
+});
 
-function OptionalIfUnspecifiedBinding() {}
+var OptionalIfUnspecifiedBinding = new UX.Class({
+	
+	toString: function() {
+		return 'xf:optional-if-binding';
+	},
 
-OptionalIfUnspecifiedBinding.prototype.mustBeBound = function () {
-	return Boolean(this.getAttribute("ref"));
-};
+	mustBeBound: function() {
+		return Boolean(this.element.getAttribute("ref"));
+	}
+
+});

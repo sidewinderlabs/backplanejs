@@ -14,75 +14,77 @@
  * limitations under the License.
  */
 
-function Header(element) {
-	this.element = element;
-	this.template = null;
-
-	// Hack for issue 612. If there is no @nodeset, decorate child elements immediately.
-	if (!this.element.getAttribute('nodeset')) {
-		UX.addClassName(this.element, 'header-ready');
-	}
-};
-
-Header.prototype.onDocumentReady = function() {
-	var model = null;
-
-	if (this.element.getAttribute("nodeset")) {
-		this.template = this.element.cloneNode(true);
-
-		while (this.element.hasChildNodes()) {
-			this.element.removeChild(this.element.firstChild);
+var Header = new UX.Class({
+	
+	Mixins: [Context],
+	
+	toString: function() {
+		return 'xf:header';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+		this.template = null;
+		// Hack for issue 612. If there is no @nodeset, decorate child elements immediately.
+		if (!this.element.getAttribute('nodeset')) {
+			UX.addClassName(this.element, 'header-ready');
 		}
+	},
 
-		model = getModelFor(this);
-		model.addControl(this);
+	onDocumentReady: function() {
+		var model = null;
 
-		UX.addClassName(this.element, "header-ready");
-	}
-};
+		if (this.element.getAttribute("nodeset")) {
+			this.template = this.element.cloneNode(true);
 
-Header.prototype.refresh = function() {};
-
-Header.prototype.rewire = function() {
-	var expression = this.element.getAttribute("nodeset");
-	var nodes;
-	var context;
-	var i;
-	var name;
-	var element;
-	var template;
-
-	if (expression) {
-		while (this.element.childNodes.length > 0) {
-			this.element.removeChild(this.element.firstChild);
-		}
-
-		context = this.element.getEvaluationContext();
-		nodes = context.model.EvaluateXPath(expression, context).value;
-
-		if (nodes) {
-			name = NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms")[0] + ":header";
-
-			for ( i = 0; i < nodes.length; i++ ) {
-
-				element = document.createElementNS("http://www.w3.org/2002/xforms", name);
-
-				element.setAttribute("ref", ".");
-				element.setAttribute("ordinal", i + 1);
-				UX.addClassName(element, "header-ready");
-
-				template = this.template.cloneNode(true);
-				while (template.hasChildNodes()) {
-					element.appendChild(template.firstChild);
-				}
-
-				this.element.appendChild(element);
+			while (this.element.hasChildNodes()) {
+				this.element.removeChild(this.element.firstChild);
 			}
 
-			if (!UX.hasDecorationSupport) {
-				DECORATOR.applyDecorationRules(this.element);
+			model = getModelFor(this);
+			model.addControl(this);
+
+			UX.addClassName(this.element, "header-ready");
+		}
+	},
+
+	refresh: function() {
+		
+	},
+
+	rewire: function() {
+		var expression = this.element.getAttribute("nodeset");
+		if(!expression) return;
+			while (this.element.childNodes.length > 0) {
+			this.element.removeChild(this.element.firstChild);
+		}
+		var context = this.element.getEvaluationContext();
+		var nodes = context.model.EvaluateXPath(expression, context).value;
+		if(!nodes) return;
+		
+		var name = NamespaceManager.getOutputPrefixesFromURI("http://www.w3.org/2002/xforms")[0] + ":header";
+
+		for (var i = 0, l = nodes.length; i < l; i++) {
+
+			var element = document.createElementNS("http://www.w3.org/2002/xforms", name);
+
+			element.setAttribute("ref", ".");
+			element.setAttribute("ordinal", i + 1);
+			UX.addClassName(element, "header-ready");
+
+			var template = this.template.cloneNode(true);
+			
+			while (template.hasChildNodes()) {
+				element.appendChild(template.firstChild);
 			}
+
+			this.element.appendChild(element);
 		}
 
+		if (!UX.hasDecorationSupport) {
+			DECORATOR.applyRules(this.element);
+		}
+		
 	}
-};
+	
+});

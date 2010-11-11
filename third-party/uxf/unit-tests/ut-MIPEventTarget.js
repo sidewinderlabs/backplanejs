@@ -11,33 +11,35 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-(function(){
+(function() {
 	var suiteMIPEventTarget;
 
-	var returnFalse = function () { 
+	var returnFalse = function() {
 		return false;
 	};
 
-	var returnTrue = function () { 
+	var returnTrue = function() {
 		return true;
 	};
 
 	YAHOO.tool.TestRunner.add(new YAHOO.tool.TestCase({
 		name: "Testing the MIPEventTarget object",
 
-		setUp: function(){
+		setUp: function() {
 			this.testDiv = this.createElement("div", document.body);
-			DECORATOR.extend(this.testDiv, new MIPHandler(this.testDiv), false);
-			DECORATOR.extend(this.testDiv, new MIPEventTarget(this.testDiv), false);
+			this.testObject = new new UX.Class({Mixins: [MIPHandler, MIPEventTarget]})(this.testDiv);
+			//DECORATOR.extend(this.testDiv, new MIPHandler(this.testDiv), false);
+			//DECORATOR.extend(this.testDiv, new MIPEventTarget(this.testDiv), false);
 		},
 
-		tearDown: function(){
+		tearDown: function() {
 			this.destroyElement(this.testDiv, "testDiv", document.body);
+			delete this.testObject;
 			FormsProcessor.halted = false;
 		},
 
-		testBrooacastMIPs: function () {
-			this.testDiv.m_proxy = {
+		testBrooacastMIPs: function() {
+			this.testObject.m_proxy = {
 				m_oNode: {},
 				readonly: {
 					getValue: returnFalse
@@ -51,32 +53,33 @@
 				enabled: {
 					getValue: returnTrue
 				},
-				getMIPState: function (s) {
-					switch(s) {
-						case "readonly" :
-							return false;
-						case "required":
-							return false;
-						case "valid":
-							return true;
-						case "enabled":
-							return true;
+				getMIPState: function(s) {
+					switch (s) {
+					case "readonly":
+						return false;
+					case "required":
+						return false;
+					case "valid":
+						return true;
+					case "enabled":
+						return true;
 					}
 				}
 			};
 
-			this.testDiv.updateMIPs();
-			this.testDiv.eventsReceived = "";
-			this.testDiv.dispatchEvent = function (e) {
-				this.eventsReceived += e.type;
+			this.testObject.updateMIPs();
+			this.testObject.eventsReceived = "";
+			var testObject = this.testObject;
+			this.testObject.element.dispatchEvent = function(e) {
+				testObject.eventsReceived += e.type;
 			};
 
-			this.testDiv.broadcastMIPs();
-			YAHOO.util.Assert.areSame("xforms-validxforms-optionalxforms-readwritexforms-enabled", this.testDiv.eventsReceived);
+			this.testObject.broadcastMIPs();
+			YAHOO.util.Assert.areSame("xforms-validxforms-optionalxforms-readwritexforms-enabled", this.testObject.eventsReceived);
 		},
 
-		testRefresh: function () {
-			this.testDiv.m_proxy = {
+		testRefresh: function() {
+			this.testObject.m_proxy = {
 				m_oNode: {},
 				readonly: {
 					getValue: returnFalse
@@ -90,31 +93,32 @@
 				enabled: {
 					getValue: returnTrue
 				},
-				getMIPState: function (s) {
-					switch(s) {
-						case "readonly" :
-							return false;
-						case "required":
-							return false;
-						case "valid":
-							return true;
-						case "enabled":
-							return true;
+				getMIPState: function(s) {
+					switch (s) {
+					case "readonly":
+						return false;
+					case "required":
+						return false;
+					case "valid":
+						return true;
+					case "enabled":
+						return true;
 					}
 				}
 			};
 
-			this.testDiv.eventsReceived = "";
-			this.testDiv.dispatchEvent = function (e) {
-				this.eventsReceived += e.type;
+			this.testObject.eventsReceived = "";
+			var testObject = this.testObject;
+			this.testObject.element.dispatchEvent = function(e) {
+				testObject.eventsReceived += e.type;
 			};
 
-			this.testDiv.refresh();
-			YAHOO.util.Assert.areSame( "enabled read-write optional valid", this.testDiv.className, "class");
-			YAHOO.util.Assert.areSame("xforms-validxforms-optionalxforms-readwritexforms-enabled", this.testDiv.eventsReceived, "events");
+			this.testObject.refresh();
+			YAHOO.util.Assert.areSame("enabled read-write optional valid", this.testObject.element.className, "class");
+			YAHOO.util.Assert.areSame("xforms-validxforms-optionalxforms-readwritexforms-enabled", this.testObject.eventsReceived, "events");
 		},
 
-		createElement: function (name, parent) {
+		createElement: function(name, parent) {
 			var element = document.createElement(name);
 
 			if (parent) {
@@ -124,7 +128,7 @@
 			return element;
 		},
 
-		destroyElement: function (element, propertyName, parent) {
+		destroyElement: function(element, propertyName, parent) {
 			if (parent) {
 				parent.removeChild(element);
 			}
@@ -132,4 +136,4 @@
 			delete this[propertyName];
 		}
 	}));
-}());
+} ());

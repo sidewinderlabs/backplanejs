@@ -17,73 +17,73 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-var suiteSetFocus = new YAHOO.tool.TestSuite({
-	name : "Test setfocus module"
-});
 
-suiteSetFocus.add(
-	new YAHOO.tool.TestCase({
-		name: "Test xf:setfocus",
+YAHOO.tool.TestRunner.add(new YAHOO.tool.TestCase({
+	
+	name: "Test xf:setfocus",
 
-		setUp: function() {
-			this.setfocus = this.createElement("xf:setfocus", "http://www.w3.org/2002/xforms", document.body);
-			this.setfocus.setAttribute("control", "inputTest");
-			DECORATOR.extend(this.setfocus, new EventTarget(this.setfocus), false);
-			DECORATOR.extend(this.setfocus, new Context(this.setfocus), false);
-			DECORATOR.extend(this.setfocus, new SetFocus(this.setfocus), false);
+	setUp: function() {
+		this.setfocus = this.createElement("xf:setfocus", "http://www.w3.org/2002/xforms", document.body);
+		this.setfocus.setAttribute("control", "inputTest");
+		this.setfocusObject = new SetFocus(this.setfocus);
+		DECORATOR.addBehaviour(this.setfocus, this.setfocusObject);
 
-			this.input = this.createElement("xf:input", "http://www.w3.org/2002/xforms", document.body);
-			DECORATOR.extend(this.input, new Control(this.input), false);
-			this.input.id = "inputTest";
-			this.input.m_value = this.createElement("input", null, this.input);
-			this.input.m_proxy = {};
-		this.input.m_proxy.enabled = {
+		this.input = this.createElement("xf:input", "http://www.w3.org/2002/xforms", document.body);
+		this.inputObject = new Control(this.input);
+		DECORATOR.addBehaviour(this.input, this.inputObject);
+		
+		this.input.id = "inputTest";
+		this.inputObject.m_value = this.createElement("input", null, this.input);
+		this.inputObject.m_proxy = {};
+		this.inputObject.m_proxy.enabled = {
 			getValue: function() {
 				return true;
 			}
 		};
-		},
+	},
 
-		tearDown: function() {
-			this.destroyElement(this.input.m_value, "input.m_value", this.input);
-			this.destroyElement(this.input, "input", document.body);
-			this.destroyElement(this.setfocus, "setfocus", document.body);
-		},
+	tearDown: function() {
+		this.destroyElement(this.inputObject.m_value, "input.m_value", this.input);
+		this.destroyElement(this.input, "input", document.body);
+		this.destroyElement(this.setfocus, "setfocus", document.body);
+		delete this.setfocusObject;
+		delete this.inputObject;
+	},
 
-		testConstruction: function() {
-			YAHOO.util.Assert.isFunction(this.setfocus.handleEvent);
-			YAHOO.util.Assert.isFunction(this.setfocus.performAction);
-		},
+	testConstruction: function() {
+		YAHOO.util.Assert.isFunction(this.setfocusObject.handleEvent);
+		YAHOO.util.Assert.isFunction(this.setfocusObject.performAction);
+	},
 
-		testInvocation: function() {
-			this.input.m_value.blur();
-			YAHOO.util.Assert.isFalse(this.input.m_value === document.activeElement || this.input.m_value.contains(document.activeElement));
-			this.setfocus.performAction();
-			// TODO: This requires a working assertion that I can't figure out.
-			//YAHOO.util.Assert.isTrue(this.input.m_value === document.activeElement || this.input.m_value.contains(document.activeElement));
-		},
+	testInvocation: function() {
+		this.inputObject.m_value.blur();
+		YAHOO.util.Assert.isFalse(this.inputObject.m_value === document.activeElement || this.inputObject.m_value.contains(document.activeElement));
+		this.setfocusObject.performAction();
+		// TODO: This requires a working assertion that I can't figure out.
+		//YAHOO.util.Assert.isTrue(this.input.m_value === document.activeElement || this.input.m_value.contains(document.activeElement));
+	},
 
-		createElement: function(name, ns, parent) {
-			var element;
+	createElement: function(name, ns, parent) {
+		var element;
 
-			if (ns) {
-				element = document.createElementNS(ns, name);
-			} else {
-				element = document.createElement(name);
-			}
-
-			if (parent) {
-				parent.appendChild(element);
-			}
-
-			return element;
-		},
-
-		destroyElement: function(element, propertyName, parent) {
-			if (parent) {
-				parent.removeChild(element);
-			}
-
-			delete this[propertyName];
+		if (ns) {
+			element = document.createElementNS(ns, name);
+		} else {
+			element = document.createElement(name);
 		}
-	}));
+
+		if (parent) {
+			parent.appendChild(element);
+		}
+
+		return element;
+	},
+
+	destroyElement: function(element, propertyName, parent) {
+		if (parent) {
+			parent.removeChild(element);
+		}
+
+		delete this[propertyName];
+	}
+}));

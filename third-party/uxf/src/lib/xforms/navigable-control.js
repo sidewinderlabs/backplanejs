@@ -1,5 +1,5 @@
 /*
- * Copyright © 2009 Backplane Ltd.
+ * Copyright  2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,49 +14,64 @@
  * limitations under the License.
  */
 
-function NavigableControl(element) {
-	this.element = element;
-};
+//= require mip-handler
+//= require mif-eventtarget
+//= require context
+//= require control
 
-NavigableControl.prototype.isNavigableControl = true;
+var NavigableControl = new UX.Class({
+	
+	Mixins: [MIPHandler, MIPEventTarget, Context, Control],
+	
+	toString: function() {
+		return 'xf:navigable-control';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+	},
 
-NavigableControl.prototype.onContentReady = function () {
-	this.setNavIndex();
-	this.setAccessKey();
+	isNavigableControl: true,
 
-	FormsProcessor.addToNavigationList(this);
-};
+	onContentReady: function() {
+		this.setNavIndex();
+		this.setAccessKey();
 
-NavigableControl.prototype.setNavIndex = function () {
-	this.navIndex = parseInt(this.element.getAttribute('navindex') || '0', 10);
-};
+		FormsProcessor.addToNavigationList(this);
+	},
 
-NavigableControl.prototype.setAccessKey = function () {
-	this.accessKey = this.element.getAttribute('accesskey');
-};
+	setNavIndex: function() {
+		this.navIndex = parseInt(this.element.getAttribute('navindex') || '0', 10);
+	},
 
-NavigableControl.prototype.onKeyDown = function (evt) {
-	if (UX.isHTMLTabKeyEvent(evt)) {
-		if (UX.isShiftKeyPressed(evt)) {
-			this.navigateToPreviousControl();
-		} else {
-			this.navigateToNextControl();
+	setAccessKey: function() {
+		this.accessKey = this.element.getAttribute('accesskey');
+	},
+
+	onKeyDown: function(event) {
+		if (event.key == 'tab') {
+			if (event.shift) {
+				this.navigateToPreviousControl();
+			} else {
+				this.navigateToNextControl();
+			}
+			event.stop();
+			return false;
 		}
 
-		return UX.cancelHTMLEvent(evt);
+		return true;
+	},
+
+	navigateToNextControl: function() {
+		UX.dispatchEvent(this.element, 'xforms-next', false, true, false);
+
+		FormsProcessor.navigateToNextControl(this);
+	},
+
+	navigateToPreviousControl: function() {
+		UX.dispatchEvent(this.element, 'xforms-previous', false, true, false);
+
+		FormsProcessor.navigateToPreviousControl(this);
 	}
-
-	return true;
-};
-
-NavigableControl.prototype.navigateToNextControl = function () {
-	UX.dispatchEvent(this.element, 'xforms-next', false, true, false);
-
-	FormsProcessor.navigateToNextControl(this);
-};
-
-NavigableControl.prototype.navigateToPreviousControl = function () {
-	UX.dispatchEvent(this.element, 'xforms-previous', false, true, false);
-
-	FormsProcessor.navigateToPreviousControl(this);
-};
+	
+});

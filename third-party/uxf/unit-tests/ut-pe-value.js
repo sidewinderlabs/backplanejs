@@ -17,48 +17,55 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+(function(){
+
 var suitePeValue = new YAHOO.tool.TestSuite({
-	name : "Test pe-value module"
+	name: "Test pe-value module"
 });
 
 suitePeValue.add(
-	new YAHOO.tool.TestCase({
-		name: "Test value pseudo-element",
+new YAHOO.tool.TestCase({
+	name: "Test value pseudo-element",
 
-		setUp: function() {
-			this.peValue = this.createElement("div", document.body);
-			DECORATOR.extend(this.peValue, new PeValue(this.peValue), false);
+	setUp: function() {
+		this.peValue = this.createElement("div", document.body);
+		this.peValueObject = new PeValue(this.peValue);
+		this.peValueObject.m_value = this.createElement("input", this.peValue);
+	},
 
-			this.peValue.m_value = this.createElement("input", this.peValue);
-		},
+	tearDown: function() {
+		this.destroyElement(this.peValueObject.m_value, "peValue.m_value", this.peValue);
+		this.destroyElement(this.peValue, "peValue", document.body);
+	},
 
-		tearDown: function() {
-			this.destroyElement(this.peValue.m_value, "peValue.m_value", this.peValue);
-			this.destroyElement(this.peValue, "peValue", document.body);
-		},
+	testGiveFocus: function() {
+		this.peValueObject.m_value.blur();
+		YAHOO.util.Assert.isFalse(this.peValueObject.m_value === document.activeElement || this.peValueObject.m_value.contains(document.activeElement));
+		this.peValueObject.giveFocus();
+		YAHOO.util.Assert.isTrue(this.peValueObject.m_value === document.activeElement || this.peValueObject.m_value.contains(document.activeElement));
+	},
 
-		testGiveFocus: function() {
-			this.peValue.m_value.blur();
-			YAHOO.util.Assert.isFalse(this.peValue.m_value === document.activeElement || this.peValue.m_value.contains(document.activeElement));
-			this.peValue.giveFocus();
-			YAHOO.util.Assert.isTrue(this.peValue.m_value === document.activeElement || this.peValue.m_value.contains(document.activeElement));
-		},
+	createElement: function(name, parent) {
+		var element = document.createElement(name);
 
-		createElement: function(name, parent) {
-			var element = document.createElement(name);
-
-			if (parent) {
-				parent.appendChild(element);
-			}
-
-			return element;
-		},
-
-		destroyElement: function(element, propertyName, parent) {
-			if (parent) {
-				parent.removeChild(element);
-			}
-
-			delete this[propertyName];
+		if (parent) {
+			parent.appendChild(element);
 		}
-	}));
+
+		return element;
+	},
+
+	destroyElement: function(element, propertyName, parent) {
+		if (parent) {
+			parent.removeChild(element);
+		}
+
+		delete this[propertyName];
+	}
+}));
+
+
+YAHOO.tool.TestRunner.add(suitePeValue);
+
+})();

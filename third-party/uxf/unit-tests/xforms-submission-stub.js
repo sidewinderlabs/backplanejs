@@ -30,25 +30,25 @@ submission.prototype.request = function(sMethod, sAction, sBody, nTimeout, oCall
 	this.body = sBody;
 	this.timeout = nTimeout;
 	this.callback = oCallback;
-	
+
 	return null;
 };
 
 submission.prototype.initConnection = function() {
-    this.connection = {    
-        headers: {},		
+	this.connection = {
+		headers: {},
 		initHeader: function(name, value) {
-		    this.headers[name] = value;
+			this.headers[name] = value;
 		}
 	};
-    return this.connection; 
+	return this.connection;
 };
 
 submission.prototype.getConnection = function() {
-    if (!this.connection) {
-        this.initConnection();
-    }
-    return this.connection;
+	if (!this.connection) {
+		this.initConnection();
+	}
+	return this.connection;
 };
 
 submission.prototype.setHeader = function(name, value) {

@@ -16,33 +16,37 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+var RangeValueGMAP = new UX.Class({
+	
+	Mixins: [GMapControl],
+	
+	toString: function() {
+		return 'xf:gmap-range';
+	},
 
-function RangeValueGMAP(elmnt) {
-}
+	valueChanged: function(value) {
+		var oEvt = this.element.ownerDocument.createEvent("MutationEvents");
+		if (oEvt.initMutationEvent === undefined) {
+			oEvt.initMutationEvent = oEvt.initEvent;
+		}
 
-RangeValueGMAP.prototype.valueChanged = function(sNewValue)
-{
-	var oEvt = this.element.ownerDocument.createEvent("MutationEvents");
-	if(oEvt.initMutationEvent === undefined) {
-		oEvt.initMutationEvent = oEvt.initEvent;
+		oEvt.initMutationEvent("control-value-changed", true, true, null, this.currentValue, value, null, null);
+		var self = this;
+		spawn(function() {
+			FormsProcessor.dispatchEvent(self.element, oEvt);
+		});
+	},
+
+	onDocumentReady: function() {
+		this.createMap();
+	},
+
+	addMapNavigationControl: function() {
+		if (this.mapContainer.clientWidth >= 180 && this.mapContainer.clientHeight >= 300) {
+			this.map.addControl(new GLargeMapControl3D());
+		} else if (this.mapContainer.clientWidth >= 120 && this.mapContainer.clientHeight >= 140) {
+			this.map.addControl(new GSmallMapControl());
+		}
 	}
-		
-	oEvt.initMutationEvent("control-value-changed", true, true,
-		null, this.currentValue, sNewValue, null, null);
-    var that = this;
-	spawn(function() {
-			FormsProcessor.dispatchEvent(that.element, oEvt);
-	});
-};
-
-RangeValueGMAP.prototype.onDocumentReady = function() {
-	this.createMap();
-};
-
-RangeValueGMAP.prototype.addMapNavigationControl = function() {
-	if (this.mapContainer.clientWidth >= 180 && this.mapContainer.clientHeight >= 300) {
-		this.map.addControl(new GLargeMapControl3D());
-	} else if (this.mapContainer.clientWidth >= 120 && this.mapContainer.clientHeight >= 140) {
-		this.map.addControl(new GSmallMapControl());
-	}
-};
+	
+});

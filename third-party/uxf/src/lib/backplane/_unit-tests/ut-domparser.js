@@ -19,7 +19,7 @@
 				var doc = (new DOMParser()).parseFromString("<hello>world!</hello>", "text/xml");
 
 				Assert.areEqual("hello", doc.documentElement.nodeName);
-				Assert.areEqual("world!", doc.text);
+				Assert.areEqual("world!", doc.text || doc.documentElement.textContent);
 			}
 		})//new TestCase
 	);

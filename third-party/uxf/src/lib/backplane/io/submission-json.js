@@ -73,7 +73,7 @@ if (!document.submissionJSON)
             s.setAttribute("src", url);
             
             var fn = "" + this._callbackhandler;
-            var pThis = this;
+            var self = this;
             
             fn = fn.replace(/callbackIndex/g, id);
             eval("document.submissionJSON._callbackhandler_" + id + "=" + fn);
@@ -88,7 +88,7 @@ if (!document.submissionJSON)
                     timeout: window.setTimeout(
                         function()
                         {
-                            pThis._timeout(id, url);
+                            self._timeout(id, url);
                         },
                         timeoutlength
                     )

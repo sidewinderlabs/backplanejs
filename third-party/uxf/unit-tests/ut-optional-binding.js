@@ -11,42 +11,42 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-(function(){
+(function() {
 	var suiteOptionalBinding;
 
-	var returnFalse = function () { 
+	var returnFalse = function() {
 		return false;
 	};
 
-	var returnTrue = function () { 
+	var returnTrue = function() {
 		return true;
 	};
 
 	YAHOO.tool.TestRunner.add(new YAHOO.tool.TestCase({
+		
 		name: "Testing the OptionalBinding object",
 
-		setUp: function(){
-			this.ob = this.createElement("div", document.body);
-			DECORATOR.extend(this.ob, new MIPHandler(this.ob), false);
-			DECORATOR.extend(this.ob, new OptionalBinding(this.ob), false);
+		setUp: function() {
+			this.element = this.createElement("div", document.body);
+			this.object = new new UX.Class({Mixins: [MIPHandler, OptionalBinding]})(this.element);
 		},
 
-		tearDown: function(){
-			document.body.removeChild(this.ob);
-			this.ob = null;
+		tearDown: function() {
+			document.body.removeChild(this.element);
+			this.object = null;
 		},
 
-		testMustBeBound: function () {
-			YAHOO.util.Assert.isFunction(this.ob.mustBeBound);
-			YAHOO.util.Assert.isFalse(this.ob.mustBeBound());
+		testMustBeBound: function() {
+			YAHOO.util.Assert.isFunction(this.object.mustBeBound);
+			YAHOO.util.Assert.isFalse(this.object.mustBeBound());
 		},
 
-		testUpdateMIPs : function () {
-			this.ob.updateMIPs();
-			YAHOO.util.Assert.areSame("enabled", this.ob.className);
+		testUpdateMIPs: function() {
+			this.object.updateMIPs();
+			YAHOO.util.Assert.areSame("enabled", this.object.element.className);
 		},
 
-		createElement: function (name, parent) {
+		createElement: function(name, parent) {
 			var element = document.createElement(name);
 
 			if (parent) {
@@ -56,4 +56,4 @@
 			return element;
 		}
 	}));
-}());
+} ());

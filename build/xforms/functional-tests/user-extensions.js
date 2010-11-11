@@ -139,8 +139,7 @@ Selenium.prototype.assertXFormsControlStatus = function(locator, mipName) {
 
 Selenium.prototype.getXFormsControlValue = function(locator) {
 	var element = this.page().findElement(locator);
-
-	return element.getValue();
+	return element.ownerDocument.defaultView.DECORATOR.getBehaviour(element).getValue();
 };
 
 (function () {
@@ -169,9 +168,8 @@ Selenium.prototype.getXFormsControlValue = function(locator) {
 
 	var areAllModelsReady = function (doc, prefix) {
 		var models = getModels(doc, prefix), i;
-
 		for (i = 0; i < models.length; ++i) {
-			if (!models[i].m_bXFormsReadyFired) {
+			if (!models[i].ownerDocument.defaultView.DECORATOR.getBehaviour(models[i]).m_bXFormsReadyFired) {
 				return false;
 			}
 		}
@@ -183,9 +181,9 @@ Selenium.prototype.getXFormsControlValue = function(locator) {
 	//	given document, and query their readiness in turn.
 	Selenium.prototype.isModelReady = function(locator) {
 		var doc = this.page(), retval = false;
-
 		if(locator  && locator !== "") {
-			retval = doc.findElement(locator).m_bXFormsReadyFired;
+			var element = doc.findElement(locator);
+			retval = element.ownerDocument.defaultView.DECORATOR.getBehaviour(doc.findElement(locator)).m_bXFormsReadyFired;
 		} else {
 			retval = areAllModelsReady(doc, "xf:");
 			if(retval) {

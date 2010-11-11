@@ -12,83 +12,87 @@
  * limitations under the License.
  */
 
-function XFormsBooleanValue(elmnt) {
-	this.element = elmnt;
-	this.currValue = 'false';
-	this.m_bFirstSetValue = true;
-}
+var XFormsBooleanValue = new UX.Class({
+	
+	Mixins: [PeValue],
+	
+	toString: function() {
+		return 'xf:boolean-value';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+		this.currValue = 'false';
+		this.m_bFirstSetValue = true;
+	},
 
-function booleanValueChanged(pThis, evt) {
-	var oEvt = pThis.element.ownerDocument.createEvent("MutationEvents");
-	if(oEvt.initMutationEvent === undefined) {
-		oEvt.initMutationEvent = oEvt.initEvent;
-	}
-	oEvt.initMutationEvent("control-value-changed", true, true, null, pThis.currValue, pThis.m_value.checked ? 'true' : 'false', null, null);
-
-	spawn(function() {
-		FormsProcessor.dispatchEvent(pThis.element, oEvt);
-	});
-
-	evt.cancelBubble = true;
-}
-
-XFormsBooleanValue.prototype.onDocumentReady = function() {
-
-	if (this.element.ownerDocument.media != "print") {
-		var oInput = document.createElement("input");
+	onDocumentReady : function() {
+		if (this.element.ownerDocument.media == "print") return;
+		var input = document.createElement("input");
 		var eventName = "click";
-		oInput.type = "checkbox";
+		input.type = "checkbox";
 
-		UX.addStyle(oInput, "backgroundColor", "transparent");
-		UX.addStyle(oInput, "padding", "0");
-		UX.addStyle(oInput, "margin", "0");
-		UX.addClassName(oInput, "ux-input-checkbox");
+		UX.addStyle(input, "backgroundColor", "transparent");
+		UX.addStyle(input, "padding", "0");
+		UX.addStyle(input, "margin", "0");
+		UX.addClassName(input, "ux-input-checkbox");
 		UX.addClassName(this.element, "ux-boolean-value");
 
-		var pThis = this;
-		if(typeof oInput.addEventListener === 'function') {
-			oInput.addEventListener(eventName, function(e) {
-					booleanValueChanged(pThis, e);
-				},
-				false
-			);
+		var self = this;
+		if (typeof input.addEventListener === 'function') {
+			input.addEventListener(eventName, function(e) {
+				self.booleanValueChanged(e);
+			},
+			false);
 		} else {
-			oInput.attachEvent("on" + eventName, function(e) {
-				booleanValueChanged(pThis, e);
+			input.attachEvent("on" + eventName, function(e) {
+				self.booleanValueChanged(e);
 			});
 		}
+		this.element.appendChild(input);
+		this.m_value = input;
+	},
 
-		this.element.appendChild(oInput);
-		this.m_value = oInput;
-	}
-
-};
-
-XFormsBooleanValue.prototype.setValue = function(sValue) {
-	var bRet = false;
-	if (this.m_value.value != sValue) {
-		this.m_value.value = sValue;
-		this.currValue = sValue;
-		if (sValue === 'true' || sValue === '1') {
-			this.m_value.checked = 'checked';
-		} else {
-			this.m_value.checked = '';
+	setValue : function(sValue) {
+		var bRet = false;
+		if (this.m_value.value != sValue) {
+			this.m_value.value = sValue;
+			this.currValue = sValue;
+			if (sValue === 'true' || sValue === '1') {
+				this.m_value.checked = 'checked';
+			} else {
+				this.m_value.checked = '';
+			}
+			bRet = true;
+		} else if (this.m_bFirstSetValue) {
+			bRet = true;
+			this.m_bFirstSetValue = false;
 		}
-		bRet = true;
-	} else if(this.m_bFirstSetValue) {
-		bRet = true;
-		this.m_bFirstSetValue = false;
+		return bRet;
+	},
+
+	isTypeAllowed : function(sType) {
+		// Data Binding Restrictions: Binds to any xsd:boolean.
+		var arrSegments, prefix, localPart, namespace;
+		arrSegments = sType.split(":");
+		prefix = arrSegments.length === 2 ? arrSegments[0] : "";
+		localPart = arrSegments.length === 2 ? arrSegments[1] : "";
+		namespace = NamespaceManager.getNamespaceURIForPrefix(prefix);
+
+		return ((namespace === "http://www.w3.org/2001/XMLSchema" || namespace === "http://www.w3.org/2002/xforms") && localPart === "boolean" && !DECORATOR.getBehaviour(this.element.parentNode).isBoundToComplexContent());
+	},
+	
+	booleanValueChanged: function(evt) {
+		var oEvt = this.element.ownerDocument.createEvent("MutationEvents");
+		if (oEvt.initMutationEvent === undefined) {
+			oEvt.initMutationEvent = oEvt.initEvent;
+		}
+		oEvt.initMutationEvent("control-value-changed", true, true, null, this.currValue, this.m_value.checked ? 'true' : 'false', null, null);
+		var self = this;
+		spawn(function() {
+			FormsProcessor.dispatchEvent(self.element, oEvt);
+		});
+		evt.cancelBubble = true;
 	}
-	return bRet;
-};
-
-XFormsBooleanValue.prototype.isTypeAllowed = function(sType) {
-	// Data Binding Restrictions: Binds to any xsd:boolean.
-	var arrSegments, prefix, localPart, namespace;
-	arrSegments = sType.split(":");
-	prefix = arrSegments.length === 2 ? arrSegments[0] : "";
-	localPart = arrSegments.length === 2 ? arrSegments[1] : "";
-	namespace = NamespaceManager.getNamespaceURIForPrefix(prefix);
-
-	return ((namespace === "http://www.w3.org/2001/XMLSchema" || namespace === "http://www.w3.org/2002/xforms") && localPart === "boolean" && !this.parentNode.isBoundToComplexContent());
-};
+	
+});

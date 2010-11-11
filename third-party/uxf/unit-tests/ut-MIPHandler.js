@@ -11,59 +11,61 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-(function(){
+(function() {
 	var suiteMIPHandler;
 
-	var returnFalse = function () { 
+	var returnFalse = function() {
 		return false;
 	};
 
-	var returnTrue = function () { 
+	var returnTrue = function() {
 		return true;
 	};
 
 	YAHOO.tool.TestRunner.add(new YAHOO.tool.TestCase({
 		name: "Testing the MIPHandler object",
 
-		setUp: function(){
+		setUp: function() {
 			this.testDiv = this.createElement("div", document.body);
-			DECORATOR.extend(this.testDiv, new MIPHandler(this.testDiv), false);
+			this.testObject = new MIPHandler(this.testDiv);
+			UX.extend(this.testDiv, new EventTarget(this.testDiv));
 		},
 
-		tearDown: function(){
+		tearDown: function() {
 			this.destroyElement(this.testDiv, "testDiv", document.body);
+			delete this.testObject;
 			FormsProcessor.halted = false;
 		},
 
-		testUpdateMIPs : function () {
-			this.testDiv.updateMIPs();
+		testUpdateMIPs: function() {
+			this.testObject.updateMIPs();
 			YAHOO.util.Assert.areSame("disabled", this.testDiv.className);
 		},
 
-		testIsDirtyMIP : function () {
-			this.testDiv.m_proxy = {
+		testIsDirtyMIP: function() {
+			this.testObject.m_proxy = {
 				m_oNode: {},
 				getMIPState: function() {
 					return true;
 				}
 			};
-			this.testDiv.m_MIPSCurrentlyShowing.readonly = false;
-			YAHOO.util.Assert.areSame(true, this.testDiv.isDirtyMIP("readonly"));
+			this.testObject.m_MIPSCurrentlyShowing.readonly = false;
+			YAHOO.util.Assert.areSame(true, this.testObject.isDirtyMIP("readonly"));
 		},
 
-		testIsNotDirtyMIP : function () {
-			this.testDiv.m_proxy = {
+		testIsNotDirtyMIP: function() {
+			this.testObject.m_proxy = {
 				m_oNode: {},
 				getMIPState: function() {
 					return true;
 				}
 			};
-			this.testDiv.m_MIPSCurrentlyShowing.readonly = true;
-			YAHOO.util.Assert.areSame(false, this.testDiv.isDirtyMIP("readonly"));
+			this.testObject.m_MIPSCurrentlyShowing.readonly = true;
+			YAHOO.util.Assert.areSame(false, this.testObject.isDirtyMIP("readonly"));
 		},
 
-		testSetDirtyStatesNoChange : function () {
-			this.testDiv.m_proxy = {
+		testSetDirtyStatesNoChange: function() {
+			this.testObject.m_proxy = {
 				m_oNode: {},
 				readonly: {
 					getValue: returnFalse
@@ -77,112 +79,8 @@
 				enabled: {
 					getValue: returnTrue
 				},
-				getMIPState: function (s) {
-					switch(s) {
-						case "readonly" :
-							return false;
-						case "required":
-							return false;
-						case "valid":
-							return true;
-						case "enabled":
-							return true;
-					}
-				}
-			};
-
-			this.testDiv.updateMIPs();
-			this.testDiv.dirtyState.setClean();
-			this.testDiv.setDirtyStates();
-			YAHOO.util.Assert.areSame(false, this.testDiv.dirtyState.isDirty("readonly"));
-			YAHOO.util.Assert.areSame(false, this.testDiv.dirtyState.isDirty("required"));
-			YAHOO.util.Assert.areSame(false, this.testDiv.dirtyState.isDirty("valid"));
-			YAHOO.util.Assert.areSame(false, this.testDiv.dirtyState.isDirty("enabled"));
-		},
-
-		testSetDirtyStatesAllChange : function () {
-			this.testDiv.m_proxy = {
-				m_oNode: {},
-				readonly: {
-					getValue: returnFalse
-				},
-				required: {
-					getValue: returnFalse
-				},
-				valid: {
-					getValue: returnTrue
-				},
-				enabled: {
-					getValue: returnTrue
-				},
-				getMIPState: function (s) {
-					switch(s) {
-						case "readonly" :
-							return false;
-						case "required":
-							return false;
-						case "valid":
-							return true;
-						case "enabled":
-							return true;
-					}
-				}
-			};
-
-			this.testDiv.updateMIPs();
-			this.testDiv.dirtyState.setClean();
-
-			this.testDiv.m_proxy = {
-				m_oNode: {},
-				readonly: {
-					getValue: returnTrue
-				},
-				required: {
-					getValue: returnTrue
-				},
-				valid: {
-					getValue: returnFalse
-				},
-				enabled: {
-					getValue: returnFalse
-				},
-				getMIPState: function (s) {
-					switch(s) {
-						case "readonly" :
-							return true;
-						case "required":
-							return true;
-						case "valid":
-							return false;
-						case "enabled":
-							return false;
-					}
-				}
-			};
-			this.testDiv.setDirtyStates();
-			YAHOO.util.Assert.areSame(true, this.testDiv.dirtyState.isDirty("readonly"));
-			YAHOO.util.Assert.areSame(true, this.testDiv.dirtyState.isDirty("required"));
-			YAHOO.util.Assert.areSame(true, this.testDiv.dirtyState.isDirty("valid"));
-			YAHOO.util.Assert.areSame(true, this.testDiv.dirtyState.isDirty("enabled"));
-		},
-
-		testSetDirtyStatesSomeChange : function () {
-			this.testDiv.m_proxy = {
-				m_oNode: {},
-				readonly: {
-					getValue: returnFalse
-				},
-				required: {
-					getValue: returnFalse
-				},
-				valid: {
-					getValue: returnTrue
-				},
-				enabled: {
-					getValue: returnTrue
-				},
-				getMIPState: function (s) {
-					switch(s) {
+				getMIPState: function(s) {
+					switch (s) {
 						case "readonly":
 							return false;
 						case "required":
@@ -192,148 +90,269 @@
 						case "enabled":
 							return true;
 					}
-				}
-			};
-
-			this.testDiv.updateMIPs();
-			this.testDiv.dirtyState.setClean();
-
-			this.testDiv.m_proxy = {
-				m_oNode: {},
-				readonly: {
-					getValue: returnTrue
-				},
-				required: {
-					getValue: returnFalse
-				},
-				valid: {
-					getValue: returnFalse
-				},
-				enabled: {
-					getValue: returnTrue
-				},
-				getMIPState: function (s) {
-					switch(s) {
-						case "readonly":
-							return true;
-						case "required":
-							return false;
-						case "valid":
-							return false;
-						case "enabled":
-							return true;
-					}
-				}
-			};
-
-			this.testDiv.setDirtyStates();
-			YAHOO.util.Assert.areSame(true, this.testDiv.dirtyState.isDirty("readonly"),"readonly");
-			YAHOO.util.Assert.areSame(false, this.testDiv.dirtyState.isDirty("required"), "required");
-			YAHOO.util.Assert.areSame(true, this.testDiv.dirtyState.isDirty("valid"), "valid");
-			YAHOO.util.Assert.areSame(false, this.testDiv.dirtyState.isDirty("enabled"), "enabled");
-		},
-
-		testBroadcastMIPs: function () {
-			this.testDiv.m_proxy = {
-				m_oNode: {},
-				readonly: {
-					getValue: returnFalse
-				},
-				required: {
-					getValue: returnFalse
-				},
-				valid: {
-					getValue: returnTrue
-				},
-				enabled: {
-					getValue: returnTrue
-				},
-				getMIPState: function (s) {
-					switch(s) {
-						case "readonly" :
-							return false;
-						case "required":
-							return false;
-						case "valid":
-							return true;
-						case "enabled":
-							return true;
-					}
-				}
-			};
-
-			this.testDiv.updateMIPs();
-			this.testDiv.eventsReceived = "";
-			this.testDiv.dispatchEvent = function (e) {
-				this.eventsReceived += e.type;
-			};
-
-			this.testDiv.broadcastMIPs();
-			YAHOO.util.Assert.areSame("", this.testDiv.eventsReceived);
-		},
-
-		testRefresh: function () {
-			this.testDiv.m_proxy = {
-				m_oNode: {},
-				readonly: {
-					getValue: returnFalse
-				},
-				required: {
-					getValue: returnFalse
-				},
-				valid: {
-					getValue: returnTrue
-				},
-				enabled: {
-					getValue: returnTrue
-				},
-				getMIPState: function (s) {
-					switch(s) {
-						case "readonly" :
-							return false;
-						case "required":
-							return false;
-						case "valid":
-							return true;
-						case "enabled":
-							return true;
-					}
-				}
-			};
-
-			this.testDiv.eventsReceived = "";
-			this.testDiv.dispatchEvent = function (e) {
-				this.eventsReceived += e.type;
-			};
-
-			this.testDiv.refresh();
-			YAHOO.util.Assert.areSame( "enabled read-write optional valid", this.testDiv.className, "class");
-			YAHOO.util.Assert.areSame("", this.testDiv.eventsReceived, "events");
-		},
-
-		testRewire: function () {
-			var node = {
-				getAttribute: function() {
 					return null;
 				}
-			},
-				oProxy = getProxyNode(node);
-			this.testDiv.getBoundNode = function(){
+			};
+
+			this.testObject.updateMIPs();
+			this.testObject.dirtyState.setClean();
+			this.testObject.setDirtyStates();
+			YAHOO.util.Assert.areSame(false, this.testObject.dirtyState.isDirty("readonly"));
+			YAHOO.util.Assert.areSame(false, this.testObject.dirtyState.isDirty("required"));
+			YAHOO.util.Assert.areSame(false, this.testObject.dirtyState.isDirty("valid"));
+			YAHOO.util.Assert.areSame(false, this.testObject.dirtyState.isDirty("enabled"));
+		},
+
+		testSetDirtyStatesAllChange: function() {
+			this.testObject.m_proxy = {
+				m_oNode: {},
+				readonly: {
+					getValue: returnFalse
+				},
+				required: {
+					getValue: returnFalse
+				},
+				valid: {
+					getValue: returnTrue
+				},
+				enabled: {
+					getValue: returnTrue
+				},
+				getMIPState: function(s) {
+					switch (s) {
+						case "readonly":
+							return false;
+						case "required":
+							return false;
+						case "valid":
+							return true;
+						case "enabled":
+							return true;
+					}
+					return null;
+				}
+			};
+
+			this.testObject.updateMIPs();
+			this.testObject.dirtyState.setClean();
+
+			this.testObject.m_proxy = {
+				m_oNode: {},
+				readonly: {
+					getValue: returnTrue
+				},
+				required: {
+					getValue: returnTrue
+				},
+				valid: {
+					getValue: returnFalse
+				},
+				enabled: {
+					getValue: returnFalse
+				},
+				getMIPState: function(s) {
+					switch (s) {
+						case "readonly":
+							return true;
+						case "required":
+							return true;
+						case "valid":
+							return false;
+						case "enabled":
+							return false;
+					}
+					return null;
+				}
+			};
+			this.testObject.setDirtyStates();
+			YAHOO.util.Assert.areSame(true, this.testObject.dirtyState.isDirty("readonly"));
+			YAHOO.util.Assert.areSame(true, this.testObject.dirtyState.isDirty("required"));
+			YAHOO.util.Assert.areSame(true, this.testObject.dirtyState.isDirty("valid"));
+			YAHOO.util.Assert.areSame(true, this.testObject.dirtyState.isDirty("enabled"));
+		},
+
+		testSetDirtyStatesSomeChange: function() {
+			this.testObject.m_proxy = {
+				m_oNode: {},
+				readonly: {
+					getValue: returnFalse
+				},
+				required: {
+					getValue: returnFalse
+				},
+				valid: {
+					getValue: returnTrue
+				},
+				enabled: {
+					getValue: returnTrue
+				},
+				getMIPState: function(s) {
+					switch (s) {
+						case "readonly":
+							return false;
+						case "required":
+							return false;
+						case "valid":
+							return true;
+						case "enabled":
+							return true;
+					}
+					return null;
+				}
+			};
+
+			this.testObject.updateMIPs();
+			this.testObject.dirtyState.setClean();
+
+			this.testObject.m_proxy = {
+				m_oNode: {},
+				readonly: {
+					getValue: returnTrue
+				},
+				required: {
+					getValue: returnFalse
+				},
+				valid: {
+					getValue: returnFalse
+				},
+				enabled: {
+					getValue: returnTrue
+				},
+				getMIPState: function(s) {
+					switch (s) {
+						case "readonly":
+							return true;
+						case "required":
+							return false;
+						case "valid":
+							return false;
+						case "enabled":
+						return true;
+					}
+					return null;
+				}
+			};
+
+			this.testObject.setDirtyStates();
+			YAHOO.util.Assert.areSame(true, this.testObject.dirtyState.isDirty("readonly"), "readonly");
+			YAHOO.util.Assert.areSame(false, this.testObject.dirtyState.isDirty("required"), "required");
+			YAHOO.util.Assert.areSame(true, this.testObject.dirtyState.isDirty("valid"), "valid");
+			YAHOO.util.Assert.areSame(false, this.testObject.dirtyState.isDirty("enabled"), "enabled");
+		},
+
+		testBroadcastMIPs: function() {
+			this.testObject.m_proxy = {
+				m_oNode: {},
+				readonly: {
+					getValue: returnFalse
+				},
+				required: {
+					getValue: returnFalse
+				},
+				valid: {
+					getValue: returnTrue
+				},
+				enabled: {
+					getValue: returnTrue
+				},
+				getMIPState: function(s) {
+					switch (s) {
+						case "readonly":
+							return false;
+						case "required":
+							return false;
+						case "valid":
+							return true;
+						case "enabled":
+							return true;
+					}
+					return null;
+				}
+			};
+
+			this.testObject.updateMIPs();
+			this.testObject.eventsReceived = "";
+			var testObject = this.testObject;
+			this.testDiv.dispatchEvent = function(e) {
+				testObject.eventsReceived += e.type;
+			};
+
+			this.testObject.broadcastMIPs();
+			YAHOO.util.Assert.areSame("", this.testObject.eventsReceived);
+		},
+
+		testRefresh: function() {
+			this.testObject.m_proxy = {
+				m_oNode: {},
+				readonly: {
+					getValue: returnFalse
+				},
+				required: {
+					getValue: returnFalse
+				},
+				valid: {
+					getValue: returnTrue
+				},
+				enabled: {
+					getValue: returnTrue
+				},
+				getMIPState: function(s) {
+					switch (s) {
+						case "readonly":
+							return false;
+						case "required":
+							return false;
+						case "valid":
+							return true;
+						case "enabled":
+						return true;
+					}
+					return null;
+				}
+			};
+
+			this.testObject.eventsReceived = "";
+			var testObject = this.testObject;
+			this.testDiv.dispatchEvent = function(e) {
+				testObject.eventsReceived += e.type;
+			};
+
+			this.testObject.refresh();
+			YAHOO.util.Assert.areSame("enabled read-write optional valid", this.testDiv.className, "class");
+			YAHOO.util.Assert.areSame("", this.testObject.eventsReceived, "events");
+		},
+
+		testRewire: function() {
+			var node = {
+				attrs: {},
+				nodeType: 1,
+				setAttribute: function(p, v) {
+					this.attrs[p] = v;
+				},
+				getAttribute: function(p) {
+					return this.attrs[p];
+				}
+			};
+			var oProxy = UX.getProxyNode(node);
+			var model = new Model(document.createElement('div'));
+			UX.extend(model.element, new EventTarget(model.element));
+			_model_contentReady(model);
+			this.testObject.getBoundNode = function() {
 				return {
-					model: {},
+					model: model,
 					node: node
 				};
 			};
-			this.testDiv.rewire();
-			YAHOO.util.Assert.areSame(oProxy, this.testDiv.m_proxy);
+			this.testObject.rewire();
+			YAHOO.util.Assert.areSame(oProxy, this.testObject.m_proxy);
 		},
 
-		testMustBeBound: function () {
-			YAHOO.util.Assert.isFunction(this.testDiv.mustBeBound);
-			YAHOO.util.Assert.isTrue(this.testDiv.mustBeBound());
+		testMustBeBound: function() {
+			YAHOO.util.Assert.isFunction(this.testObject.mustBeBound);
+			YAHOO.util.Assert.isTrue(this.testObject.mustBeBound());
 		},
 
-		createElement: function (name, parent) {
+		createElement: function(name, parent) {
 			var element = document.createElement(name);
 
 			if (parent) {
@@ -343,7 +362,7 @@
 			return element;
 		},
 
-		destroyElement: function (element, propertyName, parent) {
+		destroyElement: function(element, propertyName, parent) {
 			if (parent) {
 				parent.removeChild(element);
 			}
@@ -351,4 +370,4 @@
 			delete this[propertyName];
 		}
 	}));
-}());
+} ());

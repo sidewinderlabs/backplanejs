@@ -30,7 +30,7 @@ function Vertex(oVT) {
 
 	Vertex.prototype.initId = function() {
 		this.vertexId = ++vertexCount;
-	}
+	};
 
 })();
 
@@ -48,10 +48,14 @@ Vertex.prototype.addDependent = function(oVertex) {
 	this.depListIdx[oVertex.vertexId] = oVertex;
 };
 
+
+
 function Pair(first, second) {
 	this.first = first;
 	this.second = second;
 }
+
+
 
 function ChangeList() {
 	this.m_Lc = [];
@@ -64,6 +68,8 @@ ChangeList.prototype.addChange = function(oVertex) {
 ChangeList.prototype.clear = function() {
 	this.m_Lc.length = 0;
 };
+
+
 
 function dependencyEngine(model) {
 	// M represents the master dependency directed graph.
@@ -102,17 +108,18 @@ dependencyEngine.prototype.clear = function() {
 
 dependencyEngine.prototype.createVertex = function(oVT) {
 	var v = new Vertex(oVT);
-
 	this.m_M.push(v);
-	var node;
-	if (oVT.m_oContext && oVT.m_oContext.node && oVT.m_oContext.node.xnodeId) {
-		var nodeId = oVT.m_oContext.node.xnodeId;
+	
+	var node, nodeId;
+	if (oVT.m_oContext && oVT.m_oContext.node) {
+		nodeId = UX.getNodeUID(oVT.m_oContext.node);
 		this.addToNodeVertexIndex(this.m_contextNodes, nodeId, v);
 	}
-	if (oVT.m_oProxy && oVT.m_oProxy.m_oNode && oVT.m_oProxy.m_oNode.xnodeId) {
-		var nodeId = oVT.m_oProxy.m_oNode.xnodeId;
+	if (oVT.m_oProxy && oVT.m_oProxy.m_oNode) {
+		nodeId = UX.getNodeUID(oVT.m_oProxy.m_oNode);
 		this.addToNodeVertexIndex(this.m_proxyNodes, nodeId, v);
 	}
+	
 	return v;
 };
 
@@ -136,58 +143,58 @@ dependencyEngine.prototype.recalculate = function(oChangeList) {
 
 dependencyEngine.prototype.CreatePertinentDependencySubgraph = function(Lc) {
 	var M = this.m_M;
-	var S =  [];
-	var stack =  [];
-	for(var i = 0; i < Lc.length; ++i) {
+	var S = [];
+	var stack = [];
+	var i, j, x, vS, v;
+	for (i = 0; i < Lc.length; ++i) {
 		var r = Lc[i];
-		if(r.visited === false) {
+		if (r.visited === false) {
 			stack.push(new Pair(null, r));
-			while(stack.length > 0) {
+			while (stack.length > 0) {
 				var p = stack.pop();
-				var v = p.first;
+				v = p.first;
 				var w = p.second;
 
 				var wS = null;
-				if(w.visited === false) {
+				if (w.visited === false) {
 					w.visited = true;
 					w.index = S.length;
 					wS = new Vertex(w.vertexTarget);
-					for(var j = 0; j < M.length; ++j) {
-						var x = M[j];
-						if(x == w) {
+					for (j = 0; j < M.length; ++j) {
+						x = M[j];
+						if (x == w) {
 							wS.index = j;
 							break;
 						}
 					}
 					S.push(wS);
-					if(typeof w.depList  == "object" && w.depList !== null) {
-						for(var j = 0; j < w.depList.length; ++j) {
-							var x = w.depList[j];
+					if (typeof w.depList == "object" && w.depList !== null) {
+						for (j = 0; j < w.depList.length; ++j) {
+							x = w.depList[j];
 							stack.push(new Pair(w, x));
 						}
 					}
-				}
-				else wS = S[w.index];
+				} else wS = S[w.index];
 
-				if(v !==null && wS) {
-					var vS = S[v.index];
-					if(typeof(vS.depList) != "object" || vS.depList == null) {
+				if (v !== null && wS) {
+					vS = S[v.index];
+					if (typeof(vS.depList) != "object" || vS.depList == null) {
 						vS.depList = new Array;
 						vS.depListIdx = {};
 					}
+
 					vS.depList.push(wS);
 					vS.depListIdx[wS.vertexId] = wS;
 					++wS.inDegree;
 				}
-				
 
 			}
 		}
 	}
 
-	for(var i = 0; i < S.length; ++i) {
-		var vS = S[i];
-		var v = M[vS.index];
+	for (i = 0; i < S.length; ++i) {
+		vS = S[i];
+		v = M[vS.index];
 		v.visited = false;
 	}
 
@@ -195,7 +202,7 @@ dependencyEngine.prototype.CreatePertinentDependencySubgraph = function(Lc) {
 };
 //TODO: rewrite to be flatter, this can go massively recursive.
 dependencyEngine.prototype.ProcessPertinentDependencySubgraph = function(S) {
-/*
+	/*
 	while(S.length > 0)
 	{
 		var vS = S.shift();
@@ -216,15 +223,15 @@ dependencyEngine.prototype.ProcessPertinentDependencySubgraph = function(S) {
 		
 	}*/
 
-	for(var i = 0; i < S.length; i++) {
+	for (var i = 0; i < S.length; i++) {
 		var vS = S[i];
 		if (vS.inDegree == 0) {
 			S.splice(i, 1);
 
 			this.doUpdate(vS);
 
-			if(typeof(vS.depList) == "object" && vS.depList != null) {
-				for(var j = 0; j < vS.depList.length; ++j) {
+			if (typeof(vS.depList) == "object" && vS.depList != null) {
+				for (var j = 0; j < vS.depList.length; ++j) {
 					var wS = vS.depList[j];
 					--wS.inDegree;
 				}
@@ -236,7 +243,7 @@ dependencyEngine.prototype.ProcessPertinentDependencySubgraph = function(S) {
 		}
 	}
 
-	if(S.length > 0) {
+	if (S.length > 0) {
 		var evt = document.createEvent("Events");
 		evt.initEvent("xforms-compute-exception", true, false);
 		evt.context = {
@@ -247,30 +254,27 @@ dependencyEngine.prototype.ProcessPertinentDependencySubgraph = function(S) {
 };
 
 dependencyEngine.prototype.doUpdate = function(vS) {
-	if(typeof(vS) == "object" && vS != null && typeof(vS.vertexTarget) == "object" && vS.vertexTarget != null)
-	{
+	if (typeof(vS) == "object" && vS != null && typeof(vS.vertexTarget) == "object" && vS.vertexTarget != null) {
 		vS.vertexTarget.update();
-	}
-	else
-		throw "doUpdate(): Invalid argument.";
+	} else throw "doUpdate(): Invalid argument.";
 };
 
 var bEnableDumpState = false;
 if (bEnableDumpState) {
 	Vertex.prototype.dumpState = function(sIndent) {
-		var s ="[vertex] target=" + this.vertexTarget.identifier();
+		var s = "[vertex] target=" + this.vertexTarget.identifier();
 		var sChildIndent = sIndent + "\t";
-		for (var i = 0;i < this.depList.length;++i) {
+		for (var i = 0; i < this.depList.length; ++i) {
 			s += ("\n" + sIndent + this.depList[i].dumpState(sChildIndent));
 		}
 		return s;
-	}
+	};
 
 	dependencyEngine.prototype.dumpState = function() {
 		var s = "Dependency Engine";
-		for (var i = 0;i < this.m_M.length;++i) {
+		for (var i = 0; i < this.m_M.length; ++i) {
 			s += ("\n" + this.m_M[i].dumpState("\t"));
 		}
 		return s;
-	}
+	};
 }

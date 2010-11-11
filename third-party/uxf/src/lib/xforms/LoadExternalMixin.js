@@ -14,39 +14,47 @@
  * limitations under the License.
  */
 
-function LoadExternalMixin() {};
+var LoadExternalMixin = new UX.Class({
+	
+	toString: function() {
+		return 'xf:load-external-mixin';
+	},
 
-LoadExternalMixin.prototype.onContentReady = function () {
-    if (!this.m_oDOM) {       
-        // @src takes precedence over inline data and @resource;
-        // inline data takes precedence over @resource
-        //
-        if (this.getAttribute("src")) { 
-            this.load(this.getAttribute("src"));
-        } else {
-            // is there inline data?
-            //
-            this.parseInstance();
-            
-            if (!this.finishLoad()) {
-                // if there wasn't a src attribute, nor an inline instance
-                // then let's try a resource attribute
-                //
-                if (this.getAttribute("resource")) {
-                    this.load(this.getAttribute("resource"));
-                }      
-            }   
-        }      
-    }
-};
+	onContentReady: function() {
+		if (!this.m_oDOM) {
+			// @src takes precedence over inline data and @resource;
+			// inline data takes precedence over @resource
+			//
+			var src = this.element.getAttribute("src");
+			if (src) {
+				this.load(src);
+			} else {
+				// is there inline data?
+				//
+				this.parseInstance();
 
-LoadExternalMixin.prototype.dispatchException = function (exceptionName, exceptionContext) {
-    // indicate a problem with the instance state and
-    // throw an exception;   
-    //
-    var evt = document.createEvent("Events");
-    evt.initEvent(exceptionName, true, false);
-    evt.context = exceptionContext;
-    this.element["elementState"] = -1;
-	FormsProcessor.dispatchEvent((typeof this.element.parentNode.modelConstruct === "function") ? this.element.parentNode : this.element, evt);
-};
+				if (!this.finishLoad()) {
+					// if there wasn't a src attribute, nor an inline instance
+					// then let's try a resource attribute
+					//
+					var resource = this.element.getAttribute("resource");
+					if (resource) {
+						this.load(resource);
+					}
+				}
+			}
+		}
+	},
+
+	dispatchException: function(exceptionName, exceptionContext) {
+		// indicate a problem with the instance state and
+		// throw an exception;   
+		//
+		var evt = document.createEvent("Events");
+		evt.initEvent(exceptionName, true, false);
+		evt.context = exceptionContext;
+		this.element["elementState"] = -1;
+		FormsProcessor.dispatchEvent((typeof this.element.parentNode.modelConstruct === "function") ? this.element.parentNode : this.element, evt);
+	}
+	
+});

@@ -15,22 +15,32 @@
  */
 /*global DeferToConditionalInvocationProcessor, ActionExecutor*/
 
-function XFAction(elmnt) {
-	this.element = elmnt;
-}
+var XFAction = new UX.Class({
+	
+	toString: function() {
+		return 'xf:action';
+	},
+	
+	Mixins: [Listener, Context],
+	
+	initialize: function(element) {
+		this.element = element;
+	},
 
-XFAction.prototype.handleEvent = DeferToConditionalInvocationProcessor;
+	handleEvent: DeferToConditionalInvocationProcessor,
 
-XFAction.prototype.performAction = function (evt) {
-  var oColl, i;
-	 // An action handler simply supports a handleEvent method,
-	 // so loop through executing them all.
-	oColl = this.element.childNodes;
+	performAction: function(event) {
+		// An action handler simply supports a handleEvent method,
+		// so loop through executing them all.
+		var children = this.element.childNodes;
 
-	for (i = 0; i < oColl.length; i++) {
-		if (oColl.item(i).handleEvent) {
-			ActionExecutor.invokeListener(oColl.item(i), evt);
-	  } 
+		for (var i = 0, l = children.length; i < l; i++) {
+			var behaviour = DECORATOR.getBehaviour(children[i]);
+			if (behaviour && behaviour.handleEvent) {
+				ActionExecutor.invokeListener(behaviour, event);
+			}
+		}
+		return;
 	}
-	return;
-};
+	
+});

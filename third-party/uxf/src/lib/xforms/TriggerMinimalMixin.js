@@ -1,5 +1,5 @@
 /*
- * Copyright © 2009 Backplane Ltd.
+ * Copyright  2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,15 @@
  * limitations under the License.
  */
 
-function TriggerMinimalMixin(element) {
-	this.element = element;
-	UX.addClassName(this.element.parentNode.parentNode, 'appearance-minimal');
-}
+var TriggerMinimalMixin = new UX.Class({
+	
+	toString: function() {
+		return 'xf:trigger-minimal';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+		UX.addClassName(this.element.parentNode.parentNode, 'appearance-minimal');
+	}
+	
+});

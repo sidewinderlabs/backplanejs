@@ -27,43 +27,53 @@
  * Accompanying CSS classes are in help.css.
  */
 
-function HelpMixin( el ) {
-	// Save a pointer to the element.
-	//
-	this.element = el;
+var HelpMixin = new UX.Class({
 	
-	// The context for our help message is the parent element.
-	//
-	var context = el.parentNode;
+	Mixins: [Message],
 	
-	// It's difficult to see how we might not find a context, but it doesn't
-	// hurt to check.
-	//
-	if ( !context ) {
-		throw "No context found for help";
-	}
+	toString: function() {
+		return 'xf:help';
+	},
+	
+	initialize: function(element) {
+		// Save a pointer to the element.
+		//
+		this.element = element;
 
-	// Help is usually used with Message, so set @level to modeless.
-	//
-	el.setAttribute("level", "modeless");
+		// The context for our help message is the parent element.
+		//
+		var context = element.parentNode;
 
-	// The positioning of the help is relative to its container so
-	// indicate that it's a hint container, so that the CSS styles
-	// in help.css can kick in.
-	//
-	UX.addClassName(context, "xf-help-container");
+		// It's difficult to see how we might not find a context, but it doesn't
+		// hurt to check.
+		//
+		if (!context) {
+			throw "No context found for help";
+		}
 
-	// Register for the help event. The action is simply to 'activate'
-	// whatever object has acquired the help aspect.
-	//
-	context.addEventListener("xforms-help", {
-			handleEvent: function( evt ) {
-				var forwardEvt = el.ownerDocument.createEvent("Events");
-				
+		// Help is usually used with Message, so set @level to modeless.
+		//
+		element.setAttribute("level", "modeless");
+
+		// The positioning of the help is relative to its container so
+		// indicate that it's a hint container, so that the CSS styles
+		// in help.css can kick in.
+		//
+		UX.addClassName(context, "xf-help-container");
+
+		// Register for the help event. The action is simply to 'activate'
+		// whatever object has acquired the help aspect.
+		//
+		context.addEventListener("xforms-help", {
+			handleEvent: function(evt) {
+				var forwardEvt = element.ownerDocument.createEvent("Events");
+
 				forwardEvt.initEvent("ub-activate", false, false);
-				FormsProcessor.dispatchEvent(el, forwardEvt);
+				FormsProcessor.dispatchEvent(element, forwardEvt);
 				return;
 			}
 		},
-	false);
-};
+		false);
+	}
+	
+});

@@ -14,123 +14,107 @@
  * limitations under the License.
  */
 
-function XFormsInputValue(elmnt) {
+var XFormsInputValue = new UX.Class({
 	
-  	this.element = elmnt;
-  	this.currValue = "";
-  	this.m_bFirstSetValue = true;
-}
-
-function valueChangedIE(pThis,evt) {
-	/*
-	 * [ISSUE] Not really suitable to use mutation events.
-	 */
-
-	var oEvt = pThis.element.ownerDocument.createEvent("MutationEvents");
+	Mixins: [PeValue],
 	
-	oEvt.initMutationEvent("control-value-changed", true, true, null, pThis.currValue, evt.srcElement.value, null, null);
-
-	FormsProcessor.dispatchEvent(pThis.element,oEvt);
-
-	/*
-	 * Cancel bubbling but don't cancel the event itself
-	 * otherwise we never get the value actually changed.
-	 */
-
-	 evt.cancelBubble = true;
-
-}
-
-
-
-function valueChangedFF(pThis, evt) {
-	/*
-	 * [ISSUE] Not really suitable to use mutation events.
-	 */
-	var oEvt = pThis.element.ownerDocument.createEvent("MutationEvents");
+	toString: function() {
+		return 'xf:input-value';
+	},
 	
-	oEvt.initMutationEvent("control-value-changed", true, true, null, pThis.currValue, evt.target.value, null, null);
+	initialize: function(element) {
+		this.element = element;
+		this.currValue = "";
+		this.m_bFirstSetValue = true;
+	},
 
-	FormsProcessor.dispatchEvent(pThis.element,oEvt);
-	/*
-	 * Cancel bubbling but don't cancel the event itself
-	 * otherwise we never get the value actually changed.
-	 */
+	getOwnerNodeName: function() {
+		return NamespaceManager.getLowerCaseLocalName(this.element.parentNode);
+	},
 
-	 evt.cancelBubble = true;
-
-}
-
-XFormsInputValue.prototype.getOwnerNodeName = function() {
-	return NamespaceManager.getLowerCaseLocalName(this.element.parentNode);
-};
-
-XFormsInputValue.prototype.onDocumentReady = function() {
-	if (this.element.ownerDocument.media != "print") {
-		var sTagNameLC = this.getOwnerNodeName();
-		var sElementToCreate = (sTagNameLC == "textarea")?"textarea":"input"; 
-		var oInput = document.createElement(sElementToCreate);
+	onDocumentReady: function() {
+		if (this.element.ownerDocument.media == "print") return;
+		var name = this.getOwnerNodeName();
+		var elementType = (name == "textarea") ? "textarea" : "input";
+		var input = document.createElement(elementType);
 		var eventName = (this.element.parentNode.getAttribute("incremental") === "true") ? "keyup" : "change";
 
-		UX.addStyle(oInput, "backgroundColor", "transparent");
-		UX.addStyle(oInput, "padding", "0");
-		UX.addStyle(oInput, "margin", "0");
-		if (sTagNameLC !== "textarea") {
-			UX.addStyle(oInput, "border", "0");
+		UX.addStyle(input, "backgroundColor", "transparent");
+		UX.addStyle(input, "padding", "0");
+		UX.addStyle(input, "margin", "0");
+		if (name !== "textarea") {
+			UX.addStyle(input, "border", "0");
 		}
 
-		var pThis = this;
-		if(typeof oInput.addEventListener === 'function') {
-			oInput.addEventListener(eventName, function(e) {
-				valueChangedFF(pThis, e);
+		var self = this;
+		if (input.addEventListener) {
+			input.addEventListener(eventName, function(event) {
+				self.valueChanged(event);
 			},
 			false);
 		} else {
-			oInput.attachEvent("on" + eventName, function(e) {
-				valueChangedIE(pThis, e);
+			input.attachEvent("on" + eventName, function(event) {
+				self.valueChanged(event);
 			});
 		}
 
-		if (sTagNameLC == "secret") {
-			oInput.type="password";
-		} else if (sTagNameLC !== "textarea") {
-			oInput.setAttribute("type","text");
+		if (name == "secret") {
+			input.type = "password";
+		} else if (name !== "textarea") {
+			input.setAttribute("type", "text");
 		}
-			
-		this.element.appendChild(oInput);
 
-			/*
-			* [ISSUE] Stick with other method of always
-			* 'locating' things just when we need them?
-			*/
+		this.element.appendChild(input);
 
-		this.m_value = oInput;
-		//this.m_value.value = "null value";		
-	}
-};
+		/*
+		* [ISSUE] Stick with other method of always
+		* 'locating' things just when we need them?
+		*/
+		this.m_value = input;
+		//this.m_value.value = "null value";
+	},
 
-XFormsInputValue.prototype.setValue = function(sValue) {
-	var bRet = false;
-	if (this.m_value.value != sValue) {
-		this.m_value.value = sValue;
+	setValue: function(sValue) {
+		var bRet = false;
 		this.currValue = sValue;
-		bRet = true;
-	} else if (this.m_bFirstSetValue) {
-		bRet = true;
-		this.m_bFirstSetValue = false;
+		if (this.m_value.value != sValue) {
+			this.m_value.value = sValue;
+			bRet = true;
+		} else if (this.m_bFirstSetValue) {
+			bRet = true;
+			this.m_bFirstSetValue = false;
+		}
+		return bRet;
+	},
+
+	isTypeAllowed: function(sType) {
+		// Data Binding Restrictions: Binds to any simpleContent (except xsd:base64Binary,
+		// xsd:hexBinary or any datatype derived from these).
+		var arrSegments, prefix, localPart, namespace;
+
+		arrSegments = sType.split(":");
+		prefix = arrSegments.length === 2 ? arrSegments[0] : "";
+		localPart = arrSegments.length === 2 ? arrSegments[1] : "";
+		namespace = NamespaceManager.getNamespaceURIForPrefix(prefix);
+
+		return ((namespace === "http://www.w3.org/2001/XMLSchema" || namespace === "http://www.w3.org/2002/xforms") && localPart !== "base64Binary" && localPart !== "hexBinary" && !DECORATOR.getBehaviour(this.element.parentNode).isBoundToComplexContent());
+	},
+	
+	valueChanged: function(event) {
+		/*
+		 * [ISSUE] Not really suitable to use mutation events.
+		 */
+		var value = UX.isIE ? event.srcElement.value : event.target.value;
+		var oEvt = this.element.ownerDocument.createEvent("MutationEvents");
+		oEvt.initMutationEvent("control-value-changed", true, true, null, this.currValue, value, null, null);
+
+		var self = this;
+		FormsProcessor.dispatchEvent(self.element, oEvt);
+		/*
+		 * Cancel bubbling but don't cancel the event itself
+		 * otherwise we never get the value actually changed.
+		 */
+		event.cancelBubble = true;
 	}
-	return bRet;
-};
 
-XFormsInputValue.prototype.isTypeAllowed = function(sType) {
-    // Data Binding Restrictions: Binds to any simpleContent (except xsd:base64Binary,
-    // xsd:hexBinary or any datatype derived from these).
-    var arrSegments, prefix, localPart, namespace;
-
-    arrSegments = sType.split(":");
-    prefix = arrSegments.length === 2 ? arrSegments[0] : "";
-    localPart = arrSegments.length === 2 ? arrSegments[1] : "";
-    namespace = NamespaceManager.getNamespaceURIForPrefix(prefix);
-
-	return ((namespace === "http://www.w3.org/2001/XMLSchema" || namespace === "http://www.w3.org/2002/xforms") && localPart !== "base64Binary" && localPart !== "hexBinary" && !this.parentNode.isBoundToComplexContent());
-};
+});

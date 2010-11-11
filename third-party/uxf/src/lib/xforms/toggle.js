@@ -13,26 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
-function Toggle(elmnt) {
-	this.element = elmnt;
-}
 
-Toggle.prototype.handleEvent = DeferToConditionalInvocationProcessor;
-
-Toggle.prototype.performAction = function (evt) {
-	var oCase, oContext, ns, sCaseID;
-	oContext = this.getEvaluationContext();
-	ns = NamespaceManager.getElementsByTagNameNS(this.element, "http://www.w3.org/2002/xforms", "case");
+var Toggle = new UX.Class({
 	
-	sCaseID = (ns && ns.length > 0) ? getElementValueOrContent(oContext, ns[0]) : this.element.getAttribute("case");
-
-	if (sCaseID) {
+	Mixins: [Listener, Context],
 	
-		oCase = FormsProcessor.getElementById(sCaseID, this.element);
+	toString: function() {
+		return 'xf:toggle';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+	},
 
-		if (oCase && oCase.toggle) {
-			oCase.toggle();
+	handleEvent: DeferToConditionalInvocationProcessor,
+
+	performAction: function(event) {
+		var context = this.getEvaluationContext();
+		var ns = NamespaceManager.getElementsByTagNameNS(this.element, "http://www.w3.org/2002/xforms", "case");
+
+		var caseId = (ns && ns.length > 0) ? UX.getElementValueOrContent(context, ns[0]) : this.element.getAttribute("case");
+		if (caseId) {
+			var oCase = DECORATOR.getBehaviour(FormsProcessor.getElementById(caseId, this.element));
+			if (oCase && oCase.toggle) {
+				oCase.toggle();
+			}
 		}
 	}
-};
+	
+});

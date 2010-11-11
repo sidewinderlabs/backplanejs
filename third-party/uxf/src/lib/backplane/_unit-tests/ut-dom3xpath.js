@@ -172,7 +172,7 @@
 				Assert.isObject(result, "Result is not an object.");
 				Assert.areEqual(XPathResult.FIRST_ORDERED_NODE_TYPE, result.resultType);
 				Assert.isObject(result.singleNodeValue, "There is not singleNodeValue.");
-				Assert.areEqual("green", result.singleNodeValue.text);
+				Assert.areEqual("<b>green</b>", this.serializer.serializeToString(result.singleNodeValue));
 			}
 		})//new TestCase
 	);

@@ -2,58 +2,58 @@
 	var Assert = YAHOO.util.Assert;
 
 	var suite = new YAHOO.tool.TestSuite({
-		name : "Test UX utils",
+		name: "Test UX utils",
 
-		setUp : function() {
+		setUp: function() {
 			return;
 		},
 		// setUp()
-		tearDown : function() {
+		tearDown: function() {
 			return;
-		}// tearDown()
+		} // tearDown()
 	});
 
 	// Add test for data type conversion.
 	//
 	suite.add(
-		new YAHOO.tool.TestCase({
-			name : "Test UX.JsBooleanFromXsdBoolean",
+	new YAHOO.tool.TestCase({
+		name: "Test UX.JsBooleanFromXsdBoolean",
 
-			setUp : function() {
-				// Check that the initial data is correct.
-				//
-				return;
+		setUp: function() {
+			// Check that the initial data is correct.
+			//
+			return;
 		},
 		// setUp()
-			tearDown : function() {
-				return;
+		tearDown: function() {
+			return;
 		},
 		// tearDown()
-			testXsdBooleanTrue: function() {
-				Assert.isTrue(UX.JsBooleanFromXsdBoolean("true"));
-				Assert.isTrue(UX.JsBooleanFromXsdBoolean("1"));
-				return;
-			},
+		testXsdBooleanTrue: function() {
+			Assert.isTrue(UX.JsBooleanFromXsdBoolean("true"));
+			Assert.isTrue(UX.JsBooleanFromXsdBoolean("1"));
+			return;
+		},
 
-			testXsdBooleanFalse: function() {
-				Assert.isFalse(UX.JsBooleanFromXsdBoolean("false"));
-				Assert.isFalse(UX.JsBooleanFromXsdBoolean("0"));
-				return;
-			},
+		testXsdBooleanFalse: function() {
+			Assert.isFalse(UX.JsBooleanFromXsdBoolean("false"));
+			Assert.isFalse(UX.JsBooleanFromXsdBoolean("0"));
+			return;
+		},
 
-			testInvalidXsdBoolean: function() {
-				Assert.isUndefined(UX.JsBooleanFromXsdBoolean("foo"));
-				return;
-			},
+		testInvalidXsdBoolean: function() {
+			Assert.isUndefined(UX.JsBooleanFromXsdBoolean("foo"));
+			return;
+		},
 
-			testXsdBooleanDefault: function() {
-				Assert.isTrue(UX.JsBooleanFromXsdBoolean("foo", "true"));
-				Assert.isFalse(UX.JsBooleanFromXsdBoolean("foo", "false"));
-				return;
-			}
- 		})//new TestCase
+		testXsdBooleanDefault: function() {
+			Assert.isTrue(UX.JsBooleanFromXsdBoolean("foo", "true"));
+			Assert.isFalse(UX.JsBooleanFromXsdBoolean("foo", "false"));
+			return;
+		}
+	}) //new TestCase
 	); //suite.add( ... )
-
+	
 	// Add test for class manipulation functions.
 	//
 	suite.add(
@@ -97,5 +97,7 @@
 			}
  		})//new TestCase
 	); //suite.add( ... )
+	
 	YAHOO.tool.TestRunner.add(suite);
-}());
+	
+} ());

@@ -167,6 +167,7 @@ var NamespaceManager = {
 		if ( ((!nodePrefix || nodePrefix == "HTML") && !nsURI) || (this.outputNamespaceURIs[nodePrefix] == nsURI) ) {
 			return true;
 		}
+		return false;
 	},
 	
 	getNamespaceURI: function(node) {
@@ -211,16 +212,14 @@ var NamespaceManager = {
 	 @param elementName {String}  element name to match
 	 @returns an array of nodes that match the given criteria
 	 */
-	getElementsByTagNameNS: UX.isXHTML ? function(searchNode, namespaceURI, elementName) {
+	getElementsByTagNameNS: UX.isXHTML ? function(searchNode, namespaceURI, elementName) {//xhtml
 		return searchNode.getElementsByTagNameNS(namespaceURI, elementName);
-	} : (document.namespaces ? 	function(searchNode, namespaceURI, elementName) {
+	} : (document.namespaces ? 	function(searchNode, namespaceURI, elementName) {//ie
 		var retVal = [];
-		//A namespace aware document understands that the bit to the left of the colon is not part of the name.
 		var tags = searchNode.getElementsByTagName(elementName);
 		for (var i = 0, l = tags.length; i < l; ++i) {
 			if (tags[i].scopeName !== "HTML") {
-				//lookup the prefix.
-				if ("" != tags[i].tagUrn == namespaceURI) {
+				if (namespaceURI && tags[i].tagUrn == namespaceURI) {
 					retVal.push(tags[i]);
 				} else if (this.outputNamespaceURIs[tags[i].scopeName] == namespaceURI) {
 					retVal.push(tags[i]);
@@ -230,17 +229,15 @@ var NamespaceManager = {
 			}
 		}
 		return retVal;
-	} : function(searchNode, namespaceURI, elementName) {
+	} : function(searchNode, namespaceURI, elementName) {//not ie html mode
 		var retVal = [];
 		var i, j, l, m;
 		if (namespaceURI === "") {
-			//normalise the collection object returned by most processors, to an array.
 			var elementsWithNoPrefix = searchNode.getElementsByTagName(elementName);
 			for (i = 0, l = elementsWithNoPrefix.length; i < l; i++) {
 				retVal.push(elementsWithNoPrefix[i]);
 			}
 		} else {
-			//make up namespacePrefix + elementName combinations to search with.
 			var prefixes = this.outputNamespaces[namespaceURI];
 			if (prefixes) {
 				for (i = 0, l = prefixes.length; i < l; i++) {

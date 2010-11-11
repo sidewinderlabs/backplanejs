@@ -18,93 +18,101 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-var suiteXFormsSubmission = new YAHOO.tool.TestSuite({
-	name : "Test xforms-submission module"
-});
+YAHOO.tool.TestRunner.add(new YAHOO.tool.TestCase({
+	
+	name: "Test xf:submission @method",
 
-suiteXFormsSubmission.add(
-new YAHOO.tool.TestCase({
-			name: "Test xf:submission @method",
-			
-			setUp: function() {
+	setUp: function() {
 
-				this.model = document.createElement("xf:model");
-				
-				this.instance = document.createElement("xf:instance");
-				this.model.appendChild(this.instance);
-				
-				this.submission = document.createElement("xf:submission");
-				this.submission.setAttribute("replace", "none");
-				this.submission.setAttribute("resource", ".");
-				this.model.appendChild(this.submission);
+		this.model = document.createElement("xf:model");
+		this.instance = document.createElement("xf:instance");
+		this.model.appendChild(this.instance);
+		this.submission = document.createElement("xf:submission");
+		this.submission.setAttribute("replace", "none");
+		this.submission.setAttribute("resource", ".");
+		this.model.appendChild(this.submission);
 
-				DECORATOR.extend(this.model, new EventTarget(this.model), false);
-				DECORATOR.extend(this.model, new Model(this.model), false);
-				DECORATOR.extend(this.instance, new EventTarget(this.instance), false);
-				DECORATOR.extend(this.instance, new Instance(this.instance), false);
-				DECORATOR.extend(this.submission, new EventTarget(this.submission), false);
-				DECORATOR.extend(this.submission, new Context(this.submission), false);
-				DECORATOR.extend(this.submission, new Submission(this.submission), false);
+		UX.extend(this.model, new EventTarget(this.model));
+		this.modelObject = new Model(this.model);
+		DECORATOR.addBehaviour(this.model, this.modelObject);
+		
+		UX.extend(this.instance, new EventTarget(this.instance));
+		this.instanceObject = new Instance(this.instance);
+		DECORATOR.addBehaviour(this.instance, this.instanceObject);
+		
+		UX.extend(this.submission, new EventTarget(this.submission));
+		this.submissionObject = new Submission(this.submission);
+		DECORATOR.addBehaviour(this.submission, this.submissionObject);
 
-				this.instance.replaceDocument(xmlParse("<car><make>Ford</make><color>blue</color></car>"));
-				this.model.addInstance(this.instance);
+		this.instanceObject.replaceDocument(new DOMParser().parseFromString("<car><make>Ford</make><color>blue</color></car>", "text/xml"));
+		this.modelObject.addInstance(this.instance);
 
-			},
-			
-			tearDown: function() {
-				delete this.submission;
-				delete this.instance;
-				delete this.model;
-			},
-			
-			testPostMethod: function() {
-				var Assert = YAHOO.util.Assert;
-				
-				this.submission.setAttribute("method", "post");
-				document.submission.submit(this.submission);
-				Assert.areEqual("POST", document.submission.method);
-			}
-		}));
+	},
 
-suiteXFormsSubmission.add(
-new YAHOO.tool.TestCase({
-			name: "Test Submission application/x-www-url-encoded",
-			
-			setUp: function() {
-				this.model = document.createElement("xf:model");
-				this.instance = document.createElement("xf:instance");
-				this.model.appendChild(this.instance);
+	tearDown: function() {
+		delete this.submission;
+		delete this.instance;
+		delete this.model;
+		delete this.submissionObject;
+		delete this.instanceObject;
+		delete this.modelObject;
+	},
 
-				DECORATOR.extend(this.model, new EventTarget(this.model), false);
-				DECORATOR.extend(this.model, new Model(this.model), false);
-				DECORATOR.extend(this.instance, new EventTarget(this.instance), false);
-				DECORATOR.extend(this.instance, new Instance(this.instance), false);
+	testPostMethod: function() {
+		var Assert = YAHOO.util.Assert;
 
-				this.instance.replaceDocument(xmlParse("<car><make>Ford</make><color>blue</color></car>"));
-				this.model.addInstance(this.instance);
-			},
-			
-			tearDown: function() {
-				delete this.model;
-				delete this.instance;
-			},
-			
-			testSerializeWhenRefIsLeafNode: function() {
-				
-				var Assert = YAHOO.util.Assert;
-				var node = getFirstNode(this.model.EvaluateXPath("/car/color"));
-				var string = document.submission.buildGetUrl("", document.submission.serializeURLEncoded(node));
-				
-				Assert.areEqual("?color=blue", string);
-			},
-			
-			testSerializeWhenRefIsNotLeafNode: function() {
-				
-				var Assert = YAHOO.util.Assert;
-				var node = getFirstNode(this.model.EvaluateXPath("/car"));
-				var string = document.submission.buildGetUrl("", document.submission.serializeURLEncoded(node));
-				
-				Assert.areEqual("?make=Ford&color=blue", string);
-			}
-			
-		}));
+		this.submission.setAttribute("method", "post");
+		document.submission.submit(this.submission);
+		Assert.areEqual("POST", document.submission.method);
+	}
+	
+}));
+
+YAHOO.tool.TestRunner.add(new YAHOO.tool.TestCase({
+	
+	name: "Test Submission application/x-www-url-encoded",
+
+	setUp: function() {
+		this.model = document.createElement("xf:model");
+		this.instance = document.createElement("xf:instance");
+		this.model.appendChild(this.instance);
+
+		UX.extend(this.model, new EventTarget(this.model));
+		this.modelObject = new Model(this.model);
+		DECORATOR.addBehaviour(this.model, this.modelObject);
+		
+		UX.extend(this.instance, new EventTarget(this.instance));
+		this.instanceObject = new Instance(this.instance);
+		DECORATOR.addBehaviour(this.instance, this.instanceObject);
+
+		this.instanceObject.replaceDocument(new DOMParser().parseFromString("<car><make>Ford</make><color>blue</color></car>", "text/xml"));
+		this.modelObject.addInstance(this.instance);
+	},
+
+	tearDown: function() {
+		delete this.model;
+		delete this.instance;
+		delete this.modelObject;
+		delete this.instanceObject;
+		delete document.defaultModel;
+	},
+
+	testSerializeWhenRefIsLeafNode: function() {
+
+		var Assert = YAHOO.util.Assert;
+		var node = getFirstNode(this.modelObject.EvaluateXPath("/car/color"));
+		var string = document.submission.buildGetUrl("", document.submission.serializeURLEncoded(node));
+
+		Assert.areEqual("?color=blue", string);
+	},
+
+	testSerializeWhenRefIsNotLeafNode: function() {
+
+		var Assert = YAHOO.util.Assert;
+		var node = getFirstNode(this.modelObject.EvaluateXPath("/car"));
+		var string = document.submission.buildGetUrl("", document.submission.serializeURLEncoded(node));
+
+		Assert.areEqual("?make=Ford&color=blue", string);
+	}
+
+}));

@@ -862,7 +862,7 @@ LogReader.prototype = {
      * @type Number
      * @default 500
      */
-    thresholdMax : 500,
+    thresholdMax : 5000,
 
     /**
      * When a LogReader console reaches its thresholdMax, it will clear out messages

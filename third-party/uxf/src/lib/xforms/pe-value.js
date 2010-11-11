@@ -14,12 +14,20 @@
  * limitations under the License.
  */
 
-function PeValue(element) {
-	this.element = element;
-}
+var PeValue = new UX.Class({
+	
+	toString: function() {
+		return 'xf:pe-value';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+	},
 
-PeValue.prototype.giveFocus = function () {
-	if (this.m_value) {
-		this.m_value.focus();
+	giveFocus: function() {
+		if (this.m_value) {
+			this.m_value.focus();
+		}
 	}
-};
+
+});

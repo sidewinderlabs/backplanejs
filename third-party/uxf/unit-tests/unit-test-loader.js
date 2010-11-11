@@ -19,11 +19,11 @@
 // limitations under the License.
 
 function runTheTests() {
-  var moduleBase = pathToModule("unit-test-loader");
-  var loader = new YAHOO.util.YUILoader();
+	var moduleBase = pathToModule("unit-test-loader");
+	var loader = new YAHOO.util.YUILoader();
 
-  // There is no 'short name' for these two CSS files, so we need to reference them directly.
-  //
+	// There is no 'short name' for these two CSS files, so we need to reference them directly.
+	//
 	loader.addModule({
 		name: "logger-css",
 		type: "css",
@@ -35,8 +35,8 @@ function runTheTests() {
 		fullpath: "http://yui.yahooapis.com/2.8.0/build/yuitest/assets/testlogger.css"
 	});
 
-  // Add references to unit test scripts here.
-  //
+	// Add references to unit test scripts here.
+	//
 	loader.addModule({
 		name: "ux-ut-xforms-library-loaded",
 		type: "js",
@@ -49,7 +49,7 @@ function runTheTests() {
 		fullpath: moduleBase + "ut-xpath-core-functions.js",
 		requires: ["yuitest", "logger-css", "test-logger-css"]
 	});
-  
+
 	loader.addModule({
 		name: "ux-ut-xslt20-functions",
 		type: "js",
@@ -77,7 +77,7 @@ function runTheTests() {
 		fullpath: moduleBase + "ut-path-to-module.js",
 		requires: ["yuitest", "logger-css", "test-logger-css"]
 	});
-  
+
 	loader.addModule({
 		name: "ux-ut-instance-standalone",
 		type: "js",
@@ -105,7 +105,7 @@ function runTheTests() {
 		fullpath: moduleBase + "ut-select1.js",
 		requires: ["yuitest", "logger-css", "test-logger-css"]
 	});
-  
+
 	loader.addModule({
 		name: "ux-ut-finite-control",
 		type: "js",
@@ -154,7 +154,7 @@ function runTheTests() {
 		fullpath: moduleBase + "ut-xforms-submission.js",
 		requires: ["yuitest", "logger-css", "test-logger-css", "ux-ut-xforms-submission-stub"]
 	});
-	
+
 	loader.addModule({
 		name: "ux-ut-xforms-submission-header",
 		type: "js",
@@ -248,61 +248,61 @@ function runTheTests() {
 
 	loader.require("ux-ut-xforms-library-loaded", "ux-ut-xpath-core-functions", "ux-ut-xslt20-functions", "ux-ut-NamespaceManager", "ux-ut-event-target", "ux-ut-path-to-module", "ux-ut-reset", "ux-ut-model-standalone", "ux-ut-instance-standalone", "ux-ut-select1", "ux-ut-finite-control", "ux-ut-delete-nodes", "ux-ut-insert-nodes", "ux-ut-dirtystate", "ux-ut-xforms-submission", "ux-ut-xforms-submission-header", "ux-ut-pe-value", "ux-ut-Control", "ux-ut-setfocus", "ux-ut-container", "ux-ut-formsProcessor", "ux-ut-types-validator", "ux-ut-mip-handler", "ux-ut-mip-eventtarget", "ux-ut-optional-binding", "ux-ut-ux-utils", "ux-ut-navigable-control-list");
 
-  var sBars = "";
-  loader.onProgress = function(o) {
-    sBars += ("|");
-    window.status = ("Loading test modules: " + sBars + " [" + o.name + "]");
-  };
+	var sBars = "";
+	loader.onProgress = function(o) {
+		sBars += ("|");
+		window.status = ("Loading test modules: " + sBars + " [" + o.name + "]");
+	};
 
-  loader.onSuccess = function(o) {
-    //create the logger
-    var logger = new YAHOO.tool.TestLogger();
-    window.status = "testing"; 
+	loader.onSuccess = function(o) {
+		//create the logger
+		var logger = new YAHOO.tool.TestLogger();
+		window.status = "testing";
 
-    // Add the test suite to the runner's queue.
-    //
-    YAHOO.tool.TestRunner.add(oSuitePathToModule);
-    YAHOO.tool.TestRunner.add(suiteTypeValidator);
-    YAHOO.tool.TestRunner.add(suiteXFormsLibraryLoaded);
-    YAHOO.tool.TestRunner.add(suiteXPathCoreFunctions);
-    YAHOO.tool.TestRunner.add(suiteNamespaceManager);
-    YAHOO.tool.TestRunner.add(suiteEventTarget);
-    YAHOO.tool.TestRunner.add(suiteInstanceStandalone);
-    YAHOO.tool.TestRunner.add(suiteModelStandalone);
-    YAHOO.tool.TestRunner.add(suiteReset);
-    YAHOO.tool.TestRunner.add(suiteFiniteControl);
-    YAHOO.tool.TestRunner.add(suiteSelect1);
-    YAHOO.tool.TestRunner.add(suiteXFormsSubmission);
-    YAHOO.tool.TestRunner.add(suiteXFormsSubmissionHeader);
-	YAHOO.tool.TestRunner.add(suitePeValue);
-	YAHOO.tool.TestRunner.add(suiteControl);
-	YAHOO.tool.TestRunner.add(suiteSetFocus);
-	YAHOO.tool.TestRunner.add(suiteContainer);
+		// Add the test suite to the runner's queue.
+		//
+		YAHOO.tool.TestRunner.add(oSuitePathToModule);
+		YAHOO.tool.TestRunner.add(suiteTypeValidator);
+		YAHOO.tool.TestRunner.add(suiteXFormsLibraryLoaded);
+		YAHOO.tool.TestRunner.add(suiteXPathCoreFunctions);
+		YAHOO.tool.TestRunner.add(suiteNamespaceManager);
+		YAHOO.tool.TestRunner.add(suiteEventTarget);
+		YAHOO.tool.TestRunner.add(suiteInstanceStandalone);
+		YAHOO.tool.TestRunner.add(suiteModelStandalone);
+		YAHOO.tool.TestRunner.add(suiteReset);
+		YAHOO.tool.TestRunner.add(suiteFiniteControl);
+		YAHOO.tool.TestRunner.add(suiteSelect1);
+		YAHOO.tool.TestRunner.add(suiteXFormsSubmission);
+		YAHOO.tool.TestRunner.add(suiteXFormsSubmissionHeader);
+		YAHOO.tool.TestRunner.add(suitePeValue);
+		YAHOO.tool.TestRunner.add(suiteControl);
+		YAHOO.tool.TestRunner.add(suiteSetFocus);
+		YAHOO.tool.TestRunner.add(suiteContainer);
 
-    // Run the tests.
-    //
-    YAHOO.tool.TestRunner.run();
-    window.status = "tested"; 
+		// Run the tests.
+		//
+		YAHOO.tool.TestRunner.run();
+		window.status = "tested";
 		return;
-  };// onSucess()
-  loader.insert();
-  return;
+	}; // onSucess()
+	loader.insert();
+	return;
 }
 
-UX.preloader.put_onFinish(function () {
-  var head, scriptElement, onSuccessAlready;
-  if (UX.useRollup()) {
-    UX.preloader.addScript("http://yui.yahooapis.com/2.8.0/build/yuiloader/yuiloader-min.js", runTheTests);     
-  } else if (typeof loader === "object" && loader instanceof YAHOO.util.YUILoader) {
+UX.preloader.put_onFinish(function() {
+	var head, scriptElement, onSuccessAlready;
+	if (UX.useRollup()) {
+		UX.preloader.addScript("http://yui.yahooapis.com/2.8.0/build/yuiloader/yuiloader-min.js", runTheTests);
+	} else if (typeof loader === "object" && loader instanceof YAHOO.util.YUILoader) {
 
-    //Where a loader is defined (and probably running).  Set the testrunner to kick off once it has finished.
+		//Where a loader is defined (and probably running).  Set the testrunner to kick off once it has finished.
 		onSuccessAlready = loader.onSuccess ||
 		function(o) {};
-    loader.onSuccess = function (o) {
-      onSuccessAlready(o);
-      runTheTests();
-    };
-    
-  }
+		loader.onSuccess = function(o) {
+			onSuccessAlready(o);
+			runTheTests();
+		};
+
+	}
 
 });

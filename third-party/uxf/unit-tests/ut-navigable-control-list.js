@@ -1,4 +1,4 @@
-// Copyright © 2009 Backplane Ltd.
+// Copyright  2009 Backplane Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-(function(){
+(function() {
 	var suiteNavigableControlList;
 
 	var returnTrue = function() {
@@ -24,15 +24,15 @@
 	YAHOO.tool.TestRunner.add(new YAHOO.tool.TestCase({
 		name: "Testing the NavigableControlList object",
 
-		setUp: function(){
+		setUp: function() {
 			this.ncl = new NavigableControlList();
 		},
 
-		tearDown: function(){
+		tearDown: function() {
 			delete this.ncl;
 		},
 
-		testConstruction: function () {
+		testConstruction: function() {
 			YAHOO.util.Assert.isNotUndefined(this.ncl);
 			YAHOO.util.Assert.isObject(this.ncl);
 			YAHOO.util.Assert.isNotNull(this.ncl);
@@ -43,7 +43,7 @@
 			YAHOO.util.Assert.isFunction(this.ncl.getPreviousControl);
 		},
 
-		testGetFirstControl: function () {
+		testGetFirstControl: function() {
 			var control0 = {
 				isNavigableControl: true,
 				navIndex: 0,
@@ -88,7 +88,7 @@
 			YAHOO.util.Assert.areSame(control1b, this.ncl.getFirstControl());
 		},
 
-		testGetLastControl: function () {
+		testGetLastControl: function() {
 			var control0 = {
 				isNavigableControl: true,
 				navIndex: 0,
@@ -149,7 +149,7 @@
 			YAHOO.util.Assert.areSame(control0, this.ncl.getLastControl());
 		},
 
-		testGetNextControl: function () {
+		testGetNextControl: function() {
 			var control0 = {
 				isNavigableControl: true,
 				navIndex: 0,
@@ -204,7 +204,7 @@
 			YAHOO.util.Assert.isNull(this.ncl.getNextControl(control0));
 		},
 
-		testGetPreviousControl: function () {
+		testGetPreviousControl: function() {
 			var control0 = {
 				isNavigableControl: true,
 				navIndex: 0,
@@ -259,7 +259,7 @@
 			YAHOO.util.Assert.areSame(control4, this.ncl.getPreviousControl(control0));
 		},
 
-		testGetControlByAccessKey: function () {
+		testGetControlByAccessKey: function() {
 			var control1 = {
 				isNavigableControl: true,
 				accessKey: '1',
@@ -271,16 +271,16 @@
 				navIndex: 0
 			};
 
-			YAHOO.util.Assert.isNull(this.ncl.getControlByAccessKey(control1.accessKey.charCodeAt(0)));
-			YAHOO.util.Assert.isNull(this.ncl.getControlByAccessKey(control2.accessKey.charCodeAt(0)));
+			YAHOO.util.Assert.isNull(this.ncl.getControlByAccessKey(control1.accessKey.toLowerCase()));
+			YAHOO.util.Assert.isNull(this.ncl.getControlByAccessKey(control2.accessKey.toLowerCase()));
 
 			this.ncl.addControl(control1);
-			YAHOO.util.Assert.areSame(control1, this.ncl.getControlByAccessKey(control1.accessKey.charCodeAt(0)));
-			YAHOO.util.Assert.isNull(this.ncl.getControlByAccessKey(control2.accessKey.charCodeAt(0)));
+			YAHOO.util.Assert.areSame(control1, this.ncl.getControlByAccessKey(control1.accessKey.toLowerCase()));
+			YAHOO.util.Assert.isNull(this.ncl.getControlByAccessKey(control2.accessKey.toLowerCase()));
 
 			this.ncl.addControl(control2);
-			YAHOO.util.Assert.areSame(control1, this.ncl.getControlByAccessKey(control1.accessKey.charCodeAt(0)));
-			YAHOO.util.Assert.areSame(control2, this.ncl.getControlByAccessKey(control2.accessKey.charCodeAt(0)));
+			YAHOO.util.Assert.areSame(control1, this.ncl.getControlByAccessKey(control1.accessKey.toLowerCase()));
+			YAHOO.util.Assert.areSame(control2, this.ncl.getControlByAccessKey(control2.accessKey.toLowerCase()));
 		}
 	}));
-}());
+} ());

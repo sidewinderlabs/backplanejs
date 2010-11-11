@@ -29,4 +29,4 @@ dojo.behavior.add({
 		d(Listener, el);
 		d(XFAction, el);
 	}
-	});
+});

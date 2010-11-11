@@ -15,76 +15,109 @@
  */
 
 /**
-  Action handler used as a base class for elements that are used to call an extant method on a model.
-  @param method {Function} a function that takes a model as an argument, and calls the appropriate method on it.
-*/
+ Action handler used as a base class for elements that are used to call an extant method on a model.
+ @param method {Function} a function that takes a model as an argument, and calls the appropriate method on it.
+ */
 function ModelFunctionAction(method) {
-  this.ModelMethod = method;
-  this.handleEvent = DeferToConditionalInvocationProcessor;
+	this.ModelMethod = method;
+	this.handleEvent = DeferToConditionalInvocationProcessor;
 
-  this.performAction = function(evt) {
-    var m = getModelFor(this.element);
-    this.ModelMethod(m);
-  };
-  return this;
+	this.performAction = function(evt) {
+		var m = getModelFor(this.element);
+		this.ModelMethod(m);
+	};
+	return this;
 }
-/**
-  Specialisation of ModelFunctionAction to call rebuild
-*/
-function Rebuild(elmnt){
-  this.element = elmnt;
-}
+/**Specialisation of ModelFunctionAction to call rebuild*/
 
-/**
-  Specialisation of ModelFunctionAction to call recalculate
-*/
-function Recalculate(elmnt){
-  this.element = elmnt;
-}
-
-/**
-  Specialisation of ModelFunctionAction to call revalidate
-*/
-function Revalidate(elmnt){
-  this.element = elmnt;
-}
-
-/**
-  Specialisation of ModelFunctionAction to call refresh
-*/
-function Refresh(elmnt){
-  this.element = elmnt;
-}
-
-/**
-  Specialisation of ModelFunctionAction to call reset
-*/
-function Reset(elmnt){
-  this.element = elmnt;
-}
-
-Rebuild.prototype = new ModelFunctionAction(
-	function(theModel){
-		theModel._rebuild();
+var Rebuild = new UX.Class({
+	
+	Mixins: [Listener, new ModelFunctionAction(function(model) {
+		model._rebuild();
+	})],
+	
+	toString: function() {
+		return 'xf:rebuild';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+	}
 });
 
-Recalculate.prototype = new ModelFunctionAction(
-	function(theModel){
-		theModel._recalculate();
+/**
+ Specialisation of ModelFunctionAction to call recalculate
+ */
+var Recalculate = new UX.Class({
+	
+	Mixins: [Listener, new ModelFunctionAction(function(model) {
+		model._recalculate();
+	})],
+	
+	toString: function() {
+		return 'xf:recalculate';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+	}
+	
 });
 
-Revalidate.prototype = new ModelFunctionAction(
-	function(theModel){
-		theModel._revalidate();
+/**
+ Specialisation of ModelFunctionAction to call revalidate
+ */
+var Revalidate = new UX.Class({
+	
+	Mixins: [Listener, new ModelFunctionAction(function(model) {
+		model._revalidate();
+	})],
+	
+	toString: function() {
+		return 'xf:revalidate';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+	}
+	
 });
 
-Refresh.prototype = new ModelFunctionAction(
-	function(theModel){
-		theModel._refresh();
+/**
+ Specialisation of ModelFunctionAction to call refresh
+ */
+var Refresh = new UX.Class({
+	
+	Mixins: [Listener, new ModelFunctionAction(function(model) {
+		model._refresh();
+	})],
+	
+	toString: function() {
+		return 'xf:refresh';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+	}
+	
 });
 
-Reset.prototype = new ModelFunctionAction(
-	function(theModel) {
+/**
+ Specialisation of ModelFunctionAction to call reset
+ */
+var Reset = new UX.Class({
+	
+	Mixins: [Listener, new ModelFunctionAction(function(model) {
 		//create and dispatch an xforms-reset event on the model, as defined in http://www.w3.org/TR/xforms11/#action-reset
-		UX.dispatchEvent(theModel, "xforms-reset", true, true);
+		UX.dispatchEvent(model, "xforms-reset", true, true);
+	})],
+	
+	toString: function() {
+		return 'xf:reset';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+	}
+	
 });

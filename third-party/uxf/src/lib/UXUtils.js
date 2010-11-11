@@ -20,23 +20,24 @@
  insertAdjacentHTML, and insertAdjacentElement.
  */
 
-
 /**
  XML Parsing in Firefox does not support getElementById by default (except on XHTML and XUL elements_
  To work around this problem, the xpath evaluation is done to returnh the element with the specified id.
  */
-if (UX.isXHTML) { /* override the getElementById on the document object */
+if (UX.isXHTML) {
+	/* override the getElementById on the document object */
 	document.nativeGetElementById = document.getElementById;
-	document.getElementById = function (sID) { /* try to get the element by the default getElementById */
-		var oElement = document.nativeGetElementById(sID); /* if it doesn't work, try to find by different route */
+	document.getElementById = function(sID) {
+		/* try to get the element by the default getElementById */
+		var oElement = document.nativeGetElementById(sID);
+		/* if it doesn't work, try to find by different route */
 		if (oElement === null) {
 			var oRes = xpathDomEval('//*[@id="' + sID + '"]', document.documentElement);
 			oElement = (oRes && oRes.nodeSetValue() && oRes.nodeSetValue()[0]) ? oRes.nodeSetValue()[0] : null;
 		}
 		return oElement;
 	};
-}
-(function () {
+} (function() {
 	/**
 	 Inserts an element into the DOM at a given location.	This is an addon applied to Elements
 	 in the target environment.	Nodes must be of compatible types in the target DOM, i.e.
@@ -46,7 +47,6 @@ if (UX.isXHTML) { /* override the getElementById on the document object */
 	 @param {Node} parsedNode a node to insert into this element
 	 @addon
 	 */
-
 	function insertAdjacentElement(where, parsedNode) {
 		switch (where) {
 		case 'beforeBegin':
@@ -75,7 +75,6 @@ if (UX.isXHTML) { /* override the getElementById on the document object */
 	 @param {String} htmlStr markup to insert into this element
 	 @addon
 	 */
-
 	function insertAdjacentHTML(where, htmlStr) {
 		var r = this.ownerDocument.createRange();
 		r.setStartBefore(this);
@@ -92,7 +91,6 @@ if (UX.isXHTML) { /* override the getElementById on the document object */
 	 @param {String} txtStr text to insert into this element
 	 @addon
 	 */
-
 	function insertAdjacentText(where, txtStr) {
 		var parsedText = document.createTextNode(txtStr);
 		this.insertAdjacentElement(where, parsedText);
@@ -103,7 +101,6 @@ if (UX.isXHTML) { /* override the getElementById on the document object */
 	 @param {Node} o The candidate descendent node to investigate
 	 @returns true if o is within "this", otherwise false.
 	 */
-
 	function contains(o) {
 
 		var parent = o;
@@ -127,7 +124,6 @@ if (UX.isXHTML) { /* override the getElementById on the document object */
 		HTMLElement.prototype.contains = HTMLElement.prototype.contains || contains;
 	}
 
-
 	//Add the functions to the Element prototype, if absent
 	if (typeof Element != "undefined" && !Element.prototype.insertAdjacentElement) {
 		Element.prototype.insertAdjacentElement = Element.prototype.insertAdjacentElement || insertAdjacentElement;
@@ -135,17 +131,18 @@ if (UX.isXHTML) { /* override the getElementById on the document object */
 		Element.prototype.insertAdjacentHTML = Element.prototype.insertAdjacentHTML || insertAdjacentHTML;
 		Element.prototype.contains = Element.prototype.contains || contains;
 	}
+
 })();
 
-(function () {
+(function() {
 
 	var rspace = /\s+/;
 	var rtrim = /^(\s|\u00A0)+|(\s|\u00A0)+$/g;
 
-	var addClassNameNative = function (element, classString) {
+	var addClassNameNative = function(element, classString) {
 		try {
 			element.classList.add(classString);
-		} catch (e) {
+		} catch(e) {
 			// Most often NS_ERROR_DOM_INVALID_CHARACTER_ERR is thrown when
 			// there is a space in the class string. First we try trimming the string,
 			// and then we try to split it, in the event that the user tried to pass
@@ -154,7 +151,7 @@ if (UX.isXHTML) { /* override the getElementById on the document object */
 			var className = classString.replace(rtrim, '');
 			try {
 				element.classList.add(className);
-			} catch (e) {
+			} catch(e) {
 				if (e.code != e.INVALID_CHARACTER_ERR) throw e;
 				var splits = className.split(rspace);
 				if (splits.length > 1) {
@@ -164,7 +161,7 @@ if (UX.isXHTML) { /* override the getElementById on the document object */
 		}
 	};
 
-	var addClassAttribute = function (element, classString) {
+	var addClassAttribute = function(element, classString) {
 		var setClass = element.getAttribute('class');
 		if (!setClass) {
 			element.setAttribute('class', classString);
@@ -183,7 +180,7 @@ if (UX.isXHTML) { /* override the getElementById on the document object */
 		}
 	};
 
-	UX.addClassName = function (element, classString) {
+	UX.addClassName = function(element, classString) {
 		if (!element) return;
 		if (element.nodeType !== 1) return;
 		if (!classString || typeof classString !== 'string') return;
@@ -213,7 +210,7 @@ if (UX.isXHTML) { /* override the getElementById on the document object */
 			element.className = (setClass || "").replace(rtrim, "");
 		}
 	};
-	UX.addClassNames = function (oElement, classNames) {
+	UX.addClassNames = function(oElement, classNames) {
 		if (!oElement || oElement.nodeType !== 1) return;
 		if (classNames && typeof(classNames) == 'object' && classNames.length > 0) {
 			if (!oElement.className) {
@@ -228,14 +225,17 @@ if (UX.isXHTML) { /* override the getElementById on the document object */
 				}
 			}
 		}
-	}
+	};
 	/**
+	 
 	 * Utility to remove a class attribute.
 	 */
-	UX.removeClassName = function (oElement, classString) {
+
+	UX.removeClassName = function(oElement, classString) {
 		if (!oElement) return;
 		if (oElement.nodeType !== 1) return;
 		if (!oElement.className) return;
+		if(!classString) return;
 		if (typeof(oElement.classList) == 'object') {
 			oElement.classList.remove(classString);
 			return;
@@ -245,14 +245,14 @@ if (UX.isXHTML) { /* override the getElementById on the document object */
 		new RegExp("(^|\\s+)" + classString + "(\\s+|$)"), ' ');
 	};
 
-	UX.hasClassName = function (element, className) {
+	UX.hasClassName = function(element, className) {
 		if (!element || element.nodeType !== 1 || !element.className) return false;
 		if (typeof element.classList === 'object') {
 			// The Element.prototype.classList methods can throw exceptions for a number of reasons,
 			// so if it fails we fallback to the non-native (string-based) classname implementation
 			try {
 				return element.classList.contains(className);
-			} catch (e) {}
+			} catch(e) {}
 		}
 		var elementClassName = ' ' + element.className + ' ';
 		return (elementClassName.indexOf(' ' + className + ' ') != -1);
@@ -261,10 +261,11 @@ if (UX.isXHTML) { /* override the getElementById on the document object */
 	/**
 	 * Utility to replace a className attribute.
 	 */
-	UX.replaceClassName = function (oElement, oldClassString, newClassString) {
-		UX.removeClassName(oElement, oldClassString);
-		UX.addClassName(oElement, newClassString);
+	UX.replaceClassName = function(element, oldClassString, newClassString) {
+		UX.removeClassName(element, oldClassString);
+		UX.addClassName(element, newClassString);
 	};
+	
 })();
 
 /**
@@ -279,11 +280,11 @@ if (typeof Element != "undefined" && !Element.prototype.className) {
  With the XML Parser in Firefox, the style property is not supported, instead styles are set with the stylesheet
  objects. This utility centralizes setting the style on an Element to one location.
  */
-UX.addStyle = function (oElement, styleName, value) {
+UX.addStyle = function(oElement, styleName, value) {
 	var stylesheet, selector;
 	if (oElement.style) {
 		oElement.style[styleName] = value;
-	} else if(UX.isXHTML) {
+	} else if (UX.isXHTML) {
 		// At this point, you are not IE or Firefox with HTML parsing
 		// There is not a .style property for the XML Parser on Firefox
 		// Instead, the style will have to be added using the CSS DOM model
@@ -295,7 +296,7 @@ UX.addStyle = function (oElement, styleName, value) {
 				stylesheet.insertRule("@namespace " + oElement.prefix + " url(http://www.w3.org/2002/xforms);", 0);
 				selector = UX.id(oElement) ? ('[id="' + UX.id(oElement) + '"]') : "";
 				stylesheet.insertRule(oElement.prefix + "|" + oElement.localName + selector + " {" + styleName + ":" + value + ";}", (stylesheet.cssRules.length === 0) ? 1 : stylesheet.cssRules.length);
-			} catch (e) {
+			} catch(e) {
 				document.logger.log("INFO: Couldn't set style " + styleName + " to " + value);
 			}
 		}
@@ -306,7 +307,7 @@ UX.addStyle = function (oElement, styleName, value) {
  With the XML Parser in Firefox, the style property is not supported, instead styles are set with the stylesheet
  objects. This utility centralizes getting the style on an Element to one location.
  */
-UX.getStyle = function (oElement, styleName) {
+UX.getStyle = function(oElement, styleName) {
 	var style = null;
 	var match = null;
 	var result = null;
@@ -338,19 +339,19 @@ UX.getStyle = function (oElement, styleName) {
  value.	If that child element has a value attribute on it, then that value will be used.	That attribute value
  has precedence over the child element's inline text.
  */
-UX.getPropertyValue = function (pThis, type) {
-	var aChildNode = NamespaceManager.getElementsByTagNameNS(pThis.element, "http://www.w3.org/2002/xforms", type)[0];
-	return (aChildNode) ? getElementValueOrContent(_getEvaluationContext(pThis), aChildNode) : pThis.element.getAttribute(type);
+UX.getPropertyValue = function(self, type) {
+	var aChildNode = NamespaceManager.getElementsByTagNameNS(self.element, "http://www.w3.org/2002/xforms", type)[0];
+	return (aChildNode) ? UX.getElementValueOrContent(Context.prototype.getEvaluationContext.apply(self), aChildNode) : self.element.getAttribute(type);
 };
 /**
  *	Utility method to create a event and dispatch it on the target
  */
-UX.dispatchEvent = function (oTarget, sEventName, bBubble, bCancel, bSpawn) {
+UX.dispatchEvent = function(oTarget, sEventName, bBubble, bCancel, bSpawn) {
 	var oEvent = document.createEvent("Events");
 	oEvent.initEvent(sEventName, bBubble, bCancel);
 
 	if (bSpawn) {
-		spawn(function () {
+		spawn(function() {
 			FormsProcessor.dispatchEvent(oTarget, oEvent);
 		});
 	} else {
@@ -362,7 +363,7 @@ UX.dispatchEvent = function (oTarget, sEventName, bBubble, bCancel, bSpawn) {
  * Utility method to create an element in a namespace
  */
 
-UX.createElementNS = function (oNode, sNamespaceURI, sQualifiedName) {
+UX.createElementNS = function(oNode, sNamespaceURI, sQualifiedName) {
 	var oElement = null;
 	var sPrefix = null;
 	var oDocument = oNode ? oNode.ownerDocument : document;
@@ -385,8 +386,8 @@ UX.createElementNS = function (oNode, sNamespaceURI, sQualifiedName) {
 	return oElement;
 };
 
-UX.focusFirstEligibleChild = function (childNodes) {
-	for (var i = 0; i < childNodes.length; ++i) {
+UX.focusFirstEligibleChild = function(childNodes) {
+	for (var i = 0, l = childNodes.length; i < l; i++) {
 		if (this.focusTree(childNodes.item(i))) {
 			return true;
 		}
@@ -394,9 +395,10 @@ UX.focusFirstEligibleChild = function (childNodes) {
 	return false;
 };
 
-UX.focusTree = function (node) {
-	if (typeof node.giveFocus === "function") {
-		return node.giveFocus();
+UX.focusTree = function(node) {
+	var behaviour = DECORATOR.getBehaviour(node);
+	if (behaviour && behaviour.giveFocus) {
+		return behaviour.giveFocus();
 	}
 	return this.focusFirstEligibleChild(node.childNodes);
 };
@@ -404,121 +406,122 @@ UX.focusTree = function (node) {
 // Reference to the global object.
 UX.global = this;
 
-UX.isArrayLike = function (o) {
+UX.isArrayLike = function(o) {
 	return (typeof(o.push) === 'function' && typeof(o.shift) === 'function' && typeof(o.length) === 'number');
 };
 
-UX.type = function (o) {
+UX.type = function(o) {
 	return (o && UX.isArrayLike(o)) ? 'array' : typeof(o);
 };
 
 /*
 	Extended DOM Navigation.
 */
-(function () {
+(function() {
 
-	var forwards = function (o) {
+	var forwards = function(o) {
 		return o.nextSibling;
 	},
 
-		backwards = function (o) {
-			return o.previousSibling;
-		},
+	backwards = function(o) {
+		return o.previousSibling;
+	},
 
-		getEndNodeByName = function (searchWithin, name, namespace, direction) {
-			var newCandidateNode = null,
-				candidateNode;
+	getEndNodeByName = function(searchWithin, name, namespace, direction) {
+		var newCandidateNode = null,
+			candidateNode;
 
-			if (direction === forwards) {
-				candidateNode = searchWithin.firstChild;
-			} else {
-				candidateNode = searchWithin.lastChild;
-			}
+		if (direction === forwards) {
+			candidateNode = searchWithin.firstChild;
+		} else {
+			candidateNode = searchWithin.lastChild;
+		}
 
-			while (candidateNode && !NamespaceManager.compareFullName(candidateNode, name, namespace)) {
-				if (candidateNode.hasChildNodes()) {
-					newCandidateNode = getEndNodeByName(candidateNode, name, namespace, direction);
-					if (newCandidateNode) {
-						candidateNode = newCandidateNode;
-						break;
-					}
-				}
-
-				candidateNode = direction(candidateNode);
-			}
-			return candidateNode;
-		},
-
-		getNearestAncestralSibling = function (referenceNode, directionFunction, commonAncestor) {
-			var candidateAncestralSibling = null,
-				candidateAncestor = referenceNode.parentNode;
-			while (!candidateAncestralSibling && candidateAncestor && candidateAncestor !== commonAncestor) {
-				candidateAncestralSibling = directionFunction(candidateAncestor);
-				candidateAncestor = candidateAncestor.parentNode;
-			}
-			return candidateAncestralSibling;
-		},
-
-		getNearestNodeByName = function (referenceNode, name, namespace, searchWithin, directionFunction) {
-			var newCandidateNode = null,
-				candidateNode = directionFunction(referenceNode);
-
-			//No siblings, the next node might be an aunt or cousin.
-			if (!candidateNode) {
-				candidateNode = getNearestAncestralSibling(referenceNode, directionFunction, searchWithin);
-			}
-
-			while (candidateNode && !NamespaceManager.compareFullName(candidateNode, name, namespace)) {
-				if (candidateNode.hasChildNodes) {
-					newCandidateNode = getEndNodeByName(candidateNode, name, namespace, directionFunction);
-
-					if (newCandidateNode) {
-						candidateNode = newCandidateNode;
-						break;
-					}
-				}
-				newCandidateNode = directionFunction(candidateNode);
+		while (candidateNode && !NamespaceManager.compareFullName(candidateNode, name, namespace)) {
+			if (candidateNode.hasChildNodes()) {
+				newCandidateNode = getEndNodeByName(candidateNode, name, namespace, direction);
 				if (newCandidateNode) {
 					candidateNode = newCandidateNode;
-				} else {
-					candidateNode = getNearestAncestralSibling(candidateNode, directionFunction, searchWithin);
+					break;
 				}
 			}
-			return candidateNode;
-		};
 
-	UX.getNextNodeByName = function (referenceNode, name, namespace, constrainingAncestor) {
+			candidateNode = direction(candidateNode);
+		}
+		return candidateNode;
+	},
+
+	getNearestAncestralSibling = function(referenceNode, directionFunction, commonAncestor) {
+		var candidateAncestralSibling = null,
+			candidateAncestor = referenceNode.parentNode;
+		while (!candidateAncestralSibling && candidateAncestor && candidateAncestor !== commonAncestor) {
+			candidateAncestralSibling = directionFunction(candidateAncestor);
+			candidateAncestor = candidateAncestor.parentNode;
+		}
+		return candidateAncestralSibling;
+	},
+
+	getNearestNodeByName = function(referenceNode, name, namespace, searchWithin, directionFunction) {
+		var newCandidateNode = null,
+			candidateNode = directionFunction(referenceNode);
+
+		//No siblings, the next node might be an aunt or cousin.
+		if (!candidateNode) {
+			candidateNode = getNearestAncestralSibling(referenceNode, directionFunction, searchWithin);
+		}
+
+		while (candidateNode && !NamespaceManager.compareFullName(candidateNode, name, namespace)) {
+			if (candidateNode.hasChildNodes) {
+				newCandidateNode = getEndNodeByName(candidateNode, name, namespace, directionFunction);
+
+				if (newCandidateNode) {
+					candidateNode = newCandidateNode;
+					break;
+				}
+			}
+			newCandidateNode = directionFunction(candidateNode);
+			if (newCandidateNode) {
+				candidateNode = newCandidateNode;
+			} else {
+				candidateNode = getNearestAncestralSibling(candidateNode, directionFunction, searchWithin);
+			}
+		}
+		return candidateNode;
+	};
+
+	UX.getNextNodeByName = function(referenceNode, name, namespace, constrainingAncestor) {
 		return getNearestNodeByName(referenceNode, name, namespace, constrainingAncestor, forwards);
 	};
 
-	UX.getPreviousNodeByName = function (referenceNode, name, namespace, constrainingAncestor) {
+	UX.getPreviousNodeByName = function(referenceNode, name, namespace, constrainingAncestor) {
 		return getNearestNodeByName(referenceNode, name, namespace, constrainingAncestor, backwards);
 	};
 
-	UX.getFirstNodeByName = function (searchWithin, name, namespace) {
+	UX.getFirstNodeByName = function(searchWithin, name, namespace) {
 		return getEndNodeByName(searchWithin, name, namespace, forwards);
 	};
-}());
+} ());
 
-UX.isNodeReadonly = function (oNode) {
-	return (oNode && oNode.m_proxy && oNode.m_proxy.readonly && oNode.m_proxy.readonly.getValue());
+UX.isNodeReadonly = function(oNode) {
+	var proxy = UX.getProxyNode(oNode, true);
+	return (proxy && proxy.readonly && proxy.readonly.getValue());
 };
 
 //an imperfect implementation of an isEquivalentNode function, which would check namespaces and node types
 //	(a text node containing "<x />" is equivalent to an empty "x" element, according to this function).
 //	If it is required to do anything more, it will need to be improved.
-UX.isEquivalentNode = function (lhs, rhs) {
+UX.isEquivalentNode = function(lhs, rhs) {
 	return xmlText(lhs) === xmlText(rhs);
 };
 
-UX.isArray = function (v) {
+UX.isArray = function(v) {
 	return (v && typeof v === "object" && typeof v.length === "number" && typeof v.splice === "function" && !v.propertyIsEnumerable("length"));
 };
 
 /**
  *	Utility method to construct an object that inherits (prototypically) from a given object.
  */
-UX.beget = function (o) {
+UX.beget = function(o) {
 	function Constructor() {}
 	Constructor.prototype = o;
 	return new Constructor();
@@ -527,7 +530,7 @@ UX.beget = function (o) {
 /**
  *	Utility method to retrieve the @id of a given element.
  */
-UX.id = function (oElement) {
+UX.id = function(oElement) {
 	return (UX.isXHTML ? (oElement && typeof oElement.getAttribute === 'function' ? oElement.getAttribute("id") : undefined) : (oElement ? oElement.id : undefined));
 };
 
@@ -535,18 +538,18 @@ UX.id = function (oElement) {
 //
 // The default value is optional.
 //
-UX.JsBooleanFromXsdBoolean = function (fromValue, defaultValue) {
+UX.JsBooleanFromXsdBoolean = function(fromValue, defaultValue) {
 	var toValue = {
 		"true": true,
 		"1": true,
 		"false": false,
 		"0": false
-	}[fromValue];
+	} [fromValue];
 
 	return (toValue !== undefined) ? toValue : ((defaultValue !== undefined) ? UX.JsBooleanFromXsdBoolean(defaultValue) : undefined);
 };
 
-UX.cancelHTMLEvent = function (evt) {
+UX.cancelHTMLEvent = function(evt) {
 	evt.cancelBubble = true;
 	evt.returnValue = false;
 
@@ -561,38 +564,196 @@ UX.cancelHTMLEvent = function (evt) {
 	return false;
 };
 
-UX.isHTMLTabKeyEvent = function (keyEvent) {
+UX.isHTMLTabKeyEvent = function(keyEvent) {
 	return UX.isTabKeyCode(UX.getHTMLKeyEventCode(keyEvent));
 };
 
-UX.isShiftKeyPressed = function (keyEvent) {
+UX.isShiftKeyPressed = function(keyEvent) {
 	return keyEvent.shiftKey || keyEvent.shiftLeft;
 };
 
-UX.isControlKeyPressed = function (keyEvent) {
+UX.isControlKeyPressed = function(keyEvent) {
 	return keyEvent.ctrlKey || keyEvent.ctrlLeft;
 };
 
-UX.isAltKeyPressed = function (keyEvent) {
+UX.isAltKeyPressed = function(keyEvent) {
 	return keyEvent.altKey || keyEvent.altLeft;
 };
 
-UX.isMetaKeyPressed = function (keyEvent) {
+UX.isMetaKeyPressed = function(keyEvent) {
 	return keyEvent.metaKey;
 };
 
-UX.getHTMLEvent = function (eventArgument) {
+UX.getHTMLEvent = function(eventArgument) {
 	return eventArgument || window.event;
 };
 
-UX.getHTMLKeyEventCode = function (keyEvent) {
+UX.getHTMLKeyEventCode = function(keyEvent) {
 	return keyEvent.keyCode || keyEvent.which || keyEvent.charCode;
 };
 
-UX.isTabKeyCode = function (keyCode) {
+UX.isTabKeyCode = function(keyCode) {
 	return UX.getTabKeyCode() === keyCode;
 };
 
-UX.getTabKeyCode = function () {
+UX.getTabKeyCode = function() {
 	return 9;
+};
+
+UX.Class = function(params) {
+
+	var klass = function() {
+		var value = this.initialize ? this.initialize.apply(this, arguments) : this;
+		return value;
+	};
+
+	var add = {
+		"initialize": 1,
+		"onDocumentReady": 1,
+		"onContentReady": 1
+	};
+
+	function extend(p, v) {
+		if (add.hasOwnProperty(p)) {
+			if (!klass.prototype[p]) {
+				klass.prototype[p] = function() {
+					var stack = arguments.callee.stack;
+					for (var j = 0, m = stack.length; j < m; j++) {
+						stack[j].apply(this, arguments);
+					}
+				};
+				klass.prototype[p].stack = [];
+			}
+			if(!v.stack) {
+				klass.prototype[p].stack.push(v);
+			} else {
+				for(var i = 0, l = v.stack.length; i < l; i++) {
+					klass.prototype[p].stack.push(v.stack[i]);
+				}
+			}
+		} else {
+			klass.prototype[p] = v;
+		}
+	};
+
+	var i, l, p;
+
+	if (params.Mixins) {
+		for (i = 0, l = params.Mixins.length; i < l; i++) {
+			for (p in params.Mixins[i].prototype) {
+				extend(p, params.Mixins[i].prototype[p]);
+			}
+		}
+	}
+
+	for (p in params) {
+		extend(p, params[p]);
+	}
+
+	return klass;
+
+};
+
+
+UX.extend = function(src, dst) {
+	for(var p in dst) {
+		src[p] = dst[p];
+	}
+	return src;
+};
+
+
+UX.cloneDocument = function(doc, deep) {
+	if(deep == undefined) deep = true;
+	if(UX.isIE || UX.isFF) {
+		return doc.cloneNode(deep);
+	} else {
+		var cloneDoc = document.DOMImplementation.createDocument('', '', null);
+		if(deep) {
+			cloneDoc.appendChild(doc.importNode(doc.documentElement, true));
+		}
+		return cloneDoc;
+	}
+};
+
+UX.cloneNode = function(node, deep) {
+	if(deep == undefined) deep = true;
+	if(node.nodeType == 9) {
+		return UX.cloneDocument(node, deep);
+	} else {
+		return node.cloneNode(deep);
+	}
+};
+
+(function() {
+	
+	var UID = 0;
+
+	UX.getNodeUID = function(node) {//returns xml node uid
+		var uid;
+		if(!UX.isIE) {
+			uid = node.ux_uid;
+			if(uid) return uid;
+			node.ux_uid = ++UID;
+			return UID;
+		}
+		//for ie we can't add ux_uid property directly to node, 
+		//so we store uid in ux_uid attribute for elements
+		// in ux_uid-doc attribute of documentElement for doc 
+		// and in ux_uid-attrName of ownerElement for attribute nodes
+		if(node.nodeType == 1) {//element
+			uid = node.getAttribute('ux_uid');
+			if(uid) return uid;
+			node.setAttribute('ux_uid', ++UID);
+			return UID;
+		} else if(node.nodeType == 2) {//attr
+			var ownerElement = !UX.isIE ? node.ownerElement : node.selectSingleNode('..');
+			uid = ownerElement.getAttribute('ux_uid-' + node.nodeName);
+			if(uid) return uid;
+			ownerElement.setAttribute('ux_uid-' + node.nodeName, ++UID);
+			return UID;
+		} else if(node.nodeType == 9) {//doc
+			uid = node.documentElement.getAttribute('ux_uid-doc');
+			if(uid) return uid;
+			node.documentElement.setAttribute('ux_uid-doc', ++UID);
+			return UID;
+		} else if(node.nodeType == 3) {//text node
+			var parent = node.parentNode;
+			var index = 0;
+			var previous = node.previousSibling;
+			while(previous) {
+				++index;
+				previous = previous.previousSibling;
+			}
+			uid = parent.getAttribute('ux_uid_' + index);
+			if(uid) return uid;
+			parent.setAttribute('ux_uid_' + index, ++UID);
+			return UID;
+		}
+	};
+	
+})();
+
+UX.getElementsById = function(node, id, founded) {
+	founded = founded || [];
+	
+	var nodeId;
+
+	var children = node.childNodes;	
+	for(var i = 0, l = children.length; i < l; i++) {
+		var child = children[i];
+		if(child.nodeType != 1) continue;//if not element continue
+		nodeId = child.getAttribute('id');
+		if (!nodeId) {
+			nodeId = child.getAttribute('xml:id');
+			if (!nodeId && child.getAttribute('xsi:type') === 'xsd:ID') {
+				nodeId = child.firstChild.nodeValue.trim();
+			}
+		}
+		if (nodeId === id) {
+			founded.push(child);
+		}
+		if(child.hasChildNodes()) arguments.callee(child, id, founded);
+	}
+	return founded;
 };

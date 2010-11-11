@@ -27,57 +27,67 @@
  * Accompanying CSS classes are in hint.css.
  */
 
-function HintMixin( element ) {
-	// Save a pointer to the element.
-	//
-	this.element = element;
+var HintMixin = new UX.Class({
 	
-	// The context for our hint message is the parent element.
-	//
-	var context = element.parentNode;
+	Mixins: [Message],
 	
-	// It's difficult to see how we might not find a context, but it doesn't
-	// hurt to check.
-	//
-	if ( !context ) {
-		throw "No context found for hint";
+	toString: function() {
+		return 'xf:hint';
+	},
+	
+	initialize: function(element) {
+		// Save a pointer to the element.
+		//
+		this.element = element;
+
+		// The context for our hint message is the parent element.
+		//
+		var context = element.parentNode;
+
+		// It's difficult to see how we might not find a context, but it doesn't
+		// hurt to check.
+		//
+		if (!context) {
+			throw "No context found for hint";
+		}
+
+		// Hint is usually used with Message, so set @level to ephemeral.
+		//
+		element.setAttribute("level", "ephemeral");
+
+		// The positioning of the hint is relative to its container so
+		// indicate that it's a hint container, so that the CSS styles
+		// in hint.css can kick in.
+		//
+		UX.addClassName(context, "xf-hint-container");
+
+		// Register for the hint event. The action is simply to 'activate'
+		// whatever object has acquired the hint aspect.
+		//
+		if (typeof context.addEventListener === "function") {
+			context.addEventListener("xforms-hint", {
+				handleEvent: function(evt) {
+					var forwardEvt = document.createEvent("Events");
+
+					forwardEvt.initEvent("ub-activate", false, false);
+					forwardEvt.activate = true;
+					FormsProcessor.dispatchEvent(element, forwardEvt);
+					return;
+				}
+			},
+			false);
+			context.addEventListener("xforms-hint-off", {
+				handleEvent: function(evt) {
+					var forwardEvt = document.createEvent("Events");
+
+					forwardEvt.initEvent("ub-activate", false, false);
+					forwardEvt.activate = false;
+					FormsProcessor.dispatchEvent(element, forwardEvt);
+					return;
+				}
+			},
+			false);
+		}
 	}
 
-	// Hint is usually used with Message, so set @level to ephemeral.
-	//
-	element.setAttribute("level", "ephemeral");
-
-	// The positioning of the hint is relative to its container so
-	// indicate that it's a hint container, so that the CSS styles
-	// in hint.css can kick in.
-	//
-	UX.addClassName(context, "xf-hint-container");
-
-	// Register for the hint event. The action is simply to 'activate'
-	// whatever object has acquired the hint aspect.
-	//
-	if(typeof context.addEventListener === "function") {
-		context.addEventListener("xforms-hint", {
-			    handleEvent: function( evt ) {
-				    var forwardEvt = document.createEvent("Events");
-    				
-				    forwardEvt.initEvent("ub-activate", false, false);
-				    forwardEvt.activate = true;
-				    FormsProcessor.dispatchEvent(element, forwardEvt);
-				    return;
-			    }
-		    },
-		false);
-		context.addEventListener("xforms-hint-off", {
-			    handleEvent: function( evt ) {
-				    var forwardEvt = document.createEvent("Events");
-    				
-				    forwardEvt.initEvent("ub-activate", false, false);
-				    forwardEvt.activate = false;
-				    FormsProcessor.dispatchEvent(element, forwardEvt);
-				    return;
-			    }
-		    },
-		false);
-    }
-};
+});

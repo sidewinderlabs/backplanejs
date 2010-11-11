@@ -82,8 +82,8 @@ if (!document.displaySpeech)
                                 );
                                 this._agent = this._agentLoader.Characters.Character("genie");
                             }
-                            var pThis = this;
-                            setTimeout(function() { pThis._checkAgentLoaded(pThis); }, 0);
+                            var self = this;
+                            setTimeout(function() { self._checkAgentLoaded(self); }, 0);
                         }
                         catch(e)
                         {
@@ -99,28 +99,28 @@ if (!document.displaySpeech)
                 return this._panel(this._notifyCount++);
             },//createPanel
 
-        _configure: function(pThis)
+        _configure: function(self)
             {
-                //pThis._agent.LanguageID = 0x0409;		//  needed under come conditions
-                //pThis._agent.TTSModeID = "{227A0E41-A92A-11d1-B17B-0020AFED142E}";
-                pThis._agent.Get("state", "Showing, Speaking");
-                pThis._agent.Get("animation", "Greet, GreetReturn");
-                pThis._agent.Get("state", "Hiding");
+                //self._agent.LanguageID = 0x0409;		//  needed under come conditions
+                //self._agent.TTSModeID = "{227A0E41-A92A-11d1-B17B-0020AFED142E}";
+                self._agent.Get("state", "Showing, Speaking");
+                self._agent.Get("animation", "Greet, GreetReturn");
+                self._agent.Get("state", "Hiding");
             },//_configure()
 
-        _checkAgentLoaded: function(pThis)
+        _checkAgentLoaded: function(self)
             {
                 var bTryAgain = true;
 
-                if (pThis._agentLoaderRequest && !pThis._initialised)
+                if (self._agentLoaderRequest && !self._initialised)
                 {
-                	switch (pThis._agentLoaderRequest.Status)
+                	switch (self._agentLoaderRequest.Status)
                 	{
                 		// 0: Request successfully completed.
                 		case 0:
                       bTryAgain = false;
-                	    pThis._configure(pThis);
-                      pThis._initialised = true;
+                	    self._configure(self);
+                      self._initialised = true;
                       break;
 
                     // 2: Request pending / in queue.
@@ -134,14 +134,14 @@ if (!document.displaySpeech)
                 		case 1:
                 		case 3:
                 		default:
-                			pThis._initialised = false;
+                			self._initialised = false;
                       bTryAgain = false;
                       break;
                 	}//switch ( on the status of the loading )
                 }//if ( a request is 'in progress' and we're not yet initialised )
 
                 if (bTryAgain)
-                    setTimeout(function() { pThis._checkAgentLoaded(pThis); }, 500);
+                    setTimeout(function() { self._checkAgentLoaded(self); }, 500);
             	return;
             }//_checkAgentLoaded()
     }//speech object

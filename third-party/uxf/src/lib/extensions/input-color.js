@@ -14,69 +14,66 @@
 
 UX.colorcount = 0;
 
-function InputValueColor    (elmnt)
-{
-    this.element = elmnt;
-    this.currValue = "";
-    this.m_bFirstSetValue = true;
-}
+var InputValueColor = new UX.Class({
+	
+	Mixins: [PeValue],
+	
+	toString: function() {
+		return 'xf:color-value';
+	},
 
+	initialize: function(element) {
+		this.element = element;
+		this.currValue = "";
+		this.m_bFirstSetValue = true;
+	},
 
-function colorValueChanged(pThis, sNewValue)
-{
-    var oEvt = pThis.element.ownerDocument.createEvent("MutationEvents");
-    if(oEvt.initMutationEvent === undefined) {
-        oEvt.initMutationEvent = oEvt.initEvent;
-    }
-        
-    oEvt.initMutationEvent("control-value-changed", true, true,
-        null, pThis.currValue, sNewValue, null, null);
+	onDocumentReady: function() {
+		if (this.element.ownerDocument.media == "print") return;
+		this.element.innerHTML = "<div id='ux-color-bg" + UX.colorcount + "' class='ux-color-bg'></div>";
+		this.m_value = new YAHOO.widget.ColorPicker("ux-color-bg" + UX.colorcount, {
+			images: {
+				PICKER_THUMB: "http://yui.yahooapis.com/2.8.0/build/colorpicker/assets/picker_thumb.png",
+				HUE_THUMB: "http://yui.yahooapis.com/2.8.0/build/colorpicker/assets/hue_thumb.png"
+			}
+		});
+		UX.colorcount++;
 
-    spawn(function() {
-            FormsProcessor.dispatchEvent(pThis.element, oEvt);
-    });
-}
+		var self = this;
+		this.m_value.on("rgbChange", function(o) {
+			self.colorValueChanged("#" + self.m_value.get("hex"));
+		});
+	},
 
-InputValueColor.prototype.onDocumentReady = function()
-{
-    if (this.element.ownerDocument.media != "print")
-    {
-        this.element.innerHTML = "<div id='ux-color-bg" + UX.colorcount + "' class='ux-color-bg'></div>";
-        this.m_value = new YAHOO.widget.ColorPicker("ux-color-bg" + UX.colorcount, {
-            images: {
-                PICKER_THUMB : "http://yui.yahooapis.com/2.8.0/build/colorpicker/assets/picker_thumb.png",
-                HUE_THUMB : "http://yui.yahooapis.com/2.8.0/build/colorpicker/assets/hue_thumb.png"
-            }
-        });
-        UX.colorcount++;
-        
-        var pThis = this;
-        this.m_value.on("rgbChange",
-            function(o) {
-                colorValueChanged(pThis, "#" + pThis.m_value.get("hex"));
-            }
-         );
+	setValue: function(sValue) {
+		var bRet = false;
 
-    }
-};
+		if (sValue.match(/^#[0-9abcdefABCDEF]{6}/)) {
+			if (this.currValue != sValue || m_bFirstSetValue) {
+				var rgb = YAHOO.util.Color.hex2rgb(sValue.substring(1));
+				this.m_value.setValue(rgb, true);
+				this.currValue = sValue;
+				bRet = true;
+				if (this.m_bFirstSetValue) {
+					this.m_bFirstSetValue = false;
+				}
+			}
+		}
 
-InputValueColor.prototype.setValue = function(sValue)
-{
-    var bRet = false;
+		return bRet;
 
-    if (sValue.match( /^#[0-9abcdefABCDEF]{6}/ )) {
-        if (this.currValue != sValue || m_bFirstSetValue) {
-            var rgb = YAHOO.util.Color.hex2rgb(sValue.substring(1));
-            this.m_value.setValue(rgb, true);
-            this.currValue = sValue;
-            bRet = true;
-            if (this.m_bFirstSetValue) {
-                this.m_bFirstSetValue = false;
-            }
-        }
-    }
+	},
 
-    return bRet;
+	colorValueChanged: function(value) {
+		var oEvt = this.element.ownerDocument.createEvent("MutationEvents");
+		if (oEvt.initMutationEvent === undefined) {
+			oEvt.initMutationEvent = oEvt.initEvent;
+		}
+		oEvt.initMutationEvent("control-value-changed", true, true, null, this.currValue, value, null, null);
+		var self = this;
+		spawn(function() {
+			FormsProcessor.dispatchEvent(self.element, oEvt);
+		});
+	}
 
-};
-
+});

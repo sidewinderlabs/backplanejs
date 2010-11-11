@@ -14,22 +14,29 @@
  * limitations under the License.
  */
 
-function SetFocus(element) {
-	this.element = element;
-}
+SetFocus = new UX.Class({
+	
+	Mixins: [Listener, Context],
+	
+	toString: function() {
+		return 'xf:set-focus';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+	},
 
-SetFocus.prototype.handleEvent = DeferToConditionalInvocationProcessor;
+	handleEvent: DeferToConditionalInvocationProcessor,
 
-SetFocus.prototype.performAction = function () {
-	var controlId, control;
-
-	doUpdate();
-
-	controlId = UX.getPropertyValue(this, "control");
-	if (controlId) {
-		control = FormsProcessor.getElementById(controlId, this.element);
-		if (control) {
-			UX.dispatchEvent(control, "xforms-focus", false, true);
+	performAction: function() {
+		doUpdate();
+		var controlId = UX.getPropertyValue(this, "control");
+		if (controlId) {
+			var control = FormsProcessor.getElementById(controlId, this.element);
+			if (control) {
+				UX.dispatchEvent(control, "xforms-focus", false, true);
+			}
 		}
 	}
-};
+
+});

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2009 Backplane Ltd.
+ * Copyright  2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,25 @@
  * limitations under the License.
  */
 
-function XFormsOutputValueGMap() {
-}
+var XFormsOutputValueGMap = new UX.Class({
+	
+	Mixins: [GMapControl],
+	
+	toString: function() {
+		return 'xf:output-value-gmap';
+	},
 
-XFormsOutputValueGMap.prototype.onDocumentReady = function() {
-	this.createMap();
-	this.map.disableDragging();
-};
+	onDocumentReady: function() {
+		this.createMap();
+		this.map.disableDragging();
+	},
 
-XFormsOutputValueGMap.prototype.addMapNavigationControl = function() {
-	if (this.mapContainer.clientWidth >= 110 && this.mapContainer.clientHeight >= 100) {
-		this.map.addControl(new GSmallZoomControl3D());
-	} else if (this.mapContainer.clientWidth >= 80 && this.mapContainer.clientHeight >= 80) {
-		this.map.addControl(new GSmallZoomControl());
+	addMapNavigationControl: function() {
+		if (this.mapContainer.clientWidth >= 110 && this.mapContainer.clientHeight >= 100) {
+			this.map.addControl(new GSmallZoomControl3D());
+		} else if (this.mapContainer.clientWidth >= 80 && this.mapContainer.clientHeight >= 80) {
+			this.map.addControl(new GSmallZoomControl());
+		}
 	}
-};
+
+});

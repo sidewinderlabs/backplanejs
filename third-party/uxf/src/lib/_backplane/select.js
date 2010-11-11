@@ -14,47 +14,48 @@
  * limitations under the License.
  */
 
-function CommonSelect() {
-  /**
-    Updates the map of values to items, to reflect a change in the value of said item
-  */
-  this.itemValueChanged = function(item, oldvalue, newvalue) {
-     //remove the multimap entry based on the old value, and create one based on the new value.
-    this.removeItem(item,oldvalue);
-    this.addItem(item,newvalue);
-  };
-  /**
-    Retrieves the label that corresponds to a given value.
-  */
-  this.getSingleDisplayValue = function(sValue) {
-      this.currentDisplayValue = sValue;
-      var retval = null;
-      var theItem = null;
-      var i;
-      if(this.items) {
-        //get the item from the map,
-        theItem = this.items[sValue];
-        //if it's an array, get the first one.
-        if (UX.isArray(theItem)) {
-            if (typeof sValue === "object") {
-                for (i = 0; i < theItem.length; ++i) {
-                    if (UX.isEquivalentNode(theItem[i].getValue(), sValue)) {
-                        theItem = theItem[i];
-                        break;
-                    }
-                }
-             }
-             else {
-                 theItem = theItem[0];
-             }
-        }
+var CommonSelect = new UX.Class({
+	
+	Mixins: [Multimap],
+	/**
+	 Updates the map of values to items, to reflect a change in the value of said item
+	 */
+	itemValueChanged: function(item, oldvalue, newvalue) {
+		//remove the multimap entry based on the old value, and create one based on the new value.
+		this.removeItem(item, oldvalue);
+		this.addItem(item, newvalue);
+	},
+	/**
+	 Retrieves the label that corresponds to a given value.
+	 */
+	getSingleDisplayValue: function(sValue) {
+		this.currentDisplayValue = sValue;
+		var retval = null;
+		var theItem = null;
+		var i;
+		if (this.items) {
+			//get the item from the map,
+			theItem = this.items[sValue];
+			//if it's an array, get the first one.
+			if (UX.isArray(theItem)) {
+				if (typeof sValue === "object") {
+					for (i = 0; i < theItem.length; ++i) {
+						if (UX.isEquivalentNode(theItem[i].getValue(), sValue)) {
+							theItem = theItem[i];
+							break;
+						}
+					}
+				} else {
+					theItem = theItem[0];
+				}
+			}
 
-        if(theItem) {
-          retval = theItem.getLabel();
-        }
-      }
-      return retval;
-    };
-}
+			if (theItem) {
+				retval = theItem.getLabel();
+			}
+		}
+		return retval;
+	}
+	
+});
 
-CommonSelect.prototype = new Multimap();

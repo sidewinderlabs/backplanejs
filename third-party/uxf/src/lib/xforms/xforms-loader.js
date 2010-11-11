@@ -16,16 +16,16 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-var g_sBehaviourDirectory  = "";
- 
-(
-  function(){
-    var moduleBase = pathToModule("xforms-loader");
-    g_sBehaviourDirectory = moduleBase + "../../behaviours/";
-    
-  	window.status = "configuring module loader";  	
+var g_sBehaviourDirectory = "";
 
-  	  /*
+(
+function() {
+	var moduleBase = pathToModule("xforms-loader");
+	g_sBehaviourDirectory = moduleBase + "../../behaviours/";
+
+	window.status = "configuring module loader";
+
+	/*
 	   * ubiquity-backplane
 	   * 
 	   * The following exist because the YUILoader does not load files from nested loaders consistently
@@ -33,106 +33,106 @@ var g_sBehaviourDirectory  = "";
 	   * can be removed and ../lib/backplane-loader.js can be deleted.
 	   */
 
-		loader.addModule({
-							name: "ub-threads",
-		 					type: "js",
+	loader.addModule({
+		name: "ub-threads",
+		type: "js",
 		fullpath: moduleBase + "../backplane/core/threads.js"
 	});
 
 	loader.addModule({
 		name: "ub-array",
-						 type: "js",  
+		type: "js",
 		fullpath: moduleBase + "../backplane/core/array.js"
 	});
-	  
+
 	loader.addModule({
 		name: "ub-tokmap",
-						 type: "js",
-						 fullpath: moduleBase + "../backplane/core/tokmap.js",
+		type: "js",
+		fullpath: moduleBase + "../backplane/core/tokmap.js",
 		requires: ["ub-array"]
 	});
 
-		loader.addModule({
-			name: "ub-dom2",
-			type: "js",
-			fullpath: moduleBase + "../backplane/dom/dom2.js"
-		});
+	loader.addModule({
+		name: "ub-dom2",
+		type: "js",
+		fullpath: moduleBase + "../backplane/dom/dom2.js"
+	});
 
-		loader.addModule({
-			name: "ub-dom2events",
-			type: "js",
-			fullpath: moduleBase + "../backplane/dom/dom2events.js",
-		  requires: [ "yahoo" ]
-		});
+	loader.addModule({
+		name: "ub-dom2events",
+		type: "js",
+		fullpath: moduleBase + "../backplane/dom/dom2events.js",
+		requires: ["yahoo"]
+	});
 
-		loader.addModule({
-			name: "ub-event-target-proxy",
-			type: "js",
-			fullpath: moduleBase + "../backplane/dom/eventTargetProxy.js",
-			requires: [ "ub-dom2events" ]
-		});
+	loader.addModule({
+		name: "ub-event-target-proxy",
+		type: "js",
+		fullpath: moduleBase + "../backplane/dom/eventTargetProxy.js",
+		requires: ["ub-dom2events"]
+	});
 
-		loader.addModule({
-			name: "ub-listener",
-			type: "js",
-			fullpath: moduleBase + "../backplane/dom/listener.js"
-		});
+	loader.addModule({
+		name: "ub-listener",
+		type: "js",
+		fullpath: moduleBase + "../backplane/dom/listener.js"
+	});
 
 	loader.addModule({
 		name: "ub-uri",
-						 type: "js",
+		type: "js",
 		fullpath: moduleBase + "../backplane/uri/uri.js"
 	});
 
 	loader.addModule({
 		name: "ub-security",
-						 type: "js",
+		type: "js",
 		fullpath: moduleBase + "../backplane/security/security.js"
 	});
 
 	loader.addModule({
 		name: "ub-io-submission-json",
-						 type: "js",
-						 fullpath: moduleBase + "../backplane/io/submission-json.js",
+		type: "js",
+		fullpath: moduleBase + "../backplane/io/submission-json.js",
 		requires: ["ub-uri"]
 	});
-	  
+
 	loader.addModule({
 		name: "ub-file",
-						 type: "js",
-						 fullpath: moduleBase + "../backplane/io/file.js",
+		type: "js",
+		fullpath: moduleBase + "../backplane/io/file.js",
 		requires: ["ub-uri", "ub-security"]
 	});
-	  
+
 	/*loader.addModule({
 		name: "ub-io-file",
-						 type: "js",
-						 fullpath: moduleBase + "../backplane/io/file.js",
+		type: "js",
+		fullpath: moduleBase + "../backplane/io/file.js",
 		requires: ["ub-uri", "ub-security"]
 	});*/
-	  
+
 	loader.addModule({
 		name: "ub-dom3ls",
-						 type: "js",
-						 fullpath: moduleBase + "../backplane/dom/dom3ls.js",
+		type: "js",
+		fullpath: moduleBase + "../backplane/dom/dom3ls.js",
 		requires: ["ub-file"]
 	});
-	  
+
 	loader.addModule({
 		name: "ub-io-scheme-file",
-						 type: "js",
-						 fullpath: moduleBase + "../backplane/io/scheme-file.js",
+		type: "js",
+		fullpath: moduleBase + "../backplane/io/scheme-file.js",
 		requires: ["ub-file"]
 	});
 
 	/*loader.addModule({
 		name: "ubiquity-backplane",
-						 type: "js",
-						 fullpath: moduleBase + "../backplane/backplane-loader.js",
+		type: "js",
+		fullpath: moduleBase + "../backplane/backplane-loader.js",
 		requires: ["ub-threads", "ub-array", "ub-tokmap", "ub-dom2", "ub-dom2events", "ub-uri", "ub-io-submission-json", "ub-file", "ub-io-file", "ub-dom3ls", "ub-io-scheme-file"]
 	});*/
 
-	  /*
+	/*
 	   * End of ubiquity-backplane
 	   */
 
@@ -149,7 +149,7 @@ var g_sBehaviourDirectory  = "";
 		fullpath: moduleBase + "../_backplane/xlink.js",
 		requires: ["connection"]
 	});
-	  
+
 	loader.addModule({
 		name: "xforms-utils",
 		type: "js",
@@ -167,7 +167,7 @@ var g_sBehaviourDirectory  = "";
 		type: "js",
 		fullpath: moduleBase + "state.js"
 	});
-  	
+
 	loader.addModule({
 		name: "backplane-pds",
 		type: "js",
@@ -179,7 +179,7 @@ var g_sBehaviourDirectory  = "";
 		fullpath: moduleBase + "model.js",
 		requires: ["backplane-pds"]
 	});
-  	
+
 	loader.addModule({
 		name: "dirtystate",
 		type: "js",
@@ -231,37 +231,37 @@ var g_sBehaviourDirectory  = "";
 		fullpath: moduleBase + "conditional-invocation.js",
 		requires: ["xforms-processor"]
 	});
-  	
+
 	loader.addModule({
 		name: "libxh-namespace-manager",
 		type: "js",
 		fullpath: moduleBase + "../namespaceManager.js",
 		requires: ["dom"]
 	});
-  	
+
 	loader.addModule({
 		name: "libxh-decorator",
 		type: "js",
 		fullpath: moduleBase + "../decorate.js",
 		requires: ["libxh-namespace-manager"]
 	});
-  	
-  ///The XForms loading of external data js files
+
+	///The XForms loading of external data js files
 	loader.addModule({
 		name: "xforms-load-external-mixin",
 		type: "js",
 		fullpath: moduleBase + "LoadExternalMixin.js",
 		requires: ["xforms-dom", "ub-dom2events", "xforms-ajaxslt-improvements", "xforms-core-function-library", "libxh-xlink"]
 	});
-  	
+
 	loader.addModule({
 		name: "xforms-instance",
 		type: "js",
 		fullpath: moduleBase + "Instance.js",
 		requires: ["xforms-load-external-mixin"]
 	});
-  
-    // crypto
+
+	// crypto
 	loader.addModule({
 		name: "functions-hmac",
 		type: "js",
@@ -315,19 +315,19 @@ var g_sBehaviourDirectory  = "";
 
 	loader.addModule({
 		name: "xforms-instance",
-					   type: "js",
-					   fullpath: moduleBase + "Instance.js",
+		type: "js",
+		fullpath: moduleBase + "Instance.js",
 		requires: ["xforms-dom", "ub-dom2events", "xforms-ajaxslt-improvements", "xforms-core-function-library", "libxh-xlink"]
 	});
-  	
+
 	loader.addModule({
 		name: "xforms-type-validator",
 		type: "js",
 		fullpath: moduleBase + "validator.js",
 		requires: ["libxh-namespace-manager", "xforms-core-function-library"]
 	});
-  	
-  	//control values
+
+	//control values
 	loader.addModule({
 		name: "xforms-pe-value",
 		type: "js",
@@ -399,7 +399,7 @@ var g_sBehaviourDirectory  = "";
 		fullpath: moduleBase + "../extensions/hint-googleMap.js"
 	});
 
-  	//container elements
+	//container elements
 	loader.addModule({
 		name: "xforms-container",
 		type: "js",
@@ -417,14 +417,14 @@ var g_sBehaviourDirectory  = "";
 		fullpath: moduleBase + "Repeat.js",
 		requires: ["xforms-model", "xforms-group", "ub-dom2"]
 	});
-	  
+
 	loader.addModule({
 		name: "xforms-header",
 		type: "js",
 		fullpath: moduleBase + "Header.js",
 		requires: ["libxh-decorator", "ub-dom2"]
 	});
-  	
+
 	loader.addModule({
 		name: "backplane-case",
 		type: "js",
@@ -442,7 +442,7 @@ var g_sBehaviourDirectory  = "";
 		fullpath: moduleBase + "Switch.js",
 		requires: ["xforms-case", "xforms-mip-eventtarget"]
 	});
-  	
+
 	loader.addModule({
 		name: "xforms-optional-binding",
 		type: "js",
@@ -455,7 +455,7 @@ var g_sBehaviourDirectory  = "";
 		fullpath: moduleBase + "SrcMixin.js",
 		requires: ["xforms-load-external-mixin", "xforms-dom", "ub-dom2events", "xforms-ajaxslt-improvements", "xforms-core-function-library", "libxh-xlink"]
 	});
-  	
+
 	loader.addModule({
 		name: "xforms-control",
 		type: "js",
@@ -480,8 +480,8 @@ var g_sBehaviourDirectory  = "";
 		fullpath: moduleBase + "context.js",
 		requires: ["libxh-namespace-manager", "ub-dom2"]
 	});
-  
-  	//actions
+
+	//actions
 	loader.addModule({
 		name: "xforms-actions",
 		type: "js",
@@ -531,7 +531,7 @@ var g_sBehaviourDirectory  = "";
 		fullpath: moduleBase + "delete.js",
 		requires: ["xforms-instance", "xforms-actions"]
 	});
-            
+
 	loader.addModule({
 		name: "xforms-toggle",
 		type: "js",
@@ -544,7 +544,7 @@ var g_sBehaviourDirectory  = "";
 		type: "js",
 		fullpath: moduleBase + "../_backplane/multimap.js"
 	});
-  	
+
 	loader.addModule({
 		name: "backplane-select",
 		type: "js",
@@ -557,7 +557,7 @@ var g_sBehaviourDirectory  = "";
 		type: "js",
 		fullpath: moduleBase + "finite-control.js"
 	});
-    
+
 	loader.addModule({
 		name: "xforms-common-select",
 		type: "js",
@@ -588,14 +588,14 @@ var g_sBehaviourDirectory  = "";
 		fullpath: moduleBase + "copy.js",
 		requires: ["ub-dom2events"]
 	});
-  	      
+
 	loader.addModule({
 		name: "xforms-submit",
 		type: "js",
 		fullpath: moduleBase + "submit.js"
 	});
 
-    // --- CUSTOM CONTROLS ---
+	// --- CUSTOM CONTROLS ---
 	//     -- YUI --
 	loader.addModule({
 		name: "xforms-submission-core-yui",
@@ -611,7 +611,7 @@ var g_sBehaviourDirectory  = "";
 		requires: ["menu"]
 	});
 
-    // ColorPicker widget
+	// ColorPicker widget
 	loader.addModule({
 		name: "yui-input-color",
 		type: "js",
@@ -635,7 +635,7 @@ var g_sBehaviourDirectory  = "";
 		fullpath: "http://yui.yahooapis.com/2.8.0/build/colorpicker/assets/skins/sam/colorpicker.css"
 	});
 
-    // Calendar widget
+	// Calendar widget
 	loader.addModule({
 		name: "yui-input-calendar",
 		type: "js",
@@ -678,7 +678,7 @@ var g_sBehaviourDirectory  = "";
 		fullpath: "http://yui.yahooapis.com/2.8.0/build/button/assets/skins/sam/button.css"
 	});
 
-    // Messaging work
+	// Messaging work
 	loader.addModule({
 		name: "yui-style-css",
 		type: "css",
@@ -756,7 +756,7 @@ var g_sBehaviourDirectory  = "";
 		requires: ["xforms-help-css", "xforms-notify"]
 	});
 
-    // XF4H Processor
+	// XF4H Processor
 	loader.addModule({
 		name: "xf4h",
 		type: "js",
@@ -768,15 +768,15 @@ var g_sBehaviourDirectory  = "";
 		type: "js",
 		fullpath: moduleBase + "xforms-defs.js",
 		requires: ["ux-default-css", "libxh-decorator", "ub-listener", "ub-event-target-proxy", "xforms-conditional-invocation", "xforms-type-validator", "xforms-model", "xforms-load-external-mixin", "xforms-submission", "xforms-action", "xforms-context", "xforms-control", "xforms-navigable-control", "xforms-optional-binding", "xforms-pe-value", "xforms-input-value-boolean", "xforms-input-value", "xforms-output-value", "xforms-range-value", "xforms-container", "xforms-group", "xforms-repeat", "xforms-switch", "xforms-instance", "xforms-select", "xforms-select1", "xforms-item", "xforms-copy", "xforms-src-mixin", "xforms-submit", "xforms-trigger-minimal", "xforms-actions", "xforms-model-actions", "xforms-setindex", "xforms-setvalue", "xforms-setfocus", "xforms-insert", "xforms-delete", "xforms-toggle", "xforms-hint", "xforms-help", "xforms-header", "yui-input-calendar", "yui-input-color", "xf4h", "xforms-submission-core-yui", "functions-hmac", "functions-format-number"]
-    });
-    loader.require( "xforms-defs" );
+	});
+	loader.require("xforms-defs");
 
-    loader.addModule({
-      name: "second-onload",
-      type: "js",  
-      fullpath: moduleBase + "../second-onload.js", 
-      requires:[ "xforms-utils" ]
-    });
+	loader.addModule({
+		name: "second-onload",
+		type: "js",
+		fullpath: moduleBase + "../second-onload.js",
+		requires: ["xforms-utils"]
+	});
 
-    loader.require( "second-onload" );
+	loader.require("second-onload");
 } ());

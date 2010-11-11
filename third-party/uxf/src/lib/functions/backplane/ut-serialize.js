@@ -27,7 +27,7 @@
 		function evalXPath(expr) {
 		  return xpathParse(expr).evaluate(
 				new ExprContext(
-				  xmlParse("<a><b c=\"1\" /></a>")
+					new DOMParser().parseFromString("<a><b c=\"1\" /></a>", "text/xml")
 				)
 			);
 		};

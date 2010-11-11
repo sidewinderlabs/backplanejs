@@ -15,31 +15,31 @@
  */
 
 function isFirefox3() {
-  return (navigator.oscpu && document.getElementsByClassName);
+	return (navigator.oscpu && document.getElementsByClassName);
 }
 /**
-	Inserts an element as the last child of body, and sets up the CSS to bind this to onload.xml
-		Calling this as a final step in the script loading process ensures that all existing elements
-		have been bound to an appropriate XBL, and have performed their decorations, prior to
-		calling any initialisation code that would otherwise have been called by onload.
-*/
+ Inserts an element as the last child of body, and sets up the CSS to bind this to onload.xml
+ Calling this as a final step in the script loading process ensures that all existing elements
+ have been bound to an appropriate XBL, and have performed their decorations, prior to
+ calling any initialisation code that would otherwise have been called by onload.
+ */
 function FFInsertElementForOnloadXBL() {
 	var oBody = document.getElementsByTagName("body")[0],
 		cssNode, oHead, oStyle;
-  oBody.insertAdjacentHTML("beforeEnd","<p id='second-onload-loading-element' style='width:0px;display:inline-block;'>Loading...</p>");
 
-  if(!(isFirefox3() || UX.isIE6 || UX.isIE7 || UX.isQuirksMode)) {
-      oHead = document.getElementsByTagName("head")[0];
-      oStyle = document.createElement('style');
+	if (!isFirefox3()) {
+		oHead = document.getElementsByTagName("head")[0];
+		oStyle = document.createElement('style');
 
-      oStyle.setAttribute("type", "text/css");
-      if (UX.isIE) {
-        oStyle.styleSheet.cssText = "p#second-onload-loading-element { behavior: url(" + g_sBehaviourDirectory + "onload.htc); }";
-      } else {
-        oStyle.innerHTML = "p#second-onload-loading-element { -moz-binding: url(" + g_sBehaviourDirectory + "onload.xml#loader); }";
-      }
-      oHead.insertBefore(oStyle, null);
-   }
+		oStyle.setAttribute("type", "text/css");
+		if (UX.isIE) {
+			oStyle.styleSheet.cssText = "p#second-onload-loading-element { behavior: url(" + g_sBehaviourDirectory + "onload.htc); }";
+		} else {
+			oStyle.innerHTML = "p#second-onload-loading-element { -moz-binding: url(" + g_sBehaviourDirectory + "onload.xml#loader); }";
+		}
+		oHead.insertBefore(oStyle, null);
+	}
+	oBody.insertAdjacentHTML("beforeEnd", "<p id='second-onload-loading-element' style='width:0px;display:inline-block;'>Loading...</p>");
 
 }
 

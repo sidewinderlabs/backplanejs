@@ -14,28 +14,39 @@
  * limitations under the License.
  */
 
-function Delete(elmnt) {
-	this.element = elmnt;
-}
+var Delete = new UX.Class({
+	
+	Mixins: [Listener, Context],
+	
+	toString: function() {
+		return 'xf:delete';
+	},
+	
+	initialize: function(element) {
+		this.element = element;
+	},
 
-Delete.prototype.handleEvent = DeferToConditionalInvocationProcessor;
+	handleEvent: DeferToConditionalInvocationProcessor,
 
-Delete.prototype.performAction = function(evt) {
-	var oContext  = this.getEvaluationContext(),
-		bindid = this.element.getAttribute("bind"),
-		atExpr = this.element.getAttribute("at"),
-		oInstance = oContext.model.instances()[0],
-		nodeset, nodesetExpr, bindObject;
+	performAction: function(event) {
+		var context = this.getEvaluationContext();
+		var bindid = this.element.getAttribute("bind");
+		var atExpr = this.element.getAttribute("at");
+		var instance = context.model.instances()[0];
+		var nodeset;
 
-	if (bindid) {
-		bindObject = FormsProcessor.getBindObject(bindid, this.element);
-		nodeset = bindObject.boundNodeSet;
-	} else {
-		nodesetExpr = this.element.getAttribute("nodeset");
-		nodeset = (nodesetExpr) ? oInstance.evalXPath(nodesetExpr, oContext).nodeSetValue() : null;
+		if (bindid) {
+			var bindObject = FormsProcessor.getBindObject(bindid, this.element);
+			nodeset = bindObject.boundNodeSet;
+		} else {
+			var nodesetExpr = this.element.getAttribute("nodeset");
+			nodeset = (nodesetExpr) ? instance.evalXPath(nodesetExpr, context).nodeSetValue() : null;
+		}
+
+		if (instance.deleteFromNodeset(context, nodeset, atExpr)) {
+			context.model.flagRebuild();
+		}
 	}
+	
+});
 
-	if (oInstance.deleteFromNodeset(oContext, nodeset, atExpr)) {
-		oContext.model.flagRebuild();
-	}
-};

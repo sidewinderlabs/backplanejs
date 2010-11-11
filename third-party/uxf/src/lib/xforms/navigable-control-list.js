@@ -1,5 +1,5 @@
 /*
- * Copyright © 2009 Backplane Ltd.
+ * Copyright  2009 Backplane Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,33 +19,33 @@ function NavigableControlList() {
 	this.keyedMap = [];
 }
 
-NavigableControlList.prototype.addControl = function (control) {
+NavigableControlList.prototype.addControl = function(control) {
 	if (this.isNavigableControl(control)) {
 		this.addControlToOrderedList(control);
 		this.addControlToKeyedMap(control);
 	}
 };
 
-NavigableControlList.prototype.addControlToOrderedList = function (control) {
+NavigableControlList.prototype.addControlToOrderedList = function(control) {
 	this.prepareListItem(control);
 	this.orderedList[control.navIndex].push(control);
 };
 
-NavigableControlList.prototype.addControlToKeyedMap = function (control) {
+NavigableControlList.prototype.addControlToKeyedMap = function(control) {
 	if (typeof control.accessKey === 'string' && control.accessKey !== '') {
-		this.keyedMap[control.accessKey.toUpperCase()] = control;
+		this.keyedMap[control.accessKey.toLowerCase()] = control;
 	}
 };
 
-NavigableControlList.prototype.getFirstControl = function () {
+NavigableControlList.prototype.getFirstControl = function() {
 	return this.getFirstControlAtIndex(1) || this.getFirstControlAfterIndex(1);
 };
 
-NavigableControlList.prototype.getLastControl = function () {
+NavigableControlList.prototype.getLastControl = function() {
 	return this.getLastControlAtIndex(0) || this.getLastControlBeforeIndex(this.orderedList.length);
 };
 
-NavigableControlList.prototype.getNextControl = function (control) {
+NavigableControlList.prototype.getNextControl = function(control) {
 	if (this.isNavigableControl(control) && this.hasListItem(control.navIndex)) {
 		return this.getNextControlAtSameIndex(control) || this.getFirstControlAfterIndex(control.navIndex);
 	}
@@ -53,7 +53,7 @@ NavigableControlList.prototype.getNextControl = function (control) {
 	return null;
 };
 
-NavigableControlList.prototype.getPreviousControl = function (control) {
+NavigableControlList.prototype.getPreviousControl = function(control) {
 	if (this.isNavigableControl(control) && this.hasListItem(control.navIndex)) {
 		return this.getPreviousControlAtSameIndex(control) || this.getLastControlBeforeIndex(control.navIndex);
 	}
@@ -61,25 +61,25 @@ NavigableControlList.prototype.getPreviousControl = function (control) {
 	return null;
 };
 
-NavigableControlList.prototype.getControlByAccessKey = function (accessKey) {
-	return this.keyedMap[String.fromCharCode(accessKey)] || null;
+NavigableControlList.prototype.getControlByAccessKey = function(key) {
+	return this.keyedMap[key] || null;
 };
 
-NavigableControlList.prototype.isNavigableControl = function (control) {
+NavigableControlList.prototype.isNavigableControl = function(control) {
 	return typeof control === 'object' && control && control.isNavigableControl && typeof control.navIndex === 'number';
 };
 
-NavigableControlList.prototype.prepareListItem = function (control) {
+NavigableControlList.prototype.prepareListItem = function(control) {
 	if (!this.hasListItem(control.navIndex)) {
 		this.orderedList[control.navIndex] = [];
 	}
 };
 
-NavigableControlList.prototype.hasListItem = function (index) {
+NavigableControlList.prototype.hasListItem = function(index) {
 	return this.orderedList[index] ? true : false;
 };
 
-NavigableControlList.prototype.getNextControlAtSameIndex = function (control) {
+NavigableControlList.prototype.getNextControlAtSameIndex = function(control) {
 	var foundControl = false,
 		nextControl;
 	for (var i = 0; i < this.orderedList[control.navIndex].length; ++i) {
@@ -96,7 +96,7 @@ NavigableControlList.prototype.getNextControlAtSameIndex = function (control) {
 	return null;
 };
 
-NavigableControlList.prototype.getPreviousControlAtSameIndex = function (control) {
+NavigableControlList.prototype.getPreviousControlAtSameIndex = function(control) {
 	var foundControl = false,
 		previousControl;
 	for (var i = this.orderedList[control.navIndex].length; i >= 0; --i) {
@@ -113,7 +113,7 @@ NavigableControlList.prototype.getPreviousControlAtSameIndex = function (control
 	return null;
 };
 
-NavigableControlList.prototype.getFirstControlAfterIndex = function (index) {
+NavigableControlList.prototype.getFirstControlAfterIndex = function(index) {
 	var i, control;
 
 	for (i = this.incrementIndex(index); i < this.orderedList.length; i = this.incrementIndex(i)) {
@@ -133,7 +133,7 @@ NavigableControlList.prototype.getFirstControlAfterIndex = function (index) {
 	return null;
 };
 
-NavigableControlList.prototype.getLastControlBeforeIndex = function (index) {
+NavigableControlList.prototype.getLastControlBeforeIndex = function(index) {
 	var i, control;
 
 	for (i = this.decrementIndex(index); i >= 0; i = this.decrementIndex(i)) {
@@ -153,19 +153,19 @@ NavigableControlList.prototype.getLastControlBeforeIndex = function (index) {
 	return null;
 };
 
-NavigableControlList.prototype.incrementIndex = function (index) {
+NavigableControlList.prototype.incrementIndex = function(index) {
 	// As per section 4.3.6 of XForms 1.1, controls with an index of zero come
 	// after controls with an index greater than zero in the navigation order.
 	return index === 0 ? this.orderedList.length : (index >= this.orderedList.length - 1 ? 0 : index + 1);
 };
 
-NavigableControlList.prototype.decrementIndex = function (index) {
+NavigableControlList.prototype.decrementIndex = function(index) {
 	// As per section 4.3.6 of XForms 1.1, controls with an index of zero come
 	// after controls with an index greater than zero in the navigation order.
 	return index === 0 ? this.orderedList.length - 1 : (index === 1 ? -1 : index - 1);
 };
 
-NavigableControlList.prototype.getFirstControlAtIndex = function (index) {
+NavigableControlList.prototype.getFirstControlAtIndex = function(index) {
 	var i;
 	if (this.hasListItem(index)) {
 		for (i = 0; i < this.orderedList[index].length; ++i) {
@@ -178,7 +178,7 @@ NavigableControlList.prototype.getFirstControlAtIndex = function (index) {
 	return null;
 };
 
-NavigableControlList.prototype.getLastControlAtIndex = function (index) {
+NavigableControlList.prototype.getLastControlAtIndex = function(index) {
 	var i;
 	if (this.hasListItem(index)) {
 		for (i = this.orderedList[index].length - 1; i >= 0; --i) {
