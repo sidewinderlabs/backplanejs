@@ -8,7 +8,7 @@ site
 target
 
 my.ant.properties
-
+.hgpatchinfo
 build/output
 deploy
 work
