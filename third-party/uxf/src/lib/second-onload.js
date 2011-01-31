@@ -39,7 +39,7 @@ function FFInsertElementForOnloadXBL() {
 		}
 		oHead.insertBefore(oStyle, null);
 	}
-	oBody.insertAdjacentHTML("beforeEnd", "<p id='second-onload-loading-element' style='width:0px;display:inline-block;'>Loading...</p>");
+	if(!(UX.isIE && !UX.hasDecorationSupport)) oBody.insertAdjacentHTML("beforeEnd", "<p id='second-onload-loading-element' style='width:0px;display:inline-block;'>Loading...</p>");
 
 }
 

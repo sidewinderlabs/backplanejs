@@ -105,7 +105,7 @@ var Instance = new UX.Class({
 		} else {
 			sXML = this.element.innerHTML.replace(/<input>((?:.|\n)*?)(?:\s*<|$)/g, function(full, match) {
 					return '<input>' + match + '</input><';
-			});
+			}).replace(/<\/?([^ >]*)/g, function(full, match){return full.toLowerCase()});//ie sometimes returns uppercased tag names in innerHTML
 		}
 
 		if (sXML !== "") {

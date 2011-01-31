@@ -153,6 +153,7 @@ var DECORATOR = {
 	},
 
 	_setupDecorator: UX.isIE ? function(defs) {//ie
+		if(!UX.hasDecorationSupport) return;
 		/**
 		 Adds rules to the document's stylesheet cascade that cause the decoration of elements in IE.
 		 @param {Array} defs decorator definitions
@@ -261,6 +262,7 @@ var DECORATOR = {
 
 		var behaviour = this._getBehaviour(element);
 		if(!behaviour) return false;
+		UX.extend(element, new EventTarget(element));
 		this.addBehaviour(element, new behaviour(element));
 
 		if (this.suspended) {

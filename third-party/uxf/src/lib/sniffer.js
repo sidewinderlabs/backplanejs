@@ -38,7 +38,7 @@
 
 	UX.isXHTML = !!(document.xmlVersion || (document.contentType && document.contentType === "application/xhtml+xml"));
 
-	UX.hasDecorationSupport = UX.isIE;
+	UX.hasDecorationSupport = UX.isIE && (document.location.protocol != 'file:');
 
 	UX.isQuirksMode = document.compatMode === "BackCompat";
 })();

@@ -118,6 +118,7 @@ var Control = new UX.Class({
 		}
 		if(UX.isIE) {
 			UX.extend(this.m_value, new EventTarget(this.m_value));
+			DECORATOR.attachDecoration(this.m_value, true, true);
 		}
 		this.addInputEventFilter();
 	},
