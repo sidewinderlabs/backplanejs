@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2010, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.com/yui/license.html
+version: 2.8.2r1
+*/
 /****************************************************************************/
 /****************************************************************************/
 /****************************************************************************/
@@ -862,7 +868,7 @@ LogReader.prototype = {
      * @type Number
      * @default 500
      */
-    thresholdMax : 5000,
+    thresholdMax : 500,
 
     /**
      * When a LogReader console reaches its thresholdMax, it will clear out messages
@@ -2095,4 +2101,4 @@ LogReader.prototype = {
 YAHOO.widget.LogReader = LogReader;
 
 })();
-YAHOO.register("logger", YAHOO.widget.Logger, {version: "@VERSION@", build: "@BUILD@"});
+YAHOO.register("logger", YAHOO.widget.Logger, {version: "2.8.2r1", build: "7"});

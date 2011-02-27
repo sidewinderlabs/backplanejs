@@ -14,7 +14,7 @@
 //
 //= require <yui/yuiloader-dom-event>
 //= require <yui/animation>
-//= require <yui/container_core>
+//= require <yui/container>
 //= require <yui/connection>
 //= require <yui/treeview>
 //
