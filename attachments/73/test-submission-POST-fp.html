@@ -1,0 +1,44 @@
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:fp="urn:formsplayer.com">
+	<head>
+		<title></title>
+		
+		<object id="formsPlayer" classid="CLSID:4D0ABA11-C5F0-4478-991A-375C4B648F58" width="0" height="0">
+			<strong>formsPlayer has failed to load!</strong>
+		</object>
+		<?import namespace="xf" implementation="#formsPlayer"?>
+		
+		<style type="text/css">
+			xf\:output
+			{
+				display: block;
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<xf:model id="mdl-default">
+			<xf:instance id="inst-default">
+				<data xmlns="">Submission data.</data>
+			</xf:instance>
+			
+			<xf:submission 
+				id="post-data"
+				method="post"
+				resource="echo.aspx"
+				replace="all"
+				instance="inst-default"
+				ref="/data"
+				></xf:submission>
+		</xf:model>
+		
+		<xf:output ref="/data">
+			<xf:label>Submission data: </xf:label>
+		</xf:output>
+		
+		<xf:trigger>
+			<xf:label>Submit</xf:label>
+			<xf:send ev:event="DOMActivate" submission="post-data"></xf:send>
+		</xf:trigger>
+	</body>
+</html>

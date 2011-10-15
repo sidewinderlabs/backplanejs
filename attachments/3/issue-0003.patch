@@ -1,0 +1,133 @@
+# HG changeset patch
+# User philbooth
+# Date 1258039304 0
+# Branch issue-0003
+# Node ID a6391ebdefa8c3fc44b66f9c257b8b26c8dcaa80
+# Parent  2f29937b2ef2b3c94857be765948e1279a60b154
+Fixed issue 3 (XForms not loading in IE8 standards mode).
+
+diff -r 2f29937b2ef2 -r a6391ebdefa8 xforms/src/behaviours/applicator.htc
+--- a/xforms/src/behaviours/applicator.htc	Sun Nov 08 16:09:41 2009 +0000
++++ /dev/null	Thu Jan 01 00:00:00 1970 +0000
+@@ -1,7 +0,0 @@
+-<PUBLIC:COMPONENT lightWeight="true">
+-	<PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="callHandlers(element,element.onContentReady);" FOR="element" />
+-	<PUBLIC:ATTACH EVENT="ondocumentready" ONEVENT="callHandlers(element,element.onDocumentReady);" FOR="element" />
+-	<SCRIPT>
+-		DecorateBehaviour(element,false,false);
+-	</SCRIPT>
+-</PUBLIC:COMPONENT>
+\ No newline at end of file
+diff -r 2f29937b2ef2 -r a6391ebdefa8 xforms/src/behaviours/decorate.htc
+--- /dev/null	Thu Jan 01 00:00:00 1970 +0000
++++ b/xforms/src/behaviours/decorate.htc	Thu Nov 12 15:21:44 2009 +0000
+@@ -0,0 +1,10 @@
++ <PUBLIC:COMPONENT LIGHTWEIGHT="true">
++ 	<SCRIPT>
++		var self = this;
++		spawn(function () {
++			// NOTE: Unless this call is spawned, only the
++			//       first XForms element will be decorated.
++			DECORATOR.decorate(self.element);
++		});
++ 	</SCRIPT>
++ </PUBLIC:COMPONENT>
+diff -r 2f29937b2ef2 -r a6391ebdefa8 xforms/src/behaviours/onload.htc
+--- /dev/null	Thu Jan 01 00:00:00 1970 +0000
++++ b/xforms/src/behaviours/onload.htc	Thu Nov 12 15:21:44 2009 +0000
+@@ -0,0 +1,6 @@
++ <PUBLIC:COMPONENT LIGHTWEIGHT="true">
++ 	<SCRIPT>
++ 		this.element.parentNode.removeChild(this.element);
++ 		spawn(DECORATOR.callDocumentReadyHandlers);
++ 	</SCRIPT>
++</PUBLIC:COMPONENT>
+diff -r 2f29937b2ef2 -r a6391ebdefa8 xforms/src/lib/decorate.js
+--- a/xforms/src/lib/decorate.js	Sun Nov 08 16:09:41 2009 +0000
++++ b/xforms/src/lib/decorate.js	Thu Nov 12 15:21:44 2009 +0000
+@@ -239,11 +239,11 @@
+ 		bDocumentAlreadyLoaded = g_bDocumentLoaded;
+ 		g_bDocumentLoaded = false;
+ 		oStyleSheet = document.createStyleSheet("", 0);
+-		//non-htc method
+-		sBehaviourRule = "\n behavior: expression(DECORATOR.decorate(this)); ";
+-		//htc method
+-		//var sBehaviourRule = ";\n behavior: url("+g_sBehaviourDirectory+"applicator.htc);";
+-		
++
++		// IE 8+ doesn't support CSS expressions, so we must defer to an HTC.
++		sBehaviourRule = "\nbehavior: " + (UX.isIE6 || UX.isIE7 ?
++		                                  "expression(DECORATOR.decorate(this));" :
++		                                  "url(" + g_sBehaviourDirectory + "decorate.htc);");
+ 
+ 		for (i = 0;defs.length > i;++i) {
+ 			sRule = "";
+@@ -251,10 +251,9 @@
+ 				sRule += generateMozBindingStyle(defs[i].objects) + sBehaviourRule;
+ 			}
+ 			sRule += (defs[i].cssText || "");
+-			
+-			//strip out child selectors, (replacing with the inferior descendent selectors)
+-			//	These do not work in IE and even sometimes cause IE to close without warning
+-			defs[i].selector = defs[i].selector.replace(/>/g, '');
++			//strip out child selectors, (replacing with the inferior descendent selectors)
++			//	These do not work in IE and even sometimes cause IE to close without warning
++			defs[i].selector = defs[i].selector.replace(/>/g, '');
+ 			alternateSelectors = defs[i].selector.split(",");
+ 			//IE doesn't like multiple selectors to be inserted at once.
+ 			//	Split them on "," and do it one-at-a time
+diff -r 2f29937b2ef2 -r a6391ebdefa8 xforms/src/lib/second-onload.js
+--- a/xforms/src/lib/second-onload.js	Sun Nov 08 16:09:41 2009 +0000
++++ b/xforms/src/lib/second-onload.js	Thu Nov 12 15:21:44 2009 +0000
+@@ -25,11 +25,11 @@
+ 		calling any initialisation code that would otherwise have been called by onload.
+ */
+ function FFInsertElementForOnloadXBL() {
+-  var oBody = document.getElementsByTagName("body")[0];
++  var oBody = document.getElementsByTagName("body")[0], cssNode, oHead, s;
+   oBody.insertAdjacentHTML("beforeEnd","<p id='second-onload-loading-element' style='width:0px;display:inline-block;'>Loading...</p>");
+ 
+-  if(isFirefox3() || UX.isIE) {
+-    var cssNode = document.createElement('link');
++  if(isFirefox3() || UX.isIE6 || UX.isIE7 || UX.isQuirksMode) {
++    cssNode = document.createElement('link');
+     cssNode.type = 'text/css';
+     cssNode.rel = 'stylesheet';
+     cssNode.href = g_sBehaviourDirectory +"onload.css";
+@@ -39,12 +39,16 @@
+    }
+    else
+    {
+-      var oHead = document.getElementsByTagName("head")[0];
+-      var oStyle = document.createElement('style');
+-      var s = "";
++      oHead = document.getElementsByTagName("head")[0];
++      oStyle = document.createElement('style');
++      s = "";
+   
+       oStyle.setAttribute("type", "text/css");
+-      oStyle.innerHTML = "p#second-onload-loading-element{-moz-binding: url(\""+g_sBehaviourDirectory+"onload.xml#loader\");}";
++      if (UX.isIE) {
++        oStyle.styleSheet.cssText = "p#second-onload-loading-element { behavior: url(" + g_sBehaviourDirectory + "onload.htc); }";
++      } else {
++        oStyle.innerHTML = "p#second-onload-loading-element { -moz-binding: url(" + g_sBehaviourDirectory + "onload.xml#loader); }";
++      }
+       oHead.insertBefore(oStyle, null);
+    }
+ 
+@@ -53,15 +57,3 @@
+ 
+ InsertElementForOnloadXBL = (UX.isFF  || UX.isIE) ?
+   FFInsertElementForOnloadXBL :  function(){};
+-
+-//Run immediately if document already loaded, or on the load event, if not. 
+-if(document.body) {
+-  spawn(InsertElementForOnloadXBL);
+-}
+-else if(window.addEventListener){
+- window.addEventListener("load", function(e){spawn(InsertElementForOnloadXBL);}, false);
+-}
+-else if(window.attachEvent){
+- window.attachEvent("onload", function(e){spawn(InsertElementForOnloadXBL);});
+-
+-}

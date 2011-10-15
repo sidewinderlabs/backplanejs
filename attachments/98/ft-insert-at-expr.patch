@@ -1,0 +1,166 @@
+# HG changeset patch
+# User Frankie Dintino <fdintino@gmail.com>
+# Date 1281919881 14400
+
+diff --git a/build/xforms/functional-tests/driver-ft-insert-at-expr.html b/build/xforms/functional-tests/driver-ft-insert-at-expr.html
+new file mode 100644
+--- /dev/null
++++ b/build/xforms/functional-tests/driver-ft-insert-at-expr.html
+@@ -0,0 +1,84 @@
++<html>
++	<head>
++		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
++			<title>Functional test for insert with @at xpath expression last()</title>
++		</head>
++		<body>
++			<table cellpadding="1" cellspacing="1" border="1">
++				<tbody>
++					<tr>
++						<td>open</td>
++						<td>ft-insert-at-expr.html</td>
++						<td></td>
++						<td>Opens the form</td>
++					</tr>
++					<tr>
++						<td>waitForModelReady</td>
++						<td></td>
++						<td></td>
++						<td>Wait for the XForms processor to initialise.</td>
++					</tr>
++					<tr>
++						<td>assertTitle</td>
++						<td>Test insert with @at xpath expression</td>
++						<td></td>
++						<td>Makes sure this is the right form</td>
++					</tr>
++					<tr>
++						<td>verifyElementPresent</td>
++						<td>insert-number</td>
++						<td></td>
++						<td>Checks that insert is in the form</td>
++					</tr>
++					<tr>
++						<td>verifyElementPresent</td>
++						<td>output-pos-1</td>
++						<td></td>
++						<td>Checks that output is in the form</td>
++					</tr>
++					<tr>
++						<td>verifyElementPresent</td>
++						<td>output-pos-2</td>
++						<td></td>
++						<td>Checks that output is in the form</td>
++					</tr>
++					<tr>
++						<td>verifyElementPresent</td>
++						<td>output-pos-3</td>
++						<td></td>
++						<td>Checks that output is in the form</td>
++					</tr>
++					<tr>
++						<td>verifyElementPresent</td>
++						<td>output-pos-4</td>
++						<td></td>
++						<td>Checks that output is in the form</td>
++					</tr>
++					<tr>
++						<td>assertXFormsControlValue</td>
++						<td>output-pos-1</td>
++						<td>1</td>
++						<td>Checks that output has the right value</td>
++					</tr>
++					<tr>
++						<td>assertXFormsControlValue</td>
++						<td>output-pos-2</td>
++						<td>2</td>
++						<td>Checks that output has the right value</td>
++					</tr>
++					<tr>
++						<td>assertXFormsControlValue</td>
++						<td>output-pos-3</td>
++						<td>3</td>
++						<td>Checks that output has the right value</td>
++					</tr>
++					<tr>
++						<td>assertXFormsControlValue</td>
++						<td>output-pos-4</td>
++						<td>4</td>
++						<td>Checks that output has the right value</td>
++					</tr>
++				</tbody>
++			</table>
++		</body>
++	</html>
+diff --git a/build/xforms/functional-tests/ft-insert-at-expr.html b/build/xforms/functional-tests/ft-insert-at-expr.html
+new file mode 100644
+--- /dev/null
++++ b/build/xforms/functional-tests/ft-insert-at-expr.html
+@@ -0,0 +1,51 @@
++<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
++<html 
++	xmlns="http://www.w3.org/1999/xhtml"
++	xmlns:ev="http://www.w3.org/2001/xml-events" 
++	xmlns:xf="http://www.w3.org/2002/xforms"
++	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
++	>
++	<head>
++		<title>Test insert with @at xpath expression</title>
++
++		<script src="/backplanejs/backplane.js" type="text/javascript">/**/</script>
++		<link rel="stylesheet" href="/backplanejs/assets/backplane.css"></link>
++	</head>
++	<body>
++		<xf:model>
++			<xf:instance xmlns="">
++				<number_lists>
++					<number_list id="first_list">
++						<number>1</number>
++						<number>2</number>
++						<number>4</number>
++					</number_list>
++					<to_insert>
++						<number>3</number>
++					</to_insert>
++				</number_lists>
++				</xf:instance>
++				<xf:insert ev:event="xforms-ready" nodeset="number_list/number" at="last()" position="before" origin="to_insert/number" id="insert-number"></xf:insert>
++			</xf:model>
++			<xf:group>
++					<xf:label class="title">insert with @at xpath expression (last())</xf:label>
++			</xf:group>
++			<xf:group>
++					<xf:label>
++						The output values must be 1 through 4 in order. 
++					</xf:label>
++			</xf:group>
++			<xf:output value="number_list/number[position()=1]" id="output-pos-1">
++					<xf:label>Number in position 1 : </xf:label>
++			</xf:output>
++			<xf:output value="number_list/number[position()=2]" id="output-pos-2">
++					<xf:label>Number in position 2 : </xf:label>
++			</xf:output>
++			<xf:output value="number_list/number[position()=3]" id="output-pos-3">
++					<xf:label>Number in position 3 : </xf:label>
++			</xf:output>
++			<xf:output value="number_list/number[position()=4]" id="output-pos-4">
++					<xf:label>Number in position 4 : </xf:label>
++			</xf:output>
++		</body>
++</html>
+\ No newline at end of file
+diff --git a/build/xforms/functional-tests/functional-test-suite.html b/build/xforms/functional-tests/functional-test-suite.html
+--- a/build/xforms/functional-tests/functional-test-suite.html
++++ b/build/xforms/functional-tests/functional-test-suite.html
+@@ -78,6 +78,11 @@
+ 							<a href="driver-ft-instance-resource.html">Test model loading for instance with @resource</a>
+ 						</td>
+ 					</tr>
++					<tr>
++						<td>
++							<a href="driver-ft-insert-at-expr.html">Test for insert with @at xpath expression last()</a>
++						</td>
++					</tr>
+ 				</tbody>
+ 			</table>
+ 
+

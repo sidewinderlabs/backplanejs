@@ -1,0 +1,76 @@
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ev="http://www.w3.org/2001/xml-events" 
+	xmlns:xf="http://www.w3.org/2002/xforms"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	>
+	<head>
+		<title></title>
+		
+		<script src="/backplanejs/backplane.js" type="text/javascript">/**/</script>
+		<link rel="stylesheet" href="/backplanejs/assets/backplane.css"></link>
+		
+		<style type="text/css">
+			xf\:output,
+			xf\:input,
+			xf:\trigger
+			{
+				display: block;
+				margin-bottom: 10px;
+			}
+			
+			.disabled
+			{
+				display: none;
+			}	
+			
+			.eg-data
+			{
+				width: 250px;
+				height: 250px;
+				border: 1px solid #000;
+				background-color: lightyellow;
+				padding-top: 50px;
+			}
+		</style>
+	</head>
+	<body>    	
+		<xf:model id="mdl-default">
+			<xf:instance id="inst-default">
+				<data xmlns="">
+					<view-group>false</view-group>
+					<container-group></container-group>
+				</data>
+			</xf:instance>
+			<xf:bind nodeset="/data/container-group" relevant="../view-group = 'true'"></xf:bind>
+		</xf:model>
+		
+		<p>
+			Make (initially hidden) xf:group:
+		</p>
+		<xf:trigger>
+			<xf:label>Relevant</xf:label>
+			<xf:action ev:event="DOMActivate">
+				<xf:setvalue ref="instance('inst-default')/view-group" value="'true'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+		
+		<xf:trigger>
+			<xf:label>Irrelevant</xf:label>
+			<xf:action ev:event="DOMActivate">
+				<xf:setvalue ref="instance('inst-default')/view-group" value="'false'"></xf:setvalue>
+			</xf:action>
+		</xf:trigger>
+		
+		<xf:group ref="instance('inst-default')/container-group">
+			<div class="eg-data">
+				I'm the group content...
+			</div>
+		</xf:group>
+		
+		<xf:output value="serialize(instance('inst-default'))">
+			<xf:label>inst-default: </xf:label> 
+		</xf:output>
+	</body>
+</html>

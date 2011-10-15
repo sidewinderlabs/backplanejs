@@ -1,0 +1,47 @@
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ev="http://www.w3.org/2001/xml-events"
+	xmlns:xf="http://www.w3.org/2002/xforms"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xml:lang="en" 
+	lang="en"
+>
+	<head>
+		<title></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+		<!-- script type="text/javascript" src="ubiquity-xforms/src/ubiquity-loader.js">/**/</script -->
+		<script type="text/javascript" src="backplanejs/xforms/ubiquity-loader.js">/**/</script>
+	</head>
+	<body>
+		<xf:model id="mdl-test">
+			<xf:instance id="inst-data">
+				<data xmlns="">
+					<a>9.9999999999</a>
+					<b>9.9</b>
+					<c>0</c>
+					<d></d>
+				</data>
+			</xf:instance>
+			
+			<xf:bind nodeset="instance('inst-data')/a" calculate="format-number(string(.), '0.00')"></xf:bind>
+		</xf:model>
+
+		<xf:output ref="instance('inst-data')/a">
+			<xf:label>/a:</xf:label>
+		</xf:output>
+		
+		<xf:output ref="instance('inst-data')/b">
+			<xf:label>/b:</xf:label>
+		</xf:output>
+		
+		<xf:output ref="instance('inst-data')/c">
+			<xf:label>/c:</xf:label>
+		</xf:output>
+		
+		<xf:output ref="instance('inst-data')/d">
+			<xf:label>/d:</xf:label>
+		</xf:output>
+	</body>
+</html>

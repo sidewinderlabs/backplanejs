@@ -1,0 +1,128 @@
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ev="http://www.w3.org/2001/xml-events" 
+	xmlns:xf="http://www.w3.org/2002/xforms"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	>
+	<head>
+		<title></title>
+		
+		<script src="/backplanejs/backplane.js" type="text/javascript">/**/</script>
+		<link rel="stylesheet" href="/backplanejs/assets/backplane.css"></link>
+		
+		<style type="text/css">
+			xf\:output,
+			xf\:input
+			{
+				display: block;
+				margin-bottom: 10px;
+			}
+			
+			.invalid
+			{
+				background-color: red;
+			}
+		</style>
+		
+		<script type="text/javascript">
+		
+			FormsProcessor.extend({
+				ExtToUpperCase: function(s) {
+					return s.toUpperCase();
+				}
+			});
+			
+			FormsProcessor.extend({
+				ExtIsIFAPnumber: function(sPNum) 
+				{
+					var sReturn = 'false';
+					if(/^p[\da-z]{5}[a-z]$/i.test(sPNum))
+					{
+						var sValidCD = GetIFACheckDigit(sPNum.substr(1,5));
+						var sGivenCD = sPNum.substring(sPNum.length - 1);
+						if(sGivenCD == sValidCD)
+						{
+							sReturn = 'true';
+						}
+					}
+					return sReturn;
+				}
+			});
+			
+			function GetIFACheckDigit(sNo)
+			{
+				// VB code starts array values at x[1] even though it has x[0], making x[0] empty, hence the empty values here.
+				var WEIGHTING = ['',25,23,21,19,17,15,13,11,9,7,5,3];
+				var CHECK_DIGIT_LIST = ['', 'A','B','C','D','E','F','G','H','J','K','L','M','P','Q','R','S','T','U','V','W','X','Y','Z'];
+				var ALPHA_NUMERIC = "123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+				var iTotal = 0;
+				
+				for(var iNoIdx = 1; iNoIdx <= sNo.length; iNoIdx++)
+				{
+					var iMultiplier = 0;
+					for(var iAlphaNumIdx = 1; iAlphaNumIdx <= ALPHA_NUMERIC.length; iAlphaNumIdx++)
+					{
+						if(ALPHA_NUMERIC.charAt(iAlphaNumIdx - 1) == sNo.charAt(iNoIdx - 1))
+						{
+							iMultiplier = iAlphaNumIdx;
+							break;
+						}
+					}
+					iTotal += (iMultiplier * WEIGHTING[(iNoIdx + 12) - (sNo.length)]);
+				}
+				return CHECK_DIGIT_LIST[(iTotal % 23) + 1];
+			}
+		</script>
+	</head>
+	<body>    	
+		<xf:model id="mdl-default">
+			<xf:instance id="inst-default">
+				<data xmlns="">
+					<p-number></p-number>
+				</data>
+			</xf:instance>
+			
+			<xf:bind nodeset="instance('inst-default')">
+				<xf:bind 
+					nodeset="p-number" 
+					constraint="boolean-from-string(ExtIsIFAPnumber(.))"
+				></xf:bind>
+			</xf:bind>
+		</xf:model>
+		
+		<p>
+			Check digit is generated from the middle 5 chars in the following P numbers. Ie. If "P31168M", the check digit is 
+			calculated from "31168", giving "M".
+		</p>
+		<ol>
+			<li>P31168M</li>
+			<li>P43515M</li>
+			<li>P20QA3L</li>
+			<li>P20PZ8F</li>
+			<li>P21YA3G</li>
+			<li>P89989A</li>
+			<li>P94541K</li>
+		</ol>
+		
+		<xf:input ref="instance('inst-default')/p-number">
+			<xf:label>IFA 'P' number:</xf:label>
+			<xf:hint>Eg. P31168M</xf:hint>
+			<xf:action ev:event="xforms-value-changed">
+				<xf:setvalue 
+					ref="context()" 
+					value="ExtToUpperCase(string(context()))"
+				></xf:setvalue>
+			</xf:action>
+		</xf:input>
+		
+		<xf:trigger>
+			<xf:label>Rebuild</xf:label>
+			<xf:rebuild ev:event="DOMActivate" model="mdl-default"></xf:rebuild>
+		</xf:trigger>
+		
+		<xf:output value="serialize(instance('inst-default'))">
+			<xf:label>inst-default: </xf:label>
+		</xf:output>
+	</body>
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ev="http://www.w3.org/2001/xml-events" 
+	xmlns:xf="http://www.w3.org/2002/xforms"
+>
+    <head>
+    	<title></title>
+    	<script src="/backplanejs/backplane.js" type="text/javascript">/**/</script>
+    	<link rel="stylesheet" href="/backplanejs/assets/backplane.css"></link>
+    	<style type="text/css">
+    		xf\:group,
+    		xf\:input,
+    		xf\:select1,
+    		xf\:output
+    		{
+    			display: block;
+    			margin-bottom: 10px;
+    		}
+    		
+    		.disabled
+    		{
+    			display: none;
+    		}
+    		
+    		.invalid
+    		{
+    			background-color: red;
+    		}
+    	</style>
+    	<script type="text/javascript">
+    		// Validation of NINO. See http://www.hmrc.gov.uk/manuals/nimmanual/nim39110.htm
+    		FormsProcessor.extend({
+	    		ExtIsNino: function(s) {
+	    			return  (/^[abceghjklmnopqrstuwxyz][abceghjklmnpqrstuwxyz]\s*[0-9]{2}\s*[0-9]{2}\s*[0-9]{2}\s*[abcd]{1}$/i.test(s) ? 'true' : 'false');
+	    		}
+    		});
+    	</script>
+    </head>
+    <body>
+    	<xf:model id="mdl-default">
+    		
+    		<!-- 
+    			Data to be submitted
+    		-->
+    		<xf:instance id="inst-pre-pop">
+    			<application xmlns="">
+    				<applicants>
+    					<applicant>
+    						<person>    							
+    							<national_insurance_number has-nino="yes" no-nino-reason="">AB123456C</national_insurance_number>
+    						</person>
+    					</applicant>
+    					<applicant>
+    						<person>    							
+    							<national_insurance_number has-nino="no" no-nino-reason=""></national_insurance_number>
+    						</person>
+    					</applicant>
+    				</applicants>
+    			</application>
+    		</xf:instance>
+    		
+    		<!-- 
+    			Although the controls reference inst-calculations the values are copied back to this instance which is the to be
+    			submitted. Therefore if we're requiring that all data is valid before submission, although it's validated in 
+    			inst-calculations, it's needed to be validated in this instance too.
+    		-->
+    		<xf:bind nodeset="instance('inst-pre-pop')">
+    			<xf:bind nodeset="applicants">
+    				<xf:bind nodeset="applicant">
+    					<xf:bind nodeset="person">
+    						<xf:bind nodeset="national_insurance_number"
+    							constraint="
+    								(
+    									@has-nino = 'no'
+    									and
+	    								. = '' 
+	    							)
+    								or 
+    								(
+    									@has-nino = 'yes'
+    									and
+    									boolean-from-string(ExtIsNino(.))
+    								)
+    							"
+    						>
+    							<xf:bind nodeset="@no-nino-reason"
+    								required="../@has-nino = 'no'"
+    							></xf:bind>
+    						</xf:bind>
+    					</xf:bind>
+    				</xf:bind>
+    			</xf:bind>
+    		</xf:bind>
+    		
+    		<!-- 
+    			Data to manipulate before submission
+    		-->
+    		<xf:instance id="inst-calculations">
+    			<data xmlns="">
+    				<validation-message></validation-message>
+    				<applicant-iterator>1</applicant-iterator>
+    				<propagate-values>false</propagate-values>
+    				<applicant-data>
+    					<applicant>
+    						<national-insurance has-nino="no">
+    							<no-nino-reason></no-nino-reason>
+    							<nino></nino>
+    						</national-insurance>
+    					</applicant>
+    					<applicant>
+    						<national-insurance has-nino="no">
+    							<no-nino-reason></no-nino-reason>
+    							<nino></nino>
+    						</national-insurance>
+    					</applicant>
+    				</applicant-data>
+    			</data>
+    		</xf:instance>
+    		
+    		<xf:bind nodeset="instance('inst-calculations')">
+    			<xf:bind nodeset="applicant-data">
+	    			<xf:bind nodeset="applicant">
+	    				<xf:bind nodeset="national-insurance">
+	    					<xf:bind nodeset="no-nino-reason"
+	    						relevant="../@has-nino = 'no'"
+	    						required="true()"
+	    					></xf:bind>
+	    					<xf:bind nodeset="nino"
+	    						relevant="../@has-nino = 'yes'"
+	    						required="true()"
+	    						constraint="boolean-from-string(ExtIsNino(.))"
+	    					></xf:bind>
+	    				</xf:bind>
+	    			</xf:bind>
+    			</xf:bind>
+    		</xf:bind>
+    		
+    		<!--
+    			When the form's ready, values need copying from one instance to another
+    		-->
+    		<xf:action ev:event="xforms-ready">
+    			<!-- 
+    				If there's a nino for an applicant, need to set the inst-calculations data, so that the controls reflect the correct values
+    				to that in inst-pre-pop. If they then change they need to be copied back to inst-pre-pop (handled with the control
+    				xforms-value-changed. Can't be handled with @calculate).
+    			-->
+    			<xf:action while="instance('inst-calculations')/applicant-iterator &lt;= count(instance('inst-pre-pop')/applicants/applicant)">
+    				<xf:action if="instance('inst-pre-pop')/applicants/applicant[position() = number(instance('inst-calculations')/applicant-iterator)]/person/national_insurance_number/@has-nino = 'yes'">
+	    				<xf:setvalue 
+	    					ref="instance('inst-calculations')/applicant-data/applicant[position() = number(instance('inst-calculations')/applicant-iterator)]/national-insurance/@has-nino" 
+	    					value="'yes'"
+	    				></xf:setvalue>
+	    				<xf:setvalue 
+	    					ref="instance('inst-calculations')/applicant-data/applicant[position() = number(instance('inst-calculations')/applicant-iterator)]/national-insurance/nino" 
+	    					value="instance('inst-pre-pop')/applicants/applicant[position() = number(instance('inst-calculations')/applicant-iterator)]/person/national_insurance_number"
+	    				></xf:setvalue>
+    				</xf:action>
+    				<xf:setvalue 
+    					ref="instance('inst-calculations')/applicant-iterator" 
+    					value="instance('inst-calculations')/applicant-iterator + 1"
+    				></xf:setvalue>
+    			</xf:action>
+    			
+    			<!-- 
+    				Now that all the inst-pre-pop values are copied to inst-calculations and the controls represent those values, update 
+    				the flag to say that xforms-value-changed on the controls that have had values copied to them should now happen so the 
+    				two instances values can be kept synchronised.
+    				
+    				This needs to be guaranteed to happen after the above setvalues. If in doubt. could use a @delay? The doubt is that are
+    				the action/setvalues in this xforms-ready aren't always executed in document order.
+    			-->
+    			<xf:setvalue 
+    				ref="instance('inst-calculations')/propagate-values" 
+    				value="'true'"
+    			></xf:setvalue>
+    		</xf:action>
+    		
+    		<!-- 
+    			Submission to show whether or not the data for submission is valid or not.
+    		-->
+    		<xf:submission
+    			id="validate-submission-data"
+    			validate="true"
+    			instance="inst-pre-pop"
+    		>
+    			<xf:action ev:event="xforms-submit-error">
+    				<xf:action if="event('error-type') = 'validation-error'">
+    					<xf:setvalue 
+    						ref="instance('inst-calculations')/validation-message" 
+    						value="'Form data is invalid'"
+    					></xf:setvalue>
+    				</xf:action>
+    				<xf:action if="event('error-type') = 'resource-error'">
+    					<xf:setvalue 
+    						ref="instance('inst-calculations')/validation-message" 
+    						value="'Form data is valid'"
+    					></xf:setvalue>
+    				</xf:action>
+    			</xf:action>
+    		</xf:submission>
+    		
+    		<!-- 
+    			Submission to send to example.org so you can see what data has been set clearly
+    			
+    			@validate="false" so that submission can be sent at any time (to view data)
+    		-->
+    		<xf:submission
+    			id="send-data"
+    			instance="inst-pre-pop"
+    			ref="instance('inst-pre-pop')"
+    			replace="none"
+    			resource="assets/echo.aspx"
+    			method="post"
+    			validate="false"
+    		></xf:submission>
+    	</xf:model>
+    	
+    	<xf:output ref="instance('inst-calculations')/validation-message">
+    		<xf:label>Validation: </xf:label>
+    	</xf:output>
+    	
+    	<xf:trigger>
+    		<xf:label>Validate</xf:label>
+    		<xf:send ev:event="DOMActivate" submission="validate-submission-data"></xf:send>
+    	</xf:trigger>
+    	
+    	<xf:trigger>
+    		<xf:label>Submit</xf:label>
+    		<xf:send ev:event="DOMActivate" submission="send-data"></xf:send>
+    	</xf:trigger>
+    	
+    	<!-- 
+    		First applicant NI details
+    	-->
+    	<xf:group ref="instance('inst-calculations')/applicant-data/applicant[1]">
+    		<xf:label>Applicant 1</xf:label>
+    	
+    		<xf:select1 ref="national-insurance/@has-nino">
+    			<xf:label>Do you have a national insurance number?</xf:label>
+    			<xf:item>
+    				<xf:label>Yes</xf:label>
+    				<xf:value>yes</xf:value>
+    			</xf:item>
+    			<xf:item>
+    				<xf:label>No</xf:label>
+    				<xf:value>no</xf:value>
+    			</xf:item>
+    			<xf:action ev:event="xforms-value-changed" if="instance('inst-calculations')/propagate-values = 'true'">
+    				<xf:setvalue 
+    					ref="instance('inst-pre-pop')/applicants/applicant[count(context()/../../preceding-sibling::applicant) + 1]/person/national_insurance_number/@has-nino" 
+    					value="instance('inst-calculations')/applicant-data/applicant[count(context()/../../preceding-sibling::applicant) + 1]/national-insurance/@has-nino"
+    				></xf:setvalue>
+    				<!-- 
+    					If this gets changed to 'no' from an inital 'yes', the "ni no." value should get nullified too.
+    					
+    					The count() works out the nodes position. Means that can use a single control in the XIncluded file in the form.
+    				-->
+    				<xf:action if="context() = 'no'">
+    					<xf:setvalue 
+    						ref="instance('inst-calculations')/applicant-data/applicant[count(context()/../../preceding-sibling::applicant) + 1]/national-insurance/nino" 
+    						value="''"
+    					></xf:setvalue>
+    				</xf:action>
+    				<!-- 
+    					If this gets changed to 'yes' at any point, the "no ni no. reason" value should needs nullifying too 
+    				-->
+    				<xf:action if="context() = 'yes'">
+    					<xf:setvalue 
+    						ref="instance('inst-calculations')/applicant-data/applicant[count(context()/../../preceding-sibling::applicant) + 1]/national-insurance/no-nino-reason" 
+    						value="''"
+    					></xf:setvalue>
+    				</xf:action>
+    			</xf:action>
+    		</xf:select1>
+    		
+    		<xf:select1 ref="national-insurance/no-nino-reason">
+    			<xf:label>Reason for no NI no.?</xf:label>
+    			<xf:item>
+    				<xf:label>I am a man born before 1912</xf:label>
+    				<xf:value>01</xf:value>
+    			</xf:item>
+    			<xf:item>
+    				<xf:label>I am a woman born before 1914</xf:label>
+    				<xf:value>02</xf:value>
+    			</xf:item>
+    			<xf:item>
+    				<xf:label>I am a married woman who has not paid NI contributions since 1975</xf:label>
+    				<xf:value>03</xf:value>
+    			</xf:item>
+    			<xf:item>
+    				<xf:label>I am a person who was abroad before 1975 and has not paid NI contributions since</xf:label>
+    				<xf:value>04</xf:value>
+    			</xf:item>
+    			<xf:item>
+    				<xf:label>I am a person born after 1963 in respect of whom child benefits were not paid immediately before my 16th birthday and I have not paid NI contributions since</xf:label>
+    				<xf:value>05</xf:value>
+    			</xf:item>
+    			<xf:action ev:event="xforms-value-changed" if="instance('inst-calculations')/propagate-values = 'true'">
+    				<xf:setvalue 
+    					ref="instance('inst-pre-pop')/applicants/applicant[count(context()/../../preceding-sibling::applicant) + 1]/person/national_insurance_number/@no-nino-reason" 
+    					value="instance('inst-calculations')/applicant-data/applicant[count(context()/../../preceding-sibling::applicant) + 1]/national-insurance/no-nino-reason"
+    				></xf:setvalue>
+    			</xf:action>
+    		</xf:select1>
+    		
+    		<xf:input ref="national-insurance/nino">
+    			<xf:label>National insurance number</xf:label>
+    			<xf:action ev:event="xforms-value-changed" if="instance('inst-calculations')/propagate-values = 'true'">
+    				<xf:setvalue 
+    					ref="instance('inst-pre-pop')/applicants/applicant[count(context()/../../preceding-sibling::applicant) + 1]/person/national_insurance_number" 
+    					value="normalize-space(instance('inst-calculations')/applicant-data/applicant[count(context()/../../preceding-sibling::applicant) + 1]/national-insurance/nino)"
+    				></xf:setvalue>
+    			</xf:action>
+    			<xf:action ev:event="DOMFocusOut">
+    				<xf:setvalue 
+    					ref="context()" 
+    					value="normalize-space(context())"
+    				></xf:setvalue>
+    			</xf:action>
+    		</xf:input>
+    	</xf:group>
+    	
+    	<!-- 
+    		Second applicant NI details
+    	-->
+    	<xf:group ref="instance('inst-calculations')/applicant-data/applicant[2]">
+    		<xf:label>Applicant 2</xf:label>
+    		
+    		<xf:select1 ref="national-insurance/@has-nino">
+    			<xf:label>Do you have a national insurance number?</xf:label>
+    			<xf:item>
+    				<xf:label>Yes</xf:label>
+    				<xf:value>yes</xf:value>
+    			</xf:item>
+    			<xf:item>
+    				<xf:label>No</xf:label>
+    				<xf:value>no</xf:value>
+    			</xf:item>
+    			<xf:action ev:event="xforms-value-changed" if="instance('inst-calculations')/propagate-values = 'true'">
+    				<xf:setvalue 
+    					ref="instance('inst-pre-pop')/applicants/applicant[count(context()/../../preceding-sibling::applicant) + 1]/person/national_insurance_number/@has-nino" 
+    					value="instance('inst-calculations')/applicant-data/applicant[count(context()/../../preceding-sibling::applicant) + 1]/national-insurance/@has-nino"
+    				></xf:setvalue>
+    				<xf:action if="context() = 'no'">
+    					<xf:setvalue 
+    						ref="instance('inst-calculations')/applicant-data/applicant[count(context()/../../preceding-sibling::applicant) + 1]/national-insurance/nino" 
+    						value="''"
+    					></xf:setvalue>
+    				</xf:action>
+    				<xf:action if="context() = 'yes'">
+    					<xf:setvalue 
+    						ref="instance('inst-calculations')/applicant-data/applicant[count(context()/../../preceding-sibling::applicant) + 1]/national-insurance/no-nino-reason" 
+    						value="''"
+    					></xf:setvalue>
+    				</xf:action>
+    			</xf:action>
+    		</xf:select1>
+    		
+    		<xf:select1 ref="national-insurance/no-nino-reason">
+    			<xf:label>Why not?</xf:label>
+    			<xf:item>
+    				<xf:label>I am a man born before 1912</xf:label>
+    				<xf:value>01</xf:value>
+    			</xf:item>
+    			<xf:item>
+    				<xf:label>I am a woman born nefore 1914</xf:label>
+    				<xf:value>02</xf:value>
+    			</xf:item>
+    			<xf:item>
+    				<xf:label>I am a married woman who has not paid NI contributions since 1975</xf:label>
+    				<xf:value>03</xf:value>
+    			</xf:item>
+    			<xf:item>
+    				<xf:label>I am a person who was abroad before 1975 and has not paid NI contributions since</xf:label>
+    				<xf:value>04</xf:value>
+    			</xf:item>
+    			<xf:item>
+    				<xf:label>I am a person born after 1963 in respect of whom child benefits were not paid immediately before my 16th birthday and I have not paid NI contributions since</xf:label>
+    				<xf:value>05</xf:value>
+    			</xf:item>
+    			<xf:action ev:event="xforms-value-changed" if="instance('inst-calculations')/propagate-values = 'true'">
+    				<xf:setvalue 
+    					ref="instance('inst-pre-pop')/applicants/applicant[count(context()/../../preceding-sibling::applicant) + 1]/person/national_insurance_number/@no-nino-reason" 
+    					value="instance('inst-calculations')/applicant-data/applicant[count(context()/../../preceding-sibling::applicant) + 1]/national-insurance/no-nino-reason"
+    				></xf:setvalue>
+    			</xf:action>
+    		</xf:select1>
+    		
+    		<xf:input ref="national-insurance/nino">
+    			<xf:label>National insurance number</xf:label>
+    			<xf:action ev:event="xforms-value-changed" if="instance('inst-calculations')/propagate-values = 'true'">
+    				<xf:setvalue 
+    					ref="instance('inst-pre-pop')/applicants/applicant[count(context()/../../preceding-sibling::applicant) + 1]/person/national_insurance_number" 
+    					value="normalize-space(instance('inst-calculations')/applicant-data/applicant[count(context()/../../preceding-sibling::applicant) + 1]/national-insurance/nino)"
+    				></xf:setvalue>
+    			</xf:action>
+    			<xf:action ev:event="DOMFocusOut">
+    				<xf:setvalue 
+    					ref="context()" 
+    					value="normalize-space(context())"
+    				></xf:setvalue>
+    			</xf:action>
+    		</xf:input>
+    	</xf:group>
+    	
+    	<xf:output value="serialize(instance('inst-calculations'))" style="background-color:#f0f0f0;">
+    		<xf:label>inst-calculations</xf:label>
+    	</xf:output>
+    	
+    	<xf:output value="serialize(instance('inst-pre-pop'))">
+    		<xf:label>inst-pre-pop</xf:label>
+    	</xf:output>
+    </body>
+</html>

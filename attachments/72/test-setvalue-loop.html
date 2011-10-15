@@ -1,0 +1,94 @@
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ev="http://www.w3.org/2001/xml-events" 
+	xmlns:xf="http://www.w3.org/2002/xforms"
+>
+    <head>
+    	<title></title>
+    	<script src="/backplanejs/backplane.js" type="text/javascript">/**/</script>
+    	<link rel="stylesheet" href="/backplanejs/assets/backplane.css"></link>
+    	<style type="text/css">
+    		xf\:output
+    		{
+    			display: block;
+    			margin-bottom: 10px;
+    		}
+    		.valid
+    		{
+    		}
+    		
+    		.invalid
+    		{
+    			background-color: red;
+    		}
+    	</style>  	
+    </head>
+    <body>    	
+    	<xf:model id="mdl-default">
+    		<xf:instance id="inst-default">
+    			<data xmlns="">
+    				<status-msg>Ready.</status-msg>
+    				<max-iterations>2000</max-iterations>
+    				<iteration>0</iteration>				
+    			</data>
+    		</xf:instance>
+    	</xf:model>
+    	
+    	<ul>
+    		<li>Set number of iterations based on browser</li>
+    		<li>Click "Start loop" trigger</li>
+    		<li>Iterations are complete when "Status:" shows 'Finished.'</li>
+    		<li>Click "Reset" trigger before running again</li>
+    	</ul>
+    	<p>
+    		<strong>IE(7): </strong>2000 takes about 9/10 seconds to show 'FINISHED.' status message
+    		<br />
+    		<strong>Chrome(5): </strong> 50000 takes about 7 seconds to show 'FINISHED.' status message
+    	</p>
+    	
+    	<xf:input ref="/data/max-iterations">
+    		<xf:label>No. of iterations to do: </xf:label>
+    	</xf:input>
+    	
+    	<xf:output ref="/data/status-msg">
+    		<xf:label>Status: </xf:label>
+    	</xf:output>
+    	
+    	<xf:trigger>
+    		<xf:label>Start loop</xf:label>
+    		<xf:action ev:event="DOMActivate">
+    			<xf:action while="number(/data/iteration) != number(/data/max-iterations)">
+    				<xf:setvalue 
+	    				ref="/data/iteration" 
+	    				value="number(/data/iteration) + 1"
+    				></xf:setvalue>
+    			</xf:action>
+    			<xf:action if="number(/data/iteration) = number(/data/max-iterations)">
+    				<xf:setvalue 
+    					ref="/data/status-msg" 
+    					value="'FINISHED.'"
+    				></xf:setvalue>
+    			</xf:action>
+    		</xf:action>
+    	</xf:trigger>
+    	
+    	<xf:trigger>
+    		<xf:label>Reset</xf:label>
+    		<xf:action ev:event="DOMActivate">
+    			<xf:setvalue 
+    				ref="/data/status-msg" 
+    				value="'Ready.'"
+    			></xf:setvalue>
+    			<xf:setvalue 
+    				ref="/data/iteration" 
+    				value="'0'"
+    			></xf:setvalue>
+    		</xf:action>
+    	</xf:trigger>
+    	
+    	<xf:output value="serialize(instance('inst-default'))">
+    		<xf:label>inst-default: </xf:label>
+    	</xf:output>
+    </body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ev="http://www.w3.org/2001/xml-events" 
+	xmlns:xf="http://www.w3.org/2002/xforms"
+	>
+	<head>
+		<title>Get session data</title>
+		<script src="/backplanejs-0.6.4/backplane-min.js" type="text/javascript">/**/</script>
+		<link rel="stylesheet" href="/backplanejs-0.6.4/assets/backplane-min.css"></link>
+	</head>
+	<body>
+		<xf:model id="mdl-default">
+			<xf:instance id="inst-data">
+				<data xmlns=""></data>
+			</xf:instance>
+			
+			<xf:instance id="inst-message">
+				<data xmlns="">
+					<sub rc="" error-type="" uri="" reason="">
+						<custom></custom>
+						<res-body></res-body>
+					</sub>
+				</data>
+			</xf:instance>
+			
+			<!-- 
+				Changed to 'post' as 'get' meant multiple '?' in the querystring
+			-->
+			<xf:submission 
+				id="get-session-data"
+				method="post" 
+				replace="instance"
+				instance="inst-data"
+			>
+				<xf:resource value="concat('get.session.data?', seconds-from-dateTime(now()))"></xf:resource>
+				<xf:action ev:event="xforms-submit-done">
+					<xf:setvalue ref="instance('inst-message')/sub" value="'Session data got ok'"></xf:setvalue>
+				</xf:action>
+				<xf:action ev:event="xforms-submit-error">
+					<xf:setvalue ref="instance('inst-message')/sub/custom" value="'Error getting session data'"></xf:setvalue>
+					<xf:setvalue ref="instance('inst-message')/sub/@rc" value="event('response-status-code')"></xf:setvalue>
+					<xf:setvalue ref="instance('inst-message')/sub/@error-type" value="event('error-type')"></xf:setvalue>
+					<xf:setvalue ref="instance('inst-message')/sub/@uri" value="event('resource-uri')"></xf:setvalue>
+					<xf:setvalue ref="instance('inst-message')/sub/@reason" value="event('response-reason-phrase')"></xf:setvalue>
+					<xf:setvalue ref="instance('inst-message')/sub/res-body" value="event('response-body')"></xf:setvalue>
+				</xf:action>
+			</xf:submission>
+			
+			<xf:action ev:event="xforms-ready">
+				<xf:send submission="get-session-data"></xf:send>
+			</xf:action>
+		</xf:model>
+		
+		<xf:output value="serialize(instance('inst-data'))">
+			<xf:label>instance from session:</xf:label>
+		</xf:output>
+		
+		<!-- xf:output value="serialize(instance('inst-message'))">
+			<xf:label>Message instance:</xf:label>
+		</xf:output -->
+		
+		<!-- xf:trigger>
+			<xf:label>Get session data</xf:label>
+			<xf:send ev:event="DOMActivate" submission="get-session-data"></xf:send>
+		</xf:trigger -->
+		
+		<p>
+			Submission info:
+		</p>
+		<xf:output ref="instance('inst-message')/sub/custom">
+			<xf:label>What happened?:</xf:label>
+		</xf:output>
+		
+		<xf:output ref="instance('inst-message')/sub/@rc">
+			<xf:label>Response code:</xf:label>
+		</xf:output>
+		
+		<xf:output ref="instance('inst-message')/sub/@error-type">
+			<xf:label>Error type:</xf:label>
+		</xf:output>
+		
+		<xf:output ref="instance('inst-message')/sub/@uri">
+			<xf:label>Resource in error:</xf:label>
+		</xf:output>
+		
+		<xf:output ref="instance('inst-message')/sub/@reason">
+			<xf:label>Error reason:</xf:label>
+		</xf:output>
+		
+		<xf:output ref="instance('inst-message')/sub/res-body">
+			<xf:label>Response body:</xf:label>
+		</xf:output>
+		
+		<p>
+			Data from session:
+		</p>
+		<xf:input ref="instance('inst-data')/first-name">
+			<xf:label>First name:</xf:label>
+		</xf:input>
+		
+		<xf:input ref="instance('inst-data')/last-name">
+			<xf:label>Surname:</xf:label>
+		</xf:input>
+		
+		<p>
+			Session data is removed after get. Use previous form to add again.
+		</p>
+		<a href="test-session-setdata.html">test-session-setdata.html</a>
+	</body>
+</html>

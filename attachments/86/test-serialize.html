@@ -1,0 +1,40 @@
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ev="http://www.w3.org/2001/xml-events" 
+	xmlns:xf="http://www.w3.org/2002/xforms"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	>
+	<head>
+		<title></title>
+		
+		<script src="/backplanejs/backplane.js" type="text/javascript">/**/</script>
+		<link rel="stylesheet" href="/backplanejs/assets/backplane.css"></link>
+		
+		<style type="text/css">
+			xf\:output,
+			xf\:input
+			{
+				display: block;
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>
+	<body>    	
+		<xf:model id="mdl-default">
+			<xf:instance id="inst-default">
+				<data xmlns="">
+					<a-val></a-val>
+				</data>
+			</xf:instance>
+		</xf:model>
+		
+		<xf:input ref="instance('inst-default')/a-val" incremental="true">
+			<xf:label>Type in me:</xf:label>
+		</xf:input>
+		
+		<xf:output value="serialize(instance('inst-default'))">
+			<xf:label>inst-default: </xf:label>
+		</xf:output>
+	</body>
+</html>

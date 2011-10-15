@@ -1,0 +1,80 @@
+diff -r 6ad126c91efd third-party/uxf/src/lib/UXUtils.js
+--- a/third-party/uxf/src/lib/UXUtils.js	Sat Nov 20 19:25:19 2010 +0000
++++ b/third-party/uxf/src/lib/UXUtils.js	Wed Nov 24 19:26:03 2010 +0300
+@@ -668,11 +668,7 @@
+ 	if(UX.isIE || UX.isFF) {
+ 		return doc.cloneNode(deep);
+ 	} else {
+-		var cloneDoc = document.DOMImplementation.createDocument('', '', null);
+-		if(deep) {
+-			cloneDoc.appendChild(doc.importNode(doc.documentElement, true));
+-		}
+-		return cloneDoc;
++		return new DOMParser().parseFromString(new XMLSerializer().serializeToString(doc), 'text/xml');
+ 	}
+ };
+ 
+diff -r 6ad126c91efd third-party/uxf/src/lib/xforms/Instance.js
+--- a/third-party/uxf/src/lib/xforms/Instance.js	Sat Nov 20 19:25:19 2010 +0000
++++ b/third-party/uxf/src/lib/xforms/Instance.js	Wed Nov 24 19:26:03 2010 +0300
+@@ -346,30 +346,17 @@
+ 				}
+ 			}
+ 
+-			// Treat the special case of insertion at the root of the instance here.
+-			// Namely, before the element could be inserted into document node
+-			// remove the existing document element.
+-			if (atRoot) {
+-				insertLocationNode = insertTarget.firstChild;
+-				while (insertLocationNode && (insertLocationNode.nodeType !== DOM_ELEMENT_NODE)) {
+-					insertLocationNode = insertLocationNode.nextSibling;
+-				}
+-
+-				if (insertLocationNode) {
+-					if (insertBeforeNode && insertBeforeNode === insertLocationNode) {
+-						insertBeforeNode = insertBeforeNode.nextSibling;
+-					}
+-					insertTarget.removeChild(insertLocationNode);
+-				}
+-			}
+-
+ 			// Finally, the actual insertion.
+ 			// Non-attribute nodes are inserted before a particular child node, or
+ 			// or appended if insertBeforeNode is falsy;
+ 			// an attribute nodes, on the other hand, are simply set.
+ 			for (i = 0; i < nsInserted.length; i++) {
+ 				if (nsInserted[i].nodeType !== DOM_ATTRIBUTE_NODE) {
+-					insertTarget.insertBefore(nsInserted[i], insertBeforeNode);
++					if(insertTarget.nodeType == 9) {
++						insertTarget.replaceChild(nsInserted[i], insertTarget.documentElement);
++					} else {
++						insertTarget.insertBefore(nsInserted[i], insertBeforeNode);
++					}
+ 				} else {
+ 					insertTarget.setAttributeNode(nsInserted[i]);
+ 				}
+diff -r 6ad126c91efd third-party/uxf/unit-tests/ut-types-validator.js
+--- a/third-party/uxf/unit-tests/ut-types-validator.js	Sat Nov 20 19:25:19 2010 +0000
++++ b/third-party/uxf/unit-tests/ut-types-validator.js	Wed Nov 24 19:26:03 2010 +0300
+@@ -308,8 +308,7 @@
+ 	setUp: function() {
+ 		this.testDIV = document.createElement("div");
+ 		this.testInstance = new Instance(this.testDIV);
+-		this.testInstance.replaceDocument(
+-		xmlParse("<ID xmlns=''></ID>"));
++		this.testInstance.replaceDocument(new DOMParser().parseFromString("<ID xmlns=''></ID>", "text/xml"));
+ 	},
+ 
+ 	tearDown: function() {
+diff -r 6ad126c91efd third-party/uxf/unit-tests/ut-xforms-submission.js
+--- a/third-party/uxf/unit-tests/ut-xforms-submission.js	Sat Nov 20 19:25:19 2010 +0000
++++ b/third-party/uxf/unit-tests/ut-xforms-submission.js	Wed Nov 24 19:26:03 2010 +0300
+@@ -94,7 +94,7 @@
+ 		delete this.instance;
+ 		delete this.modelObject;
+ 		delete this.instanceObject;
+-		delete document.defaultModel;
++		document.defaultModel = null;
+ 	},
+ 
+ 	testSerializeWhenRefIsLeafNode: function() {

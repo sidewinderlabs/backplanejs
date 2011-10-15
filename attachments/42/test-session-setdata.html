@@ -1,0 +1,50 @@
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ev="http://www.w3.org/2001/xml-events" 
+	xmlns:xf="http://www.w3.org/2002/xforms"
+>
+    <head>
+    	<title>Set session data</title>
+    	<script src="/backplanejs-0.6.4/backplane-min.js" type="text/javascript">/**/</script>
+    	<link rel="stylesheet" href="/backplanejs-0.6.4/assets/backplane-min.css"></link>
+    </head>
+    <body>
+    	<xf:model id="mdl-default">
+    		<xf:instance id="inst-data">
+    			<inst-data xmlns="">
+    				<first-name>Alex</first-name>
+    				<last-name>Sansom</last-name>
+    			</inst-data>
+    		</xf:instance>
+    		
+    		<xf:submission 
+    			id="set-session-data"
+    			resource="/set.session.data"
+    			method="post" 
+    			replace="none"
+    			ref="instance('inst-data')"
+    		>
+    			<xf:action ev:event="xforms-submit-error">
+    				<xf:message level="modal">Error setting session data</xf:message>
+    			</xf:action>
+    			<xf:action ev:event="xforms-submit-done">
+    				<xf:load resource="test-session-getdata.html"></xf:load>
+    			</xf:action>
+    		</xf:submission>
+    	</xf:model>
+    	
+    	<xf:input ref="instance('inst-data')/first-name">
+    		<xf:label>First name:</xf:label>
+    	</xf:input>
+    	
+    	<xf:input ref="instance('inst-data')/last-name">
+    		<xf:label>Surname:</xf:label>
+    	</xf:input>
+    	
+    	<xf:trigger>
+    		<xf:label>Set session data</xf:label>
+    		<xf:send ev:event="DOMActivate" submission="set-session-data"></xf:send>
+    	</xf:trigger>
+    </body>
+</html>

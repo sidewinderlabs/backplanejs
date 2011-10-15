@@ -1,0 +1,46 @@
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ev="http://www.w3.org/2001/xml-events"
+	xmlns:xf="http://www.w3.org/2002/xforms"
+	xml:lang="en" 
+	lang="en"
+>
+	<head>
+		<title></title>
+		<script src="/backplanejs/backplane.js" type="text/javascript">/**/</script>
+		<link rel="stylesheet" href="/backplanejs/assets/backplane.css"></link>
+	</head>
+	<body>
+		<style type="text/css">
+			xf\:input,
+			xf\:output
+			{
+				display: block;
+				margin-bottom: 10px;
+			}
+		</style>
+		
+		<xf:model id="mdl-default">
+			<xf:instance id="inst-data">
+				<data xmlns="">
+					<dob></dob>
+				</data>
+			</xf:instance>
+		</xf:model>
+		<p>
+			Testing the date control
+		</p>
+		<xf:input ref="instance('inst-data')/dob" datatype="xsd:date">
+			<xf:label>DOB:</xf:label>
+		</xf:input>
+		
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vitae quam sed ante tempus adipiscing. Maecenas ac justo ante. Morbi ut lectus nec nisl suscipit lobortis. Cras faucibus tellus sit amet velit porta in cursus lacus eleifend. Donec lacinia iaculis orci, rhoncus posuere justo lobortis vehicula. Nulla facilisi. Aliquam erat volutpat. In nisi odio, tincidunt eu iaculis ac, placerat ac orci. Proin varius, lacus eget volutpat scelerisque, eros neque consequat orci, in adipiscing diam nisi non leo. Integer libero magna, rhoncus egestas vehicula in, vehicula ut nisi. Aenean faucibus, massa nec condimentum luctus, dui nunc tincidunt ligula, quis malesuada odio diam vitae risus. Fusce ipsum mi, pulvinar vitae suscipit sit amet, blandit non elit. Fusce aliquam posuere gravida. Suspendisse potenti. Sed sit amet ornare orci. Nunc ante purus, condimentum eget faucibus non, rhoncus vel turpis.
+		</p>
+		
+		<xf:output value="serialize(instance('inst-data'))">
+			<xf:label>inst-data:</xf:label>
+		</xf:output>
+	</body>
+</html>
