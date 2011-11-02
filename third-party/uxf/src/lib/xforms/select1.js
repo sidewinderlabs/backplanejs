@@ -39,15 +39,21 @@ var XFormsSelect1 = new UX.Class({
 				switch (o.keyCode) {
 				case 38:
 					//up
-					element.selectPreviousItem();
+					var behaviour = DECORATOR.getBehaviour(element);
+					if (behaviour && behaviour.selectPreviousItem) {
+						behaviour.selectPreviousItem();
+					}
 					break;
 				case 40:
 					//down
-					element.selectNextItem();
+					var behaviour = DECORATOR.getBehaviour(element);
+					if (behaviour && behaviour.selectNextItem) {
+						behaviour.selectNextItem();
+					}
 				}
 			}
 		};
-
+		
 		var wheelHandler = {
 			handleEvent: function(o) {
 				switch (o.type) {
@@ -199,7 +205,14 @@ var XFormsSelect1 = new UX.Class({
 					oEvt.initMutationEvent("data-value-changed", false, true, null, "", "", "", 1);
 					FormsProcessor.dispatchEvent(this.element, oEvt);
 					if (this.useDropBox()) {
-						this.m_value.refreshDisplayValue();
+						if (typeof(this.m_value.refreshDisplayValue) == 'function') {
+							this.m_value.refreshDisplayValue();
+						} else {
+							var mValue = DECORATOR.getBehaviour(this.m_value);
+							if (mValue && typeof(mValue.refreshDisplayValue) == 'function') {
+								mValue.refreshDisplayValue();
+							}
+						}
 					}
 					this.m_model.flagRebuild();
 					doUpdate();
@@ -243,16 +256,30 @@ var XFormsSelect1 = new UX.Class({
 		//The new item is the same as the current value,
 		//    which could not be displayed when it was set.
 		//  Since it can now be set, set it.
-		if (!this.isInRange() && key === this.currentDisplayValue && this.m_value.setValue) {
-			this.m_value.setValue(key);
+		if (!this.isInRange() && key === this.currentDisplayValue) {
+			if (typeof(this.m_value.setValue) == 'function') {
+				this.m_value.setValue(key);
+			} else {
+				var mValue = DECORATOR.getBehaviour(this.m_value);
+				if (mValue && typeof(mValue.setValue) == 'function') {
+					mValue.setValue(key);
+				}
+			}
 		}
 	},
 
 	onItemRemoved: function(item, key) {
 		//The removed item is the same as the current value,
 		//  which may no longer be displayable.
-		if (this.isInRange() && key === this.currentDisplayValue && this.m_value.setValue) {
-			this.m_value.setValue(key);
+		if (this.isInRange() && key === this.currentDisplayValue) {
+			if (typeof(this.m_value.setValue) == 'function') {
+				this.m_value.setValue(key);
+			} else {
+				var mValue = DECORATOR.getBehaviour(this.m_value);
+				if (mValue && typeof(mValue.setValue) == 'function') {
+					mValue.setValue(key);
+				}
+			}
 		}
 	},
 
