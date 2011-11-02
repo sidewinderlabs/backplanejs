@@ -6,17 +6,6 @@ document.logger = {
 
 var loader = new YAHOO.util.YUILoader();
 
-loader.onFailure = function(msg, xhrobj) {
-	window.status = "Failed to load Ubiquity XForms: ";
-};
-
-var sBars = "";
-loader.onProgress = function(o) {
-	sBars += ("|");
-	window.status = ("Loading Ubiquity modules: " + sBars + " [" + o.name + "]");
-};
-
 window.onload = function(o) {
-	window.status = "Successfully loaded Ubiquity XForms";
 	InsertElementForOnloadXBL();
 };

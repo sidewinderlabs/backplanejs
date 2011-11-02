@@ -188,9 +188,6 @@ var Repeat = new UX.Class({
 				html.push('<' + prefix + this.bindingContainerName + ' ref="." ordinal="' + (this.m_offset + this.m_CurrentIterationCount + 1) + '" class="repeat-iteration" bindingcontainer="true" outerscope="' + uid + '">');
 				html.push(tpl);
 				html.push('</' + prefix + this.bindingContainerName + '>');
-				//window.status = "";
-				//set the status bar, to fix the progress bar.
-				//See: http://support.microsoft.com/default.aspx?scid=kb;en-us;Q320731 
 				this.m_CurrentIterationCount++;
 			}
 			if(html.length) this.element.insertAdjacentHTML('beforeEnd', html.join(''));
@@ -209,9 +206,6 @@ var Repeat = new UX.Class({
 					item.appendChild(templateClone.firstChild);
 				}
 				this.element.appendChild(item);
-				window.status = "";
-				//set the status bar, to fix the progress bar.
-				//See: http://support.microsoft.com/default.aspx?scid=kb;en-us;Q320731 
 				this.m_CurrentIterationCount++;
 			}
 		}

@@ -93,7 +93,6 @@ var Model = new UX.Class({
 		this.initialisationLock = 1;
 		this.rewire();
 		this.constructingUI = false;
-		window.status = "refreshing";
 		this._refresh();
 		this.resumeXFormsReady();
 		this.m_bReady = true;

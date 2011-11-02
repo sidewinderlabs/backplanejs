@@ -479,6 +479,5 @@ var DECORATOR = {
 YAHOO.util.Event.onDOMReady(function() {
 	
 	DECORATOR.applyRules();
-	window.status = "ready";
 	
 });
