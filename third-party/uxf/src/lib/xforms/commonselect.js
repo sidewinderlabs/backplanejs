@@ -67,7 +67,6 @@ var XFormsCommonSelectValue = new UX.Class({
 		if (this.element.ownerDocument.media == "print") return;
 		
 		var input = document.createElement('input');
-		input.style.cssText = "backgroundColor:transparent; padding: 0; margin: 0; border: 0";
 		var select = DECORATOR.getBehaviour(this.element.parentNode);
 		var self = this;
 
