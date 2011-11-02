@@ -246,8 +246,9 @@ var Model = new UX.Class({
 		// If the context object doesn't contain a model or resolver element, add them
 		context.model = context.model || this;
 		context.resolverElement = context.resolverElement || this.element;
+		var result;
 		try {
-			var result = xpathDomEval(xpath, context);
+			result = xpathDomEval(xpath, context);
 		} catch(e) {
 			if (context.resolverElement && !FormsProcessor.halted) {
 				FormsProcessor.halted = true;
