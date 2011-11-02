@@ -195,7 +195,6 @@ YAHOO.util.Connect.handleTransactionResponse = function(o, callback, isAbort) {
 					scope: this
 				};
 				var targetElement = this.getTargetElement();
-				targetElement.innerHTML = "<img src='theme/bartek/images/spinner.gif' />";
 				//Set xml:base and add the appropriate behaviour.
 				this.fetchData(sResolvedHref, oCallback);
 				targetElement.setAttribute("xml:base", sHref);
