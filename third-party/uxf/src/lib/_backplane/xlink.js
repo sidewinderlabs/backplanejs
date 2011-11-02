@@ -301,7 +301,6 @@ YAHOO.util.Connect.handleTransactionResponse = function(o, callback, isAbort) {
 			var self = this;
 			spawn(function() {
 				DECORATOR.getBehaviour(targetElement).xlinkEmbed(o.responseText, element.getAttribute("xlink:href"));
-				window.status = "";
 				self.onXLinkTraversed();
 			});
 		},
