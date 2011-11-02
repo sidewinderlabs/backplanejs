@@ -32,9 +32,6 @@ var XFormsBooleanValue = new UX.Class({
 		var eventName = "click";
 		input.type = "checkbox";
 
-		UX.addStyle(input, "backgroundColor", "transparent");
-		UX.addStyle(input, "padding", "0");
-		UX.addStyle(input, "margin", "0");
 		UX.addClassName(input, "ux-input-checkbox");
 		UX.addClassName(this.element, "ux-boolean-value");
 

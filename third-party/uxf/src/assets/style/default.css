@@ -157,6 +157,34 @@ xf|textarea pe-value textarea {
     background-color: white;
 }
 
+xforms\:textarea pe-value textarea,
+xf\:textarea pe-value textarea,
+xforms\:input pe-value input,
+xf\:input pe-value input {
+	padding: 0;
+	margin: 0;
+}
+
+xforms|textarea pe-value textarea,
+xf|textarea pe-value textarea,
+xforms|input pe-value input,
+xf|input pe-value input {
+	padding: 0;
+	margin: 0;
+}
+
+xforms\:input pe-value input,
+xf\:input pe-value input {
+    border: 0;
+    background-color: transparent;
+}
+
+xforms|input pe-value input,
+xf|input pe-value input {
+    border: 0;
+    background-color: transparent;
+}
+
 xforms\:input xforms\:label pe-value,
 xf\:input xf\:label pe-value,
 xforms\:secret xforms\:label pe-value,
@@ -600,6 +628,25 @@ xf|select.appearance-minimal xf|label pe-value, xforms|select.appearance-minimal
     display:inline-block;
 }
 
+xf\:select pe-value input,
+xf\:select1 pe-value input,
+xforms\:select pe-value input,
+xforms\:select1 pe-value input {
+	background-color: transparent;
+	border: 0;
+	padding: 0;
+	margin: 0;
+}
+
+xf|select pe-value input,
+xf|select1 pe-value input,
+xforms|select pe-value input,
+xforms|select1 pe-value input {
+	background-color: transparent;
+	border: 0;
+	padding: 0;
+	margin: 0;
+}
 
 .ux-drop-button {
     font-size:1pt;

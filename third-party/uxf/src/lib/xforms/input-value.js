@@ -39,13 +39,6 @@ var XFormsInputValue = new UX.Class({
 		var input = document.createElement(elementType);
 		var eventName = (this.element.parentNode.getAttribute("incremental") === "true") ? "keyup" : "change";
 
-		UX.addStyle(input, "backgroundColor", "transparent");
-		UX.addStyle(input, "padding", "0");
-		UX.addStyle(input, "margin", "0");
-		if (name !== "textarea") {
-			UX.addStyle(input, "border", "0");
-		}
-
 		var self = this;
 		if (input.addEventListener) {
 			input.addEventListener(eventName, function(event) {
