@@ -1,12 +1,9 @@
-syntax: glob
-
 *.rej
 *.orig
 *.pyc
 Thumbs.db
 site
 target
-
 my.ant.properties
 .hgpatchinfo
 build/output
