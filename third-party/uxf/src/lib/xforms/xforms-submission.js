@@ -277,7 +277,7 @@ submission.prototype.submit = function(oSubmission) {
 	var sMethod = null;
 	var sMediatype = oSubmission.getAttribute("mediatype");
 	var sEncoding = oSubmission.getAttribute("encoding") || "UTF-8";
-	var sSerialization = oSubmission.getAttribute("serialization") ? (oSubmission.getAttribute("serialization") !== "none") : "";
+	var sSerialization = (oSubmission.getAttribute("serialization") !== "none") ? oSubmission.getAttribute("serialization") : "";
 	var bSerialize = (oSubmission.getAttribute("serialization") !== "none");
 	var sSeparator = oSubmission.getAttribute("separator") || "&";
 	var oBody;
