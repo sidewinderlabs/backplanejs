@@ -179,14 +179,14 @@ var Load = new UX.Class({
 	handleEvent: DeferToConditionalInvocationProcessor,
 
 	performAction: function(event) {
-		var boundNode = this.element.getBoundNode(1);
+		var boundNode = (typeof(this.element.getBoundNode) == 'function') ? this.element.getBoundNode(1) : null;
 		var resource = UX.getPropertyValue(this.element, "resource");
 
-		if ((boundNode.node && resource) || (!boundNode.node && !resource)) {
+		if ((boundNode && boundNode.node && resource) || (boundNode && !boundNode.node && !resource)) {
 			return;
 		}
 
-		if (boundNode.node) {
+		if (boundNode && boundNode.node) {
 			var textNode = getFirstTextNode(boundNode.node);
 			if (textNode) {
 				resource = textNode.nodeValue;
