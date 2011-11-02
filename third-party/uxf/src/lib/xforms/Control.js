@@ -136,8 +136,7 @@ var Control = new UX.Class({
 				! (event.code >= 112 && event.code <= 123) && //Function Keys
 				! (event.keyCode >= 33 && event.keyCode <= 36) // page up, page down, home, end
 				) {
-					event.stop();
-					return false;
+					return UX.cancelHTMLEvent(event);
 				}
 			}
 			return true;
@@ -147,12 +146,13 @@ var Control = new UX.Class({
 			// If there is a proxy and it is a ProxyNode, not a ProxyExpression, then 
 			// its readonly value may be true
 			if (self.m_proxy && self.m_proxy.readonly && self.m_proxy.readonly.getValue()) {
-				event.stop();
+				event.stopPropagation();
+				event.preventDefault();
 				//left button down normally causes focus.
 				//  Don't propagate it, or allow its default action to occur
 				//  as this may result in changes (e.g. in range)
 				//  instead, simply cause focus to occur.
-				if (!event.rightClick && event.type === "mousedown") {
+				if (event.button != 2 && event.type === "mousedown") {
 					event.target.focus();
 				}
 				return false;

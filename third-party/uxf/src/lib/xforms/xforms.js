@@ -549,17 +549,16 @@ XFormsProcessor.prototype.addToNavigationList = function(control) {
 };
 
 XFormsProcessor.prototype.onKeyDown = function(event) {
-	if (event.key == 'tab') {
-		if (event.shift) {
+	if (UX.isHTMLTabKeyEvent(event)) {
+		if (UX.isShiftKeyPressed(event)) {
 			this.navigateToLastControl();
 		} else {
 			this.navigateToFirstControl();
 		}
-		event.stop();
-		return false;
-	} else if (event.alt && this.navigateToKeyedControl(event.key)) {
-		event.stop();
-		return false;
+
+		return UX.cancelHTMLEvent(event);
+	} else if (UX.isAltKeyPressed(event) && this.navigateToKeyedControl(UX.getHTMLKeyEventCode(event))) {
+		return UX.cancelHTMLEvent(event);
 	}
 
 	return true;
