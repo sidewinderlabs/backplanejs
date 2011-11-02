@@ -69,7 +69,7 @@ var XFormsOutputValue = new UX.Class({
 		if (localName === "label" && !(/[^\t\n\r ]/.test(sRet))) {
 			composedLabels = NamespaceManager.getElementsByTagNameNS(this.element.parentNode, "http://www.w3.org/2002/xforms", "output");
 			if (composedLabels && composedLabels.length > 0) {
-				return composedLabels[0].m_value.getValue();
+				return DECORATOR.getBehaviour(composedLabels[0].m_value).getValue();
 			}
 		}
 

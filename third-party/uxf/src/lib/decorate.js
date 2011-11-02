@@ -70,14 +70,27 @@ var DECORATOR = {
 	},
 
 	getObject: function(element){
-		return this.objects[element.ux_uid || element];
+		var uid = element;
+		if (element instanceof Element) {
+			if (typeof(element.ux_uid) != 'undefined') {
+				uid = parseInt(element.ux_uid, 10);
+			} else {
+				uid_attr = element.getAttribute('ux_uid');
+				if (typeof(uid_attr) == 'string') {
+					uid = parseInt(uid_attr, 10);
+				}
+			}
+		} else if (typeof element == 'string') {
+			uid = parseInt(element, 10);
+		}
+		return this.objects[uid];
 	},
 	
 	getBehaviour: function(element){
-		if(!element) return null;
+		if(!element) return {};
 		var object = this.objects[element.ux_uid || element];
-		if(!object) return null;
-		return object.behaviour;
+		if(!object) return {};
+		return (object.behaviour) ? object.behaviour : {};
 	},
 
 	/**
