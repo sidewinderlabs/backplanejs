@@ -4,7 +4,7 @@
 // The Ubiquity Backplane module provides a backplane layer for other modules
 // in the Ubiquity library.
 //
-// Copyright © 2008-9 Backplane Ltd.
+// Copyright (c) 2008-9 Backplane Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
