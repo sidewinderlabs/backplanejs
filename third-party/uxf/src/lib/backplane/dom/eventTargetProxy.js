@@ -37,7 +37,8 @@ function dispatchXformsHint(element, event) {
 	//oEvt._actionDepth = -1;
 	//FormsProcessor.dispatchEvent(element,oEvt);
 	//spawn(function(){element.dispatchEvent(oEvt)});
-	event.stop();
+	event.stopPropagation();
+	event.preventDefault();
 }
 
 
@@ -52,18 +53,32 @@ function dispatchXformsHintOff(element, event) {
 	// oEvt._actionDepth = -1;
 	FormsProcessor.dispatchEvent(element, oEvt);
 	//spawn(function(){element.dispatchEvent(oEvt)});
-	event.stop();
+	event.stopPropagation();
+	event.preventDefault();
+}
+
+function mapclick2domactivate(element, event) {
+	var oEvt = element.ownerDocument.createEvent("UIEvents");
+	oEvt.initUIEvent("DOMActivate", true, true, null, 1);
+
+	// HACK: WebKit issues its own DOMActivate that we need to ignore.
+	//       This property enables us to just NOP for that event.
+	oEvt.mappedFromClick = true;
+
+	FormsProcessor.dispatchEvent(element, oEvt);
+	event.stopPropagation();
+	event.preventDefault();
 }
 
 function mapdblclick2domactivate(element, event) {
 	var oEvt = element.ownerDocument.createEvent("UIEvents");
-
 	oEvt.initUIEvent("DOMActivate", true, true, null, 2);
 	// There is no need to run this event in line, and doing so may cause a stack overflow,
 	// if it invokes other actions.
 	// oEvt._actionDepth = -1;
 	FormsProcessor.dispatchEvent(element, oEvt);
-	event.stop();
+	event.stopPropagation();
+	event.preventDefault();
 }
 
 
@@ -592,13 +607,15 @@ if (UX.isIE) {
 			return this;
 		},
 
-		addEvent: function(type, fn) {
-			var capture = false;
-			if (type == 'focus' || type == 'blur') {
-				if (UX.isIE) {
-					type = type == 'focus' ? 'focusin' : 'focusout';
-				} else {
-					capture = true;
+		addEvent: function(type, fn, capture) {
+			if (typeof capture != 'boolean') {
+				capture = false;
+				if (type == 'focus' || type == 'blur') {
+					if (UX.isIE) {
+						type = (type == 'focus') ? 'focusin' : 'focusout';
+					} else {
+						capture = true;
+					}
 				}
 			}
 			var element = this.element;
@@ -679,20 +696,48 @@ UX.Element.Event = function(event) {
 		this.relatedTarget = related;
 	}
 	
-	this.stopPropagation = function(){
-		if (event.stopPropagation) event.stopPropagation();
-		else event.cancelBubble = true;
+	// Used to determine whether stopPropagation has been called
+	this._cancelBubble = false;
+	// Used to determine whether preventDefault has been called
+	this._returnValue = true;
+	
+	// Set to true if both stopPropagation and preventDefault have been called
+	this.stopped = false;
+	
+	this.stopPropagation = function() {
+		if (this.event.stopPropagation) {
+			this.event.stopPropagation();
+		} else {
+			this.event.cancelBubble = true;	
+		}
+		
+		this._cancelBubble = true;
+		// If preventDefault has already been called, flip this.stopped to true
+		if (this._returnValue === false) {
+			this.stopped = true;
+		}
+		
 		return this;
 	};
 
 	this.preventDefault = function(){
-		if (event.preventDefault) event.preventDefault();
-		else event.returnValue = false;
+		if (this.event.preventDefault) {
+			this.event.preventDefault();
+		} else {
+			this.event.returnValue = false;
+		}
+		
+		this._returnValue = false;
+		// If preventDefault has already been called, flip this.stopped to true
+		if (this._cancelBubble === true) {
+			this.stopped = true;
+		}
+		
 		return this;
 	};
 
 	this.stop = function(){
-		this.stoped = true;
+		this.stopped = true;
 		return this.stopPropagation().preventDefault();
 	};
 };
@@ -719,7 +764,7 @@ YAHOO.util.Event.onDOMReady(function() {
 	UX.Element(document).addEvent('click', function(event) {
 		var element = event.target;
 		while (element) {
-			if (event.stoped) break;
+			if (event.stopped) break;
 			var behaviour = DECORATOR.getBehaviour(element);
 			if (!behaviour) {
 				element = element.parentNode;
@@ -731,11 +776,8 @@ YAHOO.util.Event.onDOMReady(function() {
 			//This property enables us to just NOP for that event.
 			oEvt.mappedFromClick = true;
 			FormsProcessor.dispatchEvent(element, oEvt);
-			if (UX.isIE) {
-				event.stop();
-			} else {
-				event.stopPropagation();
-			}
+			event.stopPropagation();
+			event.preventDefault();
 			dispatchXformsHintOff(element, event);
 			element = element.parentNode;
 		}
@@ -767,7 +809,7 @@ YAHOO.util.Event.onDOMReady(function() {
 				if (behaviour.onKeyDown) {
 					behaviour.onKeyDown(event);
 				}
-				if (event.stoped) break;
+				if (event.stopped) break;
 				FormsProcessor.onKeyDown(event);
 			}
 			element = element.parentNode;
