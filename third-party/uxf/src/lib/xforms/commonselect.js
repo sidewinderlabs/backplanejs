@@ -82,7 +82,7 @@ var XFormsCommonSelectValue = new UX.Class({
 			//  which should cause focus to move.
 			UX.Element(input).addEvent("keypress", function(event) {
 				if (event.key != 'tab') event.preventDefault();
-			});
+			}, true);
 		}
 
 		this.element.appendChild(input);

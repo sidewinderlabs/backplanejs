@@ -49,14 +49,13 @@ var NavigableControl = new UX.Class({
 	},
 
 	onKeyDown: function(event) {
-		if (event.key == 'tab') {
-			if (event.shift) {
+		if (UX.isHTMLTabKeyEvent(event)) {
+			if (UX.isShiftKeyPressed(event)) {
 				this.navigateToPreviousControl();
 			} else {
 				this.navigateToNextControl();
 			}
-			event.stop();
-			return false;
+			return UX.cancelHTMLEvent(event);
 		}
 
 		return true;
