@@ -44,8 +44,13 @@ var XFormsCommonSelect = new UX.Class({
 	},
 
 	refreshDisplayValue: function() {
-		if (this.m_value.refreshDisplayValue) {
+		if (typeof(this.m_value.refreshDisplayValue) == 'function') {
 			this.m_value.refreshDisplayValue();
+		} else {
+			var behaviour = DECORATOR.getBehaviour(this.m_value);
+			if (typeof behaviour.refreshDisplayValue == 'function') {
+				behaviour.refreshDisplayValue();
+			}
 		}
 	},
 
@@ -118,7 +123,7 @@ var XFormsCommonSelectValue = new UX.Class({
 	refreshDisplayValue: function() {
 		var displayValue = DECORATOR.getBehaviour(this.element.parentNode).getDisplayValue(this.m_sValue);
 		//Open selections don't go out of range, just display the value as given
-		if (displayValue === null && DECORATOR.getBehaviour(this.parentNode).isOpen()) {
+		if (displayValue === null && DECORATOR.getBehaviour(this.element.parentNode).isOpen()) {
 			displayValue = this.m_sValue;
 		}
 

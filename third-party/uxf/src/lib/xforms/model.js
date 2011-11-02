@@ -72,8 +72,9 @@ function processBind(oBind, sExpr, oModel, oContext) {
 			oBinder = oBind.parentNode;
 
 			while (oBinder) {
-				if (oBinder.getAttribute("nodeset")) {
-					oParentBind = oBinder;
+				var oBinderBehaviour = DECORATOR.getBehaviour(oBinder);
+				if (oBinderBehaviour && oBinderBehaviour.nodeset) {
+					oParentBind = oBinderBehaviour;
 					break;
 				}
 				oBinder = oBinder.parentNode;
